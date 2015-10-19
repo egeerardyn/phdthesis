@@ -1,1 +1,7 @@
 *.sublime-workspace
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+phdthesis.pdf
+*.synctex.gz
