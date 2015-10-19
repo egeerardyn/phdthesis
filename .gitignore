@@ -11,3 +11,4 @@ phdthesis.pdf
 *.bcf
 *.out
 *.run.xml
+*.synctex.gz(busy)
