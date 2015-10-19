@@ -8,3 +8,6 @@ phdthesis.pdf
 *.toc
 *.bbl
 *.blg
+*.bcf
+*.out
+*.run.xml

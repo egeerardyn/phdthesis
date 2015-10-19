@@ -1,4 +1,17 @@
 {
+	"build_systems":
+	[
+		{
+			"cmd":
+			[
+				"arara",
+				"-v",
+				"phdthesis.tex"
+			],
+			"name": "Arara (phdthesis)",
+			"working_dir": "${project_path}"
+		}
+	],
 	"folders":
 	[
 		{
@@ -10,5 +23,8 @@
 		"FuzzyFilePath":
 		{
 		}
+	},
+	"options":{
+		"root": "phdthesis.tex"
 	}
 }

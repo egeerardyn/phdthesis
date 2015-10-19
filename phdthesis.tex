@@ -1,5 +1,14 @@
-\documentclass{memoir}
+%% arara: clean: { files: [phdthesis.aux, phdthesis.bbl, phdthesis.acn, phdthesis.acr, phdthesis.log, phdthesis.makefile] }
+% arara: pdflatex: { shell : yes }
+%% arara: make: { task : "-j 8 -f phdthesis.makefile"}
+% arara: biber
+%% arara: makeglossaries
+%% arara: make: { task : "-j 8 -f phdthesis.makefile"}
+% arara: pdflatex: { shell : yes, synctex : yes }
+%% arara: pdflatex: { shell : yes, synctex : yes }
+\documentclass[a4paper]{memoir}
 
+\input{front-and-back-matter/preamble.tex}
 \input{front-and-back-matter/definitions.tex}
 
   \title{Development of User-friendly System Identification Techniques}
