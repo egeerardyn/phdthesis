@@ -1,18 +1,20 @@
 \chapterNoNum{Publications}
 
+During the preparation of my PhD, I have co-authored the following academic publications.
+
 \begin{refsection}
 % http://tex.stackexchange.com/questions/38580/displaying-selected-bibliographic-items-in-the-body-of-the-text
 % http://tex.stackexchange.com/questions/18664/underline-my-name-in-the-bibliography
 
 \DeclareNameFormat{author}{%
 \ifthenelse{\equal{#1}{Geerardyn}}%
-    {\textbf{\ifblank{#4}{}{#4\space}#1}}%
-    {\ifblank{#4}{}{#4\space}#1}%
+    {\textbf{\ifblank{#3}{}{#3\space}#1}}%
+    {\ifblank{#3}{}{#3\space}\ifblank{#5}{}{#5\space}#1}%
 \ifthenelse{\value{listcount}<\value{liststop}}%
     {\addcomma\space}
     {}}
 
-\section*{Journal publications}
+\section*{Journal articles}
 \begin{enumerate}
   \item \fullcite{Geerardyn2013TIM}
   \item \fullcite{Lumori2014TIM}
@@ -20,21 +22,28 @@
   \item \fullcite{Geerardyn2015TIM}
 \end{enumerate}
 
+\subsection*{Journal drafts (unpublished)}
+\begin{enumerate}
+  \item \TODO{GeerardynLRMHinf}
+  \item \TODO{Geerardyn2016LRM}
+\end{enumerate}
+
 \section*{Conference papers}
 \begin{enumerate}
   \item \fullcite{Geerardyn2012IMTC}
   \item \fullcite{Larsson2012SYSID}
   \item \fullcite{Cooman2012SMACD}
-  \item \fullcite{Geerardyn2014ISMA}
   \item \fullcite{Geerardyn2014IFAC}
+  \item \fullcite{Geerardyn2014ISMA}
   \item \fullcite{Voorhoeve2015}
 \end{enumerate}
 
-\section*{Conference abstracts, posters, and presentations}
+\section*{Abstracts, presentations, and posters}
 \begin{enumerate}
   \item \fullcite{Geerardyn2012Benelux}
   \item \fullcite{Cooman2012DYSCO}
   \item \fullcite{Geerardyn2012ERNSI}
+  \item \fullcite{Cooman2012ERNSI}
   \item \fullcite{Geerardyn2013Benelux}
   \item \fullcite{Geerardyn2013ERNSI}
   \item \fullcite{Geerardyn2014Benelux}
@@ -42,6 +51,6 @@
   \item \fullcite{Geerardyn2014ERNSI}
   \item \fullcite{Geerardyn2015Benelux}
   \item \fullcite{Verbeke2015Benelux}
+  \item \fullcite{Voorhoeve2015ERNSI}
 \end{enumerate}
-
 \end{refsection}
