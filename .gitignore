@@ -12,3 +12,5 @@ phdthesis.pdf
 *.out
 *.run.xml
 *.synctex.gz(busy)
+*.lof
+*.lot
