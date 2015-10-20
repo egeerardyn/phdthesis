@@ -1,7 +1,15 @@
 \usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{xspace}
+\usepackage{iftex}
+
 \usepackage[natbib,
 style=authortitle,
-maxnames=6,
+maxbibnames=6,
 maxcitenames=2,
 citestyle=authoryear-comp,
 backend=biber]{biblatex}
@@ -10,4 +18,16 @@ backend=biber]{biblatex}
 
 \usepackage{hyperref}
 \usepackage[usenames]{xcolor}
+\usepackage{grffile}
+\usepackage{graphicx}
 
+\ifXeTeX
+    \usepackage[no-math]{fontspec}
+    \setsansfont{Avenir Next}[UprightFont={* Regular},BoldFont={* Medium},BoldItalicFont={* Medium Italic}]
+    % use pdflatex or lualatex to compile this file 
+    % if you do not have the right font installed!
+    \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
+
+\else
+    \usepackage{fourier}
+\fi
