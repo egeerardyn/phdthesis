@@ -26,7 +26,7 @@ backend=biber]{biblatex}
     \setsansfont{Avenir Next}[UprightFont={* Regular},BoldFont={* Medium},BoldItalicFont={* Medium Italic}]
     % use pdflatex or lualatex to compile this file 
     % if you do not have the right font installed!
-    \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
+    \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black},Scale = MatchLowercase]
 
 \else
     \usepackage{fourier}
@@ -34,3 +34,8 @@ backend=biber]{biblatex}
 
 % http://tex.stackexchange.com/questions/127822/how-do-i-combine-the-vc-bundle-arara-and-sublime-text-2s-build-methods
 \input{vc.tex}
+
+%% page formatting
+\addtokomafont{pageheadfoot}{\textsf}
+\addtokomafont{pagefoot}{\textsf}
+\addtokomafont{pagenumber}{\color{gray}\textsf}
