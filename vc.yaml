@@ -1,0 +1,5 @@
+!config
+identifier: vc
+name: VersionControl
+command: sh vc
+arguments: []
