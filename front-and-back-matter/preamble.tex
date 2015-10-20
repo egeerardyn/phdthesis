@@ -16,6 +16,20 @@ backend=biber]{biblatex}
 \addbibresource{biblio/ownWork.bib}
 \addbibresource{biblio/references.bib}
 
+% http://tex.stackexchange.com/questions/40798/how-do-i-get-et-al-to-appear-in-italics-when-using-textcite-or-citeauthor-w
+\renewbibmacro*{name:andothers}{% Based on name:andothers from biblatex.def
+  \ifboolexpr{
+    test {\ifnumequal{\value{listcount}}{\value{liststop}}}
+    and
+    test \ifmorenames
+  }
+    {\ifnumgreater{\value{liststop}}{1}
+       {\finalandcomma}
+       {}%
+     \andothersdelim\bibstring[\emph]{andothers}}
+    {}}
+
+
 \usepackage{hyperref}
 \usepackage[usenames]{xcolor}
 \usepackage{grffile}
@@ -39,3 +53,11 @@ backend=biber]{biblatex}
 \addtokomafont{pageheadfoot}{\textsf}
 \addtokomafont{pagefoot}{\textsf}
 \addtokomafont{pagenumber}{\color{gray}\textsf}
+
+
+%% chapter formatting
+\addtokomafont{chapterprefix}{\raggedleft}
+
+\renewcommand*{\chapterformat}{%
+\mbox{\color{gray}\chapappifchapterprefix{\nobreakspace}%
+\scalebox{3}{\color{gray}\thechapter\autodot}\enskip}}

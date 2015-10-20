@@ -7,7 +7,7 @@
 %% arara: make: { task : "-j 8 -f phdthesis.makefile"}
 % arara: xelatex: { shell : yes, synctex : yes }
 %% arara: xelatex: { shell : yes, synctex : yes }
-\documentclass[a4paper]{scrbook}
+\documentclass[a4paper,headings=big,chapterprefix=true]{scrbook}
 
 \input{front-and-back-matter/preamble.tex}
 \input{front-and-back-matter/definitions.tex}
@@ -21,6 +21,7 @@
 
    \mainmatter
    \include{ch01-intro/introduction}
+   %TODO: include technical prelim chapter
    
    \include{ch02-qlogms/excitation-design}
    \include{ch03-lrm/nonparametric}
