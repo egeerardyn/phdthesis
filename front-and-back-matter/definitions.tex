@@ -5,3 +5,168 @@
 \newcommand{\sectionNoNum}[1]{\section*{#1} \TOCInsert{section}{#1}}
 
 \newcommand{\researchBasedOn}[2][chapter]{\begin{centering}This #1 is based on~\citet{#2}.\end{centering}}
+
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+
+\newcommand{\matlab}{\textsc{Matlab}\texttrademark}
+\newcommand{\labview}{\mbox{LabVIEW\texttrademark}}
+\newcommand{\FDIDENT}{Frequency Domain System Identification Toolbox}
+
+\DeclareMathOperator{\Expectancy}{E}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RootMeanSquare}{RMS}
+
+\DeclareMathOperator{\RealPart}{\mathrm{Re}}
+\DeclareMathOperator{\ImagPart}{\mathrm{Im}}
+\DeclareMathOperator{\RealImagPart}{\stackrel{\mathrm{Re}}{\mathrm{Im}}}
+\DeclareMathOperator{\Diagonal}{\mathrm{diag}}
+
+\newcommand{\unit}[1]{\ensuremath{\,\textrm{#1}}}
+\newcommand{\I}{\ensuremath{\mathrm{I}}}
+\renewcommand{\T}{\ensuremath{\mathrm{T}}} %TODO: where is the original definition of \T ?
+\newcommand{\HT}{\ensuremath{\mathrm{H}}}
+\renewcommand{\C}{\ensuremath{\mathrm{C}}}
+
+\newcommand{\real}[1]{\ensuremath{\RealPart \left[#1\right]}}
+\newcommand{\imag}[1]{\ensuremath{\ImagPart \left[#1\right]}}
+\newcommand{\realimag}[1]{\ensuremath{\RealImagPart \left[#1\right]}}
+\newcommand{\diag}[1]{\ensuremath{\Diagonal \left({#1}\right)}}
+
+\newcommand{\mean}[2]{\ensuremath{\sqrt{#1 #2}}}
+
+\newcommand{\norm}[2][]{\ensuremath{\left\| #2 \right\|_{#1}}}
+\newcommand{\FisherInformation}{\ensuremath{\mathrm{Fi}}}
+\newcommand{\Fi}[1]{\ensuremath{\FisherInformation \left(#1\right)}}
+
+\newcommand{\CramerRao}{\ensuremath{\mathrm{CR}}}
+\newcommand{\CR}[1]{\ensuremath{\CramerRao \left(#1\right)}}
+
+\newcommand{\jac}[1]{\ensuremath{J_{#1}}}
+\newcommand{\interest}{\ensuremath{\mathrm{int}}}
+\newcommand{\excited }{\ensuremath{\mathrm{exc}}}
+\newcommand{\loglikelihood}[1]{\ensuremath{\ell\left( #1 \right) }}
+\newcommand{\fc}{\ensuremath{f_{\mathrm{c}}}}
+%% Sets
+\newcommand{\set}[1]{\ensuremath{\left\{#1\right\}}}
+\newcommand{\given}[1]{\left| #1 \right.}
+
+%% Numbers sets
+\newcommand{\NaturalNumbers} {\ensuremath{\mathbb{N}}}
+\newcommand{\IntegerNumbers} {\ensuremath{\mathbb{Z}}}
+\newcommand{\RationalNumbers}{\ensuremath{\mathbb{Q}}}
+\newcommand{\RealNumbers}    {\ensuremath{\mathbb{R}}}
+\newcommand{\ComplexNumbers} {\ensuremath{\mathbb{C}}}
+\newcommand{\Integers}       {\IntegerNumbers}
+
+\newcommand{\NN}{\NaturalNumbers}
+\newcommand{\ZN}{\IntegerNumbers}
+\newcommand{\QN}{\RationalNumbers}
+% \newcommand{\RN}{\RealNumbers}
+\newcommand{\CN}{\ComplexNumbers}
+
+\newcommand{\Negative}[1]{\ensuremath{{#1}^{-}}}
+\newcommand{\Positive}[1]{\ensuremath{{#1}^{+}}}
+\newcommand{\Nonzero }[1]{\ensuremath{{#1}_{0}}}
+
+\newcommand{\distributed}[1][]{\ensuremath{\stackrel{#1}{\sim}}}
+\newcommand{\equals}[1][]{\ensuremath{\stackrel{#1}{=}}}
+\newcommand{\approxequals}[1][]{\ensuremath{\stackrel{#1}{\approx}}}
+
+%% Calculus operators
+\newcommand{\pd}{\partial}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\derivativeNotation}[4][]{\frac{{#4}^{#1} #2}{#4 #3}}
+\newcommand{\PartialDerivative}[3][]{\derivativeNotation[#1]{#2}{#3}{\pd}}
+\newcommand{\FullDerivative}   [3][]{\derivativeNotation[#1]{#2}{#3}{\dd}}
+
+%% Statistics
+\DeclareMathOperator{\ExpectedValue}{\mathrm{E}}
+\DeclareMathOperator{\Variance}{\mathrm{Var}}
+\DeclareMathOperator{\Covariance}{\mathrm{Cov}}
+\DeclareMathOperator{\BiasValue}{\mathrm{bias}}
+
+\newcommand{\E}[2][]{\ExpectedValue_{#1} \left[ #2 \right]}
+\newcommand{\Var}[2][]{\Variance_{#1} \left[ #2 \right]}
+\newcommand{\Cov}[3][]{\Covariance_{#1} \left[ #2 , #3 \right]}
+
+\newcommand{\round}[2][\QN]{ \left[_{#1} #2 \right]}
+\newcommand{\floor}[1]     { \left\lfloor     #1 \right\rfloor}
+\newcommand{\ceil }[1]     { \left\lceil      #1 \right\rceil}
+\newcommand{\abs }[1]      { \left|      #1 \right|}
+
+%% Statistical Distributions
+\DeclareMathOperator{\NormalDistribution}{\mathcal{N}}
+\DeclareMathOperator{\DiracDistribution}{\delta}
+\DeclareMathOperator{\CircularNormalDistribution}{\mathcal{C}\!\NormalDistribution}
+\DeclareMathOperator{\ComplexCircularNormalDistribution}{\CN\!\CircularNormalDistribution}
+
+%%
+\newcommand{\mat}[1]{\ensuremath{\mathbf{#1}}}
+
+ % Helpers
+\newcommand{\Dirac}[1]{\DiracDistribution\left(#1\right)}
+\newcommand{\Normal}[2]{\NormalDistribution\left(#1,#2\right)}
+\newcommand{\CircularNormal}[3]{\CircularNormalDistribution\!\left(#1,#2,#3\right)}
+\newcommand{\ComplexCircularNormal}[2]{\ComplexCircularNormalDistribution\!\left(#1,#2\right)}
+
+\newcommand{\bias}[1]{\ensuremath{\Bias \left( #1 \right)}}
+\newcommand{\mse}[1]{\ensuremath{\MSE \left( #1 \right)}}
+\newcommand{\rms}[1]{\ensuremath{\RootMeanSquare \left( #1 \right)}}
+
+\newcommand{\wdB}{\ensuremath{\mathrm{BW}_{3\unit{dB}}}}
+
+\newcommand{\dc}{\ensuremath{G_{\mathrm{dc}}}}
+\newcommand{\damping}{\ensuremath{\xi}}
+\newcommand{\wn}{\ensuremath{\omega_{\mathrm{n}}}}
+\newcommand{\wM}{\ensuremath{\omega_{\mathrm{M}}}}
+\newcommand{\wR}{\ensuremath{\omega_{\mathrm{R}}}}
+\newcommand{\wNom}{\ensuremath{\omega_{\mathrm{nom}}}}
+\newcommand{\fR}{\ensuremath{f_{\mathrm{R}}}}
+\newcommand{\fs}{\ensuremath{f_{\mathrm{s}}}}
+\newcommand{\Ts}{\ensuremath{T_{\mathrm{s}}}}
+\newcommand{\Tw}[1][]{\ensuremath{\wn^{#1}\Ts^{#1}}}
+\newcommand{\wInterest}{\ensuremath{\omega_{\mathrm{I}}}}
+\newcommand{\snorm}[1][]{\frac{s^{#1}}{\wn^{#1}}}
+\newcommand{\nth}[1][]{\ensuremath{n_{\theta}}}
+\newcommand{\pdf}[2][]{\ensuremath{f_{#1} \left(#2 \right)}}
+\newcommand{\placeBetweenGrid}[1]{\ensuremath{\mathrm{misalign} \left( #1 \right) }}
+
+% \newcommand{\fMax}[1]{\ensuremath{f_{#1 \max}}}
+% \newcommand{\fMin}[1]{\ensuremath{f_{#1 \min}}}
+
+\newcommand{\fMax}[1]{\ensuremath{\overline{f_{#1}}}}
+\newcommand{\fMin}[1]{\ensuremath{\underline{f_{#1}}}}
+
+%\renewcommand{\fMax}[1]{\ensuremath{f_{#1+1/2}}}
+%\renewcommand{\fMin}[1]{\ensuremath{f_{#1-1/2}}}
+
+\newcommand{\DT}{\ensuremath{\mathrm{DT}}}
+\newcommand{\CT}{\ensuremath{\mathrm{CT}}}
+
+\newcommand{\OuterProduct} [3][\T]{{#2}{#3}^{#1}}
+\newcommand{\OuterProductC}[2]{\OuterProduct[\HT]{#1}{#2}}
+\newcommand{\OuterProductR}[2]{\OuterProduct[\T ]{#1}{#2}}
+\newcommand{\OuterProductSelf}[2][\T]{\OuterProduct[#1]{#2}{#2}}
+
+\newcommand{\InnerProduct} [3][\T]{{#2}^{#1}{#3}}
+\newcommand{\InnerProductC}[2]{\InnerProduct[\HT]{#1}{#2}}
+\newcommand{\InnerProductR}[2]{\InnerProduct[\T]{#1}{#2}}
+\newcommand{\InnerProductSelf}[2][\T]{\InnerProduct[#1]{#2}{#2}}
+
+\newcommand{\OuterQuadraticForm}[3][\T]{#2  #3 #2^{#1}}
+\newcommand{\InnerQuadraticForm}[3][\T]{#2^{#1} #3 #2}
+\newcommand{\QuadraticForm}[3][\T]{\InnerQuadraticForm[#1]{#2}{#3}}
+
+\newcommand{\bruelkjaer}{Brüel \& Kj\ae r }
+
+\newcommand{\isdef}{\ensuremath{\triangleq}}
+
+\newcommand{\emspace}{\ensuremath{\qquad}}
+
+\newcommand{\numberOf}{\ensuremath{\#}}
+\newcommand{\f}{\ensuremath{\mathbb{f}}}
+
+\newcommand{\LOGGRID}{\ensuremath{\mathrm{LG}}}
+\newcommand{\QLOGGRID}{\ensuremath{\mathrm{QLG}}}
+\newcommand{\GRID}{\ensuremath{\mathrm{GRD}}}

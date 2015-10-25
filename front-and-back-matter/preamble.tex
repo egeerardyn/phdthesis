@@ -3,6 +3,8 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{mathtools}
+
 
 \usepackage{xspace}
 \usepackage{iftex}
@@ -31,26 +33,46 @@ backend=biber]{biblatex}
 
 
 \usepackage{hyperref}
-\usepackage[usenames]{xcolor}
-\usepackage{grffile}
-\usepackage{graphicx}
 
+%% font configuration
 \ifXeTeX
     \usepackage{fontspec}
-    \setsansfont{Avenir Next}[UprightFont={* Regular},BoldFont={* Medium},BoldItalicFont={* Medium Italic}]
-%    \setmainfont{Adobe Caslon Pro}[BoldFont={* Bold}]
-    \setmainfont{Merriweather}[Scale=MatchLowercase]
-   % \setmainfont{Source Serif Pro}
-    %\usepackage{fourier}
-%    \setmainfont{Adobe Garamond Pro}[BoldFont={* Bold}]
-    % use pdflatex or lualatex to compile this file 
-    % if you do not have the right font installed!
-    \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black},Scale = MatchLowercase]
-
+    %\usepackage{mathspec}
+    %% Theme 1
+    %\setsansfont{Avenir Next}[UprightFont={* Regular},BoldFont={* Medium},BoldItalicFont={* Medium Italic}]
+    %\setmainfont{Merriweather}[Scale=MatchLowercase]
+    %\setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
+    
+    %% Theme 2
+    \setmainfont{Source Serif Pro} %TODO: set SC font
+    \setsansfont{Source Sans Pro}
+    \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
 \else
     \usepackage{fourier}
 \fi
 
+
+%% Graphics
+\usepackage{graphicx}
+\usepackage[usenames]{xcolor}
+\usepackage{grffile}
+\usepackage{tangocolors}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[caption=false,font=footnotesize]{subfig}
+
+
+%% TikZ configuration
+% \usetikzlibrary{external}
+% \tikzexternalize[prefix = \thisDir/tikz/]
+  \pgfplotsset{compat=newest}
+
+  \newlength\figureheight
+   \newlength\figurewidth
+
+
+%% Version control
 % http://tex.stackexchange.com/questions/127822/how-do-i-combine-the-vc-bundle-arara-and-sublime-text-2s-build-methods
 \input{vc.tex}
 

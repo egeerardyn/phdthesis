@@ -7,7 +7,7 @@
 %% arara: make: { task : "-j 8 -f phdthesis.makefile"}
 % arara: xelatex: { shell : yes, synctex : yes }
 %% arara: xelatex: { shell : yes, synctex : yes }
-\documentclass[a4paper,headings=big,chapterprefix=true]{scrbook}
+\documentclass[a4paper,headings=big,chapterprefix=true,parskip=full]{scrbook}
 \input{front-and-back-matter/preamble.tex}
 \input{front-and-back-matter/definitions.tex}
 
@@ -31,8 +31,5 @@
 
    \backmatter
    \include{front-and-back-matter/backmatter}
-   \[
-     \sum_{t=0}^{N-1} x(t) \exp(-j \omega_0 t) \text{ with } \omega_0 = \frac{2\pi}{N}, N \in \mathbb{N}, x \in \mathcal{L}_2
-   \]
 
 \end{document}

@@ -15,8 +15,37 @@
 	"folders":
 	[
 		{
-			"path": "."
+			"path": ".",
+			"file_exclude_patterns": [
+				"*.fig",
+				"*.lof",
+				"*.toc",
+				"*.lot",
+				"*.blg",
+				"*.bbl",
+				"*.out",
+				"*.bcf",
+				"*.run.xml",
+				"*.fls",
+				"*.aux",
+				"*.auxlock",
+				"*.fdb_latexmk",
+				"*.synctex.gz",
+				"vc-git.awk",
+			]
 		}
+		// {
+		// 	"path": "~/Dropbox/VUB/PhD/QLogMS"
+		// },
+		// {
+		// 	"path": "~/Dropbox/VUB/PhD/LPMHinf"
+		// },
+		// {
+		// 	"path": "~/Dropbox/VUB/PhD/LRM"
+		// },
+		// {
+		// 	"path": "~/Dropbox/VUB/PhD/Mikaya"
+		// },
 	],
 	"settings":
 	{

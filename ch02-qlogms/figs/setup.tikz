@@ -1,0 +1,23 @@
+\tikzstyle{block} = [draw, rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={<-,black}]
+
+
+\begin{tikzpicture}[auto, node distance=2cm,>=latex]
+
+    \node [input, near start] (input) {};
+    \node [block, right of=input] (system) {$G\left( \Omega, \theta_0 \right) $};
+    \node [sum, right of=system,
+           pin={[pinstyle]above:$E$},
+           node distance=3cm] (sum) {$+$};
+    \node [output, right of=sum] (output) {};
+    
+    \draw [->] (input)  -- node[name=u]  {$U$}   (system);
+    \draw [->] (system) -- node[name=y0] {$Y_0$} (sum);
+    \draw [->] (sum)    -- node[name=y]  {$Y$}   (output);
+    
+    
+\end{tikzpicture}

@@ -16,3 +16,4 @@ phdthesis.pdf
 *.lot
 vc.tex
 README.html
+*.auxlock
