@@ -1,4 +1,7 @@
 \def\thisDir{ch02-qlogms}
+\TODO{reshape figures}
+\TODO{rename labels}
+\TODO{import specific bib items}
 % \begin{abstract}
 % The logarithmic distribution of spectral lines in excitation signals is widely used to measure the transfer functions of dynamic systems over a wide frequency band, covering several decades.
 % Periodic signals are very popular in many advanced dynamic signal analyzers.
@@ -9,10 +12,10 @@
 
 
 \section{Introduction} \label{sec:intro}
-  It often occurs that we wish to measure the frequency response function (FRF) of a linear time invariant (LTI) system in a frequency band that covers several decades \cite{bragos2001characterisation,sanchez2011optimal,niedostatkiewicz2009,VanGheem2004}.
+  It often occurs that we wish to measure the frequency response function (FRF) of a linear time invariant (LTI) system in a frequency band that covers several decades \citep{bragos2001characterisation,sanchez2011optimal,niedostatkiewicz2009,VanGheem2004}.
   Of course, we also want to attain a specified uncertainty level over the full frequency span.
 
-  Any LTI system of finite order can be expanded into a  finite sum of systems of first and second order by means of a partial fraction expansion\cite{Oppenheim1983}.
+  Any LTI system of finite order can be expanded into a  finite sum of systems of first and second order by means of a partial fraction expansion\citep{Oppenheim1983}.
   Therefore the performance of the proposed method is assessed on a prototype system of second order.
   This does not limit the generality of the approach as we can add several of such systems to construct a general LTI system.
   
@@ -30,7 +33,7 @@
   More specifically, the lack of frequency resolution at the lowest frequencies hampers the quality of the power distribution at the low edge of the frequency band.
   To circumvent this disadvantage, we will construct quasi-logarithmically spaced signals.
   Their frequency spacing is approximately logarithmic but nevertheless conforms to the DFT's linear frequency grid.
-  This problem was already discussed in \cite{GeerardynIMTC2012}.
+  This problem was already discussed in \citet{GeerardynIMTC2012}.
 
   We will also present a simple method to determine a suitable density of a logarithmically spaced signal for a predefined minimal damping of the system to be tested.
 
@@ -77,7 +80,7 @@
   The $3\unit{dB}$ bandwidth around the resonance is given by $\wdB = 2\damping\wn$ for systems that have a sufficiently low damping.
   
   When $\damping < \frac{1}{\sqrt{2}}$, such a second order system exhibits a peak in
-  the amplitude of the transfer function \cite{Oppenheim1983}:
+  the amplitude of the transfer function \citep{Oppenheim1983}:
   \begin{align}
    \left| G\left(\wM \right) \right| & \isdef
           \max_{\omega} \left| G\left( \omega \right)  \right|
@@ -101,8 +104,10 @@
   The output noise is assumed to be zero-mean and white with a
   standard deviation of $\sigma_e$ in the time domain or $\sigma_E$ in the frequency domain.
 
+  \TODO{put block diagram here}
+
 \subsection{Multisine Excitations}
-  To excite the system under test we will use multisine excitations \cite{Pintelon2001} with $F$ commensurate frequency components:
+  To excite the system under test we will use multisine excitations \citep{Pintelon2001} with $F$ commensurate frequency components:
   \begin{equation}
     u \left( t\right) = \frac{1}{\sqrt{F}}
    \sum_{k=1}^{F} 
@@ -120,9 +125,11 @@
     the amplitude of the spectral lines $A_k$ and
     the frequency grid $\left\{f_1, \ldots, f_F \right\}$.
   For simplicity, we will assume this grid is sorted, i.e. $f_1 < f_2 < \ldots < f_F$.
+
+  \TODO{put MATLAB code for each type of signal}
   
 \subsection{Equidistant (Linear) Grid Multisine}
-  In many applications, an equidistant frequency grid is used for $u\left( t\right) $ because this fits best with the classical DFT analysis \cite{OppenheimDT,Mandal2007}. It allows to analyze periodic signals on an equidistant frequency grid very efficiently.
+  In many applications, an equidistant frequency grid is used for $u\left( t\right) $ because this fits best with the classical DFT analysis \citep{OppenheimDT,Mandal2007}. It allows to analyze periodic signals on an equidistant frequency grid very efficiently.
   
   An equidistant frequency grid $\set{f_1, \ldots, f_F}$ with spacing $\Delta f$
   consisting of $F$ lines conforms to the following relation:
@@ -205,7 +212,7 @@
     \text{.}
     \label{eq:constraintLinGrid}
   \end{equation}
-  Such a grid is called a quasi-logarithmic (quasi-log) grid \cite{Pintelon2001}. 
+  Such a grid is called a quasi-logarithmic (quasi-log) grid \citep{Pintelon2001}. 
   
   At the low edge of the frequency band, the desired frequency ratio between two
   frequencies is not attained when the frequency spacing $\Delta f$ is large
@@ -257,7 +264,7 @@
   As the power spectrum approximates the power spectrum of the log grid multisine, the uncertainty of the frequency response function will be approximately independent of the frequency within the measured frequency band.
 
   \subsection{Pink Quasi-Logarithmic Multisine}
-  In \cite{Rojas2007} it is suggested that band-limited $1/f$ noise is a reasonable, albeit not optimal, robust excitation signal.
+  In \citep{Rojas2007} it is suggested that band-limited $1/f$ noise is a reasonable, albeit not optimal, robust excitation signal.
 
   For $1/f$ noise (`pink noise'), the power spectral density $S(f)$ is proportional to $1/f$.
   We can again approximate such a signal by means of a quasi-logarithmic grid multisine.
@@ -316,7 +323,8 @@
   In this section we show a possible approach to compare the performance of different excitation signals with respect to the theoretically minimal attainable uncertainty of the transfer function as expressed by the Cramér-Rao Lower Bound.
   Doing so will allow to determine a suitable value for the frequency spacing $\alpha$.
 
-  The covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function, which is pretty hard because the common lack of intuition about this model given the parameters, can be shown \cite{Pintelon2001, Gallager2008, matrixcookbook} to be approximately equal to
+\TODO{zin loopt niet goed}
+  The covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function, which is pretty hard because the common lack of intuition about this model given the parameters, can be shown \citep{Pintelon2001, Gallager2008, matrixcookbook} to be approximately equal to
   \begin{align}
     \C_{G\left( \omega_{\interest}\right) } \approx
       \InnerQuadraticForm[\HT]
@@ -331,11 +339,11 @@
     \real{
           \InnerQuadraticForm[\HT]
                               {\jac{\excited}}
-                              {\C_{X}}
+                              {\C_{X}^{-1}}
           }
     \label{eq:FisherInfo}
   \end{equation}
-  the Fisher information matrix \cite{Pintelon2001}.
+  the Fisher information matrix \citep{Pintelon2001}.
 
   In these expressions, the Jacobian $\jac{\interest}$ matrix of the transfer function evaluated at the frequency of interest $\omega_{\interest}$ with respect to the model parameters $\theta$ is defined as
   \begin{equation}
@@ -347,7 +355,7 @@
   Similarly, $\jac{\excited}$ is the Jacobian calculated at the excited frequency lines $\omega_{\excited} = \set{\omega_1, \ldots, \omega_F}$.
 
   Finally, $\C_{X}$ denotes the covariance matrix of $X\left(\omega\right) = G\left(\omega, \theta_0 \right) - \frac{Y_0\left(\omega \right) + E\left( \omega \right)  }{ U\left( \omega \right) } $, evaluated at the excited frequencies $\omega_{\excited}$.
-  By assuming that the $X\left( \omega \right) $ are independently distributed over the frequency $\omega$, the variance-covariance matrix $\C_{X}$ is a diagonal matrix \cite{Pintelon2001}:
+  By assuming that the $X\left( \omega \right) $ are independently distributed over the frequency $\omega$, the variance-covariance matrix $\C_{X}$ is a diagonal matrix \citep{Pintelon2001}:
   \begin{equation}
     \C_{X} =
                \left[ \left.
@@ -382,6 +390,7 @@
   \end{equation}
   Consider a second grid, defined as a multiple of this grid, $m\vec{\omega} = \set{m \cdot \alpha^k \omega_0 \given{k \in \ZN}}$; both grids share the same frequency ratio $\alpha$.
   
+  \TODO{formulate as lemmas, show steps}
   It is easy to show that for $m = \alpha^N$ the following relation holds:
   \begin{equation}
     G_1\left( \vec{\omega} \right)
@@ -562,7 +571,7 @@ In the following set of simulations, we will study how the FRF of different seco
   \label{eq:secondOrderSystemDTidentifiable}
   \end{equation}
 
-  This form can also be obtained by applying Tustin's method or bilinear transform \cite{Oppenheim1983} to the continuous time system \eqref{eq:secondOrderSystemCT}.
+  This form can also be obtained by applying Tustin's method or bilinear transform \citep{Oppenheim1983} to the continuous time system \eqref{eq:secondOrderSystemCT}.
 
   The input signal has an equidistant frequency grid with a resolution $\Delta f = 1\unit{Hz}$ between $1 \unit{Hz}$ and $16\,384\unit{Hz}$.
   The sampling frequency $f_s$ is set to $65\,536\unit{Hz}$ to prevent aliasing.
@@ -573,7 +582,7 @@ In the following set of simulations, we will study how the FRF of different seco
 
   At the output of the systems, white Gaussian noise $e[n]$ is added such that its standard deviation is approximately $10\%$ of the RMS value of the output.
 
-  The obtained FRF is then fitted to the transfer function model \eqref{eq:secondOrderSystemDTidentifiable} using the \texttt{elis} function of the \FDIDENT \cite{FDIDENT} for \matlab.
+  The obtained FRF is then fitted to the transfer function model \eqref{eq:secondOrderSystemDTidentifiable} using the \texttt{elis} function of the \FDIDENT \citep{FDIDENT} for \matlab.
   This is a maximum likelihood estimator that fits a parametric model to the measured data in the frequency domain.
   To aid convergence and avoid local minima, the initial values for the model are chosen equal to the parameters of the true system $G_0(z)$, so that we can focus completely on the variance of the estimations.
 
@@ -658,8 +667,8 @@ In the following set of simulations, we will study how the FRF of different seco
     To show that this methodology also works for more complicated systems, we measured the frequency response functions of a \bruelkjaer Type 1613 Octave Filter Set using a National Instruments Elvis~II board driven by \labview.
     
     The BK~1613 contains a set of eleven analog passive band-pass filters with center frequencies $\fc$ that are logarithmically distributed between $31.5\unit{Hz}$ and $31.5\unit{kHz}$ inclusive.
-    According to its manual \cite{datasheet_bk1613}, a $0.5\unit{dB}$ ripple with three resonances is present in the pass-band and the $3\unit{dB}$ break frequencies are located at $\frac{\fc}{\sqrt{2}}$ and $\fc \sqrt{2}$.
-    A first guess to realize such a filter is a third-order Chebyshev band-pass filter of Type I \cite{Zverev1967} for which the poles have a damping that is larger than $0.09$.
+    According to its manual \citep{datasheet_bk1613}, a $0.5\unit{dB}$ ripple with three resonances is present in the pass-band and the $3\unit{dB}$ break frequencies are located at $\frac{\fc}{\sqrt{2}}$ and $\fc \sqrt{2}$.
+    A first guess to realize such a filter is a third-order Chebyshev band-pass filter of Type I \citep{Zverev1967} for which the poles have a damping that is larger than $0.09$.
     Since the different pole pairs that constitute such a filter have a different damping, this is an ideally suited system to evaluate the proposed method.
     The `shape' of the transfer function of the different filters is nominally identical, which allows for an easy comparison between the different filters of the model uncertainty.
 
@@ -676,8 +685,8 @@ In the following set of simulations, we will study how the FRF of different seco
     \begin{equation}
       G(s) = \frac{\sum_{i=0}^3 b_i s^i}{\sum_{i=0}^6 a_i s^i}
     \end{equation}
-    was estimated using \texttt{elis} \cite{FDIDENT}.
-    The initial estimate was a third-order band-pass type I Chebyshev filter \cite{Zverev1967} that conformed to the information given in the datasheet \cite{datasheet_bk1613}.
+    was estimated using \texttt{elis} \citep{FDIDENT}.
+    The initial estimate was a third-order band-pass type I Chebyshev filter \citep{Zverev1967} that conformed to the information given in the datasheet \citep{datasheet_bk1613}.
 
     We summarize the behavior of these parametric models by their average $G\left(\theta,\omega \right)$ over the different periods and their standard deviation $\sigma_G\left(\theta,\omega \right)$.
 
