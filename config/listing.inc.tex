@@ -1,0 +1,106 @@
+\usepackage{listings}
+
+\definecolor{codebackground}{cmyk}{0,0,0,0.05}
+
+\definecolor{matlabCell}{rgb}{0,0.5,0}
+\definecolor{matlabComment}{rgb}{0,0.75,0}
+\definecolor{matlabString}{rgb}{0.75,0,0.75}
+\definecolor{matlabKeyword}{rgb}{0,0,0.5}
+
+\definecolor{javaKeyword}{rgb}{0.5,0,0.33}
+\definecolor{javaComment}{rgb}{.25,.5,.37}
+\definecolor{javaIdentifier}{rgb}{0,0,0.75}
+\definecolor{javaString}{rgb}{0.16,0,1}
+\definecolor{javaDocstring}{rgb}{0.5,0.62,.75}
+
+\definecolor{scsKeyword}{rgb}{0.5,0,0.33}
+\definecolor{scsComment}{rgb}{.25,.5,.37}
+\definecolor{scsIdentifier}{rgb}{0,0,0.75}
+\definecolor{scsString}{rgb}{0.16,0,1}
+
+\definecolor{antlrAction}{rgb}{0.36,0.21,0.4}
+
+\lstdefinestyle{common}
+{numbers=left,%
+  numberstyle=\tiny,%
+  numbersep=5pt,%
+  tabsize=4,%
+  basicstyle=\ttfamily\small,%
+  breaklines=true,%
+  prebreak={},%
+  showstringspaces=false,%
+  backgroundcolor=\color{codebackground},%
+  frame=lines
+}
+
+\lstdefinestyle{matlab}
+{language=Matlab,%
+  style=common,%
+  commentstyle=\color{matlabComment},%
+  stringstyle=\color{matlabString},%
+  keywordstyle=\color{matlabKeyword},%
+  morecomment=[l][\color{matlabCell}\textbf]{\%\%}}
+
+\lstdefinestyle{java}
+{language=Java,%
+  style=common,%
+  commentstyle=\color{javaComment},%
+  stringstyle=\color{javaString},%
+  keywordstyle=\color{javaKeyword},%
+  morecomment=[s][\color{javaDocstring}]{/**}{*/}
+  }
+
+\lstdefinelanguage{spice}
+{morekeywords={MODEL, AC, TRAN, END},
+morecomment=[l]{*},
+morestring=[b]",
+}
+
+\lstdefinelanguage{antlr}
+{
+  morekeywords={fragment, header, tokens, grammar, options, lexer, members,@init,returns},
+  morecomment=[l]{//},
+  morecomment=[s][\color{javaDocstring}]{/**}{*/},
+  morecomment=[s][\color{antlrAction}]{\{}{\}},
+  morestring=[b]'
+}
+
+\lstdefinelanguage{scs}
+{morekeywords={M_1_PI, M_2_PI, M_2_SQRTPI, M_DEGPERRAD, M_E, M_LN10, M_LN2,
+M_LOG10E, M_LOG2E, M_PI, M_PI_2, M_PI_4, M_SQRT1_2, M_SQRT2, M_TWO_PI,
+P_C, P_CELSIUS0, P_EPS0, P_H, P_K, P_Q, P_U0, abs, acos, acosh, altergroup,
+asin, asinh, atan, atan2, atanh, ceil, correlate, cos, cosh, else, end, ends,
+exp, export, floor, for, function, global, hypot, ic, if, inline, int, library,
+local, log, log10, march, max, min, model, nodeset, parameters, paramset,
+plot, pow, print, pwr, real, return, save, sens, sin, sinh, sqrt, statistics,
+subckt, tan, tanh, to, truncate, vary, backslash, simulator},
+morecomment=[l]{//},
+morestring=[b]",
+}
+
+
+
+\lstdefinestyle{spice}
+{language=spice,%
+ style=common,
+ keywordstyle={\color{scsKeyword}},
+ commentstyle={\color{scsComment}\textit}
+}
+
+\lstdefinestyle{scs}
+{language=scs,%
+ style=common,%
+ keywordstyle={\color{scsKeyword}},
+ commentstyle={\color{scsComment}\textit}
+}
+
+\lstdefinestyle{antlr}
+{language=antlr,%
+style=common,%
+keywordstyle={\color{javaKeyword}},
+commentstyle={\color{javaComment}\textit},
+stringstyle={\color{javaString}}
+}
+
+\lstset{style=common}
+\renewcommand{\lstlistlistingname}{List of Listings}

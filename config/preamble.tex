@@ -15,8 +15,8 @@ maxbibnames=6,
 maxcitenames=2,
 citestyle=authoryear-comp,
 backend=biber]{biblatex}
-\addbibresource{biblio/ownWork.bib}
-\addbibresource{biblio/references.bib}
+% \addbibresource{biblio/ownWork.bib}
+% \addbibresource{biblio/references.bib}
 
 % http://tex.stackexchange.com/questions/40798/how-do-i-get-et-al-to-appear-in-italics-when-using-textcite-or-citeauthor-w
 \renewbibmacro*{name:andothers}{% Based on name:andothers from biblatex.def
@@ -39,14 +39,20 @@ backend=biber]{biblatex}
     \usepackage{fontspec}
     %\usepackage{mathspec}
     %% Theme 1
-    %\setsansfont{Avenir Next}[UprightFont={* Regular},BoldFont={* Medium},BoldItalicFont={* Medium Italic}]
-    %\setmainfont{Merriweather}[Scale=MatchLowercase]
-    %\setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
+    \setsansfont{Avenir Next}[UprightFont={* Regular},BoldFont={* Medium},BoldItalicFont={* Medium Italic}]
+    %\setmainfont{Merriweather}[Scale=MatchUppercase]
+    \setmainfont{Alegreya}[SmallCapsFont={* SC}]
+    \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black},Scale=MatchLowercase]
     
     %% Theme 2
-    \setmainfont{Source Serif Pro} %TODO: set SC font
-    \setsansfont{Source Sans Pro}
-    \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
+    % \setmainfont{Source Serif Pro} %TODO: set SC font
+    % \setsansfont{Source Sans Pro}
+    % \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
+
+    % %% Theme 3
+    % \setmainfont{Palatino}
+    % \setsansfont{Helvetica}
+    % \setmonofont{Source Code Pro}
 \else
     \usepackage{fourier}
 \fi
@@ -64,8 +70,9 @@ backend=biber]{biblatex}
 
 
 %% TikZ configuration
-% \usetikzlibrary{external}
-% \tikzexternalize[prefix = \thisDir/tikz/]
+\usetikzlibrary{external}
+\tikzexternalize[prefix = \thisDir/tikz/]
+\tikzsetfigurename{\thisDir}
   \pgfplotsset{compat=newest}
 
   \newlength\figureheight

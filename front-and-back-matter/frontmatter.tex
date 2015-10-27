@@ -6,10 +6,17 @@
 \input{front-and-back-matter/summary.inc.tex}
 \input{front-and-back-matter/acknowledgements.inc.tex}
 
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Contents}
 \tableofcontents
-%TODO: make sure all these appear in TOC
-%TODO: \listoffigures
-%TODO: \listoftables
+\clearpage
+
+\KOMAoption{listof}{leveldown,totoc}
+
+\listoffigures
+\listoftables
+
+
 %TODO: list of symbols
 %TODO: list of acronyms
 %TODO: speed up generation of figures with external

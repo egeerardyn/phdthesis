@@ -8,13 +8,17 @@
 % arara: xelatex: { shell : yes, synctex : yes }
 %% arara: xelatex: { shell : yes, synctex : yes }
 \documentclass[a4paper,headings=big,chapterprefix=true,parskip=full]{scrbook}
-\input{front-and-back-matter/preamble.tex}
-\input{front-and-back-matter/definitions.tex}
+\input{config/preamble.tex}
+\input{config/definitions.tex}
 
   \title{Development of User-friendly System Identification Techniques}
   \author{Egon Geerardyn}
 
+  \addbibresource{biblio/ownWork.bib}
+  \addbibresource{biblio/references.bib}
+
 \begin{document}
+  \TODO{VUB title page}
   \frontmatter
    \include{front-and-back-matter/frontmatter}
 
