@@ -11,7 +11,8 @@
 
 \usepackage[natbib,
 style=authortitle,
-maxbibnames=6,
+maxbibnames=10,
+minbibnames=4,
 maxcitenames=2,
 citestyle=authoryear-comp,
 backend=biber]{biblatex}
@@ -31,6 +32,24 @@ backend=biber]{biblatex}
      \andothersdelim\bibstring[\emph]{andothers}}
     {}}
 
+% http://tex.stackexchange.com/questions/5660/redundancy-in-bib-file-conditionally-suppress-url-if-same-as-doi
+% do not show URL if there is a DOI
+\renewbibmacro*{doi+eprint+url}{%
+  \iftoggle{bbx:doi}
+    {
+     \printfield{doi} 
+    }{}%
+  \newunit\newblock
+  \iftoggle{bbx:eprint}
+    {\usebibmacro{eprint}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:url}
+  {
+   \iffieldundef{doi}{\usebibmacro{url+urldate}}{} 
+  }
+  {}
+}
 
 \usepackage{hyperref}
 
