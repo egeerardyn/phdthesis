@@ -23,3 +23,6 @@
    \newlength\figurewidth
 
 \newlength\onecolumnwidth %TODO: replace
+
+% http://tex.stackexchange.com/questions/37471/pgfplots-externalization-and-legend-referencing
+\pgfplotsset{invoke before crossref tikzpicture={\tikzexternaldisable},invoke after crossref tikzpicture={\tikzexternalenable}}
