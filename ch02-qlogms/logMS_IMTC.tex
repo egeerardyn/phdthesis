@@ -314,6 +314,20 @@
     \label{fig:freqGrids}
   \end{figure}
 
+  \begin{table}
+  \centering
+   \caption{Summary of the different frequency grids.}
+    \begin{tabular}{lccc} 
+    Grid & Linear & Logarithmic & Quasi-logarithmic \\
+
+    % Limits & \multicolumn{3}{c}{$\ClosedInterval{\fMin, \fMax}$}\\
+    Parameters & $f_0, \Delta f$ & $f_0, \alpha$ & $f_0, \Delta f, \alpha$ \\
+    $f_{k+1} \isdef$ & $f_{k} + \Delta f$ & $f_{k} \cdot \alpha$ & \ldots \\
+
+    \end{tabular}
+    \TODO{afmaken, booktabs}
+  \end{table}
+
   \TODO{plot: $\alpha $ (evt. $\cdot A_k^2$) i.f.v. $\omega$ voor verschillende signalen.}
   \TODO{plot: $\Delta f $ i.f.v. $\omega$ voor verschillende signalen} 
   \TODO{plot: $\# \omega / \mathrm{decade}$ i.f.v. $\omega$ voor verschillende signalen} 
