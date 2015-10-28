@@ -1,12 +1,12 @@
 %% arara: clean: { files: [phdthesis.aux, phdthesis.bbl, phdthesis.acn, phdthesis.acr, phdthesis.log, phdthesis.makefile] }
 % arara: vc
-% arara: xelatex: { shell : yes }
-%% arara: make: { task : "-j 8 -f phdthesis.makefile"}
+% arara: xelatex: { shell : yes, options : "-8bit" }
+% arara: make: { task : "-j 8 -f phdthesis.makefile"}
 % arara: biber
 %% arara: makeglossaries
 %% arara: make: { task : "-j 8 -f phdthesis.makefile"}
-% arara: xelatex: { shell : yes, synctex : yes }
-%% arara: xelatex: { shell : yes, synctex : yes }
+% arara: xelatex: { shell : yes, synctex : yes, options : "-8bit" }
+%% arara: xelatex: { shell : yes, synctex : yes, options : "-8bit" }
 \documentclass[a4paper,headings=big,chapterprefix=true,parskip=full]{scrbook}
 \input{config/preamble.tex}
 \input{config/definitions.tex}

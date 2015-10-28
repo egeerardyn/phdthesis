@@ -17,3 +17,5 @@ phdthesis.pdf
 vc.tex
 README.html
 *.auxlock
+*.figlist
+phdthesis.makefile

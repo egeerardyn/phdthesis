@@ -1,0 +1,22 @@
+
+%% Graphics
+\usepackage{graphicx}
+\usepackage[usenames]{xcolor}
+\usepackage{tangocolors}
+\usepackage{grffile}
+\usepackage[caption=false,font=footnotesize]{subfig}
+
+%% TikZ configuration
+% http://tex.stackexchange.com/questions/14771/tabs-in-output-file-written-by-xelatex-and-pdflatex-are-different
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usetikzlibrary{external}
+\tikzexternalize[prefix = \thisDir/tikz/]
+\tikzset{external/mode=list and make}
+\tikzsetfigurename{\thisDir}
+  \pgfplotsset{compat=newest}
+
+  \newlength\figureheight
+   \newlength\figurewidth
