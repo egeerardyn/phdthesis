@@ -1,0 +1,45 @@
+\usepackage[natbib,
+citestyle=authoryear-comp,
+bibstyle=authortitle,
+% style=authortitle,
+maxbibnames=10,
+minbibnames=4,
+maxcitenames=2,
+backend=biber]{biblatex}
+% \addbibresource{biblio/ownWork.bib}
+% \addbibresource{biblio/references.bib}
+
+% http://tex.stackexchange.com/questions/40798/how-do-i-get-et-al-to-appear-in-italics-when-using-textcite-or-citeauthor-w
+\renewbibmacro*{name:andothers}{% Based on name:andothers from biblatex.def
+  \ifboolexpr{
+    test {\ifnumequal{\value{listcount}}{\value{liststop}}}
+    and
+    test \ifmorenames
+  }
+    {\ifnumgreater{\value{liststop}}{1}
+       {\finalandcomma}
+       {}%
+     \andothersdelim\bibstring[\emph]{andothers}}
+    {}}
+
+% http://tex.stackexchange.com/questions/5660/redundancy-in-bib-file-conditionally-suppress-url-if-same-as-doi
+% do not show URL if there is a DOI
+\renewbibmacro*{doi+eprint+url}{%
+  \iftoggle{bbx:doi}
+    {
+     \printfield{doi} 
+    }{}%
+  \newunit\newblock
+  \iftoggle{bbx:eprint}
+    {\usebibmacro{eprint}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:url}
+  {
+   \iffieldundef{doi}{\usebibmacro{url+urldate}}{} 
+  }
+  {}
+}
+
+% http://tex.stackexchange.com/questions/19105/how-can-i-put-more-space-between-bibliography-entries-biblatex
+\setlength{\bibitemsep}{1em}

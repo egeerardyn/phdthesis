@@ -9,72 +9,13 @@
 \usepackage{xspace}
 \usepackage{iftex}
 
-\usepackage[natbib,
-style=authortitle,
-maxbibnames=10,
-minbibnames=4,
-maxcitenames=2,
-citestyle=authoryear-comp,
-backend=biber]{biblatex}
-% \addbibresource{biblio/ownWork.bib}
-% \addbibresource{biblio/references.bib}
 
-% http://tex.stackexchange.com/questions/40798/how-do-i-get-et-al-to-appear-in-italics-when-using-textcite-or-citeauthor-w
-\renewbibmacro*{name:andothers}{% Based on name:andothers from biblatex.def
-  \ifboolexpr{
-    test {\ifnumequal{\value{listcount}}{\value{liststop}}}
-    and
-    test \ifmorenames
-  }
-    {\ifnumgreater{\value{liststop}}{1}
-       {\finalandcomma}
-       {}%
-     \andothersdelim\bibstring[\emph]{andothers}}
-    {}}
-
-% http://tex.stackexchange.com/questions/5660/redundancy-in-bib-file-conditionally-suppress-url-if-same-as-doi
-% do not show URL if there is a DOI
-\renewbibmacro*{doi+eprint+url}{%
-  \iftoggle{bbx:doi}
-    {
-     \printfield{doi} 
-    }{}%
-  \newunit\newblock
-  \iftoggle{bbx:eprint}
-    {\usebibmacro{eprint}}
-    {}%
-  \newunit\newblock
-  \iftoggle{bbx:url}
-  {
-   \iffieldundef{doi}{\usebibmacro{url+urldate}}{} 
-  }
-  {}
-}
+\input{config/font.inc.tex}
+\input{config/bib.inc.tex}
 
 \usepackage{hyperref}
+\usepackage{vubtitlepage}
 
-%% font configuration
-\ifXeTeX
-    \usepackage{fontspec}
-    %\usepackage{mathspec}
-    %% Theme 1
-    \setsansfont{Avenir Next}[UprightFont={* Regular},BoldFont={* Medium},BoldItalicFont={* Medium Italic}]
-    %\setmainfont{Merriweather}[Scale=MatchUppercase]
-    \setmainfont{Alegreya}[SmallCapsFont={* SC}]
-    \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black},Scale=MatchLowercase]
-    
-    %% Theme 2
-    % \setmainfont{Source Serif Pro} %TODO: set SC font
-    % \setsansfont{Source Sans Pro}
-    % \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
-
-    % %% Theme 3
-    % \setmainfont{Palatino}
-    % \setsansfont{Helvetica}
-    % \setmonofont{Source Code Pro}
-\else
-    \usepackage{fourier}
-\fi
 
 
 %% Graphics
