@@ -1,0 +1,318 @@
+\pgfplotsset{compat=newest}
+
+\def\thisDir{.}
+
+\pgfplotsset{tick style={black!30},grid style={black!10}}
+\pgfplotsset{every axis legend/.append style={font=\footnotesize}}
+\pgfplotsset{every axis label/.append style={font=\footnotesize}}
+\pgfplotsset{every tick label/.append style={font=\footnotesize}}
+\pgfplotsset{every axis title/.append style={font=\footnotesize}}
+\pgfplotsset{every axis post/.style={unbounded coords=jump}}
+\pgfplotsset{every axis title/.append style={at={(0.5,0.95)}}}
+
+%% Colors
+  \definecolor{tangored}{named}{TangoScarletRed1}
+  \definecolor{tangoblue}{rgb}{0.203922,0.396078,0.643137}
+  \definecolor{tangogreen}{named}{TangoChameleon2}
+  \definecolor{tangogrey}{named}{TangoAluminium5}
+
+  \definecolor{meas}{named}{TangoPlum2}
+
+  \definecolor{goallight}{named}{TangoChameleon1}
+  \definecolor{goal}{named}{TangoChameleon2}
+  \definecolor{goaldark}{named}{TangoChameleon3}
+
+  \definecolor{obtainedlight}{named}{TangoScarletRed1}
+  \definecolor{obtained}{named}{TangoScarletRed2}
+  \definecolor{obtaineddark}{named}{TangoScarletRed3}
+
+  \definecolor{model}{named}{tangogrey}
+  \definecolor{bg}{named}{TangoAluminium2}
+
+\definecolor{linms}{named}{TangoScarletRed3}
+\definecolor{logms}{named}{TangoChameleon2}
+\definecolor{qlogms}{named}{TangoPlum3}
+\definecolor{clogms}{named}{TangoSkyBlue3}
+\definecolor{plogms}{named}{black}
+
+  \definecolor{compen}{rgb}{0.729,0.741,0.714}
+  \definecolor{signal}{named}{TangoSkyBlue2}
+  \definecolor{misalign}{named}{TangoScarletRed2}
+
+  \definecolor{dbacolor}{named}{TangoScarletRed2}
+  \definecolor{dbbcolor}{named}{TangoSkyBlue2}
+  \definecolor{dbccolor}{named}{TangoChameleon2}
+  \definecolor{dbdcolor}{named}{TangoOrange2}
+
+%% TikZ styles
+  \tikzset{obtainedarrow/.style={color=obtaineddark,line width=1.0pt,->}}
+  \tikzset{goalarrow/.style={color=goaldark,line width=1.0pt,->}}
+  \tikzset{arrow/.style={color=TangoAluminium5,line width=1pt,->,>={triangle 45}}}
+
+%% marker styles
+  \definecolor{bwfill}{named}{TangoAluminium1}
+  \definecolor{bwline}{named}{TangoAluminium5}
+
+  \definecolor{safezone}{named}{bwfill}
+
+%% pgfplots styles
+\pgfplotsset{goal/.style={color=goallight,dashed,line width=0.75pt}}
+\pgfplotsset{obtained/.style={color=obtainedlight,line width=0.75pt}}
+
+\pgfplotsset{signalrectangle/.style={fill=signal!60!black,fill opacity=0.8,color=signal!30}}
+\pgfplotsset{signalrectanglerobust/.style={fill=signal!50,fill opacity=0.5,color=signal!30}}
+
+\pgfplotsset{safezone/.style={fill=safezone,fill opacity=0.5,color=safezone}}
+
+\tikzset{showdistance/.style={|-|,line width=1pt}}
+
+\pgfplotsset{frf/.style={color=black,solid,line width=1pt}}
+\pgfplotsset{bw/.style={fill=bwfill,draw=bwline}}
+\pgfplotsset{signal/.style={ycomb,color=signal,solid,line width=0.75pt}}
+
+\pgfplotsset{dbvariance/.style={solid,line width=1.0pt}}
+\pgfplotsset{dbvariancemin/.style={dashed,line width=1.0pt}}
+\pgfplotsset{dbvariancemax/.style={dbvariance}}
+
+\pgfplotsset{dbavar/.style={color=dbacolor,dbvariance}}
+\pgfplotsset{dbbvar/.style={color=dbbcolor,dbvariance}}
+\pgfplotsset{dbcvar/.style={color=dbccolor,dbvariance}}
+\pgfplotsset{dbdvar/.style={color=dbdcolor,dbvariance}}
+
+\pgfplotsset{dbamin/.style={color=dbacolor,dbvariancemin}}
+\pgfplotsset{dbbmin/.style={color=dbbcolor,dbvariancemin}}
+\pgfplotsset{dbcmin/.style={color=dbccolor,dbvariancemin}}
+\pgfplotsset{dbdmin/.style={color=dbdcolor,dbvariancemin}}
+
+\pgfplotsset{dbamax/.style={color=dbacolor,dbvariancemax,mark=diamond*}}
+\pgfplotsset{dbbmax/.style={color=dbbcolor,dbvariancemax,mark=*}}
+\pgfplotsset{dbcmax/.style={color=dbccolor,dbvariancemax,mark=square*}}
+\pgfplotsset{dbdmax/.style={color=dbdcolor,dbvariancemax,mark=triangle*}}
+
+\pgfplotsset{linmsmarker/.style={mark=*,mark options={solid},mark size=1pt}}
+\pgfplotsset{logmsmarker/.style={mark=pentagon*,mark options={solid},mark size=1pt}}
+\pgfplotsset{clogmsmarker/.style={mark=triangle*,mark options={solid},mark size=1pt}}
+\pgfplotsset{qlogmsmarker/.style={mark=square*,mark options={solid},mark size=1pt}}
+\pgfplotsset{plogmsmarker/.style={mark=diamond*,mark options={solid},mark size=1pt}}
+
+\pgfplotsset{model/.style={color=model,line width=1.0pt}}
+
+\pgfplotsset{gridline/.style={ycomb,solid,line width=0.7pt,mark size=1pt}}
+\pgfplotsset{biggrid/.style={ycomb,solid,line width=1pt,mark size=1pt}}
+
+\pgfplotsset{linmsgrid/.style={color=linms,gridline,mark=square*,mark options={solid}}}
+\pgfplotsset{logmsgrid/.style={color=logms,gridline,mark=*,mark options={solid}}}
+\pgfplotsset{clogmsgrid/.style={color=clogms,gridline,mark size=2pt,mark=x,mark options={solid}}}
+\pgfplotsset{plogmsgrid/.style={color=plogms,gridline,mark size=2pt,mark=triangle,mark options={solid,line width=0.7pt}}}
+
+\pgfplotsset{linms/.style={color=linms}}
+\pgfplotsset{clogms/.style={color=clogms}}
+\pgfplotsset{rlogms/.style={color=rlogms}}
+\pgfplotsset{qlogms/.style={color=qlogms}}
+\pgfplotsset{plogms/.style={color=plogms}}
+
+\pgfplotsset{compen/.style={fill,fill opacity=0.65,color=compen,smooth,forget plot}}
+\pgfplotsset{truesys/.style={color=tangogrey,line width=0.9pt}}
+
+\pgfplotsset{meas/.style={color=meas,only marks,mark=*,mark options={solid},mark size=1pt}}
+
+\pgfplotsset{results/.style={solid,line width=0.7pt}}
+\pgfplotsset{linmsres/.style={color=linms,results}}
+\pgfplotsset{qlogmsres/.style={color=qlogms,results}}
+\pgfplotsset{clogmsres/.style={color=clogms,results}}
+\pgfplotsset{plogmsres/.style={color=plogms,results}}
+
+\pgfplotsset{linmsmeas/.style={color=linms,densely dashed,line width=0.7pt}}
+\pgfplotsset{qlogmsmeas/.style={color=qlogms,densely dotted,line width=0.7pt}}
+\pgfplotsset{clogmsmeas/.style={color=clogms,solid,line width=0.7pt}}
+\pgfplotsset{plogmsmeas/.style={color=plogms,solid,line width=0.7pt}}
+
+\pgfplotsset{connectline/.style={solid,line width=1.0pt}}
+\pgfplotsset{linmsconnect/.style={color=linms,connectline,linmsmarker}}
+\pgfplotsset{qlogmsconnect/.style={color=qlogms,connectline,qlogmsmarker}}
+\pgfplotsset{clogmsconnect/.style={color=clogms,connectline,clogmsmarker}}
+\pgfplotsset{plogmsconnect/.style={color=plogms,connectline,plogmsmarker}}
+
+\pgfplotsset{sigmalinms/.style={linms,connectline}}
+\pgfplotsset{sigmaqlogms/.style={qlogms,connectline}}
+\pgfplotsset{sigmaclogms/.style={clogms,connectline}}
+\pgfplotsset{sigmaplogms/.style={plogms,connectline}}
+
+\pgfplotsset{linrect/.style={fill=linms,draw=linms,line width=1pt}}
+
+
+
+\definecolor{model}{named}{blue}
+\definecolor{truesys}{named}{TangoAluminium5}
+
+\definecolor{linms}{named}{TangoScarletRed3}
+\definecolor{logms}{named}{TangoChameleon2}
+\definecolor{qlogms}{named}{TangoPlum3}
+\definecolor{clogms}{named}{TangoSkyBlue3}
+\definecolor{plogms}{named}{black}
+
+\definecolor{sigmalinms}{named}{linms}
+\definecolor{sigmaqlogms}{named}{qlogms}
+\definecolor{sigmaclogms}{named}{clogms}
+
+\definecolor{biaslinms}{named}{TangoScarletRed1}
+\definecolor{biasqlogms}{named}{TangoPlum1}
+\definecolor{biasclogms}{named}{TangoSkyBlue1}
+
+\definecolor{dbacolor}{named}{TangoScarletRed2}
+\definecolor{dbbcolor}{named}{TangoSkyBlue2}
+\definecolor{dbccolor}{named}{TangoChameleon2}
+\definecolor{dbdcolor}{named}{TangoOrange2}
+
+\pgfplotsset{linmsgrid/.style={ycomb,color=linms,solid,line width=0.7pt,mark size=1pt,mark=square*,mark options={solid}}}
+\pgfplotsset{logmsgrid/.style={ycomb,color=logms,solid,line width=0.7pt,mark size=1pt,mark=*,mark options={solid}}}
+\pgfplotsset{clogmsgrid/.style={ycomb,color=clogms,solid,line width=0.7pt,mark size=2pt,mark=x,mark options={solid}}}
+\pgfplotsset{plogmsgrid/.style={ycomb,color=plogms,solid,line width=0.7pt,mark size=2pt,mark=triangle,mark options={solid,line width=0.7pt}}}
+
+\pgfplotsset{model/.style={color=model,dashed,line width=1.0pt}}
+\pgfplotsset{truesys/.style={color=truesys,line width=1.0pt}}
+
+\newcommand{\linmsmarker}{mark=square,mark options={solid}}
+\newcommand{\qlogmsmarker}{mark=triangle,mark options={solid}}
+\newcommand{\clogmsmarker}{mark=x,mark size=10pt,mark options={solid}}
+
+\newcommand{\dbamarker}{mark=x       ,mark options={solid}}
+\newcommand{\dbbmarker}{mark=o       ,mark options={solid}}
+\newcommand{\dbcmarker}{mark=square  ,mark options={solid}}
+\newcommand{\dbdmarker}{mark=triangle,mark options={solid}}
+
+\pgfplotsset{sigmalinms/.append style={color=sigmalinms,solid,line width=0.8pt}}
+\pgfplotsset{sigmaqlogms/.append style={color=sigmaqlogms,solid,line width=0.8pt}}
+\pgfplotsset{sigmaclogms/.append style={color=sigmaclogms,solid,line width=0.8pt}}
+
+\pgfplotsset{biaslinms/.style={color=biaslinms,only marks,mark=x,mark options={solid}}}
+\pgfplotsset{biasqlogms/.style={color=biasqlogms,only marks,mark=triangle,mark options={solid,rotate=180}}}
+\pgfplotsset{biasclogms/.style={color=biasclogms,only marks,mark=o,mark options={solid}}}
+
+\pgfplotsset{linms/.style={color=linms,solid,line width=0.5pt}}
+\pgfplotsset{qlogms/.style={color=qlogms,solid,line width=0.5pt}}
+\pgfplotsset{clogms/.style={color=clogms,solid,line width=0.5pt}}
+
+\pgfplotsset{linmsconnect/.style={color=linms,%
+                                  solid,
+                                  line width=1pt,
+                                  mark=square*,
+                                  mark size=1pt,
+                                  mark options={solid}}}
+\pgfplotsset{qlogmsconnect/.style={color=qlogms,%
+                                  solid,
+                                  line width=1pt,%
+                                  mark=*,%
+                                  mark size=1pt,
+                                  mark options={solid}}}
+\pgfplotsset{clogmsconnect/.style={color=clogms,%
+                                   solid,
+                                   line width=1pt,%
+                                   mark=x,%
+                                   mark size=1pt,
+                                   mark options={solid}}}
+
+\pgfplotsset{dbavar/.style={color=dbacolor,solid,line width=1.0pt}}
+\pgfplotsset{dbbvar/.style={color=dbbcolor,solid,line width=1.0pt}}
+\pgfplotsset{dbcvar/.style={color=dbccolor,solid,line width=1.0pt}}
+\pgfplotsset{dbdvar/.style={color=dbdcolor,solid,line width=1.0pt}}
+
+\pgfplotsset{dbamin/.style={color=dbacolor,dashed,line width=1.0pt}}
+\pgfplotsset{dbbmin/.style={color=dbbcolor,dashed,line width=1.0pt}}
+\pgfplotsset{dbcmin/.style={color=dbccolor,dashed,line width=1.0pt}}
+\pgfplotsset{dbdmin/.style={color=dbdcolor,dashed,line width=1.0pt}}
+                                   
+\pgfplotsset{dbamax/.style={color=dbacolor,solid,line width=1.0pt,mark=x ,mark options={solid}}}
+\pgfplotsset{dbbmax/.style={color=dbbcolor,solid,line width=1.0pt,mark=o ,mark options={solid}}}
+\pgfplotsset{dbcmax/.style={color=dbccolor,solid,line width=1.0pt,mark=square  ,mark options={solid}}}
+\pgfplotsset{dbdmax/.style={color=dbdcolor,solid,line width=1.0pt,mark=triangle,mark options={solid}}}
+
+
+
+\definecolor{LPMTrunc}{named}{TangoSkyBlue2}
+\definecolor{LPMTruncInit}{named}{TangoSkyBlue2}
+\definecolor{RFIR}{named}{TangoScarletRed3}
+\definecolor{RFIRInit}{named}{TangoScarletRed1}
+\definecolor{existing}{named}{TangoChameleon3}
+\definecolor{G0Hat}{named}{TangoOrange2}
+\definecolor{GVXI}{named}{G0Hat}
+\definecolor{reference}{named}{black}
+
+\definecolor{heuristic}{named}{TangoPlum2}
+\definecolor{observed}{named}{TangoOrange3}
+
+\definecolor{best}{named}{TangoAluminium6}
+
+\definecolor{G0HatFill}{named}{TangoOrange1}
+\definecolor{GVXIFill}{named}{G0HatFill}
+\definecolor{LPMTruncFill}{named}{TangoSkyBlue1}
+\definecolor{RFIRFill}{named}{TangoScarletRed1}
+\definecolor{existingFill}{named}{TangoChameleon1}
+\definecolor{bestFill}{named}{TangoAluminium3}
+
+\definecolor{FRFMean}{named}{TangoPlum3}
+\definecolor{FRFSingle}{named}{TangoPlum1}
+\definecolor{FRFNoise}{named}{TangoChocolate1}
+
+\pgfplotsset{FRFMean/.style={color=FRFMean,mark=*,mark options={solid},only marks,medsmallmarkers}}
+\pgfplotsset{FRFSingle/.style={color=FRFSingle,mark=square*,mark options={solid},only marks,smallmarkers}}
+\pgfplotsset{FRFNoise/.style={color=FRFNoise,mark=x,mark options={solid},only marks,smallmarkers}}
+
+\pgfset{number format/1000 sep={\,}}
+
+\pgfplotsset{bandwidth/.style={area style,fill=TangoButter1,draw=TangoButter2,fill opacity=0.5}}
+\pgfplotsset{goodestimate/.style={color=TangoChameleon2,line join=round}}
+\pgfplotsset{badestimate/.style={color=TangoScarletRed2,solid,line join=round}}
+\pgfplotsset{exact/.style={color=black,dashed,line width=0.75pt,line join=round}}
+
+\pgfplotsset{LPMTruncmark/.append style={mark=*,mark options={solid}}}
+\pgfplotsset{RFIRmark/.append style={mark=square*,mark options={solid}}}
+\pgfplotsset{existingmark/.append style={mark=triangle*,mark options={solid}}}
+\pgfplotsset{existingInitmark/.append style={mark=triangle,mark options={solid}}}
+\pgfplotsset{LPMTruncInitmark/.append style={mark=o,mark options={solid}}}
+\pgfplotsset{RFIRInitmark/.append style={mark=square,mark options={solid}}}
+\pgfplotsset{bestmark/.append style={mark=diamond*,mark options={solid}}}
+\pgfplotsset{G0Hatmark/.append style={mark=asterisk,mark options={solid}}}
+
+\pgfplotsset{GVXI/.style={color=GVXI,line width=1pt}}
+\pgfplotsset{G0Hat/.style={color=G0Hat,line width=1.5pt}}
+\pgfplotsset{existing/.style={color=existing}}
+\pgfplotsset{LPMTruncInit/.style={color=LPMTruncInit,densely dashed}}
+\pgfplotsset{LPMTrunc/.style={color=LPMTrunc}}
+\pgfplotsset{RFIRInit/.style={color=RFIRInit,densely dashed}}
+\pgfplotsset{RFIR/.style={color=RFIR}}
+\pgfplotsset{best/.style={color=best}}
+
+\pgfplotsset{smallmarkers/.append style={mark size=0.75pt}}
+\pgfplotsset{medsmallmarkers/.append style={mark size=0.5pt}}
+\pgfplotsset{tinymarkers/.append style={mark size=0.25pt}}
+\pgfplotsset{extremelytinymarkers/.append style={mark size=0.05pt}}
+
+
+\tikzset{annotation/.style={align=left,draw=black!0.2,font=\scriptsize,fill=white,fill opacity=0.8}}
+
+%% TABLE STYLES
+
+\pgfplotstableset{
+	%zerofill=true,
+	after row=[3pt],
+	assign column name/.code={%
+        \pgfkeyssetvalue{/pgfplots/table/column name}{\multicolumn{1}{c}{\multirow{2}{*}{#1}} }%
+    },
+	columns/method/.style={string type,column name={\shortstack{\textsc{Method}\\\phantom{0}}}}, 
+	columns/contribution/.style={column name={\textsc{Contribution}}},
+	columns/P000/.style={column type=r,column name={\shortstack[r]{\textsc{Min.}\\{$0\%$}}}},
+	columns/P025/.style={column type=r,column name={\shortstack[r]{\vphantom{?}\\\textsc{$25\%$}}}},
+	columns/P050/.style={column type=r,column name={\shortstack[r]{\textsc{Median}\\{$50\%$}}}},
+	columns/P075/.style={column type=r,column name={\shortstack[r]{\vphantom{?}\\\textsc{$75\%$ }}}},
+	columns/P100/.style={column type=r,column name={\shortstack[r]{\textsc{Max.}\\{$100\%$}}}},
+	columns/contribution/.style={column name={\shortstack[r]{\textsc{Contribution}\\ \vphantom{0}}},
+	postproc cell content/.append code={
+            %\ifnum1=\pgfplotstablepartno
+                \pgfkeysalso{@cell content/.add={}{\%}}%
+            %\fi
+        },
+	},
+	every head row/.style={before row=\toprule, after row={\\\midrule}},
+    every last row/.style={after row=\bottomrule}
+}

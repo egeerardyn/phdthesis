@@ -1,4 +1,3 @@
-
 %% Graphics
 \usepackage{graphicx}
 \usepackage[usenames]{xcolor}
@@ -14,9 +13,13 @@
 \usepackage{pgfplotstable}
 \usetikzlibrary{external}
 \tikzexternalize[prefix = \thisDir/tikz/]
+\tikzexternalize[prefix=tikz/]
 \tikzset{external/mode=list and make}
-\tikzsetfigurename{\thisDir}
+\tikzsetfigurename{phdfig}
+% \tikzsetfigurename{\thisDir}
   \pgfplotsset{compat=newest}
 
   \newlength\figureheight
    \newlength\figurewidth
+
+\newlength\onecolumnwidth %TODO: replace

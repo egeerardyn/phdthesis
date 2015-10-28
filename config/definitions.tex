@@ -22,7 +22,51 @@
 \DeclareMathOperator{\RealImagPart}{\stackrel{\mathrm{Re}}{\mathrm{Im}}}
 \DeclareMathOperator{\Diagonal}{\mathrm{diag}}
 
-\newcommand{\unit}[1]{\ensuremath{\,\textrm{#1}}}
+\newcommand{\legref}[2][1]{(\ref{#2})}
+
+\newcommand{\atIter}[2][]{{#2}^{[#1]}}
+\newcommand{\sectref}[1]{Section~\ref{#1}} % references for sections
+\newcommand{\appref}[1]{Appendix~\ref{#1}}
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}} % references for figures
+
+\DeclareMathOperator*{\argmin}{argmin} %cost function minimizer!! MLDL per JL
+\DeclareMathOperator*{\Arg}{arg}
+
+\newcommand{\model}[2][]{\ensuremath{\hat{G}_{\mathrm{#2}}^{\mathrm{#1}}}}
+\newcommand{\MATLAB}{\textsc{MATLAB}\texttrademark\xspace}
+
+\newcommand{\TT}{\ensuremath{\mathrm{T}}}
+\newcommand{\BK}{Br\"{u}el \& Kj\ae{}r}
+\newcommand{\Prob}[1]{\ensuremath{\mathrm{P}}\!\left( #1 \right)}
+
+\theoremstyle{definition}
+\newtheorem{myDef}{Definition}
+
+\theoremstyle{plain}
+\newtheorem{assumption}{Assumption}
+
+\theoremstyle{plain}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{property}{Property}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}
+
+
+\newcommand{\expval}[1]{\mathbb{E}\left\{#1\right\}} %expected value
+\newcommand{\unit}[1]{\ensuremath{\,\mathrm{#1}}}
+\newcommand{\SNR}{\ensuremath{\mathrm{SNR}}}
+\newcommand{\RMSE}{\ensuremath{\mathrm{RMSE}}}
+
 \newcommand{\I}{\ensuremath{\mathrm{I}}}
 \renewcommand{\T}{\ensuremath{\mathrm{T}}} %TODO: where is the original definition of \T ?
 \newcommand{\HT}{\ensuremath{\mathrm{H}}}

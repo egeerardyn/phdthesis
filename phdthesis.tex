@@ -1,4 +1,4 @@
-%% arara: clean: { files: [phdthesis.aux, phdthesis.bbl, phdthesis.acn, phdthesis.acr, phdthesis.log, phdthesis.makefile] }
+% arara: clean: { files: [phdthesis.aux, phdthesis.bbl, phdthesis.acn, phdthesis.acr, phdthesis.out, phdthesis.toc, phdthesis.blg, phdthesis.log, phdthesis.makefile] }
 % arara: vc
 % arara: xelatex: { shell : yes, options : "-8bit" }
 % arara: make: { task : "-j 8 -f phdthesis.makefile"}
@@ -10,6 +10,7 @@
 \documentclass[a4paper,headings=big,chapterprefix=true,parskip=full]{scrbook}
 \input{config/preamble.tex}
 \input{config/definitions.tex}
+\input{config/styles.inc.tex}
 
   \title{Development of User-friendly System Identification Techniques}
   \author{Egon Geerardyn}

@@ -1,0 +1,176 @@
+% This file was created by matlab2tikz v0.4.7 (commit 531759ea1f2f805c5b2ec975ee93dc15fff84184) running on MATLAB 8.3.
+% Copyright (c) 2008--2014, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% Minimal pgfplots version: 1.3
+% 
+% workdir  : /Users/egon/Dropbox/VUB/PhD/Mikaya/InitialValues
+% git info : commit f9bbeb38f35d63f56a82a16c2145c8bd72f1e461
+%            Author: Egon Geerardyn <egon.geerardyn@gmail.com>
+%            Date:   Thu Oct 2 13:07:09 2014 +0200
+%            
+%                Proc meas with noise
+%            
+%             processAllMeasurements.m | 37 +++++++++++++++++++++++++------------
+%             1 file changed, 25 insertions(+), 12 deletions(-)
+%            
+% 
+% 
+%
+% defining custom colors
+\input{\thisDir/styles.inc.tex}
+
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=\figurewidth,
+height=0.5\figureheight,
+scale only axis,
+xmin=0.5,
+xmax=5.5,
+name=global,
+xtick={0.5,1.5,2.5,3.5,4.5,5.5},
+xticklabels={{$\hat{G}_{\mathrm{VXI}}$},
+             {$\hat{G}_{\mathrm{exist}}$},
+             {$\hat{G}_{\mathrm{trunc}}$},
+             {$\hat{G}_{\mathrm{RFIR}}$},
+             {$\hat{G}_{\mathrm{best}}$}},
+% extra x ticks={5.5},
+% extra x tick labels={},
+x tick label as interval,
+xticklabels={},
+ymode=log,
+ymin=4000,
+ymax=1e5,
+yminorticks=true,
+ymajorgrids=true,
+yminorgrids=true,
+xmajorgrids=true,
+ylabel={Cost $V(\theta)$},
+axis x line*=bottom,
+axis y line*=left
+]
+
+
+
+\addplot[area legend,solid,fill=G0HatFill,opacity=0.7,draw=none,forget plot]
+table {\thisDir/fig/CostFunctionsMLE-measurement-1.tsv};
+
+\addplot [color=G0Hat,solid,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-2.tsv};
+\addplot [G0Hat,G0Hatmark,tinymarkers,opacity=0.7,only marks,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-3.tsv};
+
+\addplot[area legend,solid,fill=existingFill,opacity=0.7,draw=none,forget plot]
+table {\thisDir/fig/CostFunctionsMLE-measurement-4.tsv};
+
+\addplot [color=existing,solid,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-5.tsv};
+\addplot [existing,existingmark,tinymarkers,opacity=0.7,only marks,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-6.tsv};
+
+\addplot[area legend,solid,fill=LPMTruncFill,opacity=0.7,draw=none,forget plot]
+table {\thisDir/fig/CostFunctionsMLE-measurement-7.tsv};
+
+\addplot [color=LPMTrunc,solid,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-8.tsv};
+\addplot [LPMTrunc,LPMTruncmark,tinymarkers,opacity=0.7,only marks,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-9.tsv};
+
+\addplot[area legend,solid,fill=RFIRFill,opacity=0.7,draw=none,forget plot]
+table {\thisDir/fig/CostFunctionsMLE-measurement-10.tsv};
+
+\addplot [color=RFIR,solid,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-11.tsv};
+
+\addplot [RFIR,RFIRmark,tinymarkers,only marks,opacity=0.7,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-12.tsv};
+
+\addplot[area legend,solid,fill=bestFill,opacity=0.7,draw=none,forget plot]
+table {\thisDir/fig/CostFunctionsMLE-measurement-13.tsv};
+
+\addplot [color=best,solid,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-14.tsv};
+\addplot [best,bestmark,tinymarkers,only marks,opacity=0.7,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-15.tsv};
+\end{axis}
+
+\begin{axis}[%
+width=\figurewidth,
+height=0.5\figureheight,
+name=detail,
+anchor=above north west,
+at={(global.south west)},
+scale only axis,
+xmin=0.5,
+xmax=5.5,
+xtick={0.5,1.5,2.5,3.5,4.5,5.5},
+xticklabels={{$\hat{G}_{\mathrm{VXI}}$},
+             {$\hat{G}_{\mathrm{exist}}$},
+             {$\hat{G}_{\mathrm{trunc}}$},
+             {$\hat{G}_{\mathrm{RFIR}}$},
+             {$\hat{G}_{\mathrm{best}}$}},
+extra y ticks={9000},
+extra y tick labels={},
+scaled y ticks=false,
+x tick label as interval,
+ymin=4000,
+ymax=9000,
+yminorticks=true,
+ymajorgrids=true,
+yminorgrids=true,
+xmajorgrids=true,
+ylabel={Cost $V(\theta)$},
+axis x line*=bottom,
+axis y line*=left
+]
+
+
+
+\addplot[area legend,solid,fill=G0HatFill,opacity=0.7,draw=none,forget plot]
+table {\thisDir/fig/CostFunctionsMLE-measurement-1.tsv};
+
+\addplot [color=G0Hat,solid,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-2.tsv};
+\addplot [G0Hat,G0Hatmark,tinymarkers,opacity=0.7,only marks,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-3.tsv};
+
+\addplot[area legend,solid,fill=existingFill,opacity=0.7,draw=none,forget plot]
+table {\thisDir/fig/CostFunctionsMLE-measurement-4.tsv};
+
+\addplot [color=existing,solid,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-5.tsv};
+\addplot [existing,existingmark,tinymarkers,opacity=0.7,only marks,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-6.tsv};
+
+\addplot[area legend,solid,fill=LPMTruncFill,opacity=0.7,draw=none,forget plot]
+table {\thisDir/fig/CostFunctionsMLE-measurement-7.tsv};
+
+\addplot [color=LPMTrunc,solid,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-8.tsv};
+
+\addplot [LPMTrunc,LPMTruncmark,tinymarkers,opacity=0.7,only marks,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-9.tsv};
+
+
+\addplot[area legend,solid,fill=RFIRFill,opacity=0.7,draw=none,forget plot]
+table {\thisDir/fig/CostFunctionsMLE-measurement-10.tsv};
+
+\addplot [color=RFIR,solid,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-11.tsv};
+\addplot [RFIR,RFIRmark,tinymarkers,only marks,opacity=0.7,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-12.tsv};
+
+\addplot[area legend,solid,fill=bestFill,opacity=0.7,draw=none,forget plot]
+table {\thisDir/fig/CostFunctionsMLE-measurement-13.tsv};
+\label{leg:costMeasurements:best:iqr}
+
+\addplot [color=best,solid,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-14.tsv};
+\label{leg:costMeasurements:best:median}
+
+\addplot [best,bestmark,tinymarkers,only marks,opacity=0.7,forget plot]
+  table{\thisDir/fig/CostFunctionsMLE-measurement-15.tsv};
+\label{leg:costMeasurements:best:data}
+
+\end{axis}
+\end{tikzpicture}%
