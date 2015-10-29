@@ -1,0 +1,55 @@
+\usepackage[sanitize={symbol=false},toc,acronym,section=section,nonumberlist,xindy]{glossaries}
+
+\renewcommand*{\acronymname}{List of Abbreviations}
+\renewcommand*{\glssymbolsgroupname}{List of Symbols}
+
+\renewcommand{\newacronym}[4][]{\newglossaryentry{#2}{type=\acronymtype,
+name={#3},
+description={#4},
+text={#3},
+first={#3\protect\footnote{#3: #4}},
+plural={#3\glspluralsuffix},
+firstplural={#3\glspluralsuffix\protect\footnote{#3: #4}},
+#1}}
+
+
+\newglossary[slg]{symbols}{sls}{slo}{\glssymbolsgroupname}
+%\newglossary{symbols}{sym}{sbl}{List of Symbols}
+\newcommand{\newsymbolglos}[3]{\newglossaryentry{#1}{type=symbols,%
+                                 name={\ensuremath{#2}},sort={#1}%
+                               symbol={\ensuremath{#2}},description={#3}}}
+\newcommand{\sym}[1]{\glssymbol{#1}}
+
+%% TERMS
+
+
+%% SYMBOLS
+\newsymbolglos{approx}{\approx}{Approximately equal}
+\newsymbolglos{bydef}{\isdef}{Equal by definition}
+\newsymbolglos{imagunit}{j}{The imaginary unit $j = \sqrt{-1}$}
+\newsymbolglos{SetR}{\mathbb{R}}{Set of the real numbers}
+\newsymbolglos{SetC}{\mathbb{C}}{Set of the complex numbers}
+\newsymbolglos{SetN}{\mathbb{N}}{Set of the natural numbers}
+\newsymbolglos{w}{\omega}{Angular frequency or pulsation ($\omega = 2\pi f$) in $\text{rad}/\text{s}$}
+\newsymbolglos{f}{f}{Frequency in $\text{Hz}$}
+
+%% ACRONYMS
+\newacronym{vub}{VUB}{Vrije Universiteit Brussel}
+
+\newacronym{siso}{SISO}{Single Input Single Output}
+\newacronym{mimo}{MIMO}{Multiple Input Multiple Output}
+\newacronym{bla}{BLA}{Best Linear Approximation}
+\newacronym{frf}{FRF}{Frequency Response Function}
+\newacronym{dut}{DUT}{Device Under Test}
+
+\newacronym{FRF}{FRF}{frequency response function}
+\newacronym{LTI}{LTI}{Linear time-invariant}
+
+\newacronym{LPM}{LPM}{Local Polynomial Method}
+\newacronym{LRM}{LRM}{Local Rational Method}
+\newacronym{LRIC}{LRIC}{Local Rational Method with Iterative Costfunction}
+
+\newacronym{dft}{DFT}{Discrete Fourier Transform}
+\newacronym{fft}{FFT}{Fast Fourier Transform}
+
+\makeglossaries

@@ -19,3 +19,15 @@ README.html
 *.auxlock
 *.figlist
 phdthesis.makefile
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.lol
+*.sbl
+*.slg
+*.slo
+*.sls
+*.xdy

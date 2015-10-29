@@ -3,14 +3,13 @@
 % arara: xelatex: { shell : yes, options : "-8bit" }
 % arara: make: { task : "-j 8 -f phdthesis.makefile"}
 % arara: biber
-%% arara: makeglossaries
+% arara: makeglossaries
 %% arara: make: { task : "-j 8 -f phdthesis.makefile"}
 % arara: xelatex: { shell : yes, synctex : yes, options : "-8bit" }
 %% arara: xelatex: { shell : yes, synctex : yes, options : "-8bit" }
 \documentclass[a4paper,headings=big,chapterprefix=true,parskip=full]{scrbook}
 \input{config/preamble.tex}
-\input{config/definitions.tex}
-\input{config/styles.inc.tex}
+
 
   \title{Development of User-friendly System Identification Techniques}
   \author{Egon Geerardyn}

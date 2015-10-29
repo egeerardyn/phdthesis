@@ -10,9 +10,10 @@
 
 \listoffigures
 \listoftables
+% \TOCInsert{section}{List of Listings}   \lstlistoflistings %TODO: fix this
 
+\printglossary[type=\acronymtype,style=long,toctitle={Acronyms}] %TODO: change format, set order, change title to "List of Abbreviations"
+\glsaddall[types=symbols]
+\printglossary[type=symbols,style=altlong4col,toctitle={List of Symbols}]
 
-%TODO: list of symbols
-%TODO: list of acronyms
-%TODO: speed up generation of figures with external
 \newpage
