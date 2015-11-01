@@ -1,0 +1,529 @@
+\section{Introduction}\label{sec:intro}
+Input design deals with the task of choosing an excitation signal in a way so that the information obtained from the experiment is maximized. This is a problem which has a long history in statistics. In system identification, the focus has mostly been on input design for dynamic systems. A common approach is to design the input spectrum and thereby maximizing the information matrix of the estimates, see e.g. \cite{Fedorov1972,Goodwin1977}.
+
+A complicating issue in identification of dynamic system is the fact that the information matrix often depends on the true parameter values. Consequently, an optimal input design, based on the information matrix, will depend on quantities that are not know at the time of the design. There are two main solutions to this discussed in the engineering literature:
+\begin{enumerate}
+\item Iterative input design where the design updated as more information about the system is available, see e.g. \cite{Hjalmarsson2005,Gevers2005}.
+\item Robust input design one tries to make the input design robust to uncertainty in the a priori knowledge of the true parameter values, see e.g. \cite{Rojas2007a} and references therein. 
+\end{enumerate}
+
+In this paper we focus on robust excitation and we address the situation where there is very limited a priori information about the system to be identified. We will consider input design when it is known that the system has resonances, possibly spanning a large frequency band. It is however not necessary to know how many resonances are in the system. The advantage of the proposed input design is that regardless of where these resonances are located, the resulting transfer function variance will be the same, for a given damping in the system.
+
+The following parts of the paper are structured as follows. Section~\ref{sec:inputDesign} briefly presents the necessary input design theory. Section~\ref{sec:logarithmic} deals with the situation when limit information is available. The idea is illustrated in a series of simulation examples in Section~\ref{sec:sim}. Finally, conclusions are drawn in Section~\ref{sec:conclusions}.
+
+\section{Input design}\label{sec:inputDesign}
+For the theoretical analysis, we consider SISO output error systems, i.e.
+\begin{align}
+y_t &=G(s,\theta)u_t  + e_t,
+\end{align}
+where $\{u_t\}$ is a known input sequence, $\{y_t\}$ the output sequence and
+$\{e_t\}$ is zero mean Gaussian white noise.
+$G$ is a rational, time invariant transfer function in continuous time. For notational simplicity, $s$ is used both as a complex variable and the differentiation operator, it should be clear from the context which is used. The transfer function is parameterized by the vector $\theta$. These parameters are unknown and therefore need to be estimated. 
+
+The goal of input design is to find an input that under the given experimental conditions, gives as much information as possible about the system. This can be done by considering the Fisher information matrix and optimizing the input power spectrum. 
+
+In open loop experiments, the scaled average information matrix is given by
+\begin{align}
+\IF & = \lim_{N\rightarrow\infty}
+          \frac{1}{N}
+            \sum_{t=1}^{N}
+              {\left(\frac{\partial\hat{y}_t}{\partial\theta}\right)
+               \left(\frac{\partial\hat{y}_t}{\partial\theta}\right)^{\T}},\\
+\frac{\partial\hat{y}_t}{\partial\theta}
+    & =\frac{\partial G(s,\theta)}{\partial \theta}u_t.
+\end{align}
+By Parseval's theorem, \IF can be expressed as
+\begin{align}
+\IF &= \frac{1}{\pi}
+         \int\limits_0^\infty \mathrm{Re}
+           \left\{      \frac{\partial G(j\omega)}{\partial \theta}
+                  \left[\frac{\partial G(j\omega)}{\partial \theta}\right]^{\HT}
+           \right\}
+           \phi_u(j\omega)
+           \dd{\omega} \text{.}
+\label{eq:IF}
+\end{align}
+The information matrix is a function of the input power spectrum, which is the only entity that can be used to improve the quality of the estimates. A common optimality criterion is D-optimality where $\det{\IF}$ is maximized \citep{Goodwin1977}.
+
+The information matrix tells us how good the individual parameter estimates are. However, if we are interested in estimating a transfer function $G(s,\theta)$ the quality of this estimate is of more importance. It is possible to find an expression for the variance of $\hat{G}(j\omega,\theta)$ using the Gauss approximation formula \citep{Ljung1999, Pintelon2001}. This gives
+\begin{align}
+\var{\hat{G}(j\omega)} &= \frac{\partial G^H(j\omega)}{\partial \theta}\IF^{-1}\frac{\partial G(j\omega)}{\partial \theta}.
+\label{eq:varG}
+\end{align}
+
+Typically, the input design formulation depends on the true system parameters. This means that the optimal input depends on the \emph{unknown} system that one wants to identify. Furthermore, classical input designs, such as the D-optimal, typically give signals with sparse spectra. This means that only a few frequencies are excited. A sparse spectrum is bad from a robustness point of view; there is very limited information about what happens at the unexcited frequencies. Therefore, a signal design to be optimal for one system may result in very bad estimates if applied to another system. To increase the robustness of the design, one could take a fraction, say $\alpha$, from the optimal power and redistribute over the whole frequency band of interest. From \eqref{eq:IF} and \eqref{eq:varG} we see that scaling the input power by $1-\alpha$, gives the transfer function variance
+\begin{align}
+\var{\hat{G}(j\omega)}\frac{1}{1-\alpha}.
+\end{align}
+This is a small loss while the increase in robustness can be significant if the added signal is robust. Such a robust signal is studied in the following parts of the paper.
+
+%Such a signal is discussed in the next section.
+
+%\subsection{Using prior system information}
+%Consider a system $G(s,\theta)$ where some initial guess of the parameter vector,
+% say $\hat{\theta}_0 \in \mathbb{R}^n$ exists. A D-optimal design can then be
+% found based $\hat{\theta}_0$. The resulting determinant is
+%\begin{align}
+%  \left[\det\IF^\star\right]^{-1}
+%    &= \min_{\phi_u(\omega)}
+%             \left[\det\IF\right]^{-1}
+%\end{align}
+%
+%The optimal input can be realized as sum of $n$ sinusoids.
+%Such an input is typically not robust to the initial guess since \TODO{\ldots}.
+%As a solution to this, the optimal input is modified so that a fraction of the
+%power in the optimal design is taken away and redistributed over all frequencies.
+%This ensures that some excitation power is available also at other frequencies.
+%
+%If $\lambda_i$ is the fraction of the input power at frequency $\omega_i$,
+%then the determinant of $\IF^\star$ can be expressed as \Cite{Goodwin}
+%\begin{align}
+%  \det\IF^\star &= \prod_{i = 1}^{n}
+%                      \lambda_i^2
+%                      \alpha(\omega_i).
+%\end{align}
+%The optimal input spectrum is
+%\begin{align}
+%  \phi_u^\star(\omega) &= \sum_{i=1}^{n}
+%                            \lambda_i^2
+%                            \delta(\omega,\omega_i)
+%\end{align}
+%If a fraction, say $\eta$, of the power is taken from each frequency and used
+%at other frequencies, the input spectrum can be written as
+%\begin{align}
+%  \phi_u(\omega) &= (1-\eta)
+%                      \sum_{i=1}^{n}
+%                        \lambda_i^2 
+%                        \delta(\omega,\omega_i)
+%                    + \phi_u^{\robust}(\omega),\\
+%                 &= (1-\eta) \phi_u^\star    (\omega)
+%                    +        \phi_u^{\robust}(\omega).
+%\end{align}
+%The term $ \phi_u^{\robust}$ is the part that introduces robustness and
+%must be such that
+%\begin{align}
+%  \int_0^{\pi} \phi_u^{\robust}(\omega) \dd{\omega} &= n \eta.
+%\end{align}
+%The spectrum $\phi_u^{\robust}(\omega)$ can for example be chosen as
+%a discrete spectrum, e.g. from a multi-sine signal, or as
+%a continuous spectrum. The resulting information matrix for the robust input is hence
+%\begin{align}
+%  \IF &= (1-\eta)\IF^\star + \IF^\robust
+%\end{align}
+%The determinant is therefore
+%\begin{multline}
+%\det\left[(1-\eta)\IF^\star + \IF^\robust\right]
+%  \geq \det\left[(1-\eta)\IF^\star\right] + \det\left[\IF^\robust\right] \\
+%  =  (1-\eta)^n\det\left[\IF^\star\right] + \det\left[\IF^\robust\right]
+%  \text{.}
+%\end{multline}
+%The inequality holds since the information matrix is a positive, semi-definite
+%matrix. Hence the largest possible loss in the determinant due to the robustness
+% is given by the factor $(1-\eta)^n$.
+%\TODO{This bound is often very low, maybe better one should be found!}
+
+
+\section{Logarithmic power distributions}\label{sec:logarithmic}
+When no information about the system is known, it is desirable that
+the excitation signal is such that regardless of the true system characteristics,
+the resulting estimates have equally good statistical properties.
+This can be ensured by a suitable choice of the input power spectrum.
+
+ \subsection{A second order system}
+Consider the second order system
+\begin{align}
+y_t &= G(s,\theta)=\frac{1}{\frac{s^2}{\omega_0^2} + 2\frac{\damping}{\omega_0}s + 1}u_t,
+\label{eq:2ndOrderSys}
+\end{align}
+with parameters $\theta=[\omega_0\;\damping]^{\T}$. The resonance frequency of the system is $\wR \isdef \sqrt{1-\damping^2}\omega_0$
+and the $3\unit{dB}$ bandwidth of the system is $\wdB \isdef 2\damping\wR$.
+Since information is local in the frequency domain, the input signal power inside $\wdB$, contributes significantly to the information matrix while input power outside $\wdB$ has a smaller contribution. This can be seen by considering the optimal design for a second order system. From \citep{Goodwin1977} we have that the D-optimal design for \eqref{eq:2ndOrderSys} is a single sinusoid at frequency
+\begin{align}
+\omega^\star =\frac{\omega_0\left(\left(1-2\damping^2\right)+\left(\left(1-2\damping^2\right)^2+15\right)^{1/2}\right)^{1/2}}{\sqrt{5}}.
+\label{eq:optFreq}
+\end{align}
+For systems with low damping, i.e $\damping\ll1$ , $\omega^\star\approx\omega_0$, which is inside the bandwidth of the system. From \eqref{eq:optFreq} it is clear that the optimal design depends on the resonance of the system to be identified. Input design can be based on a guess of $\omega_0$, however if this guess is wrong, the resulting estimates may be unacceptable \citep{Rojas2007}.
+
+When no information about the system is available, we propose using an input power spectrum with a logarithmic power distribution. This can be achieved either with a continuous bandlimited $1/f$ spectrum or a quasi-logarithmic multisine spectrum \citep{Pintelon2001}. We choose to work with an equidistant frequency grid with resolution $f_0$ and design the input in the frequency band $[\omega_0k_{min}\; \omega_0k_{max}]$, where the resolution is $k_0=1/T_{meas}$ and $T_{meas}$ is the measurement time. Hence, a finite measurement time limits the frequency resolution and therefore we have to put a lower limit on the frequency band of interest. Moreover, we can only impose the logarithmic distribution sufficiently well if $k_{min}$ is large enough.
+
+First, we look at the bandlimited $1/f$ power spectrum given by
+\begin{align*}
+\label{eq:pink}
+\phi_u(\omega) &=\begin{cases}\frac{1}{|\omega|} &\text{if $|\omega|\in[\omega_0k_{min}\; \omega_0k_{max}]$,}\\
+                        0           &\text{otherwise}.
+            \end{cases}
+\end{align*}
+With this input spectrum, the power inside $\wdB$ is
+\begin{align}
+  \frac{1}{2\pi}
+    \int\limits_{(1-\damping)\wR}^{(1+\damping)\wR}
+     \frac{1}{\omega} \dd{\omega}
+  = \frac{1}{2\pi}
+    \ln{\frac{1+\damping}{1-\damping}},
+\end{align}
+which is independent of $\omega_0$. The robustness of the $1/f$ input has been noted previously in e.g. \cite{Rojas2007}
+
+Second, we consider the power spectrum of the quasi-logarithmic multisine signal [\cite{Pintelon2001}] given by
+\begin{align}
+  \phi_u(\omega) &= \frac{1}{M}\sum_{k=1}^{M}{\delta(\omega,\omega_k)},
+\end{align}
+where $\omega_{k}/\omega_{k+1} \approx \alpha_{f} = e^{\Delta}$.
+Hence, the number of spectral lines inside \wdB is 
+\begin{align}
+\left\lfloor\ln{\left[\frac{1+\damping}{1-\damping}\right]}\Delta^{-1}\right\rfloor,
+\end{align}
+where $\lfloor\cdot\rfloor$ is the nearest integer rounded towards $0$. The number of spectral lines is independent of $\omega_0$. 
+
+More generally, a multisine can be defined as:
+\begin{equation}
+ u \left[ n\right] = \frac{1}{\sqrt{F}}
+   \sum_{k=1}^{F} 
+     A_k 
+     \sin 
+       \left(\frac{2\pi n k f_0}{f_s} + \psi_k \right)
+  \label{eq:MS}
+\end{equation}
+where $A_k$ and $\psi_k$ are its amplitude and phase spectrum; $f_s$ is the
+sampling frequency and $f_0 = \frac{f_s}{N}$ the base frequency with $N$ the 
+number of points in a period. 
+
+To construct a quasi-logarithmic multisine, only frequency lines $f_j$ within the set of available sine components $\left\{f_0, 2 f_0, \ldots, F f_0  \right\}$ are excited for which the ratio of two consecutive frequencies $f_j$ and $f_{j-1}$ is approximately constant: $\frac{f_{j-1}}{f_j} \approx \alpha_f$.
+
+The result of these two choices of input power spectrum is that for a given damping, $\var{\hat{G}}$ is approximately the same independent of $\omega_0$. 
+This is illustrated in Section~\ref{sec:sim}.
+
+\subsection{Sums of second order systems}
+This section extends the previous section to more general systems than second order.
+Consider a system
+\begin{align}
+G(s,\theta) &= \sum_{i=1}^{K} G_i(s,\theta_i)
+             =\sum_{i=1}^{K}  \frac{1}
+                                   {   \frac{s^2}{\omega_i^2}
+                                    + 2\frac{\damping_i}{\omega_i}s
+                                    + 1},\\
+\theta_i&=[\omega_i\;\damping_i]^{\T}.
+\label{eq:sumSys}
+\end{align}
+The systems  $G_i$ will be called the \emph{sub-systems} of $G$. With loss of generality, we assume that $\omega_1 < \omega_2 < \cdots < \omega_K$. To properly identify the system $G$, excitation is required such that all
+subsystems are properly excited, regardless of their individual resonance frequencies.
+
+The information matrix for systems of the type \eqref{eq:sumSys} will have a block structure commensurate with the dimension of $\theta_i$ given by
+\begin{align}
+\IF &= \frac{1}{\pi}
+\begin{bmatrix}
+  \partial G_{1,1}        &\partial G_{1,2}       &\cdots         &\partial G_{1,K}\\
+  \partial G_{2,1}        &\partial G_{2,2}       &\cdots         &\partial G_{2,K}\\
+  \vdots                  &\vdots                 &\ddots         &\vdots          \\
+  \partial G_{K,1}        &\partial G_{K,2}       &\cdots         &\partial G_{K,K}
+\end{bmatrix},\\
+\partial G_{i,j} &= \int_0^\infty
+                      \mathrm{Re}\left\{
+                          \frac{\partial G_i}
+                               {\partial \theta_i}
+                          \frac{\partial G_j^{\HT}}
+                               {\partial \theta_j}
+                                \right\}
+                      \phi_u(\omega)\dd\omega.
+\end{align}
+
+Furthermore, when the damping of the systems is low or the resonances of the sub-systems are well separated, the estimates decouple in the sense that the elements off-diagonal blocks become small.
+The effect is that the variance of the estimated transfer function approximately becomes the sum of the variances of the sub-systems.
+To illustrate this we look at a system with $K=2$, i.e. the sum of two second order systems.
+The conclusions from the example are easily extended to systems consisting of more than two sub-systems.
+
+\subsubsection{Example: Sum of two second order systems}
+Consider the system
+\begin{align}
+G(s,\theta) &= G_1(s,\theta_1) + G_2(s,\theta_2)%\\
+%&=\frac{1}{\frac{s^2}{\omega_1^2} + 2\frac{\damping_1}{\omega_1}s + 1} + \frac{1}{\frac{s^2}{\omega_2^2} + 2\frac{\damping_2}{\omega_2}s + 1},
+\end{align}
+with $\theta_1=[\omega_1\;\damping_1]^{\T}$ and $\theta_2=[\omega_2\;\damping_2]^{\T}$.
+The information matrix for this system is
+\begin{align}
+\IF &=
+       \begin{bmatrix}
+         \partial G_{1,1}  & \partial G_{1,2}\\
+         \partial G_{2,1}  & \partial G_{2,2}
+       \end{bmatrix}.
+\label{eq:infoEx}
+\end{align}
+To investigate the decoupling, we study the $(1,1)$ elements of blocks $\partial G_{1,1}$ and $\partial G_{1,2}$ of the information matrix \eqref{eq:infoEx}, when the input spectrum \eqref{eq:pink} is used; similar arguments can be made for the other elements of the two matrix blocks.
+
+Direct calculations for $\damping < 1$ give
+\begin{align}
+\label{eq:auto}
+\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_1^{\HT}}{\partial \omega_1}\right\}\frac{1}{\omega}\dd\omega = \frac{\pi}{16\omega_1^2}\damping^{-3} + \mathcal{O}(\damping^{-1}).
+\end{align}
+For the corresponding element in $\partial G_{1,2}$ we start by bounding the absolute value of the integral by
+% \begin{align}
+% &\left|\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_2^{\HT}}{\partial \omega_2}\right\}\frac{1}{\omega}\dd\omega\right| \leq\label{eq:cross1} \\
+% &\int_0^\infty\left|\mathrm{Re}\left\{\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_2^{\HT}}{\partial \omega_2}\right\}\right|\frac{1}{\omega}\dd\omega \leq \\
+% &\int_0^\infty\left|\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_2^{\HT}}{\partial \omega_2}\right|\frac{1}{\omega}\dd\omega.\label{eq:cross}
+% \end{align}
+\begin{gather}
+\left|\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_2^{\HT}}{\partial \omega_2}\right\}\frac{1}{\omega}\dd\omega\right|
+\qquad \qquad \qquad \qquad \qquad
+\label{eq:cross1} \\
+\leq
+\int_0^\infty\left|\mathrm{Re}\left\{\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_2^{\HT}}{\partial \omega_2}\right\}\right|\frac{1}{\omega}\dd\omega
+\leq \\
+\qquad \qquad \qquad \qquad \qquad
+\int_0^\infty\left|\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_2^{\HT}}{\partial \omega_2}\right|\frac{1}{\omega}\dd\omega \text{.}\label{eq:cross}
+\end{gather}
+To proceed, consider
+\begin{align}
+\frac{\partial G_1}{\partial \omega_1} &= \frac{2\damping j\omega\left[1+\frac{j\omega}{\omega_1\damping}\right]}{\omega_1^2\left[1+2\frac{\damping j\omega}{\omega_1} + \left(\frac{j\omega}{\omega_1}\right)^2\right]^2},
+\end{align}
+which has zeros in $j\omega=\left\{0, \damping\omega_1\right\}$. Hence $\left|\frac{\partial G_1}{\partial \omega_1} \right|$ has asymptotical slope 20\unit{\frac{dB}{dec.}} for low frequencies, at $j\omega=\damping\omega_1$ the slope increases to 40\unit{\frac{dB}{dec.}}. There are four poles which give a $-40$\unit{\frac{dB}{dec.}} roll-off after the peak. The shape of $\frac{\partial G_1}{\partial \omega_1} $ is illustrated in Fig.~\ref{fig:dG}.
+
+A crude, albeit useful, bound on the integrand in \eqref{eq:cross} is
+\begin{align}
+&f\left(\omega,\theta_1,\theta_2\right)=
+  \begin{cases}
+   \frac{\omega^2}{\omega_1^2}
+   \frac{1}{\omega}
+   \partial G_1^\infty
+                                       & \text{if $\omega \leq \omega_1$,}\\
+   \phantom{\frac{\omega^2}{\omega^2}}
+   \frac{1}{\omega}
+   \partial G_1^\infty
+                                       & \text{if $\omega_1 < \omega < \omega_2$,}\\
+   \frac{\omega_2^2}{\omega^2}
+   \frac{1}{\omega}
+   \partial G_1^\infty
+                                       & \text{if $\omega \geq \omega_2$,}
+  \end{cases}
+\end{align}
+where $\partial G_1^\infty = \left\|\frac{\partial G_1}{\partial \omega_1}\right\|_\infty$. Again, direct calculations give
+\begin{align}
+\int_0^\infty f\left(\omega,\theta_1,\theta_2\right)\dd\omega = \frac{\omega_1\left(2-\ln{\frac{\omega_1^2}{\omega_2^2}}\right)}{\omega_2^2}\damping^{-2} + \mathcal{O}(1).
+\end{align}
+Hence \eqref{eq:cross1} cannot grow faster than $\mathcal{O}(\damping^{-2})$ as $\damping\rightarrow0$. From this analysis we conclude that:
+\begin{itemize}
+\item the integral \eqref{eq:cross1} decreases as $\omega_2-\omega_1$ increases, and
+\item lower damping further decreases the integral \eqref{eq:cross1} in comparison to \eqref{eq:auto}.
+\end{itemize}
+
+\begin{figure}
+\centering
+\input{\thisDir/figs/rolloff.tikz}
+\caption{The shape of $\frac{\partial G_1}{\partial \omega_1}$. The roll-off around the peak is significant and depends on the damping of the system.}
+\label{fig:dG}
+\end{figure}
+
+To further illustrate the decoupling of the two systems, we calculate \eqref{eq:infoEx} for different values of the damping $\damping$ and separations of the two resonances $\omega_1$ and $\omega_2$. If the separation is taken in terms of $\wdB$-units for the lower resonance, the result only depends on the difference $\omega_1-\omega_2$ and not on the actual frequencies. The resulting information matrix is then normalized so that the largest element is $1$.
+
+In Fig.~\ref{fig:coupling} the largest element in $\partial G_{1,2}$ is plotted for different dampings and separations. It is clear that highly resonant systems have a large degree of decoupling and that resonances that are well separated increases the decoupling. The diagonal blocks of the normalized $\IF$ in all cases have some elements close to 1. In this example, the $\damping$ is set to be the same in both sub-systems. Using different dampings in the sub-systems would, however, not change the argument, the systems with the lowest damping will limit the separation.
+
+Based on the above arguments, we make the following approximation of the information matrix for systems with low damping,
+\begin{align}
+\IF&\approx \begin{bmatrix}\partial G_{1,1} &0\\
+                        0&\partial G_{2,2}\end{bmatrix}.
+\end{align}
+Hence the variance of the estimate $\hat{G}(s,\theta)$ becomes
+\begin{align}
+\var{\hat{G}(\omega)} &\approx \frac{\partial G^{\HT}(e^{j\omega})}{\partial \theta}\begin{bmatrix}\partial G_{1,1} &0\\
+                        0&\partial G_{2,2}\end{bmatrix}^{-1}\frac{\partial G(e^{j\omega})}{\partial \theta}\\
+&=\var{\hat{G}_1(\omega)} + \var{\hat{G}_2(\omega)}.
+\end{align}
+
+This results extends mutatis mutandis to systems consisting of more sub-systems.
+
+\begin{figure}
+\centering
+\input{\thisDir/figs/coupling.tikz}
+\caption{The element with the largest absolute value in the off-diagonal blocks of the normalized information matrix for different dampings.
+         The different plots are for different separations of the resonance frequencies, from 4\wdB to 64\wdB.
+         The arrow indicates the direction of increasing separation.}
+\label{fig:coupling}
+\end{figure}
+
+\section{Simulations}\label{sec:sim}
+We considered a linear second order system that is to be identified, with the
+only prior knowledge that its resonance frequency $\fR$ lies in a known
+frequency band that may span several decades. 
+Our goal is to identify such a system by means of a single excitation signal, 
+such that the frequency response function (FRF) of the second order systems that are
+equally damped are identified with the same uncertainty near their resonance.
+
+\subsection{Excitation}
+To excite the system under test, we used quasi-logarithmic (quasi-log) random-phase multisines. 
+Their phase spectrum $\psi_{k}$ is the result of a uniform random process over $[0,2\pi[$.
+A logarithmic spacing of the frequency components causes each decade within the band of interest to contain the same number of frequency components.
+
+The quasi-log multisines were sampled at $f_s = 65\,536 \unit{Hz}$
+and consisted of $N= 65\,536$ points such that the frequency spacing was $f_0 = 1\unit{Hz}$ for the linear grid.
+This allowed the signal to cover four decades in the frequency domain,
+from which we did not use the first decade.
+Only frequencies between $1\unit{Hz}$ and $16\,384\unit{Hz}$ are excited, such that aliasing was avoided.
+
+For the quasi-log excitation, a frequency ratio of $\alpha_f = 1.05$ was chosen
+and the amplitude spectrum was kept constant $A_k = A_{\mathrm{in}}$. This
+amplitude was normalized such that the root mean square (RMS) value of $u[n]$
+was equal to $1$.
+
+The desired frequency ratio $\alpha_f$ may not be attainable for low frequencies,  due to a lack of frequency resolution.
+This causes a less dense coverage of the lowest frequency bands.
+
+\subsection{System under test}
+The systems we studied are low-pass second order systems with a given damping
+$\damping$, resonance frequency $\fR$ and a DC gain of $0 \unit{dB}$. Such systems
+can be represented in the discrete frequency domain by a transfer
+function of the form:
+\begin{equation}
+  G \left( z \right) = \frac{         b_2  z^{2} + b_1 z + b_0}%
+                            {\phantom{a_2} z^{2} + a_1 z + a_0}
+  \text{.}
+  \label{eq:tf}
+\end{equation}
+
+These discrete-time systems were constructed using the \matlab\ function \texttt{cheby1}.
+
+An output error (OE) model was used to describe the system under test with the
+input $u[n]$, the system output $y_0[n]$, the white noise source $e[n]$
+and the measured output $y[n] = y_0[n] + e[n]$.
+
+\subsection{Simulation setup}
+First, we considered a system with damping $\damping=0.05$ and resonant
+frequency $\fR = 40 \unit{Hz}$.
+
+The output noise $e[n]$ was white Gaussian noise with a standard deviation
+$\sigma_e = 0.1123$ which was approximately $10$ times smaller than the
+root mean square (RMS) value $y_0[n]$.
+
+The simulations were repeated $R=1000$ times for each system with different realizations of the multisines $u[n]$ and the noise $e[n]$.
+In order to avoid that all simulations started with zero initial conditions, $N + N_{\mathrm{trans}}$ data points were generated, from which the first $N_{\mathrm{trans}}$ points of each simulation were discarded. 
+
+For each of these simulations, the system was identified by means of the \texttt{oe}
+function in the \matlab\ System Identification Toolbox\Cite{TDIDENT}.
+To prevent convergence issues, we used the true model parameters
+$\left\{ a_0, a_1, b_0, b_1, b_2 \right\}$ and model structure
+as mentioned in \eqref{eq:tf} as starting values.
+This increases the probability of the search converging to the global minimum, which
+allowed to focus on the real quantity of interest: the variance of the FRF.
+
+\subsection{Results for a single system}
+The outcome of the simulation over these repetitions are displayed in \figref{fig:FRF1}.
+These results show the averaged estimated FRF ($\hat{G}$), the standard deviation  $\sigma_{\hat{G}}$ on these estimates, the true FRF ($G_0$) and the bias of the estimates ($\Bias (\hat{G})$).
+
+These graphs show that the bias is more than $20 \unit{dB}$ less than the variance.
+This means that the mean square error (MSE) of the estimated FRFs is mainly caused by the variance $\sigma_{\hat{G}}^2$ and not by a large bias.
+
+\begin{figure}[hpt]
+  \centering
+  \setlength{\figurewidth}{0.8\columnwidth}
+  \setlength{\figureheight}{5cm}
+  \input{\thisDir/figs/Sys005log0-1.tikz}
+  \caption{FRF of a second order system with $\fR=40\unit{Hz}$ and $\damping=0.05$ 
+           along with its variance and bias.}%
+  \label{fig:FRF1}
+\end{figure}
+
+\subsection{Simulations on a range of second order systems}
+The simulation carried out above was repeated for a more general set of systems.
+We studied systems with both a damping of $\damping=0.05$ (as above) and $\damping=0.2$.
+For these different damping values, systems with resonant frequencies
+$\fR \in \{ 40  \unit{Hz}\!,$
+          $ 80  \unit{Hz}\!,$
+          $200  \unit{Hz}\!,$
+          $400  \unit{Hz}\!,$
+          $800  \unit{Hz}\!,$
+          $  2 \unit{kHz}\!,$
+          $  4 \unit{kHz}\!\}$ were considered.
+The parameters pertaining to sampling and the excitation signal were left unchanged
+from the previous simulations. For the systems with a damping of $0.2$, $\sigma_e$
+was put at $0.0678$, which is approximately $10\%$ of the RMS value of $y_0[n]$.
+To allow an easy comparison with a multisine with an equidistant (linear) frequency grid, we also evaluated the variance for such an excitation signal (which had all other parameters determined similarly to the quasi-log multisines).
+
+In \figref{fig:damping005} and \figref{fig:damping02} the results from these
+simulations are presented in a condensed form. 
+They show the mean estimated FRFs ($\hat{G}$), the true FRFs ($G_0$) and the corresponding standard deviations ($\sigma_{\hat{G}}$) near the resonance frequency of the simulated systems.
+The bias was at least $20\unit{dB}$ smaller than the standard deviation as well, but is omitted from the figures for clarity.
+
+We can verify that for the smaller damping ($\damping=0.05$ in \figref{fig:damping005})
+the variance near the resonance is almost identical for all systems at $-39.3\unit{dB} \pm 1.8 \unit{dB}$. 
+
+For the systems that are damped more ($\damping=0.2$ in \figref{fig:damping02}),
+we observe that the variance is nearly constant over the frequency range as well.
+The standard deviation lies at around $-49.3 \unit{dB} \pm 2.2\unit{dB}$.
+Systems that have a lower resonance frequency, exhibit a slightly higher variance 
+on their estimated FRF (near the resonance). 
+
+The logarithmically-spaced excitation provides a much more constant dependency of resonance frequency to the variance than a linearly-spaced multisine, where the variance varies over respectively $35$ and $25 \unit{dB}$.
+
+\begin{figure}%
+  \centering
+  \setlength{\figurewidth}{0.8\columnwidth}
+  \setlength{\figureheight}{5cm}
+  \input{\thisDir/figs/damping005-cmp.tikz}
+  \caption{Comparison of the FRF and corresponding variances for
+           different second order systems with constant damping
+           $\damping=0.05$ but different resonance frequencies around
+           their respective resonance frequencies, for both a quasi-log 
+           and a linear multisine excitation.}%
+  \label{fig:damping005}
+\end{figure}
+
+\begin{figure}%
+  \centering
+  \setlength{\figurewidth}{0.8\columnwidth}
+  \setlength{\figureheight}{5cm}
+  \input{\thisDir/figs/damping02-cmp.tikz}
+  \caption{Comparison of the FRF and corresponding variances for
+           different second order systems with constant damping
+           $\damping=0.2$ but different resonance frequencies around
+           their respective resonance frequencies, for both a quasi-log 
+           and a linear multisine excitation.}%
+  \label{fig:damping02}
+\end{figure}
+
+\subsection{Simulation example on higher order systems}
+To show that the suggested method also works on more general systems,
+we considered a system that consists of two second order systems \eqref{eq:tf} in 
+parallel. This is equivalent to adding their respective transfer functions,
+therefore, the resulting transfer function is of the form:
+\begin{equation}
+  G \left( z \right) 
+  = \frac{         b_4 z^{4} + b_3 z^{3} + b_2 z^{2} + b_1 z + b_0}%
+         {\phantom{a_4}z^{4} + a_3 z^{3} + a_2 z^{2} + a_1 z + a_0}
+  \text{.}
+\label{eq:tfO4}
+\end{equation}
+
+For example, a system composed of two second order systems with $\damping = 0.2$
+and $\fR = 400 \unit{Hz}$ for the first system and $\fR=4 \unit{kHz}$ for the second
+system was simulated similarly to the previous examples. The standard deviation
+of the noise $\sigma_e$ was put at $0.0678$. The corresponding results are 
+shown in \figref{fig:sumSys}.
+
+\begin{figure}%
+  \centering
+  \setlength{\figurewidth}{0.8\columnwidth}
+  \setlength{\figureheight}{5cm}
+  \input{\thisDir/figs/Sum02log0-2.tikz}
+  \caption{FRF for the sum of two second order systems with $\damping=0.2$ and
+           resonances at $ 400 \unit{Hz}$ and 4 \unit{kHz}.}%
+  \label{fig:sumSys}
+\end{figure}
+
+We observe that the amplitude of the FRF is $9.8\unit{dB}$ and $8.1\unit{dB}$ at the resonant frequencies.
+The standard deviation on the FRF lies respectively $59.7 \unit{dB}$ and $59.6 \unit{dB}$ lower than the FRF at these frequencies. 
+This shows that both resonances are captured with a practically identical error. 
+
+\subsection{Conclusion}
+The variance on the FRF near resonances with identical damping is nearly independent of the resonance frequency when a quasi-log multisine is used as excitation signal. 
+This result was obtained for second order sections and illustrated on a more general system.
+
+%%Conclusion
+\section{Conclusions}\label{sec:conclusions}
+In this paper we recalled that the design of an optimal excitation signal may require prior system knowledge that is insufficiently accurate or even unavailable. 
+When only the limited prior knowledge that the system resonances lie in a certain (possibly wide) frequency band, we can create a suitable class of excitation signals. 
+These signals are required to yield estimates having a variance that is independent of the resonance frequencies of the system. 
+We showed that such a signal should have a power spectrum that is distributed in $1/f$.
+In this paper (quasi-)logarithmic multisines were considered to serve this purpose.
+
+By means of simulations for different second order sub-systems, it is confirmed that for a given damping, the variance of the estimated is almost independent of the actual resonance frequencies of the system within the frequency band of interest.
+The same results were found for higher order systems and illustrated for an example. 
+A theoretical motivation for these results is provided.
+
+The proposed excitation signals therefore offer an easy and efficient way to identify systems in a wide frequency range such that an accuracy level that is independent of the resonance frequencies can be attained for the complete frequency span.

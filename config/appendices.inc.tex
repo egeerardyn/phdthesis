@@ -1,0 +1,8 @@
+\usepackage{appendix}
+\usepackage{etoolbox}
+
+
+\AtBeginEnvironment{subappendices}{%
+\chapter*{Appendix}
+\addcontentsline{toc}{section}{Appendices}
+}

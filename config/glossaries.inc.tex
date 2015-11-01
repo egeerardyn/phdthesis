@@ -24,14 +24,36 @@ firstplural={#3\glspluralsuffix\protect\footnote{#3: #4}},
 
 
 %% SYMBOLS
-\newsymbolglos{approx}{\approx}{Approximately equal}
-\newsymbolglos{bydef}{\isdef}{Equal by definition}
+\newsymbolglos{0-placeholder}{\placeholder}{Placeholder symbol}
+
+\newsymbolglos{E-approx}{\approx}{Approximately equal}
+\newsymbolglos{E-bydef}{\isdef}{Equal by definition}
+\newsymbolglos{E-propto}{\propto}{Proportional to}
+
+\newsymbolglos{norm}{\norm[p]{\placeholder}}{$p$-norm of a signal or system $\placeholder$}
+\newsymbolglos{norm-hinf}{\norm[\infty]{\placeholder}}{\Hinf norm of the system $\placeholder$}
+\newsymbolglos{norm-two}{\norm[2]{\placeholder}}{$\Hardy_{2}$ norm of the system $\placeholder$}
+
 \newsymbolglos{imagunit}{j}{The imaginary unit, $j = \sqrt{-1}$}
-\newsymbolglos{SetR}{\mathbb{R}}{Set of the real numbers}
-\newsymbolglos{SetC}{\mathbb{C}}{Set of the complex numbers}
-\newsymbolglos{SetN}{\mathbb{N}}{Set of the natural numbers}
-\newsymbolglos{w}{\omega}{Angular frequency or pulsation ($\omega = 2\pi f$) in $\unit{rad/s}$}
-\newsymbolglos{f}{f}{Frequency in $\unit{Hz}$}
+\newsymbolglos{lcm}{\lcm}{Least common multiple}
+\newsymbolglos{cardinality}{\numberOf \placeholder}{Number of elements (cardinality) in the set \placeholder}
+\newsymbolglos{SetR}{\RealNumbers}{Set of the real numbers}
+\newsymbolglos{SetZ}{\IntegerNumbers}{Set of integer numbers}
+\newsymbolglos{SetC}{\ComplexNumbers}{Set of the complex numbers}
+\newsymbolglos{SetN}{\NaturalNumbers}{Set of the natural numbers}
+\newsymbolglos{w}{\omega}{Angular frequency (pulsation)}
+
+\newsymbolglos{sys-resonance}{\wn}{Natural (resonance) frequency of a system}
+\newsymbolglos{sys-damping}{\damping}{Relative damping of a system}
+\newsymbolglos{sys-timeconst}{\tau}{Time constant of a system}
+
+\newsymbolglos{count-mc}{n_{\mathrm{MC}}}{Number of Monte Carlo runs}
+\newsymbolglos{count-theta}{n_{\theta}}{Number of parameters}
+
+\newsymbolglos{operator-exp}{\expval{\placeholder}}{Expected value of \placeholder}
+\newsymbolglos{operator-pinv}{\pinv{\placeholder}}{Moore-Penrose pseudo-inverse of the matrix \placeholder}
+\newsymbolglos{operator-tran}{\placeholder^{\TT}}{Transpose of the matrix \placeholder}
+\newsymbolglos{operator-ht}{\placeholder^{\HT}}{Hermitian transpose of the matrix \placeholder}
 
 %% ACRONYMS
 \newacronym{VUB}{VUB}{Vrije Universiteit Brussel}
@@ -51,6 +73,9 @@ firstplural={#3\glspluralsuffix\protect\footnote{#3: #4}},
 \newacronym{LPM}{LPM}{Local Polynomial Method}
 \newacronym{LRM}{LRM}{Local Rational Method}
 \newacronym{LRIC}{LRIC}{Local Rational method with Iterative Cost function}
+\newacronym{TRIMM}{TRIMM}{Transient Impulse Modeling}
+
+\newacronym{RFIR}{RFIR}{Regularized Finite Impulse Response}
 
 \newacronym{DFT}{DFT}{Discrete Fourier Transform}
 \newacronym{FFT}{FFT}{Fast Fourier Transform}

@@ -16,11 +16,15 @@
 \DeclareMathOperator{\Bias}{Bias}
 \DeclareMathOperator{\MSE}{MSE}
 \DeclareMathOperator{\RootMeanSquare}{RMS}
+\DeclareMathOperator{\lcm}{lcm}
 
 \DeclareMathOperator{\RealPart}{\mathrm{Re}}
 \DeclareMathOperator{\ImagPart}{\mathrm{Im}}
 \DeclareMathOperator{\RealImagPart}{\stackrel{\mathrm{Re}}{\mathrm{Im}}}
 \DeclareMathOperator{\Diagonal}{\mathrm{diag}}
+
+\newcommand{\Hardy}{\ensuremath{\mathcal{H}}}
+\newcommand{\Hinf}{\ensuremath{\Hardy_{\infty}}}
 
 \newcommand{\legref}[2][1]{(\ref{#2})}
 
@@ -62,7 +66,7 @@
 \newtheorem{lemma}{Lemma}
 
 
-\newcommand{\expval}[1]{\mathbb{E}\left\{#1\right\}} %expected value
+\newcommand{\expval}[1]{\Expectancy\left[#1\right]} %expected value
 \newcommand{\unit}[1]{\ensuremath{\,\mathrm{#1}}}
 \newcommand{\SNR}{\ensuremath{\mathrm{SNR}}}
 \newcommand{\RMSE}{\ensuremath{\mathrm{RMSE}}}
@@ -71,6 +75,7 @@
 \renewcommand{\T}{\ensuremath{\mathrm{T}}} %TODO: where is the original definition of \T ?
 \newcommand{\HT}{\ensuremath{\mathrm{H}}}
 \renewcommand{\C}{\ensuremath{\mathrm{C}}}
+\newcommand{\pinv}[1]{\ensuremath{#1^{+}}}
 
 \newcommand{\real}[1]{\ensuremath{\RealPart \left[#1\right]}}
 \newcommand{\imag}[1]{\ensuremath{\ImagPart \left[#1\right]}}
@@ -82,6 +87,7 @@
 \newcommand{\norm}[2][]{\ensuremath{\left\| #2 \right\|_{#1}}}
 \newcommand{\FisherInformation}{\ensuremath{\mathrm{Fi}}}
 \newcommand{\Fi}[1]{\ensuremath{\FisherInformation \left(#1\right)}}
+\newcommand{\IF}{\ensuremath{\mathbf{I}_F}\xspace}
 
 \newcommand{\CramerRao}{\ensuremath{\mathrm{CR}}}
 \newcommand{\CR}[1]{\ensuremath{\CramerRao \left(#1\right)}}
@@ -132,6 +138,7 @@
 
 \newcommand{\E}[2][]{\ExpectedValue_{#1} \left[ #2 \right]}
 \newcommand{\Var}[2][]{\Variance_{#1} \left[ #2 \right]}
+\newcommand{\var}[2][]{\Variance_{#1} \left[ #2 \right]}
 \newcommand{\Cov}[3][]{\Covariance_{#1} \left[ #2 , #3 \right]}
 
 \newcommand{\round}[2][\QN]{ \left[_{#1} #2 \right]}
@@ -186,6 +193,8 @@
 
 %\renewcommand{\fMax}[1]{\ensuremath{f_{#1+1/2}}}
 %\renewcommand{\fMin}[1]{\ensuremath{f_{#1-1/2}}}
+  
+\newcommand{\placeholder}{\ensuremath{\bullet}}
 
 \newcommand{\DT}{\ensuremath{\mathrm{DT}}}
 \newcommand{\CT}{\ensuremath{\mathrm{CT}}}

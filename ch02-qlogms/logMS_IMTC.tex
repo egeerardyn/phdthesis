@@ -1,6 +1,5 @@
 \TODO{reshape figures}
 \TODO{rename labels}
-\TODO{import specific bib items}
 % \begin{abstract}
 % The logarithmic distribution of spectral lines in excitation signals is widely used to measure the transfer functions of dynamic systems over a wide frequency band, covering several decades.
 % Periodic signals are very popular in many advanced dynamic signal analyzers.
@@ -74,6 +73,9 @@
   \text{.}
   \label{eq:secondOrderSystemCT}
   \end{equation}
+\TODO{This is actually wrong, rather, it should be $\frac{as-b}{cs^2 + ds + 1}$. However, the difference in information is rather small around the actual resonance. See script in NnF folder.}
+\TODO{write out in partial fraction expansion, use script to show that in practice, only a few parameters matter. This will be well-approximated by considering only the second order system of the paper.}
+
   The DC gain $\dc$, the (relative) damping $\damping$ and the natural pulsation $\wn$ are a more intuitive parametrization for this system than the generic polynomial coefficients $a_i$ and $b_i$ used in \eqref{eq:model}.
   The corresponding resonance pulsation is $\wR \isdef \wn \sqrt{1-\damping^2}$.
   The $3\unit{dB}$ bandwidth around the resonance is given by $\wdB = 2\damping\wn$ for systems that have a sufficiently low damping.
@@ -106,7 +108,7 @@
   \TODO{put block diagram here}
 
 \subsection{Multisine Excitations}
-  To excite the system under test we will use multisine excitations \citep{Pintelon2001} with $F$ commensurate frequency components:
+  To excite the system under test we will use multisine excitations \citep{Pintelon2001} with $F$ frequency components:
   \begin{equation}
     u \left( t\right) = \frac{1}{\sqrt{F}}
    \sum_{k=1}^{F} 
@@ -124,6 +126,21 @@
     the amplitude of the spectral lines $A_k$ and
     the frequency grid $\left\{f_1, \ldots, f_F \right\}$.
   For simplicity, we will assume this grid is sorted, i.e. $f_1 < f_2 < \ldots < f_F$.
+  Note that the $k^{\text{th}}$ term in \eqref{eq:MultisineCT} is has a period $T_k \isdef f_k^{-1}$.
+
+  Consequently, the complete multisine has a period of
+  \begin{equation}
+    T_{u(t)}  = \lcm \set{T_1, \ldots, T_F}
+      = \lcm \set{f_1^{-1}, \ldots, f_F^{-1}}
+    \text{,}
+  \end{equation}
+  where the least common (integer) multiple of the real values $T_k$ is defined as
+  \begin{equation}
+    \lcm \set{T_1, \ldots, T_F} \isdef
+      \min \set{T \given{\forall i \in \set{1,\ldots,F}, \exists n_i \in \NaturalNumbers: n_i T_i = T }}
+      \text{.}
+   \end{equation}
+  Note that this minimum doesn't always exist (e.g. when $f_1 = 1 \unit{Hz}$ and $f_F = \pi \unit{Hz}$), in such cases the multisine is aperiodic.
 
   \TODO{put MATLAB code for each type of signal}
   
@@ -185,11 +202,18 @@
 
   \TODO{link naar log meas mode DSA (e.g. HP3562A) leggen. Bij HP 3562A, is $F/\mathrm{decade} = 80$, oftewel $\alpha = \sqrt[80]{10} \approx 1.029$ vast ingesteld. Dit beperkt bruikbaarheid van zo'n toestel.}
 
-  Each decade within the resulting set of excited frequencies $\set{f_1, \ldots, f_F}$ contains the same number of frequency components such that the power in each decade is identical when a constant amplitude spectrum ($A_k = A_{\mathrm{in}}$) is used.
+  Each decade that is completely  within the resulting set of excited frequencies $\set{f_1, \ldots, f_F}$ contains
+   \begin{equation}
+     \floor{\frac{\log (10 f) - \log( f )}{\log \alpha}}
+         = \floor{\log_{\alpha} 10}
+   \end{equation}
+   excited frequency lines. 
+   I.e. the same number of frequency components is present per decade, such that the power in each decade is identical when a constant amplitude spectrum ($A_k = A_{\mathrm{in}}$) is used.
+   Obviously, the same argument can be held for any relative bandwidth (e.g. octave or even the $\wdB$ of a particular system).
 
-  To return to the FRF, in Section \ref{sec:optimAlpha} we will show that for a dense logarithmic frequency grid, any second order system with damping $\damping$ and a resonance within the bulk of the frequency grid, will receive the same number of frequency lines in its $3 \unit{dB}$ bandwidth regardless of the actual value of the resonance frequency.
+  To return to the FRF, in Section~\ref{sec:optimAlpha} we will show that for a dense logarithmic frequency grid, any second order system with damping $\damping$ and a resonance within the bulk of the frequency grid, will receive the same number of frequency lines in its $3 \unit{dB}$ bandwidth regardless of the actual value of the resonance frequency.
   As most of the information of such systems is obtained from the measurements at frequencies inside the $3 \unit{dB}$
-  bandwidth, one expects an equal variance for each system, as will be shown in Section \ref{sec:bestFrequencyResolution}.
+  bandwidth, one expects an equal variance for each system, as will be shown in Section~\ref{sec:bestFrequencyResolution}.
   
   For that reason, a log multisine is a good candidate for our purposes.
   However, it is more involved both to generate and to analyze such a signal,
@@ -467,6 +491,7 @@
   In the previous section we saw that systems with equal damping and DC gain, will behave very similarly when excited by a log signal with spacing $\alpha$.
 
   Instead of using \eqref{eq:theoreticalBestVariationOmega} to establish the influence of the resonance frequency, we apply an equivalent approach that is more intuitive to interpret.
+  \TODO{show $\alpha$ and $\beta$ graphically (cfr. poster)}
   We choose the resonance frequency of the systems such that
   \begin{equation}
    \wM\left( \wn \right)  = \omega_k + \beta \left( \omega_{k+1} - \omega_k \right)
@@ -680,6 +705,8 @@ In the following set of simulations, we will study how the FRF of different seco
   \eqref{eq:secondOrderSystemDTidentifiable} using this little information in the $3\unit{dB}$ bandwidth of the system.
   In other words, the resonances of the systems at low frequencies, can no longer be considered to lie within the bulk of the logarithmic part of the quasi-logarithmic frequency grids.
   We do see, however, that the variance in the vicinity of the resonance is lower than in the case of a linearly spaced excitation.
+
+  \TODO{simulations from Larsson2012}
   
 \section{Measurements} \label{sec:measurement}
   \subsection{Setup}
