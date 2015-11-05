@@ -108,7 +108,9 @@
   \TODO{put block diagram here}
 
 \subsection{Multisine Excitations}
-  To excite the system under test we will use multisine excitations \citep{Pintelon2001} with $F$ frequency components:
+  To excite the system under test we consider a generalization of multisine excitations \citep{Pintelon2012}:
+  \begin{definition}[Generalized multisine] \label{def:generalized-MS}
+  A generalized multisine $u(t)$ is a signal consisting of $F$ sine waves with a different frequencies $f_k$, amplitudes $A_k$ and phase shifts $\phi_k$:
   \begin{equation}
     u \left( t\right) = \frac{1}{\sqrt{F}}
    \sum_{k=1}^{F} 
@@ -118,29 +120,44 @@
   \text{.}
   \label{eq:MultisineCT}
   \end{equation}
-  In this expression, $f_k$ represents the $k^{\text{th}}$ excited frequency component.
-  $A_k$ is the amplitude and $\phi_k$ the phase of the $k^{\text{th}}$ spectral line.
+  For simplicity, one can stipulate that the frequency grid is sorted, i.e. $f_1 < f_2 < \ldots < f_F$.
+  \end{definition}
+
   We limit ourselves, without loss of generality, to random phase multisines.
   Hence, $\phi_k$ is the outcome of a uniform random process over $\left[0,2\pi\right[$.
   This leaves two sets of free parameters to create a signal that suits our needs:
     the amplitude of the spectral lines $A_k$ and
     the frequency grid $\left\{f_1, \ldots, f_F \right\}$.
-  For simplicity, we will assume this grid is sorted, i.e. $f_1 < f_2 < \ldots < f_F$.
   Note that the $k^{\text{th}}$ term in \eqref{eq:MultisineCT} is has a period $T_k \isdef f_k^{-1}$.
 
   Consequently, the complete multisine has a period of
   \begin{equation}
     T_{u(t)}  = \lcm \set{T_1, \ldots, T_F}
       = \lcm \set{f_1^{-1}, \ldots, f_F^{-1}}
-    \text{,}
+    \text{.}
   \end{equation}
-  where the least common (integer) multiple of the real values $T_k$ is defined as
+  \begin{definition}[Least common (integer) multiple] \label{def:lcm-real}
+  The least common multiple of the set of values $T_k \in \RealNumbers$ for $k \in \set{1, \ldots, F}$ is  
   \begin{equation}
     \lcm \set{T_1, \ldots, T_F} \isdef
-      \min \set{T \given{\forall i \in \set{1,\ldots,F}, \exists n_i \in \NaturalNumbers: n_i T_i = T }}
-      \text{.}
+      \min \set{T \given{\forall k \in \set{1,\ldots,F}, \exists n_k \in \NaturalNumbers: n_k T_k = T }}
    \end{equation}
-  Note that this minimum doesn't always exist (e.g. when $f_1 = 1 \unit{Hz}$ and $f_F = \pi \unit{Hz}$), in such cases the multisine is aperiodic.
+   if such a minimum exists.
+   \end{definition}
+  \begin{example}
+   Consider a generalized multisine where $f_1 = 1 \unit{Hz}$ and $f_2 = \tfrac{2}{3} \unit{Hz}$.
+   The corresponding periods are $T_1 = f_1^{-1} = 1 \unit{s}$ and $T_2 = f_2^{-1} = 1.5 \unit{s}$.
+   The overall period of the multisine is $T = n_1 T_1 = n_2 T_2 = 3 \unit{s}$, i.e. $n_1 = 3$ and $n_2=2$.
+  \end{example}
+
+  \begin{example}
+   Consider the generalized multisine of the previous example to which a spectral component is added at $f_3 = \pi \unit{Hz}$, or equivalently one with a period of $T_3 = \pi^{-1} \unit{s}$.
+   Then it is not possible to determine integer values $n_1$, $n_2$, $n_3$ such that $n_1 T_1 = n_2 T_2 = n_3 T_3$.
+   Consequently, such a `multisine' is not periodic.
+  \end{example}
+
+  This last example illustrates that a least common multiple of real numbers does not always exist.
+  Consequently, the generalized multisine of \defref{def:generalized-MS} is not guaranteed to be periodic.
 
   \TODO{put MATLAB code for each type of signal}
   
@@ -237,7 +254,7 @@
     \text{.}
     \label{eq:constraintLinGrid}
   \end{equation}
-  Such a grid is called a quasi-logarithmic (quasi-log) grid \citep{Pintelon2001}. 
+  Such a grid is called a quasi-logarithmic (quasi-log) grid \citep{Pintelon2012}. 
   
   At the low edge of the frequency band, the desired frequency ratio between two
   frequencies is not attained when the frequency spacing $\Delta f$ is large
@@ -367,7 +384,7 @@
   Doing so will allow to determine a suitable value for the frequency spacing $\alpha$.
 
 \TODO{zin loopt niet goed}
-  The covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function, which is pretty hard because the common lack of intuition about this model given the parameters, can be shown \citep{Pintelon2001, Gallager2008, matrixcookbook} to be approximately equal to
+  The covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function, which is pretty hard because the common lack of intuition about this model given the parameters, can be shown \citep{Pintelon2012, Gallager2008, matrixcookbook} to be approximately equal to
   \begin{align}
     \C_{G\left( \omega_{\interest}\right) } \approx
       \InnerQuadraticForm[\HT]
@@ -386,7 +403,7 @@
           }
     \label{eq:FisherInfo}
   \end{equation}
-  the Fisher information matrix \citep{Pintelon2001}.
+  the Fisher information matrix \citep{Pintelon2012}.
 
   In these expressions, the Jacobian $\jac{\interest}$ matrix of the transfer function evaluated at the frequency of interest $\omega_{\interest}$ with respect to the model parameters $\theta$ is defined as
   \begin{equation}
@@ -398,7 +415,7 @@
   Similarly, $\jac{\excited}$ is the Jacobian calculated at the excited frequency lines $\omega_{\excited} = \set{\omega_1, \ldots, \omega_F}$.
 
   Finally, $\C_{X}$ denotes the covariance matrix of $X\left(\omega\right) = G\left(\omega, \theta_0 \right) - \frac{Y_0\left(\omega \right) + E\left( \omega \right)  }{ U\left( \omega \right) } $, evaluated at the excited frequencies $\omega_{\excited}$.
-  By assuming that the $X\left( \omega \right) $ are independently distributed over the frequency $\omega$, the variance-covariance matrix $\C_{X}$ is a diagonal matrix \citep{Pintelon2001}:
+  By assuming that the $X\left( \omega \right) $ are independently distributed over the frequency $\omega$, the variance-covariance matrix $\C_{X}$ is a diagonal matrix \citep{Pintelon2012}:
   \begin{equation}
     \C_{X} =
                \left[ \left.

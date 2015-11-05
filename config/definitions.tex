@@ -7,6 +7,7 @@
 \newcommand{\researchBasedOn}[2][chapter]{\begin{centering}This #1 is based on~\citet{#2}.\end{centering}}
 
 \newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\defref}[1]{Definition~\ref{#1}}
 
 \newcommand{\matlab}{\textsc{Matlab}\texttrademark}
 \newcommand{\labview}{\mbox{LabVIEW\texttrademark}}
@@ -45,25 +46,31 @@
 \newcommand{\Prob}[1]{\ensuremath{\mathrm{P}}\!\left( #1 \right)}
 
 \theoremstyle{definition}
-\newtheorem{myDef}{Definition}
+\newtheorem{definition}{Definition}[chapter]
 
 \theoremstyle{plain}
-\newtheorem{assumption}{Assumption}
+\newtheorem{assumption}{Assumption}[chapter]
 
 \theoremstyle{plain}
-\newtheorem{conjecture}{Conjecture}
+\newtheorem{conjecture}{Conjecture}[chapter]
+
+\theoremstyle{plain}
+\newtheorem{example}{Example}[chapter]
+
 
 \theoremstyle{remark}
-\newtheorem{remark}{Remark}
+\newtheorem{remark}{Remark}[chapter]
 
 \theoremstyle{definition}
-\newtheorem{property}{Property}
+\newtheorem{property}{Property}[chapter]
 
 \theoremstyle{plain}
-\newtheorem{thm}{Theorem}
+\newtheorem{theorem}{Theorem}[chapter]
 
 \theoremstyle{plain}
-\newtheorem{lemma}{Lemma}
+\newtheorem{lemma}{Lemma}[chapter]
+
+
 
 
 \newcommand{\expval}[1]{\Expectancy\left[#1\right]} %expected value
