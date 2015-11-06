@@ -275,6 +275,8 @@ axis on top]
 
 \draw [color=signal!80,dotted] (axis cs: 2.6827,12) -- (axis cs: 2.6827,21) (axis cs: 3.72759,12) -- (axis cs: 3.72759,21);
 
+
+
 \addplot[signal] plot table[row sep=crcr]{%
  1	12\\
 1.3895	12\\
@@ -301,7 +303,7 @@ width=0.5\figurewidth,
 height=\figureheight,
 xmin=1.5, xmax=8.6,
 ymin=0, ymax=25,
-xlabel={Frequency},
+xlabel={Frequency \axisunit{\log}},
 %ylabel={Amplitude},
 yticklabels={},
 xticklabels={},
@@ -413,6 +415,11 @@ axis on top]
 7.19686	12\\
 10	12\\
 };
+
+\draw [color=misalign,line width=1pt]
+        (axis cs: 3.7399,16.43) -- (axis cs: 3.7399,17.93) node[above]{$\beta = 0$};
+
+\draw [color=signal!80,dotted] (axis cs: 3.7399,12) -- (axis cs: 3.7399,16.43);
 
 \addplot [frf] table[row sep=crcr]{
  1.49926843278605	13.0081922428338\\
@@ -568,6 +575,8 @@ axis on top]
 8.50448934180268	6.40958501188913\\
 8.6034644166845	6.28705077212157\\
 };
+
+\draw [<->,color=signal] (axis cs: 5.17947,4) -- (axis cs: 7.19686,4) node[above,pos=0.5] {$\alpha$};
 
 % \draw (rel axis cs:0.99,0.99) node[anchor=north east] { \includegraphics[width=2.5cm,keepaspectratio=true]{happy.pdf}};
 
