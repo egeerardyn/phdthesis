@@ -219,13 +219,19 @@
 
   \TODO{link naar log meas mode DSA (e.g. HP3562A) leggen. Bij HP 3562A, is $F/\mathrm{decade} = 80$, oftewel $\alpha = \sqrt[80]{10} \approx 1.029$ vast ingesteld. Dit beperkt bruikbaarheid van zo'n toestel.}
 
-  Each decade that is completely  within the resulting set of excited frequencies $\set{f_1, \ldots, f_F}$ contains
+  \begin{property}
+    Each decade that is completely  within the range of excited frequencies $\set{f_1, \ldots, f_F}$ contains
    \begin{equation}
+     F_{\decade} \isdef
      \floor{\frac{\log (10 f) - \log( f )}{\log \alpha}}
          = \floor{\log_{\alpha} 10}
    \end{equation}
-   excited frequency lines. 
+   excited frequency lines.
    I.e. the same number of frequency components is present per decade, such that the power in each decade is identical when a constant amplitude spectrum ($A_k = A_{\mathrm{in}}$) is used.
+  \end{property}
+
+  
+   
    Obviously, the same argument can be held for any relative bandwidth (e.g. octave or even the $\wdB$ of a particular system).
 
   To return to the FRF, in Section~\ref{sec:optimAlpha} we will show that for a dense logarithmic frequency grid, any second order system with damping $\damping$ and a resonance within the bulk of the frequency grid, will receive the same number of frequency lines in its $3 \unit{dB}$ bandwidth regardless of the actual value of the resonance frequency.
@@ -479,7 +485,7 @@
   I.e. there should be a few excited frequency lines that are logarithmically spaced, outside of the resonance peak of the actual system.
   In practice, this means that systems with their resonance peak at the lowest and the very highest edge of the frequency band may not be observed with identical quality as systems at intermediate frequencies.
 
-  \subsection{Setup for selecting $\alpha$}
+  \subsection{Selection of the frequency grid spacing $\alpha$}
   When we now take a closer look at the general second order system \eqref{eq:secondOrderSystemCT}, we still are left with $\dc$ and $\damping$ as free parameters in the prototypes.
   Note that $\dc$ is a scaling factor for the FRF.
   Hence the results for different values of $\dc$ only differ by a scaling factor.
@@ -515,17 +521,19 @@
     \setlength\figureheight{5cm}
     \setlength\figurewidth{0.8\columnwidth}
     \input{\thisDir/figs/misalign.tikz}
-    \caption{Graphical depiction of the misalignment coefficient $\beta$ with respect to a logarithmic frequency grid with spacing $\alpha$ for two systems with different damping.}
+    \caption[Depiction of the grid misalignment $\beta$ for a logarithmic generalized multisine.]{Graphical depiction of the misalignment coefficient $\beta$ with respect to a logarithmic frequency grid with spacing $\alpha$ for two systems with different damping.
+    The }
+    \label{fig:misalignment-logms}
   \end{figure}
 
-  \TODO{show $\alpha$ and $\beta$ graphically (cfr. poster)}
+
   We choose the resonance frequency of the systems such that
   \begin{equation}
    \wM\left( \wn \right)  = \omega_k + \beta \left( \omega_{k+1} - \omega_k \right)
    \text{ with } 0 \leq \beta < 1
    \label{eq:chosenVariationOmega}
   \end{equation}
-  where $\omega_k$ and $\omega_{k+1}$ are the excited grid lines closest to the frequency $\wM$ where the FRF has its peak amplitude and $\beta$ is the misalignment coefficient that is varied over the interval $[0,1]$.
+  where $\omega_k$ and $\omega_{k+1}$ are the excited grid lines closest to the frequency $\wM$ where the FRF has its peak amplitude and $\beta$ is the misalignment coefficient that is varied over the interval $\RightOpenInterval{0,1}$ as depicted graphically in \figref{fig:misalignment-logms}
   This means that $\omega_k \leq \wM \leq \omega_{k+1}$ and that $\beta$ replaces the $\gamma$ factor in \eqref{eq:theoreticalBestVariationOmega}.
   If we take a look at the special case when $\beta=0$ (or $\beta=1$) in this expression, we see that this situation occurs when the peak value of the FRF at $\wM$ coincides with the grid line $\omega_k$ or $\omega_{k+1}$ respectively.
   Basically, we study second order systems whose peak frequency $\wM$ is shifted between two neighboring excited frequency lines.

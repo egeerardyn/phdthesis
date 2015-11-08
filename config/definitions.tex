@@ -70,6 +70,7 @@
 \theoremstyle{plain}
 \newtheorem{lemma}{Lemma}[chapter]
 
+\newcommand{\code}[1]{\texttt{#1}}
 
 
 
@@ -144,12 +145,14 @@
 \DeclareMathOperator{\Covariance}{\mathrm{Cov}}
 \DeclareMathOperator{\BiasValue}{\mathrm{bias}}
 
+\newcommand{\decade}{\ensuremath{\mathrm{dec.}}}
+
 \newcommand{\E}[2][]{\ExpectedValue_{#1} \left[ #2 \right]}
 \newcommand{\Var}[2][]{\Variance_{#1} \left[ #2 \right]}
 \newcommand{\var}[2][]{\Variance_{#1} \left[ #2 \right]}
 \newcommand{\Cov}[3][]{\Covariance_{#1} \left[ #2 , #3 \right]}
 
-\newcommand{\round}[2][\QN]{ \left[_{#1} #2 \right]}
+\newcommand{\round}[1]{ \left\lfloor #1 \right\rceil}
 \newcommand{\floor}[1]     { \left\lfloor     #1 \right\rfloor}
 \newcommand{\ceil }[1]     { \left\lceil      #1 \right\rceil}
 \newcommand{\abs }[1]      { \left|      #1 \right|}
@@ -160,6 +163,9 @@
 \DeclareMathOperator{\CircularNormalDistribution}{\mathcal{C}\!\NormalDistribution}
 \DeclareMathOperator{\ComplexCircularNormalDistribution}{\CN\!\CircularNormalDistribution}
 
+\newcommand{\LeftOpenInterval}[1]{\ensuremath{\left] #1 \right]}}
+\newcommand{\RightOpenInterval}[1]{\ensuremath{\left[ #1 \right[}}
+\newcommand{\OpenInterval}[1]{\ensuremath{\left] #1 \right[}}
 \newcommand{\ClosedInterval}[1]{\ensuremath{\left[ #1 \right]}}
 
 %%

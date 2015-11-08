@@ -24,7 +24,7 @@ firstplural={#4~(#3\glspluralsuffix)},
 
 
 %% SYMBOLS
-\newsymbolglos{0-placeholder}{\placeholder}{Placeholder symbol}
+% \newsymbolglos{0-placeholder}{\placeholder}{Placeholder symbol}
 
 \newsymbolglos{E-approx}{\approx}{Approximately equal}
 \newsymbolglos{E-bydef}{\isdef}{Equal by definition}
@@ -50,10 +50,15 @@ firstplural={#4~(#3\glspluralsuffix)},
 \newsymbolglos{count-mc}{n_{\mathrm{MC}}}{Number of Monte Carlo runs}
 \newsymbolglos{count-theta}{n_{\theta}}{Number of parameters}
 
+\newsymbolglos{matrix-eye}{\I_n}{ $n \times n$ identify matrix }
+
 \newsymbolglos{operator-exp}{\expval{\placeholder}}{Expected value of \placeholder}
 \newsymbolglos{operator-pinv}{\pinv{\placeholder}}{Moore-Penrose pseudo-inverse of the matrix \placeholder}
 \newsymbolglos{operator-tran}{\placeholder^{\TT}}{Transpose of the matrix \placeholder}
 \newsymbolglos{operator-ht}{\placeholder^{\HT}}{Hermitian transpose of the matrix \placeholder}
+\newsymbolglos{operator-round-floor}{\floor{\placeholder}}{\placeholder{} rounded downwards (\code{floor})}
+\newsymbolglos{operator-round-ceil}{\ceil{\placeholder}}{\placeholder{} rounded upwards (\code{ceil})}
+\newsymbolglos{operator-round-round}{\round{\placeholder}}{\placeholder{} rounded towards the nearest integer (\code{round})}
 
 %% ACRONYMS
 \newacronym{VUB}{VUB}{Vrije Universiteit Brussel}
