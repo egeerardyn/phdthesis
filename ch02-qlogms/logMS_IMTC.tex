@@ -47,7 +47,7 @@
 \section{Methodology} \label{sec:method}
 
   \subsection{The system under consideration}
-  We consider the transfer function models of generic linear time-invariant systems of arbitrary but finite orders $n_a\times n_b$:
+  We consider the transfer function models of generic \gls{LTI} systems of arbitrary but finite orders $n_a\times n_b$:
   \begin{align}
     G\left( \Omega, \theta \right) = \frac{B\left( \Omega,\theta \right)}
                                           {A\left( \Omega,\theta \right)}
@@ -213,6 +213,7 @@
                   \frac{\log{f_{\max}} - \log{f_{\min}}}
                        {\log{\alpha}}
                 }
+    \label{eq:logms:F}
     \end{equation}
   where $\floor{\bullet}$ denotes rounding towards zero.
   In the Section \ref{sec:optimAlpha}, the choice of a suitable $\alpha$ is elaborated.
@@ -220,19 +221,20 @@
   \TODO{link naar log meas mode DSA (e.g. HP3562A) leggen. Bij HP 3562A, is $F/\mathrm{decade} = 80$, oftewel $\alpha = \sqrt[80]{10} \approx 1.029$ vast ingesteld. Dit beperkt bruikbaarheid van zo'n toestel.}
 
   \begin{property}
-    Each decade that is completely  within the range of excited frequencies $\set{f_1, \ldots, f_F}$ contains
+   Each frequency band $B = \ClosedInterval{f, \kappa f}$ with $\kappa \in \PositiveRealNumbers \without \set{0,1}$ that is completely within the range of the excited logarithmic grid of frequencies $\set{f_1, \ldots, f_F}$ contains a constant number of frequency lines
    \begin{equation}
-     F_{\decade} \isdef
-     \floor{\frac{\log (10 f) - \log( f )}{\log \alpha}}
-         = \floor{\log_{\alpha} 10}
+     F_{B}(f) \isdef
+     \floor{\frac{\log (\kappa f) - \log( f )}{\log \alpha}}
+         = \floor{\log_{\alpha} \kappa}
+         \text{.}
    \end{equation}
-   excited frequency lines.
-   I.e. the same number of frequency components is present per decade, such that the power in each decade is identical when a constant amplitude spectrum ($A_k = A_{\mathrm{in}}$) is used.
-  \end{property}
+   \end{property}
+  \begin{example}
+    For the frequency decade band $\decade(f) = \ClosedInterval{f, 10 f}$, a logarithmic frequency grid contains $F_{\decade} = \floor{\log_{\alpha} 10}$ excited lines.
+  \end{example}
 
-  
-   
-   Obviously, the same argument can be held for any relative bandwidth (e.g. octave or even the $\wdB$ of a particular system).
+   Obviously, the same argument can be held for any set of frequency bands with constant relative bandwidth (e.g. octave $\kappa = 2$).
+   I.e. the same number of frequency components is present per decade, such that the power in each decade is identical when a constant amplitude spectrum ($A_k = A_{\mathrm{in}}$) is used.   
 
   To return to the FRF, in Section~\ref{sec:optimAlpha} we will show that for a dense logarithmic frequency grid, any second order system with damping $\damping$ and a resonance within the bulk of the frequency grid, will receive the same number of frequency lines in its $3 \unit{dB}$ bandwidth regardless of the actual value of the resonance frequency.
   As most of the information of such systems is obtained from the measurements at frequencies inside the $3 \unit{dB}$
