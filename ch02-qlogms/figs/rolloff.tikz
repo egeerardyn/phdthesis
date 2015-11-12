@@ -13,10 +13,10 @@ scale only axis,
 xmin=0.01, xmax=1000,
 ymin=-300, ymax=150,
 xtick={0.251327},
-xticklabels={${\damping\omega_1}$},
+xticklabels={${\damping\wn[1]}$},
 yticklabels={\empty},
-xlabel={$\text{Frequency}\quad(\unit{rad\,s^{-1}})$},
-ylabel={$\left|\frac{\partial G_1}{\partial \omega_1} \right|\quad(\unit{dB})$},
+xlabel={Frequency $\omega$ \axisunit{rad/s}},
+ylabel={$\left|\frac{\partial G_1}{\partial \wn[1]} \right|$ \axisunit{dB}},
 axis on top]
 \addplot [
 color=black,

@@ -184,10 +184,11 @@
 \newcommand{\rms}[1]{\ensuremath{\RootMeanSquare \left( #1 \right)}}
 
 \newcommand{\wdB}{\ensuremath{\mathrm{BW}_{3\unit{dB}}}}
+\newcommand{\sysBW}{\wdB}
 
 \newcommand{\dc}{\ensuremath{G_{\mathrm{dc}}}}
 \newcommand{\damping}{\ensuremath{\xi}}
-\newcommand{\wn}{\ensuremath{\omega_{\mathrm{n}}}}
+\newcommand{\wn}[1][]{\ensuremath{\omega_{\mathrm{n#1}}}}
 \newcommand{\wM}{\ensuremath{\omega_{\mathrm{M}}}}
 \newcommand{\wR}{\ensuremath{\omega_{\mathrm{R}}}}
 \newcommand{\wNom}{\ensuremath{\omega_{\mathrm{nom}}}}
@@ -206,6 +207,9 @@
 
 \newcommand{\fMax}[1]{\ensuremath{\overline{f_{#1}}}}
 \newcommand{\fMin}[1]{\ensuremath{\underline{f_{#1}}}}
+
+\newcommand{\kMin}{\ensuremath{k_{\min}}}
+\newcommand{\kMax}{\ensuremath{k_{\max}}}
 
 %\renewcommand{\fMax}[1]{\ensuremath{f_{#1+1/2}}}
 %\renewcommand{\fMin}[1]{\ensuremath{f_{#1-1/2}}}

@@ -75,18 +75,18 @@ This is a small loss while the increase in robustness can be significant if the 
 %power in the optimal design is taken away and redistributed over all frequencies.
 %This ensures that some excitation power is available also at other frequencies.
 %
-%If $\lambda_i$ is the fraction of the input power at frequency $\omega_i$,
+%If $\lambda_i$ is the fraction of the input power at frequency $\wn[i]$,
 %then the determinant of $\IF^\star$ can be expressed as \Cite{Goodwin}
 %\begin{align}
 %  \det\IF^\star &= \prod_{i = 1}^{n}
 %                      \lambda_i^2
-%                      \alpha(\omega_i).
+%                      \alpha(\wn[i]).
 %\end{align}
 %The optimal input spectrum is
 %\begin{align}
 %  \phi_u^\star(\omega) &= \sum_{i=1}^{n}
 %                            \lambda_i^2
-%                            \delta(\omega,\omega_i)
+%                            \delta(\omega,\wn[i])
 %\end{align}
 %If a fraction, say $\eta$, of the power is taken from each frequency and used
 %at other frequencies, the input spectrum can be written as
@@ -94,7 +94,7 @@ This is a small loss while the increase in robustness can be significant if the 
 %  \phi_u(\omega) &= (1-\eta)
 %                      \sum_{i=1}^{n}
 %                        \lambda_i^2 
-%                        \delta(\omega,\omega_i)
+%                        \delta(\omega,\wn[i])
 %                    + \phi_u^{\robust}(\omega),\\
 %                 &= (1-\eta) \phi_u^\star    (\omega)
 %                    +        \phi_u^{\robust}(\omega).
@@ -132,10 +132,10 @@ This can be ensured by a suitable choice of the input power spectrum.
  \subsection{A second order system}
 Consider the second order system
 \begin{align}
-y_t &= G(s,\theta)=\frac{1}{\frac{s^2}{\omega_0^2} + 2\frac{\damping}{\omega_0}s + 1}u_t,
+y_t &= G(s,\theta)=\frac{1}{\frac{s^2}{\wn^2} + 2\frac{\damping}{\wn}s + 1}u_t,
 \label{eq:2ndOrderSys}
 \end{align}
-with parameters $\theta=[\omega_0\;\damping]^{\T}$. The resonance frequency of the system is $\wR \isdef \sqrt{1-\damping^2}\omega_0$
+with parameters $\theta=[\wn\;\damping]^{\T}$. The resonance frequency of the system is $\wR \isdef \sqrt{1-\damping^2}\wn$
 and the $3\unit{dB}$ bandwidth of the system is $\wdB \isdef 2\damping\wR$.
 Since information is local in the frequency domain, the input signal power inside $\wdB$, contributes significantly to the information matrix while input power outside $\wdB$ has a smaller contribution. This can be seen by considering the optimal design for a second order system. From \citep{Goodwin1977} we have that the D-optimal design for \eqref{eq:2ndOrderSys} is a single sinusoid at frequency
 \begin{align}
@@ -150,37 +150,39 @@ Since information is local in the frequency domain, the input signal power insid
 {\sqrt{5}}.
 \label{eq:optFreq}
 \end{align}
-For systems with low damping, i.e $\damping\ll1$ , $\omega^\star\approx\omega_0$, which is inside the bandwidth of the system. From \eqref{eq:optFreq} it is clear that the optimal design depends on the resonance of the system to be identified. Input design can be based on a guess of $\omega_0$, however if this guess is wrong, the resulting estimates may be unacceptable \citep{Rojas2007}.
+For systems with low damping, i.e $\damping\ll1$ , $\omega^\star\approx \wn$, which is inside the bandwidth of the system. 
+From \eqref{eq:optFreq} it is clear that the optimal design depends on the resonance of the system to be identified. 
+Input design can be based on a guess of $\wn$, however if this guess is wrong, the resulting estimates may be unacceptable~\citep{Rojas2007}.
 
-When no information about the system is available, we propose using an input power spectrum with a logarithmic power distribution. This can be achieved either with a continuous bandlimited $1/f$ spectrum or a quasi-logarithmic multisine spectrum \citep{Pintelon2001}. We choose to work with an equidistant frequency grid with resolution $f_0$ and design the input in the frequency band $[\omega_0k_{min}\; \omega_0k_{max}]$, where the resolution is $k_0=1/T_{meas}$ and $T_{meas}$ is the measurement time. Hence, a finite measurement time limits the frequency resolution and therefore we have to put a lower limit on the frequency band of interest. Moreover, we can only impose the logarithmic distribution sufficiently well if $k_{min}$ is large enough.
+When no information about the system is available, we propose using an input power spectrum with a logarithmic power distribution. This can be achieved either with a continuous bandlimited $1/f$ spectrum or a quasi-logarithmic multisine spectrum \citep{Pintelon2001}. We choose to work with an equidistant frequency grid with resolution $f_0$ and design the input in the frequency band $[\wn \kMin\; \wn \kMax]$, where the resolution is $k_0=1/T_{meas}$ and $T_{meas}$ is the measurement time. Hence, a finite measurement time limits the frequency resolution and therefore we have to put a lower limit on the frequency band of interest. Moreover, we can only impose the logarithmic distribution sufficiently well if $\kMin$ is large enough.
 
 First, we look at the bandlimited $1/f$ power spectrum given by
 \begin{align*}
 \label{eq:pink}
-\phi_u(\omega) &=\begin{cases}\frac{1}{|\omega|} &\text{if $|\omega|\in[\omega_0k_{min}\; \omega_0k_{max}]$,}\\
+\phi_u(\omega) &=\begin{cases}\frac{1}{|\omega|} &\text{if $|\omega|\in[\wn \kMin\; \wn \kMax]$,}\\
                         0           &\text{otherwise}.
             \end{cases}
 \end{align*}
 With this input spectrum, the power inside $\wdB$ is
 \begin{align}
   \frac{1}{2\pi}
-    \int\limits_{(1-\damping)\wR}^{(1+\damping)\wR}
+    \int\limits_{(1-\damping)\wn}^{(1+\damping)\wn}
      \frac{1}{\omega} \dd{\omega}
   = \frac{1}{2\pi}
     \ln{\frac{1+\damping}{1-\damping}},
 \end{align}
-which is independent of $\omega_0$. The robustness of the $1/f$ input has been noted previously in e.g. \cite{Rojas2007}
+which is independent of $\wn$. The robustness of the $1/f$ input has been noted previously in e.g. \cite{Rojas2007}
 
 Second, we consider the power spectrum of the quasi-logarithmic multisine signal [\cite{Pintelon2001}] given by
 \begin{align}
-  \phi_u(\omega) &= \frac{1}{M}\sum_{k=1}^{M}{\delta(\omega,\omega_k)},
+  \phi_u(\omega) &= \frac{1}{M}\sum_{k=1}^{M}{\delta(\omega,\wn[K])},
 \end{align}
 where $\omega_{k}/\omega_{k+1} \approx \alpha_{f} = e^{\Delta}$.
 Hence, the number of spectral lines inside \wdB is 
 \begin{align}
 \left\lfloor\ln{\left[\frac{1+\damping}{1-\damping}\right]}\Delta^{-1}\right\rfloor,
 \end{align}
-where $\lfloor\cdot\rfloor$ is the nearest integer rounded towards $0$. The number of spectral lines is independent of $\omega_0$. 
+where $\lfloor\cdot\rfloor$ is the nearest integer rounded towards $0$. The number of spectral lines is independent of $\wn$. 
 
 More generally, a multisine can be defined as:
 \begin{equation}
@@ -197,7 +199,7 @@ number of points in a period.
 
 To construct a quasi-logarithmic multisine, only frequency lines $f_j$ within the set of available sine components $\left\{f_0, 2 f_0, \ldots, F f_0  \right\}$ are excited for which the ratio of two consecutive frequencies $f_j$ and $f_{j-1}$ is approximately constant: $\frac{f_{j-1}}{f_j} \approx \alpha_f$.
 
-The result of these two choices of input power spectrum is that for a given damping, $\var{\hat{G}}$ is approximately the same independent of $\omega_0$. 
+The result of these two choices of input power spectrum is that for a given damping, $\var{\hat{G}}$ is approximately the same independent of $\wn$. 
 This is illustrated in Section~\ref{sec:sim}.
 
 \subsection{Sums of second order systems}
@@ -206,14 +208,15 @@ Consider a system
 \begin{align}
 G(s,\theta) &= \sum_{i=1}^{K} G_i(s,\theta_i)
              =\sum_{i=1}^{K}  \frac{1}
-                                   {   \frac{s^2}{\omega_i^2}
-                                    + 2\frac{\damping_i}{\omega_i}s
+                                   {   \frac{s^2}{\wn[i]^2}
+                                    + 2\frac{\damping_i}{\wn[i]}s
                                     + 1},\\
-\theta_i&=[\omega_i\;\damping_i]^{\T}.
+\theta_i&=[\wn[i]\;\damping_i]^{\T}.
 \label{eq:sumSys}
 \end{align}
-The systems  $G_i$ will be called the \emph{sub-systems} of $G$. With loss of generality, we assume that $\omega_1 < \omega_2 < \cdots < \omega_K$. To properly identify the system $G$, excitation is required such that all
-subsystems are properly excited, regardless of their individual resonance frequencies.
+The systems  $G_i$ will be called the \emph{sub-systems} of $G$. 
+Without loss of generality, we assume that $\wn[1] < \wn[2] < \cdots < \wn[K]$. 
+To properly identify the system $G$, excitation is required such that all subsystems are properly excited, regardless of their individual resonance frequencies.
 
 The information matrix for systems of the type \eqref{eq:sumSys} will have a block structure commensurate with the dimension of $\theta_i$ given by
 \begin{align}
@@ -243,9 +246,9 @@ The conclusions from the example are easily extended to systems consisting of mo
 Consider the system
 \begin{align}
 G(s,\theta) &= G_1(s,\theta_1) + G_2(s,\theta_2)%\\
-%&=\frac{1}{\frac{s^2}{\omega_1^2} + 2\frac{\damping_1}{\omega_1}s + 1} + \frac{1}{\frac{s^2}{\omega_2^2} + 2\frac{\damping_2}{\omega_2}s + 1},
+%&=\frac{1}{\frac{s^2}{\wn[1]^2} + 2\frac{\damping_1}{\wn[1]}s + 1} + \frac{1}{\frac{s^2}{\wn[2]^2} + 2\frac{\damping_2}{\wn[2]}s + 1},
 \end{align}
-with $\theta_1=[\omega_1\;\damping_1]^{\T}$ and $\theta_2=[\omega_2\;\damping_2]^{\T}$.
+with $\theta_1=[\wn[1]\;\damping_1]^{\T}$ and $\theta_2=[\wn[2]\;\damping_2]^{\T}$.
 The information matrix for this system is
 \begin{align}
 \IF &=
@@ -260,66 +263,69 @@ To investigate the decoupling, we study the $(1,1)$ elements of blocks $\partial
 Direct calculations for $\damping < 1$ give
 \begin{align}
 \label{eq:auto}
-\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_1^{\HT}}{\partial \omega_1}\right\}\frac{1}{\omega}\dd\omega = \frac{\pi}{16\omega_1^2}\damping^{-3} + \mathcal{O}(\damping^{-1}).
+\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_1^{\HT}}{\partial \wn[1]}\right\}\frac{1}{\omega}\dd\omega = \frac{\pi}{16\wn[1]^2}\damping^{-3} + \mathcal{O}(\damping^{-1}).
 \end{align}
 For the corresponding element in $\partial G_{1,2}$ we start by bounding the absolute value of the integral by
 % \begin{align}
-% &\left|\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_2^{\HT}}{\partial \omega_2}\right\}\frac{1}{\omega}\dd\omega\right| \leq\label{eq:cross1} \\
-% &\int_0^\infty\left|\mathrm{Re}\left\{\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_2^{\HT}}{\partial \omega_2}\right\}\right|\frac{1}{\omega}\dd\omega \leq \\
-% &\int_0^\infty\left|\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_2^{\HT}}{\partial \omega_2}\right|\frac{1}{\omega}\dd\omega.\label{eq:cross}
+% &\left|\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right\}\frac{1}{\omega}\dd\omega\right| \leq\label{eq:cross1} \\
+% &\int_0^\infty\left|\mathrm{Re}\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right\}\right|\frac{1}{\omega}\dd\omega \leq \\
+% &\int_0^\infty\left|\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right|\frac{1}{\omega}\dd\omega.\label{eq:cross}
 % \end{align}
 \begin{gather}
-\left|\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_2^{\HT}}{\partial \omega_2}\right\}\frac{1}{\omega}\dd\omega\right|
+\left|\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right\}\frac{1}{\omega}\dd\omega\right|
 \qquad \qquad \qquad \qquad \qquad
 \label{eq:cross1} \\
 \leq
-\int_0^\infty\left|\mathrm{Re}\left\{\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_2^{\HT}}{\partial \omega_2}\right\}\right|\frac{1}{\omega}\dd\omega
+\int_0^\infty\left|\mathrm{Re}\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right\}\right|\frac{1}{\omega}\dd\omega
 \leq \\
 \qquad \qquad \qquad \qquad \qquad
-\int_0^\infty\left|\frac{\partial G_1}{\partial \omega_1}\frac{\partial G_2^{\HT}}{\partial \omega_2}\right|\frac{1}{\omega}\dd\omega \text{.}\label{eq:cross}
+\int_0^\infty\left|\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right|\frac{1}{\omega}\dd\omega \text{.}\label{eq:cross}
 \end{gather}
 To proceed, consider
 \begin{align}
-\frac{\partial G_1}{\partial \omega_1} &= \frac{2\damping j\omega\left[1+\frac{j\omega}{\omega_1\damping}\right]}{\omega_1^2\left[1+2\frac{\damping j\omega}{\omega_1} + \left(\frac{j\omega}{\omega_1}\right)^2\right]^2},
+\frac{\partial G_1}{\partial \wn[1]} &= \frac{2\damping j\omega\left[1+\frac{j\omega}{\wn[1]\damping}\right]}{\wn[1]^2\left[1+2\frac{\damping j\omega}{\wn[1]} + \left(\frac{j\omega}{\wn[1]}\right)^2\right]^2},
 \end{align}
-which has zeros in $j\omega=\left\{0, \damping\omega_1\right\}$. Hence $\left|\frac{\partial G_1}{\partial \omega_1} \right|$ has asymptotical slope 20\unit{\frac{dB}{dec.}} for low frequencies, at $j\omega=\damping\omega_1$ the slope increases to 40\unit{\frac{dB}{dec.}}. There are four poles which give a $-40$\unit{\frac{dB}{dec.}} roll-off after the peak. The shape of $\frac{\partial G_1}{\partial \omega_1} $ is illustrated in Fig.~\ref{fig:dG}.
+which has zeros in $j\omega=\left\{0, \damping\wn[1]\right\}$. 
+Hence $\left|\frac{\partial G_1}{\partial \wn[1]} \right|$ has asymptotic slope 20\unit{dB/\decade} for low frequencies, at $j\omega=\damping\wn[1]$ the slope increases to 40\unit{dB/\decade}. There are four poles which give a $-40$\unit{dB/\decade} roll-off after the peak. 
+The shape of $\frac{\partial G_1}{\partial \wn[1]} $ is illustrated in Fig.~\ref{fig:dG}.
 
 A crude, albeit useful, bound on the integrand in \eqref{eq:cross} is
 \begin{align}
 &f\left(\omega,\theta_1,\theta_2\right)=
   \begin{cases}
-   \frac{\omega^2}{\omega_1^2}
+   \frac{\omega^2}{\wn[1]^2}
    \frac{1}{\omega}
    \partial G_1^\infty
-                                       & \text{if $\omega \leq \omega_1$,}\\
+                                       & \text{if $\omega \leq \wn[1]$,}\\
    \phantom{\frac{\omega^2}{\omega^2}}
    \frac{1}{\omega}
    \partial G_1^\infty
-                                       & \text{if $\omega_1 < \omega < \omega_2$,}\\
-   \frac{\omega_2^2}{\omega^2}
+                                       & \text{if $\wn[1] < \omega < \wn[2]$,}\\
+   \frac{\wn[2]^2}{\omega^2}
    \frac{1}{\omega}
    \partial G_1^\infty
-                                       & \text{if $\omega \geq \omega_2$,}
+                                       & \text{if $\omega \geq \wn[2]$,}
   \end{cases}
 \end{align}
-where $\partial G_1^\infty = \left\|\frac{\partial G_1}{\partial \omega_1}\right\|_\infty$. Again, direct calculations give
+where $\partial G_1^\infty = \left\|\frac{\partial G_1}{\partial \wn[1]}\right\|_\infty$. 
+Again, direct calculations give
 \begin{align}
-\int_0^\infty f\left(\omega,\theta_1,\theta_2\right)\dd\omega = \frac{\omega_1\left(2-\ln{\frac{\omega_1^2}{\omega_2^2}}\right)}{\omega_2^2}\damping^{-2} + \mathcal{O}(1).
+\int_0^\infty f\left(\omega,\theta_1,\theta_2\right)\dd\omega = \frac{\wn[1]\left(2-\ln{\frac{\wn[1]^2}{\wn[2]^2}}\right)}{\wn[2]^2}\damping^{-2} + \mathcal{O}(1).
 \end{align}
 Hence \eqref{eq:cross1} cannot grow faster than $\mathcal{O}(\damping^{-2})$ as $\damping\rightarrow0$. From this analysis we conclude that:
 \begin{itemize}
-\item the integral \eqref{eq:cross1} decreases as $\omega_2-\omega_1$ increases, and
+\item the integral \eqref{eq:cross1} decreases as $\wn[2]-\wn[1]$ increases, and
 \item lower damping further decreases the integral \eqref{eq:cross1} in comparison to \eqref{eq:auto}.
 \end{itemize}
 
 \begin{figure}
 \centering
 \input{\thisDir/figs/rolloff.tikz}
-\caption{The shape of $\frac{\partial G_1}{\partial \omega_1}$. The roll-off around the peak is significant and depends on the damping of the system.}
+\caption{The shape of $\frac{\partial G_1}{\partial \wn[1]}$. The roll-off around the peak is significant and depends on the damping of the system.}
 \label{fig:dG}
 \end{figure}
 
-To further illustrate the decoupling of the two systems, we calculate \eqref{eq:infoEx} for different values of the damping $\damping$ and separations of the two resonances $\omega_1$ and $\omega_2$. If the separation is taken in terms of $\wdB$-units for the lower resonance, the result only depends on the difference $\omega_1-\omega_2$ and not on the actual frequencies. The resulting information matrix is then normalized so that the largest element is $1$.
+To further illustrate the decoupling of the two systems, we calculate \eqref{eq:infoEx} for different values of the damping $\damping$ and separations of the two resonances $\wn[1]$ and $\wn[2]$. If the separation is taken in terms of $\wdB$-units for the lower resonance, the result only depends on the difference $\wn[1]-\wn[2]$ and not on the actual frequencies. The resulting information matrix is then normalized so that the largest element is $1$.
 
 In Fig.~\ref{fig:coupling} the largest element in $\partial G_{1,2}$ is plotted for different dampings and separations. It is clear that highly resonant systems have a large degree of decoupling and that resonances that are well separated increases the decoupling. The diagonal blocks of the normalized $\IF$ in all cases have some elements close to 1. In this example, the $\damping$ is set to be the same in both sub-systems. Using different dampings in the sub-systems would, however, not change the argument, the systems with the lowest damping will limit the separation.
 
@@ -424,6 +430,7 @@ This means that the mean square error (MSE) of the estimated FRFs is mainly caus
   \input{\thisDir/figs/Sys005log0-1.tikz}
   \caption{FRF of a second order system with $\fR=40\unit{Hz}$ and $\damping=0.05$ 
            along with its variance and bias.}%
+           \TODO{reproduce figure with ALL excitation signals}
   \label{fig:FRF1}
 \end{figure}
 
@@ -484,39 +491,6 @@ The logarithmically-spaced excitation provides a much more constant dependency o
            and a linear multisine excitation.}%
   \label{fig:damping02}
 \end{figure}
-
-\subsection{Simulation example on higher order systems}
-To show that the suggested method also works on more general systems,
-we considered a system that consists of two second order systems \eqref{eq:tf} in 
-parallel. This is equivalent to adding their respective transfer functions,
-therefore, the resulting transfer function is of the form:
-\begin{equation}
-  G \left( z \right) 
-  = \frac{         b_4 z^{4} + b_3 z^{3} + b_2 z^{2} + b_1 z + b_0}%
-         {\phantom{a_4}z^{4} + a_3 z^{3} + a_2 z^{2} + a_1 z + a_0}
-  \text{.}
-\label{eq:tfO4}
-\end{equation}
-
-For example, a system composed of two second order systems with $\damping = 0.2$
-and $\fR = 400 \unit{Hz}$ for the first system and $\fR=4 \unit{kHz}$ for the second
-system was simulated similarly to the previous examples. The standard deviation
-of the noise $\sigma_e$ was put at $0.0678$. The corresponding results are 
-shown in \figref{fig:sumSys}.
-
-\begin{figure}%
-  \centering
-  \setlength{\figurewidth}{0.8\columnwidth}
-  \setlength{\figureheight}{5cm}
-  \input{\thisDir/figs/Sum02log0-2.tikz}
-  \caption{FRF for the sum of two second order systems with $\damping=0.2$ and
-           resonances at $ 400 \unit{Hz}$ and 4 \unit{kHz}.}%
-  \label{fig:sumSys}
-\end{figure}
-
-We observe that the amplitude of the FRF is $9.8\unit{dB}$ and $8.1\unit{dB}$ at the resonant frequencies.
-The standard deviation on the FRF lies respectively $59.7 \unit{dB}$ and $59.6 \unit{dB}$ lower than the FRF at these frequencies. 
-This shows that both resonances are captured with a practically identical error. 
 
 \subsection{Conclusion}
 The variance on the FRF near resonances with identical damping is nearly independent of the resonance frequency when a quasi-log multisine is used as excitation signal. 
