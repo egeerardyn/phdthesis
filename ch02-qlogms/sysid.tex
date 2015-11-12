@@ -139,7 +139,15 @@ with parameters $\theta=[\omega_0\;\damping]^{\T}$. The resonance frequency of t
 and the $3\unit{dB}$ bandwidth of the system is $\wdB \isdef 2\damping\wR$.
 Since information is local in the frequency domain, the input signal power inside $\wdB$, contributes significantly to the information matrix while input power outside $\wdB$ has a smaller contribution. This can be seen by considering the optimal design for a second order system. From \citep{Goodwin1977} we have that the D-optimal design for \eqref{eq:2ndOrderSys} is a single sinusoid at frequency
 \begin{align}
-\omega^\star =\frac{\omega_0\left(\left(1-2\damping^2\right)+\left(\left(1-2\damping^2\right)^2+15\right)^{1/2}\right)^{1/2}}{\sqrt{5}}.
+\omega^\star =\frac%
+{\wn
+  \sqrt{
+    \left(1-2\damping^2\right)
+    +
+    \left(\left(1-2\damping^2\right)^2+15\right)^{1/2}
+    }
+  }
+{\sqrt{5}}.
 \label{eq:optFreq}
 \end{align}
 For systems with low damping, i.e $\damping\ll1$ , $\omega^\star\approx\omega_0$, which is inside the bandwidth of the system. From \eqref{eq:optFreq} it is clear that the optimal design depends on the resonance of the system to be identified. Input design can be based on a guess of $\omega_0$, however if this guess is wrong, the resulting estimates may be unacceptable \citep{Rojas2007}.

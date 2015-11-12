@@ -5,14 +5,28 @@
 \section{Introduction}
 \label{sec:excitation:intro}
 Experiment design is the first step in the system identification loop, as illustrated in \figref{fig:intro:identification-cycle}.
+Consequently, the design that is chosen influences every further step in the identification process and limit the model quality that can be attained.
+In many cases
+
+\subsection{Generic excitation signals}
+\label{sec:excitation:intro:generic}
 
 
-Typically, one can take a few different approaches in experiment design:
-\begin{itemize}
-  \item \emph{optimal experiment deisgn:} given the 
-  \item \emph{robust experiment design:} given the 
-\end{itemize}
+\subsection{Optimal excitation signals}
+\label{sec:excitation:intro:optimal}
+Since generic excitation signals are not specifically geared towards the particular system under test, such signals tend to waste signal power.
 
+, such signals essentially don't use all the available signal power to reduce the uncertainty in the estimate.
+
+
+\subsection{Robust excitation signals}
+\label{sec:excitation:intro:robust}
+As illustrated above, optimal experiment design places the user in a catch-22 situation.
+
+\subsection{Approach in this chapter}
+\label{sec:excitation:intro:approach}
+In this chapter, the goal is to construct excitation signals that bridge the properties of generic and robust excitation signals to alleviate the chicken-and-the-egg problem that optimal strategies typically incur.
+In particular, a generic excitation signal will be used but its properties are tuned in such a way that it 
 
 \input{ch02-qlogms/logMS_IMTC.tex}
 
@@ -26,6 +40,22 @@ Typically, one can take a few different approaches in experiment design:
 \subsection{\TODO{Grid misalignment effects}}
 \subsection{\TODO{qLog design rules}}
 
+
+
+\section{Conclusion}
+\label{sec:excitation:conclusion}
+In this chapter we have illustrated that quasi-logarithmic multisine excitations are a well-suited to measure transfer functions over broad frequency ranges with a constant relative uncertainty of the present resonances.
+
+The suggested amplitude compensation methods allow the user to measure a parametric LTI model for systems in a wide frequency band with a constant uncertainty.
+The variance of the estimates at lower frequencies is improved in comparison to the uncompensated case at the cost of a slightly increased (yet constant) variance at higher frequencies for excitation signals with an equal power content.
+In practical applications, this slight increase is likely to be negligible.
+The suggested compensation works well as long as the considered systems are sufficiently damped with respect to the density of the excited frequency lines.
+
+We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equidamped set of systems.
+The presented method allows to select a maximal value for the frequency ratio $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
+In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
+
+\TODO{omrekentabel verschillende grootheden: $F$, $F/\mathrm{dec}$, $F/\mathrm{oct}$, $\alpha$, $\delta f$}
 
 
 \begin{subappendices}

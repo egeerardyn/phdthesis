@@ -1,13 +1,5 @@
 \TODO{reshape figures}
 \TODO{rename labels}
-% \begin{abstract}
-% The logarithmic distribution of spectral lines in excitation signals is widely used to measure the transfer functions of dynamic systems over a wide frequency band, covering several decades.
-% Periodic signals are very popular in many advanced dynamic signal analyzers.
-% Generating multitone periodic signals requires an equidistant frequency grid which conflicts with the logarithmic distribution, especially at the low frequencies.
-% In this paper we offer an elegant solution to get around this problem using an improved choice for the amplitude spectrum of the multitone.
-% We also offer a simple way to tune the frequency spacing of such a signal to allow for robust identification of the system under test.
-% \end{abstract}
-
 
 \section{Introduction} \label{sec:intro}
   It often occurs that we wish to measure the \gls{FRF} of a \gls{LTI} system in a frequency band that covers several decades~\citep{Bragos2001,Sanchez2011,Niedostatkiewicz2009,VanGheem2004}.
@@ -60,6 +52,7 @@
   For a continuous time model $\Omega = s$, while for the discrete time case $\Omega = z$.
 
   Such a system can be decomposed into a series of first and second order systems by the partial fraction expansion.
+
   To study the behavior of one sub-system, we inspect a generic second order system $G\left( s \right)$.
   In continuous time such a system can be described by a transfer function of the form
   \begin{equation}
@@ -130,7 +123,7 @@
     the frequency grid $\left\{f_1, \ldots, f_F \right\}$.
   Note that the $k^{\text{th}}$ term in \eqref{eq:MultisineCT} is has a period $T_k \isdef f_k^{-1}$.
 
-  Consequently, the complete multisine has a period of
+  Consequently, the complete multisine has a period $T_{u(t)}$ that is the common multiple of the period of all its components:
   \begin{equation}
     T_{u(t)}  = \lcm \set{T_1, \ldots, T_F}
       = \lcm \set{f_1^{-1}, \ldots, f_F^{-1}}
@@ -230,7 +223,7 @@
    \end{equation}
    \end{property}
   \begin{example}
-    For the frequency decade band $\decade(f) = \ClosedInterval{f, 10 f}$, a logarithmic frequency grid contains $F_{\decade} = \floor{\log_{\alpha} 10}$ excited lines.
+    For the frequency decade band $\decade(f) \isdef \ClosedInterval{f, 10 f}$, a logarithmic frequency grid contains $F_{\decade} = \floor{\log_{\alpha} 10}$ excited lines.
   \end{example}
 
    Obviously, the same argument can be held for any set of frequency bands with constant relative bandwidth (e.g. octave $\kappa = 2$).
@@ -318,7 +311,7 @@
 
   For $1/f$ noise (`pink noise'), the power spectral density $S(f)$ is proportional to $1/f$.
   We can again approximate such a signal by means of a quasi-logarithmic grid multisine.
-  To do so, we excite a quasi-logarithmic frequency grid $\set{f_1,\ldots,f_k,\ldots,f_F}$ and determine the corresponding amplitude spectrum $A_k$ such that each excited line carries the same power as the corresponding frequency band does for pink noise.
+  To do so, we construct a quasi-logarithmic frequency grid $\set{f_1,\ldots,f_k,\ldots,f_F}$ and determine the corresponding amplitude spectrum $A_k$ such that each excited line carries the same power as the corresponding frequency band does for pink noise.
 
   This allows to define the amplitude spectrum $A_k$ as
   \begin{equation}
@@ -392,7 +385,7 @@
   Doing so will allow to determine a suitable value for the frequency spacing $\alpha$.
 
 \TODO{zin loopt niet goed}
-  The covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function, which is pretty hard because the common lack of intuition about this model given the parameters, can be shown \citep{Pintelon2012, Gallager2008, matrixcookbook} to be approximately equal to
+  The covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function $G(\theta,\omega)$ can be shown \citep{Pintelon2012, Gallager2008, matrixcookbook} to be approximately equal to
   \begin{align}
     \C_{G\left( \omega_{\interest}\right) } \approx
       \InnerQuadraticForm[\HT]
@@ -450,12 +443,13 @@
   If one calculates their FRFs by evaluating \eqref{eq:secondOrderSystemCT}, one sees that $G_1(\omega)$ and $G_m(m\omega)$ yield the same numerical values for any value of the pulsation $\omega$.
   Both FRFs share the same `shape', but are `located' at different frequencies.
 
-  Let's select a logarithmic frequency grid with an infinite number of grid lines
+  Consider a logarithmic frequency grid with an infinite number of grid lines
   \begin{equation}
     \vec{\omega} = \set{\alpha^k \omega_0 \given{k \in \ZN}}
     \label{eq:freqGridLog}
     \text{.}
   \end{equation}
+
   Consider a second grid, defined as a multiple of this grid, $m\vec{\omega} = \set{m \cdot \alpha^k \omega_0 \given{k \in \ZN}}$; both grids share the same frequency ratio $\alpha$.
   
   \TODO{formulate as lemmas, show steps}
@@ -791,16 +785,3 @@ In the following set of simulations, we will study how the FRF of different seco
     This can be explained by the fact that in this experiment, $f_0$ was chosen low enough to ensure that all the second-order subsystems had their $3\unit{dB}$ bandwidth within the bulk of logarithmic part of the excited grid.
     This observation also shows that in this practical application, the increase in uncertainty between the uncompensated and compensated quasi-log multisines is negligible, as was observed earlier in the simulations.
     However, if the system under test would have a lower resonance frequency, a quasi-log multisine with power compensation would perform better as was seen in the simulations.
-
-
-\section{Conclusion} \label{sec:conclusion}
-The suggested compensation method allows the user to measure a parametric LTI model for systems in a wide frequency band with a constant uncertainty.
-The variance of the estimates at lower frequencies is improved in comparison to the uncompensated case at the cost of a slightly increased (yet constant) variance at higher frequencies for excitation signals with an equal power content.
-In practical applications, this slight increase is likely to be negligible.
-The suggested compensation works well as long as the considered systems are sufficiently damped with respect to the density of the excited frequency lines.
-
-We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equidamped set of systems.
-The presented method allows to select a maximal value for the frequency factor $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
-In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
-
-\TODO{omrekentabel verschillende grootheden: $F$, $F/\mathrm{dec}$, $F/\mathrm{oct}$, $\alpha$, $\delta f$}
