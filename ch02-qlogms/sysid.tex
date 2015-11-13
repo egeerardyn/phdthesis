@@ -287,7 +287,7 @@ To proceed, consider
 \end{align}
 which has zeros in $j\omega=\left\{0, \damping\wn[1]\right\}$. 
 Hence $\left|\frac{\partial G_1}{\partial \wn[1]} \right|$ has asymptotic slope 20\unit{dB/\decade} for low frequencies, at $j\omega=\damping\wn[1]$ the slope increases to 40\unit{dB/\decade}. There are four poles which give a $-40$\unit{dB/\decade} roll-off after the peak. 
-The shape of $\frac{\partial G_1}{\partial \wn[1]} $ is illustrated in Fig.~\ref{fig:dG}.
+The shape of $\frac{\partial G_1}{\partial \wn[1]} $ is illustrated in \figref{fig:dG}.
 
 A crude, albeit useful, bound on the integrand in \eqref{eq:cross} is
 \begin{align}
@@ -327,7 +327,7 @@ Hence \eqref{eq:cross1} cannot grow faster than $\mathcal{O}(\damping^{-2})$ as 
 
 To further illustrate the decoupling of the two systems, we calculate \eqref{eq:infoEx} for different values of the damping $\damping$ and separations of the two resonances $\wn[1]$ and $\wn[2]$. If the separation is taken in terms of $\wdB$-units for the lower resonance, the result only depends on the difference $\wn[1]-\wn[2]$ and not on the actual frequencies. The resulting information matrix is then normalized so that the largest element is $1$.
 
-In Fig.~\ref{fig:coupling} the largest element in $\partial G_{1,2}$ is plotted for different dampings and separations. It is clear that highly resonant systems have a large degree of decoupling and that resonances that are well separated increases the decoupling. The diagonal blocks of the normalized $\IF$ in all cases have some elements close to 1. In this example, the $\damping$ is set to be the same in both sub-systems. Using different dampings in the sub-systems would, however, not change the argument, the systems with the lowest damping will limit the separation.
+In \figref{fig:coupling} the largest element in $\partial G_{1,2}$ is plotted for different dampings and separations. It is clear that highly resonant systems have a large degree of decoupling and that resonances that are well separated increases the decoupling. The diagonal blocks of the normalized $\IF$ in all cases have some elements close to 1. In this example, the $\damping$ is set to be the same in both sub-systems. Using different dampings in the sub-systems would, however, not change the argument, the systems with the lowest damping will limit the separation.
 
 Based on the above arguments, we make the following approximation of the information matrix for systems with low damping,
 \begin{align}

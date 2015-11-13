@@ -447,8 +447,9 @@ with
     \midrule
     $f_{k+1} \isdef$ 
        & $f_{k} + \Delta f$ 
-       & $\alpha f_{k}$ 
-       & $\round{\frac{\alpha f_k}{\Delta f}} \Delta f$\\[5pt]
+       & $\alpha f_{k}$
+       & $\round{\frac{\alpha^{N_k} f_k}{\Delta f}} \Delta f$,   $N_k \in \NaturalNumbers$
+       \\[5pt]
     $\Delta f_k \isdef f_{k+1} - f_k$ 
        & $\Delta f$
        & $(\alpha - 1) f_k$
@@ -460,16 +461,15 @@ with
     $F_{\ClosedInterval{a,b}}$
        & $\floor{\frac{b - a}{\Delta f}}$
        & $\floor{\log_{\alpha} \frac{b}{a}}$
-       & \ldots\\[5pt]
+       & $\leq \floor{\log_{\alpha} \frac{b}{a}}$\\[5pt]
     $F_{\ClosedInterval{f, \kappa f}}$
       & $\floor{\frac{(\kappa - 1)f}{\Delta f}}$
       & $\floor{\log_{\alpha} \kappa}$
-      & $\approx \floor{\log_{\alpha} \kappa}$\\[5pt]
+      & $\leq \floor{\log_{\alpha} \kappa}$\\[5pt]
     \bottomrule
     \end{tabular}
-
-    \TODO{afmaken}
   \end{table}
+  \TODO{tabel: verschillende signalen: power per BW}
 
   \TODO{plot: $\alpha $ (evt. $\cdot A_k^2$) i.f.v. $\omega$ voor verschillende signalen.}
   \TODO{plot: $\Delta f $ i.f.v. $\omega$ voor verschillende signalen} 
@@ -481,9 +481,10 @@ with
 
 \section{Optimization of the frequency spacing} \label{sec:optimAlpha}
   \subsection{Calculation of the model uncertainty}
-  In the previous section logarithmically spaced multisines were introduced, but up to now their major parameter, the frequency spacing factor $\alpha$, has not been designed for.
+  In the previous section logarithmically spaced multisines were introduced, but up to now their major parameter, the frequency spacing $\alpha$, has not been designed.
+
   In this section we show a possible approach to compare the performance of different excitation signals with respect to the theoretically minimal attainable uncertainty of the transfer function as expressed by the Cramér-Rao Lower Bound.
-  Doing so will allow to determine a suitable value for the frequency spacing $\alpha$.
+  Doing so allows to determine a suitable value for the frequency spacing $\alpha$.
 
 \TODO{zin loopt niet goed}
   The covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function $G(\theta,\omega)$ can be shown \citep{Pintelon2012, Gallager2008, matrixcookbook} to be approximately equal to
