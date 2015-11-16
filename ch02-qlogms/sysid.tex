@@ -45,7 +45,7 @@ By Parseval's theorem, \IF can be expressed as
 \end{align}
 The information matrix is a function of the input power spectrum, which is the only entity that can be used to improve the quality of the estimates. A common optimality criterion is D-optimality where $\det{\IF}$ is maximized \citep{Goodwin1977}.
 
-The information matrix tells us how good the individual parameter estimates are. However, if we are interested in estimating a transfer function $G(s,\theta)$ the quality of this estimate is of more importance. It is possible to find an expression for the variance of $\hat{G}(j\omega,\theta)$ using the Gauss approximation formula \citep{Ljung1999, Pintelon2001}. This gives
+The information matrix tells us how good the individual parameter estimates are. However, if we are interested in estimating a transfer function $G(s,\theta)$ the quality of this estimate is of more importance. It is possible to find an expression for the variance of $\hat{G}(j\omega,\theta)$ using the Gauss approximation formula \citep{Ljung1999, Pintelon2012}. This gives
 \begin{align}
 \var{\hat{G}(j\omega)} &= \frac{\partial G^H(j\omega)}{\partial \theta}\IF^{-1}\frac{\partial G(j\omega)}{\partial \theta}.
 \label{eq:varG}
@@ -132,29 +132,30 @@ This can be ensured by a suitable choice of the input power spectrum.
  \subsection{A second order system}
 Consider the second order system
 \begin{align}
-y_t &= G(s,\theta)=\frac{1}{\frac{s^2}{\wn^2} + 2\frac{\damping}{\wn}s + 1}u_t,
+y_t &= G(s,\theta) u_t = \frac{1}{\frac{s^2}{\wn^2} + 2\frac{\damping}{\wn}s + 1}u_t,
 \label{eq:2ndOrderSys}
 \end{align}
 with parameters $\theta=[\wn\;\damping]^{\T}$. The resonance frequency of the system is $\wR \isdef \sqrt{1-\damping^2}\wn$
-and the $3\unit{dB}$ bandwidth of the system is $\wdB \isdef 2\damping\wR$.
-Since information is local in the frequency domain, the input signal power inside $\wdB$, contributes significantly to the information matrix while input power outside $\wdB$ has a smaller contribution. This can be seen by considering the optimal design for a second order system. From \citep{Goodwin1977} we have that the D-optimal design for \eqref{eq:2ndOrderSys} is a single sinusoid at frequency
+and the $3\unit{dB}$ bandwidth of the system is $\wdB \isdef 2\damping\wn$.
+Since information is local in the frequency domain, the input signal power inside $\wdB$, contributes significantly to the information matrix while input power outside $\wdB$ has a smaller contribution. This can be seen by considering the optimal design for a second order system. From \citep[Example 6.4.5]{Goodwin1977} we have that the D-optimal design for \eqref{eq:2ndOrderSys} is a single sinusoid at frequency
 \begin{align}
 \omega^\star =\frac%
 {\wn
   \sqrt{
     \left(1-2\damping^2\right)
     +
-    \left(\left(1-2\damping^2\right)^2+15\right)^{1/2}
+    \sqrt{\left(1-2\damping^2\right)^2+15}
     }
   }
 {\sqrt{5}}.
 \label{eq:optFreq}
 \end{align}
-For systems with low damping, i.e $\damping\ll1$ , $\omega^\star\approx \wn$, which is inside the bandwidth of the system. 
+For lightly-damped systems, i.e $\damping \ll 1$ , $\omega^\star\approx \wn$, which is inside the bandwidth of the system. 
 From \eqref{eq:optFreq} it is clear that the optimal design depends on the resonance of the system to be identified. 
 Input design can be based on a guess of $\wn$, however if this guess is wrong, the resulting estimates may be unacceptable~\citep{Rojas2007}.
 
-When no information about the system is available, we propose using an input power spectrum with a logarithmic power distribution. This can be achieved either with a continuous bandlimited $1/f$ spectrum or a quasi-logarithmic multisine spectrum \citep{Pintelon2001}. We choose to work with an equidistant frequency grid with resolution $f_0$ and design the input in the frequency band $[\wn \kMin\; \wn \kMax]$, where the resolution is $k_0=1/T_{meas}$ and $T_{meas}$ is the measurement time. Hence, a finite measurement time limits the frequency resolution and therefore we have to put a lower limit on the frequency band of interest. Moreover, we can only impose the logarithmic distribution sufficiently well if $\kMin$ is large enough.
+When no information about the system is available, we propose using an input power spectrum with a logarithmic power distribution. This can be achieved either with a continuous bandlimited $1/f$ spectrum or a quasi-logarithmic multisine spectrum \citep{Pintelon2012}. 
+We choose to work with an equidistant frequency grid with resolution $f_0$ and design the input in the frequency band $[\wn \kMin\; \wn \kMax]$, where the resolution is $k_0=1/\Tm$ and $\Tm$ is the measurement time. Hence, a finite measurement time limits the frequency resolution and therefore we have to put a lower limit on the frequency band of interest. Moreover, we can only impose the logarithmic distribution sufficiently well if $\kMin$ is large enough.
 
 First, we look at the bandlimited $1/f$ power spectrum given by
 \begin{align*}
@@ -173,16 +174,19 @@ With this input spectrum, the power inside $\wdB$ is
 \end{align}
 which is independent of $\wn$. The robustness of the $1/f$ input has been noted previously in e.g. \cite{Rojas2007}
 
-Second, we consider the power spectrum of the quasi-logarithmic multisine signal [\cite{Pintelon2001}] given by
+Second, we consider the power spectrum of the quasi-logarithmic multisine signal [\cite{Pintelon2012}] given by
 \begin{align}
   \phi_u(\omega) &= \frac{1}{M}\sum_{k=1}^{M}{\delta(\omega,\wn[K])},
 \end{align}
-where $\omega_{k}/\omega_{k+1} \approx \alpha_{f} = e^{\Delta}$.
+where $\omega_{k}/\omega_{k+1} \approx \alpha = e^{\Delta}$.
 Hence, the number of spectral lines inside \wdB is 
 \begin{align}
-\left\lfloor\ln{\left[\frac{1+\damping}{1-\damping}\right]}\Delta^{-1}\right\rfloor,
+  \floor{
+    \log_{\alpha} \frac{1+\damping}{1-\damping} 
+  }
+  \text{,}
 \end{align}
-where $\lfloor\cdot\rfloor$ is the nearest integer rounded towards $0$. The number of spectral lines is independent of $\wn$. 
+where $\floor{\placeholder}$ is the nearest integer rounded towards $0$. The number of spectral lines is independent of $\wn$. 
 
 More generally, a multisine can be defined as:
 \begin{equation}
@@ -197,7 +201,7 @@ where $A_k$ and $\psi_k$ are its amplitude and phase spectrum; $f_s$ is the
 sampling frequency and $f_0 = \frac{f_s}{N}$ the base frequency with $N$ the 
 number of points in a period. 
 
-To construct a quasi-logarithmic multisine, only frequency lines $f_j$ within the set of available sine components $\left\{f_0, 2 f_0, \ldots, F f_0  \right\}$ are excited for which the ratio of two consecutive frequencies $f_j$ and $f_{j-1}$ is approximately constant: $\frac{f_{j-1}}{f_j} \approx \alpha_f$.
+To construct a quasi-logarithmic multisine, only frequency lines $f_j$ within the set of available sine components $\left\{f_0, 2 f_0, \ldots, F f_0  \right\}$ are excited for which the ratio of two consecutive frequencies $f_j$ and $f_{j-1}$ is approximately constant: $\frac{f_{j-1}}{f_j} \approx \alpha$.
 
 The result of these two choices of input power spectrum is that for a given damping, $\var{\hat{G}}$ is approximately the same independent of $\wn$. 
 This is illustrated in Section~\ref{sec:sim}.
@@ -371,12 +375,12 @@ This allowed the signal to cover four decades in the frequency domain,
 from which we did not use the first decade.
 Only frequencies between $1\unit{Hz}$ and $16\,384\unit{Hz}$ are excited, such that aliasing was avoided.
 
-For the quasi-log excitation, a frequency ratio of $\alpha_f = 1.05$ was chosen
+For the quasi-log excitation, a frequency ratio of $\alpha = 1.05$ was chosen
 and the amplitude spectrum was kept constant $A_k = A_{\mathrm{in}}$. This
 amplitude was normalized such that the root mean square (RMS) value of $u[n]$
 was equal to $1$.
 
-The desired frequency ratio $\alpha_f$ may not be attainable for low frequencies,  due to a lack of frequency resolution.
+The desired frequency ratio $\alpha$ may not be attainable for low frequencies,  due to a lack of frequency resolution.
 This causes a less dense coverage of the lowest frequency bands.
 
 \subsection{System under test}

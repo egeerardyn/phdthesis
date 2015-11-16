@@ -6,15 +6,16 @@
 \label{sec:excitation:intro}
 Experiment design is the first step in the system identification loop, as illustrated in \figref{fig:intro:identification-cycle}.
 Consequently, the design that is chosen influences every further step in the identification process and limit the model quality that can be attained.
-In many cases
 
 \subsection{Generic excitation signals}
 \label{sec:excitation:intro:generic}
-
+%TODO
 
 \subsection{Optimal excitation signals}
 \label{sec:excitation:intro:optimal}
 Since generic excitation signals are not specifically geared towards the particular system under test, such signals tend to waste signal power.
+
+%TODO
 
 , such signals essentially don't use all the available signal power to reduce the uncertainty in the estimate.
 
@@ -22,11 +23,13 @@ Since generic excitation signals are not specifically geared towards the particu
 \subsection{Robust excitation signals}
 \label{sec:excitation:intro:robust}
 As illustrated above, optimal experiment design places the user in a catch-22 situation.
+In the recent years, this has sparked attention towards robust signal design~\citep{Rojas2007} to alleviate the drawbacks of (nominal) optimal experiment design.
+%TODO
 
 \subsection{Approach in this chapter}
 \label{sec:excitation:intro:approach}
 In this chapter, the goal is to construct excitation signals that bridge the properties of generic and robust excitation signals to alleviate the chicken-and-the-egg problem that optimal strategies typically incur.
-In particular, a generic excitation signal will be used but its properties are tuned in such a way that it 
+In particular, a generic excitation signal will be used but its properties are tuned in such a way that it attains some properties of robust excitation signals without the requirement of very specific prior information. 
 
 \input{ch02-qlogms/logMS_IMTC.tex}
 
@@ -71,7 +74,7 @@ In particular, a generic excitation signal will be used but its properties are t
 \section{Methodology} \label{sec:method}
 
   \subsection{The system under consideration}
-  We consider the transfer function models of generic \gls{LTI} systems of arbitrary but finite orders $n_a\times n_b$:
+  We consider the transfer function models of generic \gls{LTI} systems of arbitrary but finite orders $n_b / n_a$:
   \begin{align}
     G\left( \Omega, \theta \right) = \frac{B\left( \Omega,\theta \right)}
                                           {A\left( \Omega,\theta \right)}
@@ -84,6 +87,12 @@ In particular, a generic excitation signal will be used but its properties are t
   For a continuous time model $\Omega = s$, while for the discrete time case $\Omega = z$.
 
   Such a system can be decomposed into a series of first and second order systems by the partial fraction expansion.
+  \TODO{This is actually wrong, rather, it should be $\frac{as-b}{cs^2 + ds + 1}$. However, the difference in information is rather small around the actual resonance. See script in NnF folder.}
+\TODO{write out in partial fraction expansion, use script to show that in practice, only a few parameters matter. This will be well-approximated by considering only the second order system of the paper.}
+  
+  Within these sub-systems, we can distinguish first-order subsystems and second-order subsystems, the latter of which describe resonant phenomena.
+  Since such resonances are often a limiting factor, we first focus on these resonant sub-systems.
+  Afterwards, it will become obvious that 
 
   To study the behavior of one sub-system, we inspect a generic second order system $G\left( s \right)$.
   In continuous time such a system can be described by a transfer function of the form
@@ -98,8 +107,6 @@ In particular, a generic excitation signal will be used but its properties are t
   \text{.}
   \label{eq:secondOrderSystemCT}
   \end{equation}
-\TODO{This is actually wrong, rather, it should be $\frac{as-b}{cs^2 + ds + 1}$. However, the difference in information is rather small around the actual resonance. See script in NnF folder.}
-\TODO{write out in partial fraction expansion, use script to show that in practice, only a few parameters matter. This will be well-approximated by considering only the second order system of the paper.}
 
   The DC gain $\dc$, the (relative) damping $\damping$ and the natural pulsation $\wn$ are a more intuitive parametrization for this system than the generic polynomial coefficients $a_i$ and $b_i$ used in \eqref{eq:model}.
   The corresponding resonance pulsation is $\wR \isdef \wn \sqrt{1-\damping^2}$.
@@ -120,12 +127,18 @@ In particular, a generic excitation signal will be used but its properties are t
   \end{align}
 
 \subsection{System and noise model}
-  In this paper, an output error (OE) system setup is used.
+  In this chapter, an output error (OE) system setup is used.
   Denote
     $U  \left(\omega\right)$ as the excitation signal,
     $Y_0\left(\omega\right)$ the exact, unperturbed system output,
     $E  \left(\omega\right)$ for the output noise source,
-    $Y  \left(\omega\right) = Y_0\left( \omega \right) + E\left( \omega \right)$ depicts the measured output signal.
+    $Y  \left(\omega\right) = Y_0\left( \omega \right) + E\left( \omega \right)$ depicts the measured output signal as shown in \figref{fig:excitation:OE}.
+
+  \begin{figure}
+    \centering
+    \input{\thisDir/figs/oesetup.tikz}
+    \caption[Output-error]{Output-error set-up.}
+  \end{figure}
 
   The output noise is assumed to be zero-mean and white with a
   standard deviation of $\sigma_e$ in the time domain or $\sigma_E$ in the frequency domain.
@@ -165,7 +178,7 @@ In particular, a generic excitation signal will be used but its properties are t
   The least common multiple of the set of values $T_k \in \RealNumbers$ for $k \in \set{1, \ldots, F}$ is  
   \begin{equation}
     \lcm \set{T_1, \ldots, T_F} \isdef
-      \min \set{T \given{\forall k \in \set{1,\ldots,F}, \exists n_k \in \NaturalNumbers: n_k T_k = T }}
+      \min \Set{T |\forall k \in \set{1,\ldots,F}, \exists n_k \in \NaturalNumbers: n_k T_k = T }
    \end{equation}
    if such a minimum exists.
    \end{definition}
@@ -243,7 +256,9 @@ In particular, a generic excitation signal will be used but its properties are t
   where $\floor{\bullet}$ denotes rounding towards zero.
   In the Section \ref{sec:optimAlpha}, the choice of a suitable $\alpha$ is elaborated.
 
-  \TODO{link naar log meas mode DSA (e.g. HP3562A) leggen. Bij HP 3562A, is $F/\mathrm{decade} = 80$, oftewel $\alpha = \sqrt[80]{10} \approx 1.029$ vast ingesteld. Dit beperkt bruikbaarheid van zo'n toestel.}
+  \begin{remark}
+    In different contexts, e.g. electrical circuit simulators such as \gls{SPICE}~\citep{Kundert1995}, measurement equipment such as \glspl{DSA} or the \code{logspace} function in \MATLAB it is more common to specify the spacing of a logarithmic grid using the total number of frequencies ($F$) or the number of frequencies per decade ($F_{\decade}$).
+  \end{remark}
 
   \begin{property}
    Each frequency band $B = \ClosedInterval{f, \kappa f}$ with $\kappa \in \PositiveRealNumbers \without \set{0,1}$ that is completely within the range of the excited logarithmic grid of frequencies $\set{f_1, \ldots, f_F}$ contains a constant number of frequency lines
@@ -256,6 +271,10 @@ In particular, a generic excitation signal will be used but its properties are t
    \end{property}
   \begin{example}
     For the frequency decade band $\decade(f) \isdef \ClosedInterval{f, 10 f}$, a logarithmic frequency grid contains $F_{\decade} = \floor{\log_{\alpha} 10}$ excited lines.
+  \end{example}
+  \begin{example}
+    The~\citep{HP3562A} has a logarithmic measurement mode that ensures that each decade is covered by $F_{\decade} = 80$ lines~ to measure an \gls{FRF}.
+    This is equivalent to a grid spacing $\alpha = \sqrt[80]{10} \approx 1.029$.
   \end{example}
 
    Obviously, the same argument can be held for any set of frequency bands with constant relative bandwidth (e.g. octave $\kappa = 2$).
@@ -416,7 +435,9 @@ with
     \label{eq:fRange}
     \text{.}
     \end{align}
-  This range can be seen as the power spectral density counterpart of the discrete spectrum relation \eqref{eq:nearestLines}.
+  This range can be seen as the power-spectral density counterpart of the discrete spectrum relation \eqref{eq:nearestLines}.
+  
+
   Note that instead of the geometric mean, the arithmetic mean can be used in \eqref{eq:fRange} to calculate almost identical boundaries.
 
   \subsection{Comparison of the frequency grids}
@@ -760,11 +781,17 @@ In the following set of simulations, we will study how the FRF of different seco
   At the output of the systems, white Gaussian noise $e[n]$ is added such that its standard deviation is approximately $10\%$ of the RMS value of the output.
 
   
-  The obtained FRF is then fitted to the transfer function model \eqref{eq:secondOrderSystemDTidentifiable} using the \texttt{elis} function of the \FDIDENT \citep{FDIDENT} for \matlab.
+  The obtained FRF is then fitted to the transfer function model \eqref{eq:secondOrderSystemDTidentifiable} using the \texttt{elis} function of the \FDIDENT~\citep{FDIDENT} for \MATLAB.
   This is a maximum likelihood estimator that fits a parametric model to the measured data in the frequency domain.
+  \TODO{add formulas with cost function etc.}
   To aid convergence and avoid local minima, the initial values for the model are chosen equal to the parameters of the true system $G_0(z)$, so that we can focus completely on the variance of the estimations.
 
   Such an experiment is repeated $R=1000$ times with a different random phase  spectrum $\phi_k$ and a different noise realization $e[n]$ for each experiment.
+
+  \begin{remark}
+  All simulations  have been repeated fitted with the \MATLAB System Identification Toolbox by means of the \code{oe} function~\citep{TDIDENT}.
+  The observed results were identical and hence are not elaborated further in this text.
+  \end{remark}
 
   \subsection{Systems with a `high' damping}
   To test the signals for systems with a high damping with respect to the frequency ratio in the excitation signal, systems with a damping $\damping = 0.2$ are used.
@@ -772,7 +799,7 @@ In the following set of simulations, we will study how the FRF of different seco
 
   The resulting frequency response function $\hat{G}$ for one such system is shown in \figref{fig:FRF1} together with the standard deviation $\sigma_{\hat{G}}$ of the estimated parametric model for each of the different excitation signals.
   The bias is at least $20\unit{dB}$ smaller than the standard  deviation.
-  Therefore the mean squared error (MSE) will be determined mainly by the variance of the estimate instead of the bias.
+  Therefore the \gls{MSE} will be determined mainly by the variance of the estimate instead of the bias.
 
   \begin{figure}[th]
     \centering
@@ -780,7 +807,7 @@ In the following set of simulations, we will study how the FRF of different seco
     \setlength\figurewidth{0.8\columnwidth}
     \input{\thisDir/figs/Sys02-4.tikz}
     \caption[Simulated FRF and its variance for different excitation signals.]{FRF of a second order system with $\fR=40\unit{Hz}$ and $\damping=0.2$
-             along with the corresponding variance.}%
+             along with the corresponding variance and bias of the parametric models obtained using three different kinds of multisine excitations.}%
     \label{fig:FRF1}
   \end{figure}
 
@@ -930,7 +957,7 @@ In practice we advise to use an excitation signal with approximately four excite
 
 \begin{subappendices}
   \section{Justification for considering only poles}
-
+  \TODO{benadering van 1/2 systeem a.d.h.v. 0/2 systeem wanneer $\omega_z << \wn$ (of $\omega_z >> \wn)$: rond de resonantie zijn beiden ongeveer gelijk. Afgeleide naar de nul zijn klein rond de resonantie. Informatiematrix is langs twee kanten gewogen met die afgeleide, dus die nul maakt weinig uit.}
 \end{subappendices}
 
 

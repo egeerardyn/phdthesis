@@ -17,12 +17,9 @@ ylabel={Largest normalized coupling element of $\IF$},
 %xtick={0.1,0.2,0.3,0.4,0.5,0.6,0.7},
 ytick={1e-7,1e-5,1e-3,1e-1},grid=major,
 legend pos=south east,
-axis on top]
+cycle list name=linestyles*]
 
-\addplot [
-color=black,
-solid
-]
+\addplot
 table[row sep=crcr]{
 1e-005	0.00956784\\
 1.46917e-005	0.00956848\\
@@ -57,10 +54,7 @@ table[row sep=crcr]{
 };
 \addlegendentry{$\wn[2] - \wn[1] = 4\sysBW$};
 
-\addplot [
-color=black,
-solid
-]
+\addplot
 table[row sep=crcr]{ 
 1e-005	0.000695711\\
 1.46917e-005	0.000695812\\
@@ -95,10 +89,7 @@ table[row sep=crcr]{
 };
 \addlegendentry{$\wn[2] - \wn[1] = 8\sysBW$};
 
-\addplot [
-color=black,
-solid
-]
+\addplot
 table[row sep=crcr]{
  1e-005	4.52139e-005\\
 1.46917e-005	4.52274e-005\\
@@ -133,10 +124,7 @@ table[row sep=crcr]{
 };
 \addlegendentry{$\wn[2] - \wn[1] = 16\sysBW$};
 
-\addplot [
-color=black,
-solid
-]
+\addplot
 table[row sep=crcr]{
  1e-005	2.85537e-006\\
 1.46917e-005	2.85708e-006\\
@@ -171,10 +159,7 @@ table[row sep=crcr]{
 };
 \addlegendentry{$\wn[2] - \wn[1] = 32\sysBW$};
 
-\addplot [
-color=black,
-solid
-]
+\addplot
 table[row sep=crcr]{%
  1e-005	1.79126e-007\\
 1.46917e-005	1.79341e-007\\
@@ -209,7 +194,7 @@ table[row sep=crcr]{%
 };
 \addlegendentry{$\wn[2] - \wn[1] = 64\sysBW$};
 
-\draw [->]
+\draw [->, line width=1pt]
 (axis cs:0.4,0.3) -- (axis cs:0.52,0.0006);
 
 \end{axis}

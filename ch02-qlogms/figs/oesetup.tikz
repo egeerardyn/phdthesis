@@ -1,0 +1,21 @@
+\tikzstyle{block} = [draw, rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={<-,black}]
+
+\begin{tikzpicture}[auto, node distance=2cm,>=latex]
+
+    \node [input, near start] (input) {};
+    \node [block, right of=input] (system) {$G_0(q)$};
+    \node [sum, right of=system,
+           pin={[pinstyle]above:$v(t)$},
+           node distance=2.5cm] (sum) {$+$};
+    \node [output, right of=sum, node distance=1.3cm] (output) {};
+    
+    \draw [->] (input)  -- node[name=u]  {$u_0(t)$}   (system);
+    \draw [->] (system) -- node[name=y0] {$y_0(t)$} (sum);
+    \draw [->] (sum)    -- node[name=y]  {$y(t)$}   (output);
+    
+\end{tikzpicture}
