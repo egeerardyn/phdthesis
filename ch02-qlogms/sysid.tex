@@ -356,141 +356,141 @@ This results extends mutatis mutandis to systems consisting of more sub-systems.
 \label{fig:coupling}
 \end{figure}
 
-\section{Simulations}\label{sec:sim}
-We considered a linear second order system that is to be identified, with the
-only prior knowledge that its resonance frequency $\fR$ lies in a known
-frequency band that may span several decades. 
-Our goal is to identify such a system by means of a single excitation signal, 
-such that the frequency response function (FRF) of the second order systems that are
-equally damped are identified with the same uncertainty near their resonance.
+% \section{Simulations}\label{sec:sim}
+% We considered a linear second order system that is to be identified, with the
+% only prior knowledge that its resonance frequency $\fR$ lies in a known
+% frequency band that may span several decades. 
+% Our goal is to identify such a system by means of a single excitation signal, 
+% such that the frequency response function (FRF) of the second order systems that are
+% equally damped are identified with the same uncertainty near their resonance.
 
-\subsection{Excitation}
-To excite the system under test, we used quasi-logarithmic (quasi-log) random-phase multisines. 
-Their phase spectrum $\psi_{k}$ is the result of a uniform random process over $[0,2\pi[$.
-A logarithmic spacing of the frequency components causes each decade within the band of interest to contain the same number of frequency components.
+% \subsection{Excitation}
+% To excite the system under test, we used quasi-logarithmic (quasi-log) random-phase multisines. 
+% Their phase spectrum $\psi_{k}$ is the result of a uniform random process over $[0,2\pi[$.
+% A logarithmic spacing of the frequency components causes each decade within the band of interest to contain the same number of frequency components.
 
-The quasi-log multisines were sampled at $f_s = 65\,536 \unit{Hz}$
-and consisted of $N= 65\,536$ points such that the frequency spacing was $f_0 = 1\unit{Hz}$ for the linear grid.
-This allowed the signal to cover four decades in the frequency domain,
-from which we did not use the first decade.
-Only frequencies between $1\unit{Hz}$ and $16\,384\unit{Hz}$ are excited, such that aliasing was avoided.
+% The quasi-log multisines were sampled at $f_s = 65\,536 \unit{Hz}$
+% and consisted of $N= 65\,536$ points such that the frequency spacing was $f_0 = 1\unit{Hz}$ for the linear grid.
+% This allowed the signal to cover four decades in the frequency domain,
+% from which we did not use the first decade.
+% Only frequencies between $1\unit{Hz}$ and $16\,384\unit{Hz}$ are excited, such that aliasing was avoided.
 
-For the quasi-log excitation, a frequency ratio of $\alpha = 1.05$ was chosen
-and the amplitude spectrum was kept constant $A_k = A_{\mathrm{in}}$. This
-amplitude was normalized such that the root mean square (RMS) value of $u[n]$
-was equal to $1$.
+% For the quasi-log excitation, a frequency ratio of $\alpha = 1.05$ was chosen
+% and the amplitude spectrum was kept constant $A_k = A_{\mathrm{in}}$. This
+% amplitude was normalized such that the root mean square (RMS) value of $u[n]$
+% was equal to $1$.
 
-The desired frequency ratio $\alpha$ may not be attainable for low frequencies,  due to a lack of frequency resolution.
-This causes a less dense coverage of the lowest frequency bands.
+% The desired frequency ratio $\alpha$ may not be attainable for low frequencies,  due to a lack of frequency resolution.
+% This causes a less dense coverage of the lowest frequency bands.
 
-\subsection{System under test}
-The systems we studied are low-pass second order systems with a given damping
-$\damping$, resonance frequency $\fR$ and a DC gain of $0 \unit{dB}$. Such systems
-can be represented in the discrete frequency domain by a transfer
-function of the form:
-\begin{equation}
-  G \left( z \right) = \frac{         b_2  z^{2} + b_1 z + b_0}%
-                            {\phantom{a_2} z^{2} + a_1 z + a_0}
-  \text{.}
-  \label{eq:tf}
-\end{equation}
+% \subsection{System under test}
+% The systems we studied are low-pass second order systems with a given damping
+% $\damping$, resonance frequency $\fR$ and a DC gain of $0 \unit{dB}$. Such systems
+% can be represented in the discrete frequency domain by a transfer
+% function of the form:
+% \begin{equation}
+%   G \left( z \right) = \frac{         b_2  z^{2} + b_1 z + b_0}%
+%                             {\phantom{a_2} z^{2} + a_1 z + a_0}
+%   \text{.}
+%   \label{eq:tf}
+% \end{equation}
 
-These discrete-time systems were constructed using the \matlab\ function \texttt{cheby1}.
+% These discrete-time systems were constructed using the \matlab\ function \texttt{cheby1}.
 
-An output error (OE) model was used to describe the system under test with the
-input $u[n]$, the system output $y_0[n]$, the white noise source $e[n]$
-and the measured output $y[n] = y_0[n] + e[n]$.
+% An output error (OE) model was used to describe the system under test with the
+% input $u[n]$, the system output $y_0[n]$, the white noise source $e[n]$
+% and the measured output $y[n] = y_0[n] + e[n]$.
 
-\subsection{Simulation setup}
-First, we considered a system with damping $\damping=0.05$ and resonant
-frequency $\fR = 40 \unit{Hz}$.
+% \subsection{Simulation setup}
+% First, we considered a system with damping $\damping=0.05$ and resonant
+% frequency $\fR = 40 \unit{Hz}$.
 
-The output noise $e[n]$ was white Gaussian noise with a standard deviation
-$\sigma_e = 0.1123$ which was approximately $10$ times smaller than the
-root mean square (RMS) value $y_0[n]$.
+% The output noise $e[n]$ was white Gaussian noise with a standard deviation
+% $\sigma_e = 0.1123$ which was approximately $10$ times smaller than the
+% root mean square (RMS) value $y_0[n]$.
 
-The simulations were repeated $R=1000$ times for each system with different realizations of the multisines $u[n]$ and the noise $e[n]$.
-In order to avoid that all simulations started with zero initial conditions, $N + N_{\mathrm{trans}}$ data points were generated, from which the first $N_{\mathrm{trans}}$ points of each simulation were discarded. 
+% The simulations were repeated $R=1000$ times for each system with different realizations of the multisines $u[n]$ and the noise $e[n]$.
+% In order to avoid that all simulations started with zero initial conditions, $N + N_{\mathrm{trans}}$ data points were generated, from which the first $N_{\mathrm{trans}}$ points of each simulation were discarded. 
 
-\subsection{Results for a single system}
-The outcome of the simulation over these repetitions are displayed in \figref{fig:FRF1}.
-These results show the averaged estimated FRF ($\hat{G}$), the standard deviation  $\sigma_{\hat{G}}$ on these estimates, the true FRF ($G_0$) and the bias of the estimates ($\Bias (\hat{G})$).
+% \subsection{Results for a single system}
+% The outcome of the simulation over these repetitions are displayed in \figref{fig:FRF1}.
+% These results show the averaged estimated FRF ($\hat{G}$), the standard deviation  $\sigma_{\hat{G}}$ on these estimates, the true FRF ($G_0$) and the bias of the estimates ($\Bias (\hat{G})$).
 
-These graphs show that the bias is more than $20 \unit{dB}$ less than the variance.
-This means that the mean square error (MSE) of the estimated FRFs is mainly caused by the variance $\sigma_{\hat{G}}^2$ and not by a large bias.
+% These graphs show that the bias is more than $20 \unit{dB}$ less than the variance.
+% This means that the mean square error (MSE) of the estimated FRFs is mainly caused by the variance $\sigma_{\hat{G}}^2$ and not by a large bias.
 
-\begin{figure}[hpt]
-  \centering
-  \setlength{\figurewidth}{0.8\columnwidth}
-  \setlength{\figureheight}{5cm}
-  \input{\thisDir/figs/Sys005log0-1.tikz}
-  \caption{FRF of a second order system with $\fR=40\unit{Hz}$ and $\damping=0.05$ 
-           along with its variance and bias.}%
-           \TODO{reproduce figure with ALL excitation signals}
-  \label{fig:FRF1}
-\end{figure}
+% \begin{figure}[hpt]
+%   \centering
+%   \setlength{\figurewidth}{0.8\columnwidth}
+%   \setlength{\figureheight}{5cm}
+%   \input{\thisDir/figs/Sys005log0-1.tikz}
+%   \caption{FRF of a second order system with $\fR=40\unit{Hz}$ and $\damping=0.05$ 
+%            along with its variance and bias.}%
+%            \TODO{reproduce figure with ALL excitation signals}
+%   \label{fig:FRF1}
+% \end{figure}
 
-\subsection{Simulations on a range of second order systems}
-The simulation carried out above was repeated for a more general set of systems.
-We studied systems with both a damping of $\damping=0.05$ (as above) and $\damping=0.2$.
-For these different damping values, systems with resonant frequencies
-$\fR \in \{ 40  \unit{Hz}\!,$
-          $ 80  \unit{Hz}\!,$
-          $200  \unit{Hz}\!,$
-          $400  \unit{Hz}\!,$
-          $800  \unit{Hz}\!,$
-          $  2 \unit{kHz}\!,$
-          $  4 \unit{kHz}\!\}$ were considered.
-The parameters pertaining to sampling and the excitation signal were left unchanged
-from the previous simulations. For the systems with a damping of $0.2$, $\sigma_e$
-was put at $0.0678$, which is approximately $10\%$ of the RMS value of $y_0[n]$.
-To allow an easy comparison with a multisine with an equidistant (linear) frequency grid, we also evaluated the variance for such an excitation signal (which had all other parameters determined similarly to the quasi-log multisines).
+% \subsection{Simulations on a range of second order systems}
+% The simulation carried out above was repeated for a more general set of systems.
+% We studied systems with both a damping of $\damping=0.05$ (as above) and $\damping=0.2$.
+% For these different damping values, systems with resonant frequencies
+% $\fR \in \{ 40  \unit{Hz}\!,$
+%           $ 80  \unit{Hz}\!,$
+%           $200  \unit{Hz}\!,$
+%           $400  \unit{Hz}\!,$
+%           $800  \unit{Hz}\!,$
+%           $  2 \unit{kHz}\!,$
+%           $  4 \unit{kHz}\!\}$ were considered.
+% The parameters pertaining to sampling and the excitation signal were left unchanged
+% from the previous simulations. For the systems with a damping of $0.2$, $\sigma_e$
+% was put at $0.0678$, which is approximately $10\%$ of the RMS value of $y_0[n]$.
+% To allow an easy comparison with a multisine with an equidistant (linear) frequency grid, we also evaluated the variance for such an excitation signal (which had all other parameters determined similarly to the quasi-log multisines).
 
-In \figref{fig:damping005} and \figref{fig:damping02} the results from these
-simulations are presented in a condensed form. 
-They show the mean estimated FRFs ($\hat{G}$), the true FRFs ($G_0$) and the corresponding standard deviations ($\sigma_{\hat{G}}$) near the resonance frequency of the simulated systems.
-The bias was at least $20\unit{dB}$ smaller than the standard deviation as well, but is omitted from the figures for clarity.
+% In \figref{fig:damping005} and \figref{fig:damping02} the results from these
+% simulations are presented in a condensed form. 
+% They show the mean estimated FRFs ($\hat{G}$), the true FRFs ($G_0$) and the corresponding standard deviations ($\sigma_{\hat{G}}$) near the resonance frequency of the simulated systems.
+% The bias was at least $20\unit{dB}$ smaller than the standard deviation as well, but is omitted from the figures for clarity.
 
-We can verify that for the smaller damping ($\damping=0.05$ in \figref{fig:damping005})
-the variance near the resonance is almost identical for all systems at $-39.3\unit{dB} \pm 1.8 \unit{dB}$. 
+% We can verify that for the smaller damping ($\damping=0.05$ in \figref{fig:damping005})
+% the variance near the resonance is almost identical for all systems at $-39.3\unit{dB} \pm 1.8 \unit{dB}$. 
 
-For the systems that are damped more ($\damping=0.2$ in \figref{fig:damping02}),
-we observe that the variance is nearly constant over the frequency range as well.
-The standard deviation lies at around $-49.3 \unit{dB} \pm 2.2\unit{dB}$.
-Systems that have a lower resonance frequency, exhibit a slightly higher variance 
-on their estimated FRF (near the resonance). 
+% For the systems that are damped more ($\damping=0.2$ in \figref{fig:damping02}),
+% we observe that the variance is nearly constant over the frequency range as well.
+% The standard deviation lies at around $-49.3 \unit{dB} \pm 2.2\unit{dB}$.
+% Systems that have a lower resonance frequency, exhibit a slightly higher variance 
+% on their estimated FRF (near the resonance). 
 
-The logarithmically-spaced excitation provides a much more constant dependency of resonance frequency to the variance than a linearly-spaced multisine, where the variance varies over respectively $35$ and $25 \unit{dB}$.
+% The logarithmically-spaced excitation provides a much more constant dependency of resonance frequency to the variance than a linearly-spaced multisine, where the variance varies over respectively $35$ and $25 \unit{dB}$.
 
-\begin{figure}%
-  \centering
-  \setlength{\figurewidth}{0.8\columnwidth}
-  \setlength{\figureheight}{5cm}
-  \input{\thisDir/figs/damping005-cmp.tikz}
-  \caption{Comparison of the FRF and corresponding variances for
-           different second order systems with constant damping
-           $\damping=0.05$ but different resonance frequencies around
-           their respective resonance frequencies, for both a quasi-log 
-           and a linear multisine excitation.}%
-  \label{fig:damping005}
-\end{figure}
+% \begin{figure}%
+%   \centering
+%   \setlength{\figurewidth}{0.8\columnwidth}
+%   \setlength{\figureheight}{5cm}
+%   \input{\thisDir/figs/damping005-cmp.tikz}
+%   \caption{Comparison of the FRF and corresponding variances for
+%            different second order systems with constant damping
+%            $\damping=0.05$ but different resonance frequencies around
+%            their respective resonance frequencies, for both a quasi-log 
+%            and a linear multisine excitation.}%
+%   \label{fig:damping005}
+% \end{figure}
 
-\begin{figure}%
-  \centering
-  \setlength{\figurewidth}{0.8\columnwidth}
-  \setlength{\figureheight}{5cm}
-  \input{\thisDir/figs/damping02-cmp.tikz}
-  \caption{Comparison of the FRF and corresponding variances for
-           different second order systems with constant damping
-           $\damping=0.2$ but different resonance frequencies around
-           their respective resonance frequencies, for both a quasi-log 
-           and a linear multisine excitation.}%
-  \label{fig:damping02}
-\end{figure}
+% \begin{figure}%
+%   \centering
+%   \setlength{\figurewidth}{0.8\columnwidth}
+%   \setlength{\figureheight}{5cm}
+%   \input{\thisDir/figs/damping02-cmp.tikz}
+%   \caption{Comparison of the FRF and corresponding variances for
+%            different second order systems with constant damping
+%            $\damping=0.2$ but different resonance frequencies around
+%            their respective resonance frequencies, for both a quasi-log 
+%            and a linear multisine excitation.}%
+%   \label{fig:damping02}
+% \end{figure}
 
-\subsection{Conclusion}
-The variance on the FRF near resonances with identical damping is nearly independent of the resonance frequency when a quasi-log multisine is used as excitation signal. 
-This result was obtained for second order sections and illustrated on a more general system.
+% \subsection{Conclusion}
+% The variance on the FRF near resonances with identical damping is nearly independent of the resonance frequency when a quasi-log multisine is used as excitation signal. 
+% This result was obtained for second order sections and illustrated on a more general system.
 
 %%Conclusion
 \section{Conclusions}\label{sec:conclusions}

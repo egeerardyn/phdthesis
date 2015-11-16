@@ -9,16 +9,12 @@ Consequently, the design that is chosen influences every further step in the ide
 
 \subsection{Generic excitation signals}
 \label{sec:excitation:intro:generic}
-%TODO
+\TODO{\ldots}
 
 \subsection{Optimal excitation signals}
 \label{sec:excitation:intro:optimal}
-Since generic excitation signals are not specifically geared towards the particular system under test, such signals tend to waste signal power.
-
-%TODO
-
-, such signals essentially don't use all the available signal power to reduce the uncertainty in the estimate.
-
+Since generic excitation signals are not specifically geared towards the particular system under test, such signals use signal power in an inefficient way that does not reduce the variance of the model estimate significantly.
+\TODO{\ldots}
 
 \subsection{Robust excitation signals}
 \label{sec:excitation:intro:robust}
@@ -490,7 +486,6 @@ with
     \bottomrule
     \end{tabular}
   \end{table}
-  \TODO{tabel: verschillende signalen: power per BW}
 
   \TODO{plot: $\alpha $ (evt. $\cdot A_k^2$) i.f.v. $\omega$ voor verschillende signalen.}
   \TODO{plot: $\Delta f $ i.f.v. $\omega$ voor verschillende signalen} 
@@ -908,6 +903,7 @@ For example, a system composed of two second order systems with $\damping = 0.2$
   \input{\thisDir/figs/Sum02log0-2.tikz}
   \caption{FRF for the sum of two second order systems with $\damping=0.2$ and
            resonances at $ 400 \unit{Hz}$ and 4 \unit{kHz}.}%
+           \TODO{also with other excitation signals?}
   \label{fig:sumSys}
 \end{figure}
 
