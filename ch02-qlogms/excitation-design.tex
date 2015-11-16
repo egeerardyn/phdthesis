@@ -436,7 +436,7 @@ with
     \text{.}
     \end{align}
   This range can be seen as the power-spectral density counterpart of the discrete spectrum relation \eqref{eq:nearestLines}.
-  
+  Consequently, 
 
   Note that instead of the geometric mean, the arithmetic mean can be used in \eqref{eq:fRange} to calculate almost identical boundaries.
 
@@ -504,7 +504,7 @@ with
   \subsection{Calculation of the model uncertainty}
   In the previous section logarithmically spaced multisines were introduced, but up to now their major parameter, the frequency spacing $\alpha$, has not been designed.
 
-  In this section we show a possible approach to compare the performance of different excitation signals with respect to the theoretically minimal attainable uncertainty of the transfer function as expressed by the Cramér-Rao Lower Bound.
+  In this section we show a possible approach to compare the performance of different excitation signals with respect to the theoretically minimal attainable uncertainty of the transfer function as expressed by the \gls{CRLB}.
   Doing so allows to determine a suitable value for the frequency spacing $\alpha$.
 
 \TODO{zin loopt niet goed}
@@ -559,37 +559,59 @@ with
   This is allowed as the matrix $\C_{X}$ is diagonal.
 
   \subsection{Relation between the frequency grid and the system resonance} \label{sec:relationLogGridSystem}
-  To determine an appropriate frequency ratio $\alpha$ for a logarithmically spaced signal, we study the estimated FRFs of a set of prototype second-order systems excited by logarithmically spaced excitation signals.
+  To determine an appropriate frequency ratio $\alpha$ for a logarithmically spaced signal, we study the estimated \glspl{FRF} of a set of prototype second-order systems excited by logarithmically spaced excitation signals.
 
-  Define $G_{1}$ for a second-order system with resonance frequency $\wn$, damping $\damping$ and DC gain $\dc$.
-  Denote $G_m$ a second-order system with the same $\damping$ and $\dc$ but a resonance frequency of $m\wn$.
+  \paragraph{Simplification}
+  Instead of studying the response of all possible second-order sub-systems for every possible logarithmically spaced multisine-- a five-dimensional problem with parameters $\omega_0, \alpha, \wn, \damping, \dc$-- we argue in favor for a simplification of the problem by considering infinite frequency grids.
+
+  Denote $G(\omega; \wn)$ a second-order system as in \eqref{eq:secondOrderSystemCT} with natural frequency $\wn$, damping ratio $\damping$ and \gls{DC} gain $\dc$.
+  Similarly, $G(\omega; m\wn)$ where $m \in \RealNumbersWithoutZero$ is a second order system that shares the damping and \gls{DC} gain of the previous system but has a natural frequency $m\wn$.
+
   If one calculates their FRFs by evaluating \eqref{eq:secondOrderSystemCT}, one sees that $G_1(\omega)$ and $G_m(m\omega)$ yield the same numerical values for any value of the pulsation $\omega$.
   Both FRFs share the same `shape', but are `located' at different frequencies.
 
-  Consider a logarithmic frequency grid with an infinite number of grid lines
+  Denote $\infgrid{\omega}$ to be a logarithmic frequency grid with an infinite number of grid lines
   \begin{equation}
-    \vec{\omega} = \set{\alpha^k \omega_0 \given{k \in \ZN}}
+    \infgrid{\omega} \isdef \Set{\alpha^k \omega_0 | k \in \ZN}
     \label{eq:freqGridLog}
+  \end{equation}
+  and consequently an infinite span.
+  We can define a second grid as the $m$-fold multiple (with $m \in \RealNumbersWithoutZero$) of this grid and denote it $m\infgrid{\omega}$:
+  \begin{equation}
+    m \infgrid{\omega} \isdef \Set{m \alpha^k \omega_0 | k \in \ZN}
     \text{.}
   \end{equation}
+  Both $\infgrid{\omega}$ and $m\infgrid{\omega}$ share the frequency ratio $\alpha$.
+  \begin{remark} \label{rem:exc:gridscaling}
+    For $N \in \ZN$ it is obvious that $\infgrid{\omega} = \alpha^{N} \infgrid{\omega}$, i.e. both grids coincide.
+  \end{remark}
 
-  Consider a second grid, defined as a multiple of this grid, $m\vec{\omega} = \set{m \cdot \alpha^k \omega_0 \given{k \in \ZN}}$; both grids share the same frequency ratio $\alpha$.
-  
-  \TODO{formulate as lemmas, show steps}
-  It is easy to show that for $m = \alpha^N$ the following relation holds:
+  \begin{definition}
+  To evaluate a function $G$ over the grid $\infgrid{\omega}$ with infinite span, let us introduce the shorthand notation $G(\infgrid{\omega})$ to mean $\set{G(\omega) | \omega \in \infgrid{\omega}}$.
+  \end{definition}
+
+  \begin{lemma} \label{lem:exc:sysscaling}
+  Consider the second-order systems $G(\omega; \wn)$ and $G(\omega; m\wn)$ with $m \in \RealNumbersWithoutZero$. 
+  For a frequency grid $\infgrid{\omega}$ with infinite span, it can be shown that $G(\infgrid{\omega}; \wn) = G(m \infgrid{\omega}; m\wn)$.
+  \end{lemma}
+  \begin{proof}
+  Pick any $\omega_{\star} \in \infgrid{\omega}$. The frequency $m\omega_{\star}$ is then by definition an element of the grid $m\infgrid{\omega}$.
+  Substituting $\omega = \omega_{\star}$ and $\omega = m \omega_{\star}$  into  $G(\omega; \wn)$ and $G(m\omega; m\wn)$  respectively, directly yields
   \begin{equation}
-    G_1\left( \vec{\omega} \right)
-    \stackrel{(a)}{=} G_{\alpha^N} \left( \alpha^N \vec{\omega} \right)
-    \stackrel{(b)}{=} G_{\alpha^N} \left( \vec{\omega} \right)
-    \label{eq:gridPeriodicity}
+    \frac{\dc}{- \omega_{\star}^2 \wn^{-2} + 2j\damping \omega_{\star} \wn^{-1} + 1} = 
+    \frac{\dc}{- (m\omega_{\star})^2 (m\wn)^{-2} + 2j\damping (m\omega_{\star}) (m\wn)^{-1} + 1}
+    \text{.}
   \end{equation}
-  since
-  \begin{itemize}
-   \item[(a)] the numerical values of the FRFs $G_1(\vec{\omega})$ and $G_m(m\vec{\omega})$ are equal and,
-   \item[(b)] the grids $\alpha^N \vec{\omega} = \set{\alpha^{k+N} \omega_0 \given{k \in \ZN}}$ and $\vec{\omega} = \set{\alpha^k \omega_0 \given{k \in \ZN}}$ coincide for integer values of $N$.
-  \end{itemize}
+  Since all the factors ``$m$'' cancel in the equation above, this proves the stated.
+  \end{proof}
 
-  This shows that systems with equal $\damping$ and $\dc$ but resonance frequencies that differ by a factor $\alpha^N$, will share an identical `shape` of their response at the lines of a logarithmically spaced frequency grid with infinite span and a frequency ratio $\alpha$.
+  \begin{theorem}
+    Second-order  systems with equal damping $\damping$ and \gls{DC} gain $\dc$ but resonance frequencies that differ by a factor $\alpha^N$ with $N \in \IntegerNumbers$, share an identical `shape` of their \gls{FRF} at the lines of a logarithmically spaced frequency grid with infinite span and a frequency ratio $\alpha$.
+    Or, formally: $G(\infgrid{\omega};\wn) = G(\infgrid{\omega}; \alpha^{N}\wn) \forall N \in \NaturalNumbers$.
+  \end{theorem}
+  \begin{proof}
+    This is an immediate consequence from Lemma~\ref{lem:exc:sysscaling} for $m= \alpha^{N}$ and Remark~\ref{rem:exc:gridscaling}.
+  \end{proof}
 
   Taking this into account allows to limit the study of second order systems to a small set of systems that should be considered in the search for a suitable grid spacing $\alpha$.
   We can limit the evaluation of the theoretical uncertainty \eqref{eq:varPeak} obtained by exciting the system with a logarithmic signal with ratio $\alpha$ to the analysis of second order systems with a resonance frequency set to
@@ -598,9 +620,10 @@ with
     \label{eq:theoreticalBestVariationOmega}
   \end{equation}
   The value $\gamma$ is varied for a fixed value of $N \in \ZN$.
-  The value $N$ will not influence the `shape` (and uncertainty) of the FRF.
+  The value of $N$ will not influence the `shape` (and uncertainty) of the FRF.
 
   The arguments for a logarithmically spaced grid with an infinite span remain approximately valid for quasi-logarithmically spaced grids with a finite frequency support if the resonance peak of the system under test can be considered within the `bulk' of the frequency grid with finite support.
+  \TODO{more rigorous explanation why this is the case}
   I.e. there should be a few excited frequency lines that are logarithmically spaced, outside of the resonance peak of the actual system.
   In practice, this means that systems with their resonance peak at the lowest and the very highest edge of the frequency band may not be observed with identical quality as systems at intermediate frequencies.
 
@@ -668,7 +691,7 @@ with
   
   We then calculate the theoretical variance on the magnitude of the peak in the FRF ($\left| G\left( \wM \right) \right|$) as shown in \eqref{eq:varPeak} for a coarse grid.
   A coarse grid was chosen with $\tilde{\alpha} = 10$; this means that the spacing between the excited lines around the resonance are much larger than the system bandwidth.
-  It is obvious that such an excitation signal will not perform well in most cases, as the resonance peak is very likely to be overlooked by such an FRF.
+  It is obvious that such an excitation signal will not perform well in most cases, as the resonance peak is very likely to be overlooked in such an FRF.
   
   For each set of second order systems, we determine for which value of the misalignment coefficient $\beta$ the maximum variance on the FRF is obtained.
   

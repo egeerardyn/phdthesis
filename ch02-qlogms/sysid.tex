@@ -412,14 +412,6 @@ root mean square (RMS) value $y_0[n]$.
 The simulations were repeated $R=1000$ times for each system with different realizations of the multisines $u[n]$ and the noise $e[n]$.
 In order to avoid that all simulations started with zero initial conditions, $N + N_{\mathrm{trans}}$ data points were generated, from which the first $N_{\mathrm{trans}}$ points of each simulation were discarded. 
 
-For each of these simulations, the system was identified by means of the \texttt{oe}
-function in the \matlab\ System Identification Toolbox\Cite{TDIDENT}.
-To prevent convergence issues, we used the true model parameters
-$\left\{ a_0, a_1, b_0, b_1, b_2 \right\}$ and model structure
-as mentioned in \eqref{eq:tf} as starting values.
-This increases the probability of the search converging to the global minimum, which
-allowed to focus on the real quantity of interest: the variance of the FRF.
-
 \subsection{Results for a single system}
 The outcome of the simulation over these repetitions are displayed in \figref{fig:FRF1}.
 These results show the averaged estimated FRF ($\hat{G}$), the standard deviation  $\sigma_{\hat{G}}$ on these estimates, the true FRF ($G_0$) and the bias of the estimates ($\Bias (\hat{G})$).
