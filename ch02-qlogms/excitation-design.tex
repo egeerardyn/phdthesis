@@ -126,20 +126,19 @@ In particular, a generic excitation signal will be used but its properties are t
   In this chapter, an output error (OE) system setup is used.
   Denote
     $U  \left(\omega\right)$ as the excitation signal,
-    $Y_0\left(\omega\right)$ the exact, unperturbed system output,
+    $\true{Y}\left(\omega\right)$ the exact, unperturbed system output,
     $E  \left(\omega\right)$ for the output noise source,
-    $Y  \left(\omega\right) = Y_0\left( \omega \right) + E\left( \omega \right)$ depicts the measured output signal as shown in \figref{fig:excitation:OE}.
+    $Y  \left(\omega\right) = \true{Y}\left( \omega \right) + E\left( \omega \right)$ depicts the measured output signal as shown in \figref{fig:excitation:OE}.
 
   \begin{figure}
     \centering
     \input{\thisDir/figs/oesetup.tikz}
     \caption[Output-error]{Output-error set-up.}
+    \label{fig:excitation:OE}
   \end{figure}
 
   The output noise is assumed to be zero-mean and white with a
   standard deviation of $\sigma_e$ in the time domain or $\sigma_E$ in the frequency domain.
-
-  \TODO{put block diagram here}
 
 \subsection{Multisine Excitations}
   To excite the system under test we consider a generalization of multisine excitations \citep{Pintelon2012}:
