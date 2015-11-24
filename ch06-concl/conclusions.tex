@@ -3,21 +3,64 @@
 \section{Conclusions of this research}
 
   \subsection{Excitation design}
+  In this thesis, multisine signals are proposed to measure \gls{SISO} systems within an \gls{LTI} framework.
+  Particularly, the proposed multisine signals employ a quasi-logarithmic frequency grid and a power spectrum in $1/f$ akin to pink noise to ensure a good quality of the \gls{FRF} over the whole excited frequency band.
+  As such, they are more robust excitation signal than e.g. typical general-use signals such as linear grid multisines or white noise excitation with the same total signal power and duration.
+  In this thesis it has been proven that when the user has prior knowledge about the expected minimal damping $\damping_{\min}$ of the poles present in the system, this sets the required logarithmic frequency grid spacing to attain a guaranteed relative uncertainty of the identified \gls{FRF} near the resonance peaks.
+  Concretely, the grid spacing $\alpha \isdef \frac{f_{k+1}}{f_k}$ of the (quasi-)logarithmic grid should conform to
+  \begin{equation}
+    \alpha \leq 1 + \damping_{\min}
+  \end{equation}
+  to attain a reliable estimate of the resonances present in the system.
+  The choice to use the equality $\alpha = 1+ \damping_{\min}$ is the optimal choice within the framework present in \chapref{sec:excitation}. 
+  Decreasing $ \alpha$ further comes at the cost of more excited frequency bins and consequently a lower power per bin, or, a reduced \gls{SNR} per bin if the overall signal power is limited as in many cases.
+
+  In practical terms of a layman user, this means that the design of a quasi-logarithmic multisines discussed in this thesis, requires only limited prior knowledge from the user:
+  \begin{itemize}
+    \item the allowable measurement time (or equivalently, the minimal relevant frequency),
+    \item the allowable total excitation power,
+    \item a broad frequency band of interest that could span multiple decades, and,
+    \item the minimal expected relative damping $\damping_{\min}$ in the system.
+  \end{itemize}
+  This last requirement is the only requirement that is often overlooked in initial excitation designs.
   \subsection{Non-parametric estimation}
   \subsection{Initialization of parametric estimation}
 
 
 \section{Future research}
   \subsection{Excitation design}
+  In this thesis, quasi-logarithmic multisines were proposed as a robust excitation signal that provide efficient estimation of sharp resonance peaks in the \gls{SISO} case.
+  Obviously, a first important extension of this research is towards the \gls{MIMO} case which is more involved.
+  To measure \gls{MIMO} systems using multisines, one of two typical approaches is often followed when measuring all channels at the same time:
+  \begin{itemize}
+    \item Zippered multisines, where the frequency grids of the different input channels are interspersed. This has the downside that frequency resolution is traded in for computational simplicity and that the different entries in the \gls{FRF} matrix are known on different frequency grids.
+    \item Orthogonal multisines, which are computationally more involved to process.
+  \end{itemize}
+  Due to the intrinsic sparsity of quasi-logarithmic grids, however, zippered quasi-logarithmic multisines might offer a very easy and elegant  approach to measure \gls{MIMO} systems with a moderate number of inputs.
+
+  Also, in the related chapter, it has been assumed that the system is an \gls{LTI} system.
+  For weakly nonlinear systems, the proposed approach is likely to 
+
   \TODO{MIMO extension}
   \TODO{zippered vs. orthogonal}
 
   \subsection{Non-parametric estimators}
+    \TODO{Order selection / BW selection}
     \TODO{MIMO LRM}
     \TODO{Slowly time-varying}
+    \TODO{Static LPV measurements}
 
   \subsection{Non-parametric estimation and interpolation}
   \TODO{Link between local models and weighting function design}
 
   \subsection{Parametric initialization}
+  In \chapref{sec:initvals} it was already illustrated that smoother can provide improved initial estimates of a system. 
+  Intrinsically, this stems from the fact that the effective \gls{SNR} of the transfer function is improved by means of the smoothness assumption and, on the other hand by the reduction in the the dimensionality in the parameter space.
+  By no means smoothers studied in \chapref{sec:initvals} chosen in an optimal way, such that it remains an open topic to determine which smoother has the best chance to produce good initial values in practical settings.
+
+  On the other hand, the \gls{LRM} and its variants discussed in \chapref{sec:nonparametric} provide some local information regarding the shape of the \gls{FRF} and hence also the transfer function.
+  The usefulness has already been seen in \chapref{sec:hinf} in connection to the computation of the \Hinf norm of a system.
+  Intrinsically, these local rational methods approximate the transfer function by a local model, or, equivalently a set of local poles and zeros.
+  Especially for resonant poles, one can expect that these local poles are closely linked to the global (actual) poles of a system.
+  As such, those could provide a valuable initialization strategy if the redundant local pole/zero information of neighboring windows can be reduced to a single global pole/zero initial value.
   \TODO{optimal smoother}
