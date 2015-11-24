@@ -258,7 +258,7 @@ In particular, a generic excitation signal will be used but its properties are t
   \begin{property}
    Each frequency band $B = \ClosedInterval{f, \kappa f}$ with $\kappa \in \PositiveRealNumbers \without \set{0,1}$ that is completely within the range of the excited logarithmic grid of frequencies $\set{f_1, \ldots, f_F}$ contains a constant number of frequency lines
    \begin{equation}
-     F_{B}(f) \isdef
+     F_{B} \isdef
      \floor{\frac{\log (\kappa f) - \log( f )}{\log \alpha}}
          = \floor{\log_{\alpha} \kappa}
          \text{.}
@@ -342,16 +342,19 @@ with
   This satisfies the approximate definition.
   
   \begin{remark}
-  The use of different rounding strategies in \eqref{eq:excitation:qlog:roundAlpha}, allows for slightly different guarantees on the effective $\alpha_k$ attained by the grid.
+  The use of different rounding strategies --- e.g. the \code{ceil} function $\ceil{}$  and \code{floor} function $\floor{}$ --- in \eqref{eq:excitation:qlog:roundAlpha}, allows for slightly different guarantees on the effective $\alpha_k$ attained by the grid.
   By denoting $\alpha_k^{\placeholder}$ as the effective frequency ratio for a rounding strategy $\placeholder$  in that equation, one can trivially see that the following relationships hold:
   \begin{equation}
   \alpha_k^{\floor{}} \leq \alpha \leq  \alpha_k^{\ceil{}}
   \qquad \text{and} \qquad
   \alpha_k^{\floor{}} \leq \alpha_k^{\round{}} \leq  \alpha_k^{\ceil{}}
   \qquad
-  \forall k \in \set{1,\ldots,F}
+  \forall k \in \NaturalNumbersWithoutZero
   \text{.}
   \end{equation}
+  This means that rounding using the \code{floor} operator favors to strictly attain the specified frequency bin density at the cost of a few more excited lines (and hence less allottable power per line).
+  The \code{ceil} function produces a grid that has more power per line at the cost of a reduced bin density.
+  On the other hand, using \code{round} as in \eqref{eq:excitation:qlog:roundAlpha}, provides a grid that is somewhere in-between both extremes.
   \end{remark}
 
   As this signal approximates a logarithmically spaced signal,  we expect that it will exhibit comparable properties.
@@ -431,7 +434,7 @@ with
     \text{.}
     \end{align}
   This range can be seen as the power-spectral density counterpart of the discrete spectrum relation \eqref{eq:nearestLines}.
-  Consequently, 
+  Consequently, both signals can be expected to behave in approximately the same way.
 
   Note that instead of the geometric mean, the arithmetic mean can be used in \eqref{eq:fRange} to calculate almost identical boundaries.
 
@@ -586,10 +589,10 @@ with
 
   \begin{lemma} \label{lem:exc:sysscaling}
   Consider the second-order systems $G(\omega; \wn)$ and $G(\omega; m\wn)$ with $m \in \RealNumbersWithoutZero$. 
-  For a frequency grid $\infgrid{\omega}$ with infinite span, it can be shown that $G(\infgrid{\omega}; \wn) = G(m \infgrid{\omega}; m\wn)$.
+  For a frequency grid $\infgrid{\omega}$ with infinite span, $G(\infgrid{\omega}; \wn) = G(m \infgrid{\omega}; m\wn)$.
   \end{lemma}
   \begin{proof}
-  Pick any $\omega_{\star} \in \infgrid{\omega}$. The frequency $m\omega_{\star}$ is then by definition an element of the grid $m\infgrid{\omega}$.
+  Consider any $\omega_{\star} \in \infgrid{\omega}$. The frequency $m\omega_{\star}$ is then by definition an element of the grid $m\infgrid{\omega}$.
   Substituting $\omega = \omega_{\star}$ and $\omega = m \omega_{\star}$  into  $G(\omega; \wn)$ and $G(m\omega; m\wn)$  respectively, directly yields
   \begin{equation}
     \frac{\dc}{- \omega_{\star}^2 \wn^{-2} + 2j\damping \omega_{\star} \wn^{-1} + 1} = 
@@ -601,7 +604,7 @@ with
 
   \begin{theorem}
     Second-order  systems with equal damping $\damping$ and \gls{DC} gain $\dc$ but resonance frequencies that differ by a factor $\alpha^N$ with $N \in \IntegerNumbers$, share an identical `shape` of their \gls{FRF} at the lines of a logarithmically spaced frequency grid with infinite span and a frequency ratio $\alpha$.
-    Or, formally: $G(\infgrid{\omega};\wn) = G(\infgrid{\omega}; \alpha^{N}\wn) \forall N \in \NaturalNumbers$.
+    Or, formally: $\forall N \in \NaturalNumbers: G(\infgrid{\omega};\wn) = G(\infgrid{\omega}; \alpha^{N}\wn)$.
   \end{theorem}
   \begin{proof}
     This is an immediate consequence from Lemma~\ref{lem:exc:sysscaling} for $m= \alpha^{N}$ and Remark~\ref{rem:exc:gridscaling}.
