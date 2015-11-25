@@ -185,17 +185,8 @@ In particular, a generic excitation signal will be used but its properties are t
 
   \begin{example}
    Consider the generalized multisine of the previous example to which a spectral component is added at $f_3 = \pi \unit{Hz}$, or equivalently one with a period of $T_3 = \pi^{-1} \unit{s}$.
-   Then it is not possible to determine integer values $n_1$, $n_2$, $n_3$ such that $n_1 T_1 = n_2 T_2 = n_3 T_3$.
+   Then it is not possible to determine integer values $n_1$, $n_2$, $n_3$ such that $n_1 T_1 = n_2 T_2 = n_3 T_3$ since $T_3$ is an irrational number (unlike $T_1$ and $T_2$).
    Consequently, such a generalized `multisine' is not periodic.
-   \begin{figure}
-     \centering
-     \setlength{\figurewidth}{\columnwidth}
-     \setlength{\figureheight}{3cm}
-     \input{\thisDir/figs/aperiodic.tikz}
-     \caption{
-     The first periods of $\sin \left( 2\pi f_1 t\right)$ with $f_1 = 1\unit{Hz}$  together with $\sin \left( 2 \pi f_2 t\right)$ for $f_2 = \pi \unit{Hz}$ to illustrate that both do not share a common period.}
-     \label{fig:excitation:aperiodicmultisine}
-    \end{figure}
   \end{example}
 
   This last example illustrates that a least common multiple of real numbers does not always exist.
@@ -260,10 +251,6 @@ In particular, a generic excitation signal will be used but its properties are t
   where $\floor{\bullet}$ denotes rounding towards zero.
   In the Section \ref{sec:optimAlpha}, the choice of a suitable $\alpha$ is elaborated.
 
-  \begin{remark}
-    In different contexts, e.g. electrical circuit simulators such as \gls{SPICE}~\citep{Kundert1995}, measurement equipment such as \glspl{DSA} or the \code{logspace} function in \MATLAB it is more common to specify the spacing of a logarithmic grid using the total number of frequencies ($F$) or the number of frequencies per decade ($F_{\decade}$).
-  \end{remark}
-
   \begin{property}
    Each frequency band $B = \ClosedInterval{f, \kappa f}$ with $\kappa \in \PositiveRealNumbers \without \set{0,1}$ that is completely within the range of the excited logarithmic grid of frequencies $\set{f_1, \ldots, f_F}$ contains a constant number of frequency lines
    \begin{equation}
@@ -276,6 +263,10 @@ In particular, a generic excitation signal will be used but its properties are t
   \begin{example}
     For the frequency decade band $\decade(f) \isdef \ClosedInterval{f, 10 f}$, a logarithmic frequency grid contains $F_{\decade} = \floor{\log_{\alpha} 10}$ excited lines.
   \end{example}
+  \begin{remark}
+    In different contexts, e.g. electrical circuit simulators such as \gls{SPICE}~\citep{Kundert1995}, measurement equipment such as \glspl{DSA} or the \code{logspace} function in \MATLAB it is more common to specify the spacing of a logarithmic grid using the total number of frequencies ($F$) or the number of frequencies per decade ($F_{\decade}$).
+    Obviously, such alternative specifications are equivalent.
+  \end{remark}
   \begin{example}
     The~\citep{HP3562A} has a logarithmic measurement mode that ensures that each decade is covered by $F_{\decade} = 80$ lines~ to measure an \gls{FRF}.
     This is equivalent to a grid spacing $\alpha = \sqrt[80]{10} \approx 1.029$.
