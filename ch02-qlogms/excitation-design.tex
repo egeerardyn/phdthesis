@@ -186,7 +186,16 @@ In particular, a generic excitation signal will be used but its properties are t
   \begin{example}
    Consider the generalized multisine of the previous example to which a spectral component is added at $f_3 = \pi \unit{Hz}$, or equivalently one with a period of $T_3 = \pi^{-1} \unit{s}$.
    Then it is not possible to determine integer values $n_1$, $n_2$, $n_3$ such that $n_1 T_1 = n_2 T_2 = n_3 T_3$.
-   Consequently, such a `multisine' is not periodic.
+   Consequently, such a generalized `multisine' is not periodic.
+   \begin{figure}
+     \centering
+     \setlength{\figurewidth}{\columnwidth}
+     \setlength{\figureheight}{3cm}
+     \input{\thisDir/figs/aperiodic.tikz}
+     \caption{
+     The first periods of $\sin \left( 2\pi f_1 t\right)$ with $f_1 = 1\unit{Hz}$  together with $\sin \left( 2 \pi f_2 t\right)$ for $f_2 = \pi \unit{Hz}$ to illustrate that both do not share a common period.}
+     \label{fig:excitation:aperiodicmultisine}
+    \end{figure}
   \end{example}
 
   This last example illustrates that a least common multiple of real numbers does not always exist.

@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+xmin=0, xmax=10,
+ymin=-1.1, ymax=1.1,
+xlabel={Time $t$ \axisunit{s}},
+ytick={-1,0,1},
+ylabel={$u(t)$ \noaxisunit},
+legend pos=south east]
+\addplot[red,samples at={0,0.01,...,10}]{ sin(deg(2*pi*x)) };
+\addplot[blue,samples at={0,0.001,...,10}]{ sin(deg(2*pi*pi*x)) };
+\end{axis}
+\end{tikzpicture}
