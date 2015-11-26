@@ -7,6 +7,18 @@
 Experiment design is the first step in the system identification loop, as illustrated in \figref{fig:intro:identification-cycle}.
 Consequently, the design that is chosen influences every further step in the identification process and limit the model quality that can be attained.
 
+\begin{conjecture}
+To identify the transfer function of a system, one has to apply an excitation signal to its input.
+\end{conjecture}
+\begin{conjecture}
+To know which excitation signal is a good signal to excite the system with, one needs to know the system.
+\end{conjecture}
+
+The two conjectures above illustrate the catch-22 a practicing modeler finds himself in: if one wishes to identify a system, one needs to apply a signal; but to determine a good signal, one needs to know the system.
+This conundrum becomes especially worrisome if one not only wants to use a `good' excitation signal, but rather the `best' excitation signal.
+
+In this chapter, we will investigate how one can develop excitation signals that try to alleviate this paradox by imposing heuristic prior knowledge about the system that is more generic than in a typical (robust) optimal input design, but less wasteful than typical generic full multisine signals.
+
 \subsection{Generic excitation signals}
 \label{sec:excitation:intro:generic}
 \TODO{\ldots}
@@ -18,7 +30,7 @@ Since generic excitation signals are not specifically geared towards the particu
 
 \subsection{Robust excitation signals}
 \label{sec:excitation:intro:robust}
-As illustrated above, optimal experiment design places the user in a catch-22 situation.
+As illustrated above, optimal experiment design places the user in a catch-22 situation\footnote{See the 1961 Joseph Heller novel `Catch-22'.}.
 In the recent years, this has sparked attention towards robust signal design~\citep{Rojas2007} to alleviate the drawbacks of (nominal) optimal experiment design.
 %TODO
 
@@ -54,7 +66,6 @@ In particular, a generic excitation signal will be used but its properties are t
   More specifically, the lack of frequency resolution at the lowest frequencies hampers the quality of the power distribution at the low edge of the frequency band.
   To circumvent this disadvantage, we will construct quasi-logarithmically spaced signals.
   Their frequency spacing is approximately logarithmic but nevertheless conforms to the DFT's linear frequency grid.
-  This problem was already discussed in \citet{Geerardyn2012IMTC}.
 
   We will also present a simple method to determine a suitable density of a logarithmically spaced signal for a predefined minimal damping of the system to be tested.
 
@@ -185,7 +196,7 @@ In particular, a generic excitation signal will be used but its properties are t
 
   \begin{example}
    Consider the generalized multisine of the previous example to which a spectral component is added at $f_3 = \pi \unit{Hz}$, or equivalently one with a period of $T_3 = \pi^{-1} \unit{s}$.
-   Then it is not possible to determine integer values $n_1$, $n_2$, $n_3$ such that $n_1 T_1 = n_2 T_2 = n_3 T_3$ since $T_3$ is an irrational number (unlike $T_1$ and $T_2$).
+   Then it is not possible to determine integer values $n_1$, $n_2$, $n_3$ such that $n_1 T_1 = n_2 T_2 = n_3 T_3$ since $T_3$ is an irrational number of seconds (unlike $T_1$ and $T_2$).
    Consequently, such a generalized `multisine' is not periodic.
   \end{example}
 
@@ -503,6 +514,8 @@ with
 
   In this section we show a possible approach to compare the performance of different excitation signals with respect to the theoretically minimal attainable uncertainty of the transfer function as expressed by the \gls{CRLB}.
   Doing so allows to determine a suitable value for the frequency spacing $\alpha$.
+
+\TODO{cov-matrix uitschrijven}
 
 \TODO{zin loopt niet goed}
   The covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function $G(\theta,\omega)$ can be shown \citep{Pintelon2012, Gallager2008, matrixcookbook} to be approximately equal to
