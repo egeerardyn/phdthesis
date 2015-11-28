@@ -1,4 +1,5 @@
 \chapter{Design of excitation signals}
+\label{sec:excitation}
 \def\thisDir{ch02-qlogms}
 \researchBasedOn{Geerardyn2012IMTC, Geerardyn2013TIM, Larsson2012SYSID}
 
@@ -44,17 +45,17 @@ In particular, a generic excitation signal will be used but its properties are t
 \TODO{reshape figures}
 \TODO{rename labels}
 
-\section{Introduction} \label{sec:intro}
+\section{Introduction}
   It often occurs that we wish to measure the \gls{FRF} of a \gls{LTI} system in a frequency band that covers several decades~\citep{Bragos2001,Sanchez2011,Niedostatkiewicz2009,VanGheem2004}.
   Of course, we also want to attain a specified uncertainty level over the full frequency span.
 
-  Any LTI system of finite order can be expanded into a  finite sum of systems of first and second order by means of a partial fraction expansion\citep{Oppenheim1983}.
+  Any \gls{LTI} system of finite order can be expanded into a  finite sum of systems of first and second order by means of a partial fraction expansion\citep{Oppenheim1983}.
   Therefore the performance of the proposed method is assessed on a prototype system of second order.
-  This does not limit the generality of the approach as we can add several of such systems to construct a general LTI system.
+  This does not limit the generality of the approach as we can add several of such systems to construct a general \gls{LTI} system.
   
   To ensure that any second order system with its resonance frequency in the specified frequency range is measured with an equal accuracy, the system output should contain a comparable power level irrespective of its resonance frequency.
   For a system with a sufficiently low damping, one can intuitively understand that most of the information is contained within the $3 \unit{dB}$ bandwidth of the system.
-  Remember that an LTI system is naturally described in a logarithmic frequency axis (the slopes of such a system are specified in $\unit{dB}/\text{decade}$).
+  Remember that an \gls{LTI} system is naturally described in a logarithmic frequency axis (the slopes of such a system are specified in $\unit{dB}/\text{decade}$).
   Hence, an excitation with a flat power spectrum and a linearly spaced frequency grid will over-excite the high end of the band at the cost of the low frequencies.
   To restore equal excitation signal levels over the complete range of frequencies, we will need to distribute the power in $1/\omega$ over the frequency band.
   In a noise excitation context, this results in pink noise.
@@ -134,7 +135,7 @@ In particular, a generic excitation signal will be used but its properties are t
   \end{align}
 
 \subsection{System and noise model}
-  In this chapter, an output error (OE) system setup is used.
+  In this chapter, an \gls{OE} system setup is used.
   Denote
     $U  \left(\omega\right)$ as the excitation signal,
     $\true{Y}\left(\omega\right)$ the exact, unperturbed system output,
@@ -799,7 +800,7 @@ In the following set of simulations, we will study how the FRF of different seco
        \frac{         b_2  z^{2} + b_1 z + b_0}%
             {\phantom{a_2} z^{2} + a_1 z + a_0}
   \text{.}
-  \label{eq:secondOrderSystemDTidentifiable}
+  \label{eq:excitation:secondOrderSystemDTidentifiable}
   \end{equation}
 
   This form can also be obtained by applying Tustin's method or bilinear transform \citep{Oppenheim1983} to the continuous time system \eqref{eq:secondOrderSystemCT}.
@@ -814,7 +815,7 @@ In the following set of simulations, we will study how the FRF of different seco
   At the output of the systems, white Gaussian noise $e[n]$ is added such that its standard deviation is approximately $10\%$ of the RMS value of the output.
 
   
-  The obtained FRF is then fitted to the transfer function model \eqref{eq:secondOrderSystemDTidentifiable} using the \texttt{elis} function of the \FDIDENT~\citep{FDIDENT} for \MATLAB.
+  The obtained FRF is then fitted to the transfer function model \eqref{eq:excitation:secondOrderSystemDTidentifiable} using the \texttt{elis} function of the \FDIDENT~\citep{FDIDENT} for \MATLAB.
   This is a maximum likelihood estimator that fits a parametric model to the measured data in the frequency domain.
   \TODO{add formulas with cost function etc.}
   To aid convergence and avoid local minima, the initial values for the model are chosen equal to the parameters of the true system $G_0(z)$, so that we can focus completely on the variance of the estimations.
@@ -895,12 +896,12 @@ In the following set of simulations, we will study how the FRF of different seco
   This is due to the fact that as the damping $\damping$ decreases, the $3\unit{dB}$ bandwidth of the resonance decreases and therefore less points can be fitted in this bandwidth at the lower frequencies.
   In our case, only $1$ line was excited in the $3 \unit{dB}$ bandwidth (respectively $0.4 \unit{Hz}$ and $0.8\unit{Hz}$ wide) of the systems with the lowest resonance frequencies.
   It is clearly unfeasible to estimate the five parameters in
-  \eqref{eq:secondOrderSystemDTidentifiable} using this little information in the $3\unit{dB}$ bandwidth of the system.
+  \eqref{eq:excitation:secondOrderSystemDTidentifiable} using this little information in the $3\unit{dB}$ bandwidth of the system.
   In other words, the resonances of the systems at low frequencies, can no longer be considered to lie within the bulk of the logarithmic part of the quasi-logarithmic frequency grids.
   We do see, however, that the variance in the vicinity of the resonance is lower than in the case of a linearly spaced excitation.
 
   \subsection{Simulation example on higher order systems}
-To show that the suggested method also works on more general systems, we considered a system that consists of two second order systems \eqref{eq:tf} in parallel. This is equivalent to adding their respective transfer functions, therefore, the resulting transfer function is of the form:
+To show that the suggested method also works on more general systems, we considered a system that consists of two second order systems \eqref{eq:excitation:secondOrderSystemDTidentifiable} in parallel. This is equivalent to adding their respective transfer functions, therefore, the resulting transfer function is of the form:
 \begin{equation}
   G \left( z \right) 
   = \frac{         b_4 z^{4} + b_3 z^{3} + b_2 z^{2} + b_1 z + b_0}%
@@ -945,7 +946,7 @@ This shows that both resonances are captured with a practically identical relati
     We also calculate the corresponding standard deviation $\sigma_G\left( \omega \right)$ of the FRF and normalize it for a single period of the excitation signal.
     We denote $G\left(\omega \right)$ the non-parametric FRF and $\sigma_G\left( \omega \right)$ its standard deviation, as these measures are determined completely nonparametrically from the measurements.
 
-    For the parametric model, on the other hand, a continuous time LTI model of the form
+    For the parametric model, on the other hand, a continuous time \gls{LTI} model of the form
     \begin{equation}
       G(s) = \frac{\sum_{i=0}^3 b_i s^i}{\sum_{i=0}^6 a_i s^i}
     \end{equation}
@@ -977,7 +978,7 @@ This shows that both resonances are captured with a practically identical relati
 \label{sec:excitation:conclusion}
 In this chapter we have illustrated that quasi-logarithmic multisine excitations are a well-suited to measure transfer functions over broad frequency ranges with a constant relative uncertainty of the present resonances.
 
-The suggested amplitude compensation methods allow the user to measure a parametric LTI model for systems in a wide frequency band with a constant uncertainty.
+The suggested amplitude compensation methods allow the user to measure a parametric \gls{LTI} model for systems in a wide frequency band with a constant uncertainty.
 The variance of the estimates at lower frequencies is improved in comparison to the uncompensated case at the cost of a slightly increased (yet constant) variance at higher frequencies for excitation signals with an equal power content.
 In practical applications, this slight increase is likely to be negligible.
 The suggested compensation works well as long as the considered systems are sufficiently damped with respect to the density of the excited frequency lines.

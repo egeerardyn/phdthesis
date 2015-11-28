@@ -195,13 +195,10 @@ table {\thisDir/fig/meas-validation-16.tsv};
 
 \addplot[area legend,solid,fill=bestFill,opacity=0.7,draw=none,forget plot]
 table {\thisDir/fig/meas-validation-19.tsv};
-\label{leg:validationMeasurements:best:iqr}
 
 \addplot [color=best,solid,forget plot]
   table{\thisDir/fig/meas-validation-20.tsv};
-\label{leg:validationMeasurements:best:median}
 \addplot [best,bestmark,tinymarkers,only marks,opacity=0.7,forget plot]
   table{\thisDir/fig/meas-validation-21.tsv};
-\label{leg:validationMeasurements:best:data}
 \end{axis}
 \end{tikzpicture}%
