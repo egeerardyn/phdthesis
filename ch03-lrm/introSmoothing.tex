@@ -1,0 +1,36 @@
+% !TEX root =  LPMSmooth_ML_EG_JS_JL.tex
+
+The method for smoothing (improving) the LPM estimate of the frequency response function  is presented in this section together with pertinent assumptions. After obtaining the LPM estimate of the FRF (denoted as $\hat{G}_{\mathrm{poly}}(\Omega_k)$) from Section \ref{se:LPMFRFest}, the smoothing method is decomposed into the following procedures, which will be elaborated on later:
+\begin{enumerate}
+\item The impulse response $\hat g_\mathrm{poly}(t)$  is computed from the inverse discrete Fourier transform (IDFT) of $\hat{G}_{\mathrm{poly}}(\Omega_k)$.
+
+\item
+Assuming that the impulse response decays exponentially in time, the noise is bound to predominate after a certain time interval. 
+
+\item
+An accurate estimate of the DC value of the FRF is computed by inspecting the average value of the tail of the estimated impulse response.
+
+\item
+A truncation is effected at the point beyond which the data record (impulse response) is buried in noise. 
+This action results in smoothing the LPM estimate of the FRF. An exponential fitting method is introduced to determine the truncation point.
+\end{enumerate}
+
+
+These procedures require that the following assumptions are satisfied.
+
+\begin{assumption}
+The estimate $\hat G_\mathrm{poly}(\Omega_k)$ is available at all frequencies $\Omega_k$ for $k\in\{1,2,\dots,N/2\}$.
+\end{assumption}
+
+This assumption ensures that the impulse response corresponding to the FRF can be computed (up to its mean value). It requires that the input signal excites the whole unit circle. This is satisfied, for instance, by using white noise as an excitation signal.
+
+\begin{assumption}\label{ass:imprespdecay}
+The impulse response decays exponentially with time.
+\end{assumption}
+
+\begin{assumption}\label{ass:decay90perctime}
+Within $90\%$ of the measurement window, the impulse response decays 
+ to a level that is indistinguishable from the noise. 
+\end{assumption}
+
+Note that Assumptions \ref{ass:imprespdecay} and \ref{ass:decay90perctime} exclude the possibility of considering a system that is a pure integrator.
