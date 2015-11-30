@@ -31,12 +31,12 @@
 
 The measurement of \glspl{FRF} of dynamic systems is an important topic in the measurement society.  
 \gls{FRF} measurement techniques are discussed, for instance, in 
-\cite{Schoukens1998ImprFRFmeas,schoukens2006leakagereduction,guillaume1996,broersen1995transferfunction,pintelon2010lpm1,Antoni20071723,FDidentEd2Pintelon}, and applied to real practical devices and systems \cite{Lim2010,Robinson1990,Behjat2010}, among others. 
+\cite{Schoukens1998ImprFRFmeas,Schoukens2006LPM,guillaume1996,broersen1995transferfunction,Pintelon2010LPM1,Antoni2007,Pintelon2012}, and applied to real practical devices and systems \cite{Lim2010,Robinson1990,Behjat2010}, among others. 
 Besides, \glspl{FRF} have been shown to provide a quick insight into the dynamic properties of \gls{LTI} systems. 
-This capability is very useful for model validation and/or selection \cite{FDidentEd2Pintelon}.
+This capability is very useful for model validation and/or selection \cite{Pintelon2012}.
 
 This paper uses nonparametric models in conjunction with the \gls{LPM}~\citep{Pintelon2010LPM1} to estimate the complex-valued \gls{FRF} in a linear \gls{LS} fashion. 
-The advantage of using the nonparametric models is basically the non-involvement of the user in choosing a model order, i.e. no user interaction. Among the current nonparametric methods, the LPM method is chosen due to its superiority over the classical nonparametric methods (windowing) in suppressing leakage errors \cite{bendatPiersol1993,Oppenheim1983}. Consequently, the LPM estimate of the FRF is not hampered by leakage errors \cite{pintelon2010lpm1,schoukens2010nonparametric}. Note that a more general discussion on the LPM, applied to noisy, real-valued data is found in \cite{fanGijbels1996LPM} with a specific focus on parametric tuning.
+The advantage of using the nonparametric models is basically the non-involvement of the user in choosing a model order, i.e. no user interaction. Among the current nonparametric methods, the LPM method is chosen due to its superiority over the classical nonparametric methods (windowing) in suppressing leakage errors \cite{bendatPiersol1993,Oppenheim1983}. Consequently, the LPM estimate of the FRF is not hampered by leakage errors \cite{Pintelon2010LPM1,schoukens2010nonparametric}. Note that a more general discussion on the LPM, applied to noisy, real-valued data is found in \cite{fanGijbels1996LPM} with a specific focus on parametric tuning.
 
 The main contribution of the paper is to come up with an improved FRF by developing a method for smoothing the FRF estimated via the LPM. This is done by truncating the associated impulse response, as in \cite{Schoukens1998ImprFRFmeas}, but with the following additional extension: the determination of the optimal truncation time, without any user interaction, in conjunction with the use of the LPM for leakage reduction. The cutoff index (truncation point) is determined by a statistically sound method. It is then shown that a smooth LPM estimate of the FRF lowers the variance, thus improving the assessment level of the dynamic properties of a given LTI system. 
 
@@ -57,7 +57,7 @@ where $G_0(q)$ represents the dynamics of the system to be estimated, $u_0(t)$ i
 Numerous parametric identification techniques are devoted to the development of parametric plants $G(q,\theta)$ and parametric noise models  $H(q,\theta)$, where  $\theta$ is the model parameters vector  \cite{Ljung1999,Soderstrom1989}. 
 
 In this paper, however, a nonparametric technique is developed, %the identification problem is 
-formulated in the frequency domain, consistent with \cite{FDidentEd2Pintelon,Mahata2006}. The following  choices are made:
+formulated in the frequency domain, consistent with \cite{Pintelon2012,Mahata2006}. The following  choices are made:
 
 \begin{itemize}
 
@@ -78,19 +78,19 @@ Section \ref{se:smoothingFRFestimate} discusses the novel smoothing method.
 
 
 
-Ultimately, in Section \ref{se:simResults}, simulation results of the following FRF estimates and their corresponding variances are compared: (i) the smooth LPM estimate $\hat{G}_\text{sm-poly}(\Omega_k)$, (ii) the LPM estimate $\hat{G}_\text{poly}(\Omega_k)$. 
+Ultimately, in \secref{se:simResults}, simulation results of the following FRF estimates and their corresponding variances are compared: (i) the smooth LPM estimate $\hat{G}_\text{sm-poly}(\Omega_k)$, (ii) the LPM estimate $\hat{G}_\text{poly}(\Omega_k)$. 
 
-These FRF estimates are also compared with the true LTI system ${G}_0(\Omega_k)$. Discussion of the simulation results is then followed by a conclusion in Section \ref{se:conclusion}.
+These FRF estimates are also compared with the true LTI system ${G}_0(\Omega_k)$. Discussion of the simulation results is then followed by a conclusion in \secref{se:conclusion}.
 
-\subsection{Theory on the LPM and Windowing: \glsentrytext{OE} Setup}\label{se:theoryLPMandWindowing}
-
+\subsection{Theory on the LPM and Windowing: \glsentrytext{OE} Setup}
+\label{se:theoryLPMandWindowing}
 
 Details of the theory pertaining to this section may be found in \cite{schoukens2010nonparametric}, basic aspects of which are presented below.
 
 
 \subsubsection{Spectral Nonparametric Model and Assumptions}
 
-Using convolution, the noiseless output signal in Fig. \ref{lpmtdrep} is $y_0(t) = g_0(t)*u_0(t)$, where the signals are sampled at $t = 0, 1, 2,...,N-1$ and the excitation signal $u_0(t)$ is random noise. As shown in \cite{FDidentEd2Pintelon} and \cite{Pintelon1997} the DFT spectra of the sampled signals at the frequency $\Omega_k$ are related as follows:
+Using convolution, the noiseless output signal in Fig. \ref{lpmtdrep} is $y_0(t) = g_0(t)*u_0(t)$, where the signals are sampled at $t = 0, 1, 2,...,N-1$ and the excitation signal $u_0(t)$ is random noise. As shown in \cite{Pintelon2012} and \cite{Pintelon1997} the DFT spectra of the sampled signals at the frequency $\Omega_k$ are related as follows:
 \begin{equation}\label{lpmleak}
 Y_0(k)=G_0(\Omega_k)U_0(k)+T_G(\Omega_k)
 \end{equation}
@@ -127,19 +127,20 @@ The filtered white noise $v(t) = H_0(q)e(t)$ is the disturbing noise source at t
 \end{assumption}
 
 
-\subsubsection{The Hanning Window and the LPM}\label{se:LPMFRFest}%\label{se:FRFhanningLPM}
+\subsubsection{The Hanning Window and the \glsentrytext{LPM}}\label{se:LPMFRFest}%\label{se:FRFhanningLPM}
 \paragraph{Windowing}
 The effect of windowing may be  exemplified by use of the Hanning window, which is very popular.  In a nutshell, the Hanning window is effective in reducing  the leakage errors, but  with a trade off of increased interpolation errors. %This is because the term $G_0(\Omega_k)U_0(k)$ in equation \eqref{lpmtd1} is not smooth and $G_0(\Omega_k)$ varies with the frequency. 
-Pertinent details of the Hanning window are discussed in \cite{schoukens2006leakagereduction,Antoni20071723,schoukens2010nonparametric,Wellstead198155} and \cite{harris1978}.
+Pertinent details of the Hanning window are discussed in \cite{Schoukens2006LPM,Antoni2007FRF,schoukens2010nonparametric,Wellstead198155} and \cite{harris1978}.
 
-The anomalies due to interpolation errors, associated with windowing, can easily be mitigated or circumvented by use of the LPM. As shown in \cite{FDidentEd2Pintelon}, the leakage errors are reduced from  $\mathcal{O}({N}^{-1})$, for Hanning windowing, to $\mathcal{O}({N}^{-3})$ or better, for the LPM.
+The anomalies due to interpolation errors, associated with windowing, can easily be mitigated or circumvented by use of the LPM. As shown in \cite{Pintelon2012}, the leakage errors are reduced from  $\mathcal{O}({N}^{-1})$, for Hanning windowing, to $\mathcal{O}({N}^{-3})$ or better, for the LPM.
 
 
 \paragraph{Formulation of the Linear LS LPM}
-The LPM is formulated as a nonparametric local-linear-least-squares (LS) estimate using the full data record of length \emph{N} as outlined below \cite{schoukens2010nonparametric}. Section 7.2.2 of \cite{FDidentEd2Pintelon} 
-gives the general formulation of the LPM for MIMO systems. The formulation in this paper is a summary for a SISO system.
+The LPM is formulated as a nonparametric local-linear-least-squares (LS) estimate using the full data record of length $N$ as outlined below \cite{schoukens2010nonparametric}. 
+\citet[Section 7.2.2]{Pintelon2012} gives the general formulation of the \gls{LPM} for \gls{MIMO} systems. 
+The formulation in this paper is a summary for a \gls{SISO} system.
 
-The DFT spectra at the output of the SISO system in Fig. \ref{lpmtdrep} are derived from equations \eqref{lpmtd1} and \eqref{lpmleak}, \emph{viz}:
+The \gls{DFT} spectra at the output of the \gls{SISO} system in \figref{lpmtdrep} are derived from equations \eqref{lpmtd1} and \eqref{lpmleak}, \emph{viz}:
 \begin{equation}\label{lpm1spectra}
 Y(k)=G_0(\Omega_k)U_0(k)+T(\Omega_k)+V_0(k)
 \end{equation}
@@ -156,12 +157,7 @@ T(\Omega_{k+r})&=T(\Omega_k)+\sum_{p=1}^{R}t_p(k)r^p+N^{-1/2}\mathcal{O}\left(\f
 \text{where}&\ r\in\mathbb{W}_n,\quad \mathbb{W}_n = \{-n,-n+1,\dots,n\}
 \end{align}
 
-
-
 The choice of the tunable parameters $n$ and $R$ is discussed later on.
-
-
-
 
 Neglecting the remainder, the Taylor series approximation of \eqref{lpm1spectra} can be written in a matrix vector form, \emph{viz}:
 \begin{equation}\label{lpmGTMatrix}
@@ -214,29 +210,18 @@ The \gls{LPM} estimate of the FRF is the first element of the estimate $\hat\the
 \end{equation}
 
 
-The estimation of $\hat{G}_\text{poly}(\Omega_k)$ at a single frequency $\Omega_k = 0.586$~Hz is illustrated in Fig. \ref{LPM_Schematic_EG}.% centered at $k$, where $r = 0$.
+The estimation of $\hat{G}_\text{poly}(\Omega_k)$ at a single frequency $\Omega_k = 0.586$~Hz is illustrated in \figref{LPM_Schematic_EG}.% centered at $k$, where $r = 0$.
 \begin{figure}[htb] %  figure placement: here, top, bottom, or page
    \centering
-
-
-
-
    \includegraphics[scale=0.92]{\thisDir/figs/spectUOmegak} 
    \includegraphics[scale=0.92]{\thisDir/figs/spectYOmegak} 
    \includegraphics{\thisDir/figs/LPMfigOmegak} 
    \caption{Illustration of the \gls{LPM}. Top figures: input spectrum (left) and output spectrum (right). A small band is selected (gray area, top figure), in which $\hat G_\mathrm{poly}(\Omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_\mathrm{poly}(\Omega_k)$ (white circle) is retained. This procedure is repeated for all $\Omega_k$.}
-
-
-   
-
    \label{LPM_Schematic_EG}
 \end{figure}
-This procedure is repeated at each central frequency $\Omega_k$ for  $k\in \{1,\dots,N/2\}$ (i.e. the entire frequency band, including Nyquist, but excluding DC, and regularizing at the boundaries). This completes the \gls{LPM}, yielding an intrinsic averaging of the spectra of the estimated FRF, $\hat{G}_\text{poly}(\Omega_k)$.
+This procedure is repeated at each central frequency $\Omega_k$ for  $k\in \{1,\dots,N/2\}$ (i.e. the entire frequency band, including Nyquist, but excluding DC, and regularizing at the boundaries). This completes the \gls{LPM}, yielding an intrinsic averaging of the spectra of the estimated \gls{FRF}, $\hat{G}_\text{poly}(\Omega_k)$.
 
 \section{Smoothing the \gls{FRF} estimate}\label{se:smoothingFRFestimate}
-
-
-
 The method for smoothing (improving) the \gls{LPM} estimate of the frequency response function  is presented in this section together with pertinent assumptions. After obtaining the \gls{LPM} estimate of the \gls{FRF} (denoted as $\hat{G}_{\mathrm{poly}}(\Omega_k)$) from \secref{se:LPMFRFest}, the smoothing method is decomposed into the following procedures, which will be elaborated on later:
 \begin{enumerate}
 \item The impulse response $\hat g_\mathrm{poly}(t)$  is computed from the \gls{IDFT} of $\hat{G}_{\mathrm{poly}}(\Omega_k)$.
@@ -264,7 +249,7 @@ This assumption ensures that the impulse response corresponding to the \gls{FRF}
 
 
 \begin{assumption}\label{ass:imprespdecay}
-The impulse response $g(t)$ decays exponentially with time, i.e. $\exists A, a \in \PositiveRealNumbers, \forall t \in \PositiveRealNumbers: \abs{g(t)} \leq A \exp(- a t)$.
+The impulse response $g(t)$ decays exponentially with time, i.e. $\exists A \in \PositiveRealNumbers, \exists a \in \NegativeRealNumbers \without \Set{0}, \forall t \in \PositiveRealNumbers: \abs{g(t)} \leq A \exp(- a t)$.
 \end{assumption}
 
 \begin{assumption}\label{ass:decay90perctime}
@@ -274,9 +259,6 @@ Within $90\%$ of the measurement window, the impulse response decays
 \end{assumption}
 
 Note that Assumptions \ref{ass:imprespdecay} and \ref{ass:decay90perctime} exclude the possibility of considering a system that is a pure integrator.
-
-
-
 
 \subsubsection{Obtaining the Impulse Response Function}
 
