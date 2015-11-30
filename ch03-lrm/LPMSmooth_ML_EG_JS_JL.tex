@@ -25,13 +25,18 @@
 % \begin{IEEEkeywords}
 % Smoothing methods, Estimation, Least squares methods, Frequency response, Frequency domain analysis
 % \end{IEEEkeywords}
+\researchBasedOn[This section]{Lumori2014TIM}
 
 \subsection{Introduction}
 
-The measurement of frequency response functions (FRFs) of dynamic systems is an important topic in the measurement society.  FRF measurement techniques are discussed, for instance, in 
-\cite{Schoukens1998ImprFRFmeas,schoukens2006leakagereduction,guillaume1996,broersen1995transferfunction,pintelon2010lpm1,Antoni20071723,FDidentEd2Pintelon}, and applied to real practical devices and systems \cite{Lim2010,Robinson1990,Behjat2010}, among others. Besides, FRFs have been shown to provide a quick insight into the dynamic properties of linear-time-invariant (LTI) systems. This capability is very useful for model validation and/or selection \cite{FDidentEd2Pintelon}.
+The measurement of \glspl{FRF} of dynamic systems is an important topic in the measurement society.  
+\gls{FRF} measurement techniques are discussed, for instance, in 
+\cite{Schoukens1998ImprFRFmeas,schoukens2006leakagereduction,guillaume1996,broersen1995transferfunction,pintelon2010lpm1,Antoni20071723,FDidentEd2Pintelon}, and applied to real practical devices and systems \cite{Lim2010,Robinson1990,Behjat2010}, among others. 
+Besides, \glspl{FRF} have been shown to provide a quick insight into the dynamic properties of \gls{LTI} systems. 
+This capability is very useful for model validation and/or selection \cite{FDidentEd2Pintelon}.
 
-This paper uses nonparametric models in conjunction with the local polynomial method (LPM) \cite{pintelon2010lpm1} to estimate the complex frequency response function (FRF) in a linear-least-squares (LS) sense. The advantage of using the nonparametric models is basically the non-involvement of the user in choosing a model order, i.e. no user interaction. Among the current nonparametric methods, the LPM method is chosen due to its superiority over the classical nonparametric methods (windowing) in suppressing leakage errors \cite{bendatPiersol1993,Oppenheim1983}. Consequently, the LPM estimate of the FRF is not hampered by leakage errors \cite{pintelon2010lpm1,schoukens2010nonparametric}. Note that a more general discussion on the LPM, applied to noisy, real-valued data is found in \cite{fanGijbels1996LPM} with a specific focus on parametric tuning.
+This paper uses nonparametric models in conjunction with the \gls{LPM}~\citep{Pintelon2010LPM1} to estimate the complex-valued \gls{FRF} in a linear \gls{LS} fashion. 
+The advantage of using the nonparametric models is basically the non-involvement of the user in choosing a model order, i.e. no user interaction. Among the current nonparametric methods, the LPM method is chosen due to its superiority over the classical nonparametric methods (windowing) in suppressing leakage errors \cite{bendatPiersol1993,Oppenheim1983}. Consequently, the LPM estimate of the FRF is not hampered by leakage errors \cite{pintelon2010lpm1,schoukens2010nonparametric}. Note that a more general discussion on the LPM, applied to noisy, real-valued data is found in \cite{fanGijbels1996LPM} with a specific focus on parametric tuning.
 
 The main contribution of the paper is to come up with an improved FRF by developing a method for smoothing the FRF estimated via the LPM. This is done by truncating the associated impulse response, as in \cite{Schoukens1998ImprFRFmeas}, but with the following additional extension: the determination of the optimal truncation time, without any user interaction, in conjunction with the use of the LPM for leakage reduction. The cutoff index (truncation point) is determined by a statistically sound method. It is then shown that a smooth LPM estimate of the FRF lowers the variance, thus improving the assessment level of the dynamic properties of a given LTI system. 
 
@@ -77,7 +82,7 @@ Ultimately, in Section \ref{se:simResults}, simulation results of the following 
 
 These FRF estimates are also compared with the true LTI system ${G}_0(\Omega_k)$. Discussion of the simulation results is then followed by a conclusion in Section \ref{se:conclusion}.
 
-\subsection{Theory on the LPM and Windowing: OE Setup}\label{se:theoryLPMandWindowing}
+\subsection{Theory on the LPM and Windowing: \glsentrytext{OE} Setup}\label{se:theoryLPMandWindowing}
 
 
 Details of the theory pertaining to this section may be found in \cite{schoukens2010nonparametric}, basic aspects of which are presented below.
@@ -141,6 +146,7 @@ Y(k)=G_0(\Omega_k)U_0(k)+T(\Omega_k)+V_0(k)
 where $V_0(k) = H_0(\Omega_k)E(k)$ is a noise term, and $T(\Omega_k)$ is the leakage term. The latter is the sum of the system and the noise leakage terms, i.e. $T(\Omega_k) = T_G(\Omega_k) + T_H(\Omega_k)$.
 
 The smooth characteristics of $G_0(\Omega_k)$ and $T(\Omega_k)$ allow for the use of the Taylor series representations at the frequency lines $k+r$ in a frequency domain window of width $2n+1$, with a remainder $\mathcal{O}\left(\frac{r}{N}\right)^{(R+1)}$ of the first order Taylor series expansion \cite{schoukens2010nonparametric}, \emph{viz}:
+\TODO{ordos are incorrect: notation-wise}
 \begin{align}\label{lpmGTaylorS}
 G_0(\Omega_{k+r})&=G_0(\Omega_k)+\sum_{p=1}^{R}g_p(k)r^p+\mathcal{O}\left(\frac{r}{N}\right)^{(R+1)},
 \\
@@ -183,26 +189,12 @@ The estimates of the parameters $\theta(k)$ are obtained as the minimizers of th
 \hat\theta(k) = \argmin_{\theta(k)} \left\|Y_n(k) - K_n(k)\theta(k)\right\|_2^2
 \end{align}
 
-The formulation of
+The formulation of equation \eqref{eq:LSsolutionLPM} must take into account the fact that  a full rank of $K_n$ requires $n \geq R + 1$. The choice $n = R + 1$ results in the highest variance on the estimate, but with the smallest interpolation error \cite{schoukens2010nonparametric}. %(per JL)!
 
 
- equation \eqref{eq:LSsolutionLPM} must take into account the fact that  a full rank of $K_n$ requires $n \geq R + 1$. The choice $n = R + 1$ results in the highest variance on the estimate, but with the smallest interpolation error \cite{schoukens2010nonparametric}. %(per JL)!
+The values $R = 2$, and $n=R+1=3$ will be used in the \gls{LPM}.
 
-
-
-
-
-
-
-
-
-
-
-The values $R = 2$, and $n=R+1=3$ will be used in the LPM.
-
-
-When substituted into equations \eqref{lpmGTaylorS} and \eqref{lpmGTMatrix},
- these yield the following quadratic local polynomials of $G_0$ and $T$ around a central frequency $\Omega_{k}$:
+When substituted into equations \eqref{lpmGTaylorS} and \eqref{lpmGTMatrix},  these yield the following quadratic local polynomials of $G_0$ and $T$ around a central frequency $\Omega_{k}$:
 \begin{align}\label{lpmImplQuadG}
 G_0(\Omega_{k+r})&\approx G_0(\Omega_k)+g_1r+g_2r^2
 \\
@@ -213,16 +205,10 @@ T(\Omega_{k+r})&\approx T(\Omega_k)+t_1r+t_2r^2\label{lpmImplQuadT}
 ($r\in\mathbb{W}_3$)
 and the vector of parameters:
 
-
-
-
 \begin{equation}\label{lpmThetaEst}
 \theta^\top(k)=\left[G_0(\Omega_k) \ g_1 \ g_2\  T_G(k)\  t_1 \ t_2\right]
 \end{equation}
-The LPM estimate of the FRF is the first element of the estimate $\hat\theta(k)$, obtained from \eqref{eq:LSsolutionLPM}, \emph{viz}:
-
-
-
+The \gls{LPM} estimate of the FRF is the first element of the estimate $\hat\theta(k)$, obtained from \eqref{eq:LSsolutionLPM}, \emph{viz}:
 \begin{equation}
 \hat{G}_\text{poly}(\Omega_k) = \hat\theta_1(k)
 \end{equation}
@@ -238,39 +224,35 @@ The estimation of $\hat{G}_\text{poly}(\Omega_k)$ at a single frequency $\Omega_
    \includegraphics[scale=0.92]{\thisDir/figs/spectUOmegak} 
    \includegraphics[scale=0.92]{\thisDir/figs/spectYOmegak} 
    \includegraphics{\thisDir/figs/LPMfigOmegak} 
-   \caption{Illustration of the LPM. Top figures: input spectrum (left) and output spectrum (right). A small band is selected (gray area, top figure), in which $\hat G_\mathrm{poly}(\Omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_\mathrm{poly}(\Omega_k)$ (white circle) is retained. This procedure is repeated for all $\Omega_k$.}
+   \caption{Illustration of the \gls{LPM}. Top figures: input spectrum (left) and output spectrum (right). A small band is selected (gray area, top figure), in which $\hat G_\mathrm{poly}(\Omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_\mathrm{poly}(\Omega_k)$ (white circle) is retained. This procedure is repeated for all $\Omega_k$.}
 
 
    
 
    \label{LPM_Schematic_EG}
 \end{figure}
-This procedure is repeated at each central frequency $\Omega_k$ for  $k\in \{1,\dots,N/2\}$ (i.e. the entire frequency band, including Nyquist, but excluding DC, and regularizing at the boundaries). This completes the LPM, yielding an intrinsic averaging of the spectra of the estimated FRF, $\hat{G}_\text{poly}(\Omega_k)$.
+This procedure is repeated at each central frequency $\Omega_k$ for  $k\in \{1,\dots,N/2\}$ (i.e. the entire frequency band, including Nyquist, but excluding DC, and regularizing at the boundaries). This completes the \gls{LPM}, yielding an intrinsic averaging of the spectra of the estimated FRF, $\hat{G}_\text{poly}(\Omega_k)$.
 
-\section{Smoothing the FRF estimate}\label{se:smoothingFRFestimate}
+\section{Smoothing the \gls{FRF} estimate}\label{se:smoothingFRFestimate}
 
 
 
-The method for smoothing (improving) the LPM estimate of the frequency response function  is presented in this section together with pertinent assumptions. After obtaining the LPM estimate of the FRF (denoted as $\hat{G}_{\mathrm{poly}}(\Omega_k)$) from Section \ref{se:LPMFRFest}, the smoothing method is decomposed into the following procedures, which will be elaborated on later:
+The method for smoothing (improving) the \gls{LPM} estimate of the frequency response function  is presented in this section together with pertinent assumptions. After obtaining the \gls{LPM} estimate of the \gls{FRF} (denoted as $\hat{G}_{\mathrm{poly}}(\Omega_k)$) from \secref{se:LPMFRFest}, the smoothing method is decomposed into the following procedures, which will be elaborated on later:
 \begin{enumerate}
-\item The impulse response $\hat g_\mathrm{poly}(t)$  is computed from the inverse discrete Fourier transform (IDFT) of $\hat{G}_{\mathrm{poly}}(\Omega_k)$.
+\item The impulse response $\hat g_\mathrm{poly}(t)$  is computed from the \gls{IDFT} of $\hat{G}_{\mathrm{poly}}(\Omega_k)$.
 
 \item
 Assuming that the impulse response decays exponentially in time, the noise is bound to predominate after a certain time interval. 
 
 \item
-An accurate estimate of the DC value of the FRF is computed by inspecting the average value of the tail of the estimated impulse response.
+An accurate estimate of the \gls{DC} value of the \gls{FRF} is computed by inspecting the average value of the tail of the estimated impulse response.
 
 \item
-A truncation is effected at the point beyond which the data record (impulse response) is buried in noise. % main part lies at the beginning, and one can assume that, from a certain time instant, only noise remains.)
+A truncation is effected at the point beyond which the data record (impulse response) is buried in noise. 
 
-This action results in smoothing the LPM estimate of the FRF. An exponential fitting method is introduced to determine the truncation point.
+This action results in smoothing the \gls{LPM} estimate of the \gls{FRF}. 
+An exponential fitting method is introduced to determine the truncation point.
 \end{enumerate}
-
-
-
-
-
 
 These procedures require that the following assumptions are satisfied.
 
@@ -278,16 +260,15 @@ These procedures require that the following assumptions are satisfied.
 The estimate $\hat G_\mathrm{poly}(\Omega_k)$ is available at all frequencies $\Omega_k$ for $k\in\{1,2,\dots,N/2\}$.
 \end{assumption}
 
-This assumption ensures that the impulse response corresponding to the FRF can be computed (up to its mean value). It requires that the input signal excites the whole unit circle. This is satisfied, for instance, by using white noise as an excitation signal.
+This assumption ensures that the impulse response corresponding to the \gls{FRF} can be computed (up to its mean value). It requires that the input signal excites the whole unit circle. This is satisfied, for instance, by using white noise as an excitation signal.
 
 
 \begin{assumption}\label{ass:imprespdecay}
-The impulse response decays exponentially with time.
+The impulse response $g(t)$ decays exponentially with time, i.e. $\exists A, a \in \PositiveRealNumbers, \forall t \in \PositiveRealNumbers: \abs{g(t)} \leq A \exp(- a t)$.
 \end{assumption}
 
 \begin{assumption}\label{ass:decay90perctime}
 Within $90\%$ of the measurement window, the impulse response decays 
-
  to a level that is indistinguishable from the noise. 
 
 \end{assumption}
@@ -300,54 +281,35 @@ Note that Assumptions \ref{ass:imprespdecay} and \ref{ass:decay90perctime} exclu
 \subsubsection{Obtaining the Impulse Response Function}
 
 The estimated impulse response function  $\hat g_{\mathrm{poly}\setminus \mathrm{DC
-}}(t)$ is obtained explicitly via the IDFT of the LPM-estimate $\hat G_\mathrm{poly}(\Omega_k)$ of the FRF in accordance with equation \eqref{eq:defDFT}, \emph{viz}:
+}}(t)$ is obtained explicitly via the \gls{IDFT} of the \gls{LPM}-estimate $\hat G_\mathrm{poly}(\Omega_k)$ of the \gls{FRF} in accordance with equation \eqref{eq:defDFT}, \emph{viz}:
 
 \begin{align}\label{eq:impRespiDFT}
 \hat g_{\mathrm{poly}\setminus \mathrm{DC
 }}(t) &= \frac{1}{\sqrt{N}}\sum_{k=1}^{N-1}\hat G_\mathrm{poly}(\Omega_k)e^{\frac{j2\pi kt}{N}}
 \end{align}
-
-
-\noindent where the estimated FRF in the frequency band between  the Nyquist and the sample frequencies is obtained as follows:
+where the estimated \gls{FRF} in the frequency band between  the Nyquist and the sample frequencies is obtained as follows:
 
 \begin{align}
 \hat G_\mathrm{poly}(\Omega_{N-k}) = \overline{\hat G_\mathrm{poly}(\Omega_k)},\ \text{for}\ k=1,\dots,N/2
 \end{align}
+(with $\conj{\hat G_\mathrm{poly}}$ the complex conjugate of $\hat G_\mathrm{poly}$) to ensure $\hat g_\mathrm{poly}(t)$ to be real.
 
-\noindent 
-(with $\overline{\hat G_\mathrm{poly}}$ the complex conjugate of $\hat G_\mathrm{poly}$)
-to ensure $\hat g_\mathrm{poly}(t)$ to be real.
+\TODO{fix reference Section II}
+Smoothing of the estimated \gls{FRF} requires the correct estimate of the impulse response. Unfortunately, the \gls{LPM} presented in \secref{se:theoryLPMandWindowing} and in \cite{schoukens2010nonparametric} does not estimate the \gls{FRF}  at the frequency $\Omega_0$ (i.e. \gls{DC} value of the \gls{FRF}), hence the subscript $\setminus\mathrm{DC}$ in equation \eqref{eq:impRespiDFT}. Consequently, the mean value of the corresponding estimated impulse response given in equation \eqref{eq:impRespiDFT} is not correct. This anomaly is rectified by developing a simple estimator of the mean value, presented below.
 
-
-Smoothing of the estimated FRF requires the correct estimate of the impulse response. Unfortunately, the LPM presented in Section II and in \cite{schoukens2010nonparametric} does not estimate the FRF  at the frequency $\Omega_0$ (i.e. DC value of the FRF), hence the subscript $\setminus\mathrm{DC}$ in equation \eqref{eq:impRespiDFT}. Consequently, the mean value of the corresponding estimated impulse response given in equation \eqref{eq:impRespiDFT} is not correct. This anomaly is rectified by developing a simple estimator of the mean value, presented below.
-
+\subsubsection{Estimating the \glsentrytext{DC} Value of the \glsentrytext{FRF}}\label{se:DCvalueEst}
 
 
 
+The correct mean value of the impulse response accounts for (i.e. estimates) the \gls{DC} value of the \gls{FRF}. A time-domain method is proposed for estimating the mean value of the impulse response in equation \eqref{eq:impRespiDFT}. %The first is a frequency-domain technique and the second is a time-domain technique.
 
-
-
-\subsubsection{Estimating the DC Value of the FRF}\label{se:DCvalueEst}
-
-
-
-The correct mean value of the impulse response accounts for (i.e. estimates) the DC value of the FRF. A time-domain method is proposed for estimating the mean value of the impulse response in equation \eqref{eq:impRespiDFT}. %The first is a frequency-domain technique and the second is a time-domain technique.
-
-
-
-
-
-
-
-
-
-According to Assumption \ref{ass:imprespdecay}, the true impulse response tends   to zero asymptotically; and by Assumption \ref{ass:decay90perctime}, the last $10\%$ of the estimated impulse response is noise, plus a constant value due to an inaccuracy in the average value of the impulse response. The correct estimate of the mean value is obtained by shifting the whole signal such that the last $10\%$ of the impulse response is centered around 0.
+According to Assumption~\ref{ass:imprespdecay}, the true impulse response tends to zero asymptotically; and by Assumption~\ref{ass:decay90perctime}, the last $10\%$ of the estimated impulse response is noise, plus a constant value due to an inaccuracy in the average value of the impulse response. The correct estimate of the mean value is obtained by shifting the whole signal such that the last $10\%$ of the impulse response is centered around 0.
 To this end, the following procedure is executed:
 
 
 \begin{enumerate}
 \item Compute the mean value $m_{g10}$ of the last 10\% of the impulse response $\hat g_{\mathrm{poly}\setminus \mathrm{DC
-}}(t)$, estimated by the LPM, as %$\hat g_\mathrm{poly}(t)$ as
+}}(t)$, estimated by the \gls{LPM}, as %$\hat g_\mathrm{poly}(t)$ as
 \begin{align}
 m_{g10} = \frac{1}{\lceil0.1N - 1\rceil}\sum_{t=\lfloor0.9N\rfloor}^{N-1}\hat g_{\mathrm{poly}\setminus \mathrm{DC
 }}(t)
@@ -367,37 +329,19 @@ m_{g10} = \frac{1}{\lceil0.1N - 1\rceil}\sum_{t=\lfloor0.9N\rfloor}^{N-1}\hat g_
 
 \subsection{Truncation of the Impulse Response Via Exponential Fitting}\label{se:truncImpulseResp}
 
-The FRF estimate is smoothed by truncating the estimated impulse response function. The truncation is applied at the time index beyond which the signal is indistinguishable from the noise. %The truncation is applied at the time index after which the signal is expected not to be distinguishable from the noise
-
-
+The \gls{FRF} estimate is smoothed by truncating the estimated impulse response function. The truncation is applied at the time index beyond which the signal is indistinguishable from the noise. 
 
 This is done via the fit of an exponential function on the maxima of the impulse response, implemented as follows.
-
-% !TEX root = LPMSmooth_ML_EG_JS_JL.tex
-%
-%
-%\subsubsection{Truncation by Fitting an Exponential on the Maxima}
-%\label{se:expFitTheory}
-%
-%An alternative truncation method is to determine the index at which the envelope of the estimated impulse response 
-%%at which the estimated impulse response 
-%gets below the noise floor.
-%%Another way of truncating is by determining from which index on the envelope of the estimated impulse response gets below the noise floor.
-%This algorithm has been implemented as follows. 
 
 \begin{enumerate}
 \item Obtain the estimate of the impulse response $\hat g_\mathrm{poly}(t)$ from the LPM, corrected for its DC value as discussed in Section \ref{se:DCvalueEst}. Henceforth, $\hat g_\mathrm{poly}(t)$ will simply be denoted as $\hat g(t)$. %In the remainder of this procedure description $\hat g_\mathrm{poly}(t)$ will be simply denoted $\hat g(t)$.
 
 \item Obtain an estimate $\hat \sigma_\mathrm{n}$ of the standard deviation of the noise from the last 10\% of the data, \emph{viz}:
 
-%\JL{
 \begin{align}
 \hat \sigma^2_\mathrm{n}=\frac{1}{\lceil0.1N - 1\rceil}\sum_{t=\lfloor0.9N\rfloor}^{N-1}\hat g^2(t).
 \end{align}
-
-\noindent
 This is valid, as per Assumption \ref{ass:decay90perctime}.
-%}
 
 %This assumes that the impulse response of the system is not longer than 90\% of the length of the measured time interval.
 
@@ -409,7 +353,7 @@ t:|\hat g(t)|\geqslant 5\hat\sigma_\mathrm{n}
 \end{align}
 
 \noindent
-(Subscript HSNR stands for High Signal-to-Noise Ratio.)
+(Subscript HSNR stands for High \gls{SNR}.)
 
 %This choice leaves a probability of $6\times10^{-7}$ of retaining a pure noise sample, in the case of Gaussian noise.
 
@@ -427,9 +371,9 @@ t < t' < N \land t'\in\mathbb{T}_\mathrm{HSNR}
 \begin{align}\label{eq:expFit}
 \ln \left|\hat g(t)\right|\approx \ln A+at,\ \mathrm{with}\ t\in\mathbb{T}_\mathrm{max},
 \end{align}
-
-\noindent
-for $\ln A$ and $a$ in a least squares sense. This is a quadratic problem in the parameters and, thus, solved in a single step. Since  $\ln \left|\hat g(t)\right|$ decreases for an increasing $t$ in $\mathbb{T}_\mathrm{max}$ (by construction in equation \eqref{eq:TmaxDef}), the estimated $a$ from equation \eqref{eq:expFit} is always negative.
+for $\ln A$ and $a$ in a least squares sense. 
+This is a quadratic problem in the parameters and, thus, amount to a convex optimization problem that can be solved directly.
+Since  $\ln \left|\hat g(t)\right|$ decreases for an increasing $t$ in $\mathbb{T}_\mathrm{max}$ (by construction in equation \eqref{eq:TmaxDef}), the estimated $a$ from equation \eqref{eq:expFit} is always negative.
 
 \item
 Determine the first time-instant $t_\mathrm{trunc}$ at which the estimated exponential gets significantly below the noise floor, \emph{viz}:
@@ -457,38 +401,28 @@ where the parameter $\gamma$ can be tuned such that an appropriate trade-off bet
 
 As an illustration, this procedure was applied to the noisy impulse response of the system described by the following difference equation:
 
-\begin{align}
-%\input{theModelExpFit.tex}
-y_0(t) =& 2.583y_0(t - 1) -2.176y_0(t - 2)\dots \nonumber
-\\
-&+0.592y_0(t-3) + u(t)
-\end{align}
+\begin{equation}
+y_0(t) = 2.583y_0(t - 1) -2.176y_0(t - 2)+0.592y_0(t-3) + u(t)
+\end{equation}
 
-The measured signal was disturbed by random white noise, $y(t) = y_0(t) + e(t)$, such that the Signal-to-Noise-Ratio (SNR) was 14.2~dB.
-The result is depicted in Figure \ref{FRF_truncate_expfitter}. An exponential function (black thick line) is fitted on the maxima (gray circles) of the absolute value of a noisy impulse response (dark gray line). The truncation time (black vertical line) $t_\mathrm{trunc}$ was selected as the time instant at which the fitted exponential fell below $0.4\hat\sigma_n$ (i.e. $\gamma = 0.4$ in equation \eqref{eq:truncTimeExpFit}).
+The measured signal was disturbed by random white noise, $y(t) = y_0(t) + e(t)$, such that the \gls{SNR} was $14.2\unit{dB}$.
+The result is depicted in \figref{FRF_truncate_expfitter}. An exponential function (black thick line) is fitted on the maxima (gray circles) of the absolute value of a noisy impulse response (dark gray line). The truncation time (black vertical line) $t_\mathrm{trunc}$ was selected as the time instant at which the fitted exponential fell below $0.4\hat\sigma_n$ (i.e. $\gamma = 0.4$ in equation \eqref{eq:truncTimeExpFit}).
 
-%\JL{
 \paragraph*{Considerations on the choice of $\gamma$} 
 
 \begin{itemize}
-\item The tuning parameter $\gamma$ is application- and system-dependent.  A higher value lowers the variance of the estimated FRF, but increases its bias, and vice versa. 
+\item The tuning parameter $\gamma$ is application- and system-dependent.  A higher value lowers the variance of the estimated \gls{FRF}, but increases its bias, and vice versa. 
 
 \item
 The bias error is highest in the vicinity of (sharp) resonance peaks. If the latter is to be estimated with a high accuracy, a value $\gamma \ll 1$ must be used. %If the latter must be estimated with a high accuracy, a value $\gamma \ll 1$ must be preferred.
 
-\item If one is interested in obtaining a smooth initial estimate of the FRF, a (small) bias error is acceptable, and choosing $\gamma \approx 1$ was found to be a good rule of thumb.
+\item If one is interested in obtaining a smooth initial estimate of the \gls{FRF}, a (small) bias error is acceptable, and choosing $\gamma \approx 1$ was found to be a good rule of thumb.
 \end{itemize}
-%}
-
-
-%\JL{
-%TO BE FURTHER ELABORATED: what is `significantly' below the noise floor?? Truncation reduces the variance of the estimate, but blows up the bias error. The impulse response should be truncated at that index where the bias error becomes approximately equal to the standard deviation of the truncated estimate. Can this trade off be computed experimentally? 
-%}
 
 \subsection{Simulation Results}\label{se:simResults}
 
-Figures \ref{figLPMvsTrunc} and \ref{fig:pdfAndRMSeVStruncTime} compare the LPM with and without truncation of the impulse response. They were obtained from simulations on 
-the system described by the following simulation equations, which are relevant to the LPM outlined in Section \ref{se:LPMFRFest}:
+\figref{figLPMvsTrunc} and \figref{fig:pdfAndRMSeVStruncTime} compare the \gls{LPM} with and without truncation of the impulse response. 
+They were obtained from simulations on  the system described by the following simulation equations, which are relevant to the \gls{LPM} outlined in \secref{se:LPMFRFest}:
 \begin{subequations}
 \label{eq:systemSimulations}
 \begin{align}
@@ -497,7 +431,7 @@ y_0(t)  &= 1.5371y_0(t-1)    -0.9025y_0(t-2) + u(t)
 y(t) &= y_0(t) + e(t),
 \end{align}
 \end{subequations}
-where $e(t)$ is a white noise sequence, such that the SNR of the output signal is 18.3~dB.
+where $e(t)$ is a white noise sequence, such that the \gls{SNR} of the output signal is $18.3\unit{dB}$.
 
 
 \begin{figure}[tbh] %top bottom here
@@ -506,7 +440,7 @@ where $e(t)$ is a white noise sequence, such that the SNR of the output signal i
 
 \includegraphics[scale=0.9]{\thisDir/figs/figLPMvsTruncWlegend}
 
-\caption{Comparison of the LPM and Truncated LPM estimates of the FRF for an SNR of 18.3~dB. The gray plots pertain to the LPM estimate without truncation, the black ones to the LPM with truncation (trunc). Dots: FRF estimates $\hat{G}$. Crosses: sample standard deviations $\hat{\sigma}$. Dashed lines: bias $\hat{b}$. White line: the true system $G_0$.}
+\caption{Comparison of the \gls{LPM} and Truncated \gls{LPM} estimates of the \gls{FRF} for an \gls{SNR} of $18.3\unit{dB}$. The gray plots pertain to the \gls{LPM} estimate without truncation, the black ones to the \gls{LPM} with truncation (trunc). Dots: \gls{FRF} estimates $\hat{G}$. Crosses: sample standard deviations $\hat{\sigma}$. Dashed lines: bias $\hat{b}$. White line: the true system $G_0$.}
 \label{figLPMvsTrunc}
 \end{figure}
 
@@ -517,13 +451,13 @@ where $e(t)$ is a white noise sequence, such that the SNR of the output signal i
 In \figref{figLPMvsTrunc} one observes the following:
 \begin{itemize}
 \item
-a decrease of the variance on the truncated estimate of about 10~dB,  i.e. a decrease of the black crosses, compared to the gray ones, is observed. %i.e. a decrease of the black crosses w.r.t.~the gray ones is observed.
+a decrease of the variance on the truncated estimate of about $10 \unit{dB}$,  i.e. a decrease of the black crosses, compared to the gray ones, is observed. %i.e. a decrease of the black crosses w.r.t.~the gray ones is observed.
 
 \item 
-the error on the truncated LPM estimate is strongly correlated over the frequency. This must be taken into account when formulating a maximum likelihood parametric estimator of the system.	
+the error on the truncated \gls{LPM} estimate is strongly correlated over the frequency. This must be taken into account when formulating a maximum likelihood parametric estimator of the system.	
 
 \item
-an increase of the bias of the truncated estimate, especially in the vicinity of the resonance frequency. Still, this bias lies below the variance of the non-truncated estimate. As such, for a single experiment, the increase in bias still yields a better estimate when truncation is invoked. % \JL{when performing the truncation}.
+an increase of the bias of the truncated estimate, especially in the vicinity of the resonance frequency. Still, this bias lies below the variance of the non-truncated estimate. As such, for a single experiment, the increase in bias still yields a better estimate when truncation is invoked. 
 
 This bias depends on the time instant at which the truncation is performed, as discussed below.
 
@@ -535,31 +469,32 @@ This bias depends on the time instant at which the truncation is performed, as d
 
 
 	\includegraphics{\thisDir/figs/HistogramExpFitting.pdf}
- \caption{Black full line (left hand side y-axis (ordinate)): total RMS error as a function of the truncation time (the single black dot is the minimum of the RMS). Gray histogram (right hand side y-axis (ordinate)): selected truncation times for 1000 noise realizations by the exponential fitting methods.}
+ \caption{Black full line (left hand side y-axis (ordinate)): total \gls{RMS} error as a function of the truncation time (the single black dot is the minimum of the \gls{RMS}). Gray histogram (right hand side y-axis (ordinate)): selected truncation times for 1000 noise realizations by the exponential fitting methods.}
 
 
 
    \label{fig:pdfAndRMSeVStruncTime}
 \end{figure}
 
-In Fig. \ref{fig:pdfAndRMSeVStruncTime}, the black graph is the RMS error of the estimated FRF (without the DC value) as a function of the time $t_\mathrm{trunc}$ at which the impulse response is truncated. Its minimum is indicated by a black dot, to the left of which a steep increase is observed. This is due to a bias error. To the right hand side of the minimum, the RMS error increases very gradually, due to an increase of the noise variance.
+In \figref{fig:pdfAndRMSeVStruncTime}, the black graph is the \gls{RMS} error of the estimated \gls{FRF} (without the \gls{DC} value) as a function of the time $t_\mathrm{trunc}$ at which the impulse response is truncated. Its minimum is indicated by a black dot, to the left of which a steep increase is observed. This is due to a bias error. To the right hand side of the minimum, the \gls{RMS} error increases very gradually, due to an increase of the noise variance.
 
-A good practice would be to truncate the impulse response at the minimizer (black dot) of the RMS error. However, it should be noted that this minimizer is unknown in practice, because it would require
-the true FRF.
+A good practice would be to truncate the impulse response at the minimizer (black dot) of the \gls{RMS} error. However, it should be noted that this minimizer is unknown in practice, because it would require
+the true \gls{FRF}.
 
 The truncation time is determined from the data as described in Section \ref{se:truncImpulseResp}. This was done on $1000$ realizations of the noise, and depicted in Figure \ref{fig:pdfAndRMSeVStruncTime} by the histogram.
 Clearly, the method for selecting the truncation time $t_{\mathrm{trunc}}$ has a good overall performance, based on the mode of its distribution. A closely grouped set of values for $t_{\mathrm{trunc}}$ is obtained around the $90^{\text{th}}$ sample, without significant outliers.
 
 
-From the plot, we can conclude that the RMS error increases rapidly when $t_{\mathrm{trunc}}$ is smaller than the optimal.
+From the plot, we can conclude that the \gls{RMSE} increases rapidly when $t_{\mathrm{trunc}}$ is smaller than the optimal.
 On the other hand, selection of a value of $t_{\mathrm{trunc}}$ that is too large, is not nearly as detrimental to the modeling error.
-The graph also shows that the RMS error of the model can be decreased from $0.62$ (without truncation) to $0.18$ when the optimal truncation is applied. Also, one observes a low sensitivity of the RMS error w.r.t.~$t_\mathrm{trunc}$, when truncating at times beyond that optimum. Therefore, a somewhat conservative truncation method is still likely to yield a close to optimal result.
+The graph also shows that the \gls{RMSE} of the model can be decreased from $0.62$ (without truncation) to $0.18$ when the optimal truncation is applied. Also, one observes a low sensitivity of the \gls{RMSE} w.r.t.~$t_\mathrm{trunc}$, when truncating at times beyond that optimum. Therefore, a somewhat conservative truncation method is still likely to yield a close to optimal result.
 
 \subsection{Conclusion}\label{se:conclusion}
 
-The paper introduced a novel time domain method to smooth the LPM-estimate of an FRF. It consisted of, after obtaining the FRF from the LPM, computing the associated estimated impulse response via the inverse Discrete Fourier Transform. Then, it was determined statistically at which time index the impulse response had decayed below the noise floor, yielding a point beyond which the response may be set to zero.
+The paper introduced a novel time domain method to smooth the \gls{LPM}-estimate of an \gls{FRF}. It consisted of, after obtaining the \gls{FRF} from the \gls{LPM}, computing the associated estimated impulse response via the \gls{IDFT}. 
+Then, it was determined statistically at which time index the impulse response had decayed below the noise floor, yielding a point beyond which the response may be set to zero.
 
-The results clearly indicate that the truncation technique lowers the impact of the noise on the estimate of the FRF, resulting in a decreased variance. A bias-variance trade-off is possible by tuning the time beyond which the impulse response is indistinguishable from the noise. %A bias-variance trade-off is possible, by tuning the time at which one considers the impulse response to be indistinguishable from the noise.
+The results clearly indicate that the truncation technique lowers the impact of the noise on the estimate of the \gls{FRF}, resulting in a decreased variance. A bias-variance trade-off is possible by tuning the time beyond which the impulse response is indistinguishable from the noise.
 
 
 % \bibliographystyle{IEEEtran}
