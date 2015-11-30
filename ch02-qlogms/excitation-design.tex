@@ -182,12 +182,15 @@ In particular, a generic excitation signal will be used but its properties are t
     \text{.}
   \end{equation}
   \begin{definition}[Least common (integer) multiple] \label{def:lcm-real}
-  The least common multiple of the set of values $T_k \in \RealNumbers$ for $k \in \set{1, \ldots, F}$ is  
+  The least common multiple of the set of values $T_k \in \mathbb{F}\without\set{0}$ for $k \in \mathbb{K} \isdef \set{1, \ldots, F}$ is  
   \begin{equation}
     \lcm \set{T_1, \ldots, T_F} \isdef
-      \min \Set{T |\forall k \in \set{1,\ldots,F}, \exists n_k \in \NaturalNumbers: n_k T_k = T }
+      \min \Set{T |\forall k \in \mathbb{K}, \exists n_k \in \NaturalNumbersWithoutZero: n_k T_k = T }
    \end{equation}
    if such a minimum exists.
+   When $\mathbb{F} \in \Set{\NaturalNumbers, \Integers, \RationalNumbers}$, a minimum always exists.
+   For $\mathbb{F} = \RealNumbers$, a minimum is not guaranteed to exist (see below).
+   % more info: http://mathworld.wolfram.com/LeastCommonMultiple.html
    \end{definition}
   \begin{example}
    Consider a generalized multisine where $f_1 = 1 \unit{Hz}$ and $f_2 = \tfrac{2}{3} \unit{Hz}$.
@@ -195,11 +198,26 @@ In particular, a generic excitation signal will be used but its properties are t
    The overall period of the multisine is $T = n_1 T_1 = n_2 T_2 = 3 \unit{s}$, i.e. $n_1 = 3$ and $n_2=2$.
   \end{example}
 
-  \begin{example}
+  \begin{example}\label{eg:excitation:non-periodic}
    Consider the generalized multisine of the previous example to which a spectral component is added at $f_3 = \pi \unit{Hz}$, or equivalently one with a period of $T_3 = \pi^{-1} \unit{s}$.
    Then it is not possible to determine integer values $n_1$, $n_2$, $n_3$ such that $n_1 T_1 = n_2 T_2 = n_3 T_3$ since $T_3$ is an irrational number of seconds (unlike $T_1$ and $T_2$).
    Consequently, such a generalized `multisine' is not periodic.
   \end{example}
+  \begin{remark}
+  In practical applications each frequency will be represented as either a fixed-point or floating point number with a limited numerical precision $\delta$.
+  Hence, each frequency line $f_k$ will be approximated by a line at $\round{f_k \delta^{-1}} \delta \isdef m_k \delta$ where $m_k \in \Integers$.
+  The resulting multisine has a period 
+  \begin{equation}
+     T 
+     = \lcm \Set{T_k |  k \in \mathbb{K}} 
+     = \lcm \Set{m_k^{-1} \delta^{-1} |  k \in \mathbb{K}}
+     = \delta^{-1} \lcm \Set{m_k^{-1} |  k \in \mathbb{K}}
+     \text{.}
+  \end{equation}
+  The latter $\lcm$ always exists because $m_k^{-1}  \in \RationalNumbers$ as $m_k \in \Integers$.
+  The resulting period $T$ might, however, might be too long for practical use.
+  E.g. when $\delta \approx 2.2\cdot 10^{-16}$ (\code{double} precision), the period of a multisine with components as in Example~\ref{eg:excitation:non-periodic} is $T \approx 2.8 \cdot 10^{14} \unit{s} \approx 9 \cdot 10^{6} \unit{year}$.
+  \end{remark}
 
   This last example illustrates that a least common multiple of real numbers does not always exist.
   Consequently, the generalized multisine of \defref{def:generalized-MS} is not guaranteed to be periodic.

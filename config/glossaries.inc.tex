@@ -28,18 +28,21 @@ firstplural={#4~(#3\glspluralsuffix)},
 
 \newsymbolglos{A-SetC}{\ComplexNumbers}{Set of the complex numbers}
 \newsymbolglos{A-SetN}{\NaturalNumbers}{Set of the natural numbers}
+\newsymbolglos{A-SetNnozero}{\NaturalNumbersWithoutZero}{Set of the natural numbers without the number $0$}
 \newsymbolglos{A-SetRpos}{\PositiveRealNumbers}{Set of the positive real numbers}
+\newsymbolglos{A-SetRneg}{\NegativeRealNumbers}{Set of negative real numbers}
 \newsymbolglos{A-SetRnozero}{\RealNumbersWithoutZero}{Set of the positive real numbers without the number $0$, i.e. $\RealNumbers \without \set{0}$}
+\newsymbolglos{A-SetQ}{\RationalNumbers}{Set of the rational numbers}
 \newsymbolglos{A-SetR}{\RealNumbers}{Set of the real numbers}
 \newsymbolglos{A-SetZ}{\IntegerNumbers}{Set of integer numbers}
 
 \newsymbolglos{count-mc}{n_{\mathrm{MC}}}{Number of Monte Carlo runs}
 \newsymbolglos{count-theta}{n_{\theta}}{Number of parameters}
 
-\newsymbolglos{E-approx}{\approx}{Is approximately equal to \ldots}
-\newsymbolglos{E-bydef}{\isdef}{Is defined as \ldots}
-\newsymbolglos{E-propto}{\propto}{Is proportional to \ldots}
-\newsymbolglos{E-distributed}{\distributedAs}{Is distributed as \ldots}
+\newsymbolglos{E-approx}{\approx}{is approximately equal to \ldots}
+\newsymbolglos{E-bydef}{\isdef}{is defined as \ldots}
+\newsymbolglos{E-propto}{\propto}{is proportional to \ldots}
+\newsymbolglos{E-distributed}{\distributedAs}{is distributed as \ldots}
 
 \newsymbolglos{imagunit}{j}{The imaginary unit, $j = \sqrt{-1}$}
 
@@ -55,13 +58,13 @@ firstplural={#4~(#3\glspluralsuffix)},
 \newsymbolglos{operator-exp}{\expval{\placeholder}}{Expected value of \placeholder}
 \newsymbolglos{operator-ln}{\ln \placeholder}{Natural logarithm of \placeholder}
 \newsymbolglos{operator-conj}{\conj \placeholder}{Complex conjugate of \placeholder}
-\newsymbolglos{operator-log}{\log_{B} \placeholder}{Logarithm in base $B$ of \placeholder{}  (when B is omitted, the decimal logarithm is implied)}
+\newsymbolglos{operator-log}{\log_{B} \placeholder}{Logarithm in base $B$ of \placeholder{}  (when $B$ is omitted, $B=10$ is implied)}
 \newsymbolglos{operator-matrix-ht}{\placeholder^{\HT}}{Hermitian (complex conjugated) transpose of the matrix \placeholder}
 \newsymbolglos{operator-matrix-pinv}{\pinv{\placeholder}}{Moore-Penrose pseudo-inverse of the matrix \placeholder}
 \newsymbolglos{operator-matrix-tran}{\placeholder^{\TT}}{Transpose of the matrix \placeholder}
 \newsymbolglos{operator-round-ceil}{\ceil{\placeholder}}{\placeholder{} rounded upwards (\code{ceil})}
 \newsymbolglos{operator-round-floor}{\floor{\placeholder}}{\placeholder{} rounded downwards (\code{floor})}
-\newsymbolglos{operator-round-round}{\round{\placeholder}}{\placeholder{} rounded towards the nearest integer (\code{round})}
+\newsymbolglos{operator-round-round}{\round{\placeholder}}{\placeholder{} rounded towards the nearest integer, as in \glsentrytext{IEEE} 754-2008 (\code{round})}
 
 \newsymbolglos{sys-damping}{\damping}{Relative damping of a system}
 \newsymbolglos{sys-resonance}{\wn}{Natural (resonance) frequency of a system}
