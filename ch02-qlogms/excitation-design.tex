@@ -204,19 +204,20 @@ In particular, a generic excitation signal will be used but its properties are t
    Consequently, such a generalized `multisine' is not periodic.
   \end{example}
   \begin{remark}
-  In practical applications each frequency will be represented as either a fixed-point or floating point number with a limited numerical precision $\delta$.
-  Hence, each frequency line $f_k$ will be approximated by a line at $\round{f_k \delta^{-1}} \delta \isdef m_k \delta$ where $m_k \in \Integers$.
+  In practical applications each frequency will be represented as either a fixed-point or floating point number with a limited numerical precision $\eps$.
+  Hence, each frequency line $f_k$ will be approximated by a line at $\round{f_k \eps^{-1}} \eps \isdef m_k \eps$ where $m_k \in \Integers$.
   The resulting multisine has a period 
   \begin{equation}
      T 
      = \lcm \Set{T_k |  k \in \mathbb{K}} 
-     = \lcm \Set{m_k^{-1} \delta^{-1} |  k \in \mathbb{K}}
-     = \delta^{-1} \lcm \Set{m_k^{-1} |  k \in \mathbb{K}}
+     = \lcm \Set{m_k^{-1} \eps^{-1} |  k \in \mathbb{K}}
+     = \eps^{-1} \lcm \Set{m_k^{-1} |  k \in \mathbb{K}}
      \text{.}
   \end{equation}
   The latter $\lcm$ always exists because $m_k^{-1}  \in \RationalNumbers$ as $m_k \in \Integers$.
   The resulting period $T$ might, however, might be too long for practical use.
-  E.g. when $\delta \approx 2.2\cdot 10^{-16}$ (\code{double} precision), the period of a multisine with components as in Example~\ref{eg:excitation:non-periodic} is $T \approx 2.8 \cdot 10^{14} \unit{s} \approx 9 \cdot 10^{6} \unit{year}$.
+  E.g. when $\eps \approx 1.2\cdot 10^{-7}$ (\code{single} precision), the period of a multisine with components as in Example~\ref{eg:excitation:non-periodic} is $T \approx 8.4 \cdot 10^{6} \unit{s} \approx 97 \unit{days}$.
+  For \code{double} precision, $\eps \approx 2.2 \cdot 10^{-16}$ and the period $T \approx 9 \cdot 10^{6} \unit{year}$.
   \end{remark}
 
   This last example illustrates that a least common multiple of real numbers does not always exist.
@@ -298,7 +299,7 @@ In particular, a generic excitation signal will be used but its properties are t
     Obviously, such alternative specifications are equivalent.
   \end{remark}
   \begin{example}
-    The~\citep{HP3562A} has a logarithmic measurement mode that ensures that each decade is covered by $F_{\decade} = 80$ lines~ to measure an \gls{FRF}.
+    The~\citet{HP3562A} has a logarithmic measurement mode that ensures that each decade is covered by $F_{\decade} = 80$ lines~ to measure an \gls{FRF}.
     This is equivalent to a grid spacing $\alpha = \sqrt[80]{10} \approx 1.029$.
   \end{example}
 
