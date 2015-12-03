@@ -18,20 +18,25 @@
 			"path": ".",
 			"file_exclude_patterns": [
 				"*.fig",
-				"*.lof",
+				"*.lof","*.lol",
 				"*.toc",
 				"*.lot",
-				"*.blg",
-				"*.bbl",
+				"*.acn","*.acr","*.alg",
+				"*.blg","*.bbl",
 				"*.out",
 				"*.bcf",
 				"*.run.xml",
+				"*.figlist",
 				"*.fls",
+				"*.glg","*.glo","*.gls",
+				"*.sbl","*.slg","*.slo","*.sls",
 				"*.aux",
+				"*.xdy",
 				"*.auxlock",
 				"*.fdb_latexmk",
 				"*.synctex.gz",
 				"vc-git.awk",
+				"vc.tex","vc"
 			]
 		}
 		// {
