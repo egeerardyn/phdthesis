@@ -170,13 +170,13 @@ Such an approach requires good initial estimates of $\theta$ to avoid inherent l
       % \State \textbf{if} $i=1$ \textbf{ then} $\lambda \gets \max(\sigma) / 100$
       \State $\sigma_k \gets \sigma_k / (\sigma_k^2 + \lambda^2) \quad \forall k \in \{1, \ldots, n\}$
       \State $\delta\theta \gets - W  \Sigma^{\TT}  U^{\TT} \epsilon$
-      \State $\atIter[i]{\theta} \gets (\atIter[i-1]{\theta} + \delta\theta) / \snorm{\atIter[i-1]{\theta} + \delta\theta} $
+      \State $\atIter[i]{\theta} \gets (\atIter[i-1]{\theta} + \delta\theta) / \norm{\atIter[i-1]{\theta} + \delta\theta} $
       \If{$V(\atIter[i]{\theta}) > V(\atIter[i-1]{\theta})$}
           \State $\lambda \gets 10 \lambda$ and then retry at $i \gets i - 1$
       \Else
           \State $\lambda \gets 0.4 \lambda$
       \EndIf
-      \State \textbf{if} $\snorm{\delta\theta}/\snorm{\atIter[i]{\theta}} < n_{\theta}  \cdot 10^{-6} $ \textbf{then} \textbf{return} $\hat{\theta} \gets \atIter[i]{\theta}$
+      \State \textbf{if} $\norm{\delta\theta}/\norm{\atIter[i]{\theta}} < n_{\theta}  \cdot 10^{-6} $ \textbf{then} \textbf{return} $\hat{\theta} \gets \atIter[i]{\theta}$
    \EndFor
 %\EndFunction
 \end{algorithmic}
@@ -522,8 +522,8 @@ For each value-pair (SNR, $N_{3\mathrm{dB}}$), 200 simulations and estimations w
 %\ML{
 \subsubsection{Illustrative Example}
 In particular, the simulation for each pair $(\mathrm{SNR}, N_{3\mathrm{dB}})$ yields 200 estimates per initial value strategy.
-This is illustrated graphically in \figref{fig:single-sim} for the value-pair $(-1.1\unit{dB},48)$ of the system with $Q = 6 \unit{dB}$, where the obtained distances $\snorm{\model{\bullet} - \hat{G}_{0}}$ are shown for the different strategies, and sorted by an ascending norm.
-This effectively shows an empirical cumulative distribution function of the distance measure $\snorm{\model{\bullet} - \hat{G}_{0}}$ as sampled by the Monte Carlo algorithm.%}
+This is illustrated graphically in \figref{fig:single-sim} for the value-pair $(-1.1\unit{dB},48)$ of the system with $Q = 6 \unit{dB}$, where the obtained distances $\norm{\model{\bullet} - \hat{G}_{0}}$ are shown for the different strategies, and sorted by an ascending norm.
+This effectively shows an empirical cumulative distribution function of the distance measure $\norm{\model{\bullet} - \hat{G}_{0}}$ as sampled by the Monte Carlo algorithm.%}
  
 %\JL{One observes:}
 \subsubsection{Pertinent Observations}
@@ -584,19 +584,19 @@ In other words, it shows that, at low SNR values $\hat G_\mathrm{trunc}$ is more
 %}
 %\ML{Yea, shown below!}
 %\EG{
-  \figref{fig:successRateVS_SNR36N3dB} shows that, typically, for the system with $Q=6\unit{dB}$ when $N_{3\unit{dB}}=48$ and $-1.1 \unit{dB}$ SNR, the existing initial values will fail to deliver a good transfer function estimate for one in four trials ($\approx 74\%$ success rate).
-However, by using the truncated LPM's initial estimates, the number of failures is reduced fivefold ($\approx 95\%$ success rate) over the existing initial estimates.
-Moreover, the RFIR initial values lead to poor estimates in less than $2\%$ ($>$ $98\%$ success rate) of the cases, since none were observed in the Monte Carlo simulation.
+  \figref{fig:successRateVS_SNR36N3dB} shows that, typically, for the system with $Q=6\unit{dB}$ when $N_{3\unit{dB}}=48$ and $-1.1 \unit{dB}$ \gls{SNR}, the existing initial values will fail to deliver a good transfer function estimate for one in four trials ($\approx 74\%$ success rate).
+However, by using the truncated \gls{LPM}'s initial estimates, the number of failures is reduced fivefold ($\approx 95\%$ success rate) over the existing initial estimates.
+Moreover, the \gls{RFIR} initial values lead to poor estimates in less than $2\%$ ($>$ $98\%$ success rate) of the cases, since none were observed in the Monte Carlo simulation.
 
 \paragraph*{Extension of the SNR range for $\hat G_\mathrm{trunc}$ over $\hat G_\mathrm{exist}$}
-A close scrutiny of \figref{fig:successRateVS_SNR36N3dB} reveals that the SNR range associated with an acceptable success rate (e.g.\ success rate~$\geqslant 90\%$) is improved for $\hat G_\mathrm{trunc}$ over $\hat G_\mathrm{exist}$. The range of improvement is approximately 5 dB where the success rate is above $90\%$. This result is very useful for a user working with noisy data.
+A close inspection of \figref{fig:successRateVS_SNR36N3dB} reveals that the \gls{SNR} range associated with an acceptable success rate (e.g.\ success rate~$\geqslant 90\%$) is improved for $\hat G_\mathrm{trunc}$ over $\hat G_\mathrm{exist}$. The range of improvement is approximately 5 dB where the success rate is above $90\%$. This result is very useful for a user working with noisy data.
 
 \begin{figure}
   \centering
   \setlength{\figurewidth}{0.85\onecolumnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/fig/successRates.tikz}
- \caption[Simulated success rate of the different initialization schemes for varying SNR.]{The success rate $\eta$  obtained using the smoothers, i.e. $\model{RFIR}$~\legref{leg:success-RFIR} and $\model{trunc}$~\legref{leg:success-LPMTrunc}, are significantly higher than for the existing methods $\model{exist}$~\legref{leg:success-existing} in most of the studied range of SNRs, number of samples and for both test systems. The $95\%$ confidence intervals are indicated by bars.}
+ \caption[Simulated success rate of the different initialization schemes for varying \gls{SNR}.]{The success rate $\eta$  obtained using the smoothers, i.e. $\model{RFIR}$~\legref{leg:success-RFIR} and $\model{trunc}$~\legref{leg:success-LPMTrunc}, are significantly higher than for the existing methods $\model{exist}$~\legref{leg:success-existing} in most of the studied range of \glspl{SNR}, number of samples and for both test systems. The $95\%$ confidence intervals are indicated by bars.}
   \label{fig:successRateVS_SNR36N3dB}
 \end{figure}
 
@@ -605,8 +605,8 @@ A close scrutiny of \figref{fig:successRateVS_SNR36N3dB} reveals that the SNR ra
   \setlength{\figurewidth}{0.66\onecolumnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/fig/RMSEvs_SNR36N3dB-ripple6.tikz}
- \caption[Simulated model RMSE compared to rule-of-thumb.]{The accordance between the observed RMSE of $\hat{G}_0$~\legref{leg:RMSE:delta:observed}(with $2\sigma$ interval) and the rule-of-thumb~\eqref{eq:heur-RMSE}\legref{leg:RMSE:rule-of-thumb} shows how well $\hat{G}_0$ approximates the true system $G_0$.
- In the bottom plot, the difference $\Delta$ between both is shown.
+ \caption[Simulated model \gls{RMSE} compared to rule-of-thumb.]{The accordance between the observed \gls{RMSE} of $\hat{G}_0$~\legref{leg:RMSE:delta:observed}(with $\pm2\sigma$ interval) and the rule-of-thumb~\eqref{eq:heur-RMSE}\legref{leg:RMSE:rule-of-thumb} shows how well $\hat{G}_0$ approximates the true system $G_0$.
+ In the bottom plot, the difference between both is shown.
  Consequently, it makes sense to examine the behavior of the models in terms of $\hat{G}_0$ as long as this RMSE meets the user's requirements.}
   \label{fig:RMSE}
 \end{figure}
@@ -726,14 +726,14 @@ This is also the approach followed in~\citep{FDIDENT} to combine different initi
 
 %\JL{
 Since the true model $G_0$ is not known for real-life systems, a practically viable reference model is needed.
-Additional measurements were performed using a VXI measurement setup, which allowed for a signal-to-noise ratio of more than $60\unit{dB}$. 
+Additional measurements were performed using a \gls{VXI} measurement setup, which allowed for a signal-to-noise ratio of more than $60\unit{dB}$. 
 Virtually noiseless, these measurements provided a very high quality model of the system, denoted as $G_\mathrm{VXI}$, and used as a reference model. 
-The VXI measurement setup is summarized as follows.
+The \gls{VXI} measurement setup is summarized as follows.
 \begin{itemize}
-  \item Signal Generator card: VXI HP E1445A.
-  \item Acquisition cards: VXI HP E1430A.
+  \item Signal Generator card: \gls{VXI} HP E1445A.
+  \item Acquisition cards: \gls{VXI} HP E1430A.
   \item Sampling frequency: $f_\mathrm{s} = 156\,250 \unit{Hz}$.
-  \item A total of $558$ frequency bins were used for the estimation, in the excited frequency band $[0.1,20] \unit{kHz}$, with a frequency resolution of $35.7\unit{Hz}$, giving a measurement time of $28\unit{ms}$. The excitation signal was band-limited periodic noise with an RMS of $100\unit{mV}$.
+  \item A total of $558$ frequency bins were used for the estimation, in the excited frequency band $[0.1,20] \unit{kHz}$, with a frequency resolution of $35.7\unit{Hz}$, giving a measurement time of $28\unit{ms}$. The excitation signal was band-limited periodic noise with an \gls{RMS} of $100\unit{mV}$.
   \item The input and output signals were buffered and anti-alias filtered.
 \end{itemize}
 This yielded the model $G_\mathrm{VXI}$ (shown in \figref{fig:bk1613}) with a relative error  of less than $0.3\%$ in the pass-band.  Denote $\model{VXI}$ to be the parametric estimate obtained using $G_{\mathrm{VXI}}$ as an initial estimate. Furthermore, $G_\mathrm{VXI}$ was used to play the role of $G_0$ from the previous section.
@@ -742,9 +742,9 @@ This yielded the model $G_\mathrm{VXI}$ (shown in \figref{fig:bk1613}) with a re
   The measurements on the NI Elvis II indicate that the high-quality starting value $G_{\mathrm{VXI}}$ led to low cost function values as shown in \figref{fig:costMeasurements} and \tabref{tbl:costMeasurements}.
   The existing methods exhibit a high spread and a high median cost function, showing that a good estimate is obtained only in about $25\%$ of the cases.
   The truncation method provides better estimates in many cases, but still suffers from a high variability.
-  On the other hand, the RFIR-based initial values have both a low median cost function and spread, and thus provide better fits in almost all cases.
+  On the other hand, the \gls{RFIR}-based initial values have both a low median cost function and spread, and thus provide better fits in almost all cases.
   Obviously, $\model{best}$ has the lowest cost function values of all methods.
-  The similarity of the results for $\model{RFIR}$ and $\model{best}$ suggests that the RFIR provides the best estimate in most of the cases.
+  The similarity of the results for $\model{RFIR}$ and $\model{best}$ suggests that the \gls{RFIR} provides the best estimate in most of the cases.
   This can indeed be confirmed by inspecting the different estimates per repetition of the experiment.
 
 \begin{remark}
@@ -752,9 +752,9 @@ This yielded the model $G_\mathrm{VXI}$ (shown in \figref{fig:bk1613}) with a re
   Such a large gap is not observed in the measurements (\figref{fig:costMeasurements} and \tabref{tbl:costMeasurements}).
   Hence, defining a success rate based on a threshold tolerance would be very sensitive to the specific value of the threshold and hence unreliable.
   Instead, the statistical location and dispersion are inspected to assess the relative performance of each method.
-  Practically, the median is used as a measure of location and the inter-quartile range (IQR) is used to inspect the spread as these are far more robust to outliers than e.g. the sample mean and variance.
+  Practically, the median is used as a measure of location and the \gls{IQR} is used to inspect the spread as these are far more robust to outliers than e.g. the sample mean and variance.
   These measures also have an easy interpretation: the median ($50\%$ percentile) indicates the cost function value that $50\%$ of the repetitions attain.
-  On the other hand, the IQR ($25\%$ through $75\%$ percentile) contains  exactly half of the observations.
+  On the other hand, the \gls{IQR} ($25\%$ through $75\%$ percentile) contains  exactly half of the observations.
 \end{remark}
 
 \begin{figure}
@@ -866,13 +866,13 @@ However, it is beyond the scope of this paper to determine which particular smoo
 \TODO{figures from review letter}
 
 \section{Conclusion}\label{se:Conclusion}
-The simulations have demonstrated that use of a smoothed non-parametric estimate of the FRF can improve the success rate of minimizing the ML cost function for the estimation of the transfer functions of linear time-invariant (LTI) systems, subjected to noisy signals. Specifically, two smoothing methods were used and compared: 1) the truncated LPM method, and 2) the RFIR method. The simulation results clearly show that the RFIR method is superior to the truncated LPM method and the existing BTLS/GTLS methods.
+The simulations have demonstrated that use of a smoothed non-parametric estimate of the \gls{FRF} can improve the success rate of minimizing the \gls{ML} cost function for the estimation of the transfer functions of \gls{LTI} systems, subjected to noisy signals. Specifically, two smoothing methods were used and compared: 1) the truncated \gls{LPM} method, and 2) the \gls{RFIR} method. The simulation results clearly show that the \gls{RFIR} method is superior to the truncated \gls{LPM} method and the existing \gls{BTLS} and \gls{GTLS} methods.
 
 The usefulness of the initial values obtained via the proposed smoothing techniques was confirmed on a measurement of a band-pass filter in a noisy environment.
 In most cases, the proposed initial values in the example made it possible to reduce the cost function by a factor two compared to existing methods.
-Moreover, the obtained models were validated against a high-quality measurement where the RMS error on the transfer function could be reduced by a factor of eight for most cases, due to the improved initial values.
+Moreover, the obtained models were validated against a high-quality measurement where the \gls{RMS} error on the transfer function could be reduced by a factor of eight for most cases, due to the improved initial values.
 
-Thus, the work in this paper has demonstrated the effectiveness of the studied FRF smoothing techniques in enhancing the initial values.
+Thus, the work in this paper has demonstrated the effectiveness of the studied \gls{FRF} smoothing techniques in enhancing the initial values.
 Consequently, the ease-of-use of parametric model fitting is increased considerably by making it possible to obtain good parametric models without requiring any user interaction.
 
 
