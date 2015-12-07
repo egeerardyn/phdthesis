@@ -222,11 +222,13 @@ In particular, a generic excitation signal will be used but its properties are t
 
   This last example illustrates that a least common multiple of real numbers does not always exist.
   Consequently, the generalized multisine of \defref{def:generalized-MS} is not guaranteed to be periodic.
-
-  \TODO{put MATLAB code for each type of signal}
+  In actual implementations with limited numerical precision, this gives rise to signals that are periodic but whose period can be too long to be practically viable for periodic measurements.
+  Consequently, it is undesirable to use generalized multisines that have an overly long period.
   
 \subsection{Equidistant (Linear) Grid Multisine}
-  In many applications, an equidistant frequency grid is used for $u\left( t\right) $ because this fits best with the classical DFT analysis \citep{OppenheimDT,Mandal2007}. It allows to analyze periodic signals on an equidistant frequency grid very efficiently.
+  In many applications, an equidistant frequency grid is used for $u\left( t\right) $ because this fits best with the classical DFT analysis \citep{OppenheimDT,Mandal2007}. 
+  It allows to analyze periodic signals on an equidistant frequency grid very efficiently.
+  For such a frequency grid, it is guaranteed that the signal is periodic in the time domain, unlike for the generalized multisines of the previous section.
   
   An equidistant frequency grid $\set{f_1, \ldots, f_F}$ with spacing $\Delta f$
   consisting of $F$ lines conforms to the following relation:
