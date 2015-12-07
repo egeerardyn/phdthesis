@@ -31,16 +31,16 @@
 
 The measurement of \glspl{FRF} of dynamic systems is an important topic in the measurement society.  
 \gls{FRF} measurement techniques are discussed, for instance, in 
-\citep{Schoukens1998ImprFRFmeas,Schoukens2006LPM,guillaume1996,broersen1995transferfunction,Pintelon2010LPM1,Antoni2007,Pintelon2012}, and applied to real practical devices and systems \citep{Lim2010,Robinson1990,Behjat2010}, among others. 
+\citep{Schoukens1998ImprFRFmeas,Schoukens2006LPM,guillaume1996,broersen1995transferfunction,Pintelon2010LPM1,Antoni2007FRF,Pintelon2012}, and applied to real practical devices and systems \citep{Lim2010,Robinson1990,Behjat2010}, among others. 
 Besides, \glspl{FRF} have been shown to provide a quick insight into the dynamic properties of \gls{LTI} systems. 
 This capability is very useful for model validation and/or selection \citep{Pintelon2012}.
 
 This paper uses nonparametric models in conjunction with the \gls{LPM}~\citep{Pintelon2010LPM1} to estimate the complex-valued \gls{FRF} in a linear \gls{LS} fashion. 
-The advantage of using the nonparametric models is basically the non-involvement of the user in choosing a model order, i.e. no user interaction. Among the current nonparametric methods, the LPM method is chosen due to its superiority over the classical nonparametric methods (windowing) in suppressing leakage errors \citep{bendatPiersol1993,Oppenheim1983}. Consequently, the LPM estimate of the FRF is not hampered by leakage errors \citep{Pintelon2010LPM1,schoukens2010nonparametric}. Note that a more general discussion on the LPM, applied to noisy, real-valued data is found in \citep{fanGijbels1996LPM} with a specific focus on parametric tuning.
+The advantage of using the nonparametric models is basically the non-involvement of the user in choosing a model order, i.e. no user interaction. Among the current nonparametric methods, the LPM method is chosen due to its superiority over the classical nonparametric methods (windowing) in suppressing leakage errors \citep{Bendat1993,Oppenheim1983}. Consequently, the LPM estimate of the FRF is not hampered by leakage errors \citep{Pintelon2010LPM1,Schoukens2009LPM}. Note that a more general discussion on the LPM, applied to noisy, real-valued data is found in \citep{Fan1996} with a specific focus on parametric tuning.
 
 The main contribution of the paper is to come up with an improved FRF by developing a method for smoothing the FRF estimated via the LPM. This is done by truncating the associated impulse response, as in \citep{Schoukens1998ImprFRFmeas}, but with the following additional extension: the determination of the optimal truncation time, without any user interaction, in conjunction with the use of the LPM for leakage reduction. The cutoff index (truncation point) is determined by a statistically sound method. It is then shown that a smooth LPM estimate of the FRF lowers the variance, thus improving the assessment level of the dynamic properties of a given LTI system. 
 
-Based on \citep{schoukens2010nonparametric}, the nonparametric method developed in this work is formulated in an output-error (OE) framework. A single-input-single-output (SISO) LTI system is considered. %, based on  \citep{schoukens2010nonparametric}. 
+Based on \citep{Schoukens2009LPM}, the nonparametric method developed in this work is formulated in an output-error (OE) framework. A single-input-single-output (SISO) LTI system is considered. %, based on  \citep{Schoukens2009LPM}. 
 The input signal is a known random noise signal and the output signal is corrupted by measurement noise. This is depicted in Fig. 1 as a linear dynamic discrete-time SISO system, whose full mathematical model is of the form:
 \begin{equation}\label{lpmtd1}
 y(t)=G_0(q)u_0(t)+H_0(q)e(t)=G_0(q)u_0(t)+v(t)
@@ -86,7 +86,7 @@ Discussion of the simulation results is then followed by a conclusion in \secref
 \subsection{Theory on the LPM and Windowing: \glsentrytext{OE} Setup}
 \label{se:theoryLPMandWindowing}
 
-Details of the theory pertaining to this section may be found in \citep{schoukens2010nonparametric}, basic aspects of which are presented below.
+Details of the theory pertaining to this section may be found in \citep{Schoukens2009LPM}, basic aspects of which are presented below.
 
 
 \subsubsection{Spectral Nonparametric Model and Assumptions}
@@ -103,7 +103,7 @@ X(\Omega_k) = \frac{1}{\sqrt{N}}\sum_{t=0}^{N-1}x(t)e^{-\frac{j2\pi kt}{N}}
 \end{equation}
 
 
-The following assumptions are consistent with \citep{schoukens2010nonparametric} for an OE setup (Fig. \ref{lpmtdrep}):
+The following assumptions are consistent with \citep{Schoukens2009LPM} for an OE setup (Fig. \ref{lpmtdrep}):
 \begin{assumption}
 The SISO system $G_0$ and  the transients leakage spectrum $T_G$ are both smooth functions of the frequency.
 \end{assumption}
@@ -131,13 +131,13 @@ The filtered white noise $v(t) = H_0(q)e(t)$ is the disturbing noise source at t
 \subsubsection{The Hanning Window and the \glsentrytext{LPM}}\label{se:LPMFRFest}%\label{se:FRFhanningLPM}
 \paragraph{Windowing}
 The effect of windowing may be  exemplified by use of the Hanning window, which is very popular.  In a nutshell, the Hanning window is effective in reducing  the leakage errors, but  with a trade off of increased interpolation errors. %This is because the term $G_0(\Omega_k)U_0(k)$ in equation \eqref{lpmtd1} is not smooth and $G_0(\Omega_k)$ varies with the frequency. 
-Pertinent details of the Hanning window are discussed in \citep{Schoukens2006LPM,Antoni2007FRF,schoukens2010nonparametric,Wellstead198155} and \citep{harris1978}.
+Pertinent details of the Hanning window are discussed in \citep{Schoukens2006LPM,Antoni2007FRF,Schoukens2009LPM,Wellstead1981} and \citep{Harris1978}.
 
 The anomalies due to interpolation errors, associated with windowing, can easily be mitigated or circumvented by use of the LPM. As shown in \citep{Pintelon2012}, the leakage errors are reduced from  $\mathcal{O}({N}^{-1})$, for Hanning windowing, to $\mathcal{O}({N}^{-3})$ or better, for the LPM.
 
 
 \paragraph{Formulation of the Linear LS LPM}
-The LPM is formulated as a nonparametric local-linear-least-squares (LS) estimate using the full data record of length $N$ as outlined below \citep{schoukens2010nonparametric}. 
+The LPM is formulated as a nonparametric local-linear-least-squares (LS) estimate using the full data record of length $N$ as outlined below \citep{Schoukens2009LPM}. 
 \citet[Section 7.2.2]{Pintelon2012} gives the general formulation of the \gls{LPM} for \gls{MIMO} systems. 
 The formulation in this paper is a summary for a \gls{SISO} system.
 
@@ -147,7 +147,7 @@ Y(k)=G_0(\Omega_k)U_0(k)+T(\Omega_k)+V_0(k)
 \end{equation}
 where $V_0(k) = H_0(\Omega_k)E(k)$ is a noise term, and $T(\Omega_k)$ is the leakage term. The latter is the sum of the system and the noise leakage terms, i.e. $T(\Omega_k) = T_G(\Omega_k) + T_H(\Omega_k)$.
 
-The smooth characteristics of $G_0(\Omega_k)$ and $T(\Omega_k)$ allow for the use of the Taylor series representations at the frequency lines $k+r$ in a frequency domain window of width $2n+1$, with a remainder $\mathcal{O}\left(\frac{r}{N}\right)^{(R+1)}$ of the first order Taylor series expansion \citep{schoukens2010nonparametric}, \emph{viz}:
+The smooth characteristics of $G_0(\Omega_k)$ and $T(\Omega_k)$ allow for the use of the Taylor series representations at the frequency lines $k+r$ in a frequency domain window of width $2n+1$, with a remainder $\mathcal{O}\left(\frac{r}{N}\right)^{(R+1)}$ of the first order Taylor series expansion \citep{Schoukens2009LPM}, \emph{viz}:
 \TODO{ordos are incorrect: notation-wise}
 \begin{align}\label{lpmGTaylorS}
 G_0(\Omega_{k+r})&=G_0(\Omega_k)+\sum_{p=1}^{R}g_p(k)r^p+\mathcal{O}\left(\frac{r}{N}\right)^{(R+1)},
@@ -186,7 +186,7 @@ The estimates of the parameters $\theta(k)$ are obtained as the minimizers of th
 \hat\theta(k) = \argmin_{\theta(k)} \left\|Y_n(k) - K_n(k)\theta(k)\right\|_2^2
 \end{align}
 
-The formulation of equation \eqref{eq:LSsolutionLPM} must take into account the fact that  a full rank of $K_n$ requires $n \geq R + 1$. The choice $n = R + 1$ results in the highest variance on the estimate, but with the smallest interpolation error \citep{schoukens2010nonparametric}. %(per JL)!
+The formulation of equation \eqref{eq:LSsolutionLPM} must take into account the fact that  a full rank of $K_n$ requires $n \geq R + 1$. The choice $n = R + 1$ results in the highest variance on the estimate, but with the smallest interpolation error \citep{Schoukens2009LPM}. %(per JL)!
 
 
 The values $R = 2$, and $n=R+1=3$ will be used in the \gls{LPM}.
@@ -278,7 +278,7 @@ where the estimated \gls{FRF} in the frequency band between  the Nyquist and the
 (with $\conj{\hat G_\mathrm{poly}}$ the complex conjugate of $\hat G_\mathrm{poly}$) to ensure $\hat g_\mathrm{poly}(t)$ to be real.
 
 \TODO{fix reference Section II}
-Smoothing of the estimated \gls{FRF} requires the correct estimate of the impulse response. Unfortunately, the \gls{LPM} presented in \secref{se:theoryLPMandWindowing} and in \citep{schoukens2010nonparametric} does not estimate the \gls{FRF}  at the frequency $\Omega_0$ (i.e. \gls{DC} value of the \gls{FRF}), hence the subscript $\setminus\mathrm{DC}$ in equation \eqref{eq:impRespiDFT}. Consequently, the mean value of the corresponding estimated impulse response given in equation \eqref{eq:impRespiDFT} is not correct. This anomaly is rectified by developing a simple estimator of the mean value, presented below.
+Smoothing of the estimated \gls{FRF} requires the correct estimate of the impulse response. Unfortunately, the \gls{LPM} presented in \secref{se:theoryLPMandWindowing} and in \citep{Schoukens2009LPM} does not estimate the \gls{FRF}  at the frequency $\Omega_0$ (i.e. \gls{DC} value of the \gls{FRF}), hence the subscript $\setminus\mathrm{DC}$ in equation \eqref{eq:impRespiDFT}. Consequently, the mean value of the corresponding estimated impulse response given in equation \eqref{eq:impRespiDFT} is not correct. This anomaly is rectified by developing a simple estimator of the mean value, presented below.
 
 \subsubsection{Estimating the \glsentrytext{DC} Value of the \glsentrytext{FRF}}\label{se:DCvalueEst}
 

@@ -45,27 +45,27 @@
 \section{Introduction}\label{se:introd}
 
 The task of interpreting measurement data from dynamic systems often involves the estimation of a transfer function (TF). 
-Typical measurement techniques and identification strategies of transfer functions (TFs) or frequency response functions (FRFs) are discussed in \citep{Schoukens1998ImprFRFmeas,Schoukens2006LPM,Guillaume1996,broersen1995transferfunction,Pintelon2010LPM1,Antoni20071723}.
+Typical measurement techniques and identification strategies of transfer functions (TFs) or \glspl{FRF} are discussed in \citep{Schoukens1998,Schoukens2006LPM,Guillaume1996,Broersen1995,Pintelon2010LPM1,Antoni2007FRF}.
 Application of these methods to real devices and systems is well-known in published literature, including \citep{Lim2010,Robinson1990,Behjat2010}.
 
-Parametric identification of linear time-invariant (LTI) systems from input/output data has been well developed as evidenced by published literature~\citep{Pintelon2012,Ljung1999,schoukens1999,pintGuil1998}. 
+Parametric identification of \gls{LTI} systems from input/output data has been well developed as evidenced by published literature~\citep{Pintelon2012,Ljung1999,Schoukens1999,Pintelon1998}. 
  Maximizing the likelihood function of the parameters probably yields the most popular, consistent and efficient estimator. 
- However, in a noisy environment, the maximum likelihood estimator (MLE) engenders a nonlinear optimization which, at the very least, requires good initial estimates to avoid local optima.
+ However, in a noisy environment, the \gls{MLE} engenders a nonlinear optimization which, at the very least, requires good initial estimates to avoid local optima.
  Such local optima have a detrimental effect on the quality of the estimated model.
 
  In the perspective of developing identification tools that require as little user interaction as possible, it is important to increase the probability of the optimization algorithm to produce good estimates, or preferably even the global optimum.
  However, when noisy input-output measurements are to be processed, the presence of noise obstructs a clear view of the actual system behavior, especially for poor signal-to-noise ratios (SNRs).
  In non-parametric identification, the presence of noise is typically mitigated by averaging multiple measurements or using smoothing techniques.
 
-The main aim and contribution of this article is to demonstrate that smoothing a measured FRF helps to avoid local optima during the parametric estimation of the MLE of a transfer function, using deterministic optimization algorithms.
+The main aim and contribution of this article is to demonstrate that smoothing a measured \gls{FRF} helps to avoid local optima during the parametric estimation of the \gls{MLE} of a transfer function, using deterministic optimization algorithms.
 Hence, such techniques make it possible to increase the ``success rate'' (i.e. the probability that a good model, or even the global optimum, is obtained) of such a system identification step considerably.
 %Such techniques, hence allow to increase the ``success rate'' (i.e. the probability that a good model, or even the global optimum, is obtained) of such a system identification step considerably.
 
-In particular, two different smoothing techniques --- the time-truncated Local Polynomial Method (LPM)~\citep{Lumori2014} and the regularized finite-impulse response (RFIR)~\citep{Pillonetto201081,Chen20121525} --- are tested for different SNRs and different measurement record lengths of the input/output data of a few single-input-single-output (SISO) LTI systems.
-These are compared with the existing initialization schemes, namely: (i) the generalized total least squares (GTLS), and (ii) the bootstrapped total least squares (BTLS).
+In particular, two different smoothing techniques --- the time-truncated \gls{LPM}~\citep{Lumori2014TIM} and the \gls{RFIR}~\citep{Pillonetto2010,Chen2012} --- are tested for different \glspl{SNR} and different measurement record lengths of the input/output data of a few \gls{SISO} \gls{LTI} systems.
+These are compared with the existing initialization schemes, namely: (i) the \gls{GTLS}, and (ii) the \gls{BTLS}.
 %The existing initialization schemes compared with are the generalized total least squares (GTLS) and bootstrapped total least squares (BTLS).
 
-The rest of the paper is structured as follows. Section~\ref{se:ProbForm} covers the problem formulation. Section~\ref{se:MethodEg} discusses the methodology for obtaining the initial estimates, and their influence on the success rate of the MLE. 
+The rest of the paper is structured as follows. Section~\ref{se:ProbForm} covers the problem formulation. Section~\ref{se:MethodEg} discusses the methodology for obtaining the initial estimates, and their influence on the success rate of the \gls{MLE}. 
 This is followed by Sections~\ref{se:Demo} and \ref{se:ExpMeas}, which are demonstrations of the improved initial estimates by simulation and experimental data, respectively.
 In Section~\ref{se:Generality} the generality of the results is discussed briefly.
 Ultimately, concluding remarks are presented in Section~\ref{se:Conclusion}.
@@ -221,16 +221,16 @@ The estimates from this procedure are for comparison purposes with those from th
 
 %\JL{The Generalized Total Least Squares (GTLS) and the Bootstrapped Total Least Squares (BTLS) have been discussed in \citep{pintGuil1998}. These are modifications of \eqref{eq:MLEcf}, which still take into account the noise information, while keeping the quadratic nature w.r.t.\ $\theta$. These estimators preserve consistency (which is an asymptotic behaviour, i.e.\ for $N\to\infty$). Their finite sample behaviour is prone to be improved by the FRF smoothing tools, described below.}
 
-The \gls{GTLS} and the \gls{BTLS} have been discussed in \citep{pintGuil1998}. These are modifications of equation \eqref{eq:MLEcf}, which still take into account the noise information while retaining the quadratic nature w.r.t. $\theta$. 
+The \gls{GTLS} and the \gls{BTLS} have been discussed in \citep{Pintelon1998}. These are modifications of equation \eqref{eq:MLEcf}, which still take into account the noise information while retaining the quadratic nature w.r.t. $\theta$. 
 These estimators preserve consistency, such that the estimates converge asymptotically to the true parameters for $N\to\infty$. 
 Their finite sample behavior, however, is suitable for improvement by the \gls{FRF} smoothing tools as described below.
 
 \item
 \emph{Local polynomial method (LPM) with truncation}
 
-A reliably good estimate of the FRF of the chosen system can be obtained via the LPM, which is summarized as follows~\citep{Lumori2014}. Formulated as a nonparametric linear-least-squares-estimate, the LPM is first applied to estimate the FRF from a full data record of a SISO system, systematically expressed in an output-error framework, shown in \figref{fig:oesetup}. The smooth characteristics of both the exact \gls{FRF} $G_0$ and the transient term $T$ allow for an optimal application of the \gls{LPM}, leading to a smooth \gls{FRF} estimate with the transient suppressed.
+A reliably good estimate of the FRF of the chosen system can be obtained via the LPM, which is summarized as follows~\citep{Lumori2014TIM}. Formulated as a nonparametric linear-least-squares-estimate, the LPM is first applied to estimate the FRF from a full data record of a SISO system, systematically expressed in an output-error framework, shown in \figref{fig:oesetup}. The smooth characteristics of both the exact \gls{FRF} $G_0$ and the transient term $T$ allow for an optimal application of the \gls{LPM}, leading to a smooth \gls{FRF} estimate with the transient suppressed.
 
-  With reference to a detailed discussion in~\citep{Lumori2014}, the \gls{LPM} utilizes the following quadratic local polynomials to approximate (in least squares sense) and, thus, smooth $G_0$ and $T$ around a central frequency $\Omega_{k}$ in a local frequency band $r\in\mathbb{W}_n$
+  With reference to a detailed discussion in~\citep{Lumori2014TIM}, the \gls{LPM} utilizes the following quadratic local polynomials to approximate (in least squares sense) and, thus, smooth $G_0$ and $T$ around a central frequency $\Omega_{k}$ in a local frequency band $r\in\mathbb{W}_n$
 \begin{subequations}\label{lpmImplQuadG}
 \begin{align}
 G_0(\Omega_{k+r})&\approx \hat G_k + g_{1,k} r + g_{2,k}r^2
@@ -251,7 +251,7 @@ This procedure is repeated for all $k$ in the frequency band of interest.
 
 \emph{Impulse response truncation}. 
 %\comment{JL: in this paper, the impulse response truncation as an initial estimator is considered together with the LPM. So I would not start a new subsection for it.}
-The estimate is smoothed further by truncating its impulse response function $g_{\text{poly}}(t) = \mathrm{IDFT}\, \left( \hat{G}_\text{poly}(\Omega_k)) \right)$ as originally presented in~\citep{Lumori2014}.
+The estimate is smoothed further by truncating its impulse response function $g_{\text{poly}}(t) = \mathrm{IDFT}\, \left( \hat{G}_\text{poly}(\Omega_k)) \right)$ as originally presented in~\citep{Lumori2014TIM}.
 %\comment{JL: $\hat{G}_\text{poly}(\Omega_k))$ is undefined}.
 
 The impulse response is truncated after the time $\tau_{\mathrm{trunc}}$ where the signal becomes indistinguishable from the noise, i.e.
@@ -272,7 +272,7 @@ Then, $\tau_{\mathrm{trunc}}$ is determined as the time instant where this envel
 \end{equation}
 where $\gamma=1$ was used in this paper for simplicity.
 By changing $\gamma$, the user can fine-tune the bias/variance trade-off of the estimated FRF $G_{\mathrm{trunc}}(\Omega_k) = \mathrm{DFT} \left( g_{\mathrm{trunc}}(t)\right)$ further.
-This can lead to a significant improvement over the classical LPM~\citep{Lumori2014}.
+This can lead to a significant improvement over the classical LPM~\citep{Lumori2014TIM}.
  
 \item \emph{\Glsfirst{RFIR}}
 
@@ -305,7 +305,7 @@ This problem is solved using \code{fmincon} in \MATLAB.
 An implementation of the \gls{RFIR} estimator is available as the \code{arx} function in the System Identification Toolbox since \MATLAB~2013b with $\mathtt{na} = 0$, $\mathtt{nb} = n_g$, $\mathtt{nk}=0$ and regularization enabled in \code{arxoptions}. 
 The hyperparameters can be determined via \code{arxregul}.
 More information about the \gls{RFIR} estimator can be found in
-~\citep{Pillonetto201081,Chen20121525}. 
+~\citep{Pillonetto2010,Chen2012}. 
 The \gls{DFT} of the obtained regularized estimate of the impulse response $\hat g_{\mathrm{RFIR}}$ of the system yields a smoothed estimate of the FRF.
 %\JL{Having obtained a regularized estimate of the impulse response of the system, its DFT (Discrete Fourier Transform) yields an estimate of the FRF.}
 \end{enumerate}
@@ -559,6 +559,7 @@ This indicates $74\%$ success for the existing methods, $95\%$ for the truncatio
 
 In \figref{fig:successRateVS_SNR36N3dB}, the success rate (and its $95\%$ confidence interval) obtained from the Monte Carlo simulations is shown to compare the proposed method with previously existing approaches.
 The confidence intervals are calculated via the Clopper-Pearson method~\citep{Clopper1934} (as implemented in \MATLAB's \code{binofit}).
+\TODO{meer uitleg over Clopper-Pearson}
 This is known to yield somewhat conservative bounds, especially if only failures or successes are observed~\citep{Ross2003}.
 Consequently, the improvements observed in \figref{fig:successRateVS_SNR36N3dB} underestimate the actual improvement slightly.
 
