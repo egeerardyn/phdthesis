@@ -20,9 +20,6 @@ firstplural={#4~(#3\glspluralsuffix)},
                                symbol={\ensuremath{#2}},description={#3}}}
 \newcommand{\sym}[1]{\glssymbol{#1}}
 
-%% TERMS
-
-
 %% SYMBOLS
 % \newsymbolglos{0-placeholder}{\placeholder}{Placeholder symbol}
 
@@ -75,15 +72,19 @@ firstplural={#4~(#3\glspluralsuffix)},
 \newsymbolglos{w}{\omega}{Angular frequency (pulsation)}
 
 %% ACRONYMS
-\newacronym{BLA}{BLA}{best linear approximation}
+\setulcolor{gray}
+%\newcommand{\abbrev}[1]{\ul{#1}}
+\newcommand{\abbrev}[1]{#1}
+
+\newacronym{BLA}{BLA}{\abbrev{b}est \abbrev{l}inear \abbrev{a}pproximation}
 \newacronym{BK}{B\&K}{\bruelkjaer}
-\newacronym{BTLS}{BTLS}{bootstrapped total least squares}
+\newacronym{BTLS}{BTLS}{\abbrev{b}ootstrapped \abbrev{t}otal \abbrev{l}east \abbrev{s}quares}
 
 \newacronym{CRLB}{CRLB}{Cramér-Rao lower bound}
 \newacronym{CZT}{CZT}{chirp $Z$-transform}
 
-\newacronym{DC}{DC}{direct current}
-\newacronym{DCkernel}{DC kernel}{Diagonal Correlated (DC) kernel}
+\newacronym{DC}{DC}{direct current (also: mean value)}
+\newacronym{DCkernel}{DC kernel}{diagonal correlated kernel}
 \newacronym{DFT}{DFT}{discrete Fourier transform}
 \newacronym{DSA}{DSA}{dynamic signal analyzer}
 \newacronym{DTFT}{DFT}{discrete-time Fourier transform}
@@ -121,10 +122,10 @@ firstplural={#4~(#3\glspluralsuffix)},
 
 \newacronym{PSD}{PSD}{power spectral density}
 
-\newacronym{RARX}{RARX}{regularized auto-regressive exogenous}
-\newacronym{RFIR}{RFIR}{regularized finite impulse response}
-\newacronym{RMS}{RMS}{root-mean-square}
-\newacronym{RMSE}{RMSE}{root mean squared error}
+\newacronym{RARX}{RARX}{\abbrev{r}egularized \abbrev{a}uto-\abbrev{r}egressive e\abbrev{x}ogenous}
+\newacronym{RFIR}{RFIR}{\abbrev{r}egularized \abbrev{f}inite \abbrev{i}mpulse \abbrev{r}esponse}
+\newacronym{RMS}{RMS}{\abbrev{r}oot-\abbrev{m}ean-\abbrev{s}quare}
+\newacronym{RMSE}{RMSE}{\abbrev{r}oot \abbrev{m}ean \abbrev{s}quared \abbrev{e}rror}
 
 \newacronym{SIMO}{SIMO}{single-input multiple-output}
 \newacronym{SISO}{SISO}{single-input single-output}
@@ -135,6 +136,6 @@ firstplural={#4~(#3\glspluralsuffix)},
 
 \newacronym{VME}{VME}{Versa Module Eurocard (\glsentrytext{IEEE} 1014)}
 \newacronym{VUB}{VUB}{Vrije Universiteit Brussel}
-\newacronym{VXI}{VXI}{VME eXtensions for Instrumentation}
+\newacronym{VXI}{VXI}{\abbrev{V}ME e\abbrev{x}tensions for \abbrev{i}nstrumentation}
 
 \makeglossaries

@@ -516,7 +516,9 @@ A Monte Carlo simulation was set up to determine the success rate of the estimat
 One can, equivalently, express the experiment length as the number $N_{3\unit{dB}}$ of frequency bins that lie within the $3\unit{dB}$ bandwidth of the system.
 The $3\unit{dB}$ bandwidth is defined as the frequency band where the magnitude of the transfer function is, at most, $3\unit{dB}$ below its maximum as indicated in \figref{fig:exampleFRF}.
 For both systems, $N$ was chosen such that $N_{3\unit{dB}}$ is respectively $36$ or $48$.
-For each value-pair (SNR, $N_{3\mathrm{dB}}$), 200 simulations and estimations were performed, for each of which the success (binary result) was determined. The success rate $\eta$ in equation \eqref{eq:successrateTol} was then estimated as the proportion of the successes from the 200 runs.%}
+For each value-pair $(\SNR, N_{3\mathrm{dB}})$ and both systems, $n_{\mathrm{MC}} = 200$  simulations and estimations were performed.
+Each individual simulation yields an estimate of the model based on which one can determine whether the estimation was successful or not.
+This allows to empirically estimate the success rate $\eta$ in equation \eqref{eq:successrateTol} as the proportion of the successes from the $200$ runs.
 
 
 %\ML{
@@ -539,7 +541,7 @@ Two major classifications can be made:
 \item
 The obvious jump of the observed distances of the final parametric estimates shows that both classes can be separated reliably.
 The index at which this jump occurs is a direct (visual) indication of the success rate $\eta$ of the corresponding strategy to obtain initial values.
-This indicates $74\%$ success for the existing methods, $95\%$ for the truncation method and $100\%$ for RFIR in \figref{fig:single-sim}.
+This indicates $\frac{147}{200} \approx 74\%$ success for the existing methods, $\frac{189}{200} \approx 95\%$ for the truncation method and $100\%$ for RFIR in \figref{fig:single-sim}.
 \end{itemize}
 %}
 
@@ -757,6 +759,7 @@ This yielded the model $G_\mathrm{VXI}$ (shown in \figref{fig:bk1613}) with a re
   These measures also have an easy interpretation: the median ($50\%$ percentile) indicates the cost function value that $50\%$ of the repetitions attain.
   On the other hand, the \gls{IQR} ($25\%$ through $75\%$ percentile) contains  exactly half of the observations.
 \end{remark}
+\TODO{define IQR mathmatically}
 
 \begin{figure}
   \centering
