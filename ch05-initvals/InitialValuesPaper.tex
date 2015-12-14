@@ -652,7 +652,7 @@ The same noise sequence was repeated $N_R = 100$ times in succession, such that 
 To distinguish the different repetitions, we denote the $r^{\text{th}}$ repetition of the $u$ signal as $u^{[r]}(t)$ (and similarly for $y(t)$).
 The signal generation and acquisition was by means of a National Instruments Elvis II, using the respective \code{AO} and \code{AI} pins on the breadboard, which were wired to BNC connectors.
 Although acquisition and generation were synchronized, there was a small delay $\tau = 9\unit{\mu s}$ between the acquisition of the input $u(t)$ and the output $y(t)$.
-The output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\tau \right)$ such that the delay-compensated $y(t)$ could be obtained using the inverse DFT.
+The output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\tau \right)$ such that the delay-compensated $y(t)$ could be obtained using the \gls{IDFT}.
 
 \begin{figure}
   \centering
@@ -761,7 +761,7 @@ This yielded the model $G_\mathrm{VXI}$ (shown in \figref{fig:bk1613}) with a re
 \end{remark}
 \TODO{define IQR mathmatically}
 
-\begin{figure}
+\begin{figure}[p]
   \centering
   \setlength{\figurewidth}{0.85\onecolumnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
@@ -774,7 +774,7 @@ This yielded the model $G_\mathrm{VXI}$ (shown in \figref{fig:bk1613}) with a re
   \label{fig:costMeasurements}
 \end{figure}
 
-\begin{table}
+\begin{table}[p]
   \centering
   \caption{Observed percentiles of the cost function $V(\model{\bullet}$).}
 % \input{\thisDir/table1.tex}
@@ -824,7 +824,7 @@ However, this final step reduces the spread and hence yields a more reliable est
 E.g. note in \tabref{tbl:validationMeasurements} that this step reduces the worst-case distance from $18.21$ to $4.55$.
 
 
-\begin{figure}
+\begin{figure}[p]
   \centering
   \setlength{\figurewidth}{0.85\onecolumnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
@@ -838,7 +838,7 @@ E.g. note in \tabref{tbl:validationMeasurements} that this step reduces the wors
   The results are in line with the values of the cost function in \figref{fig:costMeasurements}.}
   \label{fig:validationMeasurements}
 \end{figure}
-\begin{table}
+\begin{table}[p]
   \centering
   \caption{Observed percentiles of the validation distance $\norm{\model{\bullet}-G_{\mathrm{VXI}}}$.}
 % \input{\thisDir/table2.tex}
