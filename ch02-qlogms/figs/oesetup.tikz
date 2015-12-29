@@ -3,7 +3,7 @@
 \tikzstyle{sum} = [draw, circle, node distance=0.5cm, radius=0.75em]
 \tikzstyle{input} = [coordinate]
 \tikzstyle{output} = [coordinate]
-\tikzstyle{pinstyle} = [pin edge={<-,black}]
+\tikzstyle{pinstyle} = [pin edge={<-,black},black]
 
 \begin{tikzpicture}[auto, node distance=2cm,>=latex]
 
