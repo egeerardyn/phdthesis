@@ -26,6 +26,12 @@
 \input{config/styles.inc.tex}
 \input{config/glossaries.inc.tex}
 
+\usepackage{epigraph}
+\usepackage{ifthen}
+% http://www.latex-community.org/forum/viewtopic.php?f=5&t=5976
+\newcommand{\myEpigraph}[3]{\epigraph{#1}{\textsc{#2}\ifthenelse{\equal{#3}{}}{}{\\\textit{`#3'}}}}
+\addtolength{\epigraphwidth}{0.03\epigraphwidth}
+
 %% Version control
 % http://tex.stackexchange.com/questions/127822/how-do-i-combine-the-vc-bundle-arara-and-sublime-text-2s-build-methods
 \input{vc.tex}
