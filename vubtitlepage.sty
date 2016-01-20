@@ -9,11 +9,9 @@
 
 \newcommand{\affiliation}[1]{ (\textit{#1})}
 \newcommand{\juryRole}[1]{ {\color{gray}\textit{#1}}}
-%\newenvironment{jury}{\begin{tabular}{rl}}{\end{tabular}}
-%\newcommand{\jurymember}[4][]{#2 & #3 (#4)\\}
 
 \newcommand{\personalTitles}[1]{#1}
-\newcommand{\jurymember}[4][]{\personalTitles{#2} #3 \affiliation{#4} {\juryRole{#1}}\\}
+\newcommand{\jurymember}[4][]{\personalTitles{#2}& #3 \affiliation{#4} {\juryRole{#1}}\\}
 
 
 \gdef\@promotortitle{Promotors}
@@ -81,12 +79,12 @@
       \cline{2-2}
       & \rule{6pt}{0mm}%
         \@promotorAndJuryFont
-        \begin{tabular}{rl}
-          \rule{0pt}{5mm}\\
-
-          \@promotortitle: & \parbox[t]{0.8\columnwidth}{\@promotor} \\
-          \\
-          \@jurytitle: & \parbox[t]{0.8\columnwidth}{\@jury}\\
+        \begin{tabular}{r@{ }l}
+          \rule{0pt}{0.5em}\\
+          &\textbf{\large\@promotortitle} \\
+          \@promotor \\
+          &\textbf{\large\@jurytitle} \\
+          \@jury\\
 
         \end{tabular}\\
       
