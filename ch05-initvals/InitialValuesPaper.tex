@@ -802,6 +802,8 @@ Consequently, an arbitrarily small cost function may ensue although the estimate
 To objectively assess the quality of an estimated model, a different criterion than the cost function is inspected.
 To this end, the model is validated using the 2-norm (or distance) on the model error:
 \begin{equation}
+  \validationDistance{\bullet} 
+  \isdef 
   \norm{\model{\bullet} - G_{\mathrm{VXI}}}
   \text{.}
   \label{eq:measurementCriterion}
@@ -878,8 +880,3 @@ Moreover, the obtained models were validated against a high-quality measurement 
 
 Thus, the work in this paper has demonstrated the effectiveness of the studied \gls{FRF} smoothing techniques in enhancing the initial values.
 Consequently, the ease-of-use of parametric model fitting is increased considerably by making it possible to obtain good parametric models without requiring any user interaction.
-
-
-% \bibliographystyle{IEEEtran}
-% \bibliography{InitEstBib}
-% \end{document}
