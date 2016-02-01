@@ -17,7 +17,6 @@
 %
 %
 \usepgfplotslibrary{groupplots}
-
 \tikzset{plotnum/.style={color=black!30,align=left,font=\scriptsize,anchor=north west}}
 
 \begin{tikzpicture}
@@ -52,8 +51,8 @@ axis y line*=left]
 
 % ================================================
 \nextgroupplot[%
-  legend columns=1,
-  legend to name=legDistances,
+  legend columns=-1,
+  legend to name=leg:distances,
   legend cell align=left
 ]
 \node[plotnum] at (rel axis cs:0,1) {1};
@@ -298,6 +297,6 @@ axis y line*=left]
 
 \end{groupplot}
 
-%\node at (dist c4r3.north east) [xshift=1.5cm] {\pgfplotslegendfromname{legDistances}};
+%\node at (dist c4r3.north east) [xshift=1.5cm] {\ref{legDistances}};
 
 \end{tikzpicture}%

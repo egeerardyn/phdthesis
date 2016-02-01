@@ -1,68 +1,6 @@
 
 \newcommand{\reviewer}[1]{\paragraph{#1}}
 
-\reviewer{Reviewer \#2 (Remarks for the Author):}
-\begin{quote}
-The authors propose two smoothing techniques, which improve the initial estimates for transfer function identification. Figure 2 and section VI are appreciated. 
-
-Comments: 
-
-1. Please treat carefully the optimization problems. Just presenting the cost functions is not enough. 
-
-3. Which are the optimization algorithms? Clear steps must be provided. 
-\end{quote}
-Note that the minimization of the cost function (5) in the paper has been extensively studied in the literature (e.g. \cite[Section 9.11]{Pintelon2001} which has been referenced in the manuscript).
-We have used the well-known Levenberg-Marquardt optimization algorithm to perform the non-convex optimization.
-This information has also been added to the paper.
-
-\begin{quote}
-2. Do your smoothing techniques guarantee and/or keep the minimum? 
-\end{quote}
-The cost function involving the smoothed estimate is different from the cost function with the raw data. 
-Obviously, in that case the minimum is expected to be shifted.
-However, the result from this cost function is used as an \emph{initial} estimate for the cost function with the raw data. 
-In the end, only the cost function with the raw data is retained.
-The initial estimate does \emph{not} change the minimum of a cost function.
-
-\begin{quote}
-4. The transparency of the paper is suffering because the authors do not present how the theoretical results from sections II and III are applied in section IV. 
-
-5. The same comment is also applied for section V, i.e., low transparency. 
-\end{quote}
-
-The theoretical considerations in sections II and III are applied in section IV.
-In section III, the initial estimation procedures are enumerated, and a distinct notation for each of them is given:
-\begin{itemize}
-  \item use of the true parameters: $\model{0}$,
-  \item use of existing techniques: $\model{exist}$,
-  \item use of the LPM with truncation: $\model{trunc}$,
-  \item use of the RFIR: $\model{RFIR}$.
-\end{itemize}
-Then, the results of the latter three initialization techniques are compared to the results with $\model{0}$ in Section IV (simulations) and Section V (measurements).
-
-\begin{quote}
-6. I am not sure if section IV is actually necessary. You may drop it out. 
-\end{quote}
-
-The presence of section IV is crucial for the article, and will not be skipped, for the following reason. 
-The goal of the article is to demonstrate that the use of smoothing techniques increases the success rate the minimization of the ML cost function. 
-While Sections II and III introduce the methods used, Section IV actually \emph{does} the demonstration of the improvement. 
-It is important to include the simulation results, because these allow to make Monte Carlo simulations at various SNR values, to obtain statistically meaningful results. 
-It would be much more difficult to apply a Monte Carlo method to the measurements, since a huge number of experiments must be performed, with different experimental conditions (SNR), on a variety of different systems.
-
-\begin{quote}
-2) It is unclear how generalizable the procedure introduced by Authors is, and what is its domain of applicability. Based on section IV Demonstration (simulated data), a reader may be convinced that RFIR is the absolute winner.
-
-So, it comes as an unpleasant surprise in section V Experimental Results to learn that RFIR only wins in $50\%$ of cases (Table I). The natural question of ``why so different'' is never discussed. It seems that a lack of ground truth in a real experiment is correctly addressed by using a response from an almost noiseless system (60dB, p.18). Could it be that in simulation two low-pass filters were investigated (each with $n_{\theta} = 5$ parameters, p.13), while in experiment pass-band filter was tested with $n_{\theta} = 9$ adjustable parameters? Having the same system tested in simulations and in experiment could partially answer this question. 
-
-However, the results in Table I do not necessarily nullify a usefulness of the RFIR as a starting point. It may be that in the cases when $\model{RFIR}$ is not the best estimate, a difference between $\model{best}$ and $\model{RFIR}$ is acceptably small. If for cases when $\model{best} = \model{RFIR}$ is much better than the second best estimate $G_{2nd}$, then it makes sense to always use RFIR, as a penalty for wrong choice would be mild. 
-
-\end{quote}
-
-The fact that ‘only’ $50\%$ of the RFIR estimates turn out to be the best estimates does not mean that the remaining $50\%$ from RFIR are bad estimates. 
-It simply means that, for the remaining $50\%$, the other methods (trunc and exist) happened to give a slightly smaller cost function. 
-Since Table I is misleading, we have decided to remove it from the paper.
-
 In \figref{fig:overview} we can compare $\model{2nd}$ and $\model{best}$.
 By inspecting the different estimates for  each of the repeated experiments (\figref{fig:overview}), it can easily be seen that choosing $\model{RFIR}$ while it is not $\model{best}$ only leads to a very modest performance degradation.
 In \figref{fig:histogram}, the different methods are compared in this respect by subtracting the performance of the $\model{best}$ from the performance of the respective methods.
@@ -74,8 +12,7 @@ The outcome is a lot less favorable for the alternative methods.
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/fig/overview-cost-val.tikz}
-  \caption{Cost function $V(\model{\bullet})$ and validation distance of the model estimated in each repetition of the measurement.
-  The same data as in Fig.~10 and Fig.~11 of the paper is presented.
+  \caption[$\costFunc{\bullet}$ and $\validationDistance{\bullet}$ for each repeated measurement.]{Cost function $V(\model{\bullet})$ and validation distance of the model estimated in each repetition of the measurement.
   Based on the cost function, $\model{RFIR}$~\legref{leg:RFIR} is not always the best estimate $\model{best}$~\legref{leg:best}.
   Especially in the validation plot (bottom), $\model{RFIR}$ performs (almost) as well or even better than $\model{exist}$~\legref{leg:exist} and $\model{trunc}$~\legref{leg:trunc}.
   Both latter methods often produce models that perform poorly compared to $\| G_{VXI} \|$~\legref{leg:reference} and $\model{VXI}$~\legref{leg:VXI}.
@@ -88,7 +25,7 @@ The outcome is a lot less favorable for the alternative methods.
   \setlength{\figurewidth}{0.75\columnwidth}
   \setlength{\figureheight}{0.60\figurewidth}
   \input{\thisDir/fig/special-histogram.tikz}
-  \caption{
+  \caption[Performance degradation/enhancement for selecting the second best model.]{
   Performance degradation/enhancement ($X_{\bullet}-X_{\mathrm{best}}$) for choosing a given method $\bullet$ instead of the `best' method for the measurement example in the paper.
   In red/orange the positive values ($X_{\bullet} > X_{\mathrm{best}}$), the performance degradation for using $\model{\bullet}$ over $\model{best}$ is shown.
   The negative values ($X_{\bullet} < X_{\mathrm{best}}$), i.e. the performance enhancement (for using $\model{\bullet}$ instead of $\model{best}$) is shown in green/blue.
@@ -115,75 +52,3 @@ Many nature-inspired optimization algorithms (such as Particle Swarm Optimizatio
 But, obviously, using many initial values comes at a (considerable) increase in computational cost.
 
 While this discussion and this inherent trade-off is very interesting, we think this is outside of the scope of the paper where we only wish to demonstrate that smoothing techniques such as RFIR are a worthwhile source of initial values, but not necessarily the only one.
-
-\begin{quote}
-The abstract promises a better starting point for a minimization of a non-convex cost function. However, no effort is undertaken in the paper to show that improvement is expected ``in most cases'' (or, under which conditions). The boundaries between different domains of starting points leading to different local minima may be very complicated. In fact, the higher the dimension of a search space is ($n_{\theta}$), the more likely it is that the boundaries are more complicated. 
-
-It is obvious that in some cases where subsets of starting points stretch over the boundaries, a particular strategy for selecting a starting point may lead to improvement. However, the paper doesn't explain why this should happen ``in most cases''. A reader would gain more confidence in a robustness of the introduced method if its boundary of applicability were clearly spelled out (for example: the method applicable to filters of order less than ... based on extensive testing). 
-\end{quote}
-
-We agree that the complicated boundaries between attraction regions of the different local optima of a cost function makes this a hard problem.
-Moreover, the intricate relationship between the actual pole locations, signal SNR, choice of excitation signal, \ldots and shape of the cost function makes that determining clear boundaries on the usability of a starting value seems intractable to us.
-
-On the one hand, an obvious limitation to the presented initialization techniques is that they share the limitations of the smoothing techniques: if the non-parametric estimate is a worse representation than the raw data (e.g. heavily biased), it is very unlikely that the initial estimate will outperform the existing estimates.
-In particular for RFIR, a simulation study in~\cite{Chen2013} suggests that RFIR handles systems with model orders up to at least $30$, even for small datasets $N\leq 500$.
-For LPM (with or without time-truncation), no comparable studies are available to our knowledge, but the LPM itself has been used successfully in diverse practical applications.
-
-For the parametric estimates, we ran some additional simulations to verify the usability of the proposed initial values.
-In particular, we used
-\begin{itemize}
-  \item low-pass, high-pass, band-pass and band-stop 
-  \item Chebyshev Type I, Chebyshev Type II, Elliptical and Butterworth
-\end{itemize}
-discrete-time filters (see \figref{fig:bodeplots}) of tenth degree generated by the MATLAB functions \texttt{cheby1}, \texttt{cheby2}, \texttt{ellip} and \texttt{butter} and an SNR of $20 \unit{dB}$ and $N=1024$ measured samples.
-Note: the band-pass and band-stop filters actually have a model order of 20.
-
-The input excitation and the disturbing output noise were both white and Gaussian.
-The results of a Monte Carlo simulation consisting of $100$ runs (as described above) have been summarized qualitatively in the paper (due to limited space) and are discussed below in more detail.
-
-\TODO{add table with different transfer functions, generation code, etc. for stress test}
-
-\begin{figure}[p]
-  \setlength{\figurewidth}{0.75\columnwidth}
-  \setlength{\figureheight}{0.6\figurewidth}
-  \centering
-  %\ref{legBodes}
-  \input{\thisDir/fig/bodeplots.tikz}
-  \caption{Bode plots of the tested filters~\legref{leg:bode:true}. Top to bottom: Chebyshev I, Chebyshev II, Elliptical and Butterworth characteristic.
-  Left to right: low-pass, band-pass, high-pass and band-stop.
-  For each filter, two of the parametric estimates $\model{\bullet}$ are shown per method.
-  }
-  \label{fig:bodeplots}
-\end{figure}
-
-\begin{figure}[p]
-  \setlength{\figurewidth}{0.75\columnwidth}
-  \setlength{\figureheight}{0.6\figurewidth}
-  \centering
-  \input{\thisDir/fig/distances.tikz}
-  \caption{Empirical cumulative distribution function of the validation distance $D_{\bullet} = \norm{\model{\bullet} - G_0}$ for the different tested systems (different numbered plots) and the different initial values (colors).
-  Note that since $\norm{G_0}=1$ is chosen, $D_{\bullet}$ immediately indicates the relative RMS error of the estimates.
-  }
-  \label{fig:distancesStress}
-\end{figure}
-
-The transfer functions are shown in \figref{fig:bodeplots} while the empirical cumulative validation distance is shown in \figref{fig:distancesStress}.
-
-Our general conclusion from these simulations is that RFIR performs as well (or a lot better) than the existing techniques when good models are observed.
-
-{\footnotesize
-A few additional remarks are appropriate with respect to these results:
-\begin{itemize}
-  \item In many of the tested situations (subplots 1,3,13-16), all methods yield a good model quality.
-  \item In some situations (subplots 8, 10, 12), the model quality is generally poor. 
-  The fact that for subplots 8 and 12, the `ideal' starting value \model{0} also provides poor models means the data is not informative enough to reasonably fit a good model.
-  \item In all cases except 8, 10 and 12, the RFIR performed as well or better than the existing methods.
-  \item In subplot 10, the model quality of the RFIR is slightly worse than the already poor existing techniques.
-  This is a underlying limitation of the RFIR used: $n_g=200$ taps was used, however the true impulse response has not decayed significantly in that interval.
-  Essentially, the particular RFIR used introduces a significant bias in the non-parametric description of the filter and hence the obtained initial value is unreliable.
-  \item The RFIR performs (significantly) better than the existing methods in various cases (subplot 4-7, 9, 11).
-  \item Since the `best' method \legref{leg:dist:modelBest} yields better models more often than a single method, e.g. in subplots 2, 4 and 6, this illustrates that combining initialization schemes improves the model quality.
-  Particularly, subplot 2 implies that \model{best} contains initial estimates of all different techniques.
-  \item For all of the tested systems (except perhaps subplot 2), the truncated LPM is not advisable over the existing methods.
-\end{itemize}
-}

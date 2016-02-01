@@ -49,8 +49,8 @@ axis x line*=bottom,
 axis y line*=left]
 
 % ================================================
-\nextgroupplot[cheby1, legend columns=1,
-  legend to name=legBodes,legend cell align=left]
+\nextgroupplot[cheby1, legend columns=-1,
+  legend to name=leg:init:stress:bodes,legend cell align=left]
 \node[plotnum,anchor=south west] at (rel axis cs:0,0) {1};
 \addplot [color=G0Hat,solid,forget plot]
   table{\thisDir/fig/bodeplots-1.tsv};
