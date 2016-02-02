@@ -13,15 +13,17 @@
 %           
 %
 %
-\definecolor{mycolor1}{rgb}{0.98824,0.68627,0.24314}%
-\definecolor{mycolor2}{rgb}{0.80784,0.36078,0.00000}%
-\definecolor{mycolor3}{rgb}{0.93725,0.16078,0.16078}%
-\definecolor{mycolor4}{rgb}{0.44706,0.62353,0.81176}%
-\definecolor{mycolor5}{rgb}{0.20392,0.39608,0.64314}%
-\definecolor{mycolor6}{rgb}{0.30588,0.60392,0.02353}%
-\definecolor{mycolor7}{rgb}{0.45098,0.82353,0.08628}%
-%
 \begin{tikzpicture}
+
+\pgfplotsset{degradationBox/.style={area legend,solid,draw=none,fill=TangoOrange1,opacity=0.7}}
+\pgfplotsset{degradationMedian/.style={color=TangoOrange3,solid,line width=2.0pt,opacity=0.7}}
+\pgfplotsset{degradationMarks/.style={color=TangoScarletRed2,only marks,mark=triangle*,mark options={solid,fill=TangoScarletRed1,rotate=180},opacity=0.7}}
+
+\pgfplotsset{enhancementBox/.style={area legend,solid,draw=none,fill=TangoSkyBlue1,opacity=0.7}}
+\pgfplotsset{enhancementMedian/.style={color=TangoSkyBlue3,solid,line width=2.0pt,opacity=0.7}}
+\pgfplotsset{enhancementMarks/.style={color=TangoChameleon3,only marks,mark=triangle*,mark options={solid,fill=TangoChameleon2},opacity=0.7}}
+
+\pgfplotsset{percentileLines/.style={black,dashed}}
 
 \begin{axis}[%
 name=Estim,
@@ -46,21 +48,18 @@ axis x line*=bottom,
 axis y line*=left
 ]
 
-\addplot[area legend,solid,draw=none,fill=mycolor1,forget plot,opacity=0.7]
-table[row sep=crcr] {%
+\addplot[degradationBox, forget plot] table[row sep=crcr] {%
 x	y\\
 0.625	9393.62\\
 1.375	9393.62\\
 1.375	3526.08\\
 0.625	3526.08\\
 }--cycle;
-\addplot [color=mycolor2,solid,line width=2.0pt,forget plot,opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [degradationMedian, forget plot] table[row sep=crcr]{%
 1.375	5011.06\\
 0.625	5011.06\\
 };
-\addplot [color=black!36!red,only marks,mark=*,mark options={solid,fill=mycolor3},forget plot,opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [degradationMarks, forget plot] table[row sep=crcr]{%
 0.922277	0.033605\\
 1.13317	0.190822\\
 1.0527	4.06321\\
@@ -136,22 +135,18 @@ x	y\\
 0.892796	16345.6\\
 0.899061	23972.7\\
 };
-
-\addplot[area legend,draw=none,solid,fill=mycolor1,forget plot, opacity=0.7]
-table[row sep=crcr] {%
+\addplot[degradationBox, forget plot] table[row sep=crcr] {%
 x	y\\
 1.625	4985.6\\
 2.375	4985.6\\
 2.375	36.1076\\
 1.625	36.1076\\
 }--cycle;
-\addplot [color=mycolor2,solid,line width=2.0pt,forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [degradationMedian, forget plot] table[row sep=crcr]{%
 2.375	230.098\\
 1.625	230.098\\
 };
-\addplot [color=black!36!red,only marks,mark=*,mark options={solid,fill=mycolor3},forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [degradationMarks, forget plot] table[row sep=crcr]{%
 2.07081	0.00208325\\
 2.06555	0.0429928\\
 2.08573	0.080705\\
@@ -227,21 +222,18 @@ x	y\\
 2.0974	83868.8\\
 };
 
-\addplot[area legend,draw=none,solid,fill=mycolor1,forget plot, opacity=0.7]
-table[row sep=crcr] {%
+\addplot[degradationBox, forget plot] table[row sep=crcr] {%
 x	y\\
 2.625	76.7968\\
 3.375	76.7968\\
 3.375	13.4679\\
 2.625	13.4679\\
 }--cycle;
-\addplot [color=mycolor2,solid,line width=2.0pt,forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [degradationMedian, forget plot] table[row sep=crcr]{%
 3.375	27.8619\\
 2.625	27.8619\\
 };
-\addplot [color=black!36!red,only marks,mark=*,mark options={solid,fill=mycolor3},forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [degradationMarks, forget plot] table[row sep=crcr]{%
 3.15729	3.25727\\
 2.90997	3.28234\\
 3.10705	3.68391\\
@@ -296,18 +288,15 @@ x	y\\
 2.89102	988.211\\
 2.9141	3093.3\\
 };
-\addplot [color=black,dashed,forget plot]
-  table[row sep=crcr]{%
+\addplot [percentileLines, forget plot] table[row sep=crcr]{%
 0	88317.9\\
 4	88317.9\\
 };
-\addplot [color=black,dashed,forget plot]
-  table[row sep=crcr]{%
+\addplot [percentileLines, forget plot] table[row sep=crcr]{%
 0	4538.94\\
 4	4538.94\\
 };
-\addplot [color=black,dashed,forget plot]
-  table[row sep=crcr]{%
+\addplot [percentileLines, forget plot] table[row sep=crcr]{%
 0	4329\\
 4	4329\\
 };
@@ -338,42 +327,36 @@ axis x line*=bottom,
 axis y line*=right
 ]
 
-\addplot[area legend,draw=none,solid,fill=mycolor4,forget plot, opacity=0.7]
-table[row sep=crcr] {%
+\addplot[enhancementBox, forget plot] table[row sep=crcr] {%
 x	y\\
 0.625	0.104862\\
 1.375	0.104862\\
 1.375	0.011776\\
 0.625	0.011776\\
 }--cycle;
-\addplot [color=mycolor5,solid,line width=2.0pt,forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [enhancementMedian, forget plot] table[row sep=crcr]{%
 1.375	0.0323978\\
 0.625	0.0323978\\
 };
-\addplot [color=mycolor6,only marks,mark=*,mark options={solid,fill=mycolor7},forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [enhancementMarks, forget plot] table[row sep=crcr]{%
 1.0493	0.000948768\\
 1.15562	0.0226032\\
 0.910995	0.0421923\\
 0.937528	0.167532\\
 };
 
-\addplot[area legend,draw=none,solid,fill=mycolor4,forget plot, opacity=0.7]
-table[row sep=crcr] {%
+\addplot[enhancementBox, forget plot] table[row sep=crcr] {%
 x	y\\
 1.625	0.154826\\
 2.375	0.154826\\
 2.375	0.0763623\\
 1.625	0.0763623\\
 }--cycle;
-\addplot [color=mycolor5,solid,line width=2.0pt,forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [enhancementMedian, forget plot] table[row sep=crcr]{%
 2.375	0.111799\\
 1.625	0.111799\\
 };
-\addplot [color=mycolor6,only marks,mark=*,mark options={solid,fill=mycolor7},forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [enhancementMarks, forget plot] table[row sep=crcr]{%
 1.91483	0.00159476\\
 2.08192	0.0430308\\
 1.8504	0.0763623\\
@@ -386,21 +369,18 @@ x	y\\
 2.16016	13.0713\\
 };
 
-\addplot[area legend,draw=none,solid,fill=mycolor4,forget plot, opacity=0.7]
-table[row sep=crcr] {%
+\addplot[enhancementBox, forget plot] table[row sep=crcr] {%
 x	y\\
 2.875	0.361718\\
 3.375	0.361718\\
 3.375	0.078234\\
 2.875	0.078234\\
 }--cycle;
-\addplot [color=mycolor5,solid,line width=2.0pt,forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [enhancementMedian, forget plot] table[row sep=crcr]{%
 3.375	0.177147\\
 2.875	0.177147\\
 };
-\addplot [color=mycolor6,only marks,mark=*,mark options={solid,fill=mycolor7},forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [enhancementMarks, forget plot] table[row sep=crcr]{%
 3.08631	0.000908397\\
 2.95689	0.0240998\\
 2.89041	0.038931\\
@@ -427,21 +407,18 @@ x	y\\
 2.95782	13.4128\\
 };
 
-\addplot[area legend,draw=none,solid,fill=mycolor1,forget plot, opacity=0.7]
-table[row sep=crcr] {%
+\addplot[degradationBox, forget plot] table[row sep=crcr] {%
 x	y\\
 0.625	21.1252\\
 1.375	21.1252\\
 1.375	11.6063\\
 0.625	11.6063\\
 }--cycle;
-\addplot [color=mycolor2,solid,line width=2.0pt,forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [degradationMedian, forget plot] table[row sep=crcr]{%
 1.375	12.9791\\
 0.625	12.9791\\
 };
-\addplot [color=black!36!red,only marks,mark=*,mark options={solid,fill=mycolor3},forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [degradationMarks, forget plot] table[row sep=crcr]{%
 0.887198	0.13575\\
 0.883733	0.195773\\
 0.880203	0.215907\\
@@ -514,21 +491,18 @@ x	y\\
 1.05687	24.8603\\
 };
 
-\addplot[area legend,draw=none,solid,fill=mycolor1,forget plot, opacity=0.7]
-table[row sep=crcr] {%
+\addplot[degradationBox, forget plot] table[row sep=crcr]{%
 x	y\\
 1.625	14.1311\\
 2.375	14.1311\\
 2.375	0.530686\\
 1.625	0.530686\\
 }--cycle;
-\addplot [color=mycolor2,solid,line width=2.0pt,forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [degradationMedian, forget plot] table[row sep=crcr]{%
 2.375	6.81802\\
 1.625	6.81802\\
 };
-\addplot [color=black!36!red,only marks,mark=*,mark options={solid,fill=mycolor3},forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [degradationMarks, forget plot] table[row sep=crcr]{%
 2.01848	0.000251818\\
 2.06215	0.000558771\\
 2.05682	0.00161405\\
@@ -594,21 +568,18 @@ x	y\\
 2.14712	61.7874\\
 };
 
-\addplot[area legend,draw=none,solid,fill=mycolor1,forget plot, opacity=0.7]
-table[row sep=crcr] {%
+\addplot[degradationBox, forget plot] table[row sep=crcr] {%
 x	y\\
 2.625	0.332278\\
 3.125	0.332278\\
 3.125	0.107788\\
 2.625	0.107788\\
 }--cycle;
-\addplot [color=mycolor2,solid,line width=2.0pt,forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [degradationMedian, forget plot]  table[row sep=crcr]{%
 3.125	0.182529\\
 2.625	0.182529\\
 };
-\addplot [color=black!36!red,only marks,mark=*,mark options={solid,fill=mycolor3},forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [degradationMarks, forget plot]  table[row sep=crcr]{%
 3.04706	0.00149983\\
 2.8864	0.0301416\\
 2.9612	0.0318119\\
@@ -639,18 +610,15 @@ x	y\\
 3.01656	0.588477\\
 3.12259	0.837442\\
 };
-\addplot [color=black,dashed,forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [percentileLines, forget plot]  table[row sep=crcr]{%
 0	63.8272\\
 4	63.8272\\
 };
-\addplot [color=black,dashed,forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [percentileLines, forget plot]  table[row sep=crcr]{%
 0	1.94482\\
 4	1.94482\\
 };
-\addplot [color=black,dashed,forget plot, opacity=0.7]
-  table[row sep=crcr]{%
+\addplot [percentileLines, forget plot]   table[row sep=crcr]{%
 0	1.21778\\
 4	1.21778\\
 };
