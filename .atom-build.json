@@ -1,0 +1,12 @@
+{
+  "cmd": "arara",
+  "name": "arara",
+  "args": [ "-v", "phdthesis.tex" ],
+  "sh": true,
+  "cwd": "{PROJECT_PATH}",
+  "keymap": "cmd-B",
+  "comment": "// Package pgfkeys Error ",
+  "errormatch":[
+      "^!.*?$"
+  ]
+}
