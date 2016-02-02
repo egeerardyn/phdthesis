@@ -5,26 +5,16 @@
 %git info : commit 45c2d89a4e4044db9de2834c5c1c86bec69e4864
 %           Author: Egon Geerardyn <egon.geerardyn@gmail.com>
 %           Date:   Tue Oct 7 09:18:45 2014 +0200
-%           
+%
 %               estimParamMeas: duplicate code removed
-%           
+%
 %            estimateParametricMeas.m | 9 +--------
 %            1 file changed, 1 insertion(+), 8 deletions(-)
-%           
+%
 %
 %
 \begin{tikzpicture}
-
-\pgfplotsset{degradationBox/.style={area legend,solid,draw=none,fill=TangoOrange1,opacity=0.7}}
-\pgfplotsset{degradationMedian/.style={color=TangoOrange3,solid,line width=2.0pt,opacity=0.7}}
-\pgfplotsset{degradationMarks/.style={color=TangoScarletRed2,only marks,mark=triangle*,mark options={solid,fill=TangoScarletRed1,rotate=180},opacity=0.7}}
-
-\pgfplotsset{enhancementBox/.style={area legend,solid,draw=none,fill=TangoSkyBlue1,opacity=0.7}}
-\pgfplotsset{enhancementMedian/.style={color=TangoSkyBlue3,solid,line width=2.0pt,opacity=0.7}}
-\pgfplotsset{enhancementMarks/.style={color=TangoChameleon3,only marks,mark=triangle*,mark options={solid,fill=TangoChameleon2},opacity=0.7}}
-
-\pgfplotsset{percentileLines/.style={black,dashed}}
-
+% \input{styles.inc.tex}
 \begin{axis}[%
 name=Estim,
 width=0.5\figurewidth,
@@ -324,7 +314,11 @@ yminorticks=true,
 ylabel={${D_{\bullet} - D}_{\mathrm{best}}$},
 title={\footnotesize Validation: $D_{\bullet} = \| \model{\bullet} - G_{\mathrm{VXI}} \|_2$},
 axis x line*=bottom,
-axis y line*=right
+axis y line*=right,
+legend to name=leg:init:secondBest,
+legend columns=-1,
+legend cell align=center,
+legend style={draw=none}
 ]
 
 \addplot[enhancementBox, forget plot] table[row sep=crcr] {%
@@ -369,18 +363,23 @@ x	y\\
 2.16016	13.0713\\
 };
 
-\addplot[enhancementBox, forget plot] table[row sep=crcr] {%
+\addplot[enhancementBox] table[row sep=crcr] {%
 x	y\\
 2.875	0.361718\\
 3.375	0.361718\\
 3.375	0.078234\\
 2.875	0.078234\\
 }--cycle;
+%\addlegendentry{boxplot $X_{\bullet} < X_{\mathrm{best}}$}
+\addlegendentry{and}
+
 \addplot [enhancementMedian, forget plot] table[row sep=crcr]{%
 3.375	0.177147\\
 2.875	0.177147\\
 };
-\addplot [enhancementMarks, forget plot] table[row sep=crcr]{%
+% \addlegendentry{$X_{\bullet} < X_{\mathrm{best}}$}
+
+\addplot [enhancementMarks] table[row sep=crcr]{%
 3.08631	0.000908397\\
 2.95689	0.0240998\\
 2.89041	0.038931\\
@@ -406,6 +405,10 @@ x	y\\
 2.90533	1.59776\\
 2.95782	13.4128\\
 };
+\addlegendentry{$X_{\bullet} < X_{\mathrm{best}}$}
+
+\addlegendimage{empty legend}
+\addlegendentry{\vspace{2em}}
 
 \addplot[degradationBox, forget plot] table[row sep=crcr] {%
 x	y\\
@@ -568,18 +571,23 @@ x	y\\
 2.14712	61.7874\\
 };
 
-\addplot[degradationBox, forget plot] table[row sep=crcr] {%
+\addplot[degradationBox] table[row sep=crcr] {%
 x	y\\
 2.625	0.332278\\
 3.125	0.332278\\
 3.125	0.107788\\
 2.625	0.107788\\
 }--cycle;
+% \addlegendentry{boxplot $X_{\bullet} > X_{\mathrm{best}}$}
+\addlegendentry{and}
+
 \addplot [degradationMedian, forget plot]  table[row sep=crcr]{%
 3.125	0.182529\\
 2.625	0.182529\\
 };
-\addplot [degradationMarks, forget plot]  table[row sep=crcr]{%
+% \addlegendentry{$X_{\bullet} > X_{\mathrm{best}}$}
+
+\addplot [degradationMarks]  table[row sep=crcr]{%
 3.04706	0.00149983\\
 2.8864	0.0301416\\
 2.9612	0.0318119\\
@@ -610,6 +618,11 @@ x	y\\
 3.01656	0.588477\\
 3.12259	0.837442\\
 };
+\addlegendentry{$X_{\bullet} > X_{\mathrm{best}}$}
+
+\addlegendimage{empty legend}
+\addlegendentry{\vspace{2em}}
+
 \addplot [percentileLines, forget plot]  table[row sep=crcr]{%
 0	63.8272\\
 4	63.8272\\
@@ -618,9 +631,11 @@ x	y\\
 0	1.94482\\
 4	1.94482\\
 };
-\addplot [percentileLines, forget plot]   table[row sep=crcr]{%
+\addplot [percentileLines]   table[row sep=crcr]{%
 0	1.21778\\
 4	1.21778\\
 };
+\addlegendentry{$\min, \mathrm{median}, \max \; X_{\bullet}$}
+
 \end{axis}
 \end{tikzpicture}%

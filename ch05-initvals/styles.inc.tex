@@ -75,7 +75,7 @@
 	assign column name/.code={%
         \pgfkeyssetvalue{/pgfplots/table/column name}{\multicolumn{1}{c}{\multirow{2}{*}{#1}} }%
     },
-	columns/method/.style={string type,column name={\shortstack{\textsc{Method}\\\phantom{0}}}}, 
+	columns/method/.style={string type,column name={\shortstack{\textsc{Method}\\\phantom{0}}}},
 	columns/contribution/.style={column name={\textsc{Contribution}}},
 	columns/P000/.style={column type=r,column name={\shortstack[r]{\textsc{Min.}\\{$0\%$}}}},
 	columns/P025/.style={column type=r,column name={\shortstack[r]{\vphantom{?}\\\textsc{$25\%$}}}},
