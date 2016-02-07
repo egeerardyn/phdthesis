@@ -31,7 +31,6 @@
 
 \setlength\onecolumnwidth{\columnwidth}
 
-\TODO{import references into main bibliography}
 %\comment{JL: 
 %Focus of the article (this is what the article must reflect):
 
@@ -65,7 +64,7 @@ In particular, two different smoothing techniques --- the time-truncated \gls{LP
 These are compared with the existing initialization schemes, namely: (i) the \gls{GTLS}, and (ii) the \gls{BTLS}.
 %The existing initialization schemes compared with are the generalized total least squares (GTLS) and bootstrapped total least squares (BTLS).
 
-The rest of the paper is structured as follows. Section~\ref{se:ProbForm} covers the problem formulation. Section~\ref{se:MethodEg} discusses the methodology for obtaining the initial estimates, and their influence on the success rate of the \gls{MLE}. 
+The rest of the chapter is structured as follows. Section~\ref{se:ProbForm} covers the problem formulation. Section~\ref{se:MethodEg} discusses the methodology for obtaining the initial estimates, and their influence on the success rate of the \gls{MLE}. 
 This is followed by Sections~\ref{se:Demo} and \ref{se:ExpMeas}, which are demonstrations of the improved initial estimates by simulation and experimental data, respectively.
 In Section~\ref{se:Generality} the generality of the results is discussed briefly.
 Ultimately, concluding remarks are presented in Section~\ref{se:Conclusion}.
@@ -88,10 +87,9 @@ y(t)=G_0(q^{-1})u_0(t)+H_0(q^{-1})e(t)
 \end{equation}
 %\comment{We don't have any results with colored noise yet!}
 where $G_0(q^{-1})$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= H_0(q^{-1})e(t)$ is the noise source at the output, $H_0(q^{-1})$ is the noise dynamics, 
-%\comment{JL: note that $H_0 = 1$ in this paper, so only white noise is considered, i.e. $e(t) = v(t)$.}, 
 $e(t)$ is white Gaussian noise, and $q^{-m}$ is the backwards shift operator ($q^{-m}x(t)$ = $x(t-mT_{\mathrm{s}})$  with $m$ a positive integer and $T_{\mathrm{s}}$ the sampling time).
 For white noise, $H_0 = 1$ and $e(t) = v(t)$.
-Note that for simplicity, we only treat the discrete-time case (i.e. $t = n \cdot T_{\mathrm{s}}$ for integer values of $n$) theoretically in this paper.
+Note that for simplicity, we only treat the discrete-time case (i.e. $t = n \cdot T_{\mathrm{s}}$ for integer values of $n$) theoretically in this chapter.
 However, the generalization to continuous time is straightforward~\citep[Chapter 6]{Pintelon2012} and has been demonstrated in Section~\ref{se:ExpMeas}.
 
 \begin{figure}[tbh] %top bottom here
@@ -103,7 +101,7 @@ However, the generalization to continuous time is straightforward~\citep[Chapter
 
 Numerous parametric identification techniques are devoted to the development of parametric plants $G(q^{-1},\theta)$ and parametric noise models  $H(q^{-1},\theta)$, where  $\theta$ is the model parameters vector  \citep{Ljung1999,Soderstrom1989}.
 
-The output signal is disturbed by white random noise, resulting in noisy error-prone data. It is also possible to apply the estimation procedure in this paper to a system that is disturbed by colored noise, as will be demonstrated in Section~\ref{se:ExpMeas}. 
+The output signal is disturbed by white random noise, resulting in noisy error-prone data. It is also possible to apply the estimation procedure in this chapter to a system that is disturbed by colored noise, as will be demonstrated in Section~\ref{se:ExpMeas}. 
 
 \subsection{Parametric System Model}
 
@@ -124,7 +122,14 @@ A(e^{-j\omega_k})Y_0(k) = B(e^{-j\omega_k})U_0(k) + I(e^{-j\omega_k})
 \label{DFTspectra}
 \end{align}
 with $q^{-1}$ sampled in  $q_k^{-1} = e^{-j\omega_k}$, where $\omega_k = \frac{2\pi k}{N}$ are the DFT frequencies, and $I$ is a polynomial of order $\max(N_a,N_b) - 1$, which depends on the initial and end conditions. 
-In this paper, it is assumed that the orders of the polynomials $A$, $B$ and $I$ are known.
+\begin{assumption}
+It is assumed that the orders of the polynomials $A$, $B$ and $I$ are known.
+\end{assumption}
+
+\begin{remark}
+The knowledge of the true model orders makes the analysis of the smoothers easier to carry out as we thus avoid extra calculation time required to perform model selection.
+However, these smoothers can be used in conjunction with model order selection procedures.
+\end{remark}
 
 \subsection{Parametric Identification Algorithm}\label{se:paramIdentAlgo}
 
@@ -157,7 +162,7 @@ Here, $\overline{B}$ denotes the complex conjugate of $B$.
 
 Consequently, $V(\theta)$ is a non-quadratic function of $\theta$ which, in general, results in a non-convex optimization problem. 
 The Levenberg-Marquardt~\citep{Marquardt1963} algorithm (see Algorithm~\ref{LMalgo}) is used to solve this optimization problem deterministically.
-Such an approach requires good initial estimates of $\theta$ to avoid inherent local optima, which is the focus of this paper.
+Such an approach requires good initial estimates of $\theta$ to avoid inherent local optima, which is the focus of this chapter.
 
 \begin{algorithm}
 \caption{Levenberg-Marquardt~\citep{Marquardt1963}, \citep[Sec. 9.L.4]{Pintelon2012}}\label{LMalgo}
@@ -185,7 +190,7 @@ Such an approach requires good initial estimates of $\theta$ to avoid inherent l
 \begin{remark}
 Alternatively, stochastic optimization algorithms~\citep{Spall2012,Press2007} are less likely to get stuck in local optima since many randomized initial estimates are tried.
 This obviously comes with a huge computational cost compared to `classical' deterministic schemes where only a single or a few initial estimates are used to start the expensive iterative optimization procedure.
-Stochastic optimization is not discussed in the remainder of this paper.
+Stochastic optimization is not discussed in the remainder of this chapter.
 \end{remark}
 
 \section{Methodology}\label{se:MethodEg}
@@ -202,7 +207,7 @@ In this section, the considered methods for obtaining the initial estimates of $
   \centering
   \includegraphics
   [width=0.95\onecolumnwidth]{\thisDir/fig/flowgraph}
-  \caption[Flow chart of different initialization procedures.]{Flow chart depicting the different estimation procedures, from left to right: (1) an approach using the true model as initial estimate; (2) an existing approach using \gls{BTLS} and \gls{GTLS} starting values, and the novel methods outlined in this paper (3, 4).
+  \caption[Flow chart of different initialization procedures.]{Flow chart depicting the different estimation procedures, from left to right: (1) an approach using the true model as initial estimate; (2) an existing approach using \gls{BTLS} and \gls{GTLS} starting values, and the novel methods outlined in this chapter (3, 4).
   The flow of non-parametric data is depicted by full arrows, with the \gls{FRF} data marked by asterisks. Parametric models are indicated by dashed, unfilled arrows.} \label{fig:flowgraph}
 \end{figure}
 
@@ -238,7 +243,8 @@ G_0(\Omega_{k+r})&\approx \hat G_k + g_{1,k} r + g_{2,k}r^2
 T(\Omega_{k+r})&\approx T(\Omega_k)+t_{1,k}r + t_{2,k}r^2\label{lpmImplQuadT}
 \end{align}
 \end{subequations}
-where, in general,$\ r\in\mathbb{W}_n,\quad$$\mathbb{W}_n = \{-n,-n+1,\dots,n\}$ and $n$ is a tunable parameter. In this paper, $n=3$.
+where, in general,$\ r\in\mathbb{W}_n,\quad$$\mathbb{W}_n = \{-n,-n+1,\dots,n\}$ and $n$ is a tunable parameter. 
+In this instance, $n=3$.
 
   The \gls{LPM} estimate of the \gls{FRF} at frequency index $k$ is the first estimated local parameter, \emph{viz}:
 \begin{equation}
@@ -270,7 +276,7 @@ Then, $\tau_{\mathrm{trunc}}$ is determined as the time instant where this envel
   = \beta^{-1} \ln \frac{\gamma \sigma_g}{B}
   \text{,}
 \end{equation}
-where $\gamma=1$ was used in this paper for simplicity.
+where $\gamma=1$ was used in this chapter for simplicity.
 By changing $\gamma$, the user can fine-tune the bias/variance trade-off of the estimated FRF $G_{\mathrm{trunc}}(\Omega_k) = \mathrm{DFT} \left( g_{\mathrm{trunc}}(t)\right)$ further.
 This can lead to a significant improvement over the classical LPM~\citep{Lumori2014TIM}.
  
@@ -352,11 +358,11 @@ Formally, let $\model{\bullet}$ be the final parametric estimate of the system, 
 %\comment{JL:be consequent with the orders (and refer to the specific branches in the flowchart)}
 \begin{itemize}
 \item 
-$\model{0}$ via the true model $G_0$ as an initial estimate,
+$\model{0}$ via the true model $\true{G}$ as an initial estimate,
 \item
 $\model{exist}$ is obtained via GTLS and BTLS,
 \item
-$\model{trunc}$ via use of the LPM with truncation as an initial estimate,
+$\model{trunc}$ by the use of the LPM with truncation as an initial estimate,
 \item
 $\model{RFIR}$, initialized by means of the RFIR method. 
 \end{itemize} 
@@ -364,11 +370,11 @@ $\model{RFIR}$, initialized by means of the RFIR method.
 A particular initial estimate is deemed \emph{successful} if the optimization of the MLE cost with the raw input-output data inserted in equation~\eqref{eq:MLEcf}, reaches the \emph{best local optimum} when iteration is initiated with the selected initial value/estimate.
 
 \begin{conjecture}\label{conj1}
-In this paper it is assumed that use of the true model as an initial estimate for the nonlinear identification algorithm (the leftmost path in \figref{fig:flowgraph}) is the best possible initial estimate and will allow the optimization to converge to the \emph{best local optimum}, i.e. $\model{0}$.
-%\JL{The associated model is denoted $\hat G_0$.}
+The true model $\true{G}$ as an initial estimate is the best possible initial estimate one can use for the nonlinear identification algorithm (the leftmost path in \figref{fig:flowgraph}) and will allow the optimization to converge to the \emph{best local optimum}, i.e. $\model{0}$.
 \end{conjecture}
+
 From this conjecture, use of the true system as an initial estimate would engender the best final estimate or hopefully even the global optimum.
-Since the true system is not really known in practice, the work in this paper compares the capability of different possible initial estimates to emulate the result that would be obtained by using the true model as an initial estimate. 
+Since the true system is not really known in practice, this chapter compares the capability of different possible initial estimates to emulate the result that would be obtained by using the true model as an initial estimate. 
 
 The capability is quantified by defining the success rate of the initial estimate as the probability that the identification algorithm reaches the \emph{best local optimum} when the selected initial estimate is used. %using the selected initial estimate.
 
@@ -518,7 +524,7 @@ The $3\unit{dB}$ bandwidth is defined as the frequency band where the magnitude 
 For both systems, $N$ was chosen such that $N_{3\unit{dB}}$ is respectively $36$ or $48$.
 For each value-pair $(\SNR, N_{3\mathrm{dB}})$ and both systems, $n_{\mathrm{MC}} = 200$  simulations and estimations were performed.
 Each individual simulation yields an estimate of the model based on which one can determine whether the estimation was successful or not.
-This allows to empirically estimate the success rate $\eta$ in equation \eqref{eq:successrateTol} as the proportion of the successes from the $200$ runs.
+This allows to empirically estimate the success rate $\eta$ in equation \eqref{eq:successrateTol} as the proportion of the successes from the $N_{\MC} = 200$ runs.
 
 
 %\ML{
@@ -559,11 +565,34 @@ This indicates $\frac{147}{200} \approx 74\%$ success for the existing methods, 
 %\subsection{Improvement w.r.t. existing techniques}%
 \subsection{Improvement Over Existing Techniques}
 
-In \figref{fig:successRateVS_SNR36N3dB}, the success rate (and its $95\%$ confidence interval) obtained from the Monte Carlo simulations is shown to compare the proposed method with previously existing approaches.
-The confidence intervals are calculated via the Clopper-Pearson method~\citep{Clopper1934} (as implemented in \MATLAB's \code{binofit}).
-\TODO{meer uitleg over Clopper-Pearson}
+In \figref{fig:successRateVS_SNR36N3dB}, the success rate (and its $95\%$ confidence interval $\mathrm{CI}$) obtained from the Monte Carlo simulations is shown to compare the proposed method with previously existing approaches.
+Note that the empirical count of successes $n_{\mathrm{success}}$ out of the $N_{\MC}$ total observations is binomially distributed with success rate $\eta$.
+The computation of confidence bounds of such a variable is not obvious due to the discrete nature of the variable: $n_{\mathrm{success}}$ can only attain a discrete set of values: $\Set{0,1,\ldots, N_{\MC}}$ whereas the true success rate $\eta$ is real-valued (but limited to the interval $[0,1]$).
+The inherent discreteness of $\hat{\eta} \isdef n_{\mathrm{success}}/N_{\MC}$ and the difficulties this presents has sparked a fair amount of research to compute confidence bounds~\citep{Barnard1947Significance,Mato1997,Ross2003,Clopper1934}.
+A simple way to deal with this problem, is to make use of the central limit theorem which states that $n_{\mathrm{success}}/N_{\MC}$ is approximately normally distributed when $N_{\MC} \to \infty$.
+In doing so, one e.g. obtains the Wald confidence bounds~\citep{Ross2003}:
+\begin{equation}
+\mathrm{CI}_{\mathrm{Wald}} \isdef \hat{\eta} \pm z_{1-\alpha/2} \sqrt{\hat{\eta} (1-\hat{\eta}/N_{\MC})}
+\end{equation}
+with $\alpha = 1 - 0.95$ for $95\%$ confidence bounds and $z_{1-\alpha/2}$ is the $1-\alpha/2$ quantile of a standard normal distribution, i.e. $z_{\beta} \isdef \mathrm{CDF}_{\NormalDistribution}^{-1}(\beta)$
+which requires inversion of the \gls{CDF} of a normal distribution.
+However, such an approximation is overly optimistic when $n_{\mathrm{success}}$ approaches the boundaries of its domain (i.e. when $\eta \approx 0$ or $\eta \approx 1$) since normal confidence regions are always symmetrical whereas the actual success rate is inherently bounded as $0 \leq \eta 1$~\citep{Ross2003}.
+An alternative method that does not approximate the binomial distribution by a normal one, is the Clopper-Pearson method~\citep{Clopper1934} (as implemented in \MATLAB's \code{binofit}).
+In particular, this method relies upon the exact binomial distribution, which is why the method is often quoted as the `exact' method.
+In particular, the $(1-\alpha)$  confidence bounds on $\eta$ are given by~\citep{Clopper1934}
+\begin{equation}
+ \mathrm{CI}_{\mathrm{ClopperPearson}} \isdef
+ \left[
+  \mathrm{CDF}_B^{-1}(\alpha/2; n_{\mathrm{success}}, N_{\MC} - n_{\mathrm{success}} + 1)
+  \;,\;
+  \mathrm{CDF}_B^{-1}(1-\alpha/2; n_{\mathrm{success}} + 1, N_{\MC} - n_{\mathrm{success}})
+ \right]
+\end{equation}
+where $\mathrm{CDF}_B^{-1}(\alpha; n,m)$ denotes the inverse \gls{CDF} of a $\mathrm{Beta}(n,m)$ distribution that is closely related to the Binomial distribution.
 This is known to yield somewhat conservative bounds, especially if only failures or successes are observed~\citep{Ross2003}.
+
 Consequently, the improvements observed in \figref{fig:successRateVS_SNR36N3dB} underestimate the actual improvement slightly.
+However, since there is often a clear separation between the different techniques, no efforts have been made to try out confidence interval estimators that offer more conservative results.
 
 By aggregating the results for the different simulations and retaining the success rate $\eta$ only, a clearer view of the performance of the different methods is obtained.
 
@@ -623,7 +652,7 @@ In this context this heuristic boils down to:
     \RMSE(\hat{G}_{0}) \approx \sqrt{\frac{n_\theta}{N}} \frac{\norm{G_0}}{\SNR} 
     \label{eq:heur-RMSE}
 \end{equation}
-where $n_{\theta}=5$ is the number of estimated parameters in this paper.
+where $n_{\theta}=5$ is the number of estimated parameters in this case.
 In \figref{fig:RMSE}, the empirical $\RMSE(\hat{G}_{0})$ over the different Monte Carlo runs is displayed against this rule-of-thumb.
 It can be seen that these runs align almost perfectly, which shows that this rule-of-thumb can be used to approximate the RMSE of the parametric estimate.
 When the RMSE is then divided by $\norm{G_0}$, this graph essentially shows the anticipated relative error on the transfer function and, hence, gives an indication on its usability.
@@ -724,6 +753,14 @@ The following equation is constructed from the final estimates for each experime
 \end{equation}
 where $V(\hat{G})$ corresponds to the cost function in equation \eqref{eq:MLEcf} in the parametric estimates of $\hat{G}$.
 This is similar to the approach followed in~\citep{FDIDENT} to combine different initial estimates.
+
+Alternatively, one can define the best model ($\model{best}$) and the second best model ($\model{2nd}$) as the models that comply to the inequalty
+$
+  \costFunc{}\left(\model{best}\right) < 
+  \costFunc{}\left( \model{2nd} \right) < 
+  \ldots
+$
+where $\model{best} \neq \model{2nd}$.
 
 \subsection{Reference Model Measurements}
 
@@ -857,6 +894,48 @@ method              P000      P025      P050        P075     P100
 \label{tbl:validationMeasurements}
 \end{table}
 
+\section{Consequences of selecting the `best` model}
+To determine how important it is to select the 
+\TODO{justify these experiments}
+
+In \figref{fig:overview} we can compare $\model{2nd}$ and $\model{best}$.
+By inspecting the different estimates for  each of the repeated experiments (\figref{fig:overview}), it can easily be seen that choosing $\model{RFIR}$ while it is not $\model{best}$ only leads to a very modest performance degradation.
+In \figref{fig:init:histogramEnhancement}, the different methods are compared in this respect by subtracting the performance of the $\model{best}$ from the performance of the respective methods.
+From that figure it can be seen that there is little performance to gain \emph{or} lose from choosing $\model{RFIR}$ over $\model{best}$ when RFIR is not the `best' method (as measured by the cost function $V$).
+The outcome is a lot less favorable for the alternative methods.
+
+\begin{figure}
+  \centering
+  \setlength{\figurewidth}{0.85\columnwidth}
+  \setlength{\figureheight}{0.68\figurewidth}
+  \input{\thisDir/fig/overview-cost-val.tikz}
+  \caption[$\costFunc{\bullet}$ and $\validationDistance{\bullet}$ for each repeated measurement.]{Cost function $V(\model{\bullet})$ and validation distance of the model estimated in each repetition of the measurement.
+  Based on the cost function, $\model{RFIR}$~\legref{leg:RFIR} is not always the best estimate $\model{best}$~\legref{leg:best}.
+  Especially in the validation plot (bottom), $\model{RFIR}$ performs (almost) as well or even better than $\model{exist}$~\legref{leg:exist} and $\model{trunc}$~\legref{leg:trunc}.
+  Both latter methods often produce models that perform poorly compared to $\| G_{VXI} \|$~\legref{leg:reference} and $\model{VXI}$~\legref{leg:VXI}.
+  This means that in our limited experimental study, the performance degradation of choosing RFIR to produce initial values over the studied alternatives is negligible.}
+  \label{fig:overview}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \ref{leg:init:secondBest}
+  \setlength{\figurewidth}{0.75\columnwidth}
+  \setlength{\figureheight}{0.60\figurewidth}
+  \input{\thisDir/fig/special-histogram.tikz}
+  \caption[Performance degradation/enhancement for selecting the second best model.]{
+  Performance degradation/enhancement ($X_{\bullet}-X_{\mathrm{best}}$) for choosing a given method $\bullet$ instead of the `best' method for the measurement example in this chapter.
+  In red/orange the positive values ($X_{\bullet} > X_{\mathrm{best}}$), the performance degradation for using $\model{\bullet}$ over $\model{best}$ is shown.
+  The negative values ($X_{\bullet} < X_{\mathrm{best}}$), i.e. the performance enhancement (for using $\model{\bullet}$ instead of $\model{best}$) is shown in green/blue.
+  Zero values (i.e. $X_{\bullet} = X_{\mathrm{best}}$) are not shown, hence the data shows when method $\bullet$ is \emph{not} selected as the `best' method.
+  The dashed lines are the minimum, median and maximum of $X_{\bullet}$ to give a sense of scale.
+  The performance degradation of choosing $\model{RFIR}$ instead of $\model{best}$ is smaller than the corresponding performance degradation for the other methods.
+  The performance enhancement from choosing $\model{RFIR}$ over $\model{best}$, is almost on par with the corresponding performance degradation (i.e. there is little to gain \emph{or} lose from choosing $\model{RFIR}$ over $\model{best}$).
+  For $\model{trunc}$ and $\model{exist}$, there is much less performance to gain from picking those over $\model{best}$ and there is a lot more to lose.
+  }
+  \label{fig:init:histogramEnhancement}
+\end{figure}
+
 \section{Remark on Generality}
 \label{se:Generality}
 In the previous sections, the usability of the smoothers to produce initial values has been studied on very specific examples.
@@ -867,7 +946,7 @@ However, due to the intricate relationship between the attraction regions in the
 On the one hand, an obvious limitation to the presented initialization techniques is that they share the limitations of the smoothing techniques: if the non-parametric estimate is a worse representation than the raw data (e.g. heavily biased), it is very unlikely that the initial estimate will outperform the existing estimates.
 However, it is beyond the scope of this chapter to determine formally which particular smoother is optimal in some specific experimental circumstances.
 
-In particular for RFIR, a simulation study in~\cite{Chen2013} suggests that RFIR handles systems with model orders up to at least $30$, even for small datasets $N\leq 500$.
+In particular for RFIR, a simulation study in~\citep{Chen2013} suggests that RFIR handles systems with model orders up to at least $30$, even for small datasets $N\leq 500$.
 For LPM (with or without time-truncation), no comparable studies are available to our knowledge, but the LPM itself has been used successfully in diverse practical applications.
 
 \subsection{Stress test of the smoothers}
@@ -885,35 +964,8 @@ Note also that both the band-pass and band-stop filters have a McMillan degree o
 
 The input excitation and the disturbing output noise were both white and Gaussian.
 
-\begin{figure}[p]
-  \setlength{\figurewidth}{0.85\columnwidth}
-  \setlength{\figureheight}{0.68\figurewidth}
+\begin{table}
   \centering
-  \ref{leg:init:stress:bodes}
-  \input{\thisDir/fig/bodeplots.tikz}
-  \caption[Bode plots of the stress test filters.]{Bode plots of the tested filters~\legref{leg:bode:true} in the stress test. 
-  For each filter, two of the parametric estimates $\model{\bullet}$ are shown per method.
-  Top to bottom: Chebyshev I, Chebyshev II, Elliptical and Butterworth characteristic.
-  Left to right: low-pass, band-pass, high-pass and band-stop.
-  }
-  \label{fig:bodeplots}
-\end{figure}
-
-\begin{figure}[p]
-  \setlength{\figurewidth}{0.85\columnwidth}
-  \setlength{\figureheight}{0.68\figurewidth}
-  \centering
-  \ref{leg:distances}
-  \input{\thisDir/fig/distances.tikz}
-  \caption[Empirical \glsentrytext{CDF} of $\validationDistance{\bullet}$ in the stress test.]{Empirical cumulative distribution function of the validation distance $D_{\bullet} = \norm{\model{\bullet} - G_0}$ for the different tested systems (different numbered plots) and the different initial values (colors).
-  Note that since $\norm{G_0}=1$ is chosen, $D_{\bullet}$ immediately indicates the relative RMS error of the estimates.
-  }
-  \label{fig:distancesStress}
-\end{figure}
-
-\begin{table}[p]
-  \centering
-% \input{\thisDir/table2.tex}
   \caption{Overview of the test cases for the initialization stress test.}
 \begin{tabular}{crlrrrrr}
 \toprule
@@ -942,7 +994,33 @@ The input excitation and the disturbing output noise were both white and Gaussia
 
 \subsection{Observations}
 The transfer functions are shown in \figref{fig:bodeplots} while the empirical cumulative validation distance is shown in \figref{fig:distancesStress}.
-In \tabref{tbl:init:stresstest}, also the success rates per method are given when a tolerance $tol = 0.02$ is used.
+In \tabref{tbl:init:stresstest}, also the success rates per method are given when a tolerance $tol = 0.02$ is used when success is determined as $D_{\bullet} = \norm{\model{\bullet} - \true{G}} < tol$.
+
+\begin{figure}[p]
+  \setlength{\figurewidth}{0.85\columnwidth}
+  \setlength{\figureheight}{0.68\figurewidth}
+  \centering
+  \ref{leg:init:stress:bodes}
+  \input{\thisDir/fig/bodeplots.tikz}
+  \caption[Bode plots of the stress test filters.]{Bode plots of the tested filters~\legref{leg:bode:true} in the stress test. 
+  For each filter, two (randomly selected) instanced of the parametric estimates $\model{\bullet}$ are shown per method.
+  % Top to bottom: Chebyshev I, Chebyshev II, Elliptical and Butterworth characteristic.
+  % Left to right: low-pass, band-pass, high-pass and band-stop.
+  }
+  \label{fig:bodeplots}
+\end{figure}
+
+\begin{figure}[p]
+  \setlength{\figurewidth}{0.85\columnwidth}
+  \setlength{\figureheight}{0.68\figurewidth}
+  \centering
+  \ref{leg:distances}
+  \input{\thisDir/fig/distances.tikz}
+  \caption[Empirical \glsentrytext{CDF} of $\validationDistance{\bullet}$ in the stress test.]{Empirical cumulative distribution function of the validation distance $D_{\bullet} = \norm{\model{\bullet} - G_0}$ for the different tested systems (different numbered plots) and the different initial values (colors).
+  Note that since $\norm{G_0}=1$ is chosen, $D_{\bullet}$ immediately indicates the relative RMS error of the estimates.
+  }
+  \label{fig:distancesStress}
+\end{figure}
 
 A few remarks regarding these results are appropriate.
 \begin{itemize}
@@ -971,5 +1049,5 @@ The usefulness of the initial values obtained via the proposed smoothing techniq
 In most cases, the proposed initial values in the example made it possible to reduce the cost function by a factor two compared to existing methods.
 Moreover, the obtained models were validated against a high-quality measurement where the \gls{RMS} error on the transfer function could be reduced by a factor of eight for most cases, due to the improved initial values.
 
-Thus, the work in this paper has demonstrated the effectiveness of the studied \gls{FRF} smoothing techniques in enhancing the initial values.
-Consequently, the ease-of-use of parametric model fitting is increased considerably by making it possible to obtain good parametric models without requiring any user interaction.
+Thus, the work in this chapter has demonstrated the effectiveness of the studied \gls{FRF} smoothing techniques in enhancing the initial values.
+Consequently, the ease-of-use of parametric model fitting can be increased considerably by making it possible to obtain good parametric models without requiring any additional user interaction.

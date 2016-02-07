@@ -13,11 +13,6 @@
 %           
 %
 %
-\definecolor{mycolor1}{rgb}{0.53333,0.54118,0.52157}%
-\definecolor{mycolor2}{rgb}{0.12549,0.29020,0.52941}%
-\definecolor{mycolor3}{rgb}{0.30588,0.60392,0.02353}%
-\definecolor{mycolor4}{rgb}{0.92941,0.83137,0.00000}%
-%
 \begin{tikzpicture}
 \input{\thisDir/styles.inc.tex}
 

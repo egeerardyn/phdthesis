@@ -60,8 +60,9 @@
   By no means smoothers studied in \chapref{sec:initvals} chosen in an optimal way, such that it remains an open topic to determine which smoother has the best chance to produce good initial values in practical settings.
 
   On the other hand, the \gls{LRM} and its variants discussed in \chapref{sec:nonparametric} provide some local information regarding the shape of the \gls{FRF} and hence also the transfer function.
-  The usefulness has already been seen in \chapref{sec:hinf} in connection to the computation of the \Hinf norm of a system.
+  The usefulness has already been illustrated in \chapref{sec:hinf} in connection to the computation of the \Hinf norm of a system.
   Intrinsically, these local rational methods approximate the transfer function by a local model, or, equivalently a set of local poles and zeros.
-  Especially for resonant poles, one can expect that these local poles are closely linked to the global (actual) poles of a system.
+  Especially for resonant poles, one can expect that these local poles are closely linked to the global (physical) poles of a system.
   As such, those could provide a valuable initialization strategy if the redundant local pole/zero information of neighboring windows can be reduced to a single global pole/zero initial value.
+  Probably techniques in model order reduction could provide a good starting point to calculate such initial values.
   \TODO{optimal smoother}

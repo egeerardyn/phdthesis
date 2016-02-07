@@ -1,43 +1,7 @@
 
 \newcommand{\reviewer}[1]{\paragraph{#1}}
 
-In \figref{fig:overview} we can compare $\model{2nd}$ and $\model{best}$.
-By inspecting the different estimates for  each of the repeated experiments (\figref{fig:overview}), it can easily be seen that choosing $\model{RFIR}$ while it is not $\model{best}$ only leads to a very modest performance degradation.
-In \figref{fig:histogram}, the different methods are compared in this respect by subtracting the performance of the $\model{best}$ from the performance of the respective methods.
-From that figure it can be seen that there is little performance to gain \emph{or} lose from choosing $\model{RFIR}$ over $\model{best}$ when RFIR is not the `best' method (as measured by the cost function $V$).
-The outcome is a lot less favorable for the alternative methods.
 
-\begin{figure}
-  \centering
-  \setlength{\figurewidth}{0.85\columnwidth}
-  \setlength{\figureheight}{0.68\figurewidth}
-  \input{\thisDir/fig/overview-cost-val.tikz}
-  \caption[$\costFunc{\bullet}$ and $\validationDistance{\bullet}$ for each repeated measurement.]{Cost function $V(\model{\bullet})$ and validation distance of the model estimated in each repetition of the measurement.
-  Based on the cost function, $\model{RFIR}$~\legref{leg:RFIR} is not always the best estimate $\model{best}$~\legref{leg:best}.
-  Especially in the validation plot (bottom), $\model{RFIR}$ performs (almost) as well or even better than $\model{exist}$~\legref{leg:exist} and $\model{trunc}$~\legref{leg:trunc}.
-  Both latter methods often produce models that perform poorly compared to $\| G_{VXI} \|$~\legref{leg:reference} and $\model{VXI}$~\legref{leg:VXI}.
-  This means that in our limited experimental study, the performance degradation of choosing RFIR to produce initial values over the studied alternatives is negligible.}
-  \label{fig:overview}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \ref{leg:init:secondBest}
-  \setlength{\figurewidth}{0.75\columnwidth}
-  \setlength{\figureheight}{0.60\figurewidth}
-  \input{\thisDir/fig/special-histogram.tikz}
-  \caption[Performance degradation/enhancement for selecting the second best model.]{
-  Performance degradation/enhancement ($X_{\bullet}-X_{\mathrm{best}}$) for choosing a given method $\bullet$ instead of the `best' method for the measurement example in the paper.
-  In red/orange the positive values ($X_{\bullet} > X_{\mathrm{best}}$), the performance degradation for using $\model{\bullet}$ over $\model{best}$ is shown.
-  The negative values ($X_{\bullet} < X_{\mathrm{best}}$), i.e. the performance enhancement (for using $\model{\bullet}$ instead of $\model{best}$) is shown in green/blue.
-  Zero values (i.e. $X_{\bullet} = X_{\mathrm{best}}$) are not shown, hence the data shows when method $\bullet$ is \emph{not} selected as the `best' method.
-  The dashed lines are the minimum, median and maximum of $X_{\bullet}$ to give a sense of scale.
-  The performance degradation of choosing $\model{RFIR}$ instead of $\model{best}$ is smaller than the corresponding performance degradation for the other methods.
-  The performance enhancement from choosing $\model{RFIR}$ over $\model{best}$, is almost on par with the corresponding performance degradation (i.e. there is little to gain \emph{or} lose from choosing $\model{RFIR}$ over $\model{best}$).
-  For $\model{trunc}$ and $\model{exist}$, there is much less performance to gain from picking those over $\model{best}$ and there is a lot more to lose.
-  }
-  \label{fig:histogram}
-\end{figure}
 
 \begin{quote}
 
