@@ -580,14 +580,13 @@ However, such an approximation is overly optimistic when $n_{\mathrm{success}}$ 
 An alternative method that does not approximate the binomial distribution by a normal one, is the Clopper-Pearson method~\citep{Clopper1934} (as implemented in \MATLAB's \code{binofit}).
 In particular, this method relies upon the exact binomial distribution, which is why the method is often quoted as the `exact' method.
 In particular, the $(1-\alpha)$  confidence bounds on $\eta$ are given by~\citep{Clopper1934}
-\begin{equation}
- \mathrm{CI}_{\mathrm{ClopperPearson}} \isdef
- \left[
-  \mathrm{CDF}_B^{-1}(\alpha/2; n_{\mathrm{success}}, N_{\MC} - n_{\mathrm{success}} + 1)
-  \;,\;
+\begin{align}
+ \mathrm{CI}_{\mathrm{ClopperPearson}}  & \isdef \left[ \underline{\eta}, \overline{\eta} \right]\\
+ \underline{\eta} &\isdef 
+  \mathrm{CDF}_B^{-1}(\alpha/2; n_{\mathrm{success}}, N_{\MC} - n_{\mathrm{success}} + 1)\\
+  \overline{\eta} &\isdef
   \mathrm{CDF}_B^{-1}(1-\alpha/2; n_{\mathrm{success}} + 1, N_{\MC} - n_{\mathrm{success}})
- \right]
-\end{equation}
+\end{align}
 where $\mathrm{CDF}_B^{-1}(\alpha; n,m)$ denotes the inverse \gls{CDF} of a $\mathrm{Beta}(n,m)$ distribution that is closely related to the Binomial distribution.
 This is known to yield somewhat conservative bounds, especially if only failures or successes are observed~\citep{Ross2003}.
 
@@ -666,7 +665,7 @@ The \BK{} 1613 Octave Filter Set consists of sixth-order Chebyshev band-pass fil
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\onecolumnwidth]{\thisDir/fig/measurement.pdf}
+  \includegraphics[width=0.6\onecolumnwidth]{\thisDir/fig/measurement.pdf}
   \caption[Measurement schematic of \BK\ 1613 filter.]{Schematic representation of the measurement set-up for the \BK\ 1613 filter. The AWG (Arbitrary Waveform Generator) and DAQ (Data Acquisition) hardware share the same clock and are thus synchronized. 
   Blue arrows indicate coax cables. 
   At the output of the bandpass filter, a noise generator is added that buffers the incoming signal using a TL071 opamp and adds white noise before passing the signal to the DAQ.} 
@@ -687,9 +686,10 @@ The output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\tau \right
   \centering
   \setlength{\figurewidth}{0.75\onecolumnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
-  %\input{\thisDir/fig/bode-bk1613.tikz} %TODO: re-enable figure and make less dense
+  \input{\thisDir/fig/bode-bk1613.tikz}
   \caption[\BK{} 1613 filter transfer function]{Transfer function of the considered \BK{} 1613 filter.
   The empirical transfer function estimates $Y^{[r]}(\omega)/U^{[r]}(\omega)$~\legref{leg:bk1613:ETFE} and its average $\tilde{Y}(\omega)/\tilde{U}(\omega)$~\legref{leg:bk1613:meanETFE} obtained from the Elvis measurements are shown together with the estimated reference model $G_{\mathrm{VXI}}$~\legref{leg:bk1613:vxi}.} 
+  \TODO{fix figure (maybe downsample logarithmically for efficiency)}
   \label{fig:bk1613}
 \end{figure}
 
