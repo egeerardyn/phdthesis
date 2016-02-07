@@ -576,22 +576,23 @@ In doing so, one e.g. obtains the Wald confidence bounds~\citep{Ross2003}:
 \end{equation}
 with $\alpha = 1 - 0.95$ for $95\%$ confidence bounds and $z_{1-\alpha/2}$ is the $1-\alpha/2$ quantile of a standard normal distribution, i.e. $z_{\beta} \isdef \mathrm{CDF}_{\NormalDistribution}^{-1}(\beta)$
 which requires inversion of the \gls{CDF} of a normal distribution.
-However, such an approximation is overly optimistic when $n_{\mathrm{success}}$ approaches the boundaries of its domain (i.e. when $\eta \approx 0$ or $\eta \approx 1$) since normal confidence regions are always symmetrical whereas the actual success rate is inherently bounded as $0 \leq \eta 1$~\citep{Ross2003}.
-An alternative method that does not approximate the binomial distribution by a normal one, is the Clopper-Pearson method~\citep{Clopper1934} (as implemented in \MATLAB's \code{binofit}).
+However, such an approximation is overly optimistic when $n_{\mathrm{success}}$ approaches the boundaries of its domain (i.e. when $\eta \approx 0$ or $\eta \approx 1$) since normal confidence regions are always symmetrical whereas the actual success rate is inherently bounded as $0 \leq \eta \leq 1$~\citep{Ross2003}.
+An alternative method that does not approximate the binomial distribution by a normal one, is the Clopper-Pearson method~\citep{Clopper1934}.
 In particular, this method relies upon the exact binomial distribution, which is why the method is often quoted as the `exact' method.
 In particular, the $(1-\alpha)$  confidence bounds on $\eta$ are given by~\citep{Clopper1934}
 \begin{align}
  \mathrm{CI}_{\mathrm{ClopperPearson}}  & \isdef \left[ \underline{\eta}, \overline{\eta} \right]\\
  \underline{\eta} &\isdef 
-  \mathrm{CDF}_B^{-1}(\alpha/2; n_{\mathrm{success}}, N_{\MC} - n_{\mathrm{success}} + 1)\\
+  \mathrm{CDF}_B^{-1}(\phantom{1-\;}\alpha/2; n_{\mathrm{success}}, N_{\MC} - n_{\mathrm{success}} + 1)\\
   \overline{\eta} &\isdef
   \mathrm{CDF}_B^{-1}(1-\alpha/2; n_{\mathrm{success}} + 1, N_{\MC} - n_{\mathrm{success}})
 \end{align}
-where $\mathrm{CDF}_B^{-1}(\alpha; n,m)$ denotes the inverse \gls{CDF} of a $\mathrm{Beta}(n,m)$ distribution that is closely related to the Binomial distribution.
+where $\mathrm{CDF}_B^{-1}(\alpha; n,m)$ denotes the inverse \gls{CDF} of a $\mathrm{Beta}(n,m)$ distribution.
 This is known to yield somewhat conservative bounds, especially if only failures or successes are observed~\citep{Ross2003}.
 
-Consequently, the improvements observed in \figref{fig:successRateVS_SNR36N3dB} underestimate the actual improvement slightly.
-However, since there is often a clear separation between the different techniques, no efforts have been made to try out confidence interval estimators that offer more conservative results.
+In this chapter, the Clopper-Pearson method--as implemented in \MATLAB's \code{binofit}-- is used whenever confidence bounds are shown.
+Consequently, the improvements observed in \figref{fig:successRateVS_SNR36N3dB} underestimate the actual improvement slightly due to the conservatism in these bounds.
+However, since there is often a clear separation between the different techniques, no efforts have been made to use confidence interval estimators that offer less conservative results.
 
 By aggregating the results for the different simulations and retaining the success rate $\eta$ only, a clearer view of the performance of the different methods is obtained.
 
@@ -895,14 +896,21 @@ method              P000      P025      P050        P075     P100
 \end{table}
 
 \section{Consequences of selecting the `best` model}
-To determine how important it is to select the 
-\TODO{justify these experiments}
+To determine how important it is to retain the `best' model based on the cost function values, we shall inspect how much worse (or better) the second best model $\model{2nd}$ performs when $\model{best}$ is \emph{not} selected.
+To do so, we inspect the performance by means of the cost function (used during estimation) and by means of the validation distance.
+The datasets used in this analysis are those from the measurements, but similar results can be obtained from the other data sets.
 
 In \figref{fig:overview} we can compare $\model{2nd}$ and $\model{best}$.
 By inspecting the different estimates for  each of the repeated experiments (\figref{fig:overview}), it can easily be seen that choosing $\model{RFIR}$ while it is not $\model{best}$ only leads to a very modest performance degradation.
-In \figref{fig:init:histogramEnhancement}, the different methods are compared in this respect by subtracting the performance of the $\model{best}$ from the performance of the respective methods.
-From that figure it can be seen that there is little performance to gain \emph{or} lose from choosing $\model{RFIR}$ over $\model{best}$ when RFIR is not the `best' method (as measured by the cost function $V$).
-The outcome is a lot less favorable for the alternative methods.
+In \figref{fig:init:histogramEnhancement}, the different methods are compared by subtracting the performance of the $\model{best}$ from the performance of the respective methods.
+As such, each column in the figure indicates the performance of this method when it is not the `best'.
+Obviously, when we consider the cost function used during estimation (left subfigure), we can only degrade the performance by construction of $\model{best}$.
+For the validation data, however, this is no longer guaranteed as can be seen in the right subplot.
+On average, there is very little performance that can be gained from not using $\model{best}$, however, for two or three data points, there is a considerable improvement.
+From that figure it can also be seen that there is little performance to lose from choosing $\model{RFIR}$ over $\model{best}$ when RFIR is not the `best' method.
+The outcome is less favorable for the alternative methods.
+For $\model{exist}$ it can be seen that selecting those instead of $\model{best}$  degrades the validation performance by $10$ or even more in $75\%$ of the cases.
+The situation is already less severe for $\model{trunc}$ (in $75\%$ of the cases, the degradation is larger than $0.5$).
 
 \begin{figure}
   \centering
