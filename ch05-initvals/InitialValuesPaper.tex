@@ -56,7 +56,7 @@ Parametric identification of \gls{LTI} systems from input/output data has been w
  However, when noisy input-output measurements are to be processed, the presence of noise obstructs a clear view of the actual system behavior, especially for poor signal-to-noise ratios (SNRs).
  In non-parametric identification, the presence of noise is typically mitigated by averaging multiple measurements or using smoothing techniques.
 
-The main aim and contribution of this article is to demonstrate that smoothing a measured \gls{FRF} helps to avoid local optima during the parametric estimation of the \gls{MLE} of a transfer function, using deterministic optimization algorithms.
+The main aim and contribution of this chapter is to demonstrate that smoothing a measured \gls{FRF} helps to avoid local optima during the parametric estimation of the \gls{MLE} of a transfer function, using deterministic optimization algorithms.
 Hence, such techniques make it possible to increase the ``success rate'' (i.e. the probability that a good model, or even the global optimum, is obtained) of such a system identification step considerably.
 %Such techniques, hence allow to increase the ``success rate'' (i.e. the probability that a good model, or even the global optimum, is obtained) of such a system identification step considerably.
 
@@ -590,7 +590,7 @@ In particular, the $(1-\alpha)$  confidence bounds on $\eta$ are given by~\citep
 where $\mathrm{CDF}_B^{-1}(\alpha; n,m)$ denotes the inverse \gls{CDF} of a $\mathrm{Beta}(n,m)$ distribution.
 This is known to yield somewhat conservative bounds, especially if only failures or successes are observed~\citep{Ross2003}.
 
-In this chapter, the Clopper-Pearson method--as implemented in \MATLAB's \code{binofit}-- is used whenever confidence bounds are shown.
+In this chapter, the Clopper-Pearson method---as implemented in \MATLAB's \code{binofit}---is used whenever confidence bounds are shown.
 Consequently, the improvements observed in \figref{fig:successRateVS_SNR36N3dB} underestimate the actual improvement slightly due to the conservatism in these bounds.
 However, since there is often a clear separation between the different techniques, no efforts have been made to use confidence interval estimators that offer less conservative results.
 
