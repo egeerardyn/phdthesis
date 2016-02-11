@@ -38,10 +38,10 @@ This capability is very useful for model validation and/or selection \citep{Pint
 This paper uses nonparametric models in conjunction with the \gls{LPM}~\citep{Pintelon2010LPM1} to estimate the complex-valued \gls{FRF} in a linear \gls{LS} fashion.
 The advantage of using the nonparametric models is basically the non-involvement of the user in choosing a model order, i.e. no user interaction. Among the current nonparametric methods, the LPM method is chosen due to its superiority over the classical nonparametric methods (windowing) in suppressing leakage errors \citep{Bendat1993,Oppenheim1983}. Consequently, the LPM estimate of the FRF is not hampered by leakage errors \citep{Pintelon2010LPM1,Schoukens2009LPM}. Note that a more general discussion on the LPM, applied to noisy, real-valued data is found in \citep{Fan1996} with a specific focus on parametric tuning.
 
-The main contribution of the paper is to come up with an improved FRF by developing a method for smoothing the FRF estimated via the LPM. This is done by truncating the associated impulse response, as in \citep{Schoukens1998ImprFRFmeas}, but with the following additional extension: the determination of the optimal truncation time, without any user interaction, in conjunction with the use of the LPM for leakage reduction. The cutoff index (truncation point) is determined by a statistically sound method. It is then shown that a smooth LPM estimate of the FRF lowers the variance, thus improving the assessment level of the dynamic properties of a given LTI system.
+The main contribution of the paper is to come up with an improved FRF by developing a method for smoothing the FRF estimated via the LPM. This is done by truncating the associated impulse response, as in~\citep{Schoukens1998}, but with the following additional extension: the determination of the optimal truncation time, without any user interaction, in conjunction with the use of the LPM for leakage reduction. The cutoff index (truncation point) is determined by a statistically sound method. It is then shown that a smooth LPM estimate of the FRF lowers the variance, thus improving the assessment level of the dynamic properties of a given LTI system.
 
 Based on \citep{Schoukens2009LPM}, the nonparametric method developed in this work is formulated in an output-error (OE) framework. A single-input-single-output (SISO) LTI system is considered. %, based on  \citep{Schoukens2009LPM}.
-The input signal is a known random noise signal and the output signal is corrupted by measurement noise. This is depicted in Fig. 1 as a linear dynamic discrete-time SISO system, whose full mathematical model is of the form:
+The input signal is a known random noise signal and the output signal is corrupted by measurement noise. This is depicted in \figref{lpmtdrep} as a linear dynamic discrete-time SISO system, whose full mathematical model is of the form:
 \begin{equation}\label{lpmtd1}
 y(t)=G_0(q)u_0(t)+H_0(q)e(t)=G_0(q)u_0(t)+v(t)
 \end{equation}
@@ -91,7 +91,7 @@ Details of the theory pertaining to this section may be found in \citep{Schouken
 
 \subsubsection{Spectral Nonparametric Model and Assumptions}
 
-Using convolution, the noiseless output signal in Fig. \ref{lpmtdrep} is $y_0(t) = g_0(t)*u_0(t)$, where the signals are sampled at $t = 0, 1, 2,...,N-1$ and the excitation signal $u_0(t)$ is random noise. As shown in \citep{Pintelon2012} and \citep{Pintelon1997} the \gls{DFT} spectra of the sampled signals at the frequency $\Omega_k$ are related as follows:
+Using convolution, the noiseless output signal in \figref{lpmtdrep} is $y_0(t) = g_0(t)*u_0(t)$, where the signals are sampled at $t = 0, 1, 2,...,N-1$ and the excitation signal $u_0(t)$ is random noise. As shown in \citep{Pintelon2012} and \citep{Pintelon1997} the \gls{DFT} spectra of the sampled signals at the frequency $\Omega_k$ are related as follows:
 \begin{equation}\label{lpmleak}
 Y_0(k)=G_0(\Omega_k)U_0(k)+T_G(\Omega_k)
 \end{equation}
@@ -103,7 +103,7 @@ X(\Omega_k) = \frac{1}{\sqrt{N}}\sum_{t=0}^{N-1}x(t)e^{-\frac{j2\pi kt}{N}}
 \end{equation}
 
 
-The following assumptions are consistent with \citep{Schoukens2009LPM} for an OE setup (Fig. \ref{lpmtdrep}):
+The following assumptions are consistent with \citep{Schoukens2009LPM} for an OE setup (\figref{lpmtdrep}):
 \begin{assumption}
 The SISO system $G_0$ and  the transients leakage spectrum $T_G$ are both smooth functions of the frequency.
 \end{assumption}
@@ -151,10 +151,13 @@ where $V_0(k) = H_0(\Omega_k)E(k)$ is a noise term, and $T(\Omega_k)$ is the lea
 The smooth characteristics of $G_0(\Omega_k)$ and $T(\Omega_k)$ allow for the use of the Taylor series representations at the frequency lines $k+r$ in a frequency domain window of width $2n+1$, with a remainder $\mathcal{O}\left(\frac{r}{N}\right)^{(R+1)}$ of the first order Taylor series expansion \citep{Schoukens2009LPM}, \emph{viz}:
 \TODO{ordos are incorrect: notation-wise}
 \begin{align}\label{lpmGTaylorS}
-G_0(\Omega_{k+r})&=G_0(\Omega_k)+\sum_{p=1}^{R}g_p(k)r^p+\mathcal{O}\left(\frac{r}{N}\right)^{(R+1)},
+G_0(\Omega_{k+r})&=G_0(\Omega_k)+\sum_{p=1}^{R}g_p(k)r^p+
+\bigO{\left(\frac{r}{N}\right)^{(R+1)}},
 \\
 \label{lpmTTaylorS}
-T(\Omega_{k+r})&=T(\Omega_k)+\sum_{p=1}^{R}t_p(k)r^p+N^{-1/2}\mathcal{O}\left(\frac{r}{N}\right)^{(R+1)},
+T(\Omega_{k+r})&=T(\Omega_k)+\sum_{p=1}^{R}t_p(k)r^p+N^{-1/2}
+\bigO{  \left(\frac{r}{N}\right)^{(R+1)}  }
+,
 \\
 \text{where}&\ r\in\mathbb{W}_n,\quad \mathbb{W}_n = \{-n,-n+1,\dots,n\}
 \end{align}
@@ -251,13 +254,12 @@ This assumption ensures that the impulse response corresponding to the \gls{FRF}
 
 
 \begin{assumption}\label{ass:imprespdecay}
-The impulse response $g(t)$ decays exponentially with time, i.e. $\exists A \in \PositiveRealNumbers, \exists a \in \NegativeRealNumbers \without \Set{0}, \forall t \in \PositiveRealNumbers: \abs{g(t)} \leq A \exp(- a t)$.
+The impulse response $g(t)$ decays exponentially over time, i.e. $\exists A \in \PositiveRealNumbers, \exists a \in \NegativeRealNumbers \without \Set{0}, \forall t \in \PositiveRealNumbers: \abs{g(t)} \leq A \exp(- a t)$.
 \end{assumption}
 
 \begin{assumption}\label{ass:decay90perctime}
 Within $90\%$ of the measurement window, the impulse response decays
  to a level that is indistinguishable from the noise.
-
 \end{assumption}
 
 Note that Assumptions \ref{ass:imprespdecay} and \ref{ass:decay90perctime} exclude the possibility of considering a system that is a pure integrator.
@@ -279,12 +281,10 @@ where the estimated \gls{FRF} in the frequency band between  the Nyquist and the
 (with $\conj{\hat G_\mathrm{poly}}$ the complex conjugate of $\hat G_\mathrm{poly}$) to ensure $\hat g_\mathrm{poly}(t)$ to be real.
 
 \TODO{fix reference Section II}
-Smoothing of the estimated \gls{FRF} requires the correct estimate of the impulse response. Unfortunately, the \gls{LPM} presented in \secref{se:theoryLPMandWindowing} and in \citep{Schoukens2009LPM} does not estimate the \gls{FRF}  at the frequency $\Omega_0$ (i.e. \gls{DC} value of the \gls{FRF}), hence the subscript $\setminus\mathrm{DC}$ in equation \eqref{eq:impRespiDFT}. Consequently, the mean value of the corresponding estimated impulse response given in equation \eqref{eq:impRespiDFT} is not correct. This anomaly is rectified by developing a simple estimator of the mean value, presented below.
+Smoothing of the estimated \gls{FRF} requires the correct estimate of the impulse response. Unfortunately, the \gls{LPM} presented in \secref{se:theoryLPMandWindowing} and in \citep{Schoukens2009LPM} does not estimate the \gls{FRF}  at the frequency $\Omega_0$ (i.e. \gls{DC} value of the \gls{FRF}), hence the subscript $\setminus\mathrm{DC}$ in equation \eqref{eq:impRespiDFT}. Consequently, the mean value of the corresponding estimated impulse response given in equation \eqref{eq:impRespiDFT} is not correct. 
+This limitation is lifted by developing a simple estimator of the mean value, presented below.
 
 \subsubsection{Estimating the \glsentrytext{DC} Value of the \glsentrytext{FRF}}\label{se:DCvalueEst}
-
-
-
 The correct mean value of the impulse response accounts for (i.e. estimates) the \gls{DC} value of the \gls{FRF}. A time-domain method is proposed for estimating the mean value of the impulse response in equation \eqref{eq:impRespiDFT}. %The first is a frequency-domain technique and the second is a time-domain technique.
 
 According to Assumption~\ref{ass:imprespdecay}, the true impulse response tends to zero asymptotically; and by Assumption~\ref{ass:decay90perctime}, the last $10\%$ of the estimated impulse response is noise, plus a constant value due to an inaccuracy in the average value of the impulse response. The correct estimate of the mean value is obtained by shifting the whole signal such that the last $10\%$ of the impulse response is centered around 0.
@@ -465,7 +465,7 @@ In \figref{fig:pdfAndRMSeVStruncTime}, the black graph is the \gls{RMS} error of
 A good practice would be to truncate the impulse response at the minimizer (black dot) of the \gls{RMS} error. However, it should be noted that this minimizer is unknown in practice, because it would require
 the true \gls{FRF}.
 
-The truncation time is determined from the data as described in Section \ref{se:truncImpulseResp}. This was done on $1000$ realizations of the noise, and depicted in Figure \ref{fig:pdfAndRMSeVStruncTime} by the histogram.
+The truncation time is determined from the data as described in Section \ref{se:truncImpulseResp}. This was done on $1000$ realizations of the noise, and depicted in \figref{fig:pdfAndRMSeVStruncTime} by the histogram.
 Clearly, the method for selecting the truncation time $t_{\mathrm{trunc}}$ has a good overall performance, based on the mode of its distribution. A closely grouped set of values for $t_{\mathrm{trunc}}$ is obtained around the $90^{\text{th}}$ sample, without significant outliers.
 
 
