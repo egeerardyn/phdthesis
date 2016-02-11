@@ -65,7 +65,7 @@ These are compared with the existing initialization schemes, namely: (i) the \gl
 %The existing initialization schemes compared with are the generalized total least squares (GTLS) and bootstrapped total least squares (BTLS).
 
 The rest of the chapter is structured as follows. Section~\ref{se:ProbForm} covers the problem formulation. Section~\ref{se:MethodEg} discusses the methodology for obtaining the initial estimates, and their influence on the success rate of the \gls{MLE}. 
-This is followed by Sections~\ref{se:Demo} and \ref{se:ExpMeas}, which are demonstrations of the improved initial estimates by simulation and experimental data, respectively.
+This is followed by Sections~\ref{se:Demo} and \ref{se:ExpMeas}, which are demonstrations of the improved initial estimates on simulation and experimental data, respectively.
 In Section~\ref{se:Generality} the generality of the results is discussed briefly.
 Ultimately, concluding remarks are presented in Section~\ref{se:Conclusion}.
 
@@ -101,16 +101,18 @@ However, the generalization to continuous time is straightforward~\citep[Chapter
 
 Numerous parametric identification techniques are devoted to the development of parametric plants $G(q^{-1},\theta)$ and parametric noise models  $H(q^{-1},\theta)$, where  $\theta$ is the model parameters vector  \citep{Ljung1999,Soderstrom1989}.
 
-The output signal is disturbed by white random noise, resulting in noisy error-prone data. It is also possible to apply the estimation procedure in this chapter to a system that is disturbed by colored noise, as will be demonstrated in Section~\ref{se:ExpMeas}. 
+In this chapter we assume that the output signal is disturbed by random noise, resulting in noisy error-prone data.
+For the simulations, white noise is used.
+It is also possible to apply the estimation procedure in this chapter to a system that is disturbed by colored noise, as will be demonstrated in \secref{se:ExpMeas}. 
 
 \subsection{Parametric System Model}
 
-With reference to equation (\ref{lpmtd1}), the relation between the noiseless input and the output signals ($v(t)= 0$) is assumed to be of the form
+With reference to equation \eqref{lpmtd1}, the relation between the noiseless input and the output signals ($v(t)= 0$) is assumed to be of the form
 \begin{equation}
-    A(q^{-1}) y_0(t) = B(q^{-1}) u_0(t)
+    A(q^{-1}) y_0(t) = B(q^{-1}) u_0(t) \quad \forall t \in \left( - \infty, + \infty \right)
 \label{ABpolys}
 \end{equation}
-where $A$ and $B$ are polynomials in $q^{-1}$. Thus, it follows from equation (\ref{lpmtd1}) that
+where $A$ and $B$ are polynomials in $q^{-1}$. Thus, it follows from equation \eqref{lpmtd1} that
 \begin{equation}
     G_0(q^{-1})= \frac{B(q^{-1})}{A(q^{-1})}
     \text{.}
@@ -122,6 +124,7 @@ A(e^{-j\omega_k})Y_0(k) = B(e^{-j\omega_k})U_0(k) + I(e^{-j\omega_k})
 \label{DFTspectra}
 \end{align}
 with $q^{-1}$ sampled in  $q_k^{-1} = e^{-j\omega_k}$, where $\omega_k = \frac{2\pi k}{N}$ are the DFT frequencies, and $I$ is a polynomial of order $\max(N_a,N_b) - 1$, which depends on the initial and end conditions. 
+\TODO{explain init/end conditions in this context}
 \begin{assumption}
 It is assumed that the orders of the polynomials $A$, $B$ and $I$ are known.
 \end{assumption}
@@ -217,7 +220,7 @@ The requisite procedures for the estimators are as follows, from left to right o
 
 \begin{enumerate}
 \item
-\emph{Using the true model ($G_0$) as initial estimate}
+\emph{Using the true model ($\true{G}$) as initial estimate}
 
 The estimates from this procedure are for comparison purposes with those from the other procedures. They will be crucial to the computation of the global optimum of the \gls{MLE}.
 
@@ -1050,6 +1053,67 @@ A few remarks regarding these results are appropriate.
 In general, one can see from these simulations that \gls{RFIR} either performs as well as (or even better than) the existing techniques when a good estimate is obtained.
 There are no cases where using the smoothing to obtain initial values worsens the obtained model quality when the candidate model with the lowest cost function value is used (as in \eqref{eq:selectBest}).
 On the contrary, significant improvements were often achieved by including the initial values from the smoothed FRF and by combining different strategies.
+
+\section{Computational effort}\label{sec:initvals:computation}
+While improved initial values yield better models of an improved quality, their generation does require some computational effort.
+Although the amount of available computing power has been steadily increasing over the last decades, it remains important to keep an eye on the computing effort required to estimate a model or, in this case, to generate the starting values required to estimate a model.
+E.g. in embedded applications where computing power and physical power consumption are  restrained and which have been attracting a lot of attention in data science during the recent years\TODO{cite arduino, rasbpi}, it remains an important factor to account for.
+
+Here, we will discuss two aspects of the computational effort very briefly.
+On the one hand, the computation time, as measured on a physical computer with a practical implementation of the algorithms, gives a rough idea of how these methods may perform in practice.
+On the other hand, the asymptotic complexity of the different smoothers is investigated. 
+While such asymptotics give little insight in practical running times, they are valuable tools to see how well (or poor) such methods scale up towards larger datasets.
+
+\subsection{Practical runtime}
+In practical measurements of the computation time for any piece of software, one typically distinguishes between different kinds of `time'.
+\begin{itemize}
+  \item The wall-clock time $\wallclocktime$, sometimes called `real time`, is the time difference between the start and end of the program under test.
+  \item The \glsentryshort{CPU} time $\cputime$, is the amount of time that the \glspl{CPU} actually spends executing the program under test.
+\end{itemize}
+This distinction is necessary for multi-tasking environments (such as computer), since during the execution of the program under test, the \gls{CPU} may spend a while to execute other programs in the background.
+The latter obviously requires a small amount of wall-clock time, but it does not increase the \gls{CPU} time of the program:
+\begin{equation}
+  \wallclocktime = \cputime + t_{\mathrm{other\;processes}}
+\end{equation}
+for a single-core \gls{CPU}.
+
+In summary, the $\cputime$ is an indication of the computational effort required to execute the algorithm, whereas $\wallclocktime$ indicates the amount of time a user has to wait for the program.
+In this case $\cputime$ is hence the most relevant of both, since $\wallclocktime$ is also determined by what other programs the user is running at the same time.
+
+Unfortunately, \MATLAB, like many other interpreted languages, does not provide any feature to measure $\cputime$ of a segment of code.
+Instead, the typical \code{tic} and \code{toc} functions measure the wall-clock time.
+To reduce the effect of other running programs and one-time actions (e.g. just-in-time compilation, caching, \ldots), it is a common practice~\citep{McKeeman2008} to repeatedly measure $\wallclocktime$ and retain the minimum (as an approximation for $\cputime$) and/or the median (to reduce the effect of other programs claiming the \gls{CPU} for extended amounts of time).
+
+In this case, the \MATLAB function \code{timeit}~\citep{matlab:timeit} has been used to measure the timing of the different functions.
+This function  reports the median wall-clock time and chooses the number of repetitions automatically.
+The timings have been measured on an Early 2013 MacBook Pro Retina 15-inch with $2.7\unit{GHz}$ Intel Core i7 \gls{CPU} and $16 \unit{GB}$ \gls{RAM} running Mac OS X 10.11.3 and \MATLAB R2015b.
+The recommendations from the white paper by \citet{McKeeman2008} have been followed during these measurements.
+
+\TODO{describe settings for the experiment: $N$, etc.}
+
+The observed timings are shown in \TODO{tableref}.
+\TODO{discuss timings}
+
+\TODO{table summary}
+
+\subsection{Asymptotic runtime}
+For the asymptotic runtime, we are mainly interested in how each of the smoothers scale with the size of the dataset, i.e. the number of samples $N$.
+
+% See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression-operation
+
+The \gls{LPM} itself solves $N$ linear systems of small dimensions ($2N_W + 1$ equations and a few degrees of freedom), hence the overall runtime will be $\bigO{N \cdot N_W^3}$ since solving a linear system requires $\bigO{n^3}$ operations in general~\citep{Golub1996}.
+The truncation of the impulse response relies on linear regression which takes $\bigO{n_{\theta}^2 N}$ operations.
+Overall, this means that the time-truncated \gls{LPM} operates in $\bigO{N}$ since both $n_{\theta}$ and $N_W$ are typically small.
+
+Since the \gls{RFIR} relies on fitting a \gls{FIR} filter to $N$ datapoints, this relies on inverting a matrix with largest dimension $N$. 
+Using general methods, this is an operations that requires $\bigO{N^3}$ time.
+% However, due to the Toeplitz structure~\citep{Heinig2011} of the regression matrix, this can be solved in $\bigO{N^2}$.
+
+It can be seen that the local modeling methods scale more favorably than e.g. \gls{RFIR}.
+
+\subsection{Implementation aspects}
+\TODO{hint towards parallization}
+\TODO{most costly: iteration}
 
 \section{Conclusion}\label{se:Conclusion}
 The simulations have demonstrated that use of a smoothed non-parametric estimate of the \gls{FRF} can improve the success rate of minimizing the \gls{ML} cost function for the estimation of the transfer functions of \gls{LTI} systems, subjected to noisy signals. Specifically, two smoothing methods were used and compared: 1) the truncated \gls{LPM} method, and 2) the \gls{RFIR} method. The simulation results clearly show that the \gls{RFIR} method is superior to the truncated \gls{LPM} method and the existing \gls{BTLS} and \gls{GTLS} methods.
