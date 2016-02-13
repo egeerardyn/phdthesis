@@ -915,13 +915,10 @@ The situation is already less severe for $\model{trunc}$ (in $75\%$ of the cases
   \input{\thisDir/fig/special-histogram.tikz}
   \caption[Performance degradation/enhancement for selecting the second best model.]{
   Performance degradation/enhancement ($X_{\bullet}-X_{\mathrm{best}}$) for choosing a given method $\bullet$ instead of the `best' method for the measurement example in this chapter.
-  In red/orange the positive values ($X_{\bullet} > X_{\mathrm{best}}$), the performance degradation for using $\model{\bullet}$ over $\model{best}$ is shown.
-  The negative values ($X_{\bullet} < X_{\mathrm{best}}$), i.e. the performance enhancement (for using $\model{\bullet}$ instead of $\model{best}$) is shown in green/blue.
-  Zero values (i.e. $X_{\bullet} = X_{\mathrm{best}}$) are not shown, hence the plot shows when method $\bullet$ is \emph{not} selected as the `best' method.
+  The markers show individual observations and the boxes show the \gls{IQR}.
   The dashed lines are the minimum, median and maximum of $X_{\bullet}$ to give a sense of scale.
-  The performance degradation of choosing $\model{RFIR}$ instead of $\model{best}$ is smaller than the corresponding performance degradation for the other methods.
-  The performance enhancement from choosing $\model{RFIR}$ over $\model{best}$, is almost on par with the corresponding performance degradation (i.e. there is little to gain \emph{or} lose from choosing $\model{RFIR}$ over $\model{best}$).
-  For $\model{trunc}$ and $\model{exist}$, there is much less performance to gain from picking those over $\model{best}$ and there is a lot more to lose.
+  On average there is little to gain or lose from using $\model{RFIR}$ instead of $\model{best}$.
+  For $\model{exist}$ and $\model{trunc}$, the situation is a lot less favorable.
   }
   \label{fig:init:histogramEnhancement}
 \end{figure}
