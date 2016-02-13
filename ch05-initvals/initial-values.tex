@@ -283,9 +283,17 @@ The \gls{DFT} of the obtained regularized estimate of the impulse response $\hat
 \end{enumerate}
 
 \begin{remark}
+The \gls{LRM} has also been tried to generate better initial values.
+However, given the discussion in \chapref{sec:nonparametric}, it is clear that the \gls{LRM} performs poorly in low \gls{SNR} situations.
+The same was apparent from the quick trial we ran on \gls{LRM} starting values.
+As such, the use of \gls{LRM} over \gls{LPM} offers no advantage for generation initial estimates.
+\end{remark}
+
+\begin{remark}
 Note that methods 3) and 4) result in a non-parametric estimate of the transfer function, represented as the \gls{FRF}. 
 A corresponding parametric estimate is obtained as follows. 
-A parametric estimator (GTLS, BTLS, and MLE) is invoked, where the input spectrum is considered to be $1$ at all frequencies (Dirac in the time domain), and the output spectrum is set equal to the estimated FRF, with the transient term $I$ set to zero. It is important to note that invoking the GTLS, BTLS and MLE on the FRFs from methods 3) and 4) will yield a different result from applying the GTLS, BTLS and MLE on the raw data. This is because the FRFs from 3) and 4) have been smoothed and, thus, have a significantly lower noise variance.
+A parametric estimator (GTLS, BTLS, and MLE) is invoked, where the input spectrum is considered to be $1$ at all frequencies (Dirac in the time domain), and the output spectrum is set equal to the estimated FRF, with the transient term $I$ set to zero. 
+It is important to note that invoking the GTLS, BTLS and MLE on the FRFs from methods 3) and 4) will yield a different result from applying the GTLS, BTLS and MLE on the raw data. This is because the FRFs from 3) and 4) have been smoothed and, thus, have a significantly lower noise variance.
 \TODO{spectra als formule geven}
 \end{remark}
 %}
@@ -339,7 +347,9 @@ A particular initial estimate is deemed \emph{successful} if the optimization of
 \begin{conjecture}\label{conj1}
 The true model $\true{G}$ as an initial estimate is the best possible initial estimate one can use for the nonlinear identification algorithm (the leftmost path in \figref{fig:flowgraph}) and will allow the optimization to converge to the \emph{best local optimum}, i.e. $\model{0}$.
 \end{conjecture}
-\TODO{Johan: merk op dat dit niet zo hoeft te zijn! zelfs vanuit $\true{G}$ kan het misgaan}
+\begin{remark}
+The use of $\true{G}$ as an initial estimation not necessarily entails in converging to the global optimum since it is not guaranteed that $\true{G}$ lies within the attraction region of the global optimum.
+\end{remark}
 
 From this conjecture, use of the true system as an initial estimate would engender the best final estimate or hopefully even the global optimum.
 Since the true system is not really known in practice, this chapter compares the capability of different possible initial estimates to emulate the result that would be obtained by using the true model as an initial estimate. 
@@ -1066,7 +1076,7 @@ The observed timings are shown in \TODO{tableref}.
 \TODO{table summary}
 
 \subsection{Asymptotic runtime}
-For the asymptotic runtime, we are mainly interested in how each of the smoothers scale with the size of the dataset, i.e. the number of samples $N$.
+For the asymptotic runtime, we are mainly interested in how the runtime of the smoothers scale with the size of the dataset, i.e. the number of samples $N$, and the model complexity $n_{\theta}$.
 
 % See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression-operation
 
@@ -1076,13 +1086,16 @@ Overall, this means that the time-truncated \gls{LPM} operates in $\bigO{N}$ sin
 
 Since the \gls{RFIR} relies on fitting a \gls{FIR} filter to $N$ datapoints, this relies on inverting a matrix with largest dimension $N$. 
 Using general methods, this is an operations that requires $\bigO{N^3}$ time.
-% However, due to the Toeplitz structure~\citep{Heinig2011} of the regression matrix, this can be solved in $\bigO{N^2}$.
 
 It can be seen that the local modeling methods scale more favorably than e.g. \gls{RFIR}.
 
 \subsection{Implementation aspects}
-\TODO{hint towards parallization}
-\TODO{most costly: iteration}
+This section discusses some implications and recommendations for the implementation of  a system identification toolbox.
+
+Whereas \gls{RFIR} is shown to provide reliable starting values, it remains advisable to have multiple initialization strategies available to improve the likelihood of attaining a good starting value.
+This is also the approach that toolboxes such as \citep{FDIDENT} and \citep{TDIDENT} employ.
+Luckily, trying out multiple initialization strategies is \emph{embarrassingly parallellizable}, i.e. one can easily try out a different strategy in parallel without incurring a lot of overhead.
+As such, computing multiple starting values can happen without a significant increase in wall-clock time and consequently a sluggish user-experience.
 
 \section{Conclusion}\label{se:Conclusion}
 The simulations have demonstrated that use of a smoothed non-parametric estimate of the \gls{FRF} can improve the success rate of minimizing the \gls{ML} cost function for the estimation of the transfer functions of \gls{LTI} systems, subjected to noisy signals. Specifically, two smoothing methods were used and compared: 1) the truncated \gls{LPM} method, and 2) the \gls{RFIR} method. The simulation results clearly show that the \gls{RFIR} method is superior to the truncated \gls{LPM} method and the existing \gls{BTLS} and \gls{GTLS} methods.
