@@ -1,18 +1,27 @@
 \chapter{Summary}
-To understand, simulate and control physical systems around us, good mathematical models of these systems are required. To obtain such models, system identification is a set of powerful tools that serve to extract mathematical models from measurements of the physical world given the assumptions one makes about this world. To this end, one has to carry out different steps:
+To understand, simulate and control physical systems, good mathematical models are required. 
+System identification is a set of powerful tools that distill mathematical models from measurements of the physical world. 
+To this end, one has to:
 \begin{enumerate}
- \item perform experiments to observe the world in a meaningful way,
- \item inspect the measured data and check whether they are of good quality,
- \item suppress unwanted effects and extract the features of interest from the measurements,
-\item fit a mathematical model to the measurement data.
+\item perform experiments to observe the system in a meaningful way,
+\item suppress unwanted effects and extract the features of interest from the measurements,
+\item fit a model to the measurements.
 \end{enumerate}
 
-Unfortunately, the effective use of system identification hinges strongly on the skill the user possesses for each of these steps. This doctorate focuses on providing easy-to-use system identification tools. This should allow both beginning users to obtain good models with little effort, and seasoned practitioners to obtain better models with more ease.
+Unfortunately, the effective use of system identification hinges strongly on the skill of the user. This doctorate focuses on easy-to-use system identification tools. 
+These should allow both beginners to obtain good models, and seasoned practitioners to obtain better models with ease.
 
-The first part of this work focuses on the design of a good experiment. Contrary to optimal design, this work related to robust experiment design, uses very little and relatively ``unstructured'' information about the system under test such that the obtained multisine signals can be used to measure a wide class of systems effectively. This design relies on a few assumptions such as a very rough idea of the frequency band of interest and the minimal damping one expects to observe from the system to obtain a polyvalent excitation design.
+The first part of this work focuses on the design of a robust experiment. 
+In contrast to optimal designs, only a few assumptions about the system, e.g. the minimal damping and the frequency bands of interest, are made. 
+Therefore, such a constructed multisine signal can be used to measure many different systems efficiently.
 
-The second part of this thesis describes non-parametric estimators for the frequency response function (FRF) that can estimate and suppress leakage and noise effects in the measurements. Most importantly, in this work extensions of the Local Polynomial and Local Rational Method (LPM and LRM) are investigated. This family of local estimators rely on approximating the input-output measurements in local windows in the frequency domain by either polynomial or rational models. 
+The second part of this thesis describes non-parametric estimators for the frequency response function (FRF) that estimate and suppress leakage and noise effects. 
+Extensions of the Local Polynomial and Local Rational Method (LPM and LRM) are investigated. These approximate the input-output measurements in local frequency domain windows by either polynomial or rational models.
 
-Consequently, such local models can be used to great effect in areas where high-order models are commonly used, e.g. for the flexible dynamics of mechanical structures. In particular, these techniques have been used on an active vibration isolation system to estimate the resonance peaks without having to rely on high-order models and the tremendous model selection effort they require. Equally important, this has also shown that these local modeling methods allow a much more accurate view of the resonance to be extracted, than one can obtain from typical FRFs by exploiting the local models to interpolate in-between the frequency grid. Hence, compared to typical FRF measurements, this can reduce the measurement time significantly.
+Such local models can be used to great effect e.g. for the flexible dynamics of mechanical structures.
+ These local models have been used to obtain a more detailed view of the many resonance peaks of an active vibration isolation system than typical FRFs provide and unlike high-order models, they don’t incur laborious model-order selection.
+Consequently, the measurement time and modeling effort can be reduced significantly.
 
-The final part of the thesis considers the use of non-parametric smoothers to obtain better initial values to fit (global) parametric models to the measurement data. In particular, the situation with low signal-to-noise is considered since many initialization procedures tend to produce poor models. In this research, it has been shown that a very considerable improvement can be obtained, either by using a modified LPM or by using regularization. This allows users to obtain more reliable models, even from poor measurement data.
+The final part of the thesis considers the use of FRF smoothers to obtain better initial values to fit parametric models to the measurement data. 
+In particular for low signal-to-noise ratios, local modeling or regularization provide a considerable improvements. 
+This allows users to obtain better models, even from poor measurements.
