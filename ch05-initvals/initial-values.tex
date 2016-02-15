@@ -133,23 +133,41 @@ Such an approach requires good initial estimates of $\theta$ to avoid inherent l
 \begin{algorithm}
 \caption{Levenberg-Marquardt~\citep{Marquardt1963}, \citep[Sec. 9.L.4]{Pintelon2012}}\label{LMalgo}
 \begin{algorithmic}[1]
-  \Statex Cost function \eqref{eq:MLEcf} is rewritten as $V(\theta) = \epsilon^{\TT} \epsilon$. 
-  \Statex The iterations start at $\atIter[0]{\theta} = \theta^{\mathrm{init}}$ and $\lambda = \max(\sigma)/100$.
-%\Function{LevenbergMarquardt}{$V(\theta), \atIter[0]{\theta}$}
+  \Require Cost function \eqref{eq:MLEcf} is rewritten as $V(\theta) = \epsilon(\theta)^{\TT} \epsilon(\theta)$. 
+\Function{LevenbergMarquardt}{$\epsilon(\theta),  \theta^{\mathrm{init}}$}
+   \State $\atIter[0]{\theta} \gets \theta^{\mathrm{init}}$
+   \Comment{$\atIter[i]{X}$ denotes $X$ at iteration $i$.}
    \For{$i$ \textbf{in} $1 \to \infty$}
-      \State $U \, \Sigma \, W^{\TT} \gets \mathtt{svd}\left( \frac{\partial \epsilon}{\partial \theta}\right)$ with $\mathrm{diag}(\Sigma) = [\sigma_1, \ldots, \sigma_n]$
+      \State $U \, \Sigma \, W^{\TT} \gets \code{svd}\left( \frac{\partial \epsilon(\atIter[i-1]{\theta})}{\partial \theta}\right)$ 
+        \Comment{Singular value decomposition of Jacobian}
+      % \State $
+      %                  \text{Denote }\Sigma \equiv 
+      %                  \left[ \begin{matrix} 
+      %                  \sigma_1         & \deemph{0} & \deemph{\cdots} &           & \deemph{0}      \\
+      %                  \deemph{0}      & \sigma_2    &                   &           &                   \\
+      %                  \deemph{\vdots} &              & \ddots            &           & \deemph{\vdots} \\
+      %                                    &              &                   & \sigma_n &                   \\
+      %                   \deemph{0}      &              & \deemph{\cdots} &           & \deemph{0}      
+      %                   \end{matrix}\right]
+      %                $
       % \State \textbf{if} $i=1$ \textbf{ then} $\lambda \gets \max(\sigma) / 100$
-      \State $\sigma_k \gets \sigma_k / (\sigma_k^2 + \lambda^2) \quad \forall k \in \{1, \ldots, n\}$
-      \State $\delta\theta \gets - W  \Sigma^{\TT}  U^{\TT} \epsilon$
-      \State $\atIter[i]{\theta} \gets (\atIter[i-1]{\theta} + \delta\theta) / \norm{\atIter[i-1]{\theta} + \delta\theta} $
-      \If{$V(\atIter[i]{\theta}) > V(\atIter[i-1]{\theta})$}
-          \State $\lambda \gets 10 \lambda$ and then retry at $i \gets i - 1$
+      \If{$\lambda$ is undefined}
+        \State $\lambda \gets \max(\Set{\Sigma_{11}, \ldots, \Sigma_{nn}})/100$
+      \EndIf
+      \State $\Sigma_{kk} \gets \frac{\Sigma_{kk}}{(\Sigma_{kk}^2 + \lambda^2)} \quad \forall k \in \Set{1, \ldots, n}$
+      \State $\delta\theta \gets - W  \Sigma^{\TT}  U^{\TT} \epsilon(\atIter[i-1]{\theta})$
+      \State $\atIter[i]{\theta} \gets \frac{(\atIter[i-1]{\theta} + \delta\theta) }{ \norm[2]{\atIter[i-1]{\theta} + \delta\theta} }$
+      \If{$V(\atIter[i]{\theta}) > V(\atIter[i-1]{\theta})$} \Comment{Current step is a deterioration}
+         \State $\atIter[i]{\theta} \gets \atIter[i-1]{\theta}$ \Comment{Restart loop from previous estimate}
+          \State $\lambda \gets 10 \lambda$ 
       \Else
           \State $\lambda \gets 0.4 \lambda$
       \EndIf
-      \State \textbf{if} $\norm{\delta\theta}/\norm{\atIter[i]{\theta}} < n_{\theta}  \cdot 10^{-6} $ \textbf{then} \textbf{return} $\hat{\theta} \gets \atIter[i]{\theta}$
+      \If {$\norm[2]{\delta\theta} < n_{\theta}  \cdot 10^{-6} \norm[2]{\atIter[i]{\theta}}$}
+          \State \textbf{return} $\hat{\theta} \gets \atIter[i]{\theta}$
+      \EndIf
    \EndFor
-%\EndFunction
+\EndFunction
 \end{algorithmic}
 \end{algorithm}
 
