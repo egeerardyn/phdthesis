@@ -285,11 +285,11 @@ Specifically, the element at $t_1,t_2$ of $P$ is given by
 P(\alpha,\beta)_{t_1,t_2} = e^{-\alpha|t_1 - t_2|}e^{-\beta(t_1 + t_2)/2}
 \end{equation}
  for $t_1,t_2 \in \left\{0,1,\cdots,n_h - 1\right\}$ which makes the estimated impulse response to be an exponentially decaying function of $t$ with decay rate $\beta^{-1}$, and correlation length $\alpha^{-1}$. 
- The latter \emph{hyperparameters} $\alpha$ and $\beta$ are determined using Empirical Bayes, i.e. as the maximizers of the \gls{LML} of the measured output signal:
+ The latter \emph{hyperparameters} $\alpha$, $\beta$ and $\sigma$ are determined using Empirical Bayes, i.e. as the maximizers of the \gls{LML} of the measured output signal:
 \begin{align}
 \mathrm{LML}(y) = -y^{\TT}\Sigma(\alpha,\beta)^{-1}y - \log |\Sigma(\alpha,\beta)| \text{,}
 \end{align}
-where $\Sigma(\alpha,\beta) = \sigma^2 \I + \phi^{\TT}P(\alpha,\beta)\phi$ and $\phi$ is a Toeplitz matrix constructed with $u$. 
+where $\Sigma(\alpha,\beta, \sigma) = \sigma^2 \I + \phi^{\TT}P(\alpha,\beta)\phi$ and $\phi$ is a Toeplitz matrix constructed with $u$. 
 This problem is solved using \code{fmincon} in \MATLAB.
 
 An implementation of the \gls{RFIR} estimator is available as the \code{arx} function in the System Identification Toolbox since \MATLAB~2013b with $\mathtt{na} = 0$, $\mathtt{nb} = n_g$, $\mathtt{nk}=0$ and regularization enabled in \code{arxoptions}. 
@@ -351,7 +351,7 @@ Formally, let $\model{\bullet}$ be the final parametric estimate of the system, 
 %\comment{JL:be consequent with the orders (and refer to the specific branches in the flowchart)}
 \begin{itemize}
 \item 
-$\model{0}$ via the true model $\true{G}$ as an initial estimate,
+$\model{\trueSymbol}$ via the true model $\true{G}$ as an initial estimate,
 \item
 $\model{exist}$ is obtained via GTLS and BTLS,
 \item
@@ -363,7 +363,7 @@ $\model{RFIR}$, initialized by means of the RFIR method.
 A particular initial estimate is deemed \emph{successful} if the optimization of the MLE cost with the raw input-output data inserted in equation~\eqref{eq:MLEcf}, reaches the \emph{best local optimum} when iteration is initiated with the selected initial value/estimate.
 
 \begin{conjecture}\label{conj1}
-The true model $\true{G}$ as an initial estimate is the best possible initial estimate one can use for the nonlinear identification algorithm (the leftmost path in \figref{fig:flowgraph}) and will allow the optimization to converge to the \emph{best local optimum}, i.e. $\model{0}$.
+The true model $\true{G}$ as an initial estimate is the best possible initial estimate one can use for the nonlinear optimization algorithm (the leftmost path in \figref{fig:flowgraph}) and will allow the optimization to converge to the \emph{best local optimum}, i.e. $\model{\trueSymbol}$.
 \end{conjecture}
 \begin{remark}
 The use of $\true{G}$ as an initial estimation not necessarily entails in converging to the global optimum since it is not guaranteed that $\true{G}$ lies within the attraction region of the global optimum.
@@ -375,32 +375,37 @@ Since the true system is not really known in practice, this chapter compares the
 The capability is quantified by defining the success rate of the initial estimate as the probability that the identification algorithm reaches the \emph{best local optimum} when the selected initial estimate is used. %using the selected initial estimate.
 
 
-%$\hat G_\mathrm{trunc}$ and $\hat G_\mathrm{BTLS}$ are discussed later on.
-
 The success rate $\eta$ is expressed mathematically as a probability function, consistent with Conjecture \ref{conj1}, \emph{viz}:
-%\JL{in agreement with assumption \ref{assumption_G0hat_is_global_optimum}} \emph{viz}:
-\begin{align}
-\eta=\Prob{\hat G_\bullet=\hat G_0}
-\end{align}
+\begin{equation}
+\eta_{\bullet}=\Prob{\model{\bullet}=\model{\trueSymbol}}
+\end{equation}
 In practice, and since the iterative algorithm usually does not reach the local optimum precisely, the above definition is relaxed to the form
-\begin{align}\label{eq:successrateTol}
-\eta=\Prob{ \norm{\hat G_\bullet-\hat G_0} < tol}
-\end{align}
+\begin{equation}\label{eq:successrateTol}
+\eta_{\bullet} \isdef \Prob{ \norm[2]{\model{\bullet} - \model{\trueSymbol}} < tol}
+\end{equation}
 with $tol$ a numerical tolerance that will be specified later on.
-\TODO{Johan: beter een relatief criterium gebruiken (delen door $\norm{\true{G}}$)}
+\begin{remark}
+For an automated approach, it is better to define the success rate in terms of relative errors on the transfer function, i.e.
+\begin{equation}
+\eta_{\bullet} = \Prob{ \norm[2]{\model{\bullet}-\model{\trueSymbol}} < rel.tol  \norm[2]{\true{G}}}
+\text{.}
+\end{equation}
+\end{remark}
+\begin{remark}
+In this chapter, the absolute criterion is used.
+However, the results are equivalent for a relative criterion when the separation between successful and failed estimates is large since then observed success rate $\eta$ is only mildly sensitive towards the tolerance $tol$ (or $rel.tol$) when the tolerance is chosen with care.
+Consequently, one can easily determine the equivalent relative tolerance from the absolute one using $tol = rel.tol \norm[2]{\true{G}}$.
+\end{remark}
 
 % \comment{JL to EG: It is better to implement the success rate as given in \eqref{eq:successrateTol}, because that can more easily be adhered. Note that it is not obvious to determine a tolerance on the difference between the estimated and the true model, because that depends on the noise variance of the estimate. On the other hand, the tolerance in \eqref{eq:successrateTol} and \eqref{eq:toldef} is independent of the noise variance.
 %\comment{\EG{it is implemented that way now}}
 % }
 
-%\begin{align}
-%p(\hat G_x=\hat G_\circ) %G_0(q)= B(q)/A(q)
-%\end{align}
 
-
-The distance measure used in equation \eqref{eq:successrateTol} is defined, for discrete time, as
+The distance measure used in equation \eqref{eq:successrateTol} is defined as
 \begin{align}
-\|G\|_2 = \sqrt{\frac{1}{2\pi}\int_0^{2\pi} |G(e^{-j\omega})|^2\ \mathrm{d}\omega}
+\norm[2]{G(z)} &\isdef \sqrt{\frac{1}{2\pi}\int_0^{2\pi} |G(e^{-j\omega})|^2\ \mathrm{d}\omega}& \text{ for discrete time,}\\
+\norm[2]{G(s)} &\isdef \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} |G(j\omega)|^2\ \mathrm{d}\omega}& \text{ for continuous time}
 \end{align}
  which, in practice, is computed by using the adaptive global quadrature algorithm provided by the MATLAB function \code{integral}.
 %\comment{EG: The exact implementation is in the L2Norm function. Basically, either numerical or symbolic integration can be used (as our models are parametric), but both yield equally workable results (cfr. testDistance). I picked a full numerical approach as the symbolic one doesn't always work on my computer.}
@@ -968,8 +973,8 @@ The band-pass, respectively band-stop, filters have a passband, respectively sto
 Note also that both the band-pass and band-stop filters have a McMillan degree of 20 as per the \MATLAB conventions.
 See \tabref{tbl:init:stresstest} for an overview of the filters and  \figref{fig:bodeplots} for the corresponding bode plots.
 
-The input excitation and the disturbing output noise were $N=1024$ samples of white Gaussian noise such that and an SNR of $20 \unit{dB}$ was attained at the output.
-Note that due to $\norm[2]{\true{G}}=1$, the validation distance $\norm{\model{G} - \true{G}}$ is exactly the relative \gls{RMS} estimation error of the transfer function.
+The input excitation and the disturbing output noise were $N=1024$ samples of white Gaussian noise such that and an \gls{SNR} of $20 \unit{dB}$ was attained at the output.
+Note that due to $\norm[2]{\true{G}}=1$, the validation distance $\norm[2]{\model{\bullet} - \true{G}}$ is exactly the relative \gls{RMS} estimation error of the transfer function.
 
 \begin{table}
   \centering
@@ -1001,7 +1006,8 @@ Note that due to $\norm[2]{\true{G}}=1$, the validation distance $\norm{\model{G
 
 \subsection{Observations}
 The transfer functions are shown in \figref{fig:bodeplots} while the empirical cumulative validation distance is shown in \figref{fig:distancesStress}.
-In \tabref{tbl:init:stresstest}, also the success rates per method are given when a tolerance $tol = 0.02$ is used when success is determined as $D_{\bullet} = \norm{\model{\bullet} - \true{G}} < tol$.
+In \tabref{tbl:init:stresstest}, also the success rates per method are given when a tolerance $tol = 0.02$ is used when success is determined as $D_{\bullet} = \norm[2]{\model{\bullet} - \true{G}} < tol$.
+This is equivalent to the relative criterion of success since $\norm[2]{\true{G}} = 1$ for all systems.
 
 \begin{figure}[p]
   \setlength{\figurewidth}{0.85\columnwidth}
@@ -1083,26 +1089,68 @@ This function  reports the median wall-clock time and chooses the number of repe
 The timings have been measured on an Early 2013 MacBook Pro Retina 15-inch with $2.7\unit{GHz}$ Intel Core i7 \gls{CPU} and $16 \unit{GB}$ \gls{RAM} running Mac OS X 10.11.3 and \MATLAB R2015b.
 The recommendations from the white paper by \citet{McKeeman2008} have been followed during these measurements.
 
-\TODO{describe settings for the experiment: $N$, etc.}
+To measure the timing of the different methods, essentially the same settings were used as in \secref{se:Demo}: the systems from equations \eqref{eq:systemundertest} and \eqref{eq:systundertest-20dB} were simulated such that $N_{3\unit{dB}} \in \Set{36,48}$ and $\SNR = 0 \unit{dB}$.
+For each of the branches in \figref{fig:flowgraph}, three different timings are recorded (when applicable):
+\begin{itemize}
+  \item $t_{\mathrm{smooth}}$ is the time it takes to perform the smoothing (all blocks before \gls{GTLS}/\gls{BTLS}),
+  \item $t_{\mathrm{init}}$ is the time it takes to fit $\model[init]{\bullet}$, and
+  \item $t_{\mathrm{final}}$ is the time it takes to fit $\model{\bullet}$.
+\end{itemize}
+The median timings as returned by \code{timeit} are reported in \tabref{tbl:init:timing}.
 
-The observed timings are shown in \TODO{tableref}.
-\TODO{discuss timings}
+\begin{table}
+  \centering
+  \centering
+  \caption{Observed timing of the different estimation steps.}
+% \input{\thisDir/table2.tex}
+\pgfplotstabletypeset[precision=2,zerofill=true]{
+Q  NBW  method  tsmooth    tinit  tfinal
+ 6  36  \model{true}    nan     nan     0.197034 
+ 6  36  \model{exist}   nan     nan     0.159937 
+ 6  36  \model{trunc}   0.745073    0.0623485   0.163107 
+ 6  36  \model{RFIR}    6.79873     0.0774866   0.175263 
+ 6  48  \model{true}    nan     nan     0.209216 
+ 6  48  \model{exist}   nan     nan     0.206823 
+ 6  48  \model{trunc}   1.00383     0.0902347   0.208173 
+ 6  48  \model{RFIR}    6.18632     0.0910651   0.221194 
+20  36  \model{true}    nan     nan     0.445936 
+20  36  \model{exist}   nan     nan     0.429752 
+20  36  \model{trunc}   4.83667     0.225876    0.454757 
+20  36  \model{RFIR}    6.92575     0.253981    0.482431 
+20  48  \model{true}    nan     nan     0.467081 
+20  48  \model{exist}   nan     nan     0.457577 
+20  48  \model{trunc}   6.59726     0.312937    0.461114 
+20  48  \model{RFIR}    8.05168     0.312297    0.468905 
+}
+\label{tbl:init:timing}
 
-\TODO{table summary}
+\TODO{fix pgfplotstable formatting}
+\end{table}
+
+From the timings in \tabref{tbl:init:timing}, it can be seen that the smoothers require a considerable amount of time that overshadows the fitting time.
+However, it should be noted that all these implementations rely on code that has not been optimized for performance.
+As such it is not possible to draw conclusions about the performance one may expect from performance-optimized implementations one would use in a commercial toolbox.
+In particular the \gls{RFIR} smoother takes an exorbitant amount of time.
+The fact that for small problem sizes (top of the table) the runtime is only slightly shorter than for the larger problems (bottom of the table), suggests that there is a considerable fixed overhead in the implementation we used.
+Particularly, the construction of the \gls{DCkernel} matrix happens to be the culprit for these long execution times.
+The truncated \gls{LPM}, on the other hand, requires a more reasonable amount of time for the short data lengths.
+For longer datasets, it appears that the \code{kron} function is one of the major culprits for the long runtimes of the \gls{LPM}.
 
 \subsection{Asymptotic runtime}
-For the asymptotic runtime, we are mainly interested in how the runtime of the smoothers scale with the size of the dataset, i.e. the number of samples $N$, and the model complexity $n_{\theta}$.
+For the asymptotic runtime, we are mainly interested in how the runtime of the smoothers scale with the size of the dataset, i.e. the number of samples $N$, and the model complexity $n_{\theta}$ of the smoother.
 
 % See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression-operation
 
-The \gls{LPM} itself solves $N$ linear systems of small dimensions ($2N_W + 1$ equations and a few degrees of freedom), hence the overall runtime will be $\bigO{N \cdot N_W^3}$ since solving a linear system requires $\bigO{n^3}$ operations in general~\citep{Golub1996}.
-The truncation of the impulse response relies on linear regression which takes $\bigO{n_{\theta}^2 N}$ operations.
-Overall, this means that the time-truncated \gls{LPM} operates in $\bigO{N}$ since both $n_{\theta}$ and $N_W$ are typically small.
+The \gls{LPM} itself solves $N$ linear systems of small dimensions ($2N_W + 1$ equations and a few degrees of freedom, i.e. $n_{\theta} \leq 2 N_W + 1$), hence the overall runtime will be $\bigO{N \cdot N_W^3}$ since solving a linear regression problem with $C$ parameters and $D$ datapoints takes $\bigO{C^3  + D C^2}$ operations\footnote{See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression-operation}.
+The truncation of the impulse response relies on linear regression which takes $\bigO{N}$ operations since only $3$ parameters are estimated during this step.
+Overall, this means that the time-truncated \gls{LPM} operates in $\bigO{N n_{\theta}^{3}}$
 
-Since the \gls{RFIR} relies on fitting a \gls{FIR} filter to $N$ datapoints, this relies on inverting a matrix with largest dimension $N$. 
-Using general methods, this is an operations that requires $\bigO{N^3}$ time.
+The \gls{RFIR} relies on fitting a \gls{FIR} filter with $n_{\theta} = n_g$ taps to $N$ datapoints.
+Using the same logic as above, this requires $\bigO{N n_{g}^2 + n_g^3}$ operations.
 
-It can be seen that the local modeling methods scale more favorably than e.g. \gls{RFIR}.
+The computational complexity  of both methods scales linearly in the length of the dataset.
+However, since the required length $n_g$ of a \gls{FIR} filter is typically a lot more (e.g. $200$ in this chapter) than the number of local parameters (or bandwidth) of the \gls{LPM} (e.g. $N_W = 3$), it can be seen that eventually the \gls{RFIR} method will scale less favorably for the model complexity of the smoother.
+Intuitively, the local modeling methods benefit from their locality since that enables them to be flexible without a huge amount of parameters.
 
 \subsection{Implementation aspects}
 This section discusses some implications and recommendations for the implementation of  a system identification toolbox.

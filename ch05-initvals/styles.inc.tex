@@ -72,6 +72,7 @@
 \pgfplotstableset{%
 	%zerofill=true,
 	after row=[3pt],
+                  clear infinite,
 	assign column name/.code={%
         \pgfkeyssetvalue{/pgfplots/table/column name}{\multicolumn{1}{c}{\multirow{2}{*}{#1}} }%
     },
@@ -82,6 +83,11 @@
 	columns/P050/.style={column type=r,column name={\shortstack[r]{\textsc{Median}\\{$50\%$}}}},
 	columns/P075/.style={column type=r,column name={\shortstack[r]{\vphantom{?}\\\textsc{$75\%$ }}}},
 	columns/P100/.style={column type=r,column name={\shortstack[r]{\textsc{Max.}\\{$100\%$}}}},
+                  columns/Q/.style={column type=r,column name={\shortstack[r]{\textsc{$Q$.}\\{$\unit{dB}$}}}},
+                  columns/NBW/.style={column type=r,column name={\shortstack[r]{\textsc{$N_{\mathrm{3dB}}$.}\\{}}}},
+                  columns/tsmooth/.style={column type=r,column name={X}},
+                  columns/tinit/.style={column type=r,column name={\shortstack[r]{\textsc{$t_{\mathrm{init}}$.}\\{$\unit{s}$}}}},
+                  columns/tfinal/.style={column type=r,column name={\shortstack[r]{\textsc{$t_{\mathrm{final}}$.}\\{$\unit{s}$}}}},
 	columns/contribution/.style={column name={\shortstack[r]{\textsc{Contribution}\\ \vphantom{0}}},
 	postproc cell content/.append code={
             %\ifnum1=\pgfplotstablepartno
