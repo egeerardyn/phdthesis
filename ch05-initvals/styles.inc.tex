@@ -70,31 +70,20 @@
 \tikzset{annotation/.style={align=left,draw=black!0.2,font=\scriptsize,fill=white,fill opacity=0.8}}
 
 \pgfplotstableset{%
-	%zerofill=true,
+	zerofill=true,
 	after row=[3pt],
-                  clear infinite,
+                  every head row/.style={before row=\toprule, after row={\\\midrule}},
+                  every last row/.style={after row=\bottomrule}
 	assign column name/.code={%
         \pgfkeyssetvalue{/pgfplots/table/column name}{\multicolumn{1}{c}{\multirow{2}{*}{#1}} }%
     },
 	columns/method/.style={string type,column name={\shortstack{\textsc{Method}\\\phantom{0}}}},
-	columns/contribution/.style={column name={\textsc{Contribution}}},
 	columns/P000/.style={column type=r,column name={\shortstack[r]{\textsc{Min.}\\{$0\%$}}}},
 	columns/P025/.style={column type=r,column name={\shortstack[r]{\vphantom{?}\\\textsc{$25\%$}}}},
 	columns/P050/.style={column type=r,column name={\shortstack[r]{\textsc{Median}\\{$50\%$}}}},
 	columns/P075/.style={column type=r,column name={\shortstack[r]{\vphantom{?}\\\textsc{$75\%$ }}}},
 	columns/P100/.style={column type=r,column name={\shortstack[r]{\textsc{Max.}\\{$100\%$}}}},
-                  columns/Q/.style={column type=r,column name={\shortstack[r]{\textsc{$Q$.}\\{$\unit{dB}$}}}},
-                  columns/NBW/.style={column type=r,column name={\shortstack[r]{\textsc{$N_{\mathrm{3dB}}$.}\\{}}}},
-                  columns/tsmooth/.style={column type=r,column name={X}},
-                  columns/tinit/.style={column type=r,column name={\shortstack[r]{\textsc{$t_{\mathrm{init}}$.}\\{$\unit{s}$}}}},
-                  columns/tfinal/.style={column type=r,column name={\shortstack[r]{\textsc{$t_{\mathrm{final}}$.}\\{$\unit{s}$}}}},
 	columns/contribution/.style={column name={\shortstack[r]{\textsc{Contribution}\\ \vphantom{0}}},
-	postproc cell content/.append code={
-            %\ifnum1=\pgfplotstablepartno
-                \pgfkeysalso{@cell content/.add={}{\%}}%
-            %\fi
-        },
-	},
-	every head row/.style={before row=\toprule, after row={\\\midrule}},
-    every last row/.style={after row=\bottomrule}
+                    	postproc cell content/.append code={\pgfkeysalso{@cell content/.add={}{\%}}},
+	}
 }

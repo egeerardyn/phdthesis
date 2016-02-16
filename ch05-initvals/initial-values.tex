@@ -1103,28 +1103,33 @@ The median timings as returned by \code{timeit} are reported in \tabref{tbl:init
   \centering
   \caption{Observed timing of the different estimation steps.}
 % \input{\thisDir/table2.tex}
-\pgfplotstabletypeset[precision=2,zerofill=true]{
+\pgfplotstabletypeset[zerofill=true,string replace={nan}{},precision=0,relative*=0, %round to 1 ms
+    columns/method/.style={string type,column type=l,column name={\textsc{Method}}},
+    columns/Q/.style={column type=c,column name={$Q\axisunit{dB}$},zerofill=false},
+    columns/NBW/.style={column type=c,column name={$N_{3\unit{dB}}$},zerofill=false},
+    columns/tsmooth/.style={column type=r,column name={$t_{\mathrm{smooth}} \axisunit{ms}$},multiply by=1000},
+    columns/tinit/.style={column type=r,column name={$t_{\mathrm{init}} \axisunit{ms}$},multiply by=1000},
+    columns/tfinal/.style={column type=r,column name={$t_{\mathrm{final}} \axisunit{ms}$},multiply by=1000},
+]{%
 Q  NBW  method  tsmooth    tinit  tfinal
- 6  36  \model{true}    nan     nan     0.197034 
+ 6  36  \model{\trueSymbol}    nan     nan     0.197034 
  6  36  \model{exist}   nan     nan     0.159937 
  6  36  \model{trunc}   0.745073    0.0623485   0.163107 
  6  36  \model{RFIR}    6.79873     0.0774866   0.175263 
- 6  48  \model{true}    nan     nan     0.209216 
+ 6  48  \model{\trueSymbol}    nan     nan     0.209216 
  6  48  \model{exist}   nan     nan     0.206823 
  6  48  \model{trunc}   1.00383     0.0902347   0.208173 
  6  48  \model{RFIR}    6.18632     0.0910651   0.221194 
-20  36  \model{true}    nan     nan     0.445936 
+20  36  \model{\trueSymbol}    nan     nan     0.445936 
 20  36  \model{exist}   nan     nan     0.429752 
 20  36  \model{trunc}   4.83667     0.225876    0.454757 
 20  36  \model{RFIR}    6.92575     0.253981    0.482431 
-20  48  \model{true}    nan     nan     0.467081 
+20  48  \model{\trueSymbol}    nan     nan     0.467081 
 20  48  \model{exist}   nan     nan     0.457577 
 20  48  \model{trunc}   6.59726     0.312937    0.461114 
 20  48  \model{RFIR}    8.05168     0.312297    0.468905 
 }
 \label{tbl:init:timing}
-
-\TODO{fix pgfplotstable formatting}
 \end{table}
 
 From the timings in \tabref{tbl:init:timing}, it can be seen that the smoothers require a considerable amount of time that overshadows the fitting time.
@@ -1141,7 +1146,7 @@ For the asymptotic runtime, we are mainly interested in how the runtime of the s
 
 % See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression-operation
 
-The \gls{LPM} itself solves $N$ linear systems of small dimensions ($2N_W + 1$ equations and a few degrees of freedom, i.e. $n_{\theta} \leq 2 N_W + 1$), hence the overall runtime will be $\bigO{N \cdot N_W^3}$ since solving a linear regression problem with $C$ parameters and $D$ datapoints takes $\bigO{C^3  + D C^2}$ operations\footnote{See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression-operation}.
+The \gls{LPM} itself solves $N$ linear systems of small dimensions ($2N_W + 1$ equations and a few degrees of freedom, i.e. $n_{\theta} \leq 2 N_W + 1$), hence the overall runtime will be $\bigO{N n_{\theta}^3}$ since solving a linear regression problem with $C$ parameters and $D$ data points takes $\bigO{C^3  + D C^2}$ operations\footnote{See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression}.
 The truncation of the impulse response relies on linear regression which takes $\bigO{N}$ operations since only $3$ parameters are estimated during this step.
 Overall, this means that the time-truncated \gls{LPM} operates in $\bigO{N n_{\theta}^{3}}$
 
