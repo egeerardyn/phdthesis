@@ -31,7 +31,7 @@ axis x line*=bottom,
 axis y line*=left,
 % title={$Q=6\unit{dB}$}
 ]
-\addplot [bandwidth]
+\addplot [bw]
   table[row sep=crcr]{%
 0.0695459816004156  -50\\  
 0.0695459816004156  -3.23569840496182\\
@@ -1758,7 +1758,7 @@ xlabel={Frequency \axisunit{rad/s}},
 axis x line*=bottom,
 axis y line*=left,
 ]
-\addplot [bandwidth]
+\addplot [bw]
   table[row sep=crcr]{%
 0.105498938268175   -50\\
 0.105498938268175   -2.98302211744192\\

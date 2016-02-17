@@ -46,10 +46,10 @@ In this section, the assumptions on the system and the noise are presented, toge
 \subsection{System Setup Framework and Model}
 \figref{fig:oesetup} depicts a schematic of the output error framework for  a generalized (single- or multiple-order) resonating, dynamic LTI discrete-time SISO system, subjected to a known white random noise input. The following mathematical derivations pertain to discrete time systems, but they can be extended to continuous time systems as well. The full mathematical model of the system is
 \begin{equation}\label{lpmtd1}
-y(t)=G_0(q^{-1})u_0(t)+H_0(q^{-1})e(t)
+y(t)=\true{G}(q^{-1})u_0(t)+H_0(q^{-1})e(t)
 \end{equation}
 %\comment{We don't have any results with colored noise yet!}
-where $G_0(q^{-1})$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= H_0(q^{-1})e(t)$ is the noise source at the output, $H_0(q^{-1})$ is the noise dynamics, 
+where $\true{G}(q^{-1})$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= H_0(q^{-1})e(t)$ is the noise source at the output, $H_0(q^{-1})$ is the noise dynamics, 
 $e(t)$ is white Gaussian noise, and $q^{-m}$ is the backwards shift operator ($q^{-m}x(t)$ = $x(t-mT_{\mathrm{s}})$  with $m$ a positive integer and $T_{\mathrm{s}}$ the sampling time).
 For white noise, $H_0 = 1$ and $e(t) = v(t)$.
 Note that for simplicity, we only treat the discrete-time case (i.e. $t = n \cdot T_{\mathrm{s}}$ for integer values of $n$) theoretically in this chapter.
@@ -77,7 +77,7 @@ With reference to equation \eqref{lpmtd1}, the relation between the noiseless in
 \end{equation}
 where $A$ and $B$ are polynomials in $q^{-1}$. Thus, it follows from equation \eqref{lpmtd1} that
 \begin{equation}
-    G_0(q^{-1})= \frac{B(q^{-1})}{A(q^{-1})}
+    \true{G}(q^{-1})= \frac{B(q^{-1})}{A(q^{-1})}
     \text{.}
 \end{equation}
 
@@ -86,8 +86,7 @@ From~\citep[Section 6.3.2.]{Pintelon2012}, in the frequency domain, and for the 
 A(e^{-j\omega_k})Y_0(k) = B(e^{-j\omega_k})U_0(k) + I(e^{-j\omega_k})
 \label{DFTspectra}
 \end{align}
-with $q^{-1}$ sampled in  $q_k^{-1} = e^{-j\omega_k}$, where $\omega_k = \frac{2\pi k}{N}$ are the DFT frequencies, and $I$ is a polynomial of order $\max(N_a,N_b) - 1$, which depends on the initial and end conditions. 
-\TODO{explain init/end conditions in this context}
+with $q^{-1}$ sampled in  $q_k^{-1} = e^{-j\omega_k}$, where $\omega_k = \frac{2\pi k}{N}$ are the DFT frequencies, and $I$ is a polynomial of order $\max(N_a,N_b) - 1$, which depends on the difference between the initial and end conditions of the filter $\true{G}$ during the measurement record.
 \begin{assumption}
 It is assumed that the orders of the polynomials $A$, $B$ and $I$ are known.
 \end{assumption}
@@ -181,17 +180,12 @@ Stochastic optimization is not discussed in the remainder of this chapter.
 In this section, the considered methods for obtaining the initial estimates of $\theta$ are briefly explained. Then their influence on the success rate of the maximum likelihood estimator is described.
 %}
 
-\subsection{Initial Estimates Procedure}\label{se:initEstProcs} %{Obtaining initial estimates}
-
-%\begin{itemize}
-%\item
-%Obtain a good estimate of the FRF of the system by using the LPM: short description + reference
-
+\subsection{Initial Estimates Procedure}\label{sec:init:procedures}
 \begin{figure}
   \centering
   \includegraphics
-  [width=0.95\columnwidth]{\thisDir/fig/flowgraph}
-  \caption[Flow chart of different initialization procedures.]{Flow chart depicting the different estimation procedures, from left to right: (1) an approach using the true model as initial estimate; (2) an existing approach using \gls{BTLS} and \gls{GTLS} starting values, and the novel methods outlined in this chapter (3, 4).
+  [width=\columnwidth]{\thisDir/fig/flowgraph}
+  \caption[Flow chart of different initialization procedures.]{Flow chart depicting the different estimation procedures, from left to right: \circledNum{1} an approach using the true model as initial estimate; \circledNum{2} an existing approach using \gls{BTLS} and \gls{GTLS} starting values, and the novel methods outlined in this chapter (\circledNum{3}, \circledNum{4}).
   The flow of non-parametric data is depicted by full arrows, with the \gls{FRF} data marked by asterisks. Parametric models are indicated by dashed, unfilled arrows.} \label{fig:flowgraph}
 \end{figure}
 
@@ -217,12 +211,12 @@ Their finite sample behavior, however, is suitable for improvement by the \gls{F
 \item
 \emph{Local polynomial method (LPM) with truncation}
 
-A reliably good estimate of the FRF of the chosen system can be obtained via the LPM, which is summarized as follows~\citep{Lumori2014TIM}. Formulated as a nonparametric linear-least-squares-estimate, the LPM is first applied to estimate the FRF from a full data record of a SISO system, systematically expressed in an output-error framework, shown in \figref{fig:oesetup}. The smooth characteristics of both the exact \gls{FRF} $G_0$ and the transient term $T$ allow for an optimal application of the \gls{LPM}, leading to a smooth \gls{FRF} estimate with the transient suppressed.
+A reliably good estimate of the FRF of the chosen system can be obtained via the LPM, which is summarized as follows~\citep{Lumori2014TIM}. Formulated as a nonparametric linear-least-squares-estimate, the LPM is first applied to estimate the FRF from a full data record of a SISO system, systematically expressed in an output-error framework, shown in \figref{fig:oesetup}. The smooth characteristics of both the exact \gls{FRF} $\true{G}$ and the transient term $T$ allow for an optimal application of the \gls{LPM}, leading to a smooth \gls{FRF} estimate with the transient suppressed.
 
-  With reference to a detailed discussion in~\citep{Lumori2014TIM}, the \gls{LPM} utilizes the following quadratic local polynomials to approximate (in least squares sense) and, thus, smooth $G_0$ and $T$ around a central frequency $\Omega_{k}$ in a local frequency band $r\in\mathbb{W}_n$
+  With reference to a detailed discussion in~\citep{Lumori2014TIM}, the \gls{LPM} utilizes the following quadratic local polynomials to approximate (in least squares sense) and, thus, smooth $\true{G}$ and $T$ around a central frequency $\Omega_{k}$ in a local frequency band $r\in\mathbb{W}_n$
 \begin{subequations}\label{lpmImplQuadG}
 \begin{align}
-G_0(\Omega_{k+r})&\approx \hat G_k + g_{1,k} r + g_{2,k}r^2
+\true{G}(\Omega_{k+r})&\approx \hat G_k + g_{1,k} r + g_{2,k}r^2
 \\
 T(\Omega_{k+r})&\approx T(\Omega_k)+t_{1,k}r + t_{2,k}r^2\label{lpmImplQuadT}
 \end{align}
@@ -321,15 +315,11 @@ It is important to note that invoking the GTLS, BTLS and MLE on the FRFs from me
 %\subsection{Genesis of the Initial Estimates} 
 %\comment{JL: why `genesis'? This section is actually where you use the initial estimates, not their origin.}
 %{Deploying the initial estimates}
-
-
-
- 
  
 %\comment{ML: Fig. \ref{fig:flowgraph} should include an additional path for RFIR/RARX, and the accompanying text (below) is to be modified accordingly.}
-%Fig. \ref{fig:flowgraph} shows a flowchart for the MLE implementation, using four sets of initial values consisting of the known raw input/output data, plus: \comment{JL: is it really required to repeat the content of the flowchart? It has actually been explained in further details in \sectref{se:initEstProcs}.}
+%Fig. \ref{fig:flowgraph} shows a flowchart for the MLE implementation, using four sets of initial values consisting of the known raw input/output data, plus: \comment{JL: is it really required to repeat the content of the flowchart? It has actually been explained in further details in \secref{sec:init:procedures}.}
 %\begin{enumerate}
-%\item (Left (first) path of the flowchart): The true model $G_0$ as initial values,
+%\item (Left (first) path of the flowchart): The true model $\true{G}$ as initial values,
 %\item (Second path from the left of the flowchart): Initial values obtained from \emph{existing} initial estimate strategies, namely GTLS (generalized total least squares) and BTLS (bootstrapped total least squares),
 %\item (Third path from the left of the flowchart): The LPM-truncated initial values with BTLS and GTLS, and  
 %%\item (Right (fourth) path of the flowchart): The RFIR initial values with BTLS and GTLS.  
@@ -348,16 +338,11 @@ It is important to note that invoking the GTLS, BTLS and MLE on the FRFs from me
 The initial estimates described above are then fed to the MLE together with the raw data to obtain the final estimates.
 
 Formally, let $\model{\bullet}$ be the final parametric estimate of the system, where the subscript $\bullet$ denotes the methods (from left to right in Fig.~\ref{fig:flowgraph}) when an initial estimate $\model[init]{\bullet}$ is used, \emph{viz}:
-%\comment{JL:be consequent with the orders (and refer to the specific branches in the flowchart)}
 \begin{itemize}
-\item 
-$\model{\trueSymbol}$ via the true model $\true{G}$ as an initial estimate,
-\item
-$\model{exist}$ is obtained via GTLS and BTLS,
-\item
-$\model{trunc}$ by the use of the LPM with truncation as an initial estimate,
-\item
-$\model{RFIR}$, initialized by means of the RFIR method. 
+    \item $\model{\trueSymbol}$ via the true model $\true{G}$ as an initial estimate,
+    \item $\model{exist}$ is obtained via GTLS and BTLS,
+    \item $\model{trunc}$ by the use of the LPM with truncation as an initial estimate,
+    \item $\model{RFIR}$, initialized by means of the RFIR method. 
 \end{itemize} 
 
 A particular initial estimate is deemed \emph{successful} if the optimization of the MLE cost with the raw input-output data inserted in equation~\eqref{eq:MLEcf}, reaches the \emph{best local optimum} when iteration is initiated with the selected initial value/estimate.
@@ -421,7 +406,7 @@ The success rate in equation \eqref{eq:successrateTol} is estimated via Monte Ca
 
 Two systems are considered. The first, with a quality factor $Q = 6\unit{dB}$, has the transfer function
   \begin{equation}
-     G_0(z) \Big|_{Q=6\unit{dB}}
+     \true{G}(z) \Big|_{Q=6\unit{dB}}
     = 1.74 \cdot 10^{-3}
     \frac{ z^2 + 2 z + 1 }
          { z^2 - 1.93 z + 0.94}
@@ -430,7 +415,7 @@ Two systems are considered. The first, with a quality factor $Q = 6\unit{dB}$, h
   \end{equation}
 The second system, with a quality factor $Q = 20\unit{dB}$, has the transfer function
   \begin{equation}
-    G_0(z) \Big|_{Q=20\unit{dB}}
+    \true{G}(z) \Big|_{Q=20\unit{dB}}
     = 309 \cdot 10^{-6}
             \frac{z^2 + 2 z + 1}
                  {z^2 - 1.98 z + 0.989}
@@ -445,9 +430,9 @@ Their inputs are excited by zero mean white Gaussian noise with unit variance, a
     = \frac{\sigma_v}
            {\rms{y_0}}
     \approx \frac{\sigma_{v}}
-                 {\left\| G_0 \right\|_2 \rms{u_0}}
+                 {\left\| \true{G} \right\|_2 \rms{u_0}}
     =  \frac{\sigma_{v}}
-            {\left\| G_0 \right\|_2}
+            {\left\| \true{G} \right\|_2}
   \label{eq:SNR-definition}
   \text{.}
 \end{equation}
@@ -461,28 +446,28 @@ $\rms{x} = \sqrt{N^{-1} \sum_t x^2(t)}$ denotes the root-mean-squared value of $
 \subsection{Comparison of Successful and Failed Estimates}
 
 
-%Referring to \figref{fig:exampleFRF}, 4 FRFs are shown: $G_0$, $\hat G_0$, one successful $\hat G_\bullet$ and one failed $\hat G_\bullet$.
+%Referring to \figref{fig:exampleFRF}, 4 FRFs are shown: $\true{G}$, $\hat \true{G}$, one successful $\hat G_\bullet$ and one failed $\hat G_\bullet$.
 %}
 %\EG{
- \figref{fig:exampleFRF} depicts the Bode plot of the actual system $G_0$, in black
+ \figref{fig:exampleFRF} depicts the Bode plot of the actual system $\true{G}$, in black
 %\comment{JL: in what color? (EG) black},
  and different estimates $\model{exist}$
  %\comment{JL: does it matter whether it is $\hat G_\mathrm{exist}$ or any other $\hat G_\bullet$? (EG) No, other methods will have similar results} 
- that may or may not approximate $\hat{G}_{0}$ well, according to the distance defined by equation \eqref{eq:successrateTol}.
+ that may or may not approximate $\model{\trueSymbol}$ well, according to the distance defined by equation \eqref{eq:successrateTol}.
  The systems shown here are drawn randomly from the successes and failures observed in the Monte Carlo simulations, discussed later.
  
  It is clear from \figref{fig:exampleFRF} that the successful estimates virtually coincide with the true system. This means 
 that their distances from the true system, given by $\norm[2]{\model{\bullet} - \true{G}}$, have small values. 
 On the other hand, the `failed' estimates are inaccurate descriptions of the true system. It is apparent that their associated distances from the true system are larger by, at least, an order of magnitude than for the successful estimates.
    %Given the 2-norm \eqref{eq:successrateTol} employed 
-   %Using the 2-norm in equation \eqref{eq:successrateTol} to classify `successes' and `failures', it can be observed that the `successes' approximate $\hat{G}_0$ well w.r.t. the relative error, except when $\abs{G_0(\omega)}$ is small.
+   %Using the 2-norm in equation \eqref{eq:successrateTol} to classify `successes' and `failures', it can be observed that the `successes' approximate $\hat{G}_0$ well w.r.t. the relative error, except when $\abs{\true{G}(\omega)}$ is small.
  %Practically, 
  %In practice, this means that a successful estimate provides reasonable estimates of the pass-band of the system, but may perform poorly in the stop-band. \comment{Further discussion required: what about the absolute error? Isn't it more or less white over the complete frequency band?} \ML{To be discussed}
  
- Estimation `failures' can be attributed to the optimization procedure getting stuck in local optima, resulting in very poor estimates of $G_0(\omega)$ over broad frequency ranges, as seen in \figref{fig:exampleFRF}. 
- %In \figref{fig:exampleFRF}, it can be seen that these \ML{`failures' result inprovide a very poor estimate of $G_0(\omega)$ over the broad frequency ranges.
- %Consequently, such estimates are practically worthless as an approximation of $G_0$.
- Consequently, such estimates are practically worthless approximations of $G_0$.
+ Estimation `failures' can be attributed to the optimization procedure getting stuck in local optima, resulting in very poor estimates of $\true{G}(\omega)$ over broad frequency ranges, as seen in \figref{fig:exampleFRF}. 
+ %In \figref{fig:exampleFRF}, it can be seen that these \ML{`failures' result inprovide a very poor estimate of $\true{G}(\omega)$ over the broad frequency ranges.
+ %Consequently, such estimates are practically worthless as an approximation of $\true{G}$.
+ Consequently, such estimates are practically worthless approximations of $\true{G}$.
  %}
 
 
@@ -492,7 +477,7 @@ On the other hand, the `failed' estimates are inaccurate descriptions of the tru
   \setlength{\figureheight}{0.6\figurewidth}
   \input{\thisDir/fig/exampleSystems.tikz}
  % \caption{Results of an example of Monte Carlo simulation.}
- \caption[Bodeplot of successful ad failed estimates.]{Illustrative Bode plots of some successful~\legref{leg:example-good-estimate} and failed~\legref{leg:example-bad-estimate} estimates $\model{\bullet}$ for both systems $G_0$~\legref{leg:example-exact} under test.
+ \caption[Bodeplot of successful ad failed estimates.]{Illustrative Bode plots of some successful~\legref{leg:example-good-estimate} and failed~\legref{leg:example-bad-estimate} estimates $\model{\bullet}$ for both systems $\true{G}$~\legref{leg:example-exact} under test.
  Success or failure is determined using the criterion in equation~\eqref{eq:successrateTol}. The $3\unit{dB}$ bandwidth of each system is highlighted~\legref{leg:example-3db-bandwidth}.}
 \label{fig:exampleFRF}
 \end{figure}
@@ -535,19 +520,19 @@ This allows to empirically estimate the success rate $\eta$ in equation \eqref{e
 %\ML{
 \subsubsection{Illustrative Example}
 In particular, the simulation for each pair $(\mathrm{SNR}, N_{3\mathrm{dB}})$ yields 200 estimates per initial value strategy.
-This is illustrated graphically in \figref{fig:single-sim} for the value-pair $(-1.1\unit{dB},48)$ of the system with $Q = 6 \unit{dB}$, where the obtained distances $\norm{\model{\bullet} - \hat{G}_{0}}$ are shown for the different strategies, and sorted by an ascending norm.
-This effectively shows an empirical cumulative distribution function of the distance measure $\norm{\model{\bullet} - \hat{G}_{0}}$ as sampled by the Monte Carlo algorithm.%}
+This is illustrated graphically in \figref{fig:single-sim} for the value-pair $(-1.1\unit{dB},48)$ of the system with $Q = 6 \unit{dB}$, where the obtained distances $\norm{\model{\bullet} - \model{\trueSymbol}}$ are shown for the different strategies, and sorted by an ascending norm.
+This effectively shows an empirical cumulative distribution function of the distance measure $\norm{\model{\bullet} - \model{\trueSymbol}}$ as sampled by the Monte Carlo algorithm.%}
  
 %\JL{One observes:}
 \subsubsection{Pertinent Observations}
 With reference to \figref{fig:single-sim}, the following observations are worth noting: 
 %\EG{
 \begin{itemize}
-\item The actual parametric estimates, based on the different initial estimates, have distinct behaviors with respect to their distance from $\hat{G}_{0}$.
+\item The actual parametric estimates, based on the different initial estimates, have distinct behaviors with respect to their distance from $\model{\trueSymbol}$.
 Two major classifications can be made:
 \begin{enumerate}
-  \item `good' estimates which have $\|\model{\bullet} - \hat{G}_{0} \|_2 < tol \approx 6 \cdot 10^{-5}$,
-  \item `poor' estimates which are much farther from $\hat{G}_{0}$.  This is caused by the local optima.
+  \item `good' estimates which have $\|\model{\bullet} - \model{\trueSymbol} \|_2 < tol \approx 6 \cdot 10^{-5}$,
+  \item `poor' estimates which are much farther from $\model{\trueSymbol}$.  This is caused by the local optima.
 \end{enumerate}
 \item
 The obvious jump of the observed distances of the final parametric estimates shows that both classes can be separated reliably.
@@ -642,25 +627,25 @@ A close inspection of \figref{fig:successRateVS_SNR36N3dB} reveals that the \gls
   \setlength{\figurewidth}{0.66\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/fig/RMSEvs_SNR36N3dB-ripple6.tikz}
- \caption[Simulated model \gls{RMSE} compared to rule-of-thumb.]{The accordance between the observed \gls{RMSE} of $\hat{G}_0$~\legref{leg:RMSE:delta:observed}(with $\pm2\sigma$ interval) and the rule-of-thumb~\eqref{eq:heur-RMSE}\legref{leg:RMSE:rule-of-thumb} shows how well $\hat{G}_0$ approximates the true system $G_0$.
+ \caption[Simulated model \gls{RMSE} compared to rule-of-thumb.]{The accordance between the observed \gls{RMSE} of $\hat{G}_0$~\legref{leg:RMSE:delta:observed}(with $\pm2\sigma$ interval) and the rule-of-thumb~\eqref{eq:heur-RMSE}\legref{leg:RMSE:rule-of-thumb} shows how well $\model{\trueSymbol}$ approximates the true system $\true{G}$.
  In the bottom plot, the difference between both is shown.
- Consequently, it makes sense to examine the behavior of the models in terms of $\hat{G}_0$ as long as this RMSE meets the user's requirements.}
+ Consequently, it makes sense to examine the behavior of the models in terms of $\model{\trueSymbol}$ as long as this RMSE meets the user's requirements.}
   \label{fig:RMSE}
 \end{figure}
 
 \paragraph*{Remark about the model quality}
-In principle, convergence of the estimate $\model{\bullet}$ to the `best' estimate $\hat{G}_{0}$ does not imply that $\model{\bullet}$ will be suitable for a specific purpose as the estimate $\hat{G}_{0}$ itself might be ill-suited.
+In principle, convergence of the estimate $\model{\bullet}$ to the `best' estimate $\model{\trueSymbol}$ does not imply that $\model{\bullet}$ will be suitable for a specific purpose as the estimate $\model{\trueSymbol}$ itself might be ill-suited.
 A straightforward tool to analyze the error associated with $\hat{G}_0$ is to examine its relative RMS error over different realizations of the experiment.
 In~\citep{Ljung1999}, a rule-of-thumb is given that describes the relationship between the SNR of the signals and the quality of the estimated parametric model.
 In this context this heuristic boils down to: 
 \begin{equation}
-    \RMSE(\hat{G}_{0}) \approx \sqrt{\frac{n_\theta}{N}} \frac{\norm{G_0}}{\SNR} 
+    \RMSE(\model{\trueSymbol}) \approx \sqrt{\frac{n_\theta}{N}} \frac{\norm{\true{G}}}{\SNR} 
     \label{eq:heur-RMSE}
 \end{equation}
 where $n_{\theta}=5$ is the number of estimated parameters in this case.
-In \figref{fig:RMSE}, the empirical $\RMSE(\hat{G}_{0})$ over the different Monte Carlo runs is displayed against this rule-of-thumb.
+In \figref{fig:RMSE}, the empirical $\RMSE(\model{\trueSymbol})$ over the different Monte Carlo runs is displayed against this rule-of-thumb.
 It can be seen that these runs align almost perfectly, which shows that this rule-of-thumb can be used to approximate the RMSE of the parametric estimate.
-When the RMSE is then divided by $\norm{G_0}$, this graph essentially shows the anticipated relative error on the transfer function and, hence, gives an indication on its usability.
+When the RMSE is then divided by $\norm{\true{G}}$, this graph essentially shows the anticipated relative error on the transfer function and, hence, gives an indication on its usability.
 
 \section{Experimental Results}
 \label{se:ExpMeas}
@@ -782,7 +767,7 @@ The \gls{VXI} measurement setup is summarized as follows.
   \item A total of $558$ frequency bins were used for the estimation, in the excited frequency band $[0.1,20] \unit{kHz}$, with a frequency resolution of $35.7\unit{Hz}$, giving a measurement time of $28\unit{ms}$. The excitation signal was band-limited periodic noise with an \gls{RMS} of $100\unit{mV}$.
   \item The input and output signals were buffered and anti-alias filtered.
 \end{itemize}
-This yielded the model $G_\mathrm{VXI}$ (shown in \figref{fig:bk1613}) with a relative error  of less than $0.3\%$ in the pass-band.  Denote $\model{VXI}$ to be the parametric estimate obtained using $G_{\mathrm{VXI}}$ as an initial estimate. Furthermore, $G_\mathrm{VXI}$ was used to play the role of $G_0$ from the previous section.
+This yielded the model $G_\mathrm{VXI}$ (shown in \figref{fig:bk1613}) with a relative error  of less than $0.3\%$ in the pass-band.  Denote $\model{VXI}$ to be the parametric estimate obtained using $G_{\mathrm{VXI}}$ as an initial estimate. Furthermore, $G_\mathrm{VXI}$ was used to play the role of $\true{G}$ from the previous section.
 
 \subsection{Model Estimation}
   The measurements on the NI Elvis II indicate that the high-quality starting value $G_{\mathrm{VXI}}$ led to low cost function values as shown in \figref{fig:costMeasurements} and \tabref{tbl:costMeasurements}.
@@ -1029,8 +1014,8 @@ This is equivalent to the relative criterion of success since $\norm[2]{\true{G}
   \centering
   \ref{leg:distances}
   \input{\thisDir/fig/distances.tikz}
-  \caption[Empirical \glsentrytext{CDF} of $\validationDistance{\bullet}$ in the stress test.]{Empirical cumulative distribution function of the validation distance $D_{\bullet} = \norm{\model{\bullet} - G_0}$ for the different tested systems (different numbered plots) and the different initial values (colors).
-  Note that since $\norm{G_0}=1$ is chosen, $D_{\bullet}$ immediately indicates the relative RMS error of the estimates.
+  \caption[Empirical \glsentrytext{CDF} of $\validationDistance{\bullet}$ in the stress test.]{Empirical cumulative distribution function of the validation distance $D_{\bullet} = \norm{\model{\bullet} - \true{G}}$ for the different tested systems (different numbered plots) and the different initial values (colors).
+  Note that since $\norm{\true{G}}=1$ is chosen, $D_{\bullet}$ immediately indicates the relative RMS error of the estimates.
   }
   \label{fig:distancesStress}
 \end{figure}
