@@ -27,6 +27,12 @@
 % \end{IEEEkeywords}
 \researchBasedOn[This section]{Lumori2014TIM}
 
+\TODO{paper $\to$ section}
+
+\TODO{use gls commands in this part}
+
+\TODO{remove duplicate labels (global)}
+
 \subsection{Introduction}
 
 The measurement of \glspl{FRF} of dynamic systems is an important topic in the measurement society.
@@ -42,7 +48,7 @@ The main contribution of the paper is to come up with an improved FRF by develop
 
 Based on \citep{Schoukens2009LPM}, the nonparametric method developed in this work is formulated in an output-error (OE) framework. A single-input-single-output (SISO) LTI system is considered. %, based on  \citep{Schoukens2009LPM}.
 The input signal is a known random noise signal and the output signal is corrupted by measurement noise. This is depicted in \figref{lpmtdrep} as a linear dynamic discrete-time SISO system, whose full mathematical model is of the form:
-\begin{equation}\label{lpmtd1}
+\begin{equation}\label{eq:lpm:TD}
 y(t)=G_0(q)u_0(t)+H_0(q)e(t)=G_0(q)u_0(t)+v(t)
 \end{equation}
 where $G_0(q)$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= H_0(q)e(t)$ is the noise source at the output, $H_0(q)$ is the noise dynamics, $e(t)$ is white noise, and $q^{-m}$ is the backwards shift operator ($q^{-m}x(t)$ = $x(t-m)$  with $m$ a positive integer). %\JL{$G_0(q)$ represents the dynamics of the system to be estimated.}
@@ -73,8 +79,8 @@ Describe  the parametric noise model $H(q,\theta)$ (associated with the output n
 
 \end{itemize}
 
-The rest of the paper is structured as follows. Section \ref{se:theoryLPMandWindowing} covers the theory on the LPM and windowing for an OE setup.
-Section \ref{se:smoothingFRFestimate} discusses the novel smoothing method.
+The rest of the paper is structured as follows. \secref{se:theoryLPMandWindowing} covers the theory on the LPM and windowing for an OE setup.
+\secref{se:smoothingFRFestimate} discusses the novel smoothing method.
 
 
 
@@ -131,7 +137,7 @@ The filtered white noise $v(t) = H_0(q)e(t)$ is the disturbing noise source at t
 \subsubsection{The Hanning Window and the \glsentrytext{LPM}}\label{se:LPMFRFest}%\label{se:FRFhanningLPM}
 \paragraph{Windowing}
 The effect of windowing may be  exemplified by use of the Hanning window, which is very popular.
-In a nutshell, the Hanning window is effective in reducing  the leakage errors, but  with a trade off of increased interpolation errors. %This is because the term $G_0(\Omega_k)U_0(k)$ in equation \eqref{lpmtd1} is not smooth and $G_0(\Omega_k)$ varies with the frequency.
+In a nutshell, the Hanning window is effective in reducing  the leakage errors, but  with a trade off of increased interpolation errors. %This is because the term $G_0(\Omega_k)U_0(k)$ in equation \eqref{eq:lpm:TD} is not smooth and $G_0(\Omega_k)$ varies with the frequency.
 Pertinent details of the Hanning window are discussed in \citep{Schoukens2006LPM,Antoni2007FRF,Schoukens2009LPM,Wellstead1981} and \citep{Harris1978}.
 
 The anomalies due to interpolation errors, associated with windowing, can easily be mitigated or circumvented by use of the LPM. As shown in \citep{Pintelon2012}, the leakage errors are reduced from  $\mathcal{O}({N}^{-1})$, for Hanning windowing, to $\mathcal{O}({N}^{-3})$ or better, for the LPM.
@@ -142,7 +148,7 @@ The LPM is formulated as a nonparametric local-linear-least-squares (LS) estimat
 \citet[Section 7.2.2]{Pintelon2012} gives the general formulation of the \gls{LPM} for \gls{MIMO} systems.
 The formulation in this paper is a summary for a \gls{SISO} system.
 
-The \gls{DFT} spectra at the output of the \gls{SISO} system in \figref{lpmtdrep} are derived from equations \eqref{lpmtd1} and \eqref{lpmleak}, \emph{viz}:
+The \gls{DFT} spectra at the output of the \gls{SISO} system in \figref{lpmtdrep} are derived from equations \eqref{eq:lpm:TD} and \eqref{lpmleak}, \emph{viz}:
 \begin{equation}\label{lpm1spectra}
 Y(k)=G_0(\Omega_k)U_0(k)+T(\Omega_k)+V_0(k)
 \end{equation}
@@ -195,16 +201,18 @@ The formulation of equation \eqref{eq:LSsolutionLPM} must take into account the 
 The values $R = 2$, and $n=R+1=3$ will be used in the \gls{LPM}.
 
 When substituted into equations \eqref{lpmGTaylorS} and \eqref{lpmGTMatrix},  these yield the following quadratic local polynomials of $G_0$ and $T$ around a central frequency $\Omega_{k}$:
-\begin{align}\label{lpmImplQuadG}
-G_0(\Omega_{k+r})&\approx G_0(\Omega_k)+g_1r+g_2r^2
+\begin{align}
+G_0(\Omega_{k+r})
+  &\approx 
+  G_0(\Omega_k)+g_1r+g_2r^2
+  \label{eq:lpm:expansionG:quadratic}
 \\
-T(\Omega_{k+r})&\approx T(\Omega_k)+t_1r+t_2r^2\label{lpmImplQuadT}
+  T(\Omega_{k+r})
+    &\approx 
+    T(\Omega_k)+t_1r+t_2r^2
+    \label{eq:lpm:expansionT:quadratic}
 \end{align}
-
-\noindent
-($r\in\mathbb{W}_3$)
-and the vector of parameters:
-
+with ($r\in\mathbb{W}_3$) and the vector of parameters:
 \begin{equation}\label{lpmThetaEst}
 \theta^\top(k)=\left[G_0(\Omega_k) \ g_1 \ g_2\  T_G(k)\  t_1 \ t_2\right]
 \end{equation}
@@ -317,7 +325,7 @@ The \gls{FRF} estimate is smoothed by truncating the estimated impulse response 
 This is done via the fit of an exponential function on the maxima of the impulse response, implemented as follows.
 
 \begin{enumerate}
-\item Obtain the estimate of the impulse response $\hat g_\mathrm{poly}(t)$ from the LPM, corrected for its DC value as discussed in Section \ref{se:DCvalueEst}. Henceforth, $\hat g_\mathrm{poly}(t)$ will simply be denoted as $\hat g(t)$. %In the remainder of this procedure description $\hat g_\mathrm{poly}(t)$ will be simply denoted $\hat g(t)$.
+\item Obtain the estimate of the impulse response $\hat g_\mathrm{poly}(t)$ from the LPM, corrected for its DC value as discussed in \secref{se:DCvalueEst}. Henceforth, $\hat g_\mathrm{poly}(t)$ will simply be denoted as $\hat g(t)$. %In the remainder of this procedure description $\hat g_\mathrm{poly}(t)$ will be simply denoted $\hat g(t)$.
 
 \item Obtain an estimate $\hat \sigma_\mathrm{n}$ of the standard deviation of the noise from the last 10\% of the data, \emph{viz}:
 
@@ -464,7 +472,7 @@ In \figref{fig:pdfAndRMSeVStruncTime}, the black graph is the \gls{RMS} error of
 A good practice would be to truncate the impulse response at the minimizer (black dot) of the \gls{RMS} error. However, it should be noted that this minimizer is unknown in practice, because it would require
 the true \gls{FRF}.
 
-The truncation time is determined from the data as described in Section \ref{se:truncImpulseResp}. This was done on $1000$ realizations of the noise, and depicted in \figref{fig:pdfAndRMSeVStruncTime} by the histogram.
+The truncation time is determined from the data as described in \secref{se:truncImpulseResp}. This was done on $1000$ realizations of the noise, and depicted in \figref{fig:pdfAndRMSeVStruncTime} by the histogram.
 Clearly, the method for selecting the truncation time $t_{\mathrm{trunc}}$ has a good overall performance, based on the mode of its distribution. A closely grouped set of values for $t_{\mathrm{trunc}}$ is obtained around the $90^{\text{th}}$ sample, without significant outliers.
 
 

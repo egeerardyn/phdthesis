@@ -1,4 +1,4 @@
-\section{Introduction}\label{sec:excitation:intro}
+\section{Introduction}\label{sec:excitation:sysid2012:intro}
 Input design deals with the task of choosing an excitation signal in a way so that the information obtained from the experiment is maximized. This is a problem which has a long history in statistics. In system identification, the focus has mostly been on input design for dynamic systems. A common approach is to design the input spectrum and thereby maximizing the information matrix of the estimates, see e.g. \cite{Fedorov1972,Goodwin1977}.
 
 A complicating issue in identification of dynamic system is the fact that the information matrix often depends on the true parameter values. Consequently, an optimal input design, based on the information matrix, will depend on quantities that are not know at the time of the design. There are two main solutions to this discussed in the engineering literature:
@@ -9,7 +9,7 @@ A complicating issue in identification of dynamic system is the fact that the in
 
 In this paper we focus on robust excitation and we address the situation where there is very limited a priori information about the system to be identified. We will consider input design when it is known that the system has resonances, possibly spanning a large frequency band. It is however not necessary to know how many resonances are in the system. The advantage of the proposed input design is that regardless of where these resonances are located, the resulting transfer function variance will be the same, for a given damping in the system.
 
-The following parts of the paper are structured as follows. \secref{sec:excitation:inputDesign} briefly presents the necessary input design theory. \secref{sec:excitation:logarithmic} deals with the situation when limit information is available. Finally, conclusions are drawn in \secref{sec:excitation:conclusions}.
+% The following parts of the paper are structured as follows. \secref{sec:excitation:inputDesign} briefly presents the necessary input design theory. \secref{sec:excitation:logarithmic} deals with the situation when limit information is available. Finally, conclusions are drawn in \secref{sec:excitation:conclusions}.
 
 \section{Input design}\label{sec:excitation:inputDesign}
 For the theoretical analysis, we consider SISO output error systems, i.e.
@@ -172,7 +172,7 @@ With this input spectrum, the power inside $\wdB$ is
   = \frac{1}{2\pi}
     \ln{\frac{1+\damping}{1-\damping}},
 \end{align}
-which is independent of $\wn$. The robustness of the $1/f$ input has been noted previously in e.g. \cite{Rojas2007}
+which is independent of $\wn$. The robustness of the $1/f$ input has been noted previously by e.g. \cite{Rojas2007}
 
 Second, we consider the power spectrum of the quasi-logarithmic multisine signal [\cite{Pintelon2012}] given by
 \begin{align}
@@ -204,7 +204,7 @@ number of points in a period.
 To construct a quasi-logarithmic multisine, only frequency lines $f_j$ within the set of available sine components $\left\{f_0, 2 f_0, \ldots, F f_0  \right\}$ are excited for which the ratio of two consecutive frequencies $f_j$ and $f_{j-1}$ is approximately constant: $\frac{f_{j-1}}{f_j} \approx \alpha$.
 
 The result of these two choices of input power spectrum is that for a given damping, $\var{\hat{G}}$ is approximately the same independent of $\wn$. 
-This is illustrated in Section~\ref{sec:excitation:sim}.
+This is illustrated in \secref{sec:excitation:sim}.
 
 \subsection{Sums of second order systems}
 This section extends the previous section to more general systems than second order.

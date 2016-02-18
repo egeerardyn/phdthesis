@@ -19,8 +19,7 @@ ytick={1e-7,1e-5,1e-3,1e-1},grid=major,
 legend pos=south east,
 cycle list name=linestyles*]
 
-\addplot
-table[row sep=crcr]{
+\addplot table[row sep=crcr]{
 1e-005	0.00956784\\
 1.46917e-005	0.00956848\\
 2.15846e-005	0.00956943\\
@@ -54,8 +53,7 @@ table[row sep=crcr]{
 };
 \addlegendentry{$\wn[2] - \wn[1] = 4\sysBW$};
 
-\addplot
-table[row sep=crcr]{ 
+\addplot table[row sep=crcr]{ 
 1e-005	0.000695711\\
 1.46917e-005	0.000695812\\
 2.15846e-005	0.000695962\\
@@ -89,8 +87,7 @@ table[row sep=crcr]{
 };
 \addlegendentry{$\wn[2] - \wn[1] = 8\sysBW$};
 
-\addplot
-table[row sep=crcr]{
+\addplot table[row sep=crcr]{
  1e-005	4.52139e-005\\
 1.46917e-005	4.52274e-005\\
 2.15846e-005	4.52472e-005\\
@@ -124,8 +121,7 @@ table[row sep=crcr]{
 };
 \addlegendentry{$\wn[2] - \wn[1] = 16\sysBW$};
 
-\addplot
-table[row sep=crcr]{
+\addplot table[row sep=crcr]{
  1e-005	2.85537e-006\\
 1.46917e-005	2.85708e-006\\
 2.15846e-005	2.8596e-006\\
