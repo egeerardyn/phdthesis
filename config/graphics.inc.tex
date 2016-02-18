@@ -30,5 +30,8 @@
 
 \newlength\onecolumnwidth %TODO: replace
 
+% I keep forgetting the exact syntax to remake the figures, so 
+\newcommand{\remakeNextFigure}{\tikzset{external/force remake}}
+
 % http://tex.stackexchange.com/questions/37471/pgfplots-externalization-and-legend-referencing
 \pgfplotsset{invoke before crossref tikzpicture={\tikzexternaldisable},invoke after crossref tikzpicture={\tikzexternalenable}}

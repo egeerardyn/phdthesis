@@ -10,6 +10,8 @@
 
 \begin{semilogxaxis}[%
 scale only axis,
+width=\figurewidth,
+height=\figureheight,
 xmin=0.01, xmax=1000,
 ymin=-300, ymax=150,
 xtick={0.251327},

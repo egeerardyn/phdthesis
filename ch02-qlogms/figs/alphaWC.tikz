@@ -26,7 +26,7 @@ legend entries={{$|G(\omega_{\mathrm{M}})| = 40 \,\unit{dB}$},
                 {$|G(\omega_{\mathrm{M}})| = 20 \,\unit{dB}$},
                 {$|G(\omega_{\mathrm{M}})| = 10 \,\unit{dB}$},
                 {$|G(\omega_{\mathrm{M}})| =  5 \,\unit{dB}$}},
-legend style={at={(0,1)},anchor=north west,nodes=right}]
+legend style={at={(0.05,0.95)},anchor=north west,nodes=right}]
 
 \addplot [dbavar,forget plot]
 coordinates{

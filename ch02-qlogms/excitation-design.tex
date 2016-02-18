@@ -478,8 +478,8 @@ with
   
   \begin{figure}[ht]
     \centering
-    \setlength\figureheight{5cm}
-    \setlength\figurewidth{0.8\columnwidth}
+      \setlength\figurewidth{0.8\columnwidth}
+      \setlength\figureheight{0.5\figurewidth}
     \input{\thisDir/figs/freqGrid.tikz}
     \caption[Amplitude spectrum for linear, logarithmic, quasi-logarithmic grids.]{Comparison of the amplitude spectrum of a linear grid multisine, a logarithmic grid multisine, the compensated quasi-logarithmic multisine and the `pink' quasi-log multisine.}%
     \label{fig:freqGrids}
@@ -693,8 +693,8 @@ with
 
   \begin{figure}
     \centering
-    \setlength\figureheight{5cm}
-    \setlength\figurewidth{0.8\columnwidth}
+      \setlength\figurewidth{0.8\columnwidth}
+      \setlength\figureheight{0.5\figurewidth}
     \input{\thisDir/figs/misalign.tikz}
     \caption[Depiction of the grid misalignment $\beta$ for a logarithmic generalized multisine.]{Graphical depiction of the misalignment coefficient $\beta$ with respect to a logarithmic frequency grid with spacing $\alpha$ for two systems with different damping.
     The $3\unit{dB}$ bandwidth (\sysBW) around the peak frequency $\wM$ of the system is highlighted.}
@@ -737,8 +737,8 @@ with
   
   \begin{figure}
     \centering
-      \setlength\figureheight{5cm}
-      \setlength\figurewidth{0.65\columnwidth}
+      \setlength\figurewidth{0.68\columnwidth}
+      \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/betaWC.tikz}
     \caption[Variance $\sigma_G^2\left( \wM \right)$ as a function of the grid misalignment coefficient $\beta$.]{Evaluation of the variance $\sigma_G^2\left( \wM \right) $ for different prototype systems as function of the misalignment $\beta$.
              The full lines depict the variance for a coarsely spaced signal.
@@ -746,7 +746,7 @@ with
     \label{fig:worstCaseBeta}
   \end{figure}
 
-  Such signals are clearly undesirable, as a misalignment smaller than the grid spacing of the excitation grid and the system will entail a large increase in the uncertainty of estimate.
+  Such signals are clearly undesirable, as a misalignment smaller than the grid spacing of the excitation grid and the system will lead to a large increase in the uncertainty of estimate.
   
   For a large peak amplitude of the FRF (low damping), the worst case increase (marked with a cross) is approximately centered around $\beta = 0.5$ (i.e. midway between the nearest excited lines).
   In systems with a higher damping, this symmetry is lost.
@@ -760,8 +760,8 @@ with
   
   \begin{figure}[ht]
     \centering
-      \setlength\figureheight{5cm}
-      \setlength\figurewidth{0.65\columnwidth}
+      \setlength\figurewidth{0.68\columnwidth}
+      \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/alphaWC.tikz}
     \caption[Worst-case variance $\sigma_G^2\left( \wM \right)$ as a function of the frequency ratio $\alpha$.]{Worst case variance of the peak in the transfer function for logarithmic
              grid multisines and systems with different peak amplitudes.
@@ -799,8 +799,8 @@ with
 
   \begin{figure}%
     \centering
-      \setlength\figureheight{4cm}
-      \setlength\figurewidth{0.7\columnwidth}
+      \setlength\figurewidth{0.5\columnwidth}
+      \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/SignalAndSystem.tikz}
     \caption[System with highlighted bandwidth and multisine components.]{Depiction of the transfer function $G$ of a second order system, along with a logarithmic multisine excitation $U$ for $\alpha = \alpha^{\star}$. The circled sine components lie within the $3 \unit{dB}$ bandwidth of $G$.}%
     \label{fig:signalAndSystem}
@@ -859,11 +859,10 @@ In the following set of simulations, we will study how the FRF of different seco
 
   \begin{figure}[th]
     \centering
-    \setlength\figureheight{5cm}
-    \setlength\figurewidth{0.8\columnwidth}
+      \setlength\figurewidth{0.68\columnwidth}
+      \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/Sys02-4.tikz}
-    \caption[Simulated FRF and its variance for different excitation signals.]{FRF of a second order system with $\fR=40\unit{Hz}$ and $\damping=0.2$
-             along with the corresponding variance and bias of the parametric models obtained using three different kinds of multisine excitations.}%
+    \caption[Simulated FRF and its variance for different excitation signals.]{\gls{FRF}~\legref{leg:excitation:sim:FRF} of a second order system with $\fR=40\unit{Hz}$ and $\damping=0.2$ along with the corresponding variance and bias of the parametric models obtained using three different kinds of multisine excitations.}%
     \label{fig:FRF1}
   \end{figure}
 
@@ -872,10 +871,10 @@ In the following set of simulations, we will study how the FRF of different seco
 
   \begin{figure}%
     \centering
-    \setlength\figureheight{5cm}
-    \setlength\figurewidth{0.8\columnwidth}
+      \setlength\figurewidth{0.68\columnwidth}
+      \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/damping02-cmp.tikz}
-    \caption[Simulated FRFs and their variances of systems with $\damping=0.2$ for different excitation signals.]{FRFs for different second order systems with constant damping
+    \caption[Simulated FRFs and their variances of systems with $\damping=0.2$ for different excitation signals.]{\glspl{FRF} for different second order systems with constant damping
              $\damping=0.2$ but different resonance frequencies. Comparison of the
              variances around the respective resonance frequency for the different
              excitation signals.}%
@@ -903,8 +902,8 @@ In the following set of simulations, we will study how the FRF of different seco
  
   \begin{figure}%
     \centering
-    \setlength\figureheight{5cm}
-    \setlength\figurewidth{0.8\columnwidth}
+      \setlength\figurewidth{0.68\columnwidth}
+      \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/damping005-cmp.tikz}
     \caption[Simulated FRFs and their variances of systems with $\damping=0.05$ for different excitation signals.]{FRFs for different second order systems with constant damping
              $\damping=0.05$ but different resonance frequencies. Comparison of the
@@ -936,8 +935,8 @@ For example, a system composed of two second order systems with $\damping = 0.2$
 
 \begin{figure}%
   \centering
-  \setlength{\figurewidth}{0.8\columnwidth}
-  \setlength{\figureheight}{5cm}
+  \setlength\figurewidth{0.68\columnwidth}
+  \setlength\figureheight{0.68\figurewidth}
   \input{\thisDir/figs/Sum02log0-2.tikz}
   \caption{FRF for the sum of two second order systems with $\damping=0.2$ and
            resonances at $ 400 \unit{Hz}$ and 4 \unit{kHz}.}%
@@ -982,8 +981,8 @@ This shows that both resonances are captured with a practically identical relati
 
     \begin{figure}%
     \centering
-      \setlength\figureheight{5cm}
       \setlength\figurewidth{0.8\columnwidth}
+      \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/qlog_a050mall.tikz}
     \caption[Measured FRFs of all BK1613 octave filters and their variance for different excitation signals.]{Measured FRFs of the different \bruelkjaer BK1613 octave filters together with the observed variance for a linear, quasi-log and pink quasi-log grid multisine.}%
       \label{fig:measurements}

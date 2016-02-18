@@ -22,12 +22,12 @@ ymajorgrids, yminorgrids,
 xmajorgrids, xminorgrids,
 xminorticks,
 xmin=10, xmax=64000,
-xlabel={Frequency $f$ $\axisunit{Hz}$},
+xlabel={Frequency $f$ \axisunit{Hz}},
 ytick={0,-20,...,-110},
 ymin=-110, ymax=2,
-ylabel={Frequency Response Function $\axisunit{dB}$},
-legend style={at={(1,1.05)},anchor={south east},nodes=right,legend columns=2,font=\footnotesize},
-legend entries={{Measured FRF $G$},{$\sigma_G$ Linear grid},{$\sigma_G$ Quasi-log grid},{$\sigma_G$ Pink quasi-log grid}}]
+ylabel={Amplitude $|G| \axisunit{dB}$},
+legend style={at={(0.5,1.025)},anchor={south},nodes=right,legend columns=4,font=\footnotesize,draw=none},
+legend entries={{FRF $G$},{$\sigma_G$ Linear},{$\sigma_G$ Quasi-log},{$\sigma_G$ Pink quasi-log}}]
  
 % \addplot [meas,forget plot]
 % coordinates{

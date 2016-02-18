@@ -9,6 +9,8 @@
 \begin{tikzpicture}
 \begin{axis}[%
 scale only axis,
+width=\figurewidth,
+height=\figureheight,
 ymode=log,
 xmin=1e-005, xmax=0.7,
 ymin=1e-007, ymax=1,

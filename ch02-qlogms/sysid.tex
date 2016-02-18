@@ -226,10 +226,10 @@ The information matrix for systems of the type \eqref{eq:excitation:sumSys} will
 \begin{align}
 \IF &= \frac{1}{\pi}
 \begin{bmatrix}
-  \partial G_{1,1}        &\partial G_{1,2}       &\cdots         &\partial G_{1,K}\\
-  \partial G_{2,1}        &\partial G_{2,2}       &\cdots         &\partial G_{2,K}\\
-  \vdots                  &\vdots                 &\ddots         &\vdots          \\
-  \partial G_{K,1}        &\partial G_{K,2}       &\cdots         &\partial G_{K,K}
+  \partial G_{1,1}        &\partial G_{1,2}       &\deemph{\cdots}         &\partial G_{1,K}\\
+  \partial G_{2,1}        &\partial G_{2,2}       &\deemph{\cdots}         &\partial G_{2,K}\\
+  \deemph{\vdots}                  &\deemph{\vdots}                 &\deemph{\ddots}         &\deemph{\vdots}          \\
+  \partial G_{K,1}        &\partial G_{K,2}       &\deemph{\cdots}         &\partial G_{K,K}
 \end{bmatrix},\\
 \partial G_{i,j} &= \int_0^\infty
                       \mathrm{Re}\left\{
@@ -324,6 +324,8 @@ Hence \eqref{eq:excitation:cross1} cannot grow faster than $\mathcal{O}(\damping
 
 \begin{figure}
 \centering
+\setlength\figurewidth{0.68\columnwidth}
+\setlength\figureheight{0.68\figurewidth}
 \input{\thisDir/figs/rolloff.tikz}
 \caption{The shape of $\frac{\partial G_1}{\partial \wn[1]}$. The roll-off around the peak is significant and depends on the damping of the system.}
 \label{fig:excitation:dG}
@@ -335,13 +337,13 @@ In \figref{fig:excitation:coupling} the largest element in $\partial G_{1,2}$ is
 
 Based on the above arguments, we make the following approximation of the information matrix for systems with low damping,
 \begin{align}
-\IF&\approx \begin{bmatrix}\partial G_{1,1} &0\\
-                        0&\partial G_{2,2}\end{bmatrix}.
+\IF&\approx \begin{bmatrix}\partial G_{1,1} &\deemph{0}\\
+                        \deemph{0}&\partial G_{2,2}\end{bmatrix}.
 \end{align}
 Hence the variance of the estimate $\hat{G}(s,\theta)$ becomes
 \begin{align}
-\var{\hat{G}(\omega)} &\approx \frac{\partial G^{\HT}(e^{j\omega})}{\partial \theta}\begin{bmatrix}\partial G_{1,1} &0\\
-                        0&\partial G_{2,2}\end{bmatrix}^{-1}\frac{\partial G(e^{j\omega})}{\partial \theta}\\
+\var{\hat{G}(\omega)} &\approx \frac{\partial G^{\HT}(e^{j\omega})}{\partial \theta}\begin{bmatrix}\partial G_{1,1} &\deemph{0}\\
+                        \deemph{0}&\partial G_{2,2}\end{bmatrix}^{-1}\frac{\partial G(e^{j\omega})}{\partial \theta}\\
 &=\var{\hat{G}_1(\omega)} + \var{\hat{G}_2(\omega)}.
 \end{align}
 
@@ -349,6 +351,8 @@ This results extends mutatis mutandis to systems consisting of more sub-systems.
 
 \begin{figure}
 \centering
+\setlength\figurewidth{0.68\columnwidth}
+\setlength\figureheight{0.68\figurewidth}
 \input{\thisDir/figs/coupling.tikz}
 \caption{The element with the largest absolute value in the off-diagonal blocks of the normalized information matrix for different dampings.
          The different plots are for different separations of the resonance frequencies, from 4\wdB to 64\wdB.
