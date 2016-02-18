@@ -204,7 +204,7 @@ number of points in a period.
 To construct a quasi-logarithmic multisine, only frequency lines $f_j$ within the set of available sine components $\left\{f_0, 2 f_0, \ldots, F f_0  \right\}$ are excited for which the ratio of two consecutive frequencies $f_j$ and $f_{j-1}$ is approximately constant: $\frac{f_{j-1}}{f_j} \approx \alpha$.
 
 The result of these two choices of input power spectrum is that for a given damping, $\var{\hat{G}}$ is approximately the same independent of $\wn$. 
-This is illustrated in \secref{sec:excitation:sim}.
+This is illustrated in \secref{sec:excitation:simulation}.
 
 \subsection{Sums of second order systems}
 This section extends the previous section to more general systems than second order.
@@ -491,17 +491,3 @@ This results extends mutatis mutandis to systems consisting of more sub-systems.
 % \subsection{Conclusion}
 % The variance on the FRF near resonances with identical damping is nearly independent of the resonance frequency when a quasi-log multisine is used as excitation signal. 
 % This result was obtained for second order sections and illustrated on a more general system.
-
-%%Conclusion
-\section{Conclusions}\label{sec:excitation:conclusions}
-In this paper we recalled that the design of an optimal excitation signal may require prior system knowledge that is insufficiently accurate or even unavailable. 
-When only the limited prior knowledge that the system resonances lie in a certain (possibly wide) frequency band, we can create a suitable class of excitation signals. 
-These signals are required to yield estimates having a variance that is independent of the resonance frequencies of the system. 
-We showed that such a signal should have a power spectrum that is distributed in $1/f$.
-In this paper (quasi-)logarithmic multisines were considered to serve this purpose.
-
-By means of simulations for different second order sub-systems, it is confirmed that for a given damping, the variance of the estimated is almost independent of the actual resonance frequencies of the system within the frequency band of interest.
-The same results were found for higher order systems and illustrated for an example. 
-A theoretical motivation for these results is provided.
-
-The proposed excitation signals therefore offer an easy and efficient way to identify systems in a wide frequency range such that an accuracy level that is independent of the resonance frequencies can be attained for the complete frequency span.

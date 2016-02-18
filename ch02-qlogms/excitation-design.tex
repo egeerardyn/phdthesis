@@ -811,7 +811,7 @@ with
   In this section, we have shown that signals with a logarithmic frequency spacing allow to identify systems with equal damping equally well, when the frequency spacing is dense enough.
   Practically, four frequency lines in the $3\unit{dB}$ bandwidth of each second order subsystem suffice to suppress the effect of misalignment of such a subsystem and the frequency grid of the excitation signal.
   
-\section{Simulations} \label{sec:simulation}
+\section{Simulations} \label{sec:excitation:simulation}
 In the following set of simulations, we will study how the FRF of different second order systems with equal damping (and the corresponding uncertainty) are measured by the multisine excitation signals from Section~\ref{sec:method}.
   \subsection{Setup}
   We consider second-order systems with an equal damping and with resonance frequencies $4$, $8$, $20$, $40$, $80$, $200$, $400$, $800$, $2000$ and $4000 \unit{Hz}$.
@@ -998,17 +998,19 @@ This shows that both resonances are captured with a practically identical relati
 
 \section{Conclusion}
 \label{sec:excitation:conclusion}
-In this chapter we have illustrated that quasi-logarithmic multisine excitations are a well-suited to measure transfer functions over broad frequency ranges with a constant relative uncertainty of the present resonances.
+In this chapter, we recalled that the design of optimal excitation signals may require prior knowledge that is either not sufficiently accurate or even unavailable.
+When only the limited prior knowledge that the system resonances lie in a certain (possibly very wide) frequency band, a suitable class of excitation signals can be constructed such that the relative uncertainty of the estimated resonance is independent of the resonance frequency.
+We showed that such a signal should have a power spectrum that is distributed in $1/f$.
 
-The suggested amplitude compensation methods allow the user to measure a parametric \gls{LTI} model for systems in a wide frequency band with a constant uncertainty.
+In this chapter we have illustrated that quasi-logarithmic multisine excitations are a well-suited to measure transfer functions over broad frequency ranges with a constant relative uncertainty of the present resonances.
+The suggested amplitude compensation methods allow the user to measure a parametric \gls{LTI} model for systems in an even wider frequency band with a constant uncertainty.
 The variance of the estimates at lower frequencies is improved in comparison to the uncompensated case at the cost of a slightly increased (yet constant) variance at higher frequencies for excitation signals with an equal power content.
-In practical applications, this slight increase is likely to be negligible.
+In practice, this slight increase is likely to be negligible.
 The suggested compensation works well as long as the considered systems are sufficiently damped with respect to the density of the excited frequency lines.
 
 We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equidamped set of systems.
 The presented method allows to select a maximal value for the frequency ratio $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
 In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
-
 
 \begin{subappendices}
   \section{Justification for considering only poles}
