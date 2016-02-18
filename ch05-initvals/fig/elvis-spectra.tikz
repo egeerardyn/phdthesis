@@ -28,14 +28,14 @@ xmode=log,
 xlabel={Frequency (Hz)},
 ymin=-50,
 ymax=40,
-ylabel={$\left|U(\omega)\right|$ (dBV)},
+ylabel={$\left|U(\omega)\right|$ \axisunit{dB_{V}}},
 name=Uspectrum,
 axis x line*=bottom,
 axis y line*=left
 ]
-\addplot [FRFSingle,forget plot]
-    table{\thisDir/fig/elvis-spectra-1.tsv};
-\label{leg:SpectraMeasurement:U:single}
+% \addplot [FRFSingle,forget plot]
+%     table{\thisDir/fig/elvis-spectra-1.tsv};
+% \label{leg:SpectraMeasurement:U:single}
 \addplot [FRFNoise,forget plot]
   table{\thisDir/fig/elvis-spectra-3.tsv};
 \label{leg:SpectraMeasurement:U:noise}
@@ -54,16 +54,16 @@ grid=both,
 xmin=400,
 xmax=40000,
 xmode=log,
-xlabel={Frequency (Hz)},
+xlabel={Frequency \axisunit{Hz}},
 ymin=-50,
 ymax=40, 
-ylabel={$\left|Y(\omega)\right|$ (dBV)},
+ylabel={$\left|Y(\omega)\right|$ \axisunit{dB_{V}}},
 yticklabels={},
 axis x line*=bottom,
 axis y line*=right
 ]
-\addplot [FRFSingle,forget plot]
-  table{\thisDir/fig/elvis-spectra-4.tsv};
+% \addplot [FRFSingle,forget plot]
+%   table{\thisDir/fig/elvis-spectra-4.tsv};
 \addplot [FRFNoise,forget plot]
   table{\thisDir/fig/elvis-spectra-6.tsv};
 \addplot [FRFMean,forget plot]

@@ -490,7 +490,7 @@ with
    \caption{Summary of  properties of the different frequency grids.}
     \begin{tabular}{rccc} 
     \toprule
-    Grid & Linear & Logarithmic & Quasi-logarithmic \\
+     & \textsc{Linear} & \textsc{Logarithmic} & \textsc{Quasi-logarithmic} \\
     \midrule
     % Limits & \multicolumn{3}{c}{$\ClosedInterval{\fMin, \fMax}$}\\
     Properties 
@@ -501,7 +501,7 @@ with
     $f_{k+1} \isdef$ 
        & $f_{k} + \Delta f$ 
        & $\alpha f_{k}$
-       & $\round{\frac{\alpha^{N_k} f_k}{\Delta f}} \Delta f$,   $N_k \in \NaturalNumbers$
+       & $\round{\frac{\alpha^{N_k} f_k}{\Delta f}} \Delta f$,   $N_k \in \NaturalNumbersWithoutZero$
        \\[5pt]
     $\Delta f_k \isdef f_{k+1} - f_k$ 
        & $\Delta f$
