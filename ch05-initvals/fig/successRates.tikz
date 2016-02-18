@@ -17,7 +17,6 @@
 % 
 % 
 \begin{tikzpicture}
-\input{\thisDir/styles.inc.tex}
 \begin{axis}[%
 width=0.45\figurewidth,
 height=0.45\figureheight,

@@ -148,15 +148,14 @@ Y(k)=G_0(\Omega_k)U_0(k)+T(\Omega_k)+V_0(k)
 \end{equation}
 where $V_0(k) = H_0(\Omega_k)E(k)$ is a noise term, and $T(\Omega_k)$ is the leakage term. The latter is the sum of the system and the noise leakage terms, i.e. $T(\Omega_k) = T_G(\Omega_k) + T_H(\Omega_k)$.
 
-The smooth characteristics of $G_0(\Omega_k)$ and $T(\Omega_k)$ allow for the use of the Taylor series representations at the frequency lines $k+r$ in a frequency domain window of width $2n+1$, with a remainder $\mathcal{O}\left(\frac{r}{N}\right)^{(R+1)}$ of the first order Taylor series expansion \citep{Schoukens2009LPM}, \emph{viz}:
-\TODO{ordos are incorrect: notation-wise}
+The smooth characteristics of $G_0(\Omega_k)$ and $T(\Omega_k)$ allow for the use of the Taylor series representations at the frequency lines $k+r$ in a frequency domain window of width $2n+1$, with a remainder $\bigO{\left(\frac{r}{N}\right)^{R+1}}$ of the first order Taylor series expansion \citep{Schoukens2009LPM}, \emph{viz}:
 \begin{align}\label{lpmGTaylorS}
 G_0(\Omega_{k+r})&=G_0(\Omega_k)+\sum_{p=1}^{R}g_p(k)r^p+
-\bigO{\left(\frac{r}{N}\right)^{(R+1)}},
+\bigO{\left(\frac{r}{N}\right)^{R+1}},
 \\
 \label{lpmTTaylorS}
 T(\Omega_{k+r})&=T(\Omega_k)+\sum_{p=1}^{R}t_p(k)r^p+N^{-1/2}
-\bigO{  \left(\frac{r}{N}\right)^{(R+1)}  }
+\bigO{  \left(\frac{r}{N}\right)^{R+1}  }
 ,
 \\
 \text{where}&\ r\in\mathbb{W}_n,\quad \mathbb{W}_n = \{-n,-n+1,\dots,n\}

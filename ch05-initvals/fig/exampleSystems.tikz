@@ -8,7 +8,6 @@
 % where you can also make suggestions and rate matlab2tikz.
 % 
 \begin{tikzpicture}
-\input{\thisDir/styles.inc.tex}
 \begin{axis}[%
 width=0.45\figurewidth,
 height=\figureheight,

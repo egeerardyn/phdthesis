@@ -35,14 +35,14 @@ group style={%
   vertical sep=0.2cm,
   x descriptions at=edge bottom,
   y descriptions at=edge left},
-xlabel={$\omega \unit{[rad/S]}$},
+xlabel={$\omega \axisunit{rad/S}$},
 scale only axis,
 xmin=0,
 xmax=3.1415,
 xtick={0,1.2566,1.5708,1.885,3.1416},
 xticklabels={{},{$\frac{2\pi}{5}$},{},{$\frac{3\pi}{5}$},{}},
 grid=major,
-ylabel={$|G| \unit{[dB]}$},
+ylabel={$|G| \axisunit{dB}$},
 height=0.25\figureheight,
 width=0.25\figurewidth,
 axis x line*=bottom,
@@ -490,4 +490,4 @@ axis y line*=left]
 
 % \node at (bodes c4r3.north east) [xshift=1.5cm] {\pgfplotslegendfromname{legBodes}};
 
-\end{tikzpicture}%
+\end{tikzpicture}

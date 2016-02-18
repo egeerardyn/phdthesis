@@ -22,10 +22,10 @@ ymajorgrids, yminorgrids,
 xmajorgrids, xminorgrids,
 xminorticks,
 xmin=10, xmax=64000,
-xlabel={Frequency $f[\unit{Hz}]$},
+xlabel={Frequency $f$ $\axisunit{Hz}$},
 ytick={0,-20,...,-110},
 ymin=-110, ymax=2,
-ylabel={Frequency Response Function $[\unit{dB}]$},
+ylabel={Frequency Response Function $\axisunit{dB}$},
 legend style={at={(1,1.05)},anchor={south east},nodes=right,legend columns=2,font=\footnotesize},
 legend entries={{Measured FRF $G$},{$\sigma_G$ Linear grid},{$\sigma_G$ Quasi-log grid},{$\sigma_G$ Pink quasi-log grid}}]
  

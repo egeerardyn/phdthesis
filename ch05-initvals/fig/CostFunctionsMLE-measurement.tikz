@@ -17,8 +17,6 @@
 % 
 %
 % defining custom colors
-\input{\thisDir/styles.inc.tex}
-
 \begin{tikzpicture}
 
 \begin{axis}[%

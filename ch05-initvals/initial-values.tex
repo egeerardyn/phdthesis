@@ -290,8 +290,7 @@ An implementation of the \gls{RFIR} estimator is available as the \code{arx} fun
 The hyperparameters can be determined via \code{arxregul}.
 More information about the \gls{RFIR} estimator can be found in
 ~\citep{Pillonetto2010,Chen2012}. 
-The \gls{DFT} of the obtained regularized estimate of the impulse response $\hat g_{\mathrm{RFIR}}$ of the system yields a smoothed estimate of the FRF.
-%\JL{Having obtained a regularized estimate of the impulse response of the system, its DFT (Discrete Fourier Transform) yields an estimate of the FRF.}
+The \gls{DFT} of the obtained regularized estimate of the impulse response $\hat g_{\mathrm{RFIR}}$ of the system yields a smoothed estimate of the \gls{FRF}.
 \end{enumerate}
 
 \begin{remark}
@@ -304,9 +303,15 @@ As such, the use of \gls{LRM} over \gls{LPM} offers no advantage for generation 
 \begin{remark}
 Note that methods 3) and 4) result in a non-parametric estimate of the transfer function, represented as the \gls{FRF}. 
 A corresponding parametric estimate is obtained as follows. 
-A parametric estimator (GTLS, BTLS, and MLE) is invoked, where the input spectrum is considered to be $1$ at all frequencies (Dirac in the time domain), and the output spectrum is set equal to the estimated FRF, with the transient term $I$ set to zero. 
-It is important to note that invoking the GTLS, BTLS and MLE on the FRFs from methods 3) and 4) will yield a different result from applying the GTLS, BTLS and MLE on the raw data. This is because the FRFs from 3) and 4) have been smoothed and, thus, have a significantly lower noise variance.
-\TODO{spectra als formule geven}
+A parametric estimator (\gls{GTLS}, \gls{BTLS}, and \gls{MLE}) is invoked, where the input spectrum is considered to be $1$ at all frequencies (Dirac in the time domain), and the output spectrum is set equal to the estimated \gls{FRF} $G_{\bullet}(\omega_k)$, with the transient term $I$ set to zero:
+\begin{equation}
+  U_{\mathrm{FRF}}(\omega_k) \isdef 1 
+  \qquad \text{and} \qquad
+  Y_{\mathrm{FRF}}(\omega_k)  \isdef G_{\bullet}(\omega_k)
+  \text{.}
+\end{equation}
+It is important to note that invoking the \gls{GTLS}, \gls{BTLS} and \gls{MLE} on the \glspl{FRF} from methods 3) and 4) will yield a different result from applying the \gls{GTLS}, \gls{BTLS} and \gls{MLE} on the raw data. 
+This is because the \glspl{FRF} from 3) and 4) have been smoothed and, thus, have a significantly reduced noise variance.
 \end{remark}
 %}
 
@@ -871,8 +876,7 @@ E.g. note in \tabref{tbl:validationMeasurements} that this step reduces the wors
   \centering
   \caption{Observed percentiles of the validation distance $\norm{\model{\bullet}-G_{\mathrm{VXI}}}$.}
 % \input{\thisDir/table2.tex}
-
-\pgfplotstabletypeset[precision=2,zerofill=true]{
+\pgfplotstabletypeset[zerofill=true,precision=2]{
 method              P000      P025      P050        P075     P100   
 \model{VXI}         0.47325   0.916589   1.06396   1.29177   2.4089
 \model{exist}       1.48252   1.88392   13.7177   19.3113   26.7984
