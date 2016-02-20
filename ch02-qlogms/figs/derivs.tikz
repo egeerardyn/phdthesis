@@ -3,7 +3,7 @@
 \def\varWn{1}
 \def\varWzSmall{0.1}
 \def\varWzBig{10}
-\def\varK{2}
+\def\varK{0.5}
 \def\varXi{0.025}
 
 % command to compute amplitude of TF (#1+j#2)/(#3+j#4)
@@ -42,12 +42,12 @@ group style={%
   x descriptions at=edge bottom},
 xlabel={$\omega \axisunit{rad/s}$},
 scale only axis,
-xmin=0.01,
-xmax=100,
+xmin=0.004,
+xmax=50,
 xmode=log,
 ymode=log,
-domain=0.01:100,
-xtick={0.01,\varWn,100},
+domain=0.004:50,
+xtick={0.004,\varWn,50},
 xticklabels={{},{$\wn$},{}},
 yticklabels={\empty},
 samples=500, % log(xmax/xmin)/log(1+\varXi)
