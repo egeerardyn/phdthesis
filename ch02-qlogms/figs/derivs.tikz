@@ -1,0 +1,129 @@
+\begin{tikzpicture}
+
+\def\varWn{1}
+\def\varWzSmall{0.1}
+\def\varWzBig{10}
+\def\varK{2}
+\def\varXi{0.025}
+
+% command to compute amplitude of TF (#1+j#2)/(#3+j#4)
+\newcommand{\amplitudeTf}[4]{sqrt((#1)^2 + (#2)^2)/sqrt((#3)^2 + (#4)^2)}
+
+% definition of the derivatives for the (K, wn, wz, xi) and \omega = x
+\newcommand{\dGdK}[4]{(#2)^2/(#3)*\amplitudeTf{#3}{x}{2*(#4)*(#2)*x}{(#2)^2-x^2}}
+\newcommand{\dGdWz}[4]{(#1)*(#2)^2/(#3)*\amplitudeTf{0}{x}{2*(#4)*(#2)*x}{(#2)^2-x^2}}
+\newcommand{\dGdWn}[4]{2*(#1)*(#2)/(#3)*\amplitudeTf{(#4)*(#2)*(#3)-x^2}{x*((#3)+(#2)*(#4))}{((#2)^2 - x^2)^2 - 4*(#2)^2*x^2*(#4)^2}{4*(#2)*x*(#4)*((#2)^2 - x^2)}}
+\newcommand{\dGdXi}[4]{2*(#1)*(#2)^3/(#3)*\amplitudeTf{-x^2}{(#3)*x}{((#2)^2 - x^2)^2 - 4*(#2)^2*x^2*(#4)^2}{4*(#2)*x*(#4)*((#2)^2 - x^2)}}
+% Use MATLAB/mupad to derive the equations in terms of (K, wn, wz, xi)
+% Then, retrieve real/imag parts
+% Then, replace K -> (#1), wn -> (#2), etc.
+
+\pgfplotsset{dGdK/.style={ylabel={$\abs{\PartialDerivative{G}{K}}$},ymin=0.001,ymax=500,ytickten={-2,...,2}}}
+\pgfplotsset{dGdWz/.style={ylabel={$\abs{\PartialDerivative{G}{\wz}}$},ymin=0.01,ymax=500,ytickten={-2,...,2}}}
+\pgfplotsset{dGdWn/.style={ylabel={$\abs{\PartialDerivative{G}{\wn}}$},ymin=0.001,ymax=10000,ytickten={-3,...,4}}}
+\pgfplotsset{dGdXi/.style={ylabel={$\abs{\PartialDerivative{G}{\damping}}$},ymin=0.0001,ymax=10000,ytickten={-3,...,4}}}
+
+%NOTE: these styles depend on wn==1
+\pgfplotsset{smallZero/.style={title={$\wz \ll \wn$}, extra x ticks={\varWzSmall,\varXi},extra x tick labels={$\wz$,$\damping\wn$}}}
+\pgfplotsset{equalZero/.style={title={$\wz = \wn$}, extra x ticks={\varXi},extra x tick labels={$\damping\wn$}}}
+\pgfplotsset{largeZero/.style={title={$\wz \gg \wn$},extra x ticks={\varWzBig,\varXi},extra x tick labels={$\wz$,$\damping\wn$}}}
+
+\pgfplotsset{noTitle/.append style={title={}}}
+\pgfplotsset{noYLabel/.append style={ylabel={}}}
+\pgfplotsset{noXTicks/.append style={extra x tick labels={}}}
+
+\begin{groupplot}[%
+group style={%
+  group name=derivs,
+  group size=3 by 4,
+  horizontal sep=0.2cm,
+  vertical sep=0.2cm,
+  y descriptions at=edge left,
+  x descriptions at=edge bottom},
+xlabel={$\omega \axisunit{rad/s}$},
+scale only axis,
+xmin=0.01,
+xmax=100,
+xmode=log,
+ymode=log,
+domain=0.01:100,
+xtick={0.01,\varWn,100},
+xticklabels={{},{$\wn$},{}},
+yticklabels={\empty},
+samples=500, % log(xmax/xmin)/log(1+\varXi)
+% xtick={0,1.2566,1.5708,1.885,3.1416},
+% xticklabels={{},{$\frac{2\pi}{5}$},{},{$\frac{3\pi}{5}$},{}},
+grid=major,
+height=0.25\figureheight,
+width=0.33\figurewidth]
+
+
+% ================================================
+\nextgroupplot[dGdK, smallZero, noXTicks]
+%\node[anchor=south west] at (rel axis cs:0,0) {1};
+\addplot[myDerivs] expression {\dGdK{\varK}{\varWn}{\varWzSmall}{\varXi}};
+
+% ================================================
+\nextgroupplot[dGdK, equalZero, noYLabel, noXTicks]
+%\node[plotnum,anchor=south] at (rel axis cs:0.5,0) {2};
+\addplot[myDerivs] expression {\dGdK{\varK}{\varWn}{\varWn}{\varXi}};
+
+% ================================================
+\nextgroupplot[dGdK, largeZero, noYLabel, noXTicks]
+%\node[plotnum,anchor=south east] at (rel axis cs:1,0) {3};
+\addplot[myDerivs] expression {\dGdK{\varK}{\varWn}{\varWzBig}{\varXi}};
+
+% ================================================
+% ================================================
+
+\nextgroupplot[dGdWz, smallZero, noTitle, noXTicks]
+%\node[plotnum,anchor=south east] at (rel axis cs:1,0) {4};
+\addplot[myDerivs] expression {\dGdWz{\varK}{\varWn}{\varWzSmall}{\varXi}};
+
+% ================================================
+\nextgroupplot[dGdWz, equalZero, noTitle, noYLabel, noXTicks]
+%\node[plotnum,anchor=south west] at (rel axis cs:0,0) {5};
+\addplot[myDerivs] expression {\dGdWz{\varK}{\varWn}{\varWn}{\varXi}};
+
+% ================================================
+\nextgroupplot[dGdWz, largeZero, noTitle, noYLabel, noXTicks]
+%\node[plotnum,anchor=south west] at (rel axis cs:0,0) {5};
+\addplot[myDerivs] expression {\dGdWz{\varK}{\varWn}{\varWzBig}{\varXi}};
+
+% ================================================
+% ================================================
+
+\nextgroupplot[dGdWn, smallZero, noTitle, noXTicks]
+%\node[plotnum,anchor=south east] at (rel axis cs:1,0) {4};
+\addplot[myDerivs] expression {\dGdWn{\varK}{\varWn}{\varWzSmall}{\varXi}};
+
+% ================================================
+\nextgroupplot[dGdWn, equalZero, noTitle, noYLabel, noXTicks]
+%\node[plotnum,anchor=south west] at (rel axis cs:0,0) {5};
+\addplot[myDerivs] expression {\dGdWn{\varK}{\varWn}{\varWn}{\varXi}};
+
+% ================================================
+\nextgroupplot[dGdWn, largeZero, noTitle, noYLabel, noXTicks]
+%\node[plotnum,anchor=south west] at (rel axis cs:0,0) {5};
+\addplot[myDerivs] expression {\dGdWn{\varK}{\varWn}{\varWzBig}{\varXi}};
+
+% ================================================
+% ================================================
+
+\nextgroupplot[dGdXi, smallZero, noTitle]
+%\node[plotnum,anchor=south east] at (rel axis cs:1,0) {4};
+\addplot[myDerivs] expression {\dGdXi{\varK}{\varWn}{\varWzSmall}{\varXi}};
+
+% ================================================
+\nextgroupplot[dGdXi, equalZero, noTitle, noYLabel]
+%\node[plotnum,anchor=south west] at (rel axis cs:0,0) {5};
+\addplot[myDerivs] expression {\dGdXi{\varK}{\varWn}{\varWn}{\varXi}};
+
+% ================================================
+\nextgroupplot[dGdXi, largeZero, noTitle, noYLabel]
+%\node[plotnum,anchor=south west] at (rel axis cs:0,0) {5};
+\addplot[myDerivs] expression {\dGdXi{\varK}{\varWn}{\varWzBig}{\varXi}};
+
+\end{groupplot}
+
+\end{tikzpicture}
