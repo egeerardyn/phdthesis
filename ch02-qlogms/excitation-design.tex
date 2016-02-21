@@ -1361,8 +1361,7 @@ In practice we advise to use an excitation signal with approximately four excite
 
 \begin{subappendices}
   \section{Justification for considering only poles}
-
-\TODO{explain the section}
+\TODO{move into main text}
 Remember that the rational transfer function of any \gls{LTI} system $G$ can be decomposed in its partial fraction form:
 \begin{equation}
   G(s) = \sum_i \frac{K_i (s+\wz[i])}{} +  
@@ -1404,19 +1403,26 @@ To determine the Fisher Information matrix, the derivative $\PartialDerivative{G
 \end{align}
 
 The poles of these derivatives coincide with the system poles (possibly with doubled multiplicity).
-Conequently, this means that for lightly-damped systems ($\damping \ll \sqrt{2}$), these derivatives will exhibit a sharp resonance peak just as the actual sub-system $G_2$.
-
-
-  \TODO{benadering van 1/2 systeem a.d.h.v. 0/2 systeem wanneer $\omega_z << \wn$ (of $\omega_z >> \wn)$: rond de resonantie zijn beiden ongeveer gelijk. Afgeleide naar de nul zijn klein rond de resonantie. Informatiematrix is langs twee kanten gewogen met die afgeleide, dus die nul maakt weinig uit.}
-
+Conequently, this means that for lightly-damped systems ($\damping \ll \sqrt{2}$), these derivatives will exhibit a sharp resonance peak just as the actual sub-system $G_2$ as illustrated in \figref{fig:excitation:derivatives}.
+The roll-off near the resonance is determined by the damping $\damping$.
+As such, the Fisher information matrix is pre-dominantly determined by the input power spectrum near $\wn$.
+Note that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ have the steepest roll-off near the resonance.
+As such, those parameters are the most important for the experiment design.
 
 \begin{figure}
   \centering
   \setlength\figurewidth{0.9\columnwidth}
   \setlength\figureheight{\figurewidth}
   \input{\thisDir/figs/derivs.tikz}
-  \caption{Bode plots of the elements of $\PartialDerivative{G_2}{\theta}$ for small $\damping$. It can be seen that the derivatives are dominated by the resonance peak. This means that for a good input signal, it is critical to have power near the resonance peak. The roll-off near $\wn$ is significant and depends strongly on $\damping$. Note also that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ exhibit a sharper peak and hence $\damping$ and $\wn$ are the most important parameters of the model.
-  \TODO{indicate slopes?}}
+  \caption[Derivatives of a second-order system for each of its parameters.]{Bode plots of the elements of $\PartialDerivative{G_2}{\theta}$ for small $\damping$. 
+  % The numbers indicate the (asymptotic) slope as a multiple of $20 \unit{dB/\decade}$.
+  The roll-off near $\wn$ is significant and depends strongly on $\damping$.
+  It can be seen that the derivatives are dominated by the resonance peak. 
+  This means that for a good input signal, it is critical to have power near the resonance peak. 
+  Note also that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ exhibit a sharper peak and hence $\damping$ and $\wn$ are the most important parameters of the model.
+  In this example, $\damping = \varXi$, $K = \varK$, $\frac{\wz}{\wn} \in \Set{\varWzSmall, 1, \varWzBig}$ and $\wn = \varWn \unit{rad/s}$ were used.
+}
+\label{fig:excitation:derivatives}
 \end{figure}
 
 

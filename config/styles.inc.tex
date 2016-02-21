@@ -301,7 +301,10 @@
 \pgfplotsset{enhancementMarks/.style={color=TangoChameleon3,only marks,mark=triangle*,mark options={solid,fill=TangoChameleon2},opacity=0.7}}
 
 \pgfplotsset{percentileLines/.style={black,dashed}}
+%NOTE: we need tikzset here, these styles are used on NODE (\in TikZ) instead of Pgfplots stuff
 \tikzset{annotation/.style={align=left,draw=black!0.2,font=\scriptsize,fill=white,fill opacity=0.8}}
+
+\tikzset{numSlope/.style={anchor=center,align=center,font=\scriptsize}}
 
 %% TABLE STYLES
 % http://tex.stackexchange.com/questions/83487/pgfplotstable-converting-zeros-to-in-a-knitr-inline-table

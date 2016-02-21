@@ -1,10 +1,10 @@
-\begin{tikzpicture}
-
 \def\varWn{1}
 \def\varWzSmall{0.1}
 \def\varWzBig{10}
 \def\varK{0.5}
 \def\varXi{0.025}
+
+\begin{tikzpicture}
 
 % command to compute amplitude of TF (#1+j#2)/(#3+j#4)
 \newcommand{\amplitudeTf}[4]{sqrt((#1)^2 + (#2)^2)/sqrt((#3)^2 + (#4)^2)}
@@ -22,6 +22,9 @@
 \pgfplotsset{dGdWz/.style={ylabel={$\abs{\PartialDerivative{G}{\wz}}$},ymin=0.01,ymax=500,ytickten={-2,...,2}}}
 \pgfplotsset{dGdWn/.style={ylabel={$\abs{\PartialDerivative{G}{\wn}}$},ymin=0.001,ymax=10000,ytickten={-3,...,4}}}
 \pgfplotsset{dGdXi/.style={ylabel={$\abs{\PartialDerivative{G}{\damping}}$},ymin=0.0001,ymax=10000,ytickten={-3,...,4}}}
+
+
+
 
 %NOTE: these styles depend on wn==1
 \pgfplotsset{smallZero/.style={title={$\wz \ll \wn$}, extra x ticks={\varWzSmall,\varXi},extra x tick labels={$\wz$,$\damping\wn$}}}
@@ -62,16 +65,24 @@ width=0.33\figurewidth]
 \nextgroupplot[dGdK, smallZero, noXTicks]
 %\node[anchor=south west] at (rel axis cs:0,0) {1};
 \addplot[myDerivs] expression {\dGdK{\varK}{\varWn}{\varWzSmall}{\varXi}};
+% \node[numSlope] at (rel axis cs:0.125,0.65) {$0$};
+% \node[numSlope] at (rel axis cs:0.4375,0.5) {$+1$};
+% \node[numSlope] at (rel axis cs:0.9,0.25) {$-2$};
 
 % ================================================
 \nextgroupplot[dGdK, equalZero, noYLabel, noXTicks]
 %\node[plotnum,anchor=south] at (rel axis cs:0.5,0) {2};
 \addplot[myDerivs] expression {\dGdK{\varK}{\varWn}{\varWn}{\varXi}};
+% \node[numSlope] at (rel axis cs:0.25,0.6) {$0$};
+% \node[numSlope] at (rel axis cs:0.8,0.5) {$-2$};
 
 % ================================================
 \nextgroupplot[dGdK, largeZero, noYLabel, noXTicks]
 %\node[plotnum,anchor=south east] at (rel axis cs:1,0) {3};
 \addplot[myDerivs] expression {\dGdK{\varK}{\varWn}{\varWzBig}{\varXi}};
+% \node[numSlope] at (rel axis cs:0.25,0.65) {$0$};
+% \node[numSlope] at (rel axis cs:0.75,0.5) {$+1$};
+% \node[numSlope] at (rel axis cs:0.9,0.35) {$-2$};
 
 % ================================================
 % ================================================
@@ -79,6 +90,8 @@ width=0.33\figurewidth]
 \nextgroupplot[dGdWz, smallZero, noTitle, noXTicks]
 %\node[plotnum,anchor=south east] at (rel axis cs:1,0) {4};
 \addplot[myDerivs] expression {\dGdWz{\varK}{\varWn}{\varWzSmall}{\varXi}};
+% \node[numSlope] at (rel axis cs:0.25,0.4) {$+2$};
+% \node[numSlope] at (rel axis cs:0.9,0.4) {$-2$};
 
 % ================================================
 \nextgroupplot[dGdWz, equalZero, noTitle, noYLabel, noXTicks]
