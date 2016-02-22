@@ -110,11 +110,15 @@ The information matrix is a function of the input power spectrum $\powerspec{u}$
 
 The information matrix tells us how good the individual parameter estimates are. However, if we are interested in estimating a transfer function $G(s,\theta)$ the quality of this estimate is of more importance. It is possible to find an expression for the variance of $\hat{G}(j\omega,\theta)$ using the Gauss approximation formula \citep{Ljung1999, Pintelon2012}. This gives
 \begin{align}
-\var{\hat{G}(j\omega)} &= \frac{\partial G^H(j\omega)}{\partial \theta}\IF^{-1}\frac{\partial G(j\omega)}{\partial \theta}.
+\var{\hat{G}(j\omega)} &\approx \frac{\partial G^H(j\omega)}{\partial \theta}\IF^{-1}\frac{\partial G(j\omega)}{\partial \theta}.
 \label{eq:excitation:varG}
 \end{align}
 
-Typically, the input design formulation depends on the true system parameters. This means that the optimal input depends on the \emph{unknown} system that one wants to identify. Furthermore, classical input designs, such as the D-optimal, typically give signals with sparse spectra. This means that only a few frequencies are excited. A sparse spectrum is bad from a robustness point of view; there is very limited information about what happens at the unexcited frequencies. Therefore, a signal design to be optimal for one system may result in very bad estimates if applied to another system. 
+Typically, the input design formulation depends on the true system parameters. This means that the optimal input depends on the \emph{unknown} system that one wants to identify. 
+Furthermore, classical input designs, such as the D-optimal design, typically give signals with sparse spectra. 
+This means that only a few frequencies are excited. 
+A sparse spectrum is bad from a robustness point of view; there is very limited information about what happens at the unexcited frequencies. 
+Therefore, a signal design to be optimal for one system may result in very bad estimates if applied to another system. 
 To increase the robustness of the design, one could take a small fraction $\delta$, from the optimal power and redistribute this power over the whole frequency band of interest.
 From \eqref{eq:excitation:IF} and \eqref{eq:excitation:varG} we see that scaling the input power by $1-\delta$, gives the transfer function variance
 \begin{align}
@@ -124,38 +128,40 @@ This is a small loss while the increase in robustness can be significant if the 
 
 %Such a signal is discussed in the next section.
 
-%\subsection{Using prior system information}
-%Consider a system $G(s,\theta)$ where some initial guess of the parameter vector,
+% \TODO{begin}
+% \newcommand{\robust}{\mathrm{robust}\}
+% \subsection{Using prior system information}
+% Consider a system $G(s,\theta)$ where some initial guess of the parameter vector,
 % say $\hat{\theta}_0 \in \mathbb{R}^n$ exists. A D-optimal design can then be
 % found based $\hat{\theta}_0$. The resulting determinant is
-%\begin{align}
+% \begin{align}
 %  \left[\det\IF^\star\right]^{-1}
 %    &= \min_{\phi_u(\omega)}
 %             \left[\det\IF\right]^{-1}
-%\end{align}
-%
-%The optimal input can be realized as sum of $n$ sinusoids.
-%Such an input is typically not robust to the initial guess since \TODO{\ldots}.
-%As a solution to this, the optimal input is modified so that a fraction of the
-%power in the optimal design is taken away and redistributed over all frequencies.
-%This ensures that some excitation power is available also at other frequencies.
-%
-%If $\lambda_i$ is the fraction of the input power at frequency $\wn[i]$,
-%then the determinant of $\IF^\star$ can be expressed as \Cite{Goodwin}
-%\begin{align}
+% \end{align}
+
+% The optimal input can be realized as sum of $n$ sinusoids.
+% Such an input is typically not robust to the initial guess since \TODO{\ldots}.
+% As a solution to this, the optimal input is modified so that a fraction of the
+% power in the optimal design is taken away and redistributed over all frequencies.
+% This ensures that some excitation power is available also at other frequencies.
+
+% If $\lambda_i$ is the fraction of the input power at frequency $\wn[i]$,
+% then the determinant of $\IF^\star$ can be expressed as \Cite{Goodwin}
+% \begin{align}
 %  \det\IF^\star &= \prod_{i = 1}^{n}
 %                      \lambda_i^2
 %                      \alpha(\wn[i]).
-%\end{align}
-%The optimal input spectrum is
-%\begin{align}
+% \end{align}
+% The optimal input spectrum is
+% \begin{align}
 %  \phi_u^\star(\omega) &= \sum_{i=1}^{n}
 %                            \lambda_i^2
 %                            \delta(\omega,\wn[i])
-%\end{align}
-%If a fraction, say $\eta$, of the power is taken from each frequency and used
-%at other frequencies, the input spectrum can be written as
-%\begin{align}
+% \end{align}
+% If a fraction, say $\eta$, of the power is taken from each frequency and used
+% at other frequencies, the input spectrum can be written as
+% \begin{align}
 %  \phi_u(\omega) &= (1-\eta)
 %                      \sum_{i=1}^{n}
 %                        \lambda_i^2 
@@ -163,30 +169,30 @@ This is a small loss while the increase in robustness can be significant if the 
 %                    + \phi_u^{\robust}(\omega),\\
 %                 &= (1-\eta) \phi_u^\star    (\omega)
 %                    +        \phi_u^{\robust}(\omega).
-%\end{align}
-%The term $ \phi_u^{\robust}$ is the part that introduces robustness and
-%must be such that
-%\begin{align}
+% \end{align}
+% The term $ \phi_u^{\robust}$ is the part that introduces robustness and
+% must be such that
+% \begin{align}
 %  \int_0^{\pi} \phi_u^{\robust}(\omega) \dd{\omega} &= n \eta.
-%\end{align}
-%The spectrum $\phi_u^{\robust}(\omega)$ can for example be chosen as
-%a discrete spectrum, e.g. from a multi-sine signal, or as
-%a continuous spectrum. The resulting information matrix for the robust input is hence
-%\begin{align}
+% \end{align}
+% The spectrum $\phi_u^{\robust}(\omega)$ can for example be chosen as
+% a discrete spectrum, e.g. from a multi-sine signal, or as
+% a continuous spectrum. The resulting information matrix for the robust input is hence
+% \begin{align}
 %  \IF &= (1-\eta)\IF^\star + \IF^\robust
-%\end{align}
-%The determinant is therefore
-%\begin{multline}
-%\det\left[(1-\eta)\IF^\star + \IF^\robust\right]
+% \end{align}
+% The determinant is therefore
+% \begin{multline}
+% \det\left[(1-\eta)\IF^\star + \IF^\robust\right]
 %  \geq \det\left[(1-\eta)\IF^\star\right] + \det\left[\IF^\robust\right] \\
 %  =  (1-\eta)^n\det\left[\IF^\star\right] + \det\left[\IF^\robust\right]
 %  \text{.}
-%\end{multline}
-%The inequality holds since the information matrix is a positive, semi-definite
-%matrix. Hence the largest possible loss in the determinant due to the robustness
+% \end{multline}
+% The inequality holds since the information matrix is a positive, semi-definite
+% matrix. Hence the largest possible loss in the determinant due to the robustness
 % is given by the factor $(1-\eta)^n$.
-%\TODO{This bound is often very low, maybe better one should be found!}
-
+% \TODO{This bound is often very low, maybe better one should be found!}
+% \TODO{end}
 
 \section{Logarithmic power distributions}\label{sec:excitation:logarithmic}
 When no information about the system is known, it is desirable that the excitation signal is such that regardless of the true system characteristics, the resulting estimates have equally good statistical properties.
@@ -240,9 +246,9 @@ which is independent of $\wn$. The robustness of the $1/f$ input has been noted 
 
 Second, we consider the power spectrum of the quasi-logarithmic multisine signal [\cite{Pintelon2012}] given by
 \begin{align}
-  \phi_u(\omega) &= \frac{1}{M}\sum_{k=1}^{M}{\delta(\omega,\wn[K])},
+  \phi_u(\omega) &= \frac{1}{M}\sum_{k=1}^{M}{\dirac{\omega - \omega_k}},
 \end{align}
-where $\omega_{k}/\omega_{k+1} \approx \alpha$.
+where $\omega_{k}/\omega_{k+1} \approx \alpha$ and $\dirac{\omega}$ denotes the Dirac distribution.
 Hence, the number of spectral lines inside \wdB is 
 \begin{align}
   \floor{
@@ -269,6 +275,66 @@ To construct a quasi-logarithmic multisine, only frequency lines $f_j$ within th
 
 The result of these two choices of input power spectrum is that for a given damping, $\var{\hat{G}}$ is approximately the same independent of $\wn$. 
 This is illustrated in \secref{sec:excitation:simulation}.
+
+\subsection{Generic system}
+%TODO: explain generic LTI system
+Consider a second-order subsystem
+\begin{equation}
+  G_2(s, \theta) = \frac{K \wn^{2 \multiplicity} \left( s + \wz \right)}{\wz \left(s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity}}
+\end{equation}
+parametrized in $\theta =  \left[K, \wn, \wz, \damping \right]^{\T}$.
+To determine the Fisher Information matrix, the derivative $\PartialDerivative{G(s,\theta)}{\theta}$ is required; its components are given by:
+\begin{align}
+  \PartialDerivative{G_2}{K} 
+    &= 
+  \frac{\wn^{2\multiplicity}}{\wz}
+  \frac{s + \wz}{\left(s^2 + 2 \damping \wn s + \wn^2\right)^{\multiplicity}}
+  \\
+  \PartialDerivative{G_2}{\wz} 
+    &= 
+    \frac{-K \wn^{2\multiplicity}}
+              {\wz} 
+    \frac{s}
+              {\left(s^2 + 2 \damping \wn s + \wn^2\right)^{\multiplicity}} 
+  \\
+  \PartialDerivative{G_2}{\wn} 
+  &= 
+  \frac{2 K \wn^{2\multiplicity-1} \multiplicity}
+            {\wz} 
+  \frac{\left( s + \wz \right) \left( s+ \damping \wn \right)}
+            {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity + 1}}
+  \\
+  \PartialDerivative{G_2}{\damping}
+  &= 
+  \frac{-2 K \wn^{2\multiplicity + 1} \multiplicity}
+            {\wz}
+  \frac{s \left( s + \wz \right)}
+             {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity + 1}}
+  \text{.}
+\end{align}
+
+The poles of these derivatives coincide with the system poles (possibly with increased multiplicity).
+Consequently, this means that for lightly-damped systems ($\damping \ll \sqrt{2}$), these derivatives will exhibit a sharp resonance peak just as the actual sub-system $G_2$ as illustrated in \figref{fig:excitation:derivatives}.
+The roll-off near the resonance is determined mainly by the damping $\damping$ and the multiplicity $\multiplicity$ of the sub-system.
+As such, the Fisher information matrix is pre-dominantly determined by the input power spectrum near $\wn$.
+Note that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ have the steepest roll-off near the resonance.
+As such, those parameters are the most important for the experiment design.
+
+\begin{figure}
+  \centering
+  \setlength\figurewidth{0.9\columnwidth}
+  \setlength\figureheight{\figurewidth}
+  \input{\thisDir/figs/derivs.tikz}
+  \caption[Derivatives of a second-order sub-system towards each of its parameters.]{Bode plots of the elements of $\PartialDerivative{G_2}{\theta}$ for small $\damping$. 
+  % The numbers indicate the (asymptotic) slope as a multiple of $20 \unit{dB/\decade}$.
+  The roll-off near $\wn$ is significant and depends strongly on $\damping$.
+  It can be seen that the derivatives are dominated by the resonance peak, an effect that is even more prominent when $\multiplicity$ is large.
+  This means that for a good input signal, it is critical to have power near the resonance peak. 
+  Note also that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ exhibit a sharper peak and hence $\damping$ and $\wn$ are the most important parameters of the model.
+  In this example, $\damping = \varXi$, $K = \varK$, $\frac{\wz}{\wn} \in \Set{\varWzSmall, 1, \varWzBig}$, $\multiplicity=1$ and $\wn = \varWn \unit{rad/s}$ were used.
+}
+\label{fig:excitation:derivatives}
+\end{figure}
 
 \subsection{Sums of second order systems}
 This section extends the previous section to more general systems than second order.
@@ -358,7 +424,7 @@ To proceed, consider
 which has zeros in $j\omega=\left\{0, \damping\wn[1]\right\}$. 
 Hence $\left|\frac{\partial G_1}{\partial \wn[1]} \right|$ has asymptotic slope 20\unit{dB/\decade} for low frequencies, at $j\omega=\damping\wn[1]$ the slope increases to 40\unit{dB/\decade}. 
 There are four poles which give a $-40$\unit{dB/\decade} roll-off after the peak. 
-The shape of $\frac{\partial G_1}{\partial \wn[1]} $ is illustrated in \figref{fig:excitation:dG}.
+The shape of $\frac{\partial G_1}{\partial \wn[1]} $ is illustrated in \figref{fig:excitation:derivatives}.
 
 A crude, albeit useful, bound on the integrand in \eqref{eq:excitation:cross} is
 \begin{align}
@@ -389,18 +455,13 @@ Hence \eqref{eq:excitation:cross1} cannot grow faster than $\mathcal{O}(\damping
 \item lower damping further decreases the integral \eqref{eq:excitation:cross1} in comparison to \eqref{eq:excitation:auto}.
 \end{itemize}
 
-\begin{figure}
-\centering
-\setlength\figurewidth{0.68\columnwidth}
-\setlength\figureheight{0.68\figurewidth}
-\input{\thisDir/figs/rolloff.tikz}
-\caption{The shape of $\frac{\partial G_1}{\partial \wn[1]}$. The roll-off around the peak is significant and depends on the damping of the system.}
-\label{fig:excitation:dG}
-\end{figure}
 
 To further illustrate the decoupling of the two systems, we calculate \eqref{eq:excitation:infoEx} for different values of the damping $\damping$ and separations of the two resonances $\wn[1]$ and $\wn[2]$. If the separation is taken in terms of $\wdB$-units for the lower resonance, the result only depends on the difference $\wn[1]-\wn[2]$ and not on the actual frequencies. The resulting information matrix is then normalized so that the largest element is $1$.
 
-In \figref{fig:excitation:coupling} the largest element in $\partial G_{1,2}$ is plotted for different dampings and separations. It is clear that highly resonant systems have a large degree of decoupling and that resonances that are well separated increases the decoupling. The diagonal blocks of the normalized $\IF$ in all cases have some elements close to 1. In this example, the $\damping$ is set to be the same in both sub-systems. Using different dampings in the sub-systems would, however, not change the argument, the systems with the lowest damping will limit the separation.
+In \figref{fig:excitation:coupling} the largest element in $\partial G_{1,2}$ is plotted for different dampings and separations. It is clear that highly resonant systems have a large degree of decoupling and that resonances that are well-separated increases the decoupling. 
+The diagonal blocks of the normalized $\IF$ in all cases have some elements close to $1$. 
+In this example, the $\damping$ is set to be the same in both sub-systems. 
+Using different dampings in the sub-systems would, however, not change the argument, the systems with the lowest damping will limit the separation.
 
 Based on the above arguments, we approximate the information matrix for lightly-damped systems as a block-diagonal matrix:
 \begin{align}
@@ -439,16 +500,38 @@ This results extends mutatis mutandis to systems consisting of more sub-systems.
     \text{.} \label{eq:model}
   \end{align}
   
-  The model is parametrized in the vector $\theta = \left[b_0 \,\cdots\, b_{n_b-1} \; a_0 \,\cdots\, a_{n_a-1} \right]^{\T}$ and  is evaluated at different frequencies $\Omega$ in the complex plane.
+  The model is parametrized by the vector $\theta = \left[b_0 \,\cdots\, b_{n_b-1} \; a_0 \,\cdots\, a_{n_a-1} \right]^{\T}$ and  is evaluated at different frequencies $\Omega$ in the complex plane.
   For a continuous time model $\Omega = s$, while for the discrete time case $\Omega = z$.
 
-  Such a system can be decomposed into a series of first and second order systems by the partial fraction expansion.
-  \TODO{This is actually wrong, rather, it should be $\frac{as-b}{cs^2 + ds + 1}$. However, the difference in information is rather small around the actual resonance. See script in NnF folder.}
-\TODO{write out in partial fraction expansion, use script to show that in practice, only a few parameters matter. This will be well-approximated by considering only the second order system of the paper.}
-  
+  Such a system can be decomposed into a series of first and second order systems by the partial fraction expansion:
+  \TODO{move into main text}
+Remember that the rational transfer function of any strictly proper \gls{LTI} system $G$ can be decomposed in its partial fraction form:
+\begin{align}
+  G(s) &= 
+    \frac{\sum\limits_{i=0}^{\numel{B}} b_i s^i}
+              {\sum\limits_{i=0}^{\numel{A}} a_i s^i} 
+        =    
+   \frac{\sum\limits_{i=0}^{\numel{B}} b_i s^i}
+              {\prod\limits_{i=1}^{I_1} \left( s - \pole[i] \right)^{M_{1,i}} 
+               \prod\limits_{i=1}^{I_2} \left(s^2 + 2 \damping[i] \wn[i] s + \wn[i]^2 \right)^{M_{2,i}}}
+        \\
+        &  = 
+        \sum_{i=1}^{I_1} 
+          \sum_{\multiplicity=1}^{M_{1,i}} 
+            \frac{\dc[i]}
+                      { \left( s - \pole[i] \right)^{\multiplicity}}
+            + 
+        \sum_{i=1}^{I_2} 
+          \sum_{\multiplicity=1}^{M_{2,i}}
+           \frac{\dc[i,\multiplicity] \wn[i]^{2\multiplicity} \left( s + \wz[i] \right)}
+                     {\wz[i] \left(s^2 + 2 \damping[i] \wn[i] s + \wn[i]^2 \right)^{\multiplicity}}
+        \label{eq:excitation:PFE}
+\end{align}
+where $I_1$ denotes the number of real-valued poles, $I_2$ denotes the number of complex conjugated pole pairs.
+$M_{1,i}$ and $M_{2,i}$ denotes the multiplicity of the corresponding poles, such that $\numel{A} = \sum_i^{I_1} M_{1,i} + 2 \sum_{i}^{I_2} M_{2,i}$.
+Each term in \eqref{eq:excitation:PFE} represents a \term{sub-system} of the system $G(s)$.  
   Within these sub-systems, we can distinguish first-order subsystems and second-order subsystems, the latter of which describe resonant phenomena.
   Since such resonances are often a limiting factor, we first focus on these resonant sub-systems.
-  Afterwards, it will become obvious that 
 
   To study the behavior of one sub-system, we inspect a generic second order system $G\left( s \right)$.
   In continuous time such a system can be described by a transfer function of the form
@@ -568,7 +651,7 @@ This results extends mutatis mutandis to systems consisting of more sub-systems.
   For \code{double} precision, $\eps \approx 2.2 \cdot 10^{-16}$ and the period $T \approx 9 \cdot 10^{6} \unit{year}$.
   \end{remark}
 
-  This last example illustrates that a least common multiple of real numbers does not always exist.
+  This last example illustrates that a least common multiple of real numbers is not guaranteed to exist.
   Consequently, the generalized multisine of \defref{def:generalized-MS} is not guaranteed to be periodic.
   In actual implementations with limited numerical precision, this gives rise to signals that are periodic but whose period can be too long to be practically viable for periodic measurements.
   Consequently, it is undesirable to use generalized multisines that have an overly long period.
@@ -629,10 +712,10 @@ This results extends mutatis mutandis to systems consisting of more sub-systems.
                 }
     \label{eq:logms:F}
     \end{equation}
-  where $\floor{\bullet}$ denotes rounding towards zero.
+  where $\floor{\bullet}$ denotes rounding towards the nearest smaller integer value.
   In the Section \ref{sec:optimAlpha}, the choice of a suitable $\alpha$ is elaborated.
 
-  \begin{property}
+  \begin{property}\label{prop:excitation:log:relBW}
    Each frequency band $B = \ClosedInterval{f, \kappa f}$ with $\kappa \in \PositiveRealNumbers \without \set{0,1}$ that is completely within the range of the excited logarithmic grid of frequencies $\set{f_1, \ldots, f_F}$ contains a constant number of frequency lines
    \begin{equation}
      F_{B} \isdef
@@ -643,31 +726,36 @@ This results extends mutatis mutandis to systems consisting of more sub-systems.
    \end{property}
   \begin{example}
     For the frequency decade band $\decade(f) \isdef \ClosedInterval{f, 10 f}$, a logarithmic frequency grid contains $F_{\decade} = \floor{\log_{\alpha} 10}$ excited lines.
+    Note that this is independent of the frequency $f$.
   \end{example}
   \begin{remark}
-    In different contexts, e.g. electrical circuit simulators such as \gls{SPICE}~\citep{Kundert1995}, measurement equipment such as \glspl{DSA} or the \code{logspace} function in \MATLAB it is more common to specify the spacing of a logarithmic grid using the total number of frequencies ($F$) or the number of frequencies per decade ($F_{\decade}$).
+    In different contexts, e.g. electrical circuit simulators such as \gls{SPICE}~\citep{Kundert1995}, measurement equipment such as \glspl{DSA} and programming languages, it is more common to specify the spacing of a logarithmic grid using the total number of frequencies ($F$) or the number of frequencies per decade ($F_{\decade}$) instead of the grid ratio $\alpha$.
     Obviously, such alternative specifications are equivalent.
   \end{remark}
   \begin{example}
     The~\citet{HP3562A} has a logarithmic measurement mode that ensures that each decade is covered by $F_{\decade} = 80$ lines~ to measure an \gls{FRF}.
     This is equivalent to a grid spacing $\alpha = \sqrt[80]{10} \approx 1.029$.
   \end{example}
+  \begin{example}
+    The \MATLAB code \mcode[mathescape]{f = logspace(log10($f_{\min}$), log10($f_{\max}$), $F$)} produces a logarithmically spaced frequency vector \mcode{f} with $F$ elements in the range $\left[ f_{\min}, f_{\max} \right]$.
+    As such, the effective frequency ratio $\alpha = \sqrt[F]{\frac{f_{\max}}{f_{\min}}}$ in this vector.
+  \end{example}
 
-   Obviously, the same argument can be held for any set of frequency bands with constant relative bandwidth (e.g. octave $\kappa = 2$).
-   I.e. the same number of frequency components is present per decade, such that the power in each decade is identical when a constant amplitude spectrum ($A_k = A_{\mathrm{in}}$) is used.   
+   From \propref{prop:excitation:log:relBW}, it can be seen that for any set of frequency bands with a constant relative bandwidth (e.g. decades~($\kappa=10$), octaves~($\kappa=2$),\ldots ), a logarithmic  frequency grid contains a constant number of lines per frequency band.
+   Consequently, the power in each relative bandwidth is identical when a constant amplitude spectrum ($A_k = A_{\mathrm{in}}$) is used.   
 
-  To return to the FRF, in Section~\ref{sec:optimAlpha} we will show that for a dense logarithmic frequency grid, any second order system with damping $\damping$ and a resonance within the bulk of the frequency grid, will receive the same number of frequency lines in its $3 \unit{dB}$ bandwidth regardless of the actual value of the resonance frequency.
+  To return to the \gls{FRF}, in \secref{sec:optimAlpha} we will show that for a dense logarithmic frequency grid, any second order system with damping $\damping$ and a resonance within the bulk of the frequency grid, will receive the same number of frequency lines in its $3 \unit{dB}$ bandwidth regardless of the actual value of the resonance frequency.
   As most of the information of such systems is obtained from the measurements at frequencies inside the $3 \unit{dB}$
-  bandwidth, one expects an equal variance for each system, as will be shown in Section~\ref{sec:bestFrequencyResolution}.
+  bandwidth, one expects an equal variance for each system, as will be shown in \secref{sec:bestFrequencyResolution}.
   
-  For that reason, a log multisine is a good candidate for our purposes.
+  For that reason, a logarithmic multisine is a good candidate for our purposes.
   However, it is more involved both to generate and to analyze such a signal, as the excited frequencies don't lie on a commensurate frequency grid.
   Especially for periodic measurements, this is a major downside since the period of such signal does not always exist (i.e. this leads to infinite measurement times).
   It is therefore not practical to use a perfectly logarithmically spaced frequency grid as the \gls{DFT} or \gls{CZT}~\citep{Rabiner2004} explicitly rely on a commensurate frequency grid.
   
 \subsection{Quasi-Logarithmic Grid Multisine}
   Since most measurement equipment and analysis methods rely on signals with an equidistant frequency grid, we create a frequency grid
-  $\set{f_1, f_2, f_3,\ldots, f_F}$ for which \eqref{eq:logGrid} is approximately  valid but with the strict constraint that the frequencies must be a subset  of an equidistant frequency grid. 
+  $\set{f_1, f_2, f_3,\ldots, f_F}$ for which \eqref{eq:logGrid} is approximately valid but with the strict constraint that the frequencies must be a subset  of an equidistant frequency grid. 
   This yields the following relation for  subsequent frequency lines:
   \begin{equation}
     f_k \approx \alpha \cdot f_{k-1}
@@ -719,11 +807,11 @@ with
      \text{.}
   \end{align}
   \end{definition}
-  In the equation above, $\round{\placeholder}$ denotes rounding towards the nearest integer according to the \IEEEfloat standards and as implemented in the \MATLAB function \code{round}.
+  In the equation above, $\round{\placeholder}$ denotes rounding towards the nearest integer according to the \IEEEfloat standards and as implemented in the \MATLAB function \mcode{round}.
   This satisfies the approximate definition.
   
   \begin{remark}
-  The use of different rounding strategies --- e.g. the \code{ceil} function $\ceil{}$  and \code{floor} function $\floor{}$ --- in \eqref{eq:excitation:qlog:roundAlpha}, allows for slightly different guarantees on the effective $\alpha_k$ attained by the grid.
+  The use of different rounding strategies --- e.g. the \mcode{ceil} function $\ceil{}$  and \mcode{floor} function $\floor{}$ --- in \eqref{eq:excitation:qlog:roundAlpha}, allows for slightly different guarantees on the effective $\alpha_k$ attained by the grid.
   By denoting $\alpha_k^{\placeholder}$ as the effective frequency ratio for a rounding strategy $\placeholder$  in that equation, one can trivially see that the following relationships hold:
   \begin{equation}
   \alpha_k^{\floor{}} \leq \alpha \leq  \alpha_k^{\ceil{}}
@@ -733,9 +821,9 @@ with
   \forall k \in \NaturalNumbersWithoutZero
   \text{.}
   \end{equation}
-  This means that rounding using the \code{floor} operator favors to strictly attain the specified frequency bin density at the cost of a few more excited lines (and hence less allottable power per line).
-  The \code{ceil} function produces a grid that has more power per line at the cost of a reduced bin density.
-  On the other hand, using \code{round} as in \eqref{eq:excitation:qlog:roundAlpha}, provides a grid that is somewhere in-between both extremes.
+  This means that rounding using the \mcode{floor} operator favors to strictly attain the specified frequency bin density at the cost of a few more excited lines (and hence less allottable power per line).
+  The \mcode{ceil} function produces a grid that has more power per line at the cost of a reduced bin density.
+  On the other hand, using \mcode{round} as in \eqref{eq:excitation:qlog:roundAlpha}, provides a grid that is somewhere in-between both extremes.
   \end{remark}
 
   As this signal approximates a logarithmically spaced signal,  we expect that it will exhibit comparable properties.
@@ -744,8 +832,8 @@ with
 
 \subsection{Compensated Quasi-Logarithmic Grid Multisine}
   The power density of the quasi-log multisine at the low frequencies is reduced in comparison to that of the logarithmic grid multisine.
-  This is due to the limited available frequency resolution.
-  To compensate for this loss in power spectral density (PSD), we can increase the amplitude spectrum $A_k$ at these lines.
+  This is due to the limited available frequency resolution if one sticks to the \gls{DFT} frequency grid.
+  To compensate for this loss in \gls{PSD}, we can increase the amplitude spectrum $A_k$ at these lines.
   Note that we are not able to restore the frequency resolution, only the power in a certain band is made equal to the power in the logarithmic multisine in the same band.
 
   First of all, we need to determine the factor $A_k$ needed to correct the power spectrum to match that of a log grid multisine.
@@ -888,7 +976,7 @@ with
 \TODO{cov-matrix uitschrijven}
 
 \TODO{zin loopt niet goed}
-  The covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function $G(\theta,\omega)$ can be shown \citep{Pintelon2012, Gallager2008, matrixcookbook} to be approximately equal to
+  As in \citep{Pintelon2012, Gallager2008, matrixcookbook}, the covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function $G(\theta,\omega)$ can be shown to be approximately equal to
   \begin{align}
     \C_{G\left( \omega_{\interest}\right) } \approx
       \InnerQuadraticForm[\HT]
@@ -1002,8 +1090,9 @@ with
   The value $\gamma$ is varied for a fixed value of $N \in \ZN$.
   The value of $N$ will not influence the `shape` (and uncertainty) of the FRF.
 
-  The arguments for a logarithmically spaced grid with an infinite span remain approximately valid for quasi-logarithmically spaced grids with a finite frequency support if the resonance peak of the system under test can be considered within the `bulk' of the frequency grid with finite support.
-  \TODO{more rigorous explanation why this is the case}
+  The arguments for a logarithmically spaced grid with an infinite span remain approximately valid for quasi-logarithmically spaced grids with a finite frequency support if the resonance peak of the system under test lies within the `bulk' of the frequency grid with finite support.
+  This can be understood intuitively by inspecting the derivatives that constitute the Fisher information matrix (see \figref{fig:excitation:derivatives}): those derivatives are significantly larger near the resonance frequency than at other frequencies.
+
   I.e. there should be a few excited frequency lines that are logarithmically spaced, outside of the resonance peak of the actual system.
   In practice, this means that systems with their resonance peak at the lowest and the very highest edge of the frequency band may not be observed with identical quality as systems at intermediate frequencies.
 
@@ -1192,7 +1281,7 @@ In the following set of simulations, we will study how the FRF of different seco
   Such an experiment is repeated $R=1000$ times with a different random phase  spectrum $\phi_k$ and a different noise realization $e[n]$ for each experiment.
 
   \begin{remark}
-  All simulations  have been repeated fitted with the \MATLAB System Identification Toolbox by means of the \code{oe} function~\citep{TDIDENT}.
+  All simulations  have been repeated fitted with the \MATLAB System Identification Toolbox by means of the \mcode{oe} function~\citep{TDIDENT}.
   The observed results were identical and hence are not elaborated further in this text.
   \end{remark}
 
@@ -1357,96 +1446,5 @@ The suggested compensation works well as long as the considered systems are suff
 We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equidamped set of systems.
 The presented method allows to select a maximal value for the frequency ratio $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
 In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
-
-\begin{subappendices}
-  \section{Justification for considering only poles}
-\TODO{move into main text}
-Remember that the rational transfer function of any strictly proper \gls{LTI} system $G$ can be decomposed in its partial fraction form:
-\begin{align}
-  G(s) &= 
-    \frac{\sum\limits_{i=0}^{\numel{B}} b_i s^i}
-              {\sum\limits_{i=0}^{\numel{A}} a_i s^i} 
-        =    
-   \frac{\sum\limits_{i=0}^{\numel{B}} b_i s^i}
-              {\prod\limits_{i=1}^{I_1} \left( s - \pole[i] \right)^{M_{1,i}} 
-               \prod\limits_{i=1}^{I_2} \left(s^2 + 2 \damping[i] \wn[i] s + \wn[i]^2 \right)^{M_{2,i}}}
-        \\
-        &  = 
-        \sum_{i=1}^{I_1} 
-          \sum_{\multiplicity=1}^{M_{1,i}} 
-            \frac{\dc[i]}
-                      { \left( s - \pole[i] \right)^{\multiplicity}}
-            + 
-        \sum_{i=1}^{I_2} 
-          \sum_{\multiplicity=1}^{M_{2,i}}
-           \frac{\dc[i,\multiplicity] \wn[i]^{2\multiplicity} \left( s + \wz[i] \right)}
-                     {\wz[i] \left(s^2 + 2 \damping[i] \wn[i] s + \wn[i]^2 \right)^{\multiplicity}}
-        \label{eq:excitation:PFE}
-\end{align}
-where $I_1$ denotes the number of real-valued poles, $I_2$ denotes the number of complex conjugated pole pairs.
-$M_{1,i}$ and $M_{2,i}$ denotes the multiplicity of the corresponding poles, such that $\numel{A} = \sum_i^{I_1} M_{1,i} + 2 \sum_{i}^{I_2} M_{2,i}$.
-Each term in \eqref{eq:excitation:PFE} represents a \term{sub-system} of the system $G(s)$.
-
-Consider a second-order subsystem
-\begin{equation}
-  G_2(s, \theta) = \frac{K \wn^{2 \multiplicity} \left( s + \wz \right)}{\wz \left(s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity}}
-\end{equation}
-parametrized in $\theta =  \left[K, \wn, \wz, \damping \right]^{\T}$.
-To determine the Fisher Information matrix, the derivative $\PartialDerivative{G(s,\theta)}{\theta}$ is required; its components are given by:
-\begin{align}
-  \PartialDerivative{G_2}{K} 
-    &= 
-  \frac{\wn^{2\multiplicity}}{\wz}
-  \frac{s + \wz}{\left(s^2 + 2 \damping \wn s + \wn^2\right)^{\multiplicity}}
-  \\
-  \PartialDerivative{G_2}{\wz} 
-    &= 
-    \frac{-K \wn^{2\multiplicity}}
-              {\wz} 
-    \frac{s}
-              {\left(s^2 + 2 \damping \wn s + \wn^2\right)^{\multiplicity}} 
-  \\
-  \PartialDerivative{G_2}{\wn} 
-  &= 
-  \frac{2 K \wn^{2\multiplicity-1} \multiplicity}
-            {\wz} 
-  \frac{\left( s + \wz \right) \left( s+ \damping \wn \right)}
-            {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity + 1}}
-  \\
-  \PartialDerivative{G_2}{\damping}
-  &= 
-  \frac{-2 K \wn^{2\multiplicity + 1} \multiplicity}
-            {\wz}
-  \frac{s \left( s + \wz \right)}
-             {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity + 1}}
-  \text{.}
-\end{align}
-
-The poles of these derivatives coincide with the system poles (possibly with increased multiplicity).
-Consequently, this means that for lightly-damped systems ($\damping \ll \sqrt{2}$), these derivatives will exhibit a sharp resonance peak just as the actual sub-system $G_2$ as illustrated in \figref{fig:excitation:derivatives}.
-The roll-off near the resonance is determined mainly by the damping $\damping$ and the multiplicity $\multiplicity$ of the sub-system.
-As such, the Fisher information matrix is pre-dominantly determined by the input power spectrum near $\wn$.
-Note that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ have the steepest roll-off near the resonance.
-As such, those parameters are the most important for the experiment design.
-
-\begin{figure}
-  \centering
-  \setlength\figurewidth{0.9\columnwidth}
-  \setlength\figureheight{\figurewidth}
-  \input{\thisDir/figs/derivs.tikz}
-  \caption[Derivatives of a second-order sub-system towards each of its parameters.]{Bode plots of the elements of $\PartialDerivative{G_2}{\theta}$ for small $\damping$. 
-  % The numbers indicate the (asymptotic) slope as a multiple of $20 \unit{dB/\decade}$.
-  The roll-off near $\wn$ is significant and depends strongly on $\damping$.
-  It can be seen that the derivatives are dominated by the resonance peak, an effect that is even more prominent when $\multiplicity$ is large.
-  This means that for a good input signal, it is critical to have power near the resonance peak. 
-  Note also that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ exhibit a sharper peak and hence $\damping$ and $\wn$ are the most important parameters of the model.
-  In this example, $\damping = \varXi$, $K = \varK$, $\frac{\wz}{\wn} \in \Set{\varWzSmall, 1, \varWzBig}$, $\multiplicity=1$ and $\wn = \varWn \unit{rad/s}$ were used.
-}
-\label{fig:excitation:derivatives}
-\end{figure}
-
-
-\end{subappendices}
-
 
 % \input{ch02-qlogms/sysid.tex}
