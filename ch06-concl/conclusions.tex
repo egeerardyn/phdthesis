@@ -7,23 +7,24 @@
   In this thesis, multisine signals are proposed to measure \gls{SISO} systems within an \gls{LTI} framework.
   Particularly, the proposed multisine signals employ a quasi-logarithmic frequency grid and a power spectrum in $1/f$ akin to pink noise to ensure a good quality of the \gls{FRF} over the whole excited frequency band.
   As such, they are more robust excitation signal than e.g. typical general-use signals such as linear grid multisines or white noise excitation with the same total signal power and duration.
-  In this thesis it has been proven that when the user has prior knowledge about the expected minimal damping $\damping_{\min}$ of the poles present in the system, this sets the required logarithmic frequency grid spacing to attain a guaranteed relative uncertainty of the identified \gls{FRF} near the resonance peaks.
+  In this thesis it has been proven that when the user has prior knowledge about the expected minimal damping $\damping[\min]$ of the poles present in the system, this sets the required logarithmic frequency grid spacing to attain a guaranteed relative uncertainty of the identified \gls{FRF} near the resonance peaks.
   Concretely, the grid spacing $\alpha \isdef \frac{f_{k+1}}{f_k}$ of the (quasi-)logarithmic grid should conform to
   \begin{equation}
-    \alpha \leq 1 + \damping_{\min}
+    \alpha \leq 1 + \damping[\min]
   \end{equation}
   to attain a reliable estimate of the resonances present in the system.
-  The choice to use the equality $\alpha = 1+ \damping_{\min}$ is the optimal choice within the framework presented in \chapref{sec:excitation}. 
-  Decreasing $ \alpha$ further comes at the cost of more excited frequency bins and consequently a lower power per bin, or, a reduced \gls{SNR} per bin if the overall signal power is limited as in many cases.
+  The choice to use the equality $\alpha = 1+ \damping[\min]$ is the optimal choice within the framework presented in \chapref{sec:excitation}. 
+  Decreasing $ \alpha$ further comes at the cost of more excited frequency bins and consequently a lower power per bin, or, a reduced \gls{SNR} per bin if the overall signal power is limited.
 
   In practical terms of a layman user, this means that the design of a quasi-logarithmic multisines discussed in this thesis, requires only limited prior knowledge from the user:
   \begin{itemize}
     \item the allowable measurement time (or equivalently, the minimal relevant frequency),
     \item the allowable total excitation power,
-    \item a broad frequency band of interest that could span multiple decades, and,
-    \item the minimal expected relative damping $\damping_{\min}$ in the system.
+    \item a broad frequency band of interest that could span multiple decades, and,\
+    \item the minimal expected relative damping $\damping[\min]$ in the system,
+    \item the assumption that the resonances are well-separated in the frequency domain.
   \end{itemize}
-  This last requirement is the only requirement that is often overlooked in initial excitation designs.
+
   \subsection{Non-parametric estimation}
   \subsection{Initialization of parametric estimation}
 

@@ -189,15 +189,13 @@ This is a small loss while the increase in robustness can be significant if the 
 
 
 \section{Logarithmic power distributions}\label{sec:excitation:logarithmic}
-When no information about the system is known, it is desirable that
-the excitation signal is such that regardless of the true system characteristics,
-the resulting estimates have equally good statistical properties.
+When no information about the system is known, it is desirable that the excitation signal is such that regardless of the true system characteristics, the resulting estimates have equally good statistical properties.
 This can be ensured by a suitable choice of the input power spectrum.
 
  \subsection{A second order system}
 Consider the second order system
 \begin{align}
-y_t &= G(s,\theta) u_t = \frac{1}{\frac{s^2}{\wn^2} + 2\frac{\damping}{\wn}s + 1}u_t,
+y(t) &= G(s,\theta) u(t) = \frac{1}{\frac{s^2}{\wn^2} + 2\frac{\damping}{\wn}s + 1}u(t),
 \label{eq:excitation:2ndOrderSys}
 \end{align}
 with parameters $\theta=[\wn\;\damping]^{\T}$. The resonance frequency of the system is $\wR \isdef \sqrt{1-\damping^2}\wn$
@@ -219,10 +217,11 @@ For lightly-damped systems, i.e $\damping \ll 1$ , $\omega^\star\approx \wn$, wh
 From \eqref{eq:excitation:optFreq} it is clear that the optimal design depends on the resonance of the system to be identified. 
 Input design can be based on a guess of $\wn$, however if this guess is wrong, the resulting estimates may be unacceptable~\citep{Rojas2007}.
 
-When no information about the system is available, we propose using an input power spectrum with a logarithmic power distribution. This can be achieved either with a continuous bandlimited $1/f$ spectrum or a quasi-logarithmic multisine spectrum \citep{Pintelon2012}. 
-We choose to work with an equidistant frequency grid with resolution $f_0$ and design the input in the frequency band $[\wn \kMin\; \wn \kMax]$, where the resolution is $k_0=1/\Tm$ and $\Tm$ is the measurement time. Hence, a finite measurement time limits the frequency resolution and therefore we have to put a lower limit on the frequency band of interest. Moreover, we can only impose the logarithmic distribution sufficiently well if $\kMin$ is large enough.
+When no information about the system is available, we propose using an input power spectrum with a logarithmic power distribution. This can be achieved either with a continuous band-limited $1/f$ spectrum or a quasi-logarithmic multisine spectrum \citep{Pintelon2012}. 
+We choose to work with an equidistant frequency grid with resolution $f_0$ and design the input in the frequency band $[\wn \kMin\; \wn \kMax]$, where the resolution is $k_0=1/\Tm$ and $\Tm$ is the measurement time. 
+Hence, a finite measurement time limits the frequency resolution and therefore we have to put a lower limit on the frequency band of interest. Moreover, we can only impose the logarithmic distribution sufficiently well if $\kMin$ is large enough.
 
-First, we look at the bandlimited $1/f$ power spectrum given by
+First, we look at the band-limited $1/f$ power spectrum given by
 \begin{align*}
 \label{eq:excitation:pink}
 \phi_u(\omega) &=\begin{cases}\frac{1}{|\omega|} &\text{if $|\omega|\in[\wn \kMin\; \wn \kMax]$,}\\
@@ -278,9 +277,9 @@ Consider a system
 G(s,\theta) &= \sum_{i=1}^{K} G_i(s,\theta_i)
              =\sum_{i=1}^{K}  \frac{1}
                                    {   \frac{s^2}{\wn[i]^2}
-                                    + 2\frac{\damping_i}{\wn[i]}s
+                                    + 2\frac{\damping[i]}{\wn[i]}s
                                     + 1},\\
-\theta_i&=[\wn[i]\;\damping_i]^{\T}.
+\theta_i&=[\wn[i]\;\damping[i]]^{\T}.
 \label{eq:excitation:sumSys}
 \end{align}
 The systems  $G_i$ will be called the \emph{sub-systems} of $G$. 
@@ -315,9 +314,9 @@ The conclusions from the example are easily extended to systems consisting of mo
 Consider the system
 \begin{align}
 G(s,\theta) &= G_1(s,\theta_1) + G_2(s,\theta_2)%\\
-%&=\frac{1}{\frac{s^2}{\wn[1]^2} + 2\frac{\damping_1}{\wn[1]}s + 1} + \frac{1}{\frac{s^2}{\wn[2]^2} + 2\frac{\damping_2}{\wn[2]}s + 1},
+%&=\frac{1}{\frac{s^2}{\wn[1]^2} + 2\frac{\damping[1]}{\wn[1]}s + 1} + \frac{1}{\frac{s^2}{\wn[2]^2} + 2\frac{\\damping[2]}{\wn[2]}s + 1},
 \end{align}
-with $\theta_1=[\wn[1]\;\damping_1]^{\T}$ and $\theta_2=[\wn[2]\;\damping_2]^{\T}$.
+with $\theta_1=[\wn[1]\;\damping[1]]^{\T}$ and $\theta_2=[\wn[2]\;\damping[2]]^{\T}$.
 The information matrix for this system is
 \begin{align}
 \IF &=
@@ -1362,49 +1361,70 @@ In practice we advise to use an excitation signal with approximately four excite
 \begin{subappendices}
   \section{Justification for considering only poles}
 \TODO{move into main text}
-Remember that the rational transfer function of any \gls{LTI} system $G$ can be decomposed in its partial fraction form:
-\begin{equation}
-  G(s) = \sum_i \frac{K_i (s+\wz[i])}{} +  
-\end{equation}
+Remember that the rational transfer function of any strictly proper \gls{LTI} system $G$ can be decomposed in its partial fraction form:
+\begin{align}
+  G(s) &= 
+    \frac{\sum\limits_{i=0}^{\numel{B}} b_i s^i}
+              {\sum\limits_{i=0}^{\numel{A}} a_i s^i} 
+        =    
+   \frac{\sum\limits_{i=0}^{\numel{B}} b_i s^i}
+              {\prod\limits_{i=1}^{I_1} \left( s - \pole[i] \right)^{M_{1,i}} 
+               \prod\limits_{i=1}^{I_2} \left(s^2 + 2 \damping[i] \wn[i] s + \wn[i]^2 \right)^{M_{2,i}}}
+        \\
+        &  = 
+        \sum_{i=1}^{I_1} 
+          \sum_{\multiplicity=1}^{M_{1,i}} 
+            \frac{\dc[i]}
+                      { \left( s - \pole[i] \right)^{\multiplicity}}
+            + 
+        \sum_{i=1}^{I_2} 
+          \sum_{\multiplicity=1}^{M_{2,i}}
+           \frac{\dc[i,\multiplicity] \wn[i]^{2\multiplicity} \left( s + \wz[i] \right)}
+                     {\wz[i] \left(s^2 + 2 \damping[i] \wn[i] s + \wn[i]^2 \right)^{\multiplicity}}
+        \label{eq:excitation:PFE}
+\end{align}
+where $I_1$ denotes the number of real-valued poles, $I_2$ denotes the number of complex conjugated pole pairs.
+$M_{1,i}$ and $M_{2,i}$ denotes the multiplicity of the corresponding poles, such that $\numel{A} = \sum_i^{I_1} M_{1,i} + 2 \sum_{i}^{I_2} M_{2,i}$.
+Each term in \eqref{eq:excitation:PFE} represents a \term{sub-system} of the system $G(s)$.
 
-Consider the second-order subsystem
+Consider a second-order subsystem
 \begin{equation}
-  G_2(s, \theta) = \frac{K \wn^2 \left( s + \wz \right)}{\wz \left(s^2 + 2 \damping \wn s + \wn^2 \right)}
+  G_2(s, \theta) = \frac{K \wn^{2 \multiplicity} \left( s + \wz \right)}{\wz \left(s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity}}
 \end{equation}
 parametrized in $\theta =  \left[K, \wn, \wz, \damping \right]^{\T}$.
 To determine the Fisher Information matrix, the derivative $\PartialDerivative{G(s,\theta)}{\theta}$ is required; its components are given by:
 \begin{align}
   \PartialDerivative{G_2}{K} 
     &= 
-  \frac{\wn^2}{\wz}
-  \frac{s + \wz}{s^2 + 2 \damping \wn s + \wn^2 }
+  \frac{\wn^{2\multiplicity}}{\wz}
+  \frac{s + \wz}{\left(s^2 + 2 \damping \wn s + \wn^2\right)^{\multiplicity}}
   \\
   \PartialDerivative{G_2}{\wz} 
     &= 
-    \frac{-K \wn^2}
+    \frac{-K \wn^{2\multiplicity}}
               {\wz} 
     \frac{s}
-              {s^2 + 2 \damping \wn s + \wn^2} 
+              {\left(s^2 + 2 \damping \wn s + \wn^2\right)^{\multiplicity}} 
   \\
   \PartialDerivative{G_2}{\wn} 
   &= 
-  \frac{2 K \wn}
+  \frac{2 K \wn^{2\multiplicity-1} \multiplicity}
             {\wz} 
   \frac{\left( s + \wz \right) \left( s+ \damping \wn \right)}
-            {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^2}
+            {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity + 1}}
   \\
   \PartialDerivative{G_2}{\damping}
   &= 
-  \frac{-2 K \wn^3}
+  \frac{-2 K \wn^{2\multiplicity + 1} \multiplicity}
             {\wz}
   \frac{s \left( s + \wz \right)}
-             {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^2}
+             {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity + 1}}
   \text{.}
 \end{align}
 
-The poles of these derivatives coincide with the system poles (possibly with doubled multiplicity).
-Conequently, this means that for lightly-damped systems ($\damping \ll \sqrt{2}$), these derivatives will exhibit a sharp resonance peak just as the actual sub-system $G_2$ as illustrated in \figref{fig:excitation:derivatives}.
-The roll-off near the resonance is determined by the damping $\damping$.
+The poles of these derivatives coincide with the system poles (possibly with increased multiplicity).
+Consequently, this means that for lightly-damped systems ($\damping \ll \sqrt{2}$), these derivatives will exhibit a sharp resonance peak just as the actual sub-system $G_2$ as illustrated in \figref{fig:excitation:derivatives}.
+The roll-off near the resonance is determined mainly by the damping $\damping$ and the multiplicity $\multiplicity$ of the sub-system.
 As such, the Fisher information matrix is pre-dominantly determined by the input power spectrum near $\wn$.
 Note that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ have the steepest roll-off near the resonance.
 As such, those parameters are the most important for the experiment design.
@@ -1414,13 +1434,13 @@ As such, those parameters are the most important for the experiment design.
   \setlength\figurewidth{0.9\columnwidth}
   \setlength\figureheight{\figurewidth}
   \input{\thisDir/figs/derivs.tikz}
-  \caption[Derivatives of a second-order system for each of its parameters.]{Bode plots of the elements of $\PartialDerivative{G_2}{\theta}$ for small $\damping$. 
+  \caption[Derivatives of a second-order sub-system towards each of its parameters.]{Bode plots of the elements of $\PartialDerivative{G_2}{\theta}$ for small $\damping$. 
   % The numbers indicate the (asymptotic) slope as a multiple of $20 \unit{dB/\decade}$.
   The roll-off near $\wn$ is significant and depends strongly on $\damping$.
-  It can be seen that the derivatives are dominated by the resonance peak. 
+  It can be seen that the derivatives are dominated by the resonance peak, an effect that is even more prominent when $\multiplicity$ is large.
   This means that for a good input signal, it is critical to have power near the resonance peak. 
   Note also that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ exhibit a sharper peak and hence $\damping$ and $\wn$ are the most important parameters of the model.
-  In this example, $\damping = \varXi$, $K = \varK$, $\frac{\wz}{\wn} \in \Set{\varWzSmall, 1, \varWzBig}$ and $\wn = \varWn \unit{rad/s}$ were used.
+  In this example, $\damping = \varXi$, $K = \varK$, $\frac{\wz}{\wn} \in \Set{\varWzSmall, 1, \varWzBig}$, $\multiplicity=1$ and $\wn = \varWn \unit{rad/s}$ were used.
 }
 \label{fig:excitation:derivatives}
 \end{figure}
@@ -1429,4 +1449,4 @@ As such, those parameters are the most important for the experiment design.
 \end{subappendices}
 
 
-\input{ch02-qlogms/sysid.tex}
+% \input{ch02-qlogms/sysid.tex}
