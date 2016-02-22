@@ -41,6 +41,14 @@
   keywordstyle=\color{matlabKeyword},%
   morecomment=[l][\color{matlabCell}\textbf]{\%\%}}
 
+  \lstdefinestyle{matlabbw}
+{language=Matlab,%
+  style=common,%
+  commentstyle=\color{darkgray},%
+  stringstyle=\color{gray},%
+  keywordstyle=\color{black}\textbf,%
+  morecomment=[l][\color{gray}\textit]{\%\%}}
+
 \lstdefinestyle{java}
 {language=Java,%
   style=common,%
@@ -104,3 +112,7 @@ stringstyle={\color{javaString}}
 
 \lstset{style=common}
 \renewcommand{\lstlistlistingname}{List of Listings}
+
+
+% http://stackoverflow.com/questions/2809836/math-symbols-in-listings
+\newcommand{\mcode}[2][]{\lstinline[style=matlabbw,#1]!#2!}
