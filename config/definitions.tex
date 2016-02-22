@@ -46,6 +46,8 @@
 \DeclareMathOperator*{\argmin}{argmin} %cost function minimizer!! MLDL per JL
 \DeclareMathOperator*{\Arg}{arg}
 
+% http://tex.stackexchange.com/questions/183955/sum-within-a-fraction
+\newcommand{\Sum}{\sum\limits}
 \newcommand{\costFunc}[1]{\ensuremath{V_{#1}}}
 \newcommand{\validationDistance}[1]{\ensuremath{D_{#1}}}
 \newcommand{\model}[2][]{\ensuremath{\hat{G}_{\mathrm{#2}}^{\mathrm{#1}}}}
@@ -275,7 +277,8 @@
 \newcommand{\emspace}{\ensuremath{\qquad}}
 
 \newcommand{\numberOf}{\ensuremath{\#}}
-\newcommand{\numel}[1]{\ensuremath{N_{#1}}}
+\newcommand{\numel}[1]{\ensuremath{n_{#1}}}
+\newcommand{\order}[1]{\ensuremath{N_{#1}}}
 \newcommand{\f}{\ensuremath{\mathbb{f}}}
 
 \newcommand{\LOGGRID}{\ensuremath{\mathrm{LG}}}
