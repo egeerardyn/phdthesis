@@ -289,7 +289,7 @@ P(\alpha,\beta)_{t_1,t_2} = e^{-\alpha|t_1 - t_2|}e^{-\beta(t_1 + t_2)/2}
  for $t_1,t_2 \in \left\{0,1,\cdots,n_h - 1\right\}$ which makes the estimated impulse response to be an exponentially decaying function of $t$ with decay rate $\beta^{-1}$, and correlation length $\alpha^{-1}$. 
  The latter \emph{hyperparameters} $\alpha$, $\beta$ and $\sigma$ are determined using Empirical Bayes, i.e. as the maximizers of the \gls{LML} of the measured output signal:
 \begin{align}
-\mathrm{LML}(y) = -y^{\TT}\Sigma(\alpha,\beta)^{-1}y - \log |\Sigma(\alpha,\beta)| \text{,}
+\mathrm{LML}(y) = -y^{\TT}\Sigma(\alpha,\beta,\sigma)^{-1}y - \log |\Sigma(\alpha,\beta,\sigma)| \text{,}
 \end{align}
 where $\Sigma(\alpha,\beta, \sigma) = \sigma^2 \I + \phi^{\TT}P(\alpha,\beta)\phi$ and $\phi$ is a Toeplitz matrix constructed with $u$. 
 This problem is solved using \mcode{fmincon} in \MATLAB.
@@ -305,7 +305,7 @@ The \gls{DFT} of the obtained regularized estimate of the impulse response $\hat
 The \gls{LRM} has also been tried to generate better initial values.
 However, given the discussion in \chapref{sec:nonparametric}, it is clear that the \gls{LRM} performs poorly in low \gls{SNR} situations.
 The same was apparent from the quick trial we ran on \gls{LRM} starting values.
-As such, the use of \gls{LRM} over \gls{LPM} offers no advantage for generation initial estimates.
+As such, the use of \gls{LRM} over \gls{LPM} offers no advantage for generating initial estimates in the settings used in this chapter.
 \end{remark}
 
 \begin{remark}
