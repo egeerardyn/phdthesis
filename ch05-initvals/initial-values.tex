@@ -2,22 +2,26 @@
 \label{sec:initvals}
 \myEpigraph{Everything starts somewhere, though many physicists disagree. But people have always been dimly aware of the problem with the start of things. They wonder how the snowplough driver gets to work, or how the makers of dictionaries look up the spelling of words.}{Terry Pratchett}{Hogfather}
 \gdef\thisDir{ch05-initvals}
+\researchBasedOn{Geerardyn2015TIM}
 
+\TODO{bedoeling duidelijker stellen }
 
-\section{Introduction}\label{se:introd}
-
+\section{Introduction}
+\label{se:introd}
 The task of interpreting measurement data from dynamic systems often involves the estimation of a transfer function (TF). 
-Typical measurement techniques and identification strategies of transfer functions (TFs) or \glspl{FRF} are discussed in \citep{Schoukens1998,Schoukens2006LPM,Guillaume1996,Broersen1995,Pintelon2010LPM1,Antoni2007FRF}.
-Application of these methods to real devices and systems is well-known in published literature, including \citep{Lim2010,Robinson1990,Behjat2010}.
+Typical measurement techniques and identification strategies of  \glspl{TF} or \glspl{FRF} are presented in \citep{Schoukens1998,Schoukens2006LPM,Guillaume1996,Broersen1995,Pintelon2010LPM1,Antoni2007FRF}.
+Application of these methods to real devices and systems is well-represented in the literature, e.g. \citep{Lim2010,Robinson1990,Behjat2010}.
 
-Parametric identification of \gls{LTI} systems from input/output data has been well developed as evidenced by published literature~\citep{Pintelon2012,Ljung1999,Schoukens1999,Pintelon1998}. 
- Maximizing the likelihood function of the parameters probably yields the most popular, consistent and efficient estimator. 
- However, in a noisy environment, the \gls{MLE} engenders a nonlinear optimization which, at the very least, requires good initial estimates to avoid local optima.
- Such local optima have a detrimental effect on the quality of the estimated model.
+Parametric identification of \gls{LTI} systems from either input/output data or non-parametric frequency response data, has been well developed as evidenced by published literature~\citep{Pintelon2012,Ljung1999,Schoukens1999,Pintelon1998}. 
+ Maximizing the likelihood function of the parameters probably yields a common, consistent, and efficient estimator.
+ However, in a noisy environment, the \gls{MLE} engenders a nonlinear optimization.
+ As for many nonlinear optimization problems, this often involves an iterative algorithm to produce the optimal model.
+ The resulting model, however, depends on which initial estimates are used to start up the optimization process: typically one can end up in local minima.
+ Hence, good initial estimates are essential to obtain a high quality model estimate.
 
- In the perspective of developing identification tools that require as little user interaction as possible, it is important to increase the probability of the optimization algorithm to produce good estimates, or preferably even the global optimum.
- However, when noisy input-output measurements are to be processed, the presence of noise obstructs a clear view of the actual system behavior, especially for poor signal-to-noise ratios (SNRs).
- In non-parametric identification, the presence of noise is typically mitigated by averaging multiple measurements or using smoothing techniques.
+ In the perspective of developing identification tools that require minimal user interaction, it is important that good initial estimates are produced for a wide variety of systems and experimental settings; i.e. to increase the probability of the optimization algorithm to produce good estimates, or preferably even the global optimum.
+ However, when noisy input-output measurements are to be processed, the presence of noise obstructs a clear view of the actual system behavior, especially for poor \glspl{SNR}.
+ Such problems can be mitigated using non-parametric techniques: the presence of noise is typically reduced by averaging multiple measurements or by using more advanced smoothing techniques.
 
 The main aim and contribution of this chapter is to demonstrate that smoothing a measured \gls{FRF} helps to avoid local optima during the parametric estimation of the \gls{MLE} of a transfer function, using deterministic optimization algorithms.
 Hence, such techniques make it possible to increase the ``success rate'' (i.e. the probability that a good model, or even the global optimum, is obtained) of such a system identification step considerably.
@@ -27,12 +31,13 @@ In particular, two different smoothing techniques --- the time-truncated \gls{LP
 These are compared with the existing initialization schemes, namely: (i) the \gls{GTLS}, and (ii) the \gls{BTLS}.
 %The existing initialization schemes compared with are the generalized total least squares (GTLS) and bootstrapped total least squares (BTLS).
 
-The rest of the chapter is structured as follows. Section~\ref{se:ProbForm} covers the problem formulation. Section~\ref{se:MethodEg} discusses the methodology for obtaining the initial estimates, and their influence on the success rate of the \gls{MLE}. 
-This is followed by Sections~\ref{se:Demo} and \ref{se:ExpMeas}, which are demonstrations of the improved initial estimates on simulation and experimental data, respectively.
-In Section~\ref{se:Generality} the generality of the results is discussed briefly.
-Ultimately, concluding remarks are presented in Section~\ref{se:Conclusion}.
-
-% !TEX root =  InitialValuesPaper.tex
+The rest of the chapter is structured as follows. 
+\secref{se:ProbForm} covers the problem formulation. 
+\secref{se:MethodEg} presents the methodology for obtaining the initial estimates, and their influence on the success rate of the \gls{MLE}. 
+This is followed by \secref{se:Demo} and \secref{se:ExpMeas}, which are demonstrations of the improved initial estimates on simulation and experimental data, respectively.
+In \secref{se:Generality} the generality of the results is investigated briefly.
+The computational effort and recommendations for practical implementations are given in \secref{sec:initvals:computation}.
+Ultimately, concluding remarks are presented in \secref{se:Conclusion}.
 
 \section{Problem formulation}\label{se:ProbForm}
 %\begin{itemize}
@@ -44,35 +49,36 @@ Ultimately, concluding remarks are presented in Section~\ref{se:Conclusion}.
 In this section, the assumptions on the system and the noise are presented, together with the associated MLE (formulated in the frequency domain), which turns out to be a non-convex function in the parameters, requiring initial estimates. The procedure for obtaining the initial estimates is discussed in the subsequent sections.
 
 \subsection{System Setup Framework and Model}
-\figref{fig:oesetup} depicts a schematic of the output error framework for  a generalized (single- or multiple-order) resonating, dynamic LTI discrete-time SISO system, subjected to a known white random noise input. The following mathematical derivations pertain to discrete time systems, but they can be extended to continuous time systems as well. The full mathematical model of the system is
+\figref{fig:oesetup} depicts a schematic of the output error framework for  a generalized (single- or multiple-order) resonating, dynamic \gls{LTI} discrete-time \gls{SISO} system, subjected to a known white random noise input. 
+The full model of the system is
 \begin{equation}\label{lpmtd1}
 y(t)=\true{G}(q^{-1})u_0(t)+H_0(q^{-1})e(t)
 \end{equation}
 %\comment{We don't have any results with colored noise yet!}
 where $\true{G}(q^{-1})$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= H_0(q^{-1})e(t)$ is the noise source at the output, $H_0(q^{-1})$ is the noise dynamics, 
 $e(t)$ is white Gaussian noise, and $q^{-m}$ is the backwards shift operator ($q^{-m}x(t)$ = $x(t-mT_{\mathrm{s}})$  with $m$ a positive integer and $T_{\mathrm{s}}$ the sampling time).
-For white noise, $H_0 = 1$ and $e(t) = v(t)$.
-Note that for simplicity, we only treat the discrete-time case (i.e. $t = n \cdot T_{\mathrm{s}}$ for integer values of $n$) theoretically in this chapter.
+We only treat the discrete-time case (i.e. $t = n \cdot T_{\mathrm{s}}$ for integer values of $n$) theoretically in this chapter.
 However, the generalization to continuous time is straightforward~\citep[Chapter 6]{Pintelon2012} and has been demonstrated in Section~\ref{se:ExpMeas}.
 
-\begin{figure}[tbh] %top bottom here
+\begin{figure}[tbh]
 \centering
 \input{\thisDir/fig/oesetup.tikz}
 \caption[Output-error set-up.]{SISO LTI discrete-time system in an output error setup.}
 \label{fig:oesetup}
 \end{figure}
 
+\TODO{paragraaf naar intro verplaatsen}
 Numerous parametric identification techniques are devoted to the development of parametric plants $G(q^{-1},\theta)$ and parametric noise models  $H(q^{-1},\theta)$, where  $\theta$ is the model parameters vector  \citep{Ljung1999,Soderstrom1989}.
 
 In this chapter we assume that the output signal is disturbed by random noise, resulting in noisy error-prone data.
-For the simulations, white noise is used.
+For the simulations, white noise is used ($H_0 = 1$ and $e(t) = v(t)$).
 It is also possible to apply the estimation procedure in this chapter to a system that is disturbed by colored noise, as will be demonstrated in \secref{se:ExpMeas}. 
 
 \subsection{Parametric System Model}
 
 With reference to equation \eqref{lpmtd1}, the relation between the noiseless input and the output signals ($v(t)= 0$) is assumed to be of the form
 \begin{equation}
-    A(q^{-1}) y_0(t) = B(q^{-1}) u_0(t) \quad \forall t \in \left( - \infty, + \infty \right)
+    A(q^{-1}) y_0(t) = B(q^{-1}) u_0(t) \quad \forall t \in n \Ts{} \IntegerNumbers
 \label{ABpolys}
 \end{equation}
 where $A$ and $B$ are polynomials in $q^{-1}$. Thus, it follows from equation \eqref{lpmtd1} that
@@ -81,20 +87,22 @@ where $A$ and $B$ are polynomials in $q^{-1}$. Thus, it follows from equation \e
     \text{.}
 \end{equation}
 
-From~\citep[Section 6.3.2.]{Pintelon2012}, in the frequency domain, and for the DFTs (Discrete Fourier Transforms) of the windowed signals, equation \eqref{ABpolys} is of the form
+From~\citet[Section 6.3.2.]{Pintelon2012}, in the frequency domain, and for the \glspl{DFT} of the windowed signals, equation \eqref{ABpolys} is of the form
 \begin{align}
 A(e^{-j\omega_k})Y_0(k) = B(e^{-j\omega_k})U_0(k) + I(e^{-j\omega_k})
 \label{DFTspectra}
 \end{align}
-with $q^{-1}$ sampled in  $q_k^{-1} = e^{-j\omega_k}$, where $\omega_k = \frac{2\pi k}{N}$ are the DFT frequencies, and $I$ is a polynomial of order $\max(N_a,N_b) - 1$, which depends on the difference between the initial and end conditions of the filter $\true{G}$ during the measurement record.
-\begin{assumption}
-It is assumed that the orders of the polynomials $A$, $B$ and $I$ are known.
-\end{assumption}
+with $q^{-1}$ sampled in  $q_k^{-1} = e^{-j\omega_k}$, where $\omega_k = \frac{2\pi k}{N}$ are the \gls{DFT} frequencies, and $I$ is a polynomial of order $\max(N_a,N_b) - 1$, which depends on the difference between the initial and end conditions of the filters $\true{G}$ and $\true{H}$ during the measurement record.
 
 \begin{remark}
 The knowledge of the true model orders makes the analysis of the smoothers easier to carry out as we thus avoid extra calculation time required to perform model selection.
 However, these smoothers can be used in conjunction with model order selection procedures.
 \end{remark}
+
+\begin{assumption}
+It is assumed that the orders of the polynomials $A$, $B$ and $I$ are known.
+\end{assumption}
+
 
 \subsection{Parametric Identification Algorithm}\label{se:paramIdentAlgo}
 
@@ -185,7 +193,7 @@ In this section, the considered methods for obtaining the initial estimates of $
   \centering
   \includegraphics
   [width=\columnwidth]{\thisDir/fig/flowgraph}
-  \caption[Flow chart of different initialization procedures.]{Flow chart depicting the different estimation procedures, from left to right: \circledNum{1} an approach using the true model as initial estimate; \circledNum{2} an existing approach using \gls{BTLS} and \gls{GTLS} starting values, and the novel methods outlined in this chapter (\circledNum{3}, \circledNum{4}).
+  \caption[Flow chart of different initialization procedures.]{Flow chart depicting the different estimation procedures, from left to right: \circledNum{1} an approach using the true model as initial estimate; \circledNum{2} an existing approach using \gls{BTLS} and \gls{GTLS} starting values, and the novel initialization strategies outlined in this chapter (\circledNum{3}, \circledNum{4}) that make use of smoothers to generate improved starting values for the non-convext optimization problem.
   The flow of non-parametric data is depicted by full arrows, with the \gls{FRF} data marked by asterisks. Parametric models are indicated by dashed, unfilled arrows.} \label{fig:flowgraph}
 \end{figure}
 
@@ -392,7 +400,7 @@ Consequently, one can easily determine the equivalent relative tolerance from th
 % }
 
 
-The distance measure used in equation \eqref{eq:successrateTol} is defined as
+The norm used in equation \eqref{eq:successrateTol} is defined as
 \begin{align}
 \norm[2]{G(z)} &\isdef \sqrt{\frac{1}{2\pi}\int_0^{2\pi} |G(e^{-j\omega})|^2\ \mathrm{d}\omega}& \text{ for discrete time,}\\
 \norm[2]{G(s)} &\isdef \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} |G(j\omega)|^2\ \mathrm{d}\omega}& \text{ for continuous time}
@@ -537,7 +545,7 @@ With reference to \figref{fig:single-sim}, the following observations are worth 
 Two major classifications can be made:
 \begin{enumerate}
   \item `good' estimates which have $\|\model{\bullet} - \model{\trueSymbol} \|_2 < tol \approx 6 \cdot 10^{-5}$,
-  \item `poor' estimates which are much farther from $\model{\trueSymbol}$.  This is caused by the local optima.
+  \item `poor' estimates which are much further from $\model{\trueSymbol}$.  This is caused by the local optima.
 \end{enumerate}
 \item
 The obvious jump of the observed distances of the final parametric estimates shows that both classes can be separated reliably.
@@ -674,9 +682,11 @@ The output $y(t)$, however, was disturbed by a noise generator that added white 
 The excitation signal $r(t)$ was white random noise with a standard deviation $\sigma_r = 0.25 \unit{V}$, consisting of $N_S = 8\,192$ samples, and sampled at $92 \unit{kHz}$.
 The same noise sequence was repeated $N_R = 100$ times in succession, such that a non-parametric estimate of the noise could be obtained and the performance of the methods could be gauged over these different repetitions.
 To distinguish the different repetitions, we denote the $r^{\text{th}}$ repetition of the $u$ signal as $u^{[r]}(t)$ (and similarly for $y(t)$).
-The signal generation and acquisition was by means of a National Instruments Elvis II, using the respective \code{AO} and \code{AI} pins on the breadboard, which were wired to BNC connectors.
-Although acquisition and generation were synchronized, there was a small delay $\tau = 9\unit{\mu s}$ between the acquisition of the input $u(t)$ and the output $y(t)$.
-The output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\tau \right)$ such that the delay-compensated $y(t)$ could be obtained using the \gls{IDFT}.
+The signal generation and acquisition was by means of a \gls{NI} Elvis II, using the respective \code{AO} and \code{AI} pins on the breadboard, which were wired to BNC connectors.
+Although acquisition and generation were synchronized, there is a small delay $\tau = 9\unit{\mu s}$ between the acquisition of the input $u(t)$ and the output $y(t)$ due to the hardware architecture of the \gls{NI} Elvis II.
+Particularly, the involved channels are captured by means of a single \gls{ADC} which is preceded by a multiplexer to select the active channel.
+This obviously introduces a slight delay between the acquisition of a sample of input and output channels that is not part of system dynamics of the \BK{} filter, but rather of the experimental set-up.
+As such, the output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\tau \right)$ such that this inter-channel acquisition delay of the \gls{NI} Elvis is compensated, the time-domain counterpart $y(t)$ can be obtained using the \gls{IDFT}.
 
 \begin{figure}
   \centering
@@ -726,12 +736,18 @@ Note that the SNR at the output $\mathrm{SNR}_{y} \approx 14 \unit{dB}$ is much 
 \end{figure}
 
 For each measurement repetition, the signals $u^{[r]}(t)$, $y^{[r]}(t)$ and the variances $\sigma_U^2(\omega)$, $\sigma_Y^2(\omega)$ are used in the maximum likelihood cost function given by equation \eqref{eq:MLEcf}.
-The model chosen for the cost function comprises a numerator of third order, a denominator of sixth order and transient contribution of a fifth degree. This results in a transfer function of the form:
+The model order was chosen according to the specifications of the sixth-order (Chebyshev) bandpass filter \citep{datasheet_bk1613}.
+Since such a bandpass filter is of sixth degree and requires a relative degree of 3 to produce a $60 \unit{dB/decade}$ slope at high frequencies, this means that the transfer function has a numerator of third order, a denominator of sixth order and transient contribution of a fifth degree (i.e. model order: $3/6+5$).
+This results in a transfer function of the form:
 \begin{equation}
-  \model{\bullet}(s,\theta) = \frac{\sum_{i=0}^3 b_i s^i}{\sum_{i=0}^6 a_i s^i}
+  \model{\bullet}(s,\theta) = 
+  \frac{\Sum_{i=0}^3 b_i s^i}{\Sum_{i=0}^6 a_i s^i}
 \end{equation}
 which is typical of a sixth-order band-pass filter.
 By processing the different repetitions, a parametric fit per initialization method corresponding to the appropriate branch in \figref{fig:flowgraph}, and per repetition can be obtained. 
+\begin{remark}
+Fitting the data with models of increased order (e.g. $4/6+5$) has also been attemped, but those models did not yield significant improvements.
+\end{remark}
 
 
 The following equation is constructed from the final estimates for each experiment; it gives an insight into the combined contribution to the `best' estimate from all the different initialization strategies, \emph{viz}:
