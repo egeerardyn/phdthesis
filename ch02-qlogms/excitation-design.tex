@@ -279,7 +279,7 @@ This is illustrated in \secref{sec:excitation:simulation}.
 
 \subsection{Generic system}
 %TODO: explain generic LTI system
-Consider a second-order subsystem
+Consider the second-order subsystem with multiplicity $\multiplicity$:
 \begin{equation}
   G_2(s, \theta) = \frac{K \wn^{2 \multiplicity} \left( s + \wz \right)}{\wz \left(s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity}}
 \end{equation}
@@ -1285,8 +1285,9 @@ In the following set of simulations, we will study how the FRF of different seco
   Such an experiment is repeated $R=1000$ times with a different random phase  spectrum $\phi_k$ and a different noise realization $e[n]$ for each experiment.
 
   \begin{remark}
-  All simulations  have been repeated fitted with the \MATLAB System Identification Toolbox by means of the \mcode{oe} function~\citep{TDIDENT}.
-  The observed results were identical and hence are not elaborated further in this text.
+  All simulations  have been repeated as well by fitting with the \MATLAB System Identification Toolbox by means of the \mcode{oe} function~\citep{TDIDENT}.
+  The observed results were similar and hence are not elaborated further in this text.
+  For more information, please refer to \citep{Larsson2012SYSID}.
   \end{remark}
 
   \subsection{Systems with a `high' damping}
@@ -1450,5 +1451,3 @@ The suggested compensation works well as long as the considered systems are suff
 We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equidamped set of systems.
 The presented method allows to select a maximal value for the frequency ratio $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
 In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
-
-% \input{ch02-qlogms/sysid.tex}

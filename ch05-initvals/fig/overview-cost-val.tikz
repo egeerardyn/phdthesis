@@ -14,8 +14,6 @@
 %
 %
 \begin{tikzpicture}
-\input{\thisDir/styles.inc.tex}
-
 \begin{axis}[%
 name=fit,
 width=\figurewidth,
