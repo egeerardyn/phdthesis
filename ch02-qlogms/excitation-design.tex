@@ -21,27 +21,21 @@ The disadvantage of this approach is that multiple experiments are required to c
 Moreover, since the signal is optimized for a specific system model, it is likely that changes in the dynamics might be hard to observe using such a signal.
 
 \item Robust input design one tries to make the input design robust to uncertainty in the prior knowledge of the parameter values, see e.g. \citep{Rojas2007} and references therein. 
-While the signal is more robust towards uncertainty in the prior knowledge, it requires more forethought and experimentation than (nominal) optimal designs.
-E.g. the approach followed by \citet{Rojas2007} relies on both nominal parameter values and the distribution function of these parameters to design a robust (optimal) excitation signal.
+While the signal is more robust towards uncertainty in the prior knowledge, it requires more forethought than (nominal) optimal designs.
+E.g. the approach followed by \citet{Rojas2007} relies on both nominal parameter values and  knowledge of the distribution function of these parameters to design a robust (optimal) excitation signal.
+As such, this requires more advanced prior knowledge of the system to cope with the uncertainty of the prior knowledge.
 \end{enumerate}
 
 \subsection{Approach in this chapter}
 \label{sec:excitation:intro:approach}
-In this chapter, we focus on robust excitation and we address the situation where there is very limited a priori information about the system to be identified. 
+In this chapter, the goal is to construct excitation signals that bridge the properties of general purpose and robust excitation signals to alleviate the chicken-and-the-egg problem that optimal strategies typically incur.
+In particular, a generic excitation signal will be used, but its properties are tuned in such a way that it attains some properties of robust excitation signals without requiring extensive prior information.
 We will consider input design when it is known that the system has resonances, possibly spanning a frequency band that may cover several decades. 
 It is however not necessary to know how many resonances are in the system and at what precise frequencies those may occur.
+
 Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances\citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy~\citep{Niedostatkiewicz2009,VanGheem2004}, electronics\TODO{citation}, mechatronics\TODO{citation} and vibration testing\TODO{citation (ISMA?)}.
 
-The advantage of the proposed input design is that regardless of where these resonances are located, the resulting transfer function variance will be the same, for a given damping in the system.
-
-In this chapter, the goal is to construct excitation signals that bridge the properties of generic and robust excitation signals to alleviate the chicken-and-the-egg problem that optimal strategies typically incur.
-In particular, a generic excitation signal will be used, but its properties are tuned in such a way that it attains some properties of robust excitation signals without the requirement of very specific prior information.
-
-\section{Introduction}
-  It often occurs that we wish to measure the \gls{FRF} of a \gls{LTI} system in a frequency band that covers several decades~.
-  Of course, we also want to attain a specified uncertainty level over the full frequency span.
-
-  Any \gls{LTI} system of finite order can be expanded into a  finite sum of systems of first and second order by means of a partial fraction expansion\citep{Oppenheim1983}.
+  Any \gls{LTI} system of finite order can be expanded into a finite sum of sub-systems of first and second order by means of a partial fraction expansion\citep{Oppenheim1983}.
   Therefore the performance of the proposed method is assessed on a prototype system of second order.
   This does not limit the generality of the approach as we can add several of such systems to construct a general \gls{LTI} system.
   
@@ -54,13 +48,31 @@ In particular, a generic excitation signal will be used, but its properties are 
   In a periodic setting, this results in a multisine whose frequency components are spaced equidistantly on a logarithmic axis.
   
   The main problem is that network and dynamic signal analyzers typically
-  rely on an equidistant frequency grid that comes with the Discrete Fourier Transform (DFT).
+  rely on an equidistant frequency grid that comes with the \gls{DFT}.
   A logarithmically spaced signal, on the other hand, does not match well to an equidistant frequency grid.
   More specifically, the lack of frequency resolution at the lowest frequencies hampers the quality of the power distribution at the low edge of the frequency band.
   To circumvent this disadvantage, we will construct quasi-logarithmically spaced signals.
   Their frequency spacing is approximately logarithmic but nevertheless conforms to the DFT's linear frequency grid.
 
   We will also present a simple method to determine a suitable density of a logarithmically spaced signal for a predefined minimal damping of the system to be tested.
+
+  \paragraph{Contents}
+  In \secref{sec:excitation:inputDesign}, we first discuss (optimal) input design on an example second-order system.
+
+  \TODO{
+  \begin{itemize}
+    \item input design
+    \item system parametrization
+    \item $1/f$ power
+    \item frequency grid specification
+    \item optimization of frequency grid
+    \item simulations
+    \item measurements
+  \end{itemize}
+  }
+
+  \TODO{somewhere: mention D-optimal is indep of parametrization}
+  \TODO{somewhere: mention optimality criterion is of lesser importance for a ``good'' signal (optimal in X = good in Y in most cases)}
 
   In the first section of this chapter, we start from a generic transfer function model and discuss a decomposition thereof in second order subsystems and their properties.
   We provide a comparison between several possible implementations of the frequency grids.
@@ -506,7 +518,7 @@ This results extends mutatis mutandis to systems consisting of more sub-systems.
   For a continuous time model $\Omega = s$, while for the discrete time case $\Omega = z$.
 
   Such a system can be decomposed into a series of first and second order systems by the partial fraction expansion:
-Remember that the rational transfer function of any strictly proper \gls{LTI} system $G$ can be decomposed in its partial fraction form:
+Remember that the rational transfer function of any strictly proper \gls{LTI} system $G$ can be decomposed in its partial fraction form\citep[Appendix]{Oppenheim1996}:
 \begin{align}
   G(s) &= 
     \frac{\sum\limits_{i=0}^{\numel{B}} b_i s^i}
@@ -530,9 +542,13 @@ Remember that the rational transfer function of any strictly proper \gls{LTI} sy
 \end{align}
 where $I_1$ denotes the number of real-valued poles, $I_2$ denotes the number of complex conjugated pole pairs.
 $M_{1,i}$ and $M_{2,i}$ denotes the multiplicity of the corresponding poles, such that $\numel{A} = \sum_i^{I_1} M_{1,i} + 2 \sum_{i}^{I_2} M_{2,i}$.
-Each term in \eqref{eq:excitation:PFE} represents a \term{sub-system} of the system $G(s)$.  
+Each term in \eqref{eq:excitation:PFE} represents a \term{sub-system} of the system $G(s)$.
   Within these sub-systems, we can distinguish first-order subsystems and second-order subsystems, the latter of which describe resonant phenomena.
   Since such resonances are often a limiting factor, we first focus on these resonant sub-systems.
+\begin{remark}
+  For non-proper systems, one can write the transfer function $G_{\mathrm{non-proper}}(s) = P(s) + G_{\mathrm{proper}}$ where $P(s)$ is a polynomial and $G_{\mathrm{proper}}(s)$ a proper rational function.
+  As such, the polynomial $P(s)$ should be added to equation \eqref{eq:excitation:PFE} for non-proper systems.
+\end{remark}
 
   To study the behavior of one sub-system, we inspect a generic second order system $G\left( s \right)$.
   In continuous time such a system can be described by a transfer function of the form
