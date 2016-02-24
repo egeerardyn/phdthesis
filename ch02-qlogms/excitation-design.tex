@@ -59,12 +59,10 @@ Such problem settings occur in many diverse fields of experimentation, such as t
   In \secref{sec:excitation:inputDesign}, we first consider (optimal) input design for an example second-order system.
   Next in \secref{}, \gls{LTI} systems are parametrized to facilitate the input design.
   This will lead to signals with a $1/f$ power spectrum as in \secref{sec:excitation:logarithmic}.
-  In \secref{sec:excitation:grids} a comparison of different discrete frequency grids is provided, this is afterwards related to the problem of generating a multisine signal with a $1/f$ power spectral density.
+  In \secref{sec:excitation:multisine} a comparison of different discrete frequency grids is provided, this is afterwards related to the problem of generating a multisine signal with a $1/f$ power spectral density.
   Next, \secref{sec:excitation:optimAlpha} describes the selection of a suitable frequency ratio $\alpha$ for a logarithmically spaced grid such that constant model quality is obtained.
   The usefulness of the proposed signals is illustrated on simulations in \secref{sec:excitation:simulation} and validated on the measurement of a set of band-pass filters in \secref{sec:excitation:measurement}.
   Conclusions are formulated in \secref{sec:excitation:conclusion}.
-
-  \TODO{somewhere: mention optimality criterion is of lesser importance for a ``good'' signal (optimal in X = good in Y in most cases)}
 
 \section{Input design}
 \label{sec:excitation:inputDesign}
@@ -72,8 +70,8 @@ For the theoretical analysis, we consider \gls{SISO} \gls{OE} systems, i.e.
 \begin{align}
 y(t) &=G(s,\theta)u(t)  + e(t),
 \end{align}
-where $u(t)$ is a known input sequence, $y(t)$ the output sequence and $e(t)$ is zero mean Gaussian white noise.
-$G$ is a rational, time invariant transfer function in continuous time. 
+where $u(t)$ is a known input sequence, $y(t)$ the output sequence and $e(t)$ is zero mean Gaussian white noise with variance $\sigma_{e}^2$.
+$G$ is a rational, time invariant transfer function in continuous time.
 For notational simplicity, $s$ is used both as the complex Laplace variable and the differentiation operator; it should be clear from the context which is used. 
 The transfer function is parameterized by the vector $\theta$.
 These parameters are unknown and hence we are interested in estimating their values. 
@@ -106,11 +104,12 @@ The information matrix is a function of the input power spectrum $\powerspec{u}$
 A common optimality criterion is D-optimality where $\det{\IF}$ is maximized~\citep{Goodwin1977}.
 
 \begin{remark}
-D-optimal input designs are quite popular since this criterion minimizes the volume of  the probability density region of the parameters~\citep[Chapter 6]{Goodwin1977}.
-Moreover, the D-optimal input design is independent of the parametrization of the system (as long as the different parametrizations can be related by a bijective function).
+D-optimal input designs are quite popular since this criterion minimizes the volume of uncertainty ellipsoid of the parameters.
+Moreover, the D-optimal input design is independent of the parametrization of the system (as long as the different parametrizations can be related by a bijective function)~\citep[Chapter 6]{Goodwin1977}.
 \end{remark}
 
-The information matrix tells us how good the individual parameter estimates are. However, if we are interested in estimating a transfer function $G(s,\theta)$ the quality of this estimate is of more importance. It is possible to find an expression for the variance of $\hat{G}(j\omega,\theta)$ using the Gauss approximation formula \citep{Ljung1999, Pintelon2012}. This gives
+The information matrix tells us how good the individual parameter estimates are. However, if we are interested in estimating a transfer function $G(s,\theta)$ the quality of this estimate is of more importance. 
+It is possible to find an expression for the variance of $\hat{G}(j\omega,\theta)$ using the Gauss approximation formula \citep{Ljung1999, Pintelon2012}. This gives
 \begin{align}
 \var{\hat{G}(j\omega)} &\approx \frac{\partial G^H(j\omega)}{\partial \theta}\IF^{-1}\frac{\partial G(j\omega)}{\partial \theta}.
 \label{eq:excitation:varG}
@@ -120,7 +119,7 @@ Typically, the input design formulation depends on the true system parameters. T
 Furthermore, classical input designs, such as the D-optimal design, typically give signals with sparse spectra. 
 This means that only a few frequencies are excited. 
 A sparse spectrum is bad from a robustness point of view; there is very limited information about what happens at the unexcited frequencies. 
-Therefore, a signal design to be optimal for one system may result in very bad estimates if applied to another system. 
+Therefore, a signal design to be optimal for one system may result in very bad estimates if applied to another system.
 To increase the robustness of the design, one could take a small fraction $\delta$, from the optimal power and redistribute this power over the whole frequency band of interest.
 From \eqref{eq:excitation:IF} and \eqref{eq:excitation:varG} we see that scaling the input power by $1-\delta$, gives the transfer function variance
 \begin{align}
@@ -139,8 +138,23 @@ Consider the second order system
 y(t) &= G(s,\theta) u(t) = \frac{1}{\frac{s^2}{\wn^2} + 2\frac{\damping}{\wn}s + 1}u(t),
 \label{eq:excitation:2ndOrderSys}
 \end{align}
-with parameters $\theta=[\wn\;\damping]^{\T}$. The resonance frequency of the system is $\wR \isdef \sqrt{1-\damping^2}\wn$
-and the $3\unit{dB}$ bandwidth of the system is $\wdB \isdef 2\damping\wn$.
+with parameters $\theta=[\wn\;\damping]^{\T}$. 
+The resonance frequency of the system is $\wR \isdef \sqrt{1-\damping^2}\wn$ and the $3\unit{dB}$ bandwidth of the system is $\wdB \isdef 2\damping\wn$.
+The $3\unit{dB}$ bandwidth around the resonance is given by $\wdB = 2\damping\wn$ for systems that have a sufficiently low damping.
+  
+When $\damping < \frac{1}{\sqrt{2}}$, such a second order system exhibits a peak in the amplitude of the transfer function~\citep{Oppenheim1983}:
+  \begin{align}
+   \left| G\left(\wM \right) \right| & \isdef
+          \max_{\omega} \left| G\left( \omega \right)  \right|
+        = \frac{\dc}
+               {2 \damping \sqrt{1-\damping^2}}
+               \label{eq:excitation:peakAmplitude}\\
+   \wM &
+        = \sqrt{1-2\damping^2} \wn
+        \label{eq:excitation:peakFrequency}
+    \text{.}
+  \end{align}
+
 Since information is local in the frequency domain, the input signal power inside $\wdB$, contributes significantly to the information matrix while input power outside $\wdB$ has a smaller contribution. This can be seen by considering the optimal design for a second order system. From \citep[Example 6.4.5]{Goodwin1977} we have that the D-optimal design for \eqref{eq:excitation:2ndOrderSys} is a single sinusoid at frequency
 \begin{align}
 \omega^\star =\frac%
@@ -179,97 +193,41 @@ With this input spectrum, the power inside $\wdB$ is
 \end{align}
 which is independent of $\wn$. The robustness of the $1/f$ input has been noted previously by e.g. \cite{Rojas2007}
 
-Second, we consider the power spectrum of the quasi-logarithmic multisine signal [\cite{Pintelon2012}] given by
-\begin{align}
-  \phi_u(\omega) &= \frac{1}{M}\sum_{k=1}^{M}{\dirac{\omega - \omega_k}},
-\end{align}
-where $\omega_{k}/\omega_{k+1} \approx \alpha$ and $\dirac{\omega}$ denotes the Dirac distribution.
-Hence, the number of spectral lines inside \wdB is 
-\begin{align}
-  \floor{
-    \log_{\alpha} \frac{1+\damping}{1-\damping} 
-  }
-  \text{,}
-\end{align}
-where $\floor{\placeholder}$ is the nearest integer rounded towards $0$. The number of spectral lines is independent of $\wn$. 
+Alternatively, one could also construct a signal with power spectrum concentrated at discrete frequency lines.
+Such signals are elaborated in \secref{sec:excitation:method}.
 
-More generally, a multisine can be defined as:
-\begin{equation}
- u \left[ n\right] = \frac{1}{\sqrt{F}}
-   \sum_{k=1}^{F} 
-     A_k 
-     \sin 
-       \left(\frac{2\pi n k f_0}{f_s} + \psi_k \right)
-  \label{eq:excitation:MS}
-\end{equation}
-where $A_k$ and $\psi_k$ are its amplitude and phase spectrum; $f_s$ is the
-sampling frequency and $f_0 = \frac{f_s}{N}$ the base frequency with $N$ the 
-number of points in a period. 
+% Second, we consider the power spectrum of the quasi-logarithmic multisine signal [\cite{Pintelon2012}] given by
+% \begin{align}
+%   \phi_u(\omega) &= \frac{1}{M}\sum_{k=1}^{M}{\dirac{\omega - \omega_k}},
+% \end{align}
+% where $\omega_{k}/\omega_{k+1} \approx \alpha$ and $\dirac{\omega}$ denotes the Dirac distribution.
+% Hence, the number of spectral lines inside \wdB is 
+% \begin{align}
+%   \floor{
+%     \log_{\alpha} \frac{1+\damping}{1-\damping} 
+%   }
+%   \text{,}
+% \end{align}
+% where $\floor{\placeholder}$ is the nearest integer rounded downwards. 
+% The number of spectral lines is independent of $\wn$. 
 
-To construct a quasi-logarithmic multisine, only frequency lines $f_j$ within the set of available sine components $\left\{f_0, 2 f_0, \ldots, F f_0  \right\}$ are excited for which the ratio of two consecutive frequencies $f_j$ and $f_{j-1}$ is approximately constant: $\frac{f_{j-1}}{f_j} \approx \alpha$.
+% More generally, a multisine can be defined as:
+% \begin{equation}
+%  u \left[ n\right] = \frac{1}{\sqrt{F}}
+%    \sum_{k=1}^{F} 
+%      A_k 
+%      \sin 
+%        \left(\frac{2\pi n k f_0}{f_s} + \psi_k \right)
+%   \label{eq:excitation:MS}
+% \end{equation}
+% where $A_k$ and $\psi_k$ are its amplitude and phase spectrum; $f_s$ is the
+% sampling frequency and $f_0 = \frac{f_s}{N}$ the base frequency with $N$ the 
+% number of points in a period. 
+
+% To construct a quasi-logarithmic multisine, only frequency lines $f_j$ within the set of available sine components $\left\{f_0, 2 f_0, \ldots, F f_0  \right\}$ are excited for which the ratio of two consecutive frequencies $f_j$ and $f_{j-1}$ is approximately constant: $\frac{f_{j-1}}{f_j} \approx \alpha$.
 
 The result of these two choices of input power spectrum is that for a given damping, $\var{\hat{G}}$ is approximately the same independent of $\wn$. 
 This is illustrated in \secref{sec:excitation:simulation}.
-
-\subsection{Generic system}
-%TODO: explain generic LTI system
-Consider the second-order subsystem with multiplicity $\multiplicity$:
-\begin{equation}
-  G_2(s, \theta) = \frac{K \wn^{2 \multiplicity} \left( s + \wz \right)}{\wz \left(s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity}}
-\end{equation}
-parametrized in $\theta =  \left[K, \wn, \wz, \damping \right]^{\T}$.
-To determine the Fisher Information matrix, the derivative $\PartialDerivative{G(s,\theta)}{\theta}$ is required; its components are given by:
-\begin{align}
-  \PartialDerivative{G_2}{K} 
-    &= 
-  \frac{\wn^{2\multiplicity}}{\wz}
-  \frac{s + \wz}{\left(s^2 + 2 \damping \wn s + \wn^2\right)^{\multiplicity}}
-  \\
-  \PartialDerivative{G_2}{\wz} 
-    &= 
-    \frac{-K \wn^{2\multiplicity}}
-              {\wz} 
-    \frac{s}
-              {\left(s^2 + 2 \damping \wn s + \wn^2\right)^{\multiplicity}} 
-  \\
-  \PartialDerivative{G_2}{\wn} 
-  &= 
-  \frac{2 K \wn^{2\multiplicity-1} \multiplicity}
-            {\wz} 
-  \frac{\left( s + \wz \right) \left( s+ \damping \wn \right)}
-            {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity + 1}}
-  \\
-  \PartialDerivative{G_2}{\damping}
-  &= 
-  \frac{-2 K \wn^{2\multiplicity + 1} \multiplicity}
-            {\wz}
-  \frac{s \left( s + \wz \right)}
-             {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity + 1}}
-  \text{.}
-\end{align}
-
-The poles of these derivatives coincide with the system poles (possibly with increased multiplicity).
-Consequently, this means that for lightly-damped systems ($\damping \ll \sqrt{2}$), these derivatives will exhibit a sharp resonance peak just as the actual sub-system $G_2$ as illustrated in \figref{fig:excitation:derivatives}.
-The roll-off near the resonance is determined mainly by the damping $\damping$ and the multiplicity $\multiplicity$ of the sub-system.
-As such, the Fisher information matrix is pre-dominantly determined by the input power spectrum near $\wn$.
-Note that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ have the steepest roll-off near the resonance.
-As such, those parameters are the most important for the experiment design.
-
-\begin{figure}
-  \centering
-  \setlength\figurewidth{0.9\columnwidth}
-  \setlength\figureheight{\figurewidth}
-  \input{\thisDir/figs/derivs.tikz}
-  \caption[Derivatives of a second-order sub-system towards each of its parameters.]{Bode plots of the elements of $\PartialDerivative{G_2}{\theta}$ for small $\damping$. 
-  % The numbers indicate the (asymptotic) slope as a multiple of $20 \unit{dB/\decade}$.
-  The roll-off near $\wn$ is significant and depends strongly on $\damping$.
-  It can be seen that the derivatives are dominated by the resonance peak, an effect that is even more prominent when $\multiplicity$ is large.
-  This means that for a good input signal, it is critical to have power near the resonance peak. 
-  Note also that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ exhibit a sharper peak and hence $\damping$ and $\wn$ are the most important parameters of the model.
-  In this example, $\damping = \varXi$, $K = \varK$, $\frac{\wz}{\wn} \in \Set{\varWzSmall, 1, \varWzBig}$, $\multiplicity=1$ and $\wn = \varWn \unit{rad/s}$ were used.
-}
-\label{fig:excitation:derivatives}
-\end{figure}
 
 \subsection{Sums of second order systems}
 This section extends the previous section to more general systems than second order.
@@ -311,7 +269,8 @@ The effect is that the variance of the estimated transfer function approximately
 To illustrate this we look at a system with $K=2$, i.e. the sum of two second order systems.
 The conclusions from the example are easily extended to systems consisting of more than two sub-systems.
 
-\subsubsection{Example: Sum of two second order systems}
+\subsubsection{Example: Sum of two second-order systems}
+\label{sec:excitation:ex:sumOfSecondOrderSipmle}
 Consider the system
 \begin{align}
 G(s,\theta) &= G_1(s,\theta_1) + G_2(s,\theta_2)%\\
@@ -385,7 +344,6 @@ Hence \eqref{eq:excitation:cross1} cannot grow faster than $\mathcal{O}(\damping
 \item lower damping further decreases the integral \eqref{eq:excitation:cross1} in comparison to \eqref{eq:excitation:auto}.
 \end{itemize}
 
-
 To further illustrate the decoupling of the two systems, we calculate \eqref{eq:excitation:infoEx} for different values of the damping $\damping$ and separations of the two resonances $\wn[1]$ and $\wn[2]$. If the separation is taken in terms of $\wdB$-units for the lower resonance, the result only depends on the difference $\wn[1]-\wn[2]$ and not on the actual frequencies. The resulting information matrix is then normalized so that the largest element is $1$.
 
 In \figref{fig:excitation:coupling} the largest element in $\partial G_{1,2}$ is plotted for different dampings and separations. It is clear that highly resonant systems have a large degree of decoupling and that resonances that are well-separated increases the decoupling. 
@@ -412,18 +370,16 @@ This results extends mutatis mutandis to systems consisting of more sub-systems.
 \setlength\figurewidth{0.68\columnwidth}
 \setlength\figureheight{0.68\figurewidth}
 \input{\thisDir/figs/coupling.tikz}
-\caption{The element with the largest absolute value in the off-diagonal blocks of the normalized information matrix for different dampings.
+\caption[Relative amplitudes of the off-diagonal blocks of the Fisher information matrix.]{The element with the largest absolute value in the off-diagonal blocks of the normalized information matrix for different dampings.
          The different plots are for different separations of the resonance frequencies, from 4\wdB to 64\wdB.
          The arrow indicates the direction of increasing separation.}
 \label{fig:excitation:coupling}
 \end{figure}
 
+\section{System parametrization} 
+\label{sec:excitation:parametrization}
 
-\section{Methodology} 
-\label{sec:excitation:method}
-
-  \subsection{The system under consideration}
-  We consider the transfer function models of generic \gls{LTI} systems of arbitrary but finite orders $\order{B} / \order{A}$:
+  We consider the transfer function models of proper \gls{LTI} systems of arbitrary but finite orders $\order{B} / \order{A}$:
   \begin{align}
     G\left( \Omega, \theta \right) 
     = \frac{B\left( \Omega,\theta \right)}
@@ -434,11 +390,10 @@ This results extends mutatis mutandis to systems consisting of more sub-systems.
     \label{eq:excitation:model}
   \end{align}
   
-  The model is parametrized by the vector $\theta = \left[b_0 \,\cdots\, b_{n_b-1} \; a_0 \,\cdots\, a_{n_a-1} \right]^{\T}$ and  is evaluated at different frequencies $\Omega$ in the complex plane.
-  For a continuous time model $\Omega = s$, while for the discrete time case $\Omega = z$.
-
-  Such a system can be decomposed into a series of first and second order systems by the partial fraction expansion:
-Remember that the rational transfer function of any strictly proper \gls{LTI} system $G$ can be decomposed in its partial fraction form\citep[Appendix]{Oppenheim1996}:
+The model is parametrized by the vector $\theta = \left[b_0 \,\cdots\, b_{n_b-1} \; a_0 \,\cdots\, a_{n_a-1} \right]^{\T}$ and  is evaluated at different frequencies $\Omega$ in the complex plane.
+For a continuous time model $\Omega = s$, while for the discrete time case $\Omega = z$.
+For the sake of notational simplicity, $\Omega = s$ will be used further on, but the results are similar for $\Omega=z$.
+Remember that the rational transfer function of any strictly proper \gls{LTI} system $G$ can be decomposed in its partial fraction form~\citep[Appendix]{Oppenheim1996}:
 \begin{align}
   G(s) &= 
     \frac{\sum\limits_{i=0}^{\numel{B}} b_i s^i}
@@ -470,57 +425,87 @@ Each term in \eqref{eq:excitation:PFE} represents a \term{sub-system} of the sys
   As such, the polynomial $P(s)$ should be added to equation \eqref{eq:excitation:PFE} for non-proper systems.
 \end{remark}
 
-  To study the behavior of one sub-system, we inspect a generic second order system $G\left( s \right)$.
-  In continuous time such a system can be described by a transfer function of the form
-  \begin{equation}
-    G\left(s \right) = \frac{\dc}
-                            {             \frac{s^2}
-                                               {\wn^2} 
-                             + 2 \damping \frac{s}
-                                               {\wn}
-                             + 1
-                            }
+Consider the second-order subsystem with multiplicity $\multiplicity$:
+\begin{equation}
+  G_2(s, \theta) = \frac{K \wn^{2 \multiplicity} \left( s + \wz \right)}{\wz \left(s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity}}
+\end{equation}
+parametrized in $\theta =  \left[K, \wn, \wz, \damping \right]^{\T}$.
+To determine the Fisher Information matrix, the derivative $\PartialDerivative{G(s,\theta)}{\theta}$ is required; its components are given by:
+\begin{align}
+  \PartialDerivative{G_2}{K} 
+    &= 
+  \frac{\wn^{2\multiplicity}}{\wz}
+  \frac{s + \wz}{\left(s^2 + 2 \damping \wn s + \wn^2\right)^{\multiplicity}}
+  \\
+  \PartialDerivative{G_2}{\wz} 
+    &= 
+    \frac{-K \wn^{2\multiplicity}}
+              {\wz} 
+    \frac{s}
+              {\left(s^2 + 2 \damping \wn s + \wn^2\right)^{\multiplicity}} 
+  \\
+  \PartialDerivative{G_2}{\wn} 
+  &= 
+  \frac{2 K \wn^{2\multiplicity-1} \multiplicity}
+            {\wz} 
+  \frac{\left( s + \wz \right) \left( s+ \damping \wn \right)}
+            {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity + 1}}
+  \\
+  \PartialDerivative{G_2}{\damping}
+  &= 
+  \frac{-2 K \wn^{2\multiplicity + 1} \multiplicity}
+            {\wz}
+  \frac{s \left( s + \wz \right)}
+             {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity + 1}}
   \text{.}
-  \label{eq:excitation:secondOrderSystemCT}
-  \end{equation}
+\end{align}
 
-  The DC gain $\dc$, the (relative) damping $\damping$ and the natural pulsation $\wn$ are a more intuitive parametrization for this system than the generic polynomial coefficients $a_i$ and $b_i$ used in \eqref{eq:excitation:model}.
-  The corresponding resonance pulsation is $\wR \isdef \wn \sqrt{1-\damping^2}$.
-  The $3\unit{dB}$ bandwidth around the resonance is given by $\wdB = 2\damping\wn$ for systems that have a sufficiently low damping.
-  
-  When $\damping < \frac{1}{\sqrt{2}}$, such a second order system exhibits a peak in
-  the amplitude of the transfer function \citep{Oppenheim1983}:
-  \begin{align}
-   \left| G\left(\wM \right) \right| & \isdef
-          \max_{\omega} \left| G\left( \omega \right)  \right|
-        = \frac{\dc}
-               {2 \damping \sqrt{1-\damping^2}}
-               \label{eq:excitation:peakAmplitude}\\
-   \wM &
-        = \sqrt{1-2\damping^2} \wn
-        \label{eq:excitation:peakFrequency}
-    \text{.}
-  \end{align}
+The poles of these derivatives coincide with the system poles (possibly with increased multiplicity).
+Consequently, this means that for lightly-damped systems ($\damping \ll \sqrt{2}$), these derivatives exhibit a sharp resonance peak at the same frequency as the actual sub-system $G_2$, see also \figref{fig:excitation:derivatives}.
+The roll-off near the resonance is determined mainly by the damping $\damping$ and the multiplicity $\multiplicity$ of the sub-system.
+As such, the Fisher information matrix is pre-dominantly determined by the input power spectrum near $\wn$.
+Note that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ have the steepest roll-off near the resonance.
+As such, those parameters are the most important for the experiment design.
 
-\subsection{System and noise model}
-  In this chapter, an \gls{OE} system setup is used.
+\begin{figure}
+  \centering
+  \setlength\figurewidth{0.9\columnwidth}
+  \setlength\figureheight{\figurewidth}
+  \input{\thisDir/figs/derivs.tikz}
+  \caption[Derivatives of a second-order sub-system towards each of its parameters.]{Bode plots of the elements of $\PartialDerivative{G_2}{\theta}$ for small $\damping$. 
+  % The numbers indicate the (asymptotic) slope as a multiple of $20 \unit{dB/\decade}$.
+  The roll-off near $\wn$ is significant and depends strongly on $\damping$.
+  It can be seen that the derivatives are dominated by the resonance peak, an effect that is even more prominent when $\multiplicity$ is large.
+  This means that for a good input signal, it is critical to have power near the resonance peak. 
+  Note also that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ exhibit a sharper peak and hence $\damping$ and $\wn$ are the most important parameters of the model.
+  In this example, $\damping = \varXi$, $K = \varK$, $\frac{\wz}{\wn} \in \Set{\varWzSmall, 1, \varWzBig}$, $\multiplicity=1$ and $\wn = \varWn \unit{rad/s}$ were used.
+}
+\label{fig:excitation:derivatives}
+\end{figure}
+
+Moreover, the results from \secref{sec:excitation:ex:sumOfSecondOrderSipmle} for the sum of simplified second order systems, i.e. equation \eqref{eq:excitation:sumSys}, extend directly to the generic \gls{LTI} system in \eqref{eq:excitation:PFE} for the second-order sub-systems.
+
+\paragraph{System and noise model}
+  In the remainder of this chapter, an \gls{OE} setting is used.
   Denote
     $U  \left(\omega\right)$ as the excitation signal,
     $\true{Y}\left(\omega\right)$ the exact, unperturbed system output,
     $E  \left(\omega\right)$ for the output noise source,
     $Y  \left(\omega\right) = \true{Y}\left( \omega \right) + E\left( \omega \right)$ depicts the measured output signal as shown in \figref{fig:excitation:OE}.
+    The output noise is assumed to be zero-mean and white with a standard deviation of $\sigma_e$ in the time domain or $\sigma_E$ in the frequency domain.
 
-  \begin{figure}
+  \begin{figure}[h]
     \centering
     \input{\thisDir/figs/oesetup.tikz}
     \caption[Output-error]{Output-error set-up.}
     \label{fig:excitation:OE}
   \end{figure}
 
-  The output noise is assumed to be zero-mean and white with a
-  standard deviation of $\sigma_e$ in the time domain or $\sigma_E$ in the frequency domain.
+\section{Multisine Excitations}
+\label{sec:excitation:multisine}
+In contrast to signal with a continuous $1/f$ \gls{PSD} presented in \secref{sec:excitation:logarithmic}, similar results can be obtained by using signals that have a discrete frequency grid.
+Such signals are presented in this section.
 
-\subsection{Multisine Excitations}
   To excite the system under test we consider a generalization of multisine excitations \citep{Pintelon2012}:
   \begin{definition}[Generalized multisine] \label{def:excitation:generalized-MS}
   A generalized multisine $u(t)$ is a signal consisting of $F$ sine waves with a different frequencies $f_k$, amplitudes $A_k$ and phase shifts $\phi_k$:
@@ -536,12 +521,17 @@ Each term in \eqref{eq:excitation:PFE} represents a \term{sub-system} of the sys
   Without loss of generality, one can stipulate that the frequency grid is sorted, i.e. $f_1 < f_2 < \ldots < f_F$.
   \end{definition}
 
-  For \gls{LTI} systems, it is well-known \TODO{refer to eqn. from Larsson} that the information matrix only depends upon the amplitude spectrum of the input and not upon its phase spectrum.
-  As such, in this chapter assume random-phase multisines since this is a reasonable choice for systems that are dominantly linear~\TODO{referentie}.
+  For \gls{LTI} systems, it is well-known that the information matrix only depends upon the amplitude spectrum of the input and not upon its phase spectrum as indicated in \eqref{eq:excitation:IF}.
+  As such, the results presented in this chapter also do not depend on the particular choice of the phase spectrum.
+  This means a user is free to make an appropriate choice for their application.
+  
+  In this chapter, random-phase multisines are used since this is a reasonable choice for systems that are dominantly linear~\TODO{ref: BLA}.
   Hence, $\phi_k$ is the outcome of a uniform random process over $\left[0,2\pi\right[$.
   This leaves two sets of free parameters to create a signal that suits our needs:
-    the amplitude of the spectral lines $A_k$ and
-    the frequency grid $\left\{f_1, \ldots, f_F \right\}$.
+  \begin{itemize}
+    \item the amplitude of the spectral lines $A_k$, and
+    \item the frequency grid $\left\{f_1, \ldots, f_F \right\}$.
+  \end{itemize}
   Note that the $k^{\text{th}}$ term in \eqref{eq:excitation:MultisineCT} is periodic with period $T_k \isdef f_k^{-1}$.
 
   Consequently, the complete multisine has a period $T_{u(t)}$ that is the common multiple of the period of all its components:
@@ -914,10 +904,7 @@ with
   In this section we show a possible approach to compare the performance of different excitation signals with respect to the theoretically minimal attainable uncertainty of the transfer function as expressed by the \gls{CRLB}.
   Doing so allows to determine a suitable value for the frequency spacing $\alpha$.
 
-\TODO{cov-matrix uitschrijven}
-
-\TODO{zin loopt niet goed}
-  As in \citep{Pintelon2012, Gallager2008, matrixcookbook}, the covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function $G(\theta,\omega)$ can be shown to be approximately equal to
+  As in \citep{Pintelon2012, Gallager2008, matrixcookbook}, and equivalently to the derivation in \secref{sec:excitation:inputDesign}, the covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function $G(\theta,\omega)$ can be shown to be approximately equal to
   \begin{align}
     \C_{G\left( \omega_{\interest}\right) } \approx
       \InnerQuadraticForm[\HT]
@@ -963,8 +950,7 @@ with
     \text{.}
   \end{equation}
 
-  In this chapter, we select a single frequency of interest $\omega_{\interest}$
-  to obtain a scalar performance criterion.
+  In this chapter, we select a single frequency of interest $\omega_{\interest}$ to obtain a scalar performance criterion.
   This is allowed as the matrix $\C_{X}$ is diagonal.
 
 \begin{remark}
@@ -976,16 +962,17 @@ Naturally this will only be true for sensibly chosen criteria.
 Also for the design of robust excitation signals, this is worthwhile observation.
 \end{remark}
 
-  \subsection{Relation between the frequency grid and the system resonance} \label{sec:excitation:relationLogGridSystem}
+  \subsection{Relation between the frequency grid and the system resonance} 
+  \label{sec:excitation:relationLogGridSystem}
   To determine an appropriate frequency ratio $\alpha$ for a logarithmically spaced signal, we study the estimated \glspl{FRF} of a set of prototype second-order systems excited by logarithmically spaced excitation signals.
 
-  \paragraph{Simplification}
-  Instead of studying the response of all possible second-order sub-systems for every possible logarithmically spaced multisine-- a five-dimensional problem with parameters $(\omega_0, \alpha, \wn, \damping, \dc)$-- we argue in favor for a simplification of the problem by considering frequency grids with an infinite span.
+  Instead of studying the response of all possible second-order sub-systems for every possible logarithmically spaced multisine-- a six-dimensional problem with parameters $(\omega_0, \alpha)$ for the grid, and $(\wz, \wn, \damping, \dc)$ for the sub-system-- we argue to simplify the problem in such a way that the results are still valid for the more complicated setting.
 
+  \subsubsection{Exploiting the grid misalignment between the system and the grid}
   Denote $G(\omega; \wn)$ a second-order system as in \eqref{eq:excitation:secondOrderSystemCT} with natural frequency $\wn$, damping ratio $\damping$ and \gls{DC} gain $\dc$.
   Similarly, $G(\omega; m\wn)$ where $m \in \RealNumbersWithoutZero$ is a second order system that shares the damping and \gls{DC} gain of the previous system but has a natural frequency $m\wn$.
 
-  If one calculates their FRFs by evaluating \eqref{eq:excitation:secondOrderSystemCT}, one sees that $G_1(\omega)$ and $G_m(m\omega)$ yield the same numerical values for any value of the pulsation $\omega$.
+  If one calculates their FRFs by evaluating \eqref{eq:excitation:secondOrderSystemCT}, one sees that $G(\omega; \wn)$ and $G(m\omega; m\wn)$ yield the same numerical values for any value of the pulsation $\omega$.
   Both FRFs share the same `shape', but are `located' at different frequencies.
 
   Denote $\infgrid{\omega}$ to be a logarithmic frequency grid with an infinite number of grid lines
@@ -1046,16 +1033,23 @@ Also for the design of robust excitation signals, this is worthwhile observation
   I.e. there should be a few excited frequency lines that are logarithmically spaced, outside of the resonance peak of the actual system.
   In practice, this means that systems with their resonance peak at the lowest and the very highest edge of the frequency band may not be observed with identical quality as systems at intermediate frequencies.
 
-  \subsection{Selection of the frequency grid spacing $\alpha$}
-  When we now take a closer look at the general second order system \eqref{eq:excitation:secondOrderSystemCT}, we still are left with $\dc$ and $\damping$ as free parameters in the prototypes.
-  Note that $\dc$ is a scaling factor for the FRF.
-  Hence the results for different values of $\dc$ only differ by a scaling factor.
-  So we only need to perform the analysis for a fixed value of $\dc$, which was chosen equal to $1$ in our test case.
+  \subsection{Exploiting the shape of the derivatives}
+   In particular, from \figref{fig:excitation:derivatives}, it can be seen that the derivatives with respect to $(\wn, \damping)$ exhibit a sharper resonance and hence $(\wn, \damping)$ will prove the hardest to identify.
+   This means that if one would design a signal to identify just $(\wn, \damping)$, such a signal would also be well-suited to identify the other parameters since their corresponding weight in the Fisher information matrix is very similar (especially in the vicinity of the resonance, where their amplitude is most significant).
+
+   As such, the free parameters $(\dc, \damping, \wn, \wz)$ of the sub-system are reduced to only $(\damping, \wn)$ and the others are fixed during our experiments: $\dc = 1$ and $\wz \to \infty$.
+
+  % When we now take a closer look at the general second order system \eqref{eq:excitation:secondOrderSystemCT}, we still are left with $\dc$ and $\damping$ as free parameters in the prototypes.
+  % Note that $\dc$ is a scaling factor for the FRF.
+  % Hence the results for different values of $\dc$ only differ by a scaling factor.
+  % So we only need to perform the analysis for a fixed value of $\dc$, which was chosen equal to $1$ in our test case.
 
   The choice of the damping is more important.
   Instead of choosing the damping directly, we choose the peak gain $\left| G\left( \wM \right) \right| \in \set{5 \unit{dB}, 10 \unit{dB}, 20 \unit{dB}, 40 \unit{dB} }$ of the transfer function \eqref{eq:excitation:peakAmplitude} to study the effect of differently damped systems.
+  However, do remember that $\abs{G(\wM)} = (2\damping\sqrt{1-\damping^2})^{-1}$ for the simplifications introduced above as in \eqref{eq:excitation:peakAmplitude}.
 
-  Since the damping influences the $3\unit{dB}$ bandwidths, it will become important when one has to determine the grid spacing $\alpha$.
+  \subsection{Selection of the frequency grid spacing $\alpha$}
+  Since the damping influences the $3\unit{dB}$ bandwidths, this will become important when one has to determine the grid spacing $\alpha$.
   To deal with this, we introduce the normalized frequency ratio
   \begin{equation}
     \tilde{\alpha} = \frac{\alpha - 1}
@@ -1074,8 +1068,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
   To determine a suitable value of the frequency spacing ratio $\alpha$ for the logarithmic and (compensated) quasi-logarithmic grid, we construct a logarithmic multisine signal in the frequency domain for a given frequency band (in this example, $\left[ 0.01 \unit{rad/s}, 100 \unit{rad/s}\right]$ was used).
   In the previous section we saw that systems with equal damping and DC gain, will behave very similarly when excited by a log signal with spacing $\alpha$.
 
-  Instead of using \eqref{eq:excitation:theoreticalBestVariationOmega} to establish the influence of the resonance frequency, we apply an equivalent approach that is more intuitive to interpret.
-
+  Instead of using \eqref{eq:excitation:theoreticalBestVariationOmega} to establish the influence of the resonance frequency, we follow an equivalent approach that is more intuitive to interpret.
 
   \begin{figure}
     \centering
@@ -1102,7 +1095,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
   In this particular example $\wn$ was chosen at approximately $1 \unit{rad/s}$.
 
   We normalize the root mean square (RMS) value of the excitation signal to $1$ and choose $\sigma_E\left( \omega \right) = 0.1$ for all evaluations.
-  The noise level is kept constant, which causes the signal-to-noise ratio (SNR) per excited line to drop for more finely spaced excitation signals.
+  The noise level is kept constant, which causes the \gls{SNR} per excited line to drop for more finely spaced excitation signals.
   % SNR correct: Pnoise ~ sE^2
   %              Psignal ~F*U^2 = 1 ==> U^2 = 1/F
   %              SNR = Psignal / Pnoise = 1/(sE^2 * F)
@@ -1110,13 +1103,14 @@ Also for the design of robust excitation signals, this is worthwhile observation
   
   We then calculate the theoretical variance on the magnitude of the peak in the FRF ($\left| G\left( \wM \right) \right|$) as shown in \eqref{eq:excitation:varPeak} for a coarse grid.
   A coarse grid was chosen with $\tilde{\alpha} = 10$; this means that the spacing between the excited lines around the resonance are much larger than the system bandwidth.
-  It is obvious that such an excitation signal will not perform well in most cases, as the resonance peak is very likely to be overlooked in such an FRF.
+  It is obvious that such an excitation signal will not perform well in most cases, as the resonance peak is very likely to be overlooked in such an \gls{FRF}.
   
   For each set of second order systems, we determine for which value of the misalignment coefficient $\beta$ the maximum variance on the FRF is obtained.
   
   For these worst cases, we study how the frequency spacing $\alpha$ influences the uncertainty by decreasing $\alpha$ until no further improvement can be obtained.
 
-  \subsection{Discussion} \label{sec:excitation:bestFrequencyResolution}
+  \subsection{Discussion} 
+  \label{sec:excitation:bestFrequencyResolution}
   As stated above, we start by evaluating the variance $\sigma_G\left( \wM\right)$ for a coarse frequency spacing $\tilde{\alpha} = 10$ for each of the prototype systems.
   This is shown by the solid lines in \figref{fig:excitation:worstCaseBeta}.
   One immediately notices that the variance depends strongly on the misalignment $\beta$ of the system and the frequency grid.
@@ -1164,9 +1158,8 @@ Also for the design of robust excitation signals, this is worthwhile observation
   such that it represents the coarsest frequency spacing for which the variance is approximately equal to that constant value.
   This choice is indicated by the dashed line in \figref{fig:excitation:worstCaseAlpha}.
 
-  Choosing a finer grid will not improve the estimated $G\left( \wM \right)$ significantly.
-  But, on the other hand, a coarser grid will significantly decrease the quality of the measurement.
-  A grid that is too coarse will overlook the resonance peak.
+  Choosing a finer grid will not improve the estimated $G\left( \wM \right)$ significantly, but will rather produce an \gls{FRF} where the \gls{SNR} per bin is decreased.
+  On the other hand, a coarser grid will significantly decrease the quality of the measurement as it overlooks the resonance peak.
   Hence little information can be extracted from such a measurement (i.e. the variance on the estimate will be large).
 
   If we determine the effect of the misalignment factor $\beta$ for a grid with frequency ratio $\alpha^{\star}$, we see that misalignment has a negligible effect on the uncertainty as shown by the dashed lines in \figref{fig:excitation:worstCaseBeta} for each of the prototype systems.
@@ -1225,7 +1218,7 @@ In the following set of simulations, we will study how the FRF of different seco
   
   The obtained FRF is then fitted to the transfer function model \eqref{eq:excitation:secondOrderSystemDTidentifiable} using the \texttt{elis} function of the \FDIDENT~\citep{FDIDENT} for \MATLAB.
   This is a maximum likelihood estimator that fits a parametric model to the measured data in the frequency domain.
-  \TODO{add formulas with cost function etc.}
+  % \TODO{add formulas with cost function etc.}
   To aid convergence and avoid local minima, the initial values for the model are chosen equal to the parameters of the true system $G_0(z)$, so that we can focus completely on the variance of the estimations.
 
   Such an experiment is repeated $R=1000$ times with a different random phase  spectrum $\phi_k$ and a different noise realization $e[n]$ for each experiment.
@@ -1326,8 +1319,7 @@ For example, a system composed of two second order systems with $\damping = 0.2$
   \setlength\figureheight{0.68\figurewidth}
   \input{\thisDir/figs/Sum02log0-2.tikz}
   \caption{FRF for the sum of two second order systems with $\damping=0.2$ and
-           resonances at $ 400 \unit{Hz}$ and 4 \unit{kHz}.}%
-           \TODO{also with other excitation signals?}
+           resonances at $ 400 \unit{Hz}$ and 4 \unit{kHz} as observed by a logarithmic multisine.}%
   \label{fig:excitation:sumSys}
 \end{figure}
 

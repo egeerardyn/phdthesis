@@ -6,12 +6,6 @@
 %   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
 % where you can also make suggestions and rate matlab2tikz.
 %
-
-\definecolor{tangored}{rgb}{0.8,0,0}
-\definecolor{tangoblue}{rgb}{0.203922,0.396078,0.643137}
-\definecolor{tangogreen}{rgb}{0.45098,0.823529,0.0862745}
-%\definecolor{mycolor4}{rgb}{0.960784,0.47451,0}
-
 \begin{tikzpicture}
 \input{\thisDir/grids.inc.tex}
 \begin{semilogxaxis}[%
