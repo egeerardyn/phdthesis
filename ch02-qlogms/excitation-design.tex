@@ -32,9 +32,9 @@ In particular, a generic excitation signal will be used, but its properties are 
 We will consider input design when it is known that the system has resonances, possibly spanning a frequency band that may cover several decades. 
 It is however not necessary to know how many resonances are in the system and at what precise frequencies those may occur.
 
-Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances~\citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy~\citep{Niedostatkiewicz2009,VanGheem2004}, electronics~\citep{Munir2011}, mechatronics\TODO{citation} and vibration testing\TODO{citation (ISMA?)} amongst others.
+Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances~\citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy~\citep{Niedostatkiewicz2009,VanGheem2004}, electronics~\citep{Munir2011}, mechatronics, and vibration testing\TODO{citation (ISMA?)} amongst others.
 
-  Any \gls{LTI} system of finite order can be expanded into a finite sum of sub-systems of first and second order by means of a partial fraction expansion\citep{Oppenheim1983}.
+  Any \gls{LTI} system of finite order can be expanded into a finite sum of sub-systems of first and second order by means of a partial fraction expansion~\citep{Oppenheim1983}.
   Therefore the performance of the proposed method is assessed on a prototype system of second order.
   This does not limit the generality of the approach as we can add several of such systems to construct a general \gls{LTI} system.
   
@@ -1352,7 +1352,7 @@ This shows that both resonances are captured with a practically identical relati
     \begin{equation}
       G(s) = \frac{\Sum_{i=0}^3 b_i s^i}{\Sum_{i=0}^6 a_i s^i}
     \end{equation}
-    was estimated using \texttt{elis} \citep{FDIDENT}.
+    was estimated using \texttt{elis}~\citep{FDIDENT}.
     The initial estimate was a sixth-order band-pass type I Chebyshev filter \citep{Zverev1967} that conformed to the information given in the datasheet \citep{datasheet_bk1613} to aid convergence to a good optimum.
 
     We summarize the behavior of these parametric models by their average $G\left(\theta,\omega \right)$ over the different periods and their standard deviation $\sigma_G\left(\theta,\omega \right)$.
