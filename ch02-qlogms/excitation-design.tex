@@ -19,9 +19,9 @@ There are two main solutions to this in the engineering literature:
 The disadvantage of this approach is that multiple experiments are required to converge to the optimal design.
 Moreover, since the signal is optimized for a specific system model, it is likely that changes in the dynamics might be hard to observe using such a signal.
 
-\item Robust input design one tries to make the input design robust to uncertainty in the prior knowledge of the parameter values, see e.g. \citep{Rojas2007} and references therein. 
+\item Robust input design one tries to make the input design robust to uncertainty in the prior knowledge of the parameter values, see e.g.~\citep{Rojas2007} and references therein. 
 While the signal is more robust towards uncertainty in the prior knowledge, it requires more forethought than (nominal) optimal designs.
-E.g. the approach followed by \citet{Rojas2007} relies on both nominal parameter values and  knowledge of the distribution function of these parameters to design a robust (optimal) excitation signal.
+E.g. the approach followed by~\citet{Rojas2007} relies on both nominal parameter values and  knowledge of the distribution function of these parameters to design a robust (optimal) excitation signal.
 As such, this requires more advanced prior knowledge of the system to cope with the uncertainty of the prior knowledge.
 \end{enumerate}
 
@@ -57,9 +57,9 @@ Such problem settings occur in many diverse fields of experimentation, such as t
 
   \paragraph{Contents}
   In \secref{sec:excitation:inputDesign}, we first consider (optimal) input design for an example second-order system.
-  Next in \secref{}, \gls{LTI} systems are parametrized to facilitate the input design.
-  This will lead to signals with a $1/f$ power spectrum as in \secref{sec:excitation:logarithmic}.
-  In \secref{sec:excitation:multisine} a comparison of different discrete frequency grids is provided, this is afterwards related to the problem of generating a multisine signal with a $1/f$ power spectral density.
+  \secref{sec:excitation:logarithmic} expounds the use of a signal with $1/f$  power spectrum on some basic sub-systems.
+  Next, in \secref{sec:excitation:parametrization} \gls{LTI} systems are parametrized to facilitate a robust input design based on the observations of the preceding section.
+  In \secref{sec:excitation:multisine} a comparison of different discrete frequency grids is provided, this is related to the problem of generating a multisine signal with a $1/f$ power spectral density.
   Next, \secref{sec:excitation:optimAlpha} describes the selection of a suitable frequency ratio $\alpha$ for a logarithmically spaced grid such that constant model quality is obtained.
   The usefulness of the proposed signals is illustrated on simulations in \secref{sec:excitation:simulation} and validated on the measurement of a set of band-pass filters in \secref{sec:excitation:measurement}.
   Conclusions are formulated in \secref{sec:excitation:conclusion}.
@@ -194,7 +194,7 @@ With this input spectrum, the power inside $\wdB$ is
 which is independent of $\wn$. The robustness of the $1/f$ input has been noted previously by e.g. \cite{Rojas2007}
 
 Alternatively, one could also construct a signal with power spectrum concentrated at discrete frequency lines.
-Such signals are elaborated in \secref{sec:excitation:method}.
+Such signals are elaborated in \secref{sec:excitation:multisine}.
 
 % Second, we consider the power spectrum of the quasi-logarithmic multisine signal [\cite{Pintelon2012}] given by
 % \begin{align}
@@ -484,6 +484,9 @@ As such, those parameters are the most important for the experiment design.
 \end{figure}
 
 Moreover, the results from \secref{sec:excitation:ex:sumOfSecondOrderSipmle} for the sum of simplified second order systems, i.e. equation \eqref{eq:excitation:sumSys}, extend directly to the generic \gls{LTI} system in \eqref{eq:excitation:PFE} for the second-order sub-systems.
+\begin{assumption}
+
+\end{assumption}
 
 \paragraph{System and noise model}
   In the remainder of this chapter, an \gls{OE} setting is used.
@@ -585,7 +588,7 @@ Such signals are presented in this section.
   Consequently, it is undesirable to use generalized multisines that have an overly long period.
   
 \subsection{Equidistant (Linear) Grid Multisine}
-  In many applications, an equidistant frequency grid is used for $u\left( t\right) $ because this fits best with the classical DFT analysis \citep{OppenheimDT,Mandal2007}. 
+  In many applications, an equidistant frequency grid is used for $u\left( t\right) $ because this fits best with the classical \gls{DFT} analysis \citep{OppenheimDT,Mandal2007}. 
   It allows to analyze periodic signals on an equidistant frequency grid very efficiently.
   For such a frequency grid, it is guaranteed that the signal is periodic in the time domain, unlike for the generalized multisines of the previous section.
   
@@ -600,7 +603,7 @@ Such signals are presented in this section.
   \end{equation}
   
   Using such linear grid, we can easily construct a representation of a multisine
-  in discrete time that is suited for use with the DFT by sampling at a given sampling rate $f_s$:
+  in discrete time that is suited for use with the \gls{DFT} by sampling at a given sampling rate $f_s$:
   \begin{equation}
      u \left[ n\right] = \frac{1}{\sqrt{F}}
      \sum_{k=1}^{F} 
@@ -663,12 +666,12 @@ Such signals are presented in this section.
     Obviously, such alternative specifications are equivalent.
   \end{remark}
   \begin{example}
-    The~\citet{HP3562A} has a logarithmic measurement mode that ensures that each decade is covered by $F_{\decade} = 80$ lines~ to measure an \gls{FRF}.
-    This is equivalent to a grid spacing $\alpha = \sqrt[80]{10} \approx 1.029$.
-  \end{example}
-  \begin{example}
     The \MATLAB code \mcode[mathescape]{f = logspace(log10($f_{\min}$), log10($f_{\max}$), $F$)} produces a logarithmically spaced frequency vector \mcode{f} with $F$ elements in the range $\left[ f_{\min}, f_{\max} \right]$.
     As such, the effective frequency ratio $\alpha = \sqrt[F]{\frac{f_{\max}}{f_{\min}}}$ in this vector.
+  \end{example}
+  \begin{example}
+    The~\citet{HP3562A} has a logarithmic measurement mode that ensures that each decade is covered by $F_{\decade} = 80$ lines~ to measure an \gls{FRF}.
+    This is equivalent to a grid spacing $\alpha = \sqrt[80]{10} \approx 1.029$.
   \end{example}
 
    From \propref{prop:excitation:log:relBW}, it can be seen that for any set of frequency bands with a constant relative bandwidth (e.g. decades~($\kappa=10$), octaves~($\kappa=2$),\ldots ), a logarithmic  frequency grid contains a constant number of lines per frequency band.
@@ -681,7 +684,7 @@ Such signals are presented in this section.
   For that reason, a logarithmic multisine is a good candidate for our purposes.
   However, it is more involved both to generate and to analyze such a signal, as the excited frequencies do not lie on a commensurate frequency grid.
   Especially for periodic measurements, this is a major downside since the period of such signal does not always exist (i.e. this leads to infinite measurement times).
-  It is therefore not practical to use a perfectly logarithmically spaced frequency grid as the \gls{DFT} or \gls{CZT}~\citep{Rabiner2004} explicitly rely on a commensurate frequency grid.
+  It is therefore not practical to use a perfectly logarithmically spaced frequency grid as the \gls{DFT} or \gls{CZT}~\citep{Rabiner2004} explicitly rely on an equidistantly-spaced frequency grid.
   
 \subsection{Quasi-Logarithmic Grid Multisine}
   Since most measurement equipment and analysis methods rely on signals with an equidistant frequency grid, we create a frequency grid
@@ -821,7 +824,7 @@ with
                 \ln \frac{\;\fMax{k}\;}{\fMin{k}}
                 }
   \end{equation}
-  where $\left[ \fMin{k}, \fMax{k} \right] $ denote the frequency range over which PSD of the pink noise is to be approximated by the power at frequency line $f_k$.
+  where $\left[ \fMin{k}, \fMax{k} \right] $ denote the frequency range over which \gls{PSD} of the pink noise is to be approximated by the power at frequency line $f_k$.
 
   To reduce the complexity of the expressions for $\fMin{k}$ and $\fMax{k}$, we extend the frequency grid by one component to the left and to the right by means of the grid relation (equations \eqref{eq:excitation:qlogGrid} and \eqref{eq:excitation:constraintLinGrid}) to obtain the grid $\set{f_0, f_1, \ldots, f_F, f_{F+1}}$.
 
@@ -1066,7 +1069,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
   Around the resonance, $\omega_k \approx \wn$, such that the last fraction in \eqref{eq:excitation:normAlpha} can safely be neglected.
   
   To determine a suitable value of the frequency spacing ratio $\alpha$ for the logarithmic and (compensated) quasi-logarithmic grid, we construct a logarithmic multisine signal in the frequency domain for a given frequency band (in this example, $\left[ 0.01 \unit{rad/s}, 100 \unit{rad/s}\right]$ was used).
-  In the previous section we saw that systems with equal damping and DC gain, will behave very similarly when excited by a log signal with spacing $\alpha$.
+  In the previous section we saw that systems with equal damping and \gls{DC} gain, will behave very similarly when excited by a log signal with spacing $\alpha$.
 
   Instead of using \eqref{eq:excitation:theoreticalBestVariationOmega} to establish the influence of the resonance frequency, we follow an equivalent approach that is more intuitive to interpret.
 
@@ -1089,19 +1092,19 @@ Also for the design of robust excitation signals, this is worthwhile observation
   \end{equation}
   where $\omega_k$ and $\omega_{k+1}$ are the excited grid lines closest to the frequency $\wM$ where the FRF has its peak amplitude and $\beta$ is the misalignment coefficient that is varied over the interval $\RightOpenInterval{0,1}$ as depicted graphically in \figref{fig:excitation:misalignment-logms}
   This means that $\omega_k \leq \wM \leq \omega_{k+1}$ and that $\beta$ replaces the $\gamma$ factor in \eqref{eq:excitation:theoreticalBestVariationOmega}.
-  If we take a look at the special case when $\beta=0$ (or $\beta=1$) in this expression, we see that this situation occurs when the peak value of the FRF at $\wM$ coincides with the grid line $\omega_k$ or $\omega_{k+1}$ respectively.
+  If we take a look at the special case when $\beta=0$ (or $\beta=1$) in this expression, we see that this situation occurs when the peak value of the \gls{FRF} at $\wM$ coincides with the grid line $\omega_k$ or $\omega_{k+1}$ respectively.
   Intuitively, we study second order systems whose peak frequency $\wM$ is shifted between two neighboring excited frequency lines.
   From the previous section, we know that the exact frequency matters little as long as it remains within the bulk of the frequency grid.
   In this particular example $\wn$ was chosen at approximately $1 \unit{rad/s}$.
 
-  We normalize the root mean square (RMS) value of the excitation signal to $1$ and choose $\sigma_E\left( \omega \right) = 0.1$ for all evaluations.
+  We normalize the\gls{RMS} value of the excitation signal to $1$ and choose $\sigma_E\left( \omega \right) = 0.1$ for all evaluations.
   The noise level is kept constant, which causes the \gls{SNR} per excited line to drop for more finely spaced excitation signals.
   % SNR correct: Pnoise ~ sE^2
   %              Psignal ~F*U^2 = 1 ==> U^2 = 1/F
   %              SNR = Psignal / Pnoise = 1/(sE^2 * F)
   %          ==> SNR decreases as F increases
   
-  We then calculate the theoretical variance on the magnitude of the peak in the FRF ($\left| G\left( \wM \right) \right|$) as shown in \eqref{eq:excitation:varPeak} for a coarse grid.
+  We then calculate the theoretical variance on the magnitude of the peak in the \gls{FRF} ($\left| G\left( \wM \right) \right|$) as shown in \eqref{eq:excitation:varPeak} for a coarse grid.
   A coarse grid was chosen with $\tilde{\alpha} = 10$; this means that the spacing between the excited lines around the resonance are much larger than the system bandwidth.
   It is obvious that such an excitation signal will not perform well in most cases, as the resonance peak is very likely to be overlooked in such an \gls{FRF}.
   
@@ -1122,13 +1125,13 @@ Also for the design of robust excitation signals, this is worthwhile observation
     \input{\thisDir/figs/betaWC.tikz}
     \caption[Variance $\sigma_G^2\left( \wM \right)$ as a function of the grid misalignment coefficient $\beta$.]{Evaluation of the variance $\sigma_G^2\left( \wM \right) $ for different prototype systems as function of the misalignment $\beta$.
              The full lines depict the variance for a coarsely spaced signal.
-             The dashed lines show the variance for a signal with the optimal $\alpha = \alpha^{\star}$ (cfr. \eqref{eq:excitation:optimAlpha}).}
+             The dashed lines show the variance for a signal with the optimal $\alpha = \alpha^{\star}$ (see \eqref{eq:excitation:optimAlpha}).}
     \label{fig:excitation:worstCaseBeta}
   \end{figure}
 
   Such signals are clearly undesirable, as a misalignment smaller than the grid spacing of the excitation grid and the system will lead to a large increase in the uncertainty of estimate.
   
-  For a large peak amplitude of the FRF (low damping), the worst case increase (marked with a cross) is approximately centered around $\beta = 0.5$ (i.e. midway between the nearest excited lines).
+  For a large peak amplitude of the \gls{FRF} (low damping), the worst case increase (marked with a cross) is approximately centered around $\beta = 0.5$ (i.e. midway between the nearest excited lines).
   In systems with a higher damping, this symmetry is lost.
   This can be explained intuitively as the $3\unit{dB}$ bandwidth is less symmetric for highly damped systems than in lightly damped systems with a very narrow resonance peak.
   Also note that the value of $\sigma_G\left(\wM \right)$ is practically identical for $\beta=0$ and $\beta=1$.
@@ -1173,7 +1176,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
   However, there is a critical consequence: when there is a moderate misalignment $\beta$ of the system and the excitation grid, the variance increases significantly.
   This effect is more important for lightly-damped systems, as their $3\unit{dB}$ bandwidth is very narrow and hence their main response is easier to `miss'.
 
-  To give a more intuitive feeling how the frequency spacing $\alpha$ and the system under test react, both the input spectrum and the FRF of the system are visualized in \figref{fig:excitation:signalAndSystem} for the worst value of $\beta$ and the optimal frequency spacing $\alpha^{\star}$.
+  To give a more intuitive feeling how the frequency spacing $\alpha$ and the system under test react, both the input spectrum and the \gls{FRF} of the system are visualized in \figref{fig:excitation:signalAndSystem} for the worst value of $\beta$ and the optimal frequency spacing $\alpha^{\star}$.
   The $3\unit{dB}$ bandwidth of the system is highlighted in gray together with the excited frequency lines that lie within that bandwidth.
 
   \begin{figure}%
@@ -1191,7 +1194,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
   Practically, four frequency lines in the $3\unit{dB}$ bandwidth of each second order subsystem suffice to suppress the effect of misalignment of such a subsystem and the frequency grid of the excitation signal.
   
 \section{Simulations} \label{sec:excitation:simulation}
-In the following set of simulations, we will study how the FRF of different second order systems with equal damping (and the corresponding uncertainty) are measured by the multisine excitation signals from \secref{sec:excitation:method}.
+In the following set of simulations, we will study how the \gls{FRF} of different second order systems with equal damping (and the corresponding uncertainty) are measured by the multisine excitation signals from \secref{sec:excitation:multisine}.
   \subsection{Setup}
   We consider second-order systems with an equal damping and with resonance frequencies $4$, $8$, $20$, $40$, $80$, $200$, $400$, $800$, $2000$ and $4000 \unit{Hz}$.
   Using the \matlab\ instruction \texttt{cheby1}, discrete-time equivalents of these systems are generated.
@@ -1204,13 +1207,13 @@ In the following set of simulations, we will study how the FRF of different seco
   \label{eq:excitation:secondOrderSystemDTidentifiable}
   \end{equation}
 
-  This form can also be obtained by applying Tustin's method or bilinear transform \citep{Oppenheim1983} to the continuous time system \eqref{eq:excitation:secondOrderSystemCT}.
+  This form can also be obtained by applying Tustin's method or bilinear transform~\citep{Oppenheim1983} to the continuous time system \eqref{eq:excitation:secondOrderSystemCT}.
 
   The input signal has an equidistant frequency grid with a resolution $\Delta f = 1\unit{Hz}$ between $1 \unit{Hz}$ and $16\,384\unit{Hz}$.
   The sampling frequency $f_s$ is set to $65\,536\unit{Hz}$ to prevent aliasing.
   For the quasi-log grid multisine, the compensated and pink quasi-log multisine, we chose a frequency ratio $\alpha = 1.05$.
-  According to \eqref{eq:excitation:optimAlpha}, this frequency ratio is suited for second-order systems with a damping $\damping \geq 0.05$, or a peak amplitude of the FRF $\abs{G(\wM)}$ less than approximately $20\unit{dB}$.
-  Each of these signals is constructed to have an RMS value of $1$.
+  According to \eqref{eq:excitation:optimAlpha}, this frequency ratio is suited for second-order systems with a damping $\damping \geq 0.05$, or a peak amplitude of the \gls{FRF} $\abs{G(\wM)}$ less than approximately $20\unit{dB}$.
+  Each of these signals is constructed to have an \gls{RMS} value of $1$.
   The amplitude spectra of these signals are displayed in \figref{fig:excitation:freqGrids} for identical signal power.
 
   At the output of the systems, white Gaussian noise $e[n]$ is added such that its standard deviation is approximately $10\%$ of the RMS value of the output.
@@ -1218,7 +1221,7 @@ In the following set of simulations, we will study how the FRF of different seco
   
   The obtained FRF is then fitted to the transfer function model \eqref{eq:excitation:secondOrderSystemDTidentifiable} using the \texttt{elis} function of the \FDIDENT~\citep{FDIDENT} for \MATLAB.
   This is a maximum likelihood estimator that fits a parametric model to the measured data in the frequency domain.
-  % \TODO{add formulas with cost function etc.}
+  %TODO: add formulas with cost function etc.
   To aid convergence and avoid local minima, the initial values for the model are chosen equal to the parameters of the true system $G_0(z)$, so that we can focus completely on the variance of the estimations.
 
   Such an experiment is repeated $R=1000$ times with a different random phase  spectrum $\phi_k$ and a different noise realization $e[n]$ for each experiment.
@@ -1242,7 +1245,7 @@ In the following set of simulations, we will study how the FRF of different seco
       \setlength\figurewidth{0.68\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/Sys02-4.tikz}
-    \caption[Simulated FRF and its variance for different excitation signals.]{\gls{FRF}~\legref{leg:excitation:sim:FRF} of a second order system with $\fR=40\unit{Hz}$ and $\damping=0.2$ along with the corresponding variance and bias of the parametric models obtained using three different kinds of multisine excitations.}%
+    \caption[Simulated \gls{FRF} and its variance for different excitation signals.]{\gls{FRF}~\legref{leg:excitation:sim:FRF} of a second order system with $\fR=40\unit{Hz}$ and $\damping=0.2$ along with the corresponding variance and bias of the parametric models obtained using three different kinds of multisine excitations.}%
     \label{fig:excitation:FRF1}
   \end{figure}
 
@@ -1254,10 +1257,9 @@ In the following set of simulations, we will study how the FRF of different seco
       \setlength\figurewidth{0.68\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/damping02-cmp.tikz}
-    \caption[Simulated FRFs and their variances of systems with $\damping=0.2$ for different excitation signals.]{\glspl{FRF} for different second order systems with constant damping
-             $\damping=0.2$ but different resonance frequencies. Comparison of the
-             variances around the respective resonance frequency for the different
-             excitation signals.}%
+    \caption[Simulated \glspl{FRF} and their variances of systems with $\damping=0.2$ for different excitation signals.]{%
+       \Glspl{FRF} for different second order systems with constant damping $\damping=0.2$ but different resonance frequencies. 
+       Comparison of the variance around the respective resonance frequency reveals the performance of each excitation signal.}%
     \label{fig:excitation:damping02}
   \end{figure}
 
@@ -1277,7 +1279,7 @@ In the following set of simulations, we will study how the FRF of different seco
   \subsection{Systems with a lower damping}
   Given the optimal frequency ratio \eqref{eq:excitation:optimAlpha}, one expects that quasi-logarithmic grids with a frequency ratio $\alpha = 1.05$ will allow to identify second order systems with damping $\damping = 0.05$ with a constant uncertainty.
   In this set of simulations, we check this by repeating the previous set for such systems.
-  In this case, the output noise is chosen $\sigma_e \approx 0.1123$ to keep the SNR of $20\unit{dB}$.
+  In this case, the output noise is chosen $\sigma_e \approx 0.1123$ to keep the \gls{SNR} of $20\unit{dB}$.
   The corresponding results are shown in \figref{fig:excitation:damping005}.
  
   \begin{figure}%
@@ -1285,10 +1287,8 @@ In the following set of simulations, we will study how the FRF of different seco
       \setlength\figurewidth{0.68\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/damping005-cmp.tikz}
-    \caption[Simulated FRFs and their variances of systems with $\damping=0.05$ for different excitation signals.]{FRFs for different second order systems with constant damping
-             $\damping=0.05$ but different resonance frequencies. Comparison of the
-             variances around the respective resonance frequency for the different
-             excitation signals.}%
+    \caption[Simulated \glspl{FRF} and their variances of systems with $\damping=0.05$ for different excitation signals.]{\Glspl{FRF} for different second order systems with constant damping $\damping=0.05$ but different resonance frequencies. 
+    Comparison of the variance around the respective resonance frequency reveals the performance of each excitation signal.}%
     \label{fig:excitation:damping005}
   \end{figure}
 
@@ -1344,8 +1344,8 @@ This shows that both resonances are captured with a practically identical relati
     This amplitude was chosen such that the peak amplitude $\max \abs{u(t)}$ was approximately $1 \unit{V}$.
 
     $R=50$ periods of the multisine were measured, from which the first period was discarded to suppress transient effects.
-    For each of the remaining periods, the FRF of the filter is calculated and its average $G\left(\omega \right)$ over the periods is calculated.
-    We also calculate the corresponding standard deviation $\sigma_G\left( \omega \right)$ of the FRF and normalize it for a single period of the excitation signal.
+    For each of the remaining periods, the \gls{FRF} of the filter is calculated and its average $G\left(\omega \right)$ over the periods is calculated.
+    We also calculate the corresponding standard deviation $\sigma_G\left( \omega \right)$ of the \gls{FRF} and normalize it for a single period of the excitation signal.
     We denote $G\left(\omega \right)$ the non-parametric FRF and $\sigma_G\left( \omega \right)$ its standard deviation, as these measures are determined completely nonparametrically from the measurements.
 
     For the parametric model, on the other hand, a continuous time \gls{LTI} model of the form
@@ -1358,7 +1358,7 @@ This shows that both resonances are captured with a practically identical relati
     We summarize the behavior of these parametric models by their average $G\left(\theta,\omega \right)$ over the different periods and their standard deviation $\sigma_G\left(\theta,\omega \right)$.
 
     \subsection{Results}
-    In \figref{fig:excitation:measurements} the nonparametric FRF and the standard deviation of the corresponding parametric estimates are shown in a similar way as for the simulations in the previous section.
+    In \figref{fig:excitation:measurements} the nonparametric \gls{FRF} and the standard deviation of the corresponding parametric estimates are shown in a similar way as for the simulations in the previous section.
 
     \begin{figure}%
     \centering
@@ -1388,6 +1388,6 @@ The variance of the estimates at lower frequencies is improved in comparison to 
 In practice, this slight increase is likely to be negligible.
 The suggested compensation works well as long as the considered systems are sufficiently damped with respect to the density of the excited frequency lines.
 
-We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equidamped set of systems.
+We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equi-damped set of systems.
 The presented method allows to select a maximal value for the frequency ratio $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
 In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
