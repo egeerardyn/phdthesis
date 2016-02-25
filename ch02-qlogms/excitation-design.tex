@@ -32,7 +32,7 @@ In particular, a generic excitation signal will be used, but its properties are 
 We will consider input design when it is known that the system has resonances, possibly spanning a frequency band that may cover several decades. 
 It is however not necessary to know how many resonances are in the system and at what precise frequencies those may occur.
 
-Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances~\citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy~\citep{Niedostatkiewicz2009,VanGheem2004}, electronics~\citep{Munir2011}, mechatronics, and vibration testing\TODO{citation (ISMA?)} amongst others.
+Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances~\citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy~\citep{Niedostatkiewicz2009,VanGheem2004,Breugelmans2010}, electronics~\citep{Munir2011}, mechatronics, and vibration testing\TODO{citation (ISMA?)} amongst others.
 
   Any \gls{LTI} system of finite order can be expanded into a finite sum of sub-systems of first and second order by means of a partial fraction expansion~\citep{Oppenheim1983}.
   Therefore the performance of the proposed method is assessed on a prototype system of second order.
@@ -135,18 +135,22 @@ This can be ensured by a suitable choice of the input power spectrum.
  \subsection{A second order system}
 Consider the second order system
 \begin{align}
-y(t) &= G(s,\theta) u(t) = \frac{1}{\frac{s^2}{\wn^2} + 2\frac{\damping}{\wn}s + 1}u(t),
+y(t) 
+  &= 
+  G(s,\theta) u(t) 
+  = \frac{1}
+                {\frac{s^2}{\wn^2} + 2\frac{\damping}{\wn}s + 1}
+      u(t),
 \label{eq:excitation:2ndOrderSys}
 \end{align}
 with parameters $\theta=[\wn\;\damping]^{\T}$. 
-The resonance frequency of the system is $\wR \isdef \sqrt{1-\damping^2}\wn$ and the $3\unit{dB}$ bandwidth of the system is $\wdB \isdef 2\damping\wn$.
-The $3\unit{dB}$ bandwidth around the resonance is given by $\wdB = 2\damping\wn$ for systems that have a sufficiently low damping.
+The resonance frequency of the system is $\wR \isdef \sqrt{1-\damping^2}\wn$.
   
 When $\damping < \frac{1}{\sqrt{2}}$, such a second order system exhibits a peak in the amplitude of the transfer function~\citep{Oppenheim1983}:
   \begin{align}
    \left| G\left(\wM \right) \right| & \isdef
           \max_{\omega} \left| G\left( \omega \right)  \right|
-        = \frac{\dc}
+        = \frac{1}
                {2 \damping \sqrt{1-\damping^2}}
                \label{eq:excitation:peakAmplitude}\\
    \wM &
@@ -154,6 +158,7 @@ When $\damping < \frac{1}{\sqrt{2}}$, such a second order system exhibits a peak
         \label{eq:excitation:peakFrequency}
     \text{.}
   \end{align}
+  The $3\unit{dB}$ bandwidth around this resonance peak is given by $\wdB = 2\damping\wn$ for systems that have a sufficiently low damping.
 
 Since information is local in the frequency domain, the input signal power inside $\wdB$, contributes significantly to the information matrix while input power outside $\wdB$ has a smaller contribution. This can be seen by considering the optimal design for a second order system. From \citep[Example 6.4.5]{Goodwin1977} we have that the D-optimal design for \eqref{eq:excitation:2ndOrderSys} is a single sinusoid at frequency
 \begin{align}
@@ -428,6 +433,7 @@ Each term in \eqref{eq:excitation:PFE} represents a \term{sub-system} of the sys
 Consider the second-order subsystem with multiplicity $\multiplicity$:
 \begin{equation}
   G_2(s, \theta) = \frac{K \wn^{2 \multiplicity} \left( s + \wz \right)}{\wz \left(s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity}}
+\label{eq:excitation:secondOrderSubsystem}
 \end{equation}
 parametrized in $\theta =  \left[K, \wn, \wz, \damping \right]^{\T}$.
 To determine the Fisher Information matrix, the derivative $\PartialDerivative{G(s,\theta)}{\theta}$ is required; its components are given by:
@@ -485,8 +491,16 @@ As such, those parameters are the most important for the experiment design.
 
 Moreover, the results from \secref{sec:excitation:ex:sumOfSecondOrderSipmle} for the sum of simplified second order systems, i.e. equation \eqref{eq:excitation:sumSys}, extend directly to the generic \gls{LTI} system in \eqref{eq:excitation:PFE} for the second-order sub-systems.
 \begin{assumption}
-
+\TODO{assume separation in freq}
 \end{assumption}
+
+\begin{assumption}
+\TODO{small damping}
+\end{assumption}
+
+\begin{remark}
+\TODO{leads to block-diagonal information matrix such that the variance of the FRF is decoupled near the resonances}
+\end{remark}
 
 \paragraph{System and noise model}
   In the remainder of this chapter, an \gls{OE} setting is used.
@@ -528,7 +542,7 @@ Such signals are presented in this section.
   As such, the results presented in this chapter also do not depend on the particular choice of the phase spectrum.
   This means a user is free to make an appropriate choice for their application.
   
-  In this chapter, random-phase multisines are used since this is a reasonable choice for systems that are dominantly linear~\TODO{ref: BLA}.
+  In this chapter, random-phase multisines are used since this is a reasonable choice for systems that are dominantly linear~\citep{Schoukens2004}.
   Hence, $\phi_k$ is the outcome of a uniform random process over $\left[0,2\pi\right[$.
   This leaves two sets of free parameters to create a signal that suits our needs:
   \begin{itemize}
@@ -972,11 +986,11 @@ Also for the design of robust excitation signals, this is worthwhile observation
   Instead of studying the response of all possible second-order sub-systems for every possible logarithmically spaced multisine-- a six-dimensional problem with parameters $(\omega_0, \alpha)$ for the grid, and $(\wz, \wn, \damping, \dc)$ for the sub-system-- we argue to simplify the problem in such a way that the results are still valid for the more complicated setting.
 
   \subsubsection{Exploiting the grid misalignment between the system and the grid}
-  Denote $G(\omega; \wn)$ a second-order system as in \eqref{eq:excitation:secondOrderSystemCT} with natural frequency $\wn$, damping ratio $\damping$ and \gls{DC} gain $\dc$.
-  Similarly, $G(\omega; m\wn)$ where $m \in \RealNumbersWithoutZero$ is a second order system that shares the damping and \gls{DC} gain of the previous system but has a natural frequency $m\wn$.
+  Denote $G(\omega; \wn)$ a second-order sub-system as in \eqref{eq:excitation:secondOrderSubsystem} with natural frequency $\wn$, damping ratio $\damping$ and static gain $\dc$, and zero at $\wz$.
+  Similarly, $G(\omega; m\wn)$ where $m \in \RealNumbersWithoutZero$ is a second order sub-system that shares the same parameters, except its natural frequency which is situated at $m\wn$.
 
-  If one calculates their FRFs by evaluating \eqref{eq:excitation:secondOrderSystemCT}, one sees that $G(\omega; \wn)$ and $G(m\omega; m\wn)$ yield the same numerical values for any value of the pulsation $\omega$.
-  Both FRFs share the same `shape', but are `located' at different frequencies.
+  If one calculates their \glspl{FRF} by evaluating \eqref{eq:excitation:secondOrderSubsystem}, one sees that $G(\omega; \wn)$ and $G(m\omega; m\wn)$ yield the same numerical values for any value of the pulsation $\omega$.
+  Both \glspl{FRF} share the same `shape', but are `located' at different frequencies.
 
   Denote $\infgrid{\omega}$ to be a logarithmic frequency grid with an infinite number of grid lines
   \begin{equation}
@@ -1042,7 +1056,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
 
    As such, the free parameters $(\dc, \damping, \wn, \wz)$ of the sub-system are reduced to only $(\damping, \wn)$ and the others are fixed during our experiments: $\dc = 1$ and $\wz \to \infty$.
 
-  % When we now take a closer look at the general second order system \eqref{eq:excitation:secondOrderSystemCT}, we still are left with $\dc$ and $\damping$ as free parameters in the prototypes.
+  % When we now take a closer look at the general second order system \eqref{eq:excitation:secondOrderSubsystem}, we still are left with $\dc$ and $\damping$ as free parameters in the prototypes.
   % Note that $\dc$ is a scaling factor for the FRF.
   % Hence the results for different values of $\dc$ only differ by a scaling factor.
   % So we only need to perform the analysis for a fixed value of $\dc$, which was chosen equal to $1$ in our test case.
@@ -1207,7 +1221,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   \label{eq:excitation:secondOrderSystemDTidentifiable}
   \end{equation}
 
-  This form can also be obtained by applying Tustin's method or bilinear transform~\citep{Oppenheim1983} to the continuous time system \eqref{eq:excitation:secondOrderSystemCT}.
+  This form can also be obtained by applying Tustin's method or bilinear transform~\citep{Oppenheim1983} to the continuous time system \eqref{eq:excitation:secondOrderSubsystem}.
 
   The input signal has an equidistant frequency grid with a resolution $\Delta f = 1\unit{Hz}$ between $1 \unit{Hz}$ and $16\,384\unit{Hz}$.
   The sampling frequency $f_s$ is set to $65\,536\unit{Hz}$ to prevent aliasing.
