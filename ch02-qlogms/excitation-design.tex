@@ -32,7 +32,8 @@ In particular, a generic excitation signal will be used, but its properties are 
 We will consider input design when it is known that the system has resonances, possibly spanning a frequency band that may cover several decades. 
 It is however not necessary to know how many resonances are in the system and at what precise frequencies those may occur.
 
-Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances~\citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy~\citep{Niedostatkiewicz2009,VanGheem2004,Breugelmans2010}, electronics~\citep{Munir2011}, mechatronics, and vibration testing\TODO{citation (ISMA?)} amongst others.
+Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances~\citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy~\citep{Niedostatkiewicz2009,VanGheem2004,Breugelmans2010}, electronics~\citep{Munir2011}, vibration analysis and acoustics testing amongst others.
+%TODO{ meer referenties? }
 
   Any \gls{LTI} system of finite order can be expanded into a finite sum of sub-systems of first and second order by means of a partial fraction expansion~\citep{Oppenheim1983}.
   Therefore the performance of the proposed method is assessed on a prototype system of second order.
@@ -51,7 +52,7 @@ Such problem settings occur in many diverse fields of experimentation, such as t
   A logarithmically spaced signal, on the other hand, does not match well to an equidistant frequency grid.
   More specifically, the lack of frequency resolution at the lowest frequencies hampers the quality of the power distribution at the low edge of the frequency band.
   To circumvent this disadvantage, we will construct quasi-logarithmically spaced signals.
-  Their frequency spacing is approximately logarithmic but nevertheless conforms to the DFT's linear frequency grid.
+  Their frequency spacing is approximately logarithmic but nevertheless conforms to the linear frequency grid of the \gls{DFT}.
 
   We will also present a simple method to determine a suitable density of a logarithmically spaced signal for a predefined minimal damping of the system to be tested.
 
@@ -489,18 +490,18 @@ As such, those parameters are the most important for the experiment design.
 \label{fig:excitation:derivatives}
 \end{figure}
 
-Moreover, the results from \secref{sec:excitation:ex:sumOfSecondOrderSipmle} for the sum of simplified second order systems, i.e. equation \eqref{eq:excitation:sumSys}, extend directly to the generic \gls{LTI} system in \eqref{eq:excitation:PFE} for the second-order sub-systems.
+Moreover, the results from \secref{sec:excitation:ex:sumOfSecondOrderSipmle} for the sum of simplified second order systems, i.e. equation \eqref{eq:excitation:sumSys}, extend directly to the generic \gls{LTI} system in \eqref{eq:excitation:PFE} for the second-order sub-systems under the assumptions given below.
+
 \begin{assumption}
-\TODO{assume separation in freq}
+The sub-systems in \eqref{eq:excitation:PFE} all are either lightly damped ($\damping \ll \sqrt{1/2}$) or are not of interest to the user.
 \end{assumption}
 
 \begin{assumption}
-\TODO{small damping}
+The resonance frequencies $\wn[i]$ and $\wn[j]$ of all the different sub-systems in \eqref{eq:excitation:PFE} are well-separated in the frequency domain.
 \end{assumption}
 
-\begin{remark}
-\TODO{leads to block-diagonal information matrix such that the variance of the FRF is decoupled near the resonances}
-\end{remark}
+Under these assumptions, the Fisher information matrix will be approximately a diagonal block matrix, where the $i^{\text{th}}$ block corresponds to the parameters $\left[\wn[i], \wz[i], \damping[i], \dc[i,1], \ldots, \dc[i,M_{2,i}] \right]$ of a particular sub-system.
+Using the same logic as in \secref{sec:excitation:ex:sumOfSecondOrderSipmle}, this means that the variance of the complete system is approximately equal to the variance obtained for each sub-system, due to the decoupling of the Fisher information matrix.
 
 \paragraph{System and noise model}
   In the remainder of this chapter, an \gls{OE} setting is used.
