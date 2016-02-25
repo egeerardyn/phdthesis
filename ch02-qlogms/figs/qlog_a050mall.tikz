@@ -26,7 +26,7 @@ xlabel={Frequency $f$ \axisunit{Hz}},
 ytick={0,-20,...,-110},
 ymin=-110, ymax=2,
 ylabel={Amplitude $|G| \axisunit{dB}$},
-legend style={at={(0.5,1.025)},anchor={south},nodes=right,legend columns=4,font=\footnotesize,draw=none},
+legendAbovePlot,
 legend entries={{FRF $G$},{$\sigma_G$ Linear},{$\sigma_G$ Quasi-log},{$\sigma_G$ Pink quasi-log}}]
  
 % \addplot [meas,forget plot]
