@@ -3,6 +3,8 @@
 \newcommand{\term}[1]{\emph{#1}}
 
 \newcommand{\TODO}[1]{{\color{red} #1}}
+\newcommand{\TODOfig}[1][figure]{\parbox[h][\figureheight][c]{\figurewidth}{\centering \vfill \TODO{#1} \vfill}}
+
 \newcommand{\TOCInsert}[2]{\addcontentsline{toc}{#1}{#2}}
 \newcommand{\chapterNoNum}[1]{\chapter*{#1} \TOCInsert{chapter}{#1}}
 \newcommand{\sectionNoNum}[1]{\section*{#1} \TOCInsert{section}{#1}}
@@ -55,6 +57,7 @@
 \newcommand{\BK}{Br\"{u}el \& Kj\ae{}r}
 \newcommand{\bruelkjaer}{\BK{}}
 \newcommand{\HP}{Hewlett~Packard\xspace}
+\newcommand{\YK}{Youla-Ku\v{c}era}
 
 %% Common terms
 \newcommand{\IEEEfloat}{\textsc{IEEE~754}\xspace}
@@ -86,10 +89,14 @@
 \newcommand{\Var}[2][]{\Variance_{#1} \left[ #2 \right]}
 \newcommand{\var}[2][]{\Variance_{#1} \left[ #2 \right]}
 \newcommand{\Cov}[3][]{\Covariance_{#1} \left[ #2 , #3 \right]}
+
 \newcommand{\expval}[1]{\Expectancy\left[#1\right]} %expected value
 \newcommand{\bias}[1]{\ensuremath{\Bias \left( #1 \right)}}
 \newcommand{\mse}[1]{\ensuremath{\MSE \left( #1 \right)}}
 \newcommand{\rms}[1]{\ensuremath{\RootMeanSquare \left( #1 \right)}}
+
+\newcommand{\expectedValue}[1]{\ensuremath{\expval{#1}}}
+
 
 %% Calculus operations
 \newcommand{\pd}{\partial}
@@ -100,10 +107,12 @@
 
 %% Matrix operations
 \newcommand{\I}{\ensuremath{\mathrm{I}}}
+\newcommand{\Identity}[1]{\ensuremath{\I_{#1}}}
 \newcommand{\TT}{\ensuremath{\mathrm{T}}} %TODO: remove this?
 \renewcommand{\T}{\ensuremath{\mathrm{T}}} %TODO: where is the original definition of \T ?
 \newcommand{\HT}{\ensuremath{\mathrm{H}}}
 \renewcommand{\C}{\ensuremath{\mathrm{C}}}
+\newcommand{\inv}[1]{\ensuremath{#1^{-1}}}
 \newcommand{\pinv}[1]{\ensuremath{#1^{+}}}
 \newcommand{\conj}[1]{\ensuremath{\overline{#1}}}
 
@@ -138,6 +147,10 @@
 \newcommand{\RationalNumbers}{\ensuremath{\mathbb{Q}}}
 \newcommand{\RealNumbers}{\ensuremath{\mathbb{R}}}
 \newcommand{\ComplexNumbers}{\ensuremath{\mathbb{C}}}
+
+\newcommand{\GenericField}{\ensuremath{\mathbb{F}}}
+\newcommand{\BoundedField}{\ensuremath{\mathbb{B}}}
+
 \newcommand{\Integers}{\IntegerNumbers}
 \newcommand{\PositiveRealNumbers}{\ensuremath{\Positive{\RealNumbers}}}
 \newcommand{\NegativeRealNumbers}{\ensuremath{\Negative{\RealNumbers}}}
@@ -147,7 +160,12 @@
 \newcommand{\ZN}{\IntegerNumbers}
 \newcommand{\QN}{\RationalNumbers}
 % \newcommand{\RN}{\RealNumbers}
+\newcommand{\RR}{\RealNumbers}
 \newcommand{\CN}{\ComplexNumbers}
+\newcommand{\FF}{\GenericField}
+
+\newcommand{\BB}{\BoundedField}
+\newcommand{\Bound}{\BB}
 
 %% Special Equality symbols
 \newcommand{\isdef}{\ensuremath{\triangleq}}
@@ -163,11 +181,15 @@
 \newcommand{\ceil }[1]{ \left\lceil      #1 \right\rceil}
 \newcommand{\abs }[1]{ \left|      #1 \right|}
 \newcommand{\norm}[2][]{\ensuremath{\left\| #2 \right\|_{#1}}}
+\newcommand{\infnorm} [1]   {\ensuremath{\norm[\infty]{#1}}}
+\newcommand{\hinfnorm}[1]{\ensuremath{\infnorm{#1}}}
 
 %% Unit formatting
 \newcommand{\unit}[1]{\ensuremath{\,\mathrm{#1}}}
 \newcommand{\axisunit}[1]{\ensuremath{\,\left[\mathrm{#1}\right]}}
 \newcommand{\noaxisunit}{ }
+
+\newcommand{\plotunit}[1]{\axisunit{#1}} %TODO: remove
 
 %% Distributions
 \DeclareMathOperator{\NormalDistribution}{\mathcal{N}}
@@ -234,8 +256,6 @@
 \newcommand{\cputime}[1][]{\ensuremath{t_{\mathrm{CPU}}}}
 
 %%
-\newcommand{\mat}[1]{\ensuremath{\mathbf{#1}}}
-
 \newcommand{\trueSymbol}{\ensuremath{\circ}}
 \newcommand{\true}[1]{\ensuremath{{#1}_{\trueSymbol}}}
 
@@ -284,6 +304,8 @@
 
 \newcommand{\DT}{\ensuremath{\mathrm{DT}}}
 \newcommand{\CT}{\ensuremath{\mathrm{CT}}}
+\newcommand{\DTmethod}{zero-order-hold}
+
 
 %% Formatting
 
@@ -301,3 +323,74 @@
 
 \usepackage{pifont}
 \newcommand{\circledNum}[1]{\ding{\numexpr201 + #1}}
+
+%% Hinf stuff
+\newcommand{\HardySpace}[1][]    {\texorpdfstring{\ensuremath{\mathcal{H}_{#1}}}{H#1}}
+\newcommand{\LebesgueSpace}[1][] {\ensuremath{\mathcal{L}_{#1}}}
+
+\newcommand{\RealRational}{\ensuremath{\mathcal{R}}}
+
+\renewcommand{\Hinf}{\texorpdfstring{\HardySpace[\infty]}{Hinf}}
+\renewcommand{\Hinf}{\ensuremath{\mathcal{H}_{\infty}}}
+\newcommand{\RHinf}{\RealRational\Hinf}
+
+\newcommand{\worstCase}[1]             {\ensuremath{{#1_{\text{wc}}}}}
+\newcommand{\Robust}[1]       {\ensuremath{{#1}_\text{R}}}
+\newcommand{\ControlRelevant}[1]       {\ensuremath{{#1}_\text{CR}}}
+\newcommand{\RobustControlRelevant}[1] {\ensuremath{{#1}_\text{RCR}}}
+\newcommand{\RobustStability}[1]       {\ensuremath{{#1}_\text{RS}}}
+\newcommand{\RobustPerformance}[1]     {\ensuremath{{#1}_\text{RP}}}
+
+\newcommand{\ControlObjective} {\ensuremath{\mathcal{J}}}
+\newcommand{\estimated} [1]    {\ensuremath{\hat{#1}}}
+
+% \newcommand{\set}   [1] {\ensuremath{ \left\{ {#1} \right\} }}
+\newcommand{\tuple} [1] {\ensuremath{ \left( {#1} \right) }}
+\newcommand{\mat}   [1] {\ensuremath{ \left[ \begin{matrix} #1 \end{matrix} \right] }}
+\newcommand{\poly}  [1] {\ensuremath{\widetilde{#1}}}
+
+\newenvironment{Matrix}{\left[ \begin{matrix}}{\end{matrix} \right]}
+
+\newcommand{\ctr}[1]{\ensuremath{\widetilde{#1}}}
+
+\newcommand{\singularValue}[1]{\ensuremath{\mathbf{\sigma} \left( #1 \right) }}
+
+\newcommand{\LPM}{\ensuremath{\mathrm{LPM}}}
+\newcommand{\LRM}{\ensuremath{\mathrm{LRM}}}
+\newcommand{\lpm}[1]{\ensuremath{\LPM \left( #1 \right) }}
+\newcommand{\lrm}[1]{\ensuremath{\LRM \left( #1 \right) }}
+
+
+\newcommand{\Left}[1]{\ensuremath{#1_{\mathrm{L}}}}
+\newcommand{\Right}[1]{\ensuremath{#1_{\mathrm{R}}}}
+
+\newcommand{\stable}{\ensuremath{\;\mbox{stable}}}
+
+\newcommand{\stablePart}[1]{S}
+\newcommand{\unstablePart}[1]{}
+
+\newcommand{\stateSpace}[4]{\mat{ \begin{array}{c|c} #1 & #2 \\ \hline #3 & #4 \end{array} }}
+
+\newcommand{\Vdm}[2]{\ensuremath{\mathrm{Vd}_{#1}^{#2}}}
+
+\newcommand{\Crit}{\ensuremath{\mathcal{J}}}
+\newcommand{\Controller}{\ensuremath{C}}
+\newcommand{\ModelSet}[1][\color{modelset}]{{\ensuremath{#1\mathcal{P}}}}
+\newcommand{\ModelUncertainty}{\ensuremath{{\color{delta}{\Delta}}}}
+\newcommand{\Plant}{\ensuremath{P}}
+\newcommand{\nominalModel}{{\color{plant}{\estimated\Plant}}}
+\newcommand{\estimatedPlant}{\nominalModel}
+\newcommand{\truePlant}{{\color{plant}{\true\Plant}}}
+
+\newcommand{\experimental}[1]{\ensuremath{#1^{\mathrm{exp}}}}
+\newcommand{\robust}[1]{\ensuremath{#1^{\mathrm{R}}}}
+\newcommand{\controlrelevant}[1]{\ensuremath{#1^{\mathrm{CR}}}}
+\newcommand{\robustcontrolrelevant}[1]{\ensuremath{#1^{\mathrm{RCR}}}}
+\newcommand{\ClosedLoop}[1]{\ensuremath{\mathrm{T}\left(#1\right)}}
+
+\newcommand{\LocalWindow}{\ensuremath{\mathbb{W}}}
+\newcommand{\LocalModel}[1]{\ensuremath{\widetilde{#1}}}
+
+\newcommand{\Frequencies}{\ensuremath{\Omega}}
+\newcommand{\DFTGrid}{\ensuremath{\Omega_{\mathrm{DFT}}}}
+\newcommand{\InterGrid}{\ensuremath{\Omega \setminus \DFTGrid}}
