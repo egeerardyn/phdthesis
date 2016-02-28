@@ -940,6 +940,7 @@ The situation is already less severe for $\model{trunc}$ (in $75\%$ of the cases
   \setlength{\figurewidth}{0.75\columnwidth}
   \setlength{\figureheight}{0.60\figurewidth}
   \input{\thisDir/fig/special-histogram.tikz}
+  %TODO: put legend inside figure (note: subplot magic!!)
   \caption[Performance degradation/enhancement for selecting the second best model.]{
   Performance degradation/enhancement ($X_{\bullet}-X_{\mathrm{best}}$) for choosing a given method $\bullet$ instead of the `best' method for the measurement example in this chapter.
   The markers show individual observations and the boxes show the \gls{IQR}.
@@ -1019,6 +1020,7 @@ This is equivalent to the relative criterion of success since $\norm[2]{\true{G}
   \centering
   \ref{leg:init:stress:bodes}
   \input{\thisDir/fig/bodeplots.tikz}
+  %TODO: put legend inside figure (note: subplot magic!!)
   \caption[Bode plots of the stress test filters.]{Bode plots of the tested filters~\legref{leg:bode:true} in the stress test. 
   For each filter, two (randomly selected) instanced of the parametric estimates $\model{\bullet}$ are shown per method.
   % Top to bottom: Chebyshev I, Chebyshev II, Elliptical and Butterworth characteristic.
@@ -1036,6 +1038,7 @@ This is equivalent to the relative criterion of success since $\norm[2]{\true{G}
   \caption[Empirical \glsentrytext{CDF} of $\validationDistance{\bullet}$ in the stress test.]{Empirical cumulative distribution function of the validation distance $D_{\bullet} = \norm{\model{\bullet} - \true{G}}$ for the different tested systems (different numbered plots) and the different initial values (colors).
   Note that since $\norm{\true{G}}=1$ is chosen, $D_{\bullet}$ immediately indicates the relative RMS error of the estimates.
   }
+  %TODO: put legend inside figure (note: subplot magic!!)
   \label{fig:distancesStress}
 \end{figure}
 

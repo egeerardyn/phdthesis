@@ -1,6 +1,11 @@
-% \renewcommand{\glsgroupskip}{}
-% \glsdisablehyper
-
+\TODO{
+  \begin{itemize}
+    \item fix labels for chapter
+    \item add section from Benchmark paper
+    \item fix some bib entries
+    \item Hinf macro aanpassen voor PDF support (indien dit niet conflicteert met glossaries)
+  \end{itemize}
+}
 \input{\thisDir/styles.inc.tex}
 
 \newcommand{\wnValue}{\ensuremath{0.95 \unit{rad/s}}}
@@ -181,6 +186,7 @@ Two alternative methods allow to evaluate~\eqref{eq:gamma-inter-grid} practicall
   \input{\thisDir/figs/interpolation-show.tikz}
   \caption{Illustration of the local models $\LocalModel{\Delta}_k$ around each frequency bin $\omega_k$ for $k\in\set{1,\ldots,6}$.
   The bottom part shows the equivalence of the frequency segments $\Omega_k$ and the intervals $\set{\omega \given{k_L(\omega) = k \vee k_R(\omega) = k}}$.}
+  \TODO{top subplot has a line connecting the last to the first point...}
 \label{fig:interpol-quantities}
 \end{figure}
 
@@ -334,6 +340,8 @@ For a more detailed overview of  the \gls{LPM} and \gls{LRM} see~\citep{Schouken
 To allow the generalization of the results of the simulations, we first introduce a way to decompose complex systems into simpler systems.
 The behavior of these simpler systems then allows to predict the behavior for these more complex systems.
 
+\TODO{link to chapter 2: decoupling of information matrix}
+
 Any real-rational system $\Delta$ can be decomposed in a parallel structure of lower-order sub-systems.
 As a result, systems can often be well-represented, in a small frequency range, by a sum of a few low-order sub-systems (often first or second order for e.g. mechanical systems)~\citep[Section 2.2.2]{Gawronski2004}.
 To estimate $\norm{\Delta}$ mainly the resonant sub-systems are of interest.
@@ -351,7 +359,7 @@ Consider a discrete time system $\Delta$ (see \figref{fig:exampleIntergrid}) as 
   \label{eq:O2sysDT}
   \text{,}
 \end{equation}
-which has $\tau = 50 \unit{samples}$ (i.e. $\xi=0.02$ and $\omega_{\mathrm{n}} = 1 \unit{rad/S}$).
+which has $\tau = 50 \unit{samples}$ (i.e. $\xi=0.02$ and $\omega_{\mathrm{n}} = 1 \unit{rad/s}$).
 The input signal $u_{\Delta}$ is white Gaussian noise with unit variance and the disturbing noise variance $\sigma_v^2$ is chosen such that a \gls{SNR} 
 \begin{equation}
   \SNR = \frac{\sqrt{\inv{N}\sum_n y_{\Delta0}^2(n) }}%
@@ -490,6 +498,7 @@ Some dynamics are left unmodeled and are hence part of $\Delta$~(\figref{fig:avi
     \setlength{\figureheight}{0.68\figurewidth}
     \input{\thisDir/figs/avis-frf.tikz}
  \caption{Measured \gls{FRF} \legref{m2t:plantFRF} and estimated parametric model $\hat{P}$ \legref{m2t:plantModel} of the \glsfirst{AVIS}.}
+ \TODO{split photo out of plot, this is no paper...}
  \label{fig:avis-frf}
  \label{fig:avis}
 \end{figure}
