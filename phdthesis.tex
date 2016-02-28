@@ -8,6 +8,7 @@
 %% arara: make: { task : "-j 8 -f phdthesis.makefile"}
 % arara: xelatex: { shell : yes, synctex : yes, action : nonstopmode, options : "-8bit -file-line-error -halt-on-error" }
 %% arara: xelatex: { shell : yes, synctex : yes, action : nonstopmode, options : "-8bit" }
+% arara: say: {phrase: "Compilation complete!"}
 \documentclass[paper=a4,headings=big,chapterprefix=true,parskip=full]{scrbook}
 \input{config/preamble.tex}
 

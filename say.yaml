@@ -1,0 +1,7 @@
+!config
+identifier: say
+name: Say
+command: say @{phrase}
+arguments: 
+- identifier: phrase
+  flag: "@{parameters.phrase}"
