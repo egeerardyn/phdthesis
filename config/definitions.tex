@@ -9,54 +9,7 @@
 
 \newcommand{\researchBasedOn}[2][This chapter]{\begin{centering}\small\textsf{#1 is based on~\citet{#2}.}\end{centering}}
 
-\newcommand{\figref}[1]{Figure~\ref{#1}}
-\newcommand{\defref}[1]{Definition~\ref{#1}}
-\newcommand{\secref}[1]{Section~\ref{#1}}
-\newcommand{\chapref}[1]{Chapter~\ref{#1}}
-\newcommand{\propref}[1]{Property~\ref{#1}}
-
-\newcommand{\matlab}{\textsc{Matlab}\texttrademark}
-\newcommand{\labview}{\mbox{LabVIEW\texttrademark}}
-\newcommand{\FDIDENT}{Frequency Domain System Identification Toolbox}
-
-\DeclareMathOperator{\Expectancy}{E}
-\DeclareMathOperator{\Bias}{Bias}
-\DeclareMathOperator{\MSE}{MSE}
-\DeclareMathOperator{\RootMeanSquare}{RMS}
-\DeclareMathOperator{\lcm}{lcm}
-
-\DeclareMathOperator{\RealPart}{\mathrm{Re}}
-\DeclareMathOperator{\ImagPart}{\mathrm{Im}}
-\DeclareMathOperator{\RealImagPart}{\stackrel{\mathrm{Re}}{\mathrm{Im}}}
-\DeclareMathOperator{\Diagonal}{\mathrm{diag}}
-
-\newcommand{\Hardy}{\ensuremath{\mathcal{H}}}
-\newcommand{\Hinf}{\ensuremath{\Hardy_{\infty}}}
-
-\newcommand{\deemph}[1]{{\color{lightgray}{#1}}}
-\newcommand{\legref}[2][1]{(\ref{#2})}
-
-\newcommand{\MC}{\ensuremath{\mathrm{MC}}}
-\newcommand{\atIter}[2][]{{#2}^{[#1]}}
-\newcommand{\sectref}[1]{Section~\ref{#1}} % references for sections
-\newcommand{\appref}[1]{Appendix~\ref{#1}}
-\newcommand{\thmref}[1]{Theorem~\ref{#1}}
-\newcommand{\tabref}[1]{Table~\ref{#1}} % references for figures
-
-\DeclareMathOperator*{\argmin}{argmin} %cost function minimizer!! MLDL per JL
-\DeclareMathOperator*{\Arg}{arg}
-
-% http://tex.stackexchange.com/questions/183955/sum-within-a-fraction
-\newcommand{\Sum}{\sum\limits}
-\newcommand{\costFunc}[1]{\ensuremath{V_{#1}}}
-\newcommand{\validationDistance}[1]{\ensuremath{D_{#1}}}
-\newcommand{\model}[2][]{\ensuremath{\hat{G}_{\mathrm{#2}}^{\mathrm{#1}}}}
-\newcommand{\MATLAB}{\textsc{MATLAB}\texttrademark\xspace}
-
-\newcommand{\TT}{\ensuremath{\mathrm{T}}}
-\newcommand{\BK}{Br\"{u}el \& Kj\ae{}r}
-\newcommand{\Prob}[1]{\ensuremath{\mathrm{P}}\!\left( #1 \right)}
-
+%% Theorem styling
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
 
@@ -68,7 +21,6 @@
 
 \theoremstyle{plain}
 \newtheorem{example}{Example}[chapter]
-
 
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}[chapter]
@@ -82,18 +34,73 @@
 \theoremstyle{definition}
 \newtheorem{lemma}{Lemma}[chapter]
 
-\newcommand{\code}[1]{\texttt{#1}}
+%% Referencing
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+\newcommand{\defref}[1]{Definition~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\chapref}[1]{Chapter~\ref{#1}}
+\newcommand{\propref}[1]{Property~\ref{#1}}
+\newcommand{\legref}[2][1]{(\ref{#2})}
 
+\newcommand{\sectref}[1]{Section~\ref{#1}} % references for sections
+\newcommand{\appref}[1]{Appendix~\ref{#1}}
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
 
+%% Common names
+\newcommand{\matlab}{\textsc{Matlab}\texttrademark}
+\newcommand{\MATLAB}{\matlab\xspace}
+\newcommand{\labview}{\mbox{LabVIEW\texttrademark}}
+\newcommand{\FDIDENT}{Frequency Domain System Identification Toolbox}
+\newcommand{\BK}{Br\"{u}el \& Kj\ae{}r}
+\newcommand{\bruelkjaer}{\BK{}}
+\newcommand{\HP}{Hewlett~Packard\xspace}
 
+%% Common terms
+\newcommand{\IEEEfloat}{\textsc{IEEE~754}\xspace}
+
+%% Statistical operators
+%TODO: only single definition of E, Bias, MSE, ...
+\newcommand{\Prob}[1]{\ensuremath{\mathrm{P}}\!\left( #1 \right)}
+
+\DeclareMathOperator{\Expectancy}{E}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\RootMeanSquare}{RMS}
+\DeclareMathOperator{\lcm}{lcm}
+
+\DeclareMathOperator{\RealPart}{\mathrm{Re}}
+\DeclareMathOperator{\ImagPart}{\mathrm{Im}}
+\DeclareMathOperator{\RealImagPart}{\stackrel{\mathrm{Re}}{\mathrm{Im}}}
+\DeclareMathOperator{\Diagonal}{\mathrm{diag}}
+
+\DeclareMathOperator*{\argmin}{argmin} %cost function minimizer!! MLDL per JL
+\DeclareMathOperator*{\Arg}{arg}
+
+\DeclareMathOperator{\ExpectedValue}{\mathrm{E}}
+\DeclareMathOperator{\Variance}{\mathrm{Var}}
+\DeclareMathOperator{\Covariance}{\mathrm{Cov}}
+\DeclareMathOperator{\BiasValue}{\mathrm{bias}}
+
+\newcommand{\E}[2][]{\ExpectedValue_{#1} \left[ #2 \right]}
+\newcommand{\Var}[2][]{\Variance_{#1} \left[ #2 \right]}
+\newcommand{\var}[2][]{\Variance_{#1} \left[ #2 \right]}
+\newcommand{\Cov}[3][]{\Covariance_{#1} \left[ #2 , #3 \right]}
 \newcommand{\expval}[1]{\Expectancy\left[#1\right]} %expected value
-\newcommand{\unit}[1]{\ensuremath{\,\mathrm{#1}}}
-\newcommand{\axisunit}[1]{\ensuremath{\,\left[\mathrm{#1}\right]}}
-\newcommand{\noaxisunit}{ }
-\newcommand{\SNR}{\ensuremath{\mathrm{SNR}}}
-\newcommand{\RMSE}{\ensuremath{\mathrm{RMSE}}}
+\newcommand{\bias}[1]{\ensuremath{\Bias \left( #1 \right)}}
+\newcommand{\mse}[1]{\ensuremath{\MSE \left( #1 \right)}}
+\newcommand{\rms}[1]{\ensuremath{\RootMeanSquare \left( #1 \right)}}
 
+%% Calculus operations
+\newcommand{\pd}{\partial}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\derivativeNotation}[4][]{\frac{{#4}^{#1} #2}{#4 #3}}
+\newcommand{\PartialDerivative}[3][]{\derivativeNotation[#1]{#2}{#3}{\pd}}
+\newcommand{\FullDerivative}   [3][]{\derivativeNotation[#1]{#2}{#3}{\dd}}
+
+%% Matrix operations
 \newcommand{\I}{\ensuremath{\mathrm{I}}}
+\newcommand{\TT}{\ensuremath{\mathrm{T}}} %TODO: remove this?
 \renewcommand{\T}{\ensuremath{\mathrm{T}}} %TODO: where is the original definition of \T ?
 \newcommand{\HT}{\ensuremath{\mathrm{H}}}
 \renewcommand{\C}{\ensuremath{\mathrm{C}}}
@@ -105,9 +112,104 @@
 \newcommand{\realimag}[1]{\ensuremath{\RealImagPart \left[#1\right]}}
 \newcommand{\diag}[1]{\ensuremath{\Diagonal \left({#1}\right)}}
 
-\newcommand{\mean}[2]{\ensuremath{\sqrt{#1 #2}}}
-\newcommand{\dirac}[1]{\ensuremath{\delta \left( #1 \right)}}
+%% Linear Algebra operations
+\newcommand{\OuterProduct} [3][\T]{{#2}{#3}^{#1}} %AB^T
+\newcommand{\OuterProductC}[2]{\OuterProduct[\HT]{#1}{#2}}
+\newcommand{\OuterProductR}[2]{\OuterProduct[\T ]{#1}{#2}}
+\newcommand{\OuterProductSelf}[2][\T]{\OuterProduct[#1]{#2}{#2}} %AA^T
+
+\newcommand{\InnerProduct} [3][\T]{{#2}^{#1}{#3}}  % A^T A
+\newcommand{\InnerProductC}[2]{\InnerProduct[\HT]{#1}{#2}}
+\newcommand{\InnerProductR}[2]{\InnerProduct[\T]{#1}{#2}}
+\newcommand{\InnerProductSelf}[2][\T]{\InnerProduct[#1]{#2}{#2}} %A^T A
+
+\newcommand{\OuterQuadraticForm}[3][\T]{#2  #3 #2^{#1}} % A B A^T
+\newcommand{\InnerQuadraticForm}[3][\T]{#2^{#1} #3 #2} % A^T B A
+\newcommand{\QuadraticForm}[3][\T]{\InnerQuadraticForm[#1]{#2}{#3}}
+
+%% Numbers sets
+\newcommand{\Negative}[1]{\ensuremath{{#1}^{-}}}
+\newcommand{\Positive}[1]{\ensuremath{{#1}^{+}}}
+\newcommand{\Nonzero }[1]{\ensuremath{{#1}_{0}}}
+
+\newcommand{\NaturalNumbers}{\ensuremath{\mathbb{N}}}
+\newcommand{\NaturalNumbersWithoutZero}{\ensuremath{\NaturalNumbers_{0}}}
+\newcommand{\IntegerNumbers}{\ensuremath{\mathbb{Z}}}
+\newcommand{\RationalNumbers}{\ensuremath{\mathbb{Q}}}
+\newcommand{\RealNumbers}{\ensuremath{\mathbb{R}}}
+\newcommand{\ComplexNumbers}{\ensuremath{\mathbb{C}}}
+\newcommand{\Integers}{\IntegerNumbers}
+\newcommand{\PositiveRealNumbers}{\ensuremath{\Positive{\RealNumbers}}}
+\newcommand{\NegativeRealNumbers}{\ensuremath{\Negative{\RealNumbers}}}
+\newcommand{\RealNumbersWithoutZero}{\ensuremath{\Nonzero{\RealNumbers}}}
+
+\newcommand{\NN}{\NaturalNumbers}
+\newcommand{\ZN}{\IntegerNumbers}
+\newcommand{\QN}{\RationalNumbers}
+% \newcommand{\RN}{\RealNumbers}
+\newcommand{\CN}{\ComplexNumbers}
+
+%% Special Equality symbols
+\newcommand{\isdef}{\ensuremath{\triangleq}}
+\newcommand{\qeq}{\ensuremath{\stackrel{?}{=}}}
+\newcommand{\distributedAs}{\ensuremath{\sim}}
+\newcommand{\distributed}[1][]{\ensuremath{\stackrel{#1}{\sim}}}
+\newcommand{\equals}[1][]{\ensuremath{\stackrel{#1}{=}}}
+\newcommand{\approxequals}[1][]{\ensuremath{\stackrel{#1}{\approx}}}
+
+%% Unary operators
+\newcommand{\round}[1]{ \left\lfloor #1 \right\rceil}
+\newcommand{\floor}[1]{ \left\lfloor     #1 \right\rfloor}
+\newcommand{\ceil }[1]{ \left\lceil      #1 \right\rceil}
+\newcommand{\abs }[1]{ \left|      #1 \right|}
 \newcommand{\norm}[2][]{\ensuremath{\left\| #2 \right\|_{#1}}}
+
+%% Unit formatting
+\newcommand{\unit}[1]{\ensuremath{\,\mathrm{#1}}}
+\newcommand{\axisunit}[1]{\ensuremath{\,\left[\mathrm{#1}\right]}}
+\newcommand{\noaxisunit}{ }
+
+%% Distributions
+\DeclareMathOperator{\NormalDistribution}{\mathcal{N}}
+\DeclareMathOperator{\DiracDistribution}{\delta}
+\DeclareMathOperator{\CircularNormalDistribution}{\mathcal{C}\!\NormalDistribution}
+\DeclareMathOperator{\ComplexCircularNormalDistribution}{\CN\!\CircularNormalDistribution}
+
+\newcommand{\Dirac}[1]{\DiracDistribution\left(#1\right)}
+\newcommand{\Normal}[2]{\NormalDistribution\left(#1,#2\right)}
+\newcommand{\CircularNormal}[3]{\CircularNormalDistribution\!\left(#1,#2,#3\right)}
+\newcommand{\ComplexCircularNormal}[2]{\ComplexCircularNormalDistribution\!\left(#1,#2\right)}
+
+\newcommand{\dirac}[1]{\ensuremath{\delta \left( #1 \right)}} %TODO: replace
+
+%% Interval Specifications
+\newcommand{\LeftOpenInterval}[1]{\ensuremath{\left] #1 \right]}}
+\newcommand{\RightOpenInterval}[1]{\ensuremath{\left[ #1 \right[}}
+\newcommand{\OpenInterval}[1]{\ensuremath{\left] #1 \right[}}
+\newcommand{\ClosedInterval}[1]{\ensuremath{\left[ #1 \right]}}
+
+%% 
+\newcommand{\Hardy}{\ensuremath{\mathcal{H}}}
+\newcommand{\Hinf}{\ensuremath{\Hardy_{\infty}}}
+
+\newcommand{\deemph}[1]{{\color{lightgray}{#1}}}
+
+\newcommand{\MC}{\ensuremath{\mathrm{MC}}}
+\newcommand{\atIter}[2][]{{#2}^{[#1]}}
+
+% http://tex.stackexchange.com/questions/183955/sum-within-a-fraction
+\newcommand{\Sum}{\sum\limits}
+\newcommand{\costFunc}[1]{\ensuremath{V_{#1}}}
+\newcommand{\validationDistance}[1]{\ensuremath{D_{#1}}}
+\newcommand{\model}[2][]{\ensuremath{\hat{G}_{\mathrm{#2}}^{\mathrm{#1}}}}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\newcommand{\SNR}{\ensuremath{\mathrm{SNR}}}
+\newcommand{\RMSE}{\ensuremath{\mathrm{RMSE}}}
+
+\newcommand{\mean}[2]{\ensuremath{\sqrt{#1 #2}}} %TODO: name is poorly chosen, this is the geomean
+
 \newcommand{\FisherInformation}{\ensuremath{\mathrm{Fi}}}
 \newcommand{\Fi}[1]{\ensuremath{\FisherInformation \left(#1\right)}}
 \newcommand{\IF}{\ensuremath{\Fi{\theta}}}
@@ -121,97 +223,27 @@
 \newcommand{\loglikelihood}[1]{\ensuremath{\ell\left( #1 \right) }}
 \newcommand{\fc}{\ensuremath{f_{\mathrm{c}}}}
 %% Sets
-% \newcommand{\set}[1]{\ensuremath{\left\{#1\right\}}}
 \newcommand{\given}[1]{\left| #1 \right.}
 \newcommand{\without}{\ensuremath{\backslash}}
 
-%% Numbers sets
-\newcommand{\NaturalNumbers} {\ensuremath{\mathbb{N}}}
-\newcommand{\NaturalNumbersWithoutZero} {\ensuremath{\NaturalNumbers_{0}}}
-\newcommand{\IntegerNumbers} {\ensuremath{\mathbb{Z}}}
-\newcommand{\RationalNumbers}{\ensuremath{\mathbb{Q}}}
-\newcommand{\RealNumbers}    {\ensuremath{\mathbb{R}}}
-\newcommand{\ComplexNumbers} {\ensuremath{\mathbb{C}}}
-\newcommand{\Integers}       {\IntegerNumbers}
-\newcommand{\PositiveRealNumbers}{\ensuremath{\RealNumbers^{+}}}
-\newcommand{\NegativeRealNumbers}{\ensuremath{\RealNumbers^{-}}}
-\newcommand{\RealNumbersWithoutZero}    {\ensuremath{\RealNumbers_{0}}}
-
-
-\newcommand{\NN}{\NaturalNumbers}
-\newcommand{\ZN}{\IntegerNumbers}
-\newcommand{\QN}{\RationalNumbers}
-% \newcommand{\RN}{\RealNumbers}
-\newcommand{\CN}{\ComplexNumbers}
-
-\newcommand{\Negative}[1]{\ensuremath{{#1}^{-}}}
-\newcommand{\Positive}[1]{\ensuremath{{#1}^{+}}}
-\newcommand{\Nonzero }[1]{\ensuremath{{#1}_{0}}}
-
-\newcommand{\distributed}[1][]{\ensuremath{\stackrel{#1}{\sim}}}
-\newcommand{\equals}[1][]{\ensuremath{\stackrel{#1}{=}}}
-\newcommand{\approxequals}[1][]{\ensuremath{\stackrel{#1}{\approx}}}
-
-%% Calculus operators
-\newcommand{\pd}{\partial}
-\newcommand{\dd}{\mathrm{d}}
-\newcommand{\derivativeNotation}[4][]{\frac{{#4}^{#1} #2}{#4 #3}}
-\newcommand{\PartialDerivative}[3][]{\derivativeNotation[#1]{#2}{#3}{\pd}}
-\newcommand{\FullDerivative}   [3][]{\derivativeNotation[#1]{#2}{#3}{\dd}}
-
-%% Statistics
-\DeclareMathOperator{\ExpectedValue}{\mathrm{E}}
-\DeclareMathOperator{\Variance}{\mathrm{Var}}
-\DeclareMathOperator{\Covariance}{\mathrm{Cov}}
-\DeclareMathOperator{\BiasValue}{\mathrm{bias}}
-
 \newcommand{\decade}{\ensuremath{\mathrm{dec.}}}
-
-\newcommand{\E}[2][]{\ExpectedValue_{#1} \left[ #2 \right]}
-\newcommand{\Var}[2][]{\Variance_{#1} \left[ #2 \right]}
-\newcommand{\var}[2][]{\Variance_{#1} \left[ #2 \right]}
-\newcommand{\Cov}[3][]{\Covariance_{#1} \left[ #2 , #3 \right]}
-
-\newcommand{\round}[1]{ \left\lfloor #1 \right\rceil}
-\newcommand{\floor}[1]     { \left\lfloor     #1 \right\rfloor}
-\newcommand{\ceil }[1]     { \left\lceil      #1 \right\rceil}
-\newcommand{\abs }[1]      { \left|      #1 \right|}
 
 \newcommand{\eps }{\varepsilon}
 
 \newcommand{\wallclocktime}[1][]{\ensuremath{t_{\mathrm{wall-clock}}}}
 \newcommand{\cputime}[1][]{\ensuremath{t_{\mathrm{CPU}}}}
 
-%% Statistical Distributions
-\DeclareMathOperator{\NormalDistribution}{\mathcal{N}}
-\DeclareMathOperator{\DiracDistribution}{\delta}
-\DeclareMathOperator{\CircularNormalDistribution}{\mathcal{C}\!\NormalDistribution}
-\DeclareMathOperator{\ComplexCircularNormalDistribution}{\CN\!\CircularNormalDistribution}
-
-\newcommand{\LeftOpenInterval}[1]{\ensuremath{\left] #1 \right]}}
-\newcommand{\RightOpenInterval}[1]{\ensuremath{\left[ #1 \right[}}
-\newcommand{\OpenInterval}[1]{\ensuremath{\left] #1 \right[}}
-\newcommand{\ClosedInterval}[1]{\ensuremath{\left[ #1 \right]}}
-
 %%
 \newcommand{\mat}[1]{\ensuremath{\mathbf{#1}}}
 
- % Helpers
-\newcommand{\Dirac}[1]{\DiracDistribution\left(#1\right)}
-\newcommand{\Normal}[2]{\NormalDistribution\left(#1,#2\right)}
-\newcommand{\CircularNormal}[3]{\CircularNormalDistribution\!\left(#1,#2,#3\right)}
-\newcommand{\ComplexCircularNormal}[2]{\ComplexCircularNormalDistribution\!\left(#1,#2\right)}
-
 \newcommand{\trueSymbol}{\ensuremath{\circ}}
 \newcommand{\true}[1]{\ensuremath{{#1}_{\trueSymbol}}}
-\newcommand{\bias}[1]{\ensuremath{\Bias \left( #1 \right)}}
-\newcommand{\mse}[1]{\ensuremath{\MSE \left( #1 \right)}}
-\newcommand{\rms}[1]{\ensuremath{\RootMeanSquare \left( #1 \right)}}
 
+
+%% Common symbols
 \newcommand{\wdB}{\ensuremath{\mathrm{BW}_{3\unit{dB}}}}
 \newcommand{\sysBW}{\wdB}
 \newcommand{\Tm}{\ensuremath{T_{\mathrm{meas}}}}
-
 \newcommand{\dc}[1][]{\ensuremath{K_{#1}}}
 \newcommand{\damping}[1][]{\ensuremath{\xi_{#1}}}
 \newcommand{\wn}[1][]{\ensuremath{\omega_{\mathrm{n}#1}}}
@@ -231,7 +263,6 @@
 \newcommand{\pdf}[2][]{\ensuremath{f_{#1} \left(#2 \right)}}
 \newcommand{\placeBetweenGrid}[1]{\ensuremath{\mathrm{misalign} \left( #1 \right) }}
 \newcommand{\infgrid}[1]{\ensuremath{\vec{#1}}}
-
 \newcommand{\powerspec}[1]{\ensuremath{\phi_{#1}}}
 
 % \newcommand{\fMax}[1]{\ensuremath{f_{#1 \max}}}
@@ -242,6 +273,7 @@
 
 \newcommand{\kMin}{\ensuremath{k_{\min}}}
 \newcommand{\kMax}{\ensuremath{k_{\max}}}
+
 \newcommand{\LandauBigO}{\ensuremath{\mathcal{O}}}
 \newcommand{\bigO}[1]{\ensuremath{\LandauBigO \left( #1 \right)}}
 
@@ -253,26 +285,7 @@
 \newcommand{\DT}{\ensuremath{\mathrm{DT}}}
 \newcommand{\CT}{\ensuremath{\mathrm{CT}}}
 
-\newcommand{\OuterProduct} [3][\T]{{#2}{#3}^{#1}}
-\newcommand{\OuterProductC}[2]{\OuterProduct[\HT]{#1}{#2}}
-\newcommand{\OuterProductR}[2]{\OuterProduct[\T ]{#1}{#2}}
-\newcommand{\OuterProductSelf}[2][\T]{\OuterProduct[#1]{#2}{#2}}
-
-\newcommand{\InnerProduct} [3][\T]{{#2}^{#1}{#3}}
-\newcommand{\InnerProductC}[2]{\InnerProduct[\HT]{#1}{#2}}
-\newcommand{\InnerProductR}[2]{\InnerProduct[\T]{#1}{#2}}
-\newcommand{\InnerProductSelf}[2][\T]{\InnerProduct[#1]{#2}{#2}}
-
-\newcommand{\OuterQuadraticForm}[3][\T]{#2  #3 #2^{#1}}
-\newcommand{\InnerQuadraticForm}[3][\T]{#2^{#1} #3 #2}
-\newcommand{\QuadraticForm}[3][\T]{\InnerQuadraticForm[#1]{#2}{#3}}
-
-\newcommand{\bruelkjaer}{Brüel \& Kj\ae r }
-\newcommand{\HP}{Hewlett~Packard\xspace}
-
-\newcommand{\isdef}{\ensuremath{\triangleq}}
-\newcommand{\qeq}{\ensuremath{\stackrel{?}{=}}}
-\newcommand{\distributedAs}{\ensuremath{\sim}}
+%% Formatting
 
 \newcommand{\emspace}{\ensuremath{\qquad}}
 
@@ -285,7 +298,6 @@
 \newcommand{\QLOGGRID}{\ensuremath{\mathrm{QLG}}}
 \newcommand{\GRID}{\ensuremath{\mathrm{GRD}}}
 
-\newcommand{\IEEEfloat}{\textsc{IEEE~754}\xspace}
 
 \usepackage{pifont}
 \newcommand{\circledNum}[1]{\ding{\numexpr201 + #1}}
