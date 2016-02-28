@@ -22,11 +22,11 @@
 % 
 %
 % defining custom colors
-\definecolor{mycolor1}{rgb}{0.92941,0.83137,0.00000}%
-\definecolor{mycolor2}{rgb}{0.53333,0.54118,0.52157}%
-\definecolor{mycolor3}{rgb}{0.44706,0.62353,0.81176}%
-\definecolor{mycolor4}{rgb}{0.20392,0.39608,0.64314}%
-\definecolor{mycolor5}{rgb}{0.93725,0.16078,0.16078}%
+% \definecolor{mycolor1}{rgb}{0.92941,0.83137,0.00000}%
+% \definecolor{mycolor2}{rgb}{0.53333,0.54118,0.52157}%
+% \definecolor{mycolor3}{rgb}{0.44706,0.62353,0.81176}%
+% \definecolor{mycolor4}{rgb}{0.20392,0.39608,0.64314}%
+% \definecolor{mycolor5}{rgb}{0.93725,0.16078,0.16078}%
 %
 \begin{tikzpicture}
 
@@ -729,7 +729,7 @@ x	y\\
 \label{leg:runlength-LPM-uncertainty}
 %\addlegendentry{data6};
 
-\addplot [LPMgrid,interpol,smallmarkers]
+\addplot [LPMgrid,interpol,medsmallmarkers]
   table[row sep=crcr]{%
 35	4.28197583111725\\
 41	5.15291200003149\\
@@ -1405,7 +1405,7 @@ x	y\\
 \label{leg:runlength-true}
 %\addlegendentry{True Value (theoretical)}; 
 
-\addplot [LRMgrid,interpol,smallmarkers]
+\addplot [LRMgrid,interpol,medsmallmarkers]
   table[row sep=crcr]{%
 35	20.6780380302221\\
 41	20.1655479433332\\

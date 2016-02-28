@@ -3879,7 +3879,7 @@ table[row sep=crcr]{
 };
 \addlegendentry{LRM (validation)};
 
-\addplot [LRMgrid, smallmarkers, forget plot] 
+\addplot [LRMgrid, medsmallmarkers, forget plot] 
 table[row sep=crcr]{
 1.05285644531519 -8.51576097134915\\
 1.1749267578155 -8.80836305133198\\
@@ -9657,7 +9657,7 @@ table[row sep=crcr]{
 
 %\addlegendentry{LRM (estimation) : interpolated};
 
-\addplot [LRMgrid,smallmarkers,interpol]
+\addplot [LRMgrid,medsmallmarkers,interpol]
 table[row sep=crcr]{
 1000 42\\ % placeholder
 1001 42\\
