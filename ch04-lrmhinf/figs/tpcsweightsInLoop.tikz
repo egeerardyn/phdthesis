@@ -1,0 +1,58 @@
+\begin{tikzpicture}[scale=1,>=stealth]
+    \matrix[ampersand replacement=\&, row sep=0.55cm, column sep=0.4cm] {
+%% FIRST ROW
+        \node (r2) {}; \&
+        \node[none] (r2i) {};\&
+        \node[none] (r1ii) {};\&
+        \&
+        \&
+        \&
+        \&
+        \&
+        \&
+        \&
+        \&
+        \node[none] (ui) {}; \&
+        \node[none] (yout) {};   \&
+        \node (youti) {};\\
+%% SECOND ROW
+        \node (r1) {}; \&
+        \node[none] (r1i) {};\&
+        \node[sum]    (sum2)  {};   \&
+        \node[weight] (WyC) {$W_2^{-1}$}; \&
+        \node[block]  (C)  {$C$};   \&
+        \node[weight] (WuC) {$W_1^{-1}$};\&
+        \node[sum]    (sum1)  {};   \&
+        \node[branch] (u)  {};      \&
+        \node[weight] (WuP) {$W_1$};\&
+        \node[block]  (P)  {$P$};   \&
+        \node[weight] (WyP) {$W_2$};\&
+        \node[branch] (y)  {};      \&
+        \node[none]  (uout) {};     \&
+        \node  (uouti) {};\\
+    };
+    \draw [connector] (r2)  -- (r2i) -- (sum2);
+    \draw [connector] (r1)  -- (r1i) -- (r1ii)  -| (sum1);
+    \draw [connector] (sum2) -- (WyC);
+    \draw [connector] (WyC)  -- (C);
+    \draw [connector] (C)    -- (WuC);
+    \draw [connector] (WuC)  -- (sum1);
+    \draw [connector] (sum1) -- (WuP);
+    \draw [connector] (WuP) -- (P);
+    \draw [connector] (P) -- (WyP);
+    \draw [connector] (WyP)    -- (y)   -- (yout) -- (youti);
+    \draw [connector] (u)    |- (ui)  --  (uout) -- (uouti);
+    \draw [connector] (y)    -- ++(0,-1.5em) -| node[left,very near end,name=min] {{$-$}} (sum2);
+
+    \begin{pgfonlayer}{background}
+      \node[groupbox=TPC, inner sep=5pt,fit=(sum2) (C) (min) (uout) (yout) (r1i) (r2i)] (TPC) {};
+      \node at (TPC.north) [color=TPC, above] {$T\!\left(P_s,C_s\right)$};
+
+      \node[groupbox=plant, fit=(WyP) (P) (WuP)] (Ps) {};
+      \node at (Ps.north) [color=plant, above] {$P_s$};
+
+      \node[groupbox=controller, fit=(WyC) (C) (WuC)] (Cs) {};
+      \node at (Cs.north) [color=controller, above] {$C_s$};
+
+   \end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,71 @@
+\begin{tikzpicture}[scale=1, >=stealth]
+    \matrix[ampersand replacement=\&, row sep=0.2cm, column sep=0.32cm] {
+%% FIRST ROW
+        \node        (r1)   {$r_1$};              \&[-0.5em]
+        \&
+        \&
+        \&
+        \&
+        \&
+        \&
+        \node[block] (NCp)   {$N_c$};              \&[-0.5em]
+        \&[-0.5em]
+        \node[block] (DCp)   {$D_c$};              \\
+%% SECOND ROW
+        \&
+        \&
+        \&
+        \&
+        \&
+        \&
+        \&
+        \&
+        \node[block] (Delta) {$\Delta$};          \\
+%% THIRD ROW
+        \node         (r2)   {$r_2$};             \&
+        \&
+        \node[sum]    (sum2) {};                  \&
+        \node[block]  (DC)   {$D_c^{-1}$};        \&
+        \node[block]  (NC)   {$N_c$};             \&
+        \node[sum]    (sum1) {};                  \&
+        \node[sum]    (u)    {};                  \&
+        \node[block]  (DP)   {$\hat{D}^ {-1}$};   \&
+        \&
+        \node[block]  (NP)   {$\hat{N}$};         \&
+        \node[sum]    (y)    {};                  \&
+        \node         (yout) {$y$};               \\
+    };
+
+    \draw [connector] (r1)   -| (sum1);
+
+    \draw [connector] (r2)   -- (sum2);
+    \draw [connector] (sum2) -- (DC);
+    \draw [connector] (DC)   -- (NC);
+    \draw [connector] (NC)   -- (sum1);
+    \draw [connector] (sum1) --  node[pos=0.3,above] {$u$} (u);
+    \draw [connector] (u)    -- (DP);
+    \draw [connector] (DP)   -- (NP);
+    \draw [connector] (NP)   -- (y);
+    
+    \draw [connector] (y)    -- (yout);
+    
+    \draw [connector] (DP)    -| node [below,name=ud] {$u_{\Delta}$} (Delta);
+    \draw [connector] (Delta) |- node [above,name=yd] {$y_{\Delta}$} (DCp) ;
+    \draw [connector] (Delta) |- (NCp) ;
+    \draw [connector] (DCp)   -| (y) ;
+    \draw [connector] (NCp)   -| (u) ;
+
+    \draw [connector] (y) -- ++(0.5em,0) -- ++(0,-2em) -| node[near end,left] {\rotatebox{90}{$-$}} (sum2);
+
+    \begin{pgfonlayer}{background}
+
+      \node[groupbox=controller,fit=(NC) (DC)]                            (C) {};
+      \node[groupbox=plant,fit=(NP) (DP)]                           (P) {};
+      \node[groupbox=plantset,fit=(P) (Delta) (DCp) (NCp) (y) (u)] (setP) {};
+
+      \node at (C.north)      [color=controller, above]   {$C$};
+      \node at (P.north west) [color=plant, above]  {$\hat{P}$};
+      \node at (setP.north)   [color=plantset, above] {$\mathcal{P}$};
+
+    \end{pgfonlayer}
+\end{tikzpicture}

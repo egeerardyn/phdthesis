@@ -1,0 +1,243 @@
+% This actually uses an LPM(1,2,-1) model to FRF data. Since the FRF contains no transient, the input can be mocked to a 1-spectrum and the output to the FRF. It can be seen that DOF = 0, as all models pass through the same points, this is logical as a parabola is fitted through 3 points.
+\begin{tikzpicture}
+
+% \setlength{\figurewidth}{0.8\figurewidth}
+
+\begin{axis}[%
+name=delta,
+width=\figurewidth,
+height=0.64\figureheight,
+unbounded coords=jump,
+scale only axis,
+xtick={0.83776,0.90757,0.97738,1.0472,1.117,1.1868},
+xtick={\empty},
+%xticklabels={$\omega_1$,$\omega_2$,$\omega_3$,$\omega_4$,$\omega_5$,$\omega_6$},
+xticklabels={},
+ytick={22.5},
+yticklabels={},
+xmin=0.78,
+xmax=1.25,
+xminorticks=true,
+xmajorgrids=false,
+%xlabel={Frequency $\omega$ \axisunit{rad/s}},
+ymin=1.6,
+ymax=26,
+ylabel={Amplitude $\abs{\Delta}$}
+% axis x line*=bottom,
+% axis y line*=left,
+]
+
+\addplot[ycomb,mark=none,color=gray!25,forget plot]
+table[row sep=crcr]{
+0.837758040957278 12.6525858136145  1\\
+0.907571211037051 19.7498852795118  2\\
+0.977384381116825 21.817938976794   3\\
+1.0471975511966 12.6615323622864    4\\
+1.11701072127637 7.76219534512876   5\\
+1.18682389135614 4.43297964103573   6\\
+};
+
+\addplot [firstgrid, forget plot]
+table[row sep=crcr]{
+x   y   index\\
+0.837758040957278 12.6525858136145  1\\
+};
+
+\addplot [secondgrid, forget plot]
+table[row sep=crcr]{
+x   y   index\\
+0.907571211037051 19.7498852795118  2\\
+};
+
+\addplot [thirdgrid, forget plot]
+table[row sep=crcr]{
+x   y   index\\
+0.977384381116825 21.817938976794   3\\
+};
+
+\addplot [fourthgrid, forget plot]
+table[row sep=crcr]{
+x   y   index\\
+1.0471975511966 12.6615323622864    4\\
+};
+
+\addplot [fifthgrid, forget plot]
+table[row sep=crcr]{
+x   y   index\\
+1.11701072127637 7.76219534512876   5\\
+};
+
+\addplot [sixthgrid, forget plot]
+table[row sep=crcr]{
+x   y   index\\
+1.18682389135614 4.43297964103573   6\\
+};
+
+\addplot [grid, forget plot]
+table[row sep=crcr]{
+x   y   index\\
+0.767944870877505 8.94875028468152  0\\
+1.25663706143592 1.84419128906495   7\\
+1.32645023151569 -0.282194626651631 8\\
+};
+
+\addplot [dashed, black, forget plot]
+table[row sep=crcr]{
+x     y\\
+0     22.5\\
+2     22.5\\
+};
+
+% Model evaluations
+
+% \addplot[domain=0.628319:0.767945,first]{70.1362*x^2 + -68.5975*x + 20.2658};
+% \addplot[domain=0.698132:0.837758,second]{134.831*x^2 + -163.445*x + 54.9505};
+\addplot[domain=0.767945:0.907571,first]{348.128*x^2 + -505.936*x + 192.175};
+\addplot[domain=0.837758:0.977384,second]{-515.939*x^2 + 1002.14*x + -464.796};
+\addplot[domain=0.907571:1.0472,third]{-1151.49*x^2 + 2200.13*x + -1028.56};
+\addplot[domain=0.977384:1.11701,fourth]{436.723*x^2 + -1015.34*x + 597};
+\addplot[domain=1.0472:1.18682,fifth]{161.075*x^2 + -418.778*x + 274.566};
+\addplot[domain=1.11701:1.25664,sixth]{75.9587*x^2 + -222.684*x + 161.728};
+% \addplot[domain=1.18682:1.32645,first]{47.4368*x^2 + -152.992*x + 119.19};
+
+\node[first]  (D1) at (axis cs:0.837758,10)   {$\hphantom{_1}\LocalModel{\Delta}_1$};
+\node[second] (D2) at (axis cs:0.907571,17)   {$\hphantom{_2}\LocalModel{\Delta}_2$};
+\node[third]  (D3) at (axis cs:0.977384,24) {$\hphantom{_3}\LocalModel{\Delta}_3$};
+\node[fourth] (D4) at (axis cs:1.0472,10)     {$\hphantom{_4}\LocalModel{\Delta}_4$};
+\node[fifth]  (D5) at (axis cs:1.11701,10)    {$\hphantom{_5}\LocalModel{\Delta}_5$};
+\node[sixth]  (D6) at (axis cs:1.18682,6.5)     {$\hphantom{_6}\LocalModel{\Delta}_6$};
+
+\node[color=black] (gamma) at (axis cs:1.15,21) {$\gamma_{\mathrm{IG}}$};
+
+\end{axis}
+
+\begin{axis}[%
+name=Omega,
+anchor=north west,
+yshift=-0.25em,
+at={(delta.south west)},
+width=\figurewidth,
+height=0.18\figureheight,
+unbounded coords=jump,
+scale only axis,
+xtick={0.83776,0.90757,0.97738,1.0472,1.117,1.1868},
+xticklabels={},
+ytick={0.75},
+yticklabels={$\Omega_k$},
+xmin=0.78,
+xmax=1.25,
+xminorticks=true,
+yminorticks=false,
+xmajorgrids,
+ymin=-3.25,
+ymax=4.75,
+%ylabel={$\Omega_k$}
+% axis x line*=bottom,
+% axis y line*=left,
+]
+
+% Segmentation
+
+\addplot[first,range]  coordinates { (0.771436,1.25) (0.904081,1.25) };
+\addplot[second,range] coordinates { (0.841249,0.25) (0.973894,0.25) };
+\addplot[third,range]  coordinates { (0.911062,1.25) (1.04371,1.25) };
+\addplot[fourth,range] coordinates { (0.980875,0.25) (1.11352,0.25) };
+\addplot[fifth,range]  coordinates { (1.05069,1.25)  (1.18333,1.25) };
+\addplot[sixth,range]  coordinates { (1.1205,0.25)   (1.25315,0.25) };
+
+\node[first]  (W1) at (axis cs:0.837758,3)      {$\hphantom{_1}\Omega_1$};
+\node[second] (W2) at (axis cs:0.907571,-1.55)  {$\hphantom{_2}\Omega_2$};
+\node[third]  (W3) at (axis cs:0.977384,3)      {$\hphantom{_3}\Omega_3$};
+\node[fourth] (W4) at (axis cs:1.0472,-1.55)    {$\hphantom{_4}\Omega_4$};
+\node[fifth]  (W5) at (axis cs:1.11701,3)       {$\hphantom{_5}\Omega_5$};
+\node[sixth]  (W6) at (axis cs:1.18682,-1.55)   {$\hphantom{_6}\Omega_6$};
+
+\end{axis}
+
+\begin{axis}[%
+name=kk,
+anchor=north west,
+at={(Omega.south west)},
+width=\figurewidth,
+height=0.18\figureheight,
+unbounded coords=jump,
+scale only axis,
+xtick={0.83776,0.90757,0.97738,1.0472,1.117,1.1868},
+xticklabels={$\omega_1$,$\omega_2$,$\omega_3$,$\omega_4$,$\omega_5$,$\omega_6$},
+ytick={2.5,-1.5},
+yticklabels={$k_L(\omega)=$,$k_R(\omega)=$},
+xmin=0.78,
+xmax=1.25,
+xminorticks=true,
+yminorticks=false,
+xmajorgrids,
+xlabel={Frequency $\omega$ $[\mathrm{rad/s}]$},
+ymin=-3.3,
+ymax=4.7,
+% axis x line*=bottom,
+% axis y line*=left,
+]
+
+% Segmentation
+
+\addplot[first,range] coordinates { (0.75000,0.10) (0.83776,0.10) };
+\addplot[first,range] coordinates { (0.83776,1.40) (0.904081,1.40) };
+
+\addplot[second,range] coordinates { (0.841249,0.10) (0.90757,0.10) };
+\addplot[second,range] coordinates { (0.90757,1.40) (0.973894,1.40) };
+
+\addplot[third,range] coordinates { (0.911062,0.10) (0.97738,0.10) };
+\addplot[third,range] coordinates { (0.97738,1.40) (1.04371,1.40) };
+
+\addplot[fourth,range] coordinates { (0.980875,0.10) (1.0472,0.10) };
+\addplot[fourth,range] coordinates { (1.0472,1.40) (1.11352,1.40) };
+
+\addplot[fifth,range] coordinates { (1.05069,0.10) (1.117,0.10) };
+\addplot[fifth,range] coordinates { (1.117,1.40) (1.18333,1.40) };
+
+\addplot[sixth,range] coordinates { (1.1205,0.10) (1.1868,0.10) };
+\addplot[sixth,range] coordinates { (1.1868,1.40) (1.25315,1.40) };
+
+
+% \addplot[second,range] coordinates { (0.841249,0.25) (0.973894,0.25) };
+% \addplot[third,range] coordinates { (0.911062,1.25) (1.04371,1.25) };
+% \addplot[first,range] coordinates { (0.980875,0.25) (1.11352,0.25) };
+% \addplot[second,range] coordinates { (1.05069,1.25) (1.18333,1.25) };
+% \addplot[third,range] coordinates { (1.1205,0.25) (1.25315,0.25) };
+
+%
+% 1       2       3       4      5     6   
+% 0.83776,0.90757,0.97738,1.0472,1.117,1.1868
+
+
+% interval centers
+      % 0.66323
+      % 0.73304
+      % 0.80285
+      % 0.87266
+      % 0.94248
+      %  1.0123
+      %  1.0821
+      %  1.1519
+      %  1.2217
+      %  1.2915
+      %  1.3614
+
+\node[first]  (L1) at (axis cs:0.87266,3)  {$1$};
+\node[second] (L2) at (axis cs:0.94248,3)  {$2$};
+\node[third]  (L3) at (axis cs:1.0123,3)   {$3$};
+\node[fourth] (L4) at (axis cs:1.0821,3)   {$4$};
+\node[fifth]  (L5) at (axis cs:1.1519,3)   {$5$};
+\node[sixth]  (L6) at (axis cs:1.2217,3)   {$6$};
+
+\node[first]  (R1) at (axis cs:0.80285,-1.5)  {$1$};
+\node[second] (R2) at (axis cs:0.87266,-1.5)  {$2$};
+\node[third]  (R3) at (axis cs:0.94248,-1.5)  {$3$};
+\node[fourth] (R4) at (axis cs:1.0123,-1.5)   {$4$};
+\node[fifth]  (R5) at (axis cs:1.0821,-1.5)   {$5$};
+\node[sixth]  (R6) at (axis cs:1.1519,-1.5)   {$6$};
+
+\end{axis}
+
+
+\end{tikzpicture}%

@@ -1,0 +1,160 @@
+% This file was created by matlab2tikz v0.4.7 (commit f204e544bf36a123713b8051de724c0d3f0daa30) running on MATLAB 8.3.
+% Copyright (c) 2008--2014, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% Minimal pgfplots version: 1.3
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+% 
+% workdir  : /Users/egon/Dropbox/VUB/PhD/LPMHinf/Code/MCLARX
+% stack    : /Users/egon/Dropbox/VUB/PhD/LPMHinf/Code/MCLARX/test_hinf_length_mc_paper.m (50)
+% git info : commit a8ab01207283cbc86f952083a2d49e011faa50b4
+%            Author: Egon Geerardyn <egon.geerardyn@gmail.com>
+%            Date:   Mon Aug 18 11:33:44 2014 +0200
+%            
+%                Hinf vs runlength: MC for paper
+%            
+%             test_hinf_length_mc_paper.m | 172 ++++++++++++++++++++++++++------------------
+%             1 file changed, 102 insertions(+), 70 deletions(-)
+%            
+% 
+% 
+%
+\begin{tikzpicture}
+
+
+\begin{axis}[%
+width=0.5\figurewidth,
+height=\figureheight,
+unbounded coords=jump,
+scale only axis,
+xmin=0.625,
+xmax=1.375,
+xmajorgrids,
+xminorgrids,
+title={$\gamma_{\mathrm{FRF}}$},
+xlabel={$\omega$ \plotunit{rad/s}},
+ymin=0,
+ytick={20,10,0,24,14},
+xtick={0.75,1,1.25},
+ymajorgrids,
+yminorgrids,
+ymax=25,
+name=gammaFRF,
+ylabel={Amplitude $\abs{\Delta(\omega)}$}
+]
+
+\addplot [truesys,hinfnorm,forget plot]
+  table[]{figures/example-true-hinf.tsv};
+\label{leg:example-true-Hinf}
+
+\addplot [truesys]
+  table[]{figures/example-true.tsv};
+\label{leg:example-true}
+
+\addplot [SA,hinfnorm]
+  table[]{figures/example-sa-hinf.tsv};
+\label{leg:example-SA-hinfnorm}
+\addplot [SAgrid]
+  table[]{figures/example-sa-frf.tsv};
+\label{leg:example-SA}
+
+\addplot [LRM, hinfnorm, dash phase=2pt]
+  table[]{figures/example-lrm-gammafrf.tsv};
+\label{leg:example-LRM-hinfnorm}
+
+\addplot [LRMgrid]
+  table[]{figures/example-lrm-frf.tsv};
+\label{leg:example-LRM}
+
+\addplot [LPM, hinfnorm]
+  table[]{figures/example-lpm-gammafrf.tsv};
+\label{leg:example-LPM-hinfnorm}
+
+\addplot [LPMgrid]
+  table[]{figures/example-lpm-frf.tsv};
+\label{leg:example-LPM}
+
+\node at (axis cs:0.75,15.5) [color=SA] {SA};
+\node at (axis cs:0.75,12.9) [color=LRM] {LRM};
+\node at (axis cs:0.75,11) [color=LPM] {LPM};
+\node at (axis cs:0.75,22) [color=truesys] {$\hinfnorm{\Delta}$};
+
+\end{axis}
+
+\begin{axis}[%
+anchor=north west,
+at={(gammaFRF.north east)},
+width=0.5\figurewidth,
+height=\figureheight,
+scale only axis,
+xmin=0.625,
+xmax=1.375,
+ytick={20,10,0,24,14},
+yticklabels={},
+xtick={0.75,1,1.25},
+xmajorgrids,
+xminorgrids,
+title={$\gamma_{\mathrm{IG}}$},
+xlabel={$\omega$ \plotunit{rad/S}},
+ymin=0,
+ymax=25,
+ymajorgrids,
+yminorgrids,
+name=gammaIG,
+xshift=1em,
+%ylabel={Amplitude $\abs{\Delta}$}
+]
+
+\addplot [truesys,hinfnorm]
+  table[]{figures/example-true-hinf.tsv};
+
+\addplot [truesys,forget plot]
+  table[]{figures/example-true.tsv};
+
+
+\addplot [SA,hinfnorm,forget plot]
+  table[]{figures/example-sa-hinf.tsv};
+\addplot [SAgrid,forget plot]
+  table[]{figures/example-sa-frf.tsv};
+
+\addplot [LRM,hinfnorm,forget plot,dash phase=2pt]
+  table[]{figures/example-lrm-gammaig.tsv};
+\label{leg:example-LRM-interpol-Hinf}
+
+\addplot [LRM,interpol,forget plot]
+  table[]{figures/example-lrm-interpol.tsv};
+\addplot [LRMgrid,forget plot]
+  table[]{figures/example-lrm-frf.tsv};
+
+%placeholder
+\addplot [LRMgrid,interpol,forget plot]
+  table[row sep=crcr]{%
+10	10\\
+10	10\\
+};
+\label{leg:example-LRM-interpol}
+
+\addplot [LPM,hinfnorm,forget plot]
+  table[]{figures/example-lpm-gammaig.tsv};
+\addplot [LPM,interpol,forget plot]
+  table[]{figures/example-lpm-interpol.tsv};
+\addplot [LPMgrid,forget plot]
+  table[]{figures/example-lpm-frf.tsv};
+
+%placeholder
+\addplot [LPMgrid,interpol,forget plot]
+  table[row sep=crcr]{%
+  10	10\\
+  10	10\\
+};
+\label{leg:example-LPM-interpol}
+
+\node at (axis cs:0.75,15.5) [color=SA] {SA};
+\node at (axis cs:0.75,22) [color=LRM] {LRM};
+\node at (axis cs:0.75,11.7) [color=LPM] {LPM};
+\node at (axis cs:1.25,22) [color=truesys] {$\hinfnorm{\Delta}$};
+
+\end{axis}
+\end{tikzpicture}%

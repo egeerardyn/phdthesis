@@ -7,9 +7,8 @@
 \pgfplotsset{every axis legend/.append style={font=\footnotesize}}
 \pgfplotsset{every axis label/.append style={font=\footnotesize}}
 \pgfplotsset{every tick label/.append style={font=\footnotesize}}
-\pgfplotsset{every axis title/.append style={font=\footnotesize}}
+\pgfplotsset{every axis title/.append style={font=\footnotesize, at={(0.5,0.95)}}}
 \pgfplotsset{every axis post/.style={unbounded coords=jump}}
-\pgfplotsset{every axis title/.append style={at={(0.5,0.95)}}}
 
 \pgfplotsset{legendAbovePlot/.style={legend style={at={(0.5,1.025)},anchor={south},nodes=right,legend columns=-1,font=\footnotesize,draw=none,/tikz/every even column/.append style={column sep=1em}}}}
 
@@ -32,6 +31,28 @@
   \definecolor{model}{named}{tangogrey}
   \definecolor{bg}{named}{TangoAluminium2}
 
+\definecolor{model}{named}{blue}
+\definecolor{truesys}{named}{TangoAluminium5}
+
+\definecolor{linms}{named}{TangoScarletRed3}
+\definecolor{logms}{named}{TangoChameleon2}
+\definecolor{qlogms}{named}{TangoPlum3}
+\definecolor{clogms}{named}{TangoSkyBlue3}
+\definecolor{plogms}{named}{black}
+
+\definecolor{sigmalinms}{named}{linms}
+\definecolor{sigmaqlogms}{named}{qlogms}
+\definecolor{sigmaclogms}{named}{clogms}
+
+\definecolor{biaslinms}{named}{TangoScarletRed1}
+\definecolor{biasqlogms}{named}{TangoPlum1}
+\definecolor{biasclogms}{named}{TangoSkyBlue1}
+
+\definecolor{dbacolor}{named}{TangoScarletRed2}
+\definecolor{dbbcolor}{named}{TangoSkyBlue2}
+\definecolor{dbccolor}{named}{TangoChameleon2}
+\definecolor{dbdcolor}{named}{TangoOrange2}
+
 \definecolor{linms}{named}{TangoScarletRed3}
 \definecolor{logms}{named}{TangoChameleon2}
 \definecolor{qlogms}{named}{TangoPlum3}
@@ -46,6 +67,13 @@
   \definecolor{dbbcolor}{named}{TangoSkyBlue2}
   \definecolor{dbccolor}{named}{TangoChameleon2}
   \definecolor{dbdcolor}{named}{TangoOrange2}
+
+\definecolor{first}{named}{TangoScarletRed2}
+\definecolor{second}{named}{TangoOrange2}
+\definecolor{third}{named}{TangoChameleon3}
+\definecolor{fourth}{named}{TangoSkyBlue3}
+\definecolor{fifth}{named}{TangoPlum1}
+\definecolor{sixth}{named}{TangoChocolate2}
 
 %% TikZ styles
   \tikzset{obtainedarrow/.style={color=obtaineddark,line width=1.0pt,->}}
@@ -143,29 +171,6 @@
 
 \pgfplotsset{linrect/.style={fill=linms,draw=linms,line width=1pt}}
 
-
-
-\definecolor{model}{named}{blue}
-\definecolor{truesys}{named}{TangoAluminium5}
-
-\definecolor{linms}{named}{TangoScarletRed3}
-\definecolor{logms}{named}{TangoChameleon2}
-\definecolor{qlogms}{named}{TangoPlum3}
-\definecolor{clogms}{named}{TangoSkyBlue3}
-\definecolor{plogms}{named}{black}
-
-\definecolor{sigmalinms}{named}{linms}
-\definecolor{sigmaqlogms}{named}{qlogms}
-\definecolor{sigmaclogms}{named}{clogms}
-
-\definecolor{biaslinms}{named}{TangoScarletRed1}
-\definecolor{biasqlogms}{named}{TangoPlum1}
-\definecolor{biasclogms}{named}{TangoSkyBlue1}
-
-\definecolor{dbacolor}{named}{TangoScarletRed2}
-\definecolor{dbbcolor}{named}{TangoSkyBlue2}
-\definecolor{dbccolor}{named}{TangoChameleon2}
-\definecolor{dbdcolor}{named}{TangoOrange2}
 
 \pgfplotsset{linmsgrid/.style={ycomb,color=linms,solid,line width=0.7pt,mark size=1pt,mark=square*,mark options={solid}}}
 \pgfplotsset{logmsgrid/.style={ycomb,color=logms,solid,line width=0.7pt,mark size=1pt,mark=*,mark options={solid}}}
@@ -286,13 +291,13 @@
 \pgfplotsset{RFIR/.style={color=RFIR}}
 \pgfplotsset{best/.style={color=best}}
 
+\pgfplotsset{mediummarkers/.append style={mark size=1pt}}
 \pgfplotsset{smallmarkers/.append style={mark size=0.75pt}}
 \pgfplotsset{medsmallmarkers/.append style={mark size=0.5pt}}
 \pgfplotsset{tinymarkers/.append style={mark size=0.25pt}}
 \pgfplotsset{extremelytinymarkers/.append style={mark size=0.05pt}}
 
 \pgfplotsset{myDerivs/.style={color=black,solid,line width=1.0pt}}
-
 
 \pgfplotsset{degradationBox/.style={area legend,solid,draw=none,fill=TangoOrange1,opacity=0.7}}
 \pgfplotsset{degradationMedian/.style={color=TangoOrange3,solid,line width=2.0pt,opacity=0.7}}
@@ -307,6 +312,29 @@
 \tikzset{annotation/.style={align=left,draw=black!0.2,font=\scriptsize,fill=white,fill opacity=0.8}}
 
 \tikzset{numSlope/.style={anchor=center,align=center,font=\scriptsize}}
+
+
+%% interpolation figure
+
+\pgfplotsset{continuous/.style={line width=0.75pt,mark options={solid},mark size=3pt}}
+\pgfplotsset{first/.style={color=first,continuous}}
+\pgfplotsset{second/.style={color=second,continuous}}
+\pgfplotsset{third/.style={color=third,continuous}}
+\pgfplotsset{fourth/.style={color=fourth,continuous}}
+\pgfplotsset{fifth/.style={color=fifth,continuous}}
+\pgfplotsset{sixth/.style={color=sixth,continuous}}
+
+\pgfplotsset{range/.style={line width=0.75pt,mark options={solid},mark=|,mark size=2pt}}
+
+\pgfplotsset{atGrid/.style={mark=*,mark size=1.5pt,only marks,mark options={solid}}}
+\pgfplotsset{firstgrid/.style={atGrid,color=first}}
+\pgfplotsset{secondgrid/.style={atGrid,color=second}}
+\pgfplotsset{thirdgrid/.style={atGrid,color=third}}
+\pgfplotsset{fourthgrid/.style={atGrid,color=fourth}}
+\pgfplotsset{fifthgrid/.style={atGrid,color=fifth}}
+\pgfplotsset{sixthgrid/.style={atGrid,color=sixth}}
+
+%%
 
 %% TABLE STYLES
 % http://tex.stackexchange.com/questions/83487/pgfplotstable-converting-zeros-to-in-a-knitr-inline-table

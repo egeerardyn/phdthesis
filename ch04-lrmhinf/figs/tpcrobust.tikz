@@ -1,0 +1,39 @@
+\begin{tikzpicture}[scale=1,auto, >=stealth]
+    \matrix[ampersand replacement=\&, row sep=0.3cm, column sep=0.6cm] {
+%% FIRST ROW
+        \node (r1) {$r_1$}; \&
+        \&
+        \&
+        \&
+        \node (guide) {}; \&
+        \&
+        \&
+        \&
+        \node        (uout) {$u$};  \\
+%% SECOND ROW
+        \node         (r2) {$r_2$}; \&
+        \&
+        \node[sum]    (sum2)  {};   \&
+        \node[block]  (C)  {$C$};   \&
+        \node[sum]    (sum1)  {};   \&
+        \node[branch] (u)  {};      \&
+        \node[block,color=modelset]  (P)  {$\ModelSet$};   \&
+        \node[branch] (y)  {};      \&
+        \node       (yout) {$y$};   \\
+    };
+
+    \draw [connector] (r2)   -- (sum2);
+    \draw [connector] (sum2) -- node {$e_{\vphantom{c}}$}  (C);
+    \draw [connector] (C)    -- node {$u_c$}  (sum1);
+    \draw [connector] (sum1) -- (P);
+    \draw [connector] (P)    -- (yout);
+    \draw [connector] (r1)   -| (sum1);
+    \draw [connector] (u)    |- (uout);
+    \draw [connector] (y)    -- ++(0,-2em) -| node[near end,name=min] {\rotatebox{90}{$-$}} (sum2);
+
+   \begin{pgfonlayer}{background}
+     \node[groupbox=TPC, fit=(sum2) (y) (C) (min) (guide)] (TPC) {};
+     \node at (TPC.north) [color=TPC, above] {$\ClosedLoop{\ModelSet[],\Controller}$};
+   \end{pgfonlayer}
+
+  \end{tikzpicture}
