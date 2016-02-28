@@ -1,0 +1,63 @@
+\begin{tikzpicture}[scale=1,>=stealth]
+    \matrix[ampersand replacement=\&, row sep=0.2cm, column sep=0.4cm] {
+%% FIRST ROW
+        \node (v22) {}; \&
+        \node[weight] (V2) {$V_2$}; \&
+        \node (r2) {}; \&
+        \node[none] (r2i) {};\&
+        \node[none] (r1ii) {};\&
+        \&
+        \&
+        \&
+        \&
+        \node[none] (ui) {}; \&
+        \node[none] (yout) {};   \&
+        \node (youti) {}; \&
+        \node[weight] (Wy)  {$W_y$}; \&
+        \node (wyy) {};\\
+%% SECOND ROW
+        \node (v11) {}; \&
+        \node[weight] (V1) {$V_1$}; \&
+        \node         (r1) {}; \&
+        \node[none] (r1i) {};\&
+        \node[sum]    (sum2)  {};   \&
+        \node[block]  (C)  {$C$};   \&
+        \node[sum]    (sum1)  {};   \&
+        \node[branch] (u)  {};      \&
+        \node[block]  (P)  {$P$};   \&
+        \node[branch] (y)  {};      \&
+        \node[none]  (uout) {};  \&
+        \node (uouti) {}; \&
+        \node[weight] (Wu)  {$W_u$}; \&
+        \node (wuu) {};\\
+    };
+
+    \draw [connector] (V2)   -- node[above] {$r_2$} (r2i) -- (sum2);
+    \draw [connector] (V1)   -- node[above] {$r_1$} (r1i) -- (r1ii)  -| (sum1);
+    \draw [connector] (sum2) -- node[above] {$e$}  (C);
+    \draw [connector] (C)    -- node[above] {$u_c$}  (sum1);
+    \draw [connector] (sum1) -- (P);
+    \draw [connector] (P)    -- (y)   -- (yout) -- node[above] {$y$} (Wy);
+    \draw [connector] (u)    |- (ui)  --  (uout) --  node[above] {$u$} (Wu);
+    \draw [connector] (y)    -- ++(0,-1.5em) -| node[left,very near end,name=min] {{$-$}} (sum2);
+
+    \draw [connector] (Wu)   -- (wuu);
+    \draw [connector] (Wy)   -- (wyy);
+
+    \draw [connector] (v11)  -- (V1);
+    \draw [connector] (v22)  -- (V2);
+
+    \begin{pgfonlayer}{background}
+      \node[groupbox=TPC, fit=(sum2) (C) (min) (uout) (yout) (r1i) (r2i)] (TPC) {};
+      \node at (TPC.north) [TPC, above] {$T\!\left(P,C\right)$};
+      \node at (TPC.south) [TPC, below] {\footnotesize $\mat{P\\ \I} \left(\I + CP \right)^{-1} \mat{C&\I}$};
+
+      \node[weightbox,fit=(V1) (V2)] (V) {};
+      \node at (V.north) [color=weight, above] {$V$};
+      \node at (V.south) [color=weight, below] {\footnotesize $\mat{V_2 & 0 \\ 0 & V_1}$};
+
+      \node[weightbox,fit=(Wu) (Wy)] (W) {};
+      \node at (W.north) [color=weight, above] {$W$};
+      \node at (W.south) [color=weight, below] {\footnotesize $\mat{W_y & 0 \\ 0 & W_u}$};
+   \end{pgfonlayer}
+\end{tikzpicture}

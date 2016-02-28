@@ -7,9 +7,8 @@
 \pgfplotsset{every axis legend/.append style={font=\footnotesize}}
 \pgfplotsset{every axis label/.append style={font=\footnotesize}}
 \pgfplotsset{every tick label/.append style={font=\footnotesize}}
-\pgfplotsset{every axis title/.append style={font=\footnotesize}}
-\pgfplotsset{every axis post/.style={unbounded coords=jump}}
-\pgfplotsset{every axis title/.append style={at={(0.5,0.95)}}}
+\pgfplotsset{every axis title/.append style={font=\footnotesize, at={(0.5,0.95)}}}
+\pgfplotsset{every axis post/.style={unbounded coords=jump, line join=round}}
 
 \pgfplotsset{legendAbovePlot/.style={legend style={at={(0.5,1.025)},anchor={south},nodes=right,legend columns=-1,font=\footnotesize,draw=none,/tikz/every even column/.append style={column sep=1em}}}}
 
@@ -32,20 +31,84 @@
   \definecolor{model}{named}{tangogrey}
   \definecolor{bg}{named}{TangoAluminium2}
 
+\definecolor{model}{named}{blue}
+\definecolor{truesys}{named}{TangoAluminium5}
+% \definecolor{truesys}{named}{TangoAluminium4} % from LRMHinf paper
+
 \definecolor{linms}{named}{TangoScarletRed3}
 \definecolor{logms}{named}{TangoChameleon2}
 \definecolor{qlogms}{named}{TangoPlum3}
 \definecolor{clogms}{named}{TangoSkyBlue3}
 \definecolor{plogms}{named}{black}
 
-  \definecolor{compen}{rgb}{0.729,0.741,0.714}
-  \definecolor{signal}{named}{TangoSkyBlue2}
-  \definecolor{misalign}{named}{TangoScarletRed2}
+\definecolor{sigmalinms}{named}{linms}
+\definecolor{sigmaqlogms}{named}{qlogms}
+\definecolor{sigmaclogms}{named}{clogms}
 
-  \definecolor{dbacolor}{named}{TangoScarletRed2}
-  \definecolor{dbbcolor}{named}{TangoSkyBlue2}
-  \definecolor{dbccolor}{named}{TangoChameleon2}
-  \definecolor{dbdcolor}{named}{TangoOrange2}
+\definecolor{biaslinms}{named}{TangoScarletRed1}
+\definecolor{biasqlogms}{named}{TangoPlum1}
+\definecolor{biasclogms}{named}{TangoSkyBlue1}
+
+\definecolor{dbacolor}{named}{TangoScarletRed2}
+\definecolor{dbbcolor}{named}{TangoSkyBlue2}
+\definecolor{dbccolor}{named}{TangoChameleon2}
+\definecolor{dbdcolor}{named}{TangoOrange2}
+
+\definecolor{linms}{named}{TangoScarletRed3}
+\definecolor{logms}{named}{TangoChameleon2}
+\definecolor{qlogms}{named}{TangoPlum3}
+\definecolor{clogms}{named}{TangoSkyBlue3}
+\definecolor{plogms}{named}{black}
+
+\definecolor{compen}{rgb}{0.729,0.741,0.714}
+\definecolor{signal}{named}{TangoSkyBlue2}
+\definecolor{misalign}{named}{TangoScarletRed2}
+
+\definecolor{first}{named}{TangoScarletRed2}
+\definecolor{second}{named}{TangoOrange2}
+\definecolor{third}{named}{TangoChameleon3}
+\definecolor{fourth}{named}{TangoSkyBlue3}
+\definecolor{fifth}{named}{TangoPlum1}
+\definecolor{sixth}{named}{TangoChocolate2}
+
+\definecolor{LPMTrunc}{named}{TangoSkyBlue2}
+\definecolor{LPMTruncInit}{named}{TangoSkyBlue2}
+\definecolor{RFIR}{named}{TangoScarletRed3}
+\definecolor{RFIRInit}{named}{TangoScarletRed1}
+\definecolor{existing}{named}{TangoChameleon3}
+\definecolor{G0Hat}{named}{TangoOrange2}
+\definecolor{GVXI}{named}{G0Hat}
+\definecolor{reference}{named}{black}
+
+\definecolor{heuristic}{named}{TangoPlum2}
+\definecolor{observed}{named}{TangoOrange3}
+
+\definecolor{best}{named}{TangoAluminium6}
+
+\definecolor{G0HatFill}{named}{TangoOrange1}
+\definecolor{GVXIFill}{named}{G0HatFill}
+\definecolor{LPMTruncFill}{named}{TangoSkyBlue1}
+\definecolor{RFIRFill}{named}{TangoScarletRed1}
+\definecolor{existingFill}{named}{TangoChameleon1}
+\definecolor{bestFill}{named}{TangoAluminium3}
+
+\definecolor{FRFMean}{named}{TangoPlum3}
+\definecolor{FRFSingle}{named}{TangoPlum1}
+\definecolor{FRFNoise}{named}{TangoChocolate1}
+
+
+\definecolor{LRM}{named}{TangoScarletRed3}
+\definecolor{LPM}{named}{TangoSkyBlue2}
+\definecolor{SA}{named}{TangoChameleon2}
+
+\definecolor{validation}{named}{TangoChameleon2}
+
+\definecolor{LPMshade}{named}{TangoSkyBlue1}
+\definecolor{LRMshade}{named}{TangoScarletRed1}
+\definecolor{refColor}{named}{TangoAluminium6}
+
+\definecolor{frf}{named}{TangoButter3} %TODO: replace
+\definecolor{param}{named}{TangoScarletRed2}
 
 %% TikZ styles
   \tikzset{obtainedarrow/.style={color=obtaineddark,line width=1.0pt,->}}
@@ -144,29 +207,6 @@
 \pgfplotsset{linrect/.style={fill=linms,draw=linms,line width=1pt}}
 
 
-
-\definecolor{model}{named}{blue}
-\definecolor{truesys}{named}{TangoAluminium5}
-
-\definecolor{linms}{named}{TangoScarletRed3}
-\definecolor{logms}{named}{TangoChameleon2}
-\definecolor{qlogms}{named}{TangoPlum3}
-\definecolor{clogms}{named}{TangoSkyBlue3}
-\definecolor{plogms}{named}{black}
-
-\definecolor{sigmalinms}{named}{linms}
-\definecolor{sigmaqlogms}{named}{qlogms}
-\definecolor{sigmaclogms}{named}{clogms}
-
-\definecolor{biaslinms}{named}{TangoScarletRed1}
-\definecolor{biasqlogms}{named}{TangoPlum1}
-\definecolor{biasclogms}{named}{TangoSkyBlue1}
-
-\definecolor{dbacolor}{named}{TangoScarletRed2}
-\definecolor{dbbcolor}{named}{TangoSkyBlue2}
-\definecolor{dbccolor}{named}{TangoChameleon2}
-\definecolor{dbdcolor}{named}{TangoOrange2}
-
 \pgfplotsset{linmsgrid/.style={ycomb,color=linms,solid,line width=0.7pt,mark size=1pt,mark=square*,mark options={solid}}}
 \pgfplotsset{logmsgrid/.style={ycomb,color=logms,solid,line width=0.7pt,mark size=1pt,mark=*,mark options={solid}}}
 \pgfplotsset{clogmsgrid/.style={ycomb,color=clogms,solid,line width=0.7pt,mark size=2pt,mark=x,mark options={solid}}}
@@ -230,32 +270,7 @@
 \pgfplotsset{dbcmax/.style={color=dbccolor,solid,line width=1.0pt,mark=square  ,mark options={solid}}}
 \pgfplotsset{dbdmax/.style={color=dbdcolor,solid,line width=1.0pt,mark=triangle,mark options={solid}}}
 
-
-
-\definecolor{LPMTrunc}{named}{TangoSkyBlue2}
-\definecolor{LPMTruncInit}{named}{TangoSkyBlue2}
-\definecolor{RFIR}{named}{TangoScarletRed3}
-\definecolor{RFIRInit}{named}{TangoScarletRed1}
-\definecolor{existing}{named}{TangoChameleon3}
-\definecolor{G0Hat}{named}{TangoOrange2}
-\definecolor{GVXI}{named}{G0Hat}
-\definecolor{reference}{named}{black}
-
-\definecolor{heuristic}{named}{TangoPlum2}
-\definecolor{observed}{named}{TangoOrange3}
-
-\definecolor{best}{named}{TangoAluminium6}
-
-\definecolor{G0HatFill}{named}{TangoOrange1}
-\definecolor{GVXIFill}{named}{G0HatFill}
-\definecolor{LPMTruncFill}{named}{TangoSkyBlue1}
-\definecolor{RFIRFill}{named}{TangoScarletRed1}
-\definecolor{existingFill}{named}{TangoChameleon1}
-\definecolor{bestFill}{named}{TangoAluminium3}
-
-\definecolor{FRFMean}{named}{TangoPlum3}
-\definecolor{FRFSingle}{named}{TangoPlum1}
-\definecolor{FRFNoise}{named}{TangoChocolate1}
+%% Initial values
 
 \pgfplotsset{FRFMean/.style={color=FRFMean,mark=*,mark options={solid},only marks,medsmallmarkers}}
 \pgfplotsset{FRFSingle/.style={color=FRFSingle,mark=square*,mark options={solid},only marks,smallmarkers}}
@@ -286,13 +301,13 @@
 \pgfplotsset{RFIR/.style={color=RFIR}}
 \pgfplotsset{best/.style={color=best}}
 
+\pgfplotsset{mediummarkers/.append style={mark size=1pt}}
 \pgfplotsset{smallmarkers/.append style={mark size=0.75pt}}
 \pgfplotsset{medsmallmarkers/.append style={mark size=0.5pt}}
 \pgfplotsset{tinymarkers/.append style={mark size=0.25pt}}
 \pgfplotsset{extremelytinymarkers/.append style={mark size=0.05pt}}
 
 \pgfplotsset{myDerivs/.style={color=black,solid,line width=1.0pt}}
-
 
 \pgfplotsset{degradationBox/.style={area legend,solid,draw=none,fill=TangoOrange1,opacity=0.7}}
 \pgfplotsset{degradationMedian/.style={color=TangoOrange3,solid,line width=2.0pt,opacity=0.7}}
@@ -307,6 +322,55 @@
 \tikzset{annotation/.style={align=left,draw=black!0.2,font=\scriptsize,fill=white,fill opacity=0.8}}
 
 \tikzset{numSlope/.style={anchor=center,align=center,font=\scriptsize}}
+
+%% LRM chapters
+
+\pgfplotsset{truesys/.style={color=truesys,densely dotted,line width=1.5pt}}
+
+\pgfplotsset{hinfnorm/.style={dashed}}
+\pgfplotsset{interpol/.style={sharp plot,solid,mark options={solid}}}
+
+\pgfplotsset{LRMgrid/.style={color=LRM,mark size=1.5pt,only marks,mark=square*,mark options={solid}}}
+\pgfplotsset{LPMgrid/.style={color=LPM,mark size=1.5pt,only marks,mark=*,mark options={solid}}}
+\pgfplotsset{SAgrid/.style={color=SA,densely dotted,solid,mark=triangle*,mark size=1.5pt,mark options={solid}}}
+
+
+\pgfplotsset{frf/.style={color=frf,solid,mark options={solid},mark size=0.2pt}} %TODO: replace
+
+\pgfplotsset{paramPhat/.style={color=param,solid,line width=1.2pt}}
+
+
+\pgfplotsset{validation/.style={color=validation,densely dotted,mark=diamond*,mark size=1pt,mark options={solid}}}
+
+\pgfplotsset{shaded/.style={opacity=0.5,area legend,solid}}
+
+\pgfplotsset{LPMshade/.style={shaded,fill=LPMshade,draw=LPM}}
+\pgfplotsset{LRMshade/.style={shaded,fill=LRMshade,draw=LRM}}
+
+\pgfplotsset{reference/.append style={color=refColor,densely dotted,line width=0.75pt}}
+\pgfplotsset{gammafrf/.style={color=black,mark=pentagon,mark options={solid}}}
+
+
+%% interpolation figure
+\pgfplotsset{continuous/.style={line width=0.75pt,mark options={solid},mark size=3pt}}
+\pgfplotsset{first/.style={color=first,continuous}}
+\pgfplotsset{second/.style={color=second,continuous}}
+\pgfplotsset{third/.style={color=third,continuous}}
+\pgfplotsset{fourth/.style={color=fourth,continuous}}
+\pgfplotsset{fifth/.style={color=fifth,continuous}}
+\pgfplotsset{sixth/.style={color=sixth,continuous}}
+
+\pgfplotsset{range/.style={line width=0.75pt,mark options={solid},mark=|,mark size=2pt}}
+
+\pgfplotsset{atGrid/.style={mark=*,mark size=1.5pt,only marks,mark options={solid}}}
+\pgfplotsset{firstgrid/.style={atGrid,color=first}}
+\pgfplotsset{secondgrid/.style={atGrid,color=second}}
+\pgfplotsset{thirdgrid/.style={atGrid,color=third}}
+\pgfplotsset{fourthgrid/.style={atGrid,color=fourth}}
+\pgfplotsset{fifthgrid/.style={atGrid,color=fifth}}
+\pgfplotsset{sixthgrid/.style={atGrid,color=sixth}}
+
+%%
 
 %% TABLE STYLES
 % http://tex.stackexchange.com/questions/83487/pgfplotstable-converting-zeros-to-in-a-knitr-inline-table

@@ -13,17 +13,21 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{decorations.text}
 \usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{spy}
 
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
 \usepgfplotslibrary{groupplots}
 \usetikzlibrary{external}
+%\tikzset{external/optimize=true}
 \tikzexternalize[prefix = \thisDir/tikz/]
 \tikzexternalize[prefix=tikz/]
 \tikzset{external/mode=list and make}
 \tikzsetfigurename{phdfig}
 % \tikzsetfigurename{\thisDir}
   \pgfplotsset{compat=newest}
+
+\input{config/blockdiag.inc.tex}
 
   \newlength\figureheight
    \newlength\figurewidth
@@ -35,3 +39,4 @@
 
 % http://tex.stackexchange.com/questions/37471/pgfplots-externalization-and-legend-referencing
 \pgfplotsset{invoke before crossref tikzpicture={\tikzexternaldisable},invoke after crossref tikzpicture={\tikzexternalenable}}
+
