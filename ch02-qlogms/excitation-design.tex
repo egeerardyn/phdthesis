@@ -19,7 +19,7 @@ There are two main solutions to this in the engineering literature:
 The disadvantage of this approach is that multiple experiments are required to converge to the optimal design.
 Moreover, since the signal is optimized for a specific system model, it is likely that changes in the dynamics might be hard to observe using such a signal.
 
-\item Robust input design one tries to make the input design robust to uncertainty in the prior knowledge of the parameter values, see e.g.~\citep{Rojas2007} and references therein. 
+\item Robust (optimal) input design makes the input design robust to uncertainty in the prior knowledge of the parameter values, see e.g.~\citep{Rojas2007} and references therein. 
 While the signal is more robust towards uncertainty in the prior knowledge, it requires more forethought than (nominal) optimal designs.
 E.g. the approach followed by~\citet{Rojas2007} relies on both nominal parameter values and  knowledge of the distribution function of these parameters to design a robust (optimal) excitation signal.
 As such, this requires more advanced prior knowledge of the system to cope with the uncertainty of the prior knowledge.
@@ -32,8 +32,7 @@ In particular, a generic excitation signal will be used, but its properties are 
 We will consider input design when it is known that the system has resonances, possibly spanning a frequency band that may cover several decades. 
 It is however not necessary to know how many resonances are in the system and at what precise frequencies those may occur.
 
-Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances~\citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy~\citep{Niedostatkiewicz2009,VanGheem2004,Breugelmans2010}, electronics~\citep{Munir2011}, vibration analysis and acoustics testing amongst others.
-%TODO{ meer referenties? }
+Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances~\citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy~\citep{Niedostatkiewicz2009,VanGheem2004,Breugelmans2010}, electronics~\citep{Munir2011}, mechatronics~\citep{Steinbuch1998,Oomen2016}, vibration analysis~\citep{Karnopp1995,Voorhoeve2015SYSID} and acoustics testing amongst others. %TODO reference acoustics (ISMA?)
 
   Any \gls{LTI} system of finite order can be expanded into a finite sum of sub-systems of first and second order by means of a partial fraction expansion~\citep{Oppenheim1983}.
   Therefore the performance of the proposed method is assessed on a prototype system of second order.
@@ -44,6 +43,7 @@ Such problem settings occur in many diverse fields of experimentation, such as t
   Remember that an \gls{LTI} system is naturally described in a logarithmic frequency axis (the slopes of such a system are specified in $\unit{dB}/\text{decade}$).
   Hence, an excitation with a flat power spectrum and a linearly spaced frequency grid will over-excite the high end of the band at the cost of the low frequencies.
   To restore equal excitation signal levels over the complete range of frequencies, we will need to distribute the power in $1/\omega$ over the frequency band.
+  \TODO{cite SYSID2006 papers: Rojas2006, Goodman2006, ...}
   In a noise excitation context, this results in pink noise.
   In a periodic setting, this results in a multisine whose frequency components are spaced equidistantly on a logarithmic axis.
   
@@ -71,7 +71,7 @@ For the theoretical analysis, we consider \gls{SISO} \gls{OE} systems, i.e.
 \begin{align}
 y(t) &=G(s,\theta)u(t)  + e(t),
 \end{align}
-where $u(t)$ is a known input sequence, $y(t)$ the output sequence and $e(t)$ is zero mean Gaussian white noise with variance $\sigma_{e}^2$.
+where $u(t)$ is a known input sequence, $y(t)$ the output sequence, and $e(t)$ is zero mean Gaussian white noise with variance $\sigma_{e}^2$.
 $G$ is a rational, time invariant transfer function in continuous time.
 For notational simplicity, $s$ is used both as the complex Laplace variable and the differentiation operator; it should be clear from the context which is used. 
 The transfer function is parameterized by the vector $\theta$.
@@ -433,34 +433,36 @@ Each term in \eqref{eq:excitation:PFE} represents a \term{sub-system} of the sys
 
 Consider the second-order subsystem with multiplicity $\multiplicity$:
 \begin{equation}
-  G_2(s, \theta) = \frac{K \wn^{2 \multiplicity} \left( s + \wz \right)}{\wz \left(s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity}}
+  G_2(s, \theta) = \frac{\dc \wn^{2 \multiplicity} \left( s + \wz \right)}{\wz \left(s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity}}
 \label{eq:excitation:secondOrderSubsystem}
 \end{equation}
 parametrized in $\theta =  \left[K, \wn, \wz, \damping \right]^{\T}$.
 To determine the Fisher Information matrix, the derivative $\PartialDerivative{G(s,\theta)}{\theta}$ is required; its components are given by:
 \begin{align}
-  \PartialDerivative{G_2}{K} 
+  \PartialDerivative{G_2}{\dc} 
     &= 
+    \frac{G_2}{\dc}
+    =
   \frac{\wn^{2\multiplicity}}{\wz}
   \frac{s + \wz}{\left(s^2 + 2 \damping \wn s + \wn^2\right)^{\multiplicity}}
   \\
   \PartialDerivative{G_2}{\wz} 
     &= 
-    \frac{-K \wn^{2\multiplicity}}
+    \frac{-\dc \wn^{2\multiplicity}}
               {\wz} 
     \frac{s}
               {\left(s^2 + 2 \damping \wn s + \wn^2\right)^{\multiplicity}} 
   \\
   \PartialDerivative{G_2}{\wn} 
   &= 
-  \frac{2 K \wn^{2\multiplicity-1} \multiplicity}
+  \frac{2 \dc \wn^{2\multiplicity-1} \multiplicity}
             {\wz} 
   \frac{\left( s + \wz \right) \left( s+ \damping \wn \right)}
             {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity + 1}}
   \\
   \PartialDerivative{G_2}{\damping}
   &= 
-  \frac{-2 K \wn^{2\multiplicity + 1} \multiplicity}
+  \frac{-2 \dc \wn^{2\multiplicity + 1} \multiplicity}
             {\wz}
   \frac{s \left( s + \wz \right)}
              {\left( s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity + 1}}
@@ -470,6 +472,7 @@ To determine the Fisher Information matrix, the derivative $\PartialDerivative{G
 The poles of these derivatives coincide with the system poles (possibly with increased multiplicity).
 Consequently, this means that for lightly-damped systems ($\damping \ll \sqrt{2}$), these derivatives exhibit a sharp resonance peak at the same frequency as the actual sub-system $G_2$, see also \figref{fig:excitation:derivatives}.
 The roll-off near the resonance is determined mainly by the damping $\damping$ and the multiplicity $\multiplicity$ of the sub-system.
+The relationship between the frequency of the zero $\wz$ and the resonance frequency $\wn$ alters the shape of these derivatives, but has little impact in the vicinity of the resonance peak.
 As such, the Fisher information matrix is pre-dominantly determined by the input power spectrum near $\wn$.
 Note that $\PartialDerivative{G_2}{\wn}$ and $\PartialDerivative{G_2}{\damping}$ have the steepest roll-off near the resonance.
 As such, those parameters are the most important for the experiment design.
@@ -503,7 +506,9 @@ The resonance frequencies $\wn[i]$ and $\wn[j]$ of all the different sub-systems
 Under these assumptions, the Fisher information matrix will be approximately a diagonal block matrix, where the $i^{\text{th}}$ block corresponds to the parameters $\left[\wn[i], \wz[i], \damping[i], \dc[i,1], \ldots, \dc[i,M_{2,i}] \right]$ of a particular sub-system.
 Using the same logic as in \secref{sec:excitation:ex:sumOfSecondOrderSipmle}, this means that the variance of the complete system is approximately equal to the variance obtained for each sub-system, due to the decoupling of the Fisher information matrix.
 
+
 \paragraph{System and noise model}
+%TODO: move this paragraph forward (before Fi matrix)
   In the remainder of this chapter, an \gls{OE} setting is used.
   Denote
     $U  \left(\omega\right)$ as the excitation signal,
@@ -521,7 +526,7 @@ Using the same logic as in \secref{sec:excitation:ex:sumOfSecondOrderSipmle}, th
 
 \section{Multisine Excitations}
 \label{sec:excitation:multisine}
-In contrast to signal with a continuous $1/f$ \gls{PSD} presented in \secref{sec:excitation:logarithmic}, similar results can be obtained by using signals that have a discrete frequency grid.
+In contrast to signals with a continuous $1/f$ \gls{PSD} presented in \secref{sec:excitation:logarithmic}, similar results can be obtained by using signals that have a discrete frequency grid.
 Such signals are presented in this section.
 
   To excite the system under test we consider a generalization of multisine excitations \citep{Pintelon2012}:
@@ -558,6 +563,8 @@ Such signals are presented in this section.
       = \lcm \set{f_1^{-1}, \ldots, f_F^{-1}}
     \text{.}
   \end{equation}
+  %TODO: johan: te ingewikkeld (tot 2.5.1 wegdoen)
+  %T
   \begin{definition}[Least common (integer) multiple] \label{def:excitation:lcm-real}
   The least common multiple of the set of values $T_k \in \mathbb{F}\without\set{0}$ for $k \in \mathbb{K} \isdef \set{1, \ldots, F}$ is  
   \begin{equation}
@@ -712,7 +719,7 @@ Such signals are presented in this section.
   \end{equation}
   under the constraint that
   \begin{equation}
-    f_k = N \cdot \Delta f,\; N \in \NN
+    f_k = N_k \cdot \Delta f,\; N_k \in \NN
     \text{.}
     \label{eq:excitation:constraintLinGrid}
   \end{equation}
@@ -772,6 +779,7 @@ with
   This means that rounding using the \mcode{floor} operator favors to strictly attain the specified frequency bin density at the cost of a few more excited lines (and hence less allottable power per line).
   The \mcode{ceil} function produces a grid that has more power per line at the cost of a reduced bin density.
   On the other hand, using \mcode{round} as in \eqref{eq:excitation:qlog:roundAlpha}, provides a grid that is somewhere in-between both extremes.
+  For this reason, the grid constructed using $\alpha_k^{\round{}}$, i.e. by using the normal \mcode{round} function, has been used in the remaind of this chapter.
   \end{remark}
 
   As this signal approximates a logarithmically spaced signal,  we expect that it will exhibit comparable properties.
@@ -913,6 +921,8 @@ with
   At the lowest frequencies the quasi-log grid and the linear grid frequencies do coincide and each line in the quasi-log grid is surrounded by many lines of the log grid.
   The amplitudes of the compensated and pink quasi-log lines show that the compensation only has effect at the lower frequencies since the uncompensated counterpart has an amplitude spectrum close to $1$.
   We can expect a very similar behavior from properly designed compensated quasi-log multisines and from the `pink' quasi-log multisine, since their amplitude spectra are almost identical.
+  As such, it is advised to use `pink' quasi-log multisines as those can be constructed using more straightforward code (equation \eqref{eq:excitation:pink}) than the compensated quasi-log multisines (equations \eqref{eq:excitation:nfk}, \eqref{eq:excitation:nearestLines} , and \eqref{eq:excitation:compensationAk}).
+  %TODO: mention crest factor? (here compensation/pink hurts)
 
 \section{Optimization of the frequency spacing} 
 \label{sec:excitation:optimAlpha}
