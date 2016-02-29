@@ -12,7 +12,7 @@
 \definecolor{mycolor1}{rgb}{0,0.501961,0}
 \definecolor{mycolor2}{rgb}{0,1,1}
 \definecolor{mycolor3}{rgb}{1,0,1}
-\input{\thisDir/grids.inc.tex}
+
 
 \begin{semilogxaxis}[%
 scale only axis,

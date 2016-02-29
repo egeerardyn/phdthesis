@@ -25,7 +25,7 @@ E.g. the approach followed by~\citet{Rojas2007} relies on both nominal parameter
 As such, this requires more advanced prior knowledge of the system to cope with the uncertainty of the prior knowledge.
 \end{enumerate}
 
-\subsection{Approach in this chapter}
+\subsection{General purpose robust excitation signals}
 \label{sec:excitation:intro:approach}
 In this chapter, the goal is to construct excitation signals that bridge the properties of general purpose and robust excitation signals to alleviate the chicken-and-the-egg problem that optimal strategies typically incur.
 In particular, a generic excitation signal will be used, but its properties are tuned in such a way that it attains some properties of robust excitation signals without requiring extensive prior information.
@@ -959,9 +959,9 @@ with
                \left[ \left.
                \begin{matrix}
                  \frac{\sigma^2_E\left(\omega_1 \right) }
-                      {\abs{ U\left(\omega_1 \right)}^2 } & 0 & 0 \\
-                 0 & \ddots & 0 \\
-                 0 & 0 & \frac{\sigma^2_E\left(\omega_F \right) }
+                      {\abs{ U\left(\omega_1 \right)}^2 } & \deemph{0} & \deemph{0}\\
+                 \deemph{0} & \ddots & \deemph{0} \\
+                 \deemph{0} & \deemph{0} & \frac{\sigma^2_E\left(\omega_F \right) }
                               {\abs{U\left(\omega_F \right)}^2 }
                \end{matrix}
                \right.^{\vphantom{x}}\right]
@@ -1237,14 +1237,14 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   The obtained FRF is then fitted to the transfer function model \eqref{eq:excitation:secondOrderSystemDTidentifiable} using the \texttt{elis} function of the \FDIDENT~\citep{FDIDENT} for \MATLAB.
   This is a maximum likelihood estimator that fits a parametric model to the measured data in the frequency domain.
   %TODO: add formulas with cost function etc.
-  To aid convergence and avoid local minima, the initial values for the model are chosen equal to the parameters of the true system $G_0(z)$, so that we can focus completely on the variance of the estimations.
+  To improve convergence and avoid local minima, the initial values for the model are chosen equal to the parameters of the true system $G_0(z)$, so that we can focus completely on the variance of the estimations.
 
   Such an experiment is repeated $R=1000$ times with a different random phase  spectrum $\phi_k$ and a different noise realization $e[n]$ for each experiment.
 
   \begin{remark}
   All simulations  have been repeated as well by fitting with the \MATLAB System Identification Toolbox by means of the \mcode{oe} function~\citep{TDIDENT}.
   The observed results were similar and hence are not elaborated further in this text.
-  For more information, please refer to \citep{Larsson2012SYSID}.
+  For more information, please refer to~\citep{Larsson2012SYSID}.
   \end{remark}
 
   \subsection{Systems with a `high' damping}
@@ -1262,7 +1262,6 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
     \input{\thisDir/figs/Sys02-4.tikz}
     \caption[Simulated \gls{FRF} and its variance for different excitation signals.]{\gls{FRF}~\legref{leg:excitation:sim:FRF} of a second order system with $\fR=40\unit{Hz}$ and $\damping=0.2$ along with the corresponding variance and bias of the parametric models obtained using three different kinds of multisine excitations.}%
     \label{fig:excitation:FRF1}
-    %TODO: fix markers for bias
   \end{figure}
 
   \figref{fig:excitation:damping02} displays the estimated transfer functions and their uncertainty in the vicinity of their corresponding resonances for the whole set of considered systems.
@@ -1335,7 +1334,7 @@ For example, a system composed of two second order systems with $\damping = 0.2$
   \setlength\figureheight{0.68\figurewidth}
   \input{\thisDir/figs/Sum02log0-2.tikz}
   \caption{FRF for the sum of two second order systems with $\damping=0.2$ and
-           resonances at $ 400 \unit{Hz}$ and 4 \unit{kHz} as observed by a logarithmic multisine.}%
+           resonances at $ 400 \unit{Hz}$ and 4 \unit{kHz} as observed by a quasi-logarithmic multisine.}%
   \label{fig:excitation:sumSys}
 \end{figure}
 
@@ -1350,8 +1349,9 @@ This shows that both resonances are captured with a practically identical relati
     To show that this methodology also works for more complicated systems, we measured the frequency response functions of a \bruelkjaer Type 1613 Octave Filter Set using a National Instruments Elvis~II board driven by \labview.
     
     The \BK~1613 contains a set of eleven analog passive band-pass filters with center frequencies $\fc$ that are logarithmically distributed between $31.5\unit{Hz}$ and $31.5\unit{kHz}$ inclusive.
-    According to its manual \citep{datasheet_bk1613}, a $0.5\unit{dB}$ ripple with three resonances is present in the pass-band and the $3\unit{dB}$ break frequencies are located at $\frac{\fc}{\sqrt{2}}$ and $\fc \sqrt{2}$.
-    A first guess to realize such a filter is a third-order Chebyshev band-pass filter of Type I \citep{Zverev1967} for which the poles have a damping that is larger than $0.09$.
+    According to its manual~\citep{datasheet_bk1613}, a $0.5\unit{dB}$ ripple with three resonances is present in the pass-band and the $3\unit{dB}$ break frequencies are located at $\frac{\fc}{\sqrt{2}}$ and $\fc \sqrt{2}$.
+    A first guess to realize such a filter is a sixth-order Chebyshev band-pass filter of Type I~\citep{Zverev1967} for which the poles have a damping that is larger than $0.09$.
+    %TODO: datasheet FRF?, pzmap with \damping shown, evt. tabel: per pool-paar: \wn ifv \wc, \damping
     Since the different pole pairs that constitute such a filter have a different damping, this is an ideally suited system to evaluate the proposed method.
     The `shape' of the transfer function of the different filters is nominally identical, which allows for an easy visual comparison between the model uncertainty of the different filters.
 
@@ -1369,7 +1369,7 @@ This shows that both resonances are captured with a practically identical relati
       G(s) = \frac{\Sum_{i=0}^3 b_i s^i}{\Sum_{i=0}^6 a_i s^i}
     \end{equation}
     was estimated using \texttt{elis}~\citep{FDIDENT}.
-    The initial estimate was a sixth-order band-pass type I Chebyshev filter \citep{Zverev1967} that conformed to the information given in the datasheet \citep{datasheet_bk1613} to aid convergence to a good optimum.
+    The initial estimate was a sixth-order band-pass type I Chebyshev filter~\citep{Zverev1967} that conformed to the information given in the datasheet~\citep{datasheet_bk1613} to aid convergence to a good optimum.
 
     We summarize the behavior of these parametric models by their average $G\left(\theta,\omega \right)$ over the different periods and their standard deviation $\sigma_G\left(\theta,\omega \right)$.
 
@@ -1381,7 +1381,8 @@ This shows that both resonances are captured with a practically identical relati
       \setlength\figurewidth{0.8\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/qlog_a050mall.tikz}
-    \caption[Measured FRFs of all BK1613 octave filters and their variance for different excitation signals.]{Measured FRFs of the different \bruelkjaer BK1613 octave filters together with the observed variance for a linear, quasi-log and pink quasi-log grid multisine.}%
+    \caption[Measured FRFs of all BK1613 octave filters and their variance for different excitation signals.]{Measured FRFs of the different \bruelkjaer BK1613 octave filters together with the observed variance for a linear, quasi-log and pink quasi-log grid multisine.}
+    \TODO{use styles from above}
       \label{fig:excitation:measurements}
     \end{figure}
 

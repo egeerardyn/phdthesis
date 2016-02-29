@@ -11,7 +11,7 @@
 \begin{tikzpicture}
 
 
-\input{\thisDir/grids.inc.tex}
+
 
 \begin{semilogxaxis}[%
 width=\figurewidth,

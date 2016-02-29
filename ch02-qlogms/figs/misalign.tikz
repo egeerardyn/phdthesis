@@ -8,21 +8,21 @@
 % 
 \begin{tikzpicture}
 
-% defining custom colors
+% % defining custom colors
 
-%% marker styles
-  \definecolor{bwfill}{named}{TangoAluminium2}
-  \definecolor{bwline}{named}{TangoAluminium5}
+% %% marker styles
+%   \definecolor{bwfill}{named}{TangoAluminium2}
+%   \definecolor{bwline}{named}{TangoAluminium5}
 
-%% pgfplots styles
-\pgfplotsset{signalrectangle/.style={fill=signal!60!black,fill opacity=0.8,color=signal!30}}
-\pgfplotsset{signalrectanglerobust/.style={fill=signal!50,fill opacity=0.5,color=signal!30}}
+% %% pgfplots styles
+% \pgfplotsset{signalrectangle/.style={fill=signal!60!black,fill opacity=0.8,color=signal!30}}
+% \pgfplotsset{signalrectanglerobust/.style={fill=signal!50,fill opacity=0.5,color=signal!30}}
 
-\tikzset{showdistance/.style={|-|,line width=1pt}}
+% \tikzset{showdistance/.style={|-|,line width=1pt}}
 
-% \pgfplotsset{frf/.style={color=black,solid,line width=3.0pt}}
-\pgfplotsset{bw/.style={fill=bwfill,draw=bwline}}
-% \pgfplotsset{signal/.style={ycomb,color=signal,solid,line width=3.0pt}}
+% % \pgfplotsset{frf/.style={color=black,solid,line width=3.0pt}}
+% \pgfplotsset{bw/.style={fill=bwfill,draw=bwline}}
+% % \pgfplotsset{signal/.style={ycomb,color=signal,solid,line width=3.0pt}}
 
 \begin{semilogxaxis}[%
 name=plotSetup,
@@ -72,7 +72,7 @@ axis on top]
 \draw [color=misalign,line width=1pt]
         (axis cs: 3.26,19.9888) -- (axis cs: 3.26,21.5) node[above]{$\mathbf{\beta}$};
 
-\addplot [frf] table[row sep=crcr]{
+\addplot [mainsys] table[row sep=crcr]{
  1	0.84897\\
 1.00768	0.862718\\
 1.01541	0.876699\\
@@ -425,7 +425,7 @@ axis on top]
 
 \draw [color=signal!80,dotted] (axis cs: 3.7399,12) -- (axis cs: 3.7399,16.43);
 
-\addplot [frf] table[row sep=crcr]{
+\addplot [mainsys] table[row sep=crcr]{
  1.49926843278605	13.0081922428338\\
 1.51671688847092	13.0240158341446\\
 1.53436840893001	13.040254059183\\
@@ -581,8 +581,6 @@ axis on top]
 };
 
 \draw [<->,color=signal] (axis cs: 5.17947,4) -- (axis cs: 7.19686,4) node[above,pos=0.5] {$\alpha$};
-
-% \draw (rel axis cs:0.99,0.99) node[anchor=north east] { \includegraphics[width=2.5cm,keepaspectratio=true]{happy.pdf}};
 
 \end{semilogxaxis}
 

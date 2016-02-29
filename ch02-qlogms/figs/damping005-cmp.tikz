@@ -10,7 +10,7 @@
 
 % defining custom colors
 
-\input{\thisDir/grids.inc.tex}
+
 
 \begin{semilogxaxis}[%
 scale only axis,
