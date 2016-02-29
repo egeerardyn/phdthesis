@@ -557,62 +557,34 @@ Such signals are presented in this section.
   \end{itemize}
   Note that the $k^{\text{th}}$ term in \eqref{eq:excitation:MultisineCT} is periodic with period $T_k \isdef f_k^{-1}$.
 
-  Consequently, the complete multisine has a period $T_{u(t)}$ that is the common multiple of the period of all its components:
+  Consequently, the complete multisine has a period $T_{u(t)}$ that is the (least) common multiple of the period of its components:
   \begin{equation}
     T_{u(t)}  = \lcm \set{T_1, \ldots, T_F}
       = \lcm \set{f_1^{-1}, \ldots, f_F^{-1}}
     \text{.}
   \end{equation}
-  %TODO: johan: te ingewikkeld (tot 2.5.1 wegdoen)
-  %T
-  \begin{definition}[Least common (integer) multiple] \label{def:excitation:lcm-real}
-  The least common multiple of the set of values $T_k \in \mathbb{F}\without\set{0}$ for $k \in \mathbb{K} \isdef \set{1, \ldots, F}$ is  
-  \begin{equation}
-    \lcm \set{T_1, \ldots, T_F} \isdef
-      \min \Set{T |\forall k \in \mathbb{K}, \exists n_k \in \NaturalNumbersWithoutZero: n_k T_k = T }
-   \end{equation}
-   if such a minimum exists.
-   When $\mathbb{F} \in \Set{\NaturalNumbers, \Integers, \RationalNumbers}$, a minimum always exists.
-   For $\mathbb{F} = \RealNumbers$, a minimum is not guaranteed to exist (see below).
-   % more info: http://mathworld.wolfram.com/LeastCommonMultiple.html
-   \end{definition}
+
   \begin{example}
    Consider a generalized multisine where $f_1 = 1 \unit{Hz}$ and $f_2 = \tfrac{2}{3} \unit{Hz}$.
    The corresponding periods are $T_1 = f_1^{-1} = 1 \unit{s}$ and $T_2 = f_2^{-1} = 1.5 \unit{s}$.
-   The overall period of the multisine is $T = n_1 T_1 = n_2 T_2 = 3 \unit{s}$, i.e. $n_1 = 3$ and $n_2=2$.
+   The overall period of the multisine is $T_{u(t)} = n_1 T_1 = n_2 T_2 = 3 \unit{s}$, i.e. $n_1 = 3$ and $n_2=2$.
   \end{example}
 
   \begin{example}\label{eg:excitation:non-periodic}
-   Consider the generalized multisine of the previous example to which a spectral component is added at $f_3 = \pi \unit{Hz}$, or equivalently one with a period of $T_3 = \pi^{-1} \unit{s}$.
-   Then it is not possible to determine integer values $n_1$, $n_2$, $n_3$ such that $n_1 T_1 = n_2 T_2 = n_3 T_3$ since $T_3$ is an irrational number of seconds (unlike $T_1$ and $T_2$).
-   Consequently, such a generalized `multisine' is not periodic.
+   Consider the generalized multisine with $f_1 = 1 \unit{Hz}$, $f_2 = \pi \unit{Hz}$, and $f_3 = \pi^2 \unit{Hz}$.
+   The corresponding periods are then $T_1 = 1 \unit{s}$, $T_2 = \pi^{-1} \unit{s}$, and $T_3 = \pi^{-2} \unit{s}$.
+   However, a common multiple of those periods cannot be found since there exist no positive integers $n_1$, $n_2$, and $n_3$ that ensure that $T_{u(t)} = n_1 T_1 = n_2 T_2 = n_3 T_3$.
+   As such, this generalized `multisine' is not periodic.
   \end{example}
-  \begin{remark}
-  In practical applications each frequency will be represented as either a fixed-point or floating point number with a limited numerical precision $\eps$.
-  Hence, each frequency line $f_k$ will be approximated by a line at $\round{f_k \eps^{-1}} \eps \isdef m_k \eps$ where $m_k \in \Integers$.
-  The resulting multisine has a period 
-  \begin{equation}
-     T 
-     = \lcm \Set{T_k |  k \in \mathbb{K}} 
-     = \lcm \Set{m_k^{-1} \eps^{-1} |  k \in \mathbb{K}}
-     = \eps^{-1} \lcm \Set{m_k^{-1} |  k \in \mathbb{K}}
-     \text{.}
-  \end{equation}
-  The latter $\lcm$ always exists because $m_k^{-1}  \in \RationalNumbers$ as $m_k \in \Integers$.
-  The resulting period $T$ might, however, might be too long for practical use.
-  E.g. when $\eps \approx 1.2\cdot 10^{-7}$ (\code{single} precision), the period of a multisine with components as in Example~\ref{eg:excitation:non-periodic} is $T \approx 8.4 \cdot 10^{6} \unit{s} \approx 97 \unit{days}$.
-  For \code{double} precision, $\eps \approx 2.2 \cdot 10^{-16}$ and the period $T \approx 9 \cdot 10^{6} \unit{year}$.
-  \end{remark}
 
   This last example illustrates that a least common multiple of real numbers is not guaranteed to exist.
   Consequently, the generalized multisine of \defref{def:excitation:generalized-MS} is not guaranteed to be periodic.
-  In actual implementations with limited numerical precision, this gives rise to signals that are periodic but whose period can be too long to be practically viable for periodic measurements.
-  Consequently, it is undesirable to use generalized multisines that have an overly long period.
   
 \subsection{Equidistant (Linear) Grid Multisine}
-  In many applications, an equidistant frequency grid is used for $u\left( t\right) $ because this fits best with the classical \gls{DFT} analysis \citep{OppenheimDT,Mandal2007}. 
+  In many applications, an equidistant frequency grid is used for $u\left( t\right) $ because this fits best with the classical \gls{DFT} analysis \citep{OppenheimDT,Mandal2007}.
   It allows to analyze periodic signals on an equidistant frequency grid very efficiently.
   For such a frequency grid, it is guaranteed that the signal is periodic in the time domain, unlike for the generalized multisines of the previous section.
+  Moreover, such a signal can be created easily using a waveform generator that has a constant sampling frequency $f_s$.
   
   An equidistant frequency grid $\set{f_1, \ldots, f_F}$ with spacing $\Delta f$
   consisting of $F$ lines conforms to the following relation:
@@ -647,19 +619,18 @@ Such signals are presented in this section.
   our situation as it wastes signal power at high frequencies at the cost of an increased variance in the lower side of the band.
   
 \subsection{(Ideal) Logarithmic Grid Multisine}
-  For a logarithmic frequency grid $\set{f_1, \ldots, f_F}$ of $F$ lines,
-  the following relation holds between excited frequencies:
+  For a logarithmic frequency grid $\set{f_1, \ldots, f_F}$ of $F$ lines, the following relation holds between excited frequencies:
   \begin{equation}
     f_k = \alpha \cdot f_{k-1}
     \emspace \forall k \in \set{1,\ldots,F}
   \label{eq:excitation:logGrid}
   \end{equation}
   for a given lowest frequency $f_0$ and frequency ratio $\alpha > 1$.
+  Note that for $\alpha \in \NaturalNumbers$, such a frequency grid is a subset of a linear frequency grid and hence the multisine is periodic.
+  However, when $\alpha \not\in \NaturalNumbers$, the signal is not guaranteed to be periodic (see \egref{eg:excitation:non-periodic}).
 
-  When designing an excitation signal, it is common only to specify a (large) frequency band
-  by its boundary frequencies $f_{\min}$ and $f_{\max}$.
-  For a given $\alpha$ it is easy to determine the number of excited lines
-  within the frequency range of interest:
+  When designing an excitation signal, it is common only to specify a (large) frequency band by its boundary frequencies $f_{\min}$ and $f_{\max}$.
+  For a given $\alpha$ it is easy to determine the number of excited lines within the frequency range of interest:
     \begin{equation}
       F = \floor{
                   \frac{\log{f_{\max}} - \log{f_{\min}}}
@@ -793,10 +764,8 @@ with
   Note that we are not able to restore the frequency resolution, only the power in a certain band is made equal to the power in the logarithmic multisine in the same band.
 
   First of all, we need to determine the factor $A_k$ needed to correct the power spectrum to match that of a log grid multisine.
-  To this end, one first constructs a log frequency grid $\LOGGRID = \set{\f_1, \ldots, \f_{F'}}$ for a given factor $\alpha$ and the corresponding quasi-log grid $\QLOGGRID = \set{f_1, \ldots, f_F}$ for a resolution $\Delta f$.
-  For each frequency $f_k$ in the quasi-log grid, we define $n\left(f_k\right)$
-  as the number of frequencies in the log grid that are nearer to $f_k$
-  than to any other grid line in the quasi-log grid:
+  To this end, one first constructs a logarithmic frequency grid $\LOGGRID = \set{\f_1, \ldots, \f_{F'}}$ for a given factor $\alpha$ and the corresponding quasi-log grid $\QLOGGRID = \set{f_1, \ldots, f_F}$ for a resolution $\Delta f$.
+  For each frequency $f_k$ in the quasi-log grid, we define $n\left(f_k\right)$ as the number of frequencies in the logarithmic grid that are nearer to $f_k$ than to any other grid line in the quasi-log grid:
   
   \begin{equation}
     n\left(f_k\right) = \numberOf \mathrm{nearestLines}_{f_k}
@@ -873,6 +842,7 @@ with
       \setlength\figureheight{0.5\figurewidth}
     \input{\thisDir/figs/freqGrid.tikz}
     \caption[Amplitude spectrum for linear, logarithmic, quasi-logarithmic grids.]{Comparison of the amplitude spectrum of a linear grid multisine, a logarithmic grid multisine, the compensated quasi-logarithmic multisine and the `pink' quasi-log multisine.}%
+    \TODO{use same color conventions here}
     \label{fig:excitation:freqGrids}
   \end{figure}
 
@@ -1056,6 +1026,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
   The value of $N$ will not influence the `shape` (and uncertainty) of the FRF.
 
   The arguments for a logarithmically spaced grid with an infinite span remain approximately valid for quasi-logarithmically spaced grids with a finite frequency support if the resonance peak of the system under test lies within the `bulk' of the frequency grid with finite support.
+  \TODO{rule of thumb: when is it bulk or not? $f(\alpha,f_0,\Delta f, \wn, \damping)$}
   This can be understood intuitively by inspecting the derivatives that constitute the Fisher information matrix (see \figref{fig:excitation:derivatives}): those derivatives are significantly larger near the resonance frequency than at other frequencies.
 
   I.e. there should be a few excited frequency lines that are logarithmically spaced, outside of the resonance peak of the actual system.
@@ -1325,6 +1296,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   \eqref{eq:excitation:secondOrderSystemDTidentifiable} using this little information in the $3\unit{dB}$ bandwidth of the system.
   In other words, the resonances of the systems at low frequencies, can no longer be considered to lie within the bulk of the logarithmic part of the quasi-logarithmic frequency grids.
   We do see, however, that the variance in the vicinity of the resonance is lower than in the case of a linearly spaced excitation.
+  \TODO{determine rule-of-thumb: resonance peak $\tuple{\wn,\damping}$ in bulk of grid $\tuple{\alpha,\omega_0,\Delta f}$}
 
   \subsection{Simulation example on higher order systems}
 To show that the suggested method also works on more general systems, we considered a system that consists of two second order systems \eqref{eq:excitation:secondOrderSystemDTidentifiable} in parallel. This is equivalent to adding their respective transfer functions, therefore, the resulting transfer function is of the form:
