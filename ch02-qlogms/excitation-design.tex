@@ -13,13 +13,13 @@ A common approach is to design the input spectrum and thereby maximizing the inf
 
 A complicating issue in identification of dynamic system is the fact that the information matrix often depends on the true parameter values. 
 Consequently, an optimal input design, based on the information matrix, will depend on quantities that are not know at the time of the design.
-There are two main solutions to this in the engineering literature:
+There are two main solutions to this in the engineering literature~\citep{Goodwin2006GBO}:
 \begin{enumerate}
-\item Iterative input design where the design updated as more information about the system is available, see e.g. \citep{Hjalmarsson2005,Gevers2005}.
+\item Iterative input design where the design updated as more information about the system is available, see e.g.~\citep{Hjalmarsson2005,Gevers2005}.
 The disadvantage of this approach is that multiple experiments are required to converge to the optimal design.
-Moreover, since the signal is optimized for a specific system model, it is likely that changes in the dynamics might be hard to observe using such a signal.
+Moreover, since the signal is optimized for a specific system model, it is likely that changes in the dynamics are hard to observe using such a signal.
 
-\item Robust (optimal) input design makes the input design robust to uncertainty in the prior knowledge of the parameter values, see e.g.~\citep{Rojas2007} and references therein. 
+\item Robust (optimal) input design makes the input design robust to uncertainty in the prior knowledge of the parameter values, see e.g.~\citep{Rojas2007,Goodwin2006GBO,Rojas2012} and references therein. 
 While the signal is more robust towards uncertainty in the prior knowledge, it requires more forethought than (nominal) optimal designs.
 E.g. the approach followed by~\citet{Rojas2007} relies on both nominal parameter values and  knowledge of the distribution function of these parameters to design a robust (optimal) excitation signal.
 As such, this requires more advanced prior knowledge of the system to cope with the uncertainty of the prior knowledge.
@@ -42,8 +42,7 @@ Such problem settings occur in many diverse fields of experimentation, such as t
   For a system with a sufficiently low damping, one can intuitively understand that most of the information is contained within the $3 \unit{dB}$ bandwidth of the system.
   Remember that an \gls{LTI} system is naturally described in a logarithmic frequency axis (the slopes of such a system are specified in $\unit{dB}/\text{decade}$).
   Hence, an excitation with a flat power spectrum and a linearly spaced frequency grid will over-excite the high end of the band at the cost of the low frequencies.
-  To restore equal excitation signal levels over the complete range of frequencies, we will need to distribute the power in $1/\omega$ over the frequency band.
-  \TODO{cite SYSID2006 papers: Rojas2006, Goodman2006, ...}
+  To restore equal excitation signal levels over the complete range of frequencies, we will need to distribute the power in $1/\omega$ over the frequency band~\citep{Goodwin2006,Goodwin2006GBO}.
   In a noise excitation context, this results in pink noise.
   In a periodic setting, this results in a multisine whose frequency components are spaced equidistantly on a logarithmic axis.
   
