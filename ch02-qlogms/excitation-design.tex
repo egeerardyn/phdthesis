@@ -658,7 +658,7 @@ Such signals are presented in this section.
     In different contexts, e.g. electrical circuit simulators such as \gls{SPICE}~\citep{Kundert1995}, measurement equipment such as \glspl{DSA} and programming languages, it is more common to specify the spacing of a logarithmic grid using the total number of frequencies ($F$) or the number of frequencies per decade ($F_{\decade}$) instead of the grid ratio $\alpha$.
     Obviously, such alternative specifications are equivalent.
   \end{remark}
-  \begin{example}
+  \begin{example} \label{eg:excitation:logarithmicGrid:matlab}
     The \MATLAB code \mcode[mathescape]{f = logspace(log10($f_{\min}$), log10($f_{\max}$), $F$)} produces a logarithmically spaced frequency vector \mcode{f} with $F$ elements in the range $\left[ f_{\min}, f_{\max} \right]$.
     As such, the effective frequency ratio $\alpha = \sqrt[F]{\frac{f_{\max}}{f_{\min}}}$ in this vector.
   \end{example}
@@ -702,6 +702,12 @@ Such signals are presented in this section.
   Consequently, the power spectrum at these low frequencies will be less than the one of an ideal logarithmic frequency grid.
   \end{remark}
 
+  \begin{definition} \label{def:excitation:bulk}
+  We denote the `\term{bulk}' of the quasi-logarithmic frequency grid as the frequency region where $\frac{f_k}{f_{k-1}} \approx \alpha$ can be attained.
+  A necessary condition for $f_k$ to be part of the bulk is that $\Delta f \leq \left(\alpha -1 \right) f_{k-1}$.
+  Equivalently, the bulk can be seen as the frequency interval $\RightOpenInterval{\frac{\Delta f}{\alpha - 1} , +\infty}$.
+  \end{definition}
+
   \begin{definition}
   The effective frequency ratio $\alpha_k$ of a frequency grid is
   \begin{equation}
@@ -715,7 +721,7 @@ Such signals are presented in this section.
   The quasi-logarithmic grids depicted in this chapter are constructed using the relationship
   \begin{align}
        \label{eq:excitation:qlog:gridDef}
-    f_k & = \alpha_k(N_k) f_{k-1}  
+    f_k & = \alpha_k(n_k) f_{k-1}  
         \quad
             \forall k \in \set{1,\ldots,F}
 \end{align}
@@ -723,11 +729,11 @@ with
 \begin{align}
      \label{eq:excitation:qlog:roundAlpha}
       \alpha_k(N_k) & \isdef 
-          \round{   \frac{\alpha^{N_k} f_{k-1}}{\Delta f}}    
+          \round{   \frac{\alpha^{n_k} f_{k-1}}{\Delta f}}    
            \frac{\Delta f}{f_{k-1}}
       \approx \alpha \text{, and}\\
          \label{eq:excitation:qlog:alphaPowerDef}
-          N_k & \isdef 
+          n_k & \isdef 
             \min 
             \set{n | n \in \NaturalNumbers, \alpha_k(n) > 1}
      \text{.}
@@ -750,8 +756,13 @@ with
   This means that rounding using the \mcode{floor} operator favors to strictly attain the specified frequency bin density at the cost of a few more excited lines (and hence less allottable power per line).
   The \mcode{ceil} function produces a grid that has more power per line at the cost of a reduced bin density.
   On the other hand, using \mcode{round} as in \eqref{eq:excitation:qlog:roundAlpha}, provides a grid that is somewhere in-between both extremes.
-  For this reason, the grid constructed using $\alpha_k^{\round{}}$, i.e. by using the normal \mcode{round} function, has been used in the remaind of this chapter.
+  For this reason, the grid constructed using $\alpha_k^{\round{}}$, i.e. by using the normal \mcode{round} function, has been used in the remainder of this chapter.
   \end{remark}
+
+  \begin{example} \label{eg:excitation:quasilogarithmicGrid:matlab}
+  An easy way to produce a quasi-logarithmic grid in \MATLAB is to first produce the logarithmic grid \code{fLog} as in  \egref{eg:excitation:logarithmicGrid:matlab} and reducing it to a quasi-logarithmic grid with resolution $\Delta f$ using \mcode[mathescape]{f = unique(round(fLog/$\Delta f$))*$\Delta f$}.
+  Note that this is a computationally efficient way since both \mcode{logspace} and \mcode{unique} require at most $\bigO{ F }$ time, where \mcode[mathescape]{$F\;$ = numel(fLog)}.
+  \end{example}
 
   As this signal approximates a logarithmically spaced signal,  we expect that it will exhibit comparable properties.
   On the other hand, by imposing \eqref{eq:excitation:constraintLinGrid}, it remains
@@ -1025,12 +1036,17 @@ Also for the design of robust excitation signals, this is worthwhile observation
   The value $\gamma$ is varied for a fixed value of $N \in \ZN$.
   The value of $N$ will not influence the `shape` (and uncertainty) of the FRF.
 
-  The arguments for a logarithmically spaced grid with an infinite span remain approximately valid for quasi-logarithmically spaced grids with a finite frequency support if the resonance peak of the system under test lies within the `bulk' of the frequency grid with finite support.
-  \TODO{rule of thumb: when is it bulk or not? $f(\alpha,f_0,\Delta f, \wn, \damping)$}
-  This can be understood intuitively by inspecting the derivatives that constitute the Fisher information matrix (see \figref{fig:excitation:derivatives}): those derivatives are significantly larger near the resonance frequency than at other frequencies.
-
-  I.e. there should be a few excited frequency lines that are logarithmically spaced, outside of the resonance peak of the actual system.
+  The arguments for a logarithmically spaced grid with an infinite span remain approximately valid for quasi-logarithmically spaced grids with a finite frequency support if the resonance peak of the system under test lies well within the `bulk' of the frequency grid with finite support, i.e. $\RightOpenInterval{\frac{2\pi \Delta f}{\alpha - 1}, +\infty}$.
+  In particular for lightly-damped sub-systems, $\wdB \approx \ClosedInterval{(1-\damping)\wn, (1+\damping)\wn}$, such that the resonance peak is in the bulk of the frequency grid when
+  \begin{equation} 
+    \frac{2 \pi \Delta f}{alpha -1} \leq \left( 1 - \damping \right) \wn
+    \text{.}
+    \label{eq:excitation:systemInBulk:generic}
+  \end{equation}
+  For more reliable results, however, it is adviced to also have a few logarithmically spaced frequency lines, outside of the resonance peak of the actual system for a more robust result.
   In practice, this means that systems with their resonance peak at the lowest and the very highest edge of the frequency band may not be observed with identical quality as systems at intermediate frequencies.
+
+  The validity of this approximation can be understood intuitively by inspecting the derivatives that constitute the Fisher information matrix (see \figref{fig:excitation:derivatives}): those derivatives are significantly larger near the resonance frequency than at other frequencies.
 
   \subsection{Exploiting the shape of the derivatives}
    In particular, from \figref{fig:excitation:derivatives}, it can be seen that the derivatives with respect to $(\wn, \damping)$ exhibit a sharper resonance and hence $(\wn, \damping)$ will prove the hardest to identify.
@@ -1295,8 +1311,19 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   It is clearly unfeasible to estimate the five parameters in
   \eqref{eq:excitation:secondOrderSystemDTidentifiable} using this little information in the $3\unit{dB}$ bandwidth of the system.
   In other words, the resonances of the systems at low frequencies, can no longer be considered to lie within the bulk of the logarithmic part of the quasi-logarithmic frequency grids.
-  We do see, however, that the variance in the vicinity of the resonance is lower than in the case of a linearly spaced excitation.
-  \TODO{determine rule-of-thumb: resonance peak $\tuple{\wn,\damping}$ in bulk of grid $\tuple{\alpha,\omega_0,\Delta f}$}
+  This can also be understood from equation \eqref{eq:excitation:systemInBulk:generic}.
+  In that equation, $\alpha = \alpha^{\star} = 1 + \damping$ such that
+  \begin{equation}
+    2 \pi \Delta f \leq (\damping - \damping^2) \wn
+    \label{eq:excitation:systemInBulk:tuned}
+  \end{equation}
+  is the necessary condition for the system bandwidth to lie within the bulk of the frequency grid when the frequency spacing has been tuned according to \secref{sec:excitation:optimAlpha}.
+  For this simulation, with $\Delta f=1\unit{Hz}$, $\damping=0.05$, this evaluates to $\wn \geq 132 \unit{rad/s} = 21 \unit{Hz}$.
+  The system with $\wR = 20 \unit{Hz} < 21 \unit{Hz}$ is still well-identified, even though `only' $3$ lines are excited in its bandwidth.
+  In that particular case, the frequency grid and the resonance peak are well-aligned ($\beta \approx 0$), which leads to a reduced variance (see also \figref{fig:excitation:worstCaseBeta}).
+
+  We do see, however, that the variance in the vicinity of the resonance of every system is lower than in the case of a linearly spaced excitation 
+
 
   \subsection{Simulation example on higher order systems}
 To show that the suggested method also works on more general systems, we considered a system that consists of two second order systems \eqref{eq:excitation:secondOrderSystemDTidentifiable} in parallel. This is equivalent to adding their respective transfer functions, therefore, the resulting transfer function is of the form:
@@ -1390,3 +1417,6 @@ The suggested compensation works well as long as the considered systems are suff
 We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equi-damped set of systems.
 The presented method allows to select a maximal value for the frequency ratio $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
 In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
+
+\TODO{vuistregels herhalen in kader: $\alpha \sim \damping[\min]$, $\wn[\min] \sim \Delta \omega, \damping[\min]$}
+\TODO{evt. plot vuistregels voor freq.grid.}

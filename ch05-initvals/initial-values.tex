@@ -140,7 +140,7 @@ Such an approach requires good initial estimates of $\theta$ to avoid inherent l
 \begin{algorithm}
 \caption{Levenberg-Marquardt~\citep{Marquardt1963}, \citep[Sec. 9.L.4]{Pintelon2012}}\label{LMalgo}
 \begin{algorithmic}[1]
-  \Require Cost function \eqref{eq:MLEcf} is rewritten as $V(\theta) = \epsilon(\theta)^{\TT} \epsilon(\theta)$. 
+  \Require Cost function \eqref{eq:MLEcf} is rewritten as $V(\theta) = \InnerProductSelf{\epsilon(\theta)}$. 
 \Function{LevenbergMarquardt}{$\epsilon(\theta),  \theta^{\mathrm{init}}$}
    \State $\atIter[0]{\theta} \gets \theta^{\mathrm{init}}$
    \Comment{$\atIter[i]{X}$ denotes $X$ at iteration $i$.}
