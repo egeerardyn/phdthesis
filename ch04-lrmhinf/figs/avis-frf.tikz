@@ -11129,9 +11129,6 @@ table[row sep=crcr]{
 % 499.984741210938 -180.084696744997\\
 % };
 
-\addplot graphics [xmin=10.25,xmax=75,ymin=-69,ymax=-18,includegraphics={keepaspectratio=true}] {\thisDir/figs/avis.jpg};
-% \addplot graphics [xmin=10.5,xmax=80,ymin=-68,ymax=-15,includegraphics={keepaspectratio=true}] {avis.pdf};
-
 
 \end{axis}
 
