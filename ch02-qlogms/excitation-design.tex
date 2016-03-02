@@ -1417,5 +1417,18 @@ We have also shown an effective way to choose the frequency spacing of a (quasi)
 The presented method allows to select a maximal value for the frequency ratio $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
 In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
 
+
+\begin{guideline}[Use quasi-logarithmic multisines as initial excitation.]
+  Quasi-logarithmic multisines with pink-colored amplitude spectrum facilitate the measurement of many sharp resonance peaks over a wide frequency band of interest with a constant quality.
+\end{guideline}
+
+\begin{guideline}[Ensure $a$ ]
+   To measure a resonant system with damping $\damping > \damping[\min]$ well, a (pink) quasi-logarithmic multisine with frequency ratio $\frac{\omega_k}{\omega_{k-1}} = \alpha \leq 1 + \damping[\min]$ is required.
+\end{guideline}
+
+\begin{guideline}[Ensure $\Delta \omega < (\damping - \damping^2) \wn \approx \damping \wn$]
+ A quasi-logarithmic multisine with frequency resolution $\Delta \omega$ and tuned frequency spacing $\alpha = 1 + \damping$ allows to identify resonance peaks with $\wn$ well.
+\end{guideline}
+
 \TODO{vuistregels herhalen in kader: $\alpha \sim \damping[\min]$, $\wn[\min] \sim \Delta \omega, \damping[\min]$}
 \TODO{evt. plot vuistregels voor freq.grid.}

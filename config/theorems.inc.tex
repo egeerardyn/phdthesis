@@ -1,0 +1,39 @@
+
+
+%% Theorem styling
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+
+\theoremstyle{plain}
+\newtheorem{assumption}{Assumption}[chapter]
+
+\theoremstyle{plain}
+\newtheorem{conjecture}{Conjecture}[chapter]
+
+\theoremstyle{plain}
+\newtheorem{example}{Example}[chapter]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[chapter]
+
+\theoremstyle{definition}
+\newtheorem{property}{Property}[chapter]
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[chapter]
+
+\theoremstyle{definition}
+\newtheorem{lemma}{Lemma}[chapter]
+
+%% 
+\usepackage{mdframed}
+\mdfdefinestyle{guidelinestyle}{% 
+  linecolor=black,
+  linewidth=1pt,
+  frametitlerule=true,
+  frametitlefont=\sffamily\bfseries,
+  frametitlebackgroundcolor=gray!20,
+  innertopmargin=\topskip,
+} 
+\mdtheorem[style=guidelinestyle]{guideline}{Guideline}[chapter]
+
