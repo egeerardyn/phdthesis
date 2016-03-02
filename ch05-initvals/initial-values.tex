@@ -1169,6 +1169,17 @@ This is also the approach that toolboxes such as \citep{FDIDENT} and \citep{TDID
 Luckily, trying out multiple initialization strategies is \emph{embarrassingly parallellizable}, i.e. one can easily try out a different strategy in parallel without incurring a lot of overhead in terms of wall-clock time.
 As such, computing multiple starting values can happen without a significant increase in wall-clock time and consequently a sluggish user-experience.
 
+\begin{guideline}[Try regularization to improve convergence]
+\label{guide:initvals:try-regularization}
+Regularized estimators, such as \gls{RFIR}, sometimes provide better estimates than the `true' model parameters.
+\end{guideline}
+
+\begin{guideline}[Try different initial values for non-convex optimization]
+\label{guide:initvals:try-many-initial-values}
+Trying different initial values is quite inexpensive, but the quality of the final model may improve by several order of magnitude if a local minimum can be avoided.
+As such, using multiple initial values, especially ones that have been derived with good judgment, pays off.
+\end{guideline}
+
 \section{Conclusion}\label{se:Conclusion}
 The simulations have demonstrated that use of a smoothed non-parametric estimate of the \gls{FRF} can improve the success rate of minimizing the \gls{ML} cost function for the estimation of the transfer functions of \gls{LTI} systems, subjected to noisy signals. Specifically, two smoothing methods were used and compared: 1) the truncated \gls{LPM} method, and 2) the \gls{RFIR} method. The simulation results clearly show that the \gls{RFIR} method is superior to the truncated \gls{LPM} method and the existing \gls{BTLS} and \gls{GTLS} methods.
 

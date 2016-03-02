@@ -1038,7 +1038,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
   The arguments for a logarithmically spaced grid with an infinite span remain approximately valid for quasi-logarithmically spaced grids with a finite frequency support if the resonance peak of the system under test lies well within the `bulk' of the frequency grid with finite support, i.e. $\RightOpenInterval{\frac{2\pi \Delta f}{\alpha - 1}, +\infty}$.
   In particular for lightly-damped sub-systems, $\wdB \approx \ClosedInterval{(1-\damping)\wn, (1+\damping)\wn}$, such that the resonance peak is in the bulk of the frequency grid when
   \begin{equation} 
-    \frac{2 \pi \Delta f}{alpha -1} \leq \left( 1 - \damping \right) \wn
+    \frac{2 \pi \Delta f}{\alpha -1} \leq \left( 1 - \damping \right) \wn
     \text{.}
     \label{eq:excitation:systemInBulk:generic}
   \end{equation}
@@ -1418,16 +1418,18 @@ The presented method allows to select a maximal value for the frequency ratio $\
 In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
 
 
-\begin{guideline}[Use quasi-logarithmic multisines as initial excitation.]
+\begin{guideline}[Use quasi-logarithmic multisines as initial excitation]
   Quasi-logarithmic multisines with pink-colored amplitude spectrum facilitate the measurement of many sharp resonance peaks over a wide frequency band of interest with a constant quality.
 \end{guideline}
 
-\begin{guideline}[Ensure $a$ ]
-   To measure a resonant system with damping $\damping > \damping[\min]$ well, a (pink) quasi-logarithmic multisine with frequency ratio $\frac{\omega_k}{\omega_{k-1}} = \alpha \leq 1 + \damping[\min]$ is required.
+\begin{guideline}[Design the logarithmic grid for the damping of the system: $\alpha \leq  1 + \xi_{\min}$]
+   To measure a resonant system with damping $\damping > \damping[\min]$ well, a (pink) quasi-logarithmic multisine with frequency ratio $\frac{\omega_k}{\omega_{k-1}} \leq \alpha \leq 1 + \damping[\min]$ is recommended.
+   Smaller frequency ratios provide more measurement points at the cost of a reduced \gls{SNR} per frequency bin.
+   As such, $\alpha = 1 + \damping$ provides a nice trade-off: it has the required resolution and the best \gls{SNR} per bin.
 \end{guideline}
 
 \begin{guideline}[Ensure $\Delta \omega < (\damping - \damping^2) \wn \approx \damping \wn$]
- A quasi-logarithmic multisine with frequency resolution $\Delta \omega$ and tuned frequency spacing $\alpha = 1 + \damping$ allows to identify resonance peaks with $\wn$ well.
+ A quasi-logarithmic multisine with frequency resolution $\Delta \omega$ and tuned frequency spacing $\alpha$ is only guaranteed to properly excite resonances
 \end{guideline}
 
 \TODO{vuistregels herhalen in kader: $\alpha \sim \damping[\min]$, $\wn[\min] \sim \Delta \omega, \damping[\min]$}
