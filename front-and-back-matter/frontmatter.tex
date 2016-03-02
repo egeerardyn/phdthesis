@@ -9,6 +9,11 @@
 
 \listoffigures
 \listoftables
+
+%http://tex.stackexchange.com/questions/74857/toc-like-list-of-definitions-using-theorem-environments
+\renewcommand{\listtheoremname}{List of Guidelines}
+\listoftheorems[ignoreall,show=guideline]
+
 % \TOCInsert{section}{List of Listings}   \lstlistoflistings %TODO: fix this
 
 \printglossary[type=\acronymtype,style=long,toctitle={List of Acronyms}, title={List of Acronyms}] %TODO: change format, set order, change title to "List of Abbreviations"
