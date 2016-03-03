@@ -505,24 +505,6 @@ The resonance frequencies $\wn[i]$ and $\wn[j]$ of all the different sub-systems
 Under these assumptions, the Fisher information matrix will be approximately a diagonal block matrix, where the $i^{\text{th}}$ block corresponds to the parameters $\left[\wn[i], \wz[i], \damping[i], \dc[i,1], \ldots, \dc[i,M_{2,i}] \right]$ of a particular sub-system.
 Using the same logic as in \secref{sec:excitation:ex:sumOfSecondOrderSipmle}, this means that the variance of the complete system is approximately equal to the variance obtained for each sub-system, due to the decoupling of the Fisher information matrix.
 
-
-\paragraph{System and noise model}
-%TODO: move this paragraph forward (before Fi matrix)
-  In the remainder of this chapter, an \gls{OE} setting is used.
-  Denote
-    $U  \left(\omega\right)$ as the excitation signal,
-    $\true{Y}\left(\omega\right)$ the exact, unperturbed system output,
-    $E  \left(\omega\right)$ for the output noise source,
-    $Y  \left(\omega\right) = \true{Y}\left( \omega \right) + E\left( \omega \right)$ depicts the measured output signal as shown in \figref{fig:excitation:OE}.
-    The output noise is assumed to be zero-mean and white with a standard deviation of $\sigma_e$ in the time domain or $\sigma_E$ in the frequency domain.
-
-  \begin{figure}[h]
-    \centering
-    \input{\thisDir/figs/oesetup.tikz}
-    \caption[Output-error]{Output-error set-up.}
-    \label{fig:excitation:OE}
-  \end{figure}
-
 \section{Multisine Excitations}
 \label{sec:excitation:multisine}
 In contrast to signals with a continuous $1/f$ \gls{PSD} presented in \secref{sec:excitation:logarithmic}, similar results can be obtained by using signals that have a discrete frequency grid.
@@ -911,6 +893,20 @@ with
   In this section we show a possible approach to compare the performance of different excitation signals with respect to the theoretically minimal attainable uncertainty of the transfer function as expressed by the \gls{CRLB}.
   Doing so allows to determine a suitable value for the frequency spacing $\alpha$.
 
+  Denote
+    $U  \left(\omega\right)$ as the excitation signal,
+    $\true{Y}\left(\omega\right)$ the exact, unperturbed system output,
+    $E  \left(\omega\right)$ for the output noise source,
+    $Y  \left(\omega\right) = \true{Y}\left( \omega \right) + E\left( \omega \right)$ depicts the measured output signal as shown in \figref{fig:excitation:OE}.
+    The output noise is assumed to be zero-mean and white with a standard deviation of $\sigma_e$ in the time domain or $\sigma_E$ in the frequency domain.
+
+  \begin{figure}[h]
+    \centering
+    \input{\thisDir/figs/oesetup.tikz}
+    \caption[Output-error]{Output-error set-up.}
+    \label{fig:excitation:OE}
+  \end{figure}
+
   As in \citep{Pintelon2012, Gallager2008, matrixcookbook}, and equivalently to the derivation in \secref{sec:excitation:inputDesign}, the covariance matrix $\C_{G\left(\omega_{\interest}\right)}$ of the parametric transfer function $G(\theta,\omega)$ can be shown to be approximately equal to
   \begin{align}
     \C_{G\left( \omega_{\interest}\right) } \approx
@@ -1041,7 +1037,8 @@ Also for the design of robust excitation signals, this is worthwhile observation
     \text{.}
     \label{eq:excitation:systemInBulk:generic}
   \end{equation}
-  For more reliable results, however, it is adviced to also have a few logarithmically spaced frequency lines, outside of the resonance peak of the actual system for a more robust result.
+  %TODO: turn this into a guideline?
+  For more reliable results, however, it is advisable to also have a few logarithmically spaced frequency lines, outside of the resonance peak of the actual system for a more robust result.
   In practice, this means that systems with their resonance peak at the lowest and the very highest edge of the frequency band may not be observed with identical quality as systems at intermediate frequencies.
 
   The validity of this approximation can be understood intuitively by inspecting the derivatives that constitute the Fisher information matrix (see \figref{fig:excitation:derivatives}): those derivatives are significantly larger near the resonance frequency than at other frequencies.
@@ -1435,3 +1432,9 @@ The suggested compensation works well as long as the considered systems are suff
 We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equi-damped set of systems.
 The presented method allows to select a maximal value for the frequency ratio $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
 In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
+
+\TODO{move this guideline somewhere else}
+\begin{guideline}[Use quasi-logarithmic multisines as initial excitation]
+  Quasi-logarithmic multisines with pink-colored amplitude spectrum facilitate the measurement of many sharp resonance peaks over a wide frequency band of interest with a constant quality.
+\end{guideline}
+
