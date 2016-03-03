@@ -560,8 +560,8 @@ Such signals are presented in this section.
   \begin{equation}
     T_{u(t)}  = \lcm \set{T_1, \ldots, T_F}
       = \lcm \set{f_1^{-1}, \ldots, f_F^{-1}}
-    \text{.}
   \end{equation}
+  if a common multiple exists, i.e. $T_{u(t)} = n_1 T_1 = \ldots = n_F T_F$ with $n_i \in \NaturalNumbersWithoutZero$ for $i \in \set{1,\ldots,F}$.
 
   \begin{example}
    Consider a generalized multisine where $f_1 = 1 \unit{Hz}$ and $f_2 = \tfrac{2}{3} \unit{Hz}$.
@@ -852,7 +852,6 @@ with
       \setlength\figureheight{0.5\figurewidth}
     \input{\thisDir/figs/freqGrid.tikz}
     \caption[Amplitude spectrum for linear, logarithmic, quasi-logarithmic grids.]{Comparison of the amplitude spectrum of a linear grid multisine, a logarithmic grid multisine, the compensated quasi-logarithmic multisine and the `pink' quasi-log multisine.}%
-    \TODO{use same color conventions here}
     \label{fig:excitation:freqGrids}
   \end{figure}
 
@@ -1172,6 +1171,12 @@ Also for the design of robust excitation signals, this is worthwhile observation
   such that it represents the coarsest frequency spacing for which the variance is approximately equal to that constant value.
   This choice is indicated by the dashed line in \figref{fig:excitation:worstCaseAlpha}.
 
+   \begin{guideline}[Design the logarithmic grid for the damping of the system: $\alpha \leq  1 + \xi_{\min}$]
+   To measure a resonant system with damping $\damping > \damping[\min]$ well, a (pink) quasi-logarithmic multisine with frequency ratio $\frac{\omega_k}{\omega_{k-1}} \leq \alpha \leq 1 + \damping[\min]$ is recommended.
+   Smaller frequency ratios provide more measurement points at the cost of a reduced \gls{SNR} per frequency bin.
+   As such, $\alpha = 1 + \damping \isdef \alpha^{\star}$ provides the required resolution and the best \gls{SNR} per bin.
+\end{guideline}
+
   Choosing a finer grid will not improve the estimated $G\left( \wM \right)$ significantly, but will rather produce an \gls{FRF} where the \gls{SNR} per bin is decreased.
   On the other hand, a coarser grid will significantly decrease the quality of the measurement as it overlooks the resonance peak.
   Hence little information can be extracted from such a measurement (i.e. the variance on the estimate will be large).
@@ -1311,18 +1316,32 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   \eqref{eq:excitation:secondOrderSystemDTidentifiable} using this little information in the $3\unit{dB}$ bandwidth of the system.
   In other words, the resonances of the systems at low frequencies, can no longer be considered to lie within the bulk of the logarithmic part of the quasi-logarithmic frequency grids.
   This can also be understood from equation \eqref{eq:excitation:systemInBulk:generic}.
-  In that equation, $\alpha = \alpha^{\star} = 1 + \damping$ such that
+  In that equation, $\alpha = \alpha^{\star} = 1 + \damping$ (see \secref{sec:excitation:optimAlpha}) such that the following guideline is the necessary condition for the $3\unit{dB}$ bandwidth of the system to lie within the bulk of the frequency grid.
+
+\begin{guideline}[Choose $2 \pi \Delta f \leq (\damping - \damping^2) \wn$]
+\label{guide:excitation:systemInBulk:tuned}
+ A quasi-logarithmic multisine with frequency resolution $\Delta f$ and tuned frequency spacing $\alpha=1+\damping$ is only guaranteed to properly excite resonances peaks with damping $\damping$ and resonance frequency $\wn$ when 
   \begin{equation}
-    2 \pi \Delta f \leq (\damping - \damping^2) \wn
+    2 \pi \Delta f \leq (\damping - \damping^2) \wn 
+    \approx \damping \wn \text{ if $\damping \ll 1$}
+    \text{.}
     \label{eq:excitation:systemInBulk:tuned}
   \end{equation}
-  is the necessary condition for the system bandwidth to lie within the bulk of the frequency grid when the frequency spacing has been tuned according to \secref{sec:excitation:optimAlpha}.
-  For this simulation, with $\Delta f=1\unit{Hz}$, $\damping=0.05$, this evaluates to $\wn \geq 132 \unit{rad/s} = 21 \unit{Hz}$.
+  \end{guideline}
+
+  \begin{remark}
+  \guideref{guide:excitation:systemInBulk:tuned} can be interpreted either as
+  \begin{itemize}
+     \item  a lower limit on the allowable $\wn$ of the system (when the multisine has been designed ($\Delta f$ and $\damping$ are fixed)), or 
+     \item as a requirement on the measurement time $\Tm = (\Delta f)^{-1}$ when lower bounds on $\damping$ and $\wn$ are known.
+   \end{itemize}
+  \end{remark}
+
+  For this simulation, with $\Delta f=1\unit{Hz}$, $\damping=0.05$, \eqref{eq:excitation:systemInBulk:tuned} evaluates to $\wn \geq 132 \unit{rad/s} = 21 \unit{Hz}$.
   The system with $\wR = 20 \unit{Hz} < 21 \unit{Hz}$ is still well-identified, even though `only' $3$ lines are excited in its bandwidth.
   In that particular case, the frequency grid and the resonance peak are well-aligned ($\beta \approx 0$), which leads to a reduced variance (see also \figref{fig:excitation:worstCaseBeta}).
 
-  We do see, however, that the variance in the vicinity of the resonance of every system is lower than in the case of a linearly spaced excitation 
-
+  We do see, however, that the variance in the vicinity of the resonance of every system is lower than in the case of a linearly spaced excitation.
 
   \subsection{Simulation example on higher order systems}
 To show that the suggested method also works on more general systems, we considered a system that consists of two second order systems \eqref{eq:excitation:secondOrderSystemDTidentifiable} in parallel. This is equivalent to adding their respective transfer functions, therefore, the resulting transfer function is of the form:
@@ -1416,21 +1435,3 @@ The suggested compensation works well as long as the considered systems are suff
 We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equi-damped set of systems.
 The presented method allows to select a maximal value for the frequency ratio $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
 In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
-
-
-\begin{guideline}[Use quasi-logarithmic multisines as initial excitation]
-  Quasi-logarithmic multisines with pink-colored amplitude spectrum facilitate the measurement of many sharp resonance peaks over a wide frequency band of interest with a constant quality.
-\end{guideline}
-
-\begin{guideline}[Design the logarithmic grid for the damping of the system: $\alpha \leq  1 + \xi_{\min}$]
-   To measure a resonant system with damping $\damping > \damping[\min]$ well, a (pink) quasi-logarithmic multisine with frequency ratio $\frac{\omega_k}{\omega_{k-1}} \leq \alpha \leq 1 + \damping[\min]$ is recommended.
-   Smaller frequency ratios provide more measurement points at the cost of a reduced \gls{SNR} per frequency bin.
-   As such, $\alpha = 1 + \damping$ provides a nice trade-off: it has the required resolution and the best \gls{SNR} per bin.
-\end{guideline}
-
-\begin{guideline}[Ensure $\Delta \omega < (\damping - \damping^2) \wn \approx \damping \wn$]
- A quasi-logarithmic multisine with frequency resolution $\Delta \omega$ and tuned frequency spacing $\alpha$ is only guaranteed to properly excite resonances
-\end{guideline}
-
-\TODO{vuistregels herhalen in kader: $\alpha \sim \damping[\min]$, $\wn[\min] \sim \Delta \omega, \damping[\min]$}
-\TODO{evt. plot vuistregels voor freq.grid.}
