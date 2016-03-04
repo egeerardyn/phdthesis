@@ -83,7 +83,7 @@ $ \omega_{\star}
   \text{.}
   \label{eq:omega-star}
 $
-However, in a finite measurement time, non-parametric approaches only allow access to a finite and discrete grid of frequencies $\omega_k \in \DFTGrid$.
+However, in a finite measurement time, non-parametric approaches only give access to a finite and discrete grid of frequencies $\omega_k \in \DFTGrid$.
 As such, \eqref{eq:HinfNormSISO} can be rewritten as
 \begin{equation}
   \gamma \isdef \sup_{\omega} \abs{\Delta(\omega)}
@@ -177,7 +177,7 @@ In particular, the inter-grid aspect of the $\Hinf$ norm is estimated as
 \end{equation}
 where the $\LocalModel{\Delta}_{k}$ is the local model around the ($k$th) frequency $\omega_k$.
 An example of such local models is shown in \figref{fig:interpol-quantities}.
-Two alternative methods allow to evaluate~\eqref{eq:gamma-inter-grid} practically.
+Two alternative methods allow evaluation of~\eqref{eq:gamma-inter-grid} in practice.
 
 \begin{figure}
   \centering
@@ -339,16 +339,13 @@ For a more detailed overview of  the \gls{LPM} and \gls{LRM} see~\citep{Schouken
 \label{sec:simulation}
 To allow the generalization of the results of the simulations, we first introduce a way to decompose complex systems into simpler systems.
 The behavior of these simpler systems then allows to predict the behavior for these more complex systems.
-
-\TODO{link to chapter 2: decoupling of information matrix}
-
-Any real-rational system $\Delta$ can be decomposed in a parallel structure of lower-order sub-systems.
+Any real-rational system $\Delta$ can be decomposed in a parallel structure of lower-order sub-systems by means of a partial fraction expansion as in \eqref{eq:excitation:PFE} and using the same logic as in \chapref{sec:excitation}.
 As a result, systems can often be well-represented, in a small frequency range, by a sum of a few low-order sub-systems (often first or second order for e.g. mechanical systems)~\citep[Section 2.2.2]{Gawronski2004}.
 To estimate $\norm{\Delta}$ mainly the resonant sub-systems are of interest.
 Assuming such resonances are sufficiently separated in the frequency,~\citep{Schoukens2013LPMerror,Geerardyn2013TIM,Gawronski2004} show that results for a single resonance are applicable to more complex systems.
 This is done by considering only the dominant resonance -- \emph{viz.} the one that is the most relevant for the $\Hinf{}$ controller design.
-By normalizing the conclusions for the time constant $\tau$ (or the $3\unit{dB}$ bandwidth), the results are generally valid for different values of the damping $\xi$.
-Specifically, the system's $\tau \isdef (\xi\omega_{\mathrm{n}})^{-1}$ dictates the required measurement time~\citep{Schoukens2013LPMerror}, where $\xi$ is the relative damping and $\omega_{\mathrm{n}}$ the undamped natural frequency.
+By normalizing the conclusions for the time constant $\timeconst$ (or the $3\unit{dB}$ bandwidth), the results are generally valid for different values of the damping $\damping$.
+Specifically, the system's $\timeconst \isdef (\damping \wn)^{-1}$ dictates the required measurement time~\citep{Schoukens2013LPMerror}, where $\damping$ is the relative damping and $\wn$ the undamped natural frequency.
 
 \subsection{A concrete simulation}
 Consider a discrete time system $\Delta$ (see \figref{fig:exampleIntergrid}) as unmodeled dynamics in an output-error setting:
@@ -359,7 +356,7 @@ Consider a discrete time system $\Delta$ (see \figref{fig:exampleIntergrid}) as 
   \label{eq:O2sysDT}
   \text{,}
 \end{equation}
-which has $\tau = 50 \unit{samples}$ (i.e. $\xi=0.02$ and $\omega_{\mathrm{n}} = 1 \unit{rad/s}$).
+which has $\timeconst = 50 \unit{samples}$ (i.e. $\damping=0.02$ and $\wn = 1 \unit{rad/s}$).
 The input signal $u_{\Delta}$ is white Gaussian noise with unit variance and the disturbing noise variance $\sigma_v^2$ is chosen such that a \gls{SNR} 
 \begin{equation}
   \SNR = \frac{\sqrt{\inv{N}\sum_n y_{\Delta0}^2(n) }}%
@@ -403,7 +400,7 @@ In this section, we determine the minimal experiment length needed for the propo
 
 We simulate the system \eqref{eq:O2sysDT} for $16\,100$ samples and discard the first $100$ samples to randomize the initial conditions.
 To mimic the effect of progressively measuring longer data records, the first remaining $N$ samples are used to estimate $\infnorm{\Delta}$ as in \secref{sec:LPMHinf}.
-The values of $N \in \ClosedInterval{35}{16 000}$ are chosen such that $\expectedValue{\gamma_{\mathrm{FRF}}(N)}$ is a non-decreasing function of $N$.
+The values of $N \in \ClosedInterval{35,16\,000}$ are chosen such that $\expectedValue{\gamma_{\mathrm{FRF}}(N)}$ is a non-decreasing function of $N$.
 These simulations are then repeated in a Monte Carlo simulation of $n_{\mathrm{MC}}=200$ runs where each run has a different realization of  $u_{\Delta}(n)$ and $v(n)$.
 The resulting sample average and standard deviation $\sigma$ are shown in \figref{fig:MC-run-length}.
 
@@ -413,14 +410,14 @@ The resulting sample average and standard deviation $\sigma$ are shown in \figre
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/MC-runlength.tikz}
   %\input{figures/runLength.tikz}
-  \caption{The $\Hinf{}$ norm~\legref{leg:runlength-true} is underestimated significantly for short experiments ($N<20\tau$) by $\expectedValue{\gamma_{\mathrm{FRF}}}$~\legref{leg:runlength-frf} and the \gls{LPM}~\legref{leg:runlength-LPM}.
-  However, the proposed $\widehat{\norm[]{\Delta_{\mathrm{LRM}}}}_{\infty}$~\legref{leg:runlength-LRM} is already reliable from much shorter experiments ($N \geq 4 \tau$). A single observation for $N=97$~\legref{leg:runlength-special-case} is shown in \figref{fig:exampleIntergrid}. The shaded areas show the $\pm \sigma$ intervals which are mostly due to the noise.
+  \caption{The $\Hinf{}$ norm~\legref{leg:runlength-true} is underestimated significantly for short experiments ($N<20\timeconst$) by $\expectedValue{\gamma_{\mathrm{FRF}}}$~\legref{leg:runlength-frf} and the \gls{LPM}~\legref{leg:runlength-LPM}.
+  However, the proposed $\widehat{\norm[]{\Delta_{\mathrm{LRM}}}}_{\infty}$~\legref{leg:runlength-LRM} is already reliable from much shorter experiments ($N \geq 4 \timeconst$). A single observation for $N=97$~\legref{leg:runlength-special-case} is shown in \figref{fig:exampleIntergrid}. The shaded areas show the $\pm \sigma$ intervals which are mostly due to the noise.
   }
 \label{fig:MC-run-length}
 \end{figure}
 
-It can be seen in \figref{fig:MC-run-length} that $N \geq 20\tau$ is required to attain a frequency grid that is dense enough to obtain a reliable $\gamma_{\mathrm{FRF}}$, i.e. $\expectedValue{\gamma_{\mathrm{FRF}}} \approx \gamma$.
-Starting from about $N=4 \text{ to } 5\tau$, the interpolated \gls{LRM} starts to yield good estimates for $\gamma_{\mathrm{IG}}$.
+It can be seen in \figref{fig:MC-run-length} that $N \geq 20\timeconst$ is required to attain a frequency grid that is dense enough to obtain a reliable $\gamma_{\mathrm{FRF}}$, i.e. $\expectedValue{\gamma_{\mathrm{FRF}}} \approx \gamma$.
+Starting from about $N=4 \text{ to } 5\timeconst$, the interpolated \gls{LRM} starts to yield good estimates for $\gamma_{\mathrm{IG}}$.
 For long experiments $(N \to \infty)$, the true $\norm{\Delta}$ is recovered.
 Practically, this implies that the interpolated \gls{LRM} beats the on-grid estimate using a data record that is only a fraction of the length.
 
