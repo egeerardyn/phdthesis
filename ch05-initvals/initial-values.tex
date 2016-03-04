@@ -24,13 +24,11 @@ This often involves an iterative algorithm to produce the optimal model.
  However, when noisy input-output measurements are to be processed, the presence of noise obstructs a clear view of the actual system behavior, especially for poor \glspl{SNR}.
  Such problems can be mitigated using non-parametric techniques: the presence of noise is typically reduced by averaging multiple measurements or by using more advanced smoothing techniques.
 
-The main aim and contribution of this chapter is to demonstrate that smoothing a measured \gls{FRF} helps to avoid local optima during the parametric estimation of the \gls{MLE} of a transfer function, using deterministic optimization algorithms.
+The main aim and contribution of this chapter is to demonstrate that smoothing a measured \gls{FRF} helps to avoid local optima during the parametric estimation of the \gls{MLE} of a transfer function, using classical (deterministic) optimization algorithms.
 Hence, such techniques make it possible to increase the ``success rate'' (i.e. the probability that a good model, or even the global optimum, is obtained) of such a system identification step considerably.
-%Such techniques, hence allow to increase the ``success rate'' (i.e. the probability that a good model, or even the global optimum, is obtained) of such a system identification step considerably.
 
 In particular, two different smoothing techniques --- the time-truncated \gls{LPM}~\citep{Lumori2014TIM} and the \gls{RFIR}~\citep{Pillonetto2010,Chen2012} --- are tested for different \glspl{SNR} and different measurement record lengths of the input/output data of a few \gls{SISO} \gls{LTI} systems.
 These are compared with the existing initialization schemes, namely: (i) the \gls{GTLS}, and (ii) the \gls{BTLS}.
-%The existing initialization schemes compared with are the generalized total least squares (GTLS) and bootstrapped total least squares (BTLS).
 
 The rest of the chapter is structured as follows. 
 \secref{se:ProbForm} covers the problem formulation. 
@@ -50,12 +48,12 @@ Ultimately, concluding remarks are presented in \secref{se:Conclusion}.
 In this section, the assumptions on the system and the noise are presented, together with the associated MLE (formulated in the frequency domain), which turns out to be a non-convex function in the parameters, requiring initial estimates. The procedure for obtaining the initial estimates is discussed in the subsequent sections.
 
 \subsection{System Setup Framework and Model}
+\TODO{ hele subsectie verplaatsen na het param. sys. model?}
 \figref{fig:oesetup} depicts a schematic of the output error framework for  a generalized (single- or multiple-order) resonating, dynamic \gls{LTI} discrete-time \gls{SISO} system, subjected to a known white random noise input. 
 The full model of the system is
 \begin{equation}\label{lpmtd1}
 y(t)=\true{G}(q^{-1})u_0(t)+H_0(q^{-1})e(t)
 \end{equation}
-%\comment{We don't have any results with colored noise yet!}
 where $\true{G}(q^{-1})$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= H_0(q^{-1})e(t)$ is the noise source at the output, $H_0(q^{-1})$ is the noise dynamics, 
 $e(t)$ is white Gaussian noise, and $q^{-m}$ is the backwards shift operator ($q^{-m}x(t)$ = $x(t-mT_{\mathrm{s}})$  with $m$ a positive integer and $T_{\mathrm{s}}$ the sampling time).
 We only treat the discrete-time case (i.e. $t = n \cdot T_{\mathrm{s}}$ for integer values of $n$) theoretically in this chapter.
@@ -79,7 +77,7 @@ It is also possible to apply the estimation procedure in this chapter to a syste
 
 With reference to equation \eqref{lpmtd1}, the relation between the noiseless input and the output signals ($v(t)= 0$) is assumed to be of the form
 \begin{equation}
-    A(q^{-1}) y_0(t) = B(q^{-1}) u_0(t) \quad \forall t \in n \Ts{} \IntegerNumbers
+    A(q^{-1}) y_0(t) = B(q^{-1}) u_0(t) \quad \forall t \in n \Ts{}  \text{with}  n \in \IntegerNumbers
 \label{ABpolys}
 \end{equation}
 where $A$ and $B$ are polynomials in $q^{-1}$. Thus, it follows from equation \eqref{lpmtd1} that
@@ -125,7 +123,7 @@ The variance of the error is of the form:
 \sigma_\varepsilon^2(k,\theta) 
   &=  |A(k,\theta)|^2\sigma_Y^2(k) 
    +  |B(k,\theta)|^2\sigma_U^2(k) \\
-  &- 2\;\mathrm{real} \left( A(k,\theta) \overline{B(k,\theta)} \sigma_{YU}(k) \right)
+  &- 2\RealPart \left( A(k,\theta) \overline{B(k,\theta)} \sigma_{YU}(k) \right)
 \end{split}
 \end{equation}
 where $\sigma_Y^2$ is independent of $k$ for white noise, %assumed to be a known error variance \comment{JL: why should the error variance be known? where do you use that? how do you compute it?} of the measured output spectrum $Y$ \comment{JL: relate the output error variance with the variance of $v(t)$. Isn't it the same thing?},
@@ -180,8 +178,8 @@ Such an approach requires good initial estimates of $\theta$ to avoid inherent l
 \end{algorithm}
 
 \begin{remark}
-Alternatively, stochastic optimization algorithms~\citep{Spall2012,Press2007} are less likely to get stuck in local optima since many randomized initial estimates are tried.
-This obviously comes with a huge computational cost compared to `classical' deterministic schemes where only a single or a few initial estimates are used to start the expensive iterative optimization procedure.
+Alternatively, stochastic optimization algorithms~\citep{Spall2012,Press2007} are less likely to get stuck in local optima since such algorithms use randomization either to select initial values or to iterate towards the optimum (or both).
+However, due to this random influence, their results are not always exactly reproducible and can incur a huge computational cost compared to `classical' deterministic schemes where only a single or a few initial estimates are used to start the expensive iterative optimization procedure.
 Stochastic optimization is not discussed in the remainder of this chapter.
 \end{remark}
 
@@ -218,7 +216,8 @@ Their finite sample behavior, however, is suitable for improvement by the \gls{F
 
 A reliably good estimate of the FRF of the chosen system can be obtained via the LPM, which is summarized as follows~\citep{Lumori2014TIM}. Formulated as a nonparametric linear-least-squares-estimate, the LPM is first applied to estimate the FRF from a full data record of a SISO system, systematically expressed in an output-error framework, shown in \figref{fig:oesetup}. The smooth characteristics of both the exact \gls{FRF} $\true{G}$ and the transient term $T$ allow for an optimal application of the \gls{LPM}, leading to a smooth \gls{FRF} estimate with the transient suppressed.
 
-  With reference to a detailed discussion in~\citep{Lumori2014TIM}, the \gls{LPM} utilizes the following quadratic local polynomials to approximate (in least squares sense) and, thus, smooth $\true{G}$ and $T$ around a central frequency $\Omega_{k}$ in a local frequency band $r\in\mathbb{W}_n$
+  With reference to a detailed exposition in~\citep{Lumori2014TIM} and \chapref{sec:nonparametric}, the \gls{LPM} utilizes local polynomials to approximate the transfer function and transient contribution (in least squares sense) and, thus, smooth $\true{G}$ and $T$ around a central frequency $\Omega_{k}$ in a local frequency band $r\in\mathbb{W}_n$.
+  In this chapter, we limit the notations to quadratic polynomials in a window with half-width $n=3$, such that
 \begin{subequations}\label{lpmImplQuadG}
 \begin{align}
 \true{G}(\Omega_{k+r})&\approx \hat G_k + g_{1,k} r + g_{2,k}r^2
@@ -227,7 +226,7 @@ T(\Omega_{k+r})&\approx T(\Omega_k)+t_{1,k}r + t_{2,k}r^2\label{lpmImplQuadT}
 \end{align}
 \end{subequations}
 where, in general,$\ r\in\mathbb{W}_n,\quad$$\mathbb{W}_n = \{-n,-n+1,\dots,n\}$ and $n$ is a tunable parameter. 
-In this instance, $n=3$.
+\TODO{notatie LPM uniform maken met CH03/CH04}
 
   The \gls{LPM} estimate of the \gls{FRF} at frequency index $k$ is the first estimated local parameter, \emph{viz}:
 \begin{equation}
@@ -243,7 +242,7 @@ This procedure is repeated for all $k$ in the frequency band of interest.
 The estimate is smoothed further by truncating its impulse response function $g_{\text{poly}}(t) = \mathrm{IDFT}\, \left( \hat{G}_\text{poly}(\Omega_k)) \right)$ as originally presented in~\citep{Lumori2014TIM}.
 %\comment{JL: $\hat{G}_\text{poly}(\Omega_k))$ is undefined}.
 
-The impulse response is truncated after the time $\tau_{\mathrm{trunc}}$ where the signal becomes indistinguishable from the noise, i.e.
+The impulse response is truncated after the time $\tau_{\mathrm{trunc}}$ where the signal becomes indistinguishable from the noise, i.e.,
 \begin{equation}
   g_{\mathrm{trunc}}(t) = 
   \begin{cases}
@@ -278,13 +277,13 @@ where $g$ is the vectorized impulse response $g(t)$, with $t = 0,1,\cdots,n_h - 
 Furthermore, $g\ast u$ is the convolution of $g$ with the input signal $u$, and $P\in \mathbb{R}^{n_g\times n_g}$ is the kernel matrix. 
 Note that \eqref{eq:hRFIRdef} is quadratic in $g$, such that $\hat g_{\mathrm{RFIR}}$ can be computed analytically in a single step.
 The kernel matrix $P$ embodies prior knowledge on the system to be estimated. 
-Here, the \gls{DCkernel} is used. 
+Here, the \gls{DCkernel}~\citep{Chen2012,Pillonetto2010} is used. 
 Specifically, the element at $t_1,t_2$ of $P$ is given by
 \begin{equation}
 P(\alpha,\beta)_{t_1,t_2} = e^{-\alpha|t_1 - t_2|}e^{-\beta(t_1 + t_2)/2}
 \end{equation}
  for $t_1,t_2 \in \left\{0,1,\cdots,n_h - 1\right\}$ which makes the estimated impulse response to be an exponentially decaying function of $t$ with decay rate $\beta^{-1}$, and correlation length $\alpha^{-1}$. 
- The latter \emph{hyperparameters} $\alpha$, $\beta$ and $\sigma$ are determined using Empirical Bayes, i.e. as the maximizers of the \gls{LML} of the measured output signal:
+ The latter \emph{hyperparameters} $\alpha$, $\beta$ and $\sigma$ are determined using Empirical Bayes, i.e. as the maximizers of the \gls{LML} of the measured output signal~\citep{Chen2013}:
 \begin{align}
 \mathrm{LML}(y) = -y^{\TT}\Sigma(\alpha,\beta,\sigma)^{-1}y - \log |\Sigma(\alpha,\beta,\sigma)| \text{,}
 \end{align}
