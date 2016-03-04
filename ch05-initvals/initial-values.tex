@@ -9,15 +9,16 @@
 \section{Introduction}
 \label{se:introd}
 The task of interpreting measurement data from dynamic systems often involves the estimation of a transfer function (TF). 
-Typical measurement techniques and identification strategies of  \glspl{TF} or \glspl{FRF} are presented in \citep{Schoukens1998,Schoukens2006LPM,Guillaume1996,Broersen1995,Pintelon2010LPM1,Antoni2007FRF}.
+Typical measurement techniques and identification strategies of  \glspl{TF} or \glspl{FRF} are presented in~\citep{Schoukens1998,Schoukens2006LPM,Guillaume1996,Broersen1995,Pintelon2010LPM1,Antoni2007FRF}.
 Application of these methods to real devices and systems is well-represented in the literature, e.g. \citep{Lim2010,Robinson1990,Behjat2010}.
 
-Parametric identification of \gls{LTI} systems from either input/output data or non-parametric frequency response data, has been well developed as evidenced by published literature~\citep{Pintelon2012,Ljung1999,Schoukens1999,Pintelon1998}. 
- Maximizing the likelihood function of the parameters probably yields a common, consistent, and efficient estimator.
- However, in a noisy environment, the \gls{MLE} engenders a nonlinear optimization.
- As for many nonlinear optimization problems, this often involves an iterative algorithm to produce the optimal model.
+Parametric identification of \gls{LTI} systems from either input/output data or non-parametric frequency response data, has been well developed as evidenced by published literature~\citep{Pintelon2012,Ljung1999,Schoukens1999,Pintelon1998}.
+Many of such parametric identification algorithms, however, require solving non-linear or non-convex optimization problems.
+This often involves an iterative algorithm to produce the optimal model.
  The resulting model, however, depends on which initial estimates are used to start up the optimization process: typically one can end up in local minima.
  Hence, good initial estimates are essential to obtain a high quality model estimate.
+ In this chapter, the \gls{MLE} is used as a proxy for any parametric transfer function estimator, since the \gls{MLE} is both consistent and efficient and is a commonly used estimator.
+ Since the initial value generation method are not specifically tailored towards the \gls{MLE}, other parametric identification frameworks are likely to benefit from these improved starting values.
 
  In the perspective of developing identification tools that require minimal user interaction, it is important that good initial estimates are produced for a wide variety of systems and experimental settings; i.e. to increase the probability of the optimization algorithm to produce good estimates, or preferably even the global optimum.
  However, when noisy input-output measurements are to be processed, the presence of noise obstructs a clear view of the actual system behavior, especially for poor \glspl{SNR}.
