@@ -557,7 +557,7 @@ This indicates $\frac{147}{200} \approx 74\%$ success for the existing methods, 
   \input{\thisDir/fig/MC-RFIR-1.11111dBSNR36pts3dB-ripple6dB.tikz}
  \caption[Model error for different initialization schemes on simulations.]{The distance $\|\model{\bullet} - \hat{G}_0 \|_2$  between the different estimates ($\model{exist}$~\legref{leg:dist-G-exist}, $\model{trunc}$~\legref{leg:dist-G-trunc} and $\model{RFIR}$~\legref{leg:dist-G-RFIR} ) and the `best theoretical' estimates ($\model{0}$) shows that the smoothers help the estimate to converge to $\model{0}$.
  The same measure is shown for the initial values $\model[init]{RFIR}$ \legref{leg:dist-G-RFIR-init} and $\model[init]{trunc}$ \legref{leg:dist-G-trunc-init}.
- $\|{G}_{0} - \hat{G}_0\|_2$\legref{leg:dist-G0} shows how far the true model and `best theoretical' estimates are apart as a reference. }
+ $\|{G}_{0} - \hat{G}_0\|_2$\legref{leg:dist-G0} shows how far the true model and `best theoretical' estimates are apart to put the other distances into perspective. }
   \label{fig:single-sim}
 \end{figure}
 
@@ -683,7 +683,7 @@ The signal generation and acquisition was by means of a \gls{NI} Elvis II, using
 Although acquisition and generation were synchronized, there is a small delay $\tau = 9\unit{\mu s}$ between the acquisition of the input $u(t)$ and the output $y(t)$ due to the hardware architecture of the \gls{NI} Elvis II.
 Particularly, the involved channels are captured by means of a single \gls{ADC} which is preceded by a multiplexer to select the active channel.
 This obviously introduces a slight delay between the acquisition of a sample of input and output channels that is not part of system dynamics of the \BK{} filter, but rather of the experimental set-up.
-As such, the output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\tau \right)$ such that this inter-channel acquisition delay of the \gls{NI} Elvis is compensated, the time-domain counterpart $y(t)$ can be obtained using the \gls{IDFT}.
+As such, the output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\tau \right)$ such that this inter-channel acquisition delay of the \gls{NI} Elvis is compensated; the time-domain counterpart $y(t)$ is obtained using the \gls{IDFT}.
 
 \begin{figure}
   \centering
@@ -1021,7 +1021,7 @@ This is equivalent to the relative criterion of success since $\norm[2]{\true{G}
   \input{\thisDir/fig/bodeplots.tikz}
   %TODO: put legend inside figure (note: subplot magic!!)
   \caption[Bode plots of the stress test filters.]{Bode plots of the tested filters~\legref{leg:bode:true} in the stress test. 
-  For each filter, two (randomly selected) instanced of the parametric estimates $\model{\bullet}$ are shown per method.
+  For each filter, two (randomly selected) instances of the parametric estimates $\model{\bullet}$ are shown per method.
   % Top to bottom: Chebyshev I, Chebyshev II, Elliptical and Butterworth characteristic.
   % Left to right: low-pass, band-pass, high-pass and band-stop.
   }
@@ -1153,9 +1153,9 @@ For the asymptotic runtime, we are mainly interested in how the runtime of the s
 
 % See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression-operation
 
-The \gls{LPM} itself solves $N$ linear systems of small dimensions ($2N_W + 1$ equations and a few degrees of freedom, i.e. $n_{\theta} \leq 2 N_W + 1$), hence the overall runtime will be $\bigO{N n_{\theta}^3}$ since solving a linear regression problem with $C$ parameters and $D$ data points takes $\bigO{C^3  + D C^2}$ operations\footnote{See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression}.
+Overall, the time-truncated \gls{LPM} operates in $\bigO{N n_{\theta}^{3}}$.
+First, the \gls{LPM} solves $N$ linear systems of small dimensions ($2N_W + 1$ equations and a few degrees of freedom, i.e. $n_{\theta} \leq 2 N_W + 1$), hence the overall runtime will be $\bigO{N n_{\theta}^3}$ since solving a linear regression problem with $C$ parameters and $D$ data points takes $\bigO{C^3  + D C^2}$ operations\footnote{See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression}.
 The truncation of the impulse response relies on linear regression which takes $\bigO{N}$ operations since only $3$ parameters are estimated during this step.
-Overall, this means that the time-truncated \gls{LPM} operates in $\bigO{N n_{\theta}^{3}}$.
 
 The \gls{RFIR} relies on fitting a \gls{FIR} filter with $n_{\theta} = n_g$ taps to $N$ datapoints.
 Using the same logic as above, this requires $\bigO{N n_{g}^2 + n_g^3}$ operations.
@@ -1168,7 +1168,7 @@ Intuitively, the local modeling methods benefit from their locality since that e
 This section discusses some implications and recommendations for the implementation of  a system identification toolbox.
 
 Whereas \gls{RFIR} is shown to provide reliable starting values, it remains advisable to have multiple initialization strategies available to improve the likelihood of attaining a good starting value.
-This is also the approach that toolboxes such as \citep{FDIDENT} and \citep{TDIDENT} employ.
+This is also the approach that toolboxes such as~\citep{FDIDENT} and~\citep{TDIDENT} employ.
 Luckily, trying out multiple initialization strategies is \emph{embarrassingly parallellizable}, i.e. one can easily try out a different strategy in parallel without incurring a lot of overhead in terms of wall-clock time.
 As such, computing multiple starting values can happen without a significant increase in wall-clock time and consequently a sluggish user-experience.
 
