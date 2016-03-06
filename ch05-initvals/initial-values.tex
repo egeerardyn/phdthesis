@@ -15,21 +15,23 @@ Application of these methods to real devices and systems is well-represented in 
 Parametric identification of \gls{LTI} systems from either input/output data or non-parametric frequency response data, has been well developed as evidenced by published literature~\citep{Pintelon2012,Ljung1999,Schoukens1999,Pintelon1998}.
 Many of such parametric identification algorithms, however, require solving non-linear or non-convex optimization problems.
 This often involves an iterative algorithm to produce the optimal model.
- The resulting model, however, depends on which initial estimates are used to start up the optimization process: typically one can end up in local minima.
+ The resulting model, however, depends on which initial estimates are used to start up the optimization process: typically one can end up in local minima, leading to models of sub-optimal quality.
  Hence, good initial estimates are essential to obtain a high quality model estimate.
- In this chapter, the \gls{MLE} is used as a proxy for any parametric transfer function estimator, since the \gls{MLE} is both consistent and efficient and is a commonly used estimator.
- Since the initial value generation method are not specifically tailored towards the \gls{MLE}, other parametric identification frameworks are likely to benefit from these improved starting values.
+ In this chapter, the \gls{MLE} is used as a proxy for any parametric transfer function estimator, since the \gls{MLE} is commonly used and has desirable properties such as efficiency and consistency.
+ Since the initial value generation method are not specifically tailored towards the \gls{MLE}, other parametric identification frameworks are likely to benefit from these improved starting values as well.
+ Hence, the presented approach is orthogonal to initialization schemes such as the work of \citet{vanHerpen2014}.
 
  In the perspective of developing identification tools that require minimal user interaction, it is important that good initial estimates are produced for a wide variety of systems and experimental settings; i.e. to increase the probability of the optimization algorithm to produce good estimates, or preferably even the global optimum.
  However, when noisy input-output measurements are to be processed, the presence of noise obstructs a clear view of the actual system behavior, especially for poor \glspl{SNR}.
  Such problems can be mitigated using non-parametric techniques: the presence of noise is typically reduced by averaging multiple measurements or by using more advanced smoothing techniques.
 
-The main aim and contribution of this chapter is to demonstrate that smoothing a measured \gls{FRF} helps to avoid local optima during the parametric estimation of the \gls{MLE} of a transfer function, using classical (deterministic) optimization algorithms.
+The main aim and contribution of this chapter is to demonstrate that smoothing a measured \gls{FRF} non-parametrically, helps to avoid local optima during the parametric estimation of the \gls{MLE} of a transfer function, using classical (deterministic) optimization algorithms.
 Hence, such techniques make it possible to increase the ``success rate'' (i.e. the probability that a good model, or even the global optimum, is obtained) of such a system identification step considerably.
 
 In particular, two different smoothing techniques --- the time-truncated \gls{LPM}~\citep{Lumori2014TIM} and the \gls{RFIR}~\citep{Pillonetto2010,Chen2012} --- are tested for different \glspl{SNR} and different measurement record lengths of the input/output data of a few \gls{SISO} \gls{LTI} systems.
 These are compared with the existing initialization schemes, namely: (i) the \gls{GTLS}, and (ii) the \gls{BTLS}.
 
+\paragraph{Outline}
 The rest of the chapter is structured as follows. 
 \secref{se:ProbForm} covers the problem formulation. 
 \secref{se:MethodEg} presents the methodology for obtaining the initial estimates, and their influence on the success rate of the \gls{MLE}. 
@@ -39,11 +41,6 @@ The computational effort and recommendations for practical implementations are g
 Ultimately, concluding remarks are presented in \secref{se:Conclusion}.
 
 \section{Problem formulation}\label{se:ProbForm}
-%\begin{itemize}
-%\item
-%Block schematic of the output error framework
-
-%\JL{In this section, the assumptions on the system and the noise are given, and the associated Maximum Likelihood estimator, formulated in the frequency domain. The latter turns out to be a non-convex function in the parameters, requiring initial estimates. The obtention of those is discussed in the subsequent section.}
 
 In this section, the assumptions on the system and the noise are presented, together with the associated MLE (formulated in the frequency domain), which turns out to be a non-convex function in the parameters, requiring initial estimates. The procedure for obtaining the initial estimates is discussed in the subsequent sections.
 
@@ -126,11 +123,8 @@ The variance of the error is of the form:
   &- 2\RealPart \left( A(k,\theta) \overline{B(k,\theta)} \sigma_{YU}(k) \right)
 \end{split}
 \end{equation}
-where $\sigma_Y^2$ is independent of $k$ for white noise, %assumed to be a known error variance \comment{JL: why should the error variance be known? where do you use that? how do you compute it?} of the measured output spectrum $Y$ \comment{JL: relate the output error variance with the variance of $v(t)$. Isn't it the same thing?},
-%\comment{this is true for white noise, and for the scaling of the DFT by $\sqrt{N}$. I think it is more clear to use the frequency domain variance instead: $\sigma_Y^2$}
-and the input error variance is assumed to be zero, i.e. $\sigma^2_U=0$, and similarly, the covariance $\sigma_{YU} = 0$.
+where $\sigma_Y^2$ is independent of $k$ for white noise, and the input error variance is assumed to be zero, i.e. $\sigma^2_U=0$, and similarly, the covariance $\sigma_{YU} = 0$.
 Here, $\overline{B}$ denotes the complex conjugate of $B$.
-%\comment{use $\sigma^2_U$ instead}
 
 Consequently, $V(\theta)$ is a non-quadratic function of $\theta$ which, in general, results in a non-convex optimization problem. 
 The Levenberg-Marquardt~\citep{Marquardt1963} algorithm (see Algorithm~\ref{LMalgo}) is used to solve this optimization problem deterministically.
@@ -206,8 +200,6 @@ The estimates from this procedure are for comparison purposes with those from th
 
 \item \emph{Quadratic approximations of the ML}
 
-%\JL{The Generalized Total Least Squares (GTLS) and the Bootstrapped Total Least Squares (BTLS) have been discussed in \citep{pintGuil1998}. These are modifications of \eqref{eq:MLEcf}, which still take into account the noise information, while keeping the quadratic nature w.r.t.\ $\theta$. These estimators preserve consistency (which is an asymptotic behaviour, i.e.\ for $N\to\infty$). Their finite sample behaviour is prone to be improved by the FRF smoothing tools, described below.}
-
 The \gls{GTLS} and the \gls{BTLS} have been discussed in \citep{Pintelon1998}. These are modifications of equation \eqref{eq:MLEcf}, which still take into account the noise information while retaining the quadratic nature w.r.t. $\theta$. 
 These estimators preserve consistency, such that the estimates converge asymptotically to the true parameters for $N\to\infty$. 
 Their finite sample behavior, however, is suitable for improvement by the \gls{FRF} smoothing tools as described below.
@@ -274,7 +266,7 @@ It estimates the impulse response of a discrete time system as the minimizer of 
 \hat g_{\mathrm{RFIR}} &= \argmin_{g} \norm{y - g \ast u }^2 + \sigma^2 g^{\TT}P^{-1}g
 \end{align}
 where $g$ is the vectorized impulse response $g(t)$, with $t = 0,1,\cdots,n_h - 1$, assuming that the impulse response is $n_g$ samples long. 
-Furthermore, $g\ast u$ is the convolution of $g$ with the input signal $u$, and $P\in \mathbb{R}^{n_g\times n_g}$ is the kernel matrix. 
+Furthermore, $g\ast u$ is the convolution of $g$ with the input signal $u$, and $P\in \mathbb{R}^{n_g\times n_g}$ is the kernel matrix~\citep{Chen2012}. 
 Note that \eqref{eq:hRFIRdef} is quadratic in $g$, such that $\hat g_{\mathrm{RFIR}}$ can be computed analytically in a single step.
 The kernel matrix $P$ embodies prior knowledge on the system to be estimated. 
 Here, the \gls{DCkernel}~\citep{Chen2012,Pillonetto2010} is used. 
@@ -283,15 +275,15 @@ Specifically, the element at $t_1,t_2$ of $P$ is given by
 P(\alpha,\beta)_{t_1,t_2} = e^{-\alpha|t_1 - t_2|}e^{-\beta(t_1 + t_2)/2}
 \end{equation}
  for $t_1,t_2 \in \left\{0,1,\cdots,n_h - 1\right\}$ which makes the estimated impulse response to be an exponentially decaying function of $t$ with decay rate $\beta^{-1}$, and correlation length $\alpha^{-1}$. 
- The latter \emph{hyperparameters} $\alpha$, $\beta$ and $\sigma$ are determined using Empirical Bayes, i.e. as the maximizers of the \gls{LML} of the measured output signal~\citep{Chen2013}:
+ The latter \emph{hyperparameters} $\alpha$, $\beta$ and $\sigma$ are determined using Empirical Bayes~\citep{Carlin2000,Gelman2014}, i.e. as the maximizers of the \gls{LML} of the measured output signal~\citep{Chen2012}:
 \begin{align}
 \mathrm{LML}(y) = -y^{\TT}\Sigma(\alpha,\beta,\sigma)^{-1}y - \log |\Sigma(\alpha,\beta,\sigma)| \text{,}
 \end{align}
 where $\Sigma(\alpha,\beta, \sigma) = \sigma^2 \I + \phi^{\TT}P(\alpha,\beta)\phi$ and $\phi$ is a Toeplitz matrix constructed with $u$. 
 This problem is solved using \mcode{fmincon} in \MATLAB.
 
-An implementation of the \gls{RFIR} estimator is available as the \mcode{arx} function in the System Identification Toolbox since \MATLAB~2013b with $\mathtt{na} = 0$, $\mathtt{nb} = n_g$, $\mathtt{nk}=0$ and regularization enabled in \mcode{arxoptions}. 
-The hyperparameters can be determined via \mcode{arxregul}.
+An implementation of the \gls{RFIR} estimator is available as the \mcode{arx} function in the System Identification Toolbox since \MATLAB~2013b with $\mathtt{na} = 0$, $\mathtt{nb} = n_g$, $\mathtt{nk}=0$ and regularization enabled in \mcode{arxOptions}. 
+The hyperparameters can be determined via \mcode{arxRegul}.
 More information about the \gls{RFIR} estimator can be found in
 ~\citep{Pillonetto2010,Chen2012}. 
 The \gls{DFT} of the obtained regularized estimate of the impulse response $\hat g_{\mathrm{RFIR}}$ of the system yields a smoothed estimate of the \gls{FRF}.
@@ -354,7 +346,7 @@ Formally, let $\model{\bullet}$ be the final parametric estimate of the system, 
     \item $\model{RFIR}$, initialized by means of the RFIR method. 
 \end{itemize} 
 
-A particular initial estimate is deemed \emph{successful} if the optimization of the MLE cost with the raw input-output data inserted in equation~\eqref{eq:MLEcf}, reaches the \emph{best local optimum} when iteration is initiated with the selected initial value/estimate.
+A particular initial estimate is deemed \emph{successful} if the optimization of the MLE cost with the raw input-output data inserted in equation~\eqref{eq:MLEcf}, approximately reaches the \emph{best local optimum} when iteration is initiated with the selected initial value/estimate.
 
 \begin{conjecture}\label{conj1}
 The true model $\true{G}$ as an initial estimate is the best possible initial estimate one can use for the nonlinear optimization algorithm (the leftmost path in \figref{fig:flowgraph}) and will allow the optimization to converge to the \emph{best local optimum}, i.e. $\model{\trueSymbol}$.
@@ -366,49 +358,50 @@ The use of $\true{G}$ as an initial estimation not necessarily entails in conver
 From this conjecture, use of the true system as an initial estimate would engender the best final estimate or hopefully even the global optimum.
 Since the true system is not really known in practice, this chapter compares the capability of different possible initial estimates to emulate the result that would be obtained by using the true model as an initial estimate. 
 
-The capability is quantified by defining the success rate of the initial estimate as the probability that the identification algorithm reaches the \emph{best local optimum} when the selected initial estimate is used. %using the selected initial estimate.
+The capability is quantified by defining the success rate of the initial estimate as the probability that the identification algorithm reaches the \emph{best local optimum} when the selected initial estimate is used. 
+Note that probability in this context should be understood with respect to different realizations of the input signal and disturbing noise.
 
-
-The success rate $\eta$ is expressed mathematically as a probability function, consistent with Conjecture \ref{conj1}, \emph{viz}:
+The success rate $\successRate_{\bullet}$ of an initialization scheme $\bullet$ is expressed mathematically as the probability function
 \begin{equation}
-\eta_{\bullet}=\Prob{\model{\bullet}=\model{\trueSymbol}}
+\successRate_{\bullet} = 
+  \Prob{  \model{\bullet}=\model{\trueSymbol}  }
+\text{.}
 \end{equation}
 In practice, and since the iterative algorithm usually does not reach the local optimum precisely, the above definition is relaxed to the form
 \begin{equation}\label{eq:successrateTol}
-\eta_{\bullet} \isdef \Prob{ \norm[2]{\model{\bullet} - \model{\trueSymbol}} < tol}
+\successRate_{\bullet} \isdef \Prob{ \norm[2]{\model{\bullet} - \model{\trueSymbol}} < \absoluteTolerance}
 \end{equation}
-with $tol$ a numerical tolerance that will be specified later on.
+with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
+
 \begin{remark}
 For an automated approach, it is better to define the success rate in terms of relative errors on the transfer function, i.e.
 \begin{equation}
-\eta_{\bullet} = \Prob{ \norm[2]{\model{\bullet}-\model{\trueSymbol}} < rel.tol  \norm[2]{\true{G}}}
+\successRate_{\bullet} = \Prob{ \norm[2]{\model{\bullet}-\model{\trueSymbol}} < \relativeTolerance  \norm[2]{\true{G}}}
 \text{.}
 \end{equation}
 \end{remark}
 \begin{remark}
 In this chapter, the absolute criterion is used.
-However, the results are equivalent for a relative criterion when the separation between successful and failed estimates is large since then observed success rate $\eta$ is only mildly sensitive towards the tolerance $tol$ (or $rel.tol$) when the tolerance is chosen with care.
-Consequently, one can easily determine the equivalent relative tolerance from the absolute one using $tol = rel.tol \norm[2]{\true{G}}$.
+However, the results are equivalent for a relative criterion when the separation between successful and failed estimates is large since then observed success rate $\successRate$ is not sensitive towards the tolerance $\absoluteTolerance$ (or $\relativeTolerance$) when the tolerance is chosen with care.
+Consequently, one can easily determine the equivalent relative tolerance from the absolute one using $\absoluteTolerance = \relativeTolerance \norm[2]{\true{G}}$.
 \end{remark}
 
-% \comment{JL to EG: It is better to implement the success rate as given in \eqref{eq:successrateTol}, because that can more easily be adhered. Note that it is not obvious to determine a tolerance on the difference between the estimated and the true model, because that depends on the noise variance of the estimate. On the other hand, the tolerance in \eqref{eq:successrateTol} and \eqref{eq:toldef} is independent of the noise variance.
+\begin{remark}
+
+\end{remark}
+
+% \comment{JL to EG: It is better to implement the success rate as given in \eqref{eq:successrateTol}, because that can more easily be adhered. Note that it is not obvious to determine a gerance on the difference between the estimated and the true model, because that depends on the noise variance of the estimate. On the other hand, the tolerance in \eqref{eq:successrateTol} and \eqref{eq:toldef} is independent of the noise variance.
 %\comment{\EG{it is implemented that way now}}
 % }
 
 
-The norm used in equation \eqref{eq:successrateTol} is defined as
+The $\mathcal{L}_2$ norm used in equation \eqref{eq:successrateTol} is defined~\citep{Skogestad2005} as
 \begin{align}
 \norm[2]{G(z)} &\isdef \sqrt{\frac{1}{2\pi}\int_0^{2\pi} |G(e^{-j\omega})|^2\ \mathrm{d}\omega}& \text{ for discrete time,}\\
 \norm[2]{G(s)} &\isdef \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} |G(j\omega)|^2\ \mathrm{d}\omega}& \text{ for continuous time}
 \end{align}
  which, in practice, is computed by using the adaptive global quadrature algorithm provided by the MATLAB function \code{integral}.
-%\comment{EG: The exact implementation is in the L2Norm function. Basically, either numerical or symbolic integration can be used (as our models are parametric), but both yield equally workable results (cfr. testDistance). I picked a full numerical approach as the symbolic one doesn't always work on my computer.}
-%\JL{The success rate in \eqref{eq:successrateTol} will be estimated via Monte Carlo simulations, further\ML{/later} on.}
 The success rate in equation \eqref{eq:successrateTol} is estimated via Monte Carlo simulations in  Section \ref{se:CompuSR}.
-
-
-% !TEX root =  InitialValuesPaper.tex
-
 \section{Demonstration}\label{se:Demo}
 
 \subsection{The System Under Consideration}
@@ -523,14 +516,14 @@ The $3\unit{dB}$ bandwidth is defined as the frequency band where the magnitude 
 For both systems, $N$ was chosen such that $N_{3\unit{dB}}$ is respectively $36$ or $48$.
 For each value-pair $(\SNR, N_{3\mathrm{dB}})$ and both systems, $n_{\mathrm{MC}} = 200$  simulations and estimations were performed.
 Each individual simulation yields an estimate of the model based on which one can determine whether the estimation was successful or not.
-This allows to empirically estimate the success rate $\eta$ in equation \eqref{eq:successrateTol} as the proportion of the successes from the $N_{\MC} = 200$ runs.
+This allows to empirically estimate the success rate $\successRate$ in equation \eqref{eq:successrateTol} as the proportion of the successes from the $N_{\MC} = 200$ runs.
 
 
 %\ML{
 \subsubsection{Illustrative Example}
 In particular, the simulation for each pair $(\mathrm{SNR}, N_{3\mathrm{dB}})$ yields 200 estimates per initial value strategy.
-This is illustrated graphically in \figref{fig:single-sim} for the value-pair $(-1.1\unit{dB},48)$ of the system with $Q = 6 \unit{dB}$, where the obtained distances $\norm{\model{\bullet} - \model{\trueSymbol}}$ are shown for the different strategies, and sorted by an ascending norm.
-This effectively shows an empirical cumulative distribution function of the distance measure $\norm{\model{\bullet} - \model{\trueSymbol}}$ as sampled by the Monte Carlo algorithm.%}
+This is illustrated graphically in \figref{fig:single-sim} for the value-pair $(-1.1\unit{dB},48)$ of the system with $Q = 6 \unit{dB}$, where the obtained distances $\norm[2]{\model{\bullet} - \model{\trueSymbol}}$ are shown for the different strategies, and sorted by an ascending norm.
+This effectively shows an empirical cumulative distribution function of the distance measure $\norm[2]{\model{\bullet} - \model{\trueSymbol}}$ as sampled by the Monte Carlo algorithm.%}
  
 %\JL{One observes:}
 \subsubsection{Pertinent Observations}
@@ -540,12 +533,12 @@ With reference to \figref{fig:single-sim}, the following observations are worth 
 \item The actual parametric estimates, based on the different initial estimates, have distinct behaviors with respect to their distance from $\model{\trueSymbol}$.
 Two major classifications can be made:
 \begin{enumerate}
-  \item `good' estimates which have $\|\model{\bullet} - \model{\trueSymbol} \|_2 < tol \approx 6 \cdot 10^{-5}$,
+  \item `good' estimates which have $\norm[2]{\model{\bullet} - \model{\trueSymbol}} < \absoluteTolerance \approx 6 \cdot 10^{-5}$,
   \item `poor' estimates which are much further from $\model{\trueSymbol}$.  This is caused by the local optima.
 \end{enumerate}
 \item
 The obvious jump of the observed distances of the final parametric estimates shows that both classes can be separated reliably.
-The index at which this jump occurs is a direct (visual) indication of the success rate $\eta$ of the corresponding strategy to obtain initial values.
+The index at which this jump occurs is a direct (visual) indication of the success rate $\successRate$ of the corresponding strategy to obtain initial values.
 This indicates $\frac{147}{200} \approx 74\%$ success for the existing methods, $\frac{189}{200} \approx 95\%$ for the truncation method and $100\%$ for RFIR in \figref{fig:single-sim}.
 \end{itemize}
 %}
@@ -565,35 +558,35 @@ This indicates $\frac{147}{200} \approx 74\%$ success for the existing methods, 
 \subsection{Improvement Over Existing Techniques}
 
 In \figref{fig:successRateVS_SNR36N3dB}, the success rate (and its $95\%$ confidence interval $\mathrm{CI}$) obtained from the Monte Carlo simulations is shown to compare the proposed method with previously existing approaches.
-Note that the empirical count of successes $n_{\mathrm{success}}$ out of the $N_{\MC}$ total observations is binomially distributed with success rate $\eta$.
-The computation of confidence bounds of such a variable is not obvious due to the discrete nature of the variable: $n_{\mathrm{success}}$ can only attain a discrete set of values: $\Set{0,1,\ldots, N_{\MC}}$ whereas the true success rate $\eta$ is real-valued (but limited to the interval $[0,1]$).
-The inherent discreteness of $\hat{\eta} \isdef n_{\mathrm{success}}/N_{\MC}$ and the difficulties this presents has sparked a fair amount of research to compute confidence bounds~\citep{Barnard1947Significance,Mato1997,Ross2003,Clopper1934}.
+Note that the empirical count of successes $n_{\mathrm{success}}$ out of the $N_{\MC}$ total observations is binomially distributed with success rate $\successRate$.
+The computation of confidence bounds of such a variable is not obvious due to the discrete nature of the variable: $n_{\mathrm{success}}$ can only attain a discrete set of values: $\Set{0,1,\ldots, N_{\MC}}$ whereas the true success rate $\successRate$ is real-valued (but limited to the interval $[0,1]$).
+The inherent discreteness of $\hat{\successRate} \isdef n_{\mathrm{success}}/N_{\MC}$ and the difficulties this presents has sparked a fair amount of research to compute confidence bounds~\citep{Barnard1947Significance,Mato1997,Ross2003,Clopper1934}.
 A simple way to deal with this problem, is to make use of the central limit theorem which states that $n_{\mathrm{success}}/N_{\MC}$ is approximately normally distributed when $N_{\MC} \to \infty$.
 In doing so, one e.g. obtains the Wald confidence bounds~\citep{Ross2003}:
 \begin{equation}
-\mathrm{CI}_{\mathrm{Wald}} \isdef \hat{\eta} \pm z_{1-\alpha/2} \sqrt{\hat{\eta} (1-\hat{\eta}/N_{\MC})}
+\mathrm{CI}_{\mathrm{Wald}} \isdef \hat{\successRate} \pm z_{1-\alpha/2} \sqrt{\hat{\successRate} (1-\hat{\successRate}/N_{\MC})}
 \end{equation}
 with $\alpha = 1 - 0.95$ for $95\%$ confidence bounds and $z_{1-\alpha/2}$ is the $1-\alpha/2$ quantile of a standard normal distribution, i.e. $z_{\beta} \isdef \mathrm{CDF}_{\NormalDistribution}^{-1}(\beta)$
 which requires inversion of the \gls{CDF} of a normal distribution.
-However, such an approximation is overly optimistic when $n_{\mathrm{success}}$ approaches the boundaries of its domain (i.e. when $\eta \approx 0$ or $\eta \approx 1$) since normal confidence regions are always symmetrical whereas the actual success rate is inherently bounded as $0 \leq \eta \leq 1$~\citep{Ross2003}.
+However, such an approximation is overly optimistic when $n_{\mathrm{success}}$ approaches the boundaries of its domain (i.e. when $\successRate \approx 0$ or $\successRate \approx 1$) since normal confidence regions are always symmetrical whereas the actual success rate is inherently bounded as $0 \leq \successRate \leq 1$~\citep{Ross2003}.
 An alternative method that does not approximate the binomial distribution by a normal one, is the Clopper-Pearson method~\citep{Clopper1934}.
 In particular, this method relies upon the exact binomial distribution, which is why the method is often quoted as the `exact' method.
-In particular, the $(1-\alpha)$  confidence bounds on $\eta$ are given by~\citep{Clopper1934}
-\begin{align}
- \mathrm{CI}_{\mathrm{ClopperPearson}}  & \isdef \left[ \underline{\eta}, \overline{\eta} \right]\\
- \underline{\eta} &\isdef 
+In particular, the $(1-\alpha)$  confidence bounds on $\successRate$ are given by~\citep{Clopper1934}
+\begin{align}\label{eq:initvals:Binomial:CI}
+ \mathrm{CI}_{\mathrm{ClopperPearson}}  & \isdef \left[ \underline{\successRate}, \overline{\successRate} \right]\\
+ \underline{\successRate} &\isdef 
   \mathrm{CDF}_B^{-1}(\phantom{1-\;}\alpha/2; n_{\mathrm{success}}, N_{\MC} - n_{\mathrm{success}} + 1)\\
-  \overline{\eta} &\isdef
+  \overline{\successRate} &\isdef
   \mathrm{CDF}_B^{-1}(1-\alpha/2; n_{\mathrm{success}} + 1, N_{\MC} - n_{\mathrm{success}})
 \end{align}
-where $\mathrm{CDF}_B^{-1}(\alpha; n,m)$ denotes the inverse \gls{CDF} of a $\mathrm{Beta}(n,m)$ distribution.
+where $\mathrm{CDF}_B^{-1}(\alpha; n,m)$ denotes the inverse \gls{CDF} of a $\mathrm{Beta}(n,m)$ distribution. %TODO: maybe add reference for Beta distribution
 This is known to yield somewhat conservative bounds, especially if only failures or successes are observed~\citep{Ross2003}.
 
 In this chapter, the Clopper-Pearson method---as implemented in \MATLAB's \code{binofit}---is used whenever confidence bounds are shown.
 Consequently, the improvements observed in \figref{fig:successRateVS_SNR36N3dB} underestimate the actual improvement slightly due to the conservatism in these bounds.
 However, since there is often a clear separation between the different techniques, no efforts have been made to use confidence interval estimators that offer less conservative results.
 
-By aggregating the results for the different simulations and retaining the success rate $\eta$ only, a clearer view of the performance of the different methods is obtained.
+By aggregating the results for the different simulations and retaining the success rate $\successRate$ only, a clearer view of the performance of the different methods is obtained.
 
 The success rates of $\hat G_\mathrm{exist}$, $\hat G_\mathrm{trunc}$ and $\hat G_\mathrm{RFIR}$ are depicted in  \figref{fig:successRateVS_SNR36N3dB} for two different numbers of sample points within the $3\unit{dB}$ bandwidth, and for a range of SNR values. A close scrutiny of  \figref{fig:successRateVS_SNR36N3dB} reveals the following observations: \begin{itemize}
 \item The success rates increase with increasing SNR values, as expected.
@@ -620,14 +613,15 @@ However, by using the truncated \gls{LPM}'s initial estimates, the number of fai
 Moreover, the \gls{RFIR} initial values lead to poor estimates in less than $2\%$ ($>$ $98\%$ success rate) of the cases, since none were observed in the Monte Carlo simulation.
 
 \paragraph*{Extension of the SNR range for $\hat G_\mathrm{trunc}$ over $\hat G_\mathrm{exist}$}
-A close inspection of \figref{fig:successRateVS_SNR36N3dB} reveals that the \gls{SNR} range associated with an acceptable success rate (e.g.\ success rate~$\geqslant 90\%$) is improved for $\hat G_\mathrm{trunc}$ over $\hat G_\mathrm{exist}$. The range of improvement is approximately 5 dB where the success rate is above $90\%$. This result is very useful for a user working with noisy data.
+A close inspection of \figref{fig:successRateVS_SNR36N3dB} reveals that the \gls{SNR} range associated with an acceptable success rate (e.g. $\successRate \geqslant 90\%$) is improved for $\hat G_\mathrm{trunc}$ over $\hat G_\mathrm{exist}$. The range of improvement is approximately 5 dB where the success rate is above $90\%$. 
+This result is very useful for a user working with noisy data.
 
 \begin{figure}
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/fig/successRates.tikz}
- \caption[Simulated success rate of the different initialization schemes for varying \gls{SNR}.]{The success rate $\eta$  obtained using the smoothers, i.e. $\model{RFIR}$~\legref{leg:success-RFIR} and $\model{trunc}$~\legref{leg:success-LPMTrunc}, are significantly higher than for the existing methods $\model{exist}$~\legref{leg:success-existing} in most of the studied range of \glspl{SNR}, number of samples and for both test systems. The $95\%$ confidence intervals are indicated by bars.}
+ \caption[Simulated success rate of the different initialization schemes for varying \gls{SNR}.]{The success rate $\successRate$  obtained using the smoothers, i.e. $\model{RFIR}$~\legref{leg:success-RFIR} and $\model{trunc}$~\legref{leg:success-LPMTrunc}, are significantly higher than for the existing methods $\model{exist}$~\legref{leg:success-existing} in most of the studied range of \glspl{SNR}, number of samples and for both test systems. The $95\%$ confidence intervals~\eqref{eq:initvals:Binomial:CI} are indicated by bars.}
   \label{fig:successRateVS_SNR36N3dB}
 \end{figure}
 
@@ -982,7 +976,7 @@ Note that due to $\norm[2]{\true{G}}=1$, the validation distance $\norm[2]{\mode
   \caption{Overview of the test cases for the initialization stress test.}
 \begin{tabular}{crlrrrrr}
 \toprule
-\textsc{Case}   &  \multicolumn{2}{c}{\textsc{Filter}}   &  $\true{\eta} [\%]$  &  $\eta_{\mathrm{exist}} [\%]$ &  $\eta_{\mathrm{trunc}} [\%]$   &  $\eta_{\mathrm{RFIR}} [\%]$  &  $\eta_{\mathrm{best}} [\%]$ \\
+\textsc{Case}   &  \multicolumn{2}{c}{\textsc{Filter}}   &  $\true{\successRate} [\%]$  &  $\successRate_{\mathrm{exist}} [\%]$ &  $\successRate_{\mathrm{trunc}} [\%]$   &  $\successRate_{\mathrm{RFIR}} [\%]$  &  $\successRate_{\mathrm{best}} [\%]$ \\
 \midrule
 1  &  {Chebyshev I}  &  low-pass   & 100 & 100 & 95  & 100 & 100\\
 2  &  {Chebyshev I}  &  band-pass   & 100 & 14  & 7 & 16  & 34\\
@@ -1007,7 +1001,7 @@ Note that due to $\norm[2]{\true{G}}=1$, the validation distance $\norm[2]{\mode
 
 \subsection{Observations}
 The transfer functions are shown in \figref{fig:bodeplots} while the empirical cumulative validation distance is shown in \figref{fig:distancesStress}.
-In \tabref{tbl:init:stresstest}, also the success rates per method are given when a tolerance $tol = 0.02$ is used when success is determined as $D_{\bullet} = \norm[2]{\model{\bullet} - \true{G}} < tol$.
+In \tabref{tbl:init:stresstest}, also the success rates per method are given when a tolerance $\absoluteTolerance = 0.02$ is used when success is determined as $D_{\bullet} = \norm[2]{\model{\bullet} - \true{G}} < \absoluteTolerance$.
 This is equivalent to the relative criterion of success since $\norm[2]{\true{G}} = 1$ for all systems.
 
 \begin{figure}[p]
@@ -1040,14 +1034,14 @@ This is equivalent to the relative criterion of success since $\norm[2]{\true{G}
 
 A few remarks regarding these results are appropriate.
 \begin{itemize}
-  \item In many of the tested situations (cases 1,3,13-16), all methods yield a good model quality.
+  \item In many of the tested situations (cases 1,3,13--16), all methods yield a good model quality.
   \item In some situations (cases 8, 10, 12), the model quality is generally poor. 
   The fact that for cases 8 and 12, the `ideal' starting value \model{0} also provides poor models means the data is not informative enough to reasonably fit a good model.
   \item In all cases except 8, 10 and 12, the RFIR performed as well or better than the existing methods.
   \item In case 10, the model quality of the RFIR is slightly worse than the already poor existing techniques.
   This is an underlying limitation of the RFIR used: $n_g=200$ taps was used, however the true impulse response has not decayed significantly in that interval.
   Essentially, the particular RFIR used introduces a significant bias in the non-parametric description of the filter and hence the obtained initial value is unreliable.
-  \item The RFIR performs (significantly) better than the existing methods in various cases (4-7, 9, 11).
+  \item The RFIR performs (significantly) better than the existing methods in various cases (4--7, 9, 11).
   \item Since the `best' method \legref{leg:dist:modelBest} yields better models more often than a single method, e.g. in cases 2, 4 and 6, this illustrates that combining initialization schemes improves the model quality.
   Particularly, case 2 implies that \model{best} contains initial estimates of all different techniques.
   \item For all of the tested systems (except possibly for case 2), the truncated LPM is not advisable over the existing methods.
