@@ -35,7 +35,7 @@ group style={%
   vertical sep=0.2cm,
   x descriptions at=edge bottom,
   y descriptions at=edge left},
-xlabel={$\omega \axisunit{rad/S}$},
+xlabel={$\omega \axisunit{rad/s}$},
 scale only axis,
 xmin=0,
 xmax=3.1415,

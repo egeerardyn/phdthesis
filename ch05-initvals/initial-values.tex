@@ -4,8 +4,6 @@
 \gdef\thisDir{ch05-initvals}
 \researchBasedOn{Geerardyn2015TIM}
 
-\TODO{bedoeling duidelijker stellen }
-
 \section{Introduction}
 \label{se:introd}
 The task of interpreting measurement data from dynamic systems often involves the estimation of a transfer function (TF). 
@@ -19,7 +17,7 @@ This often involves an iterative algorithm to produce the optimal model.
  Hence, good initial estimates are essential to obtain a high quality model estimate.
  In this chapter, the \gls{MLE} is used as a proxy for any parametric transfer function estimator, since the \gls{MLE} is commonly used and has desirable properties such as efficiency and consistency.
  Since the initial value generation method are not specifically tailored towards the \gls{MLE}, other parametric identification frameworks are likely to benefit from these improved starting values as well.
- Hence, the presented approach is orthogonal to initialization schemes such as the work of \citet{vanHerpen2014}.
+ Hence, the presented approach is orthogonal to initialization schemes such as the work of~\citet{vanHerpen2014}.
 
  In the perspective of developing identification tools that require minimal user interaction, it is important that good initial estimates are produced for a wide variety of systems and experimental settings; i.e. to increase the probability of the optimization algorithm to produce good estimates, or preferably even the global optimum.
  However, when noisy input-output measurements are to be processed, the presence of noise obstructs a clear view of the actual system behavior, especially for poor \glspl{SNR}.
@@ -42,7 +40,7 @@ Ultimately, concluding remarks are presented in \secref{se:Conclusion}.
 
 \section{Problem formulation}\label{se:ProbForm}
 
-In this section, the assumptions on the system and the noise are presented, together with the associated MLE (formulated in the frequency domain), which turns out to be a non-convex function in the parameters, requiring initial estimates. The procedure for obtaining the initial estimates is discussed in the subsequent sections.
+In this section, the assumptions on the system and the noise are presented, together with the associated MLE (formulated in the frequency domain), which turns out to be a non-convex function in the parameters, requiring initial estimates. The procedure for obtaining the initial estimates is elaborated in the subsequent sections.
 
 \subsection{System Setup Framework and Model}
 \TODO{ hele subsectie verplaatsen na het param. sys. model?}
@@ -200,7 +198,8 @@ The estimates from this procedure are for comparison purposes with those from th
 
 \item \emph{Quadratic approximations of the ML}
 
-The \gls{GTLS} and the \gls{BTLS} have been discussed in \citep{Pintelon1998}. These are modifications of equation \eqref{eq:MLEcf}, which still take into account the noise information while retaining the quadratic nature w.r.t. $\theta$. 
+The \gls{GTLS} and the \gls{BTLS} have been presented in \citep{Pintelon1998}. 
+These are modifications of equation \eqref{eq:MLEcf}, which still take into account the noise information while retaining the quadratic nature w.r.t. $\theta$. 
 These estimators preserve consistency, such that the estimates converge asymptotically to the true parameters for $N\to\infty$. 
 Their finite sample behavior, however, is suitable for improvement by the \gls{FRF} smoothing tools as described below.
 
@@ -327,7 +326,7 @@ This is because the \glspl{FRF} from 3) and 4) have been smoothed and, thus, hav
 %\end{enumerate}
 
 %\JL{
-%The main contribution of this paper is to demonstrate that $\hat G_\mathrm{trunc}$ (third path) yields an improvement over $\hat G_\mathrm{exist}$ (second path). \comment{JL: these symbols haven't been introduced yet. I'm getting quite confident that this subsection can be removed.}The quantification of this improvement is formally introduced in the next section.
+%The main contribution of this paper is to demonstrate that $\model{trunc}$ (third path) yields an improvement over $\model{exist}$ (second path). \comment{JL: these symbols haven't been introduced yet. I'm getting quite confident that this subsection can be removed.}The quantification of this improvement is formally introduced in the next section.
 %}
 
 %The latter 2 ....schematic is configured to include connections of the initial values and the input to the LPM block and/or to the MLE block(s) for estimation purposes.
@@ -386,46 +385,52 @@ However, the results are equivalent for a relative criterion when the separation
 Consequently, one can easily determine the equivalent relative tolerance from the absolute one using $\absoluteTolerance = \relativeTolerance \norm[2]{\true{G}}$.
 \end{remark}
 
-\begin{remark}
-
-\end{remark}
-
-% \comment{JL to EG: It is better to implement the success rate as given in \eqref{eq:successrateTol}, because that can more easily be adhered. Note that it is not obvious to determine a gerance on the difference between the estimated and the true model, because that depends on the noise variance of the estimate. On the other hand, the tolerance in \eqref{eq:successrateTol} and \eqref{eq:toldef} is independent of the noise variance.
-%\comment{\EG{it is implemented that way now}}
-% }
-
-
 The $\mathcal{L}_2$ norm used in equation \eqref{eq:successrateTol} is defined~\citep{Skogestad2005} as
 \begin{align}
 \norm[2]{G(z)} &\isdef \sqrt{\frac{1}{2\pi}\int_0^{2\pi} |G(e^{-j\omega})|^2\ \mathrm{d}\omega}& \text{ for discrete time,}\\
 \norm[2]{G(s)} &\isdef \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} |G(j\omega)|^2\ \mathrm{d}\omega}& \text{ for continuous time}
 \end{align}
  which, in practice, is computed by using the adaptive global quadrature algorithm provided by the MATLAB function \code{integral}.
-The success rate in equation \eqref{eq:successrateTol} is estimated via Monte Carlo simulations in  Section \ref{se:CompuSR}.
+The success rate in equation \eqref{eq:successrateTol} is estimated via Monte Carlo simulations in \secref{se:CompuSR}.
+
+\begin{remark}
+The specific norm that is used in~\eqref{eq:successrateTol} can be adapted to suit the eventual purpose of the models the user wants to obtain.
+E.g. in robust control, it often makes sense to rather have a $\Hinf$ norm as in \chapref{sec:hinf} than an $\mathcal{L}_2$ norm.
+In this chapter, the $\mathcal{L}_2$ norm has been chosen since this is more closely related to the cost function~\eqref{eq:MLEcf}.
+\end{remark}
+
 \section{Demonstration}\label{se:Demo}
 
 \subsection{The System Under Consideration}
 
-Two systems are considered. The first, with a quality factor $Q = 6\unit{dB}$, has the transfer function
+Two systems are considered. 
+The first, with a quality factor $Q = 6\unit{dB}$, has the transfer function
   \begin{equation}
-     \true{G}(z) \Big|_{Q=6\unit{dB}}
-    = 1.74 \cdot 10^{-3}
+     \true{G}(z)
+    \approx 
+    1.74 \cdot 10^{-3}
     \frac{ z^2 + 2 z + 1 }
          { z^2 - 1.93 z + 0.94}
+    \qquad 
+    \text{ for } Q = 6 \unit{dB}
     \label{eq:systemundertest}
     \text{.}
   \end{equation}
 The second system, with a quality factor $Q = 20\unit{dB}$, has the transfer function
   \begin{equation}
-    \true{G}(z) \Big|_{Q=20\unit{dB}}
-    = 309 \cdot 10^{-6}
+    \true{G}(z)
+    \approx
+    309 \cdot 10^{-6}
             \frac{z^2 + 2 z + 1}
                  {z^2 - 1.98 z + 0.989}
+    \qquad 
+    \text{ for } Q = 20 \unit{dB}
     \label{eq:systundertest-20dB}
     \text{.}
   \end{equation}
 
-Both systems are low-pass Chebyshev filters shown in \figref{fig:exampleFRF}. 
+Both systems are low-pass Chebyshev filters which have been generated using the \MATLAB command \mcode[mathescape]{cheby1(2, $\,Q$, 0.05)}. 
+Their transfer functions are shown in \figref{fig:exampleFRF}.
 Their inputs are excited by zero mean white Gaussian noise with unit variance, and the outputs are disturbed by different realizations of white gaussian noise, as in \figref{fig:oesetup}, with a variance $\sigma_v^2$, such that a prescribed \gls{SNR} defined as
 \begin{equation}
   \mathrm{SNR} 
@@ -454,9 +459,9 @@ $\rms{x} = \sqrt{N^{-1} \sum_t x^2(t)}$ denotes the root-mean-squared value of $
  \figref{fig:exampleFRF} depicts the Bode plot of the actual system $\true{G}$, in black
 %\comment{JL: in what color? (EG) black},
  and different estimates $\model{exist}$
- %\comment{JL: does it matter whether it is $\hat G_\mathrm{exist}$ or any other $\hat G_\bullet$? (EG) No, other methods will have similar results} 
+ %\comment{JL: does it matter whether it is $\model{exist}$ or any other $\hat G_\bullet$? (EG) No, other methods will have similar results} 
  that may or may not approximate $\model{\trueSymbol}$ well, according to the distance defined by equation \eqref{eq:successrateTol}.
- The systems shown here are drawn randomly from the successes and failures observed in the Monte Carlo simulations, discussed later.
+ The systems shown here are drawn randomly from the successes and failures observed in the Monte Carlo simulations, which are discussed later on in this chapter.
  
  It is clear from \figref{fig:exampleFRF} that the successful estimates virtually coincide with the true system. This means 
 that their distances from the true system, given by $\norm[2]{\model{\bullet} - \true{G}}$, have small values. 
@@ -467,9 +472,7 @@ On the other hand, the `failed' estimates are inaccurate descriptions of the tru
  %In practice, this means that a successful estimate provides reasonable estimates of the pass-band of the system, but may perform poorly in the stop-band. \comment{Further discussion required: what about the absolute error? Isn't it more or less white over the complete frequency band?} \ML{To be discussed}
  
  Estimation `failures' can be attributed to the optimization procedure getting stuck in local optima, resulting in very poor estimates of $\true{G}(\omega)$ over broad frequency ranges, as seen in \figref{fig:exampleFRF}. 
- %In \figref{fig:exampleFRF}, it can be seen that these \ML{`failures' result inprovide a very poor estimate of $\true{G}(\omega)$ over the broad frequency ranges.
- %Consequently, such estimates are practically worthless as an approximation of $\true{G}$.
- Consequently, such estimates are practically worthless approximations of $\true{G}$.
+ Consequently, such estimates are approximations of $\true{G}$ that are practically worthless for most applications.
  %}
 
 
@@ -588,23 +591,23 @@ However, since there is often a clear separation between the different technique
 
 By aggregating the results for the different simulations and retaining the success rate $\successRate$ only, a clearer view of the performance of the different methods is obtained.
 
-The success rates of $\hat G_\mathrm{exist}$, $\hat G_\mathrm{trunc}$ and $\hat G_\mathrm{RFIR}$ are depicted in  \figref{fig:successRateVS_SNR36N3dB} for two different numbers of sample points within the $3\unit{dB}$ bandwidth, and for a range of SNR values. A close scrutiny of  \figref{fig:successRateVS_SNR36N3dB} reveals the following observations: \begin{itemize}
+The success rates of $\model{exist}$, $\model{trunc}$ and $\model{RFIR}$ are depicted in  \figref{fig:successRateVS_SNR36N3dB} for two different numbers of sample points within the $3\unit{dB}$ bandwidth, and for a range of SNR values. A close scrutiny of  \figref{fig:successRateVS_SNR36N3dB} reveals the following observations: \begin{itemize}
 \item The success rates increase with increasing SNR values, as expected.
-\item For very low SNR values (below $0\unit{dB}$), $\hat G_\mathrm{exist}$ and $\hat G_\mathrm{trunc}$ are unreliable, whereas $\hat G_\mathrm{RFIR}$ is reliably successful. 
+\item For very low SNR values (below $0\unit{dB}$), $\model{exist}$ and $\model{trunc}$ are unreliable, whereas $\model{RFIR}$ is reliably successful. 
 \item For relatively high SNR ($20\unit{dB}$), all three estimators perform equally well.
-\item For moderate SNR values, the success rate of $\hat G_\mathrm{trunc}$ lies above that of $\hat G_\mathrm{exist}$.
+\item For moderate SNR values, the success rate of $\model{trunc}$ lies above that of $\model{exist}$.
 \item The RFIR-based estimate exhibits a success rate of, at least, $97\%$ for all studied conditions. 
 This clearly indicates that regularization makes it possible to obtain far more reliable initial estimates than both the LPM-Truncation-based ones and the existing ones. 
 This is an important conclusion.
 \end{itemize}
 %}
 
-%\JL{An important conclusion can be drawn from the last observation, in the range of the SNR where the success rate almost reaches 100\%. Namely, it tells us to what extent the estimator $\hat G_\mathrm{trunc}$ allows the SNR to be decreased before the estimator gets a too high fail rate. In other words, it shows that $\hat G_\mathrm{trunc}$ is more reliable at lower SNRs than $\hat G_\mathrm{existing}$.}
+%\JL{An important conclusion can be drawn from the last observation, in the range of the SNR where the success rate almost reaches 100\%. Namely, it tells us to what extent the estimator $\model{trunc}$ allows the SNR to be decreased before the estimator gets a too high fail rate. In other words, it shows that $\model{trunc}$ is more reliable at lower SNRs than $\model{existing}$.}
 %\JL{
-As far as $\hat G_\mathrm{trunc}$ and $\hat G_\mathrm{exist}$ are concerned, the observations on \figref{fig:successRateVS_SNR36N3dB} clearly reveal the extent to which the estimator $\hat G_\mathrm{trunc}$ allows for the SNR to be decreased before the estimator attains too high a fail rate. 
-In other words, it shows that, at low SNR values $\hat G_\mathrm{trunc}$ is more reliable than $\hat G_\mathrm{exist}$. 
+As far as $\model{trunc}$ and $\model{exist}$ are concerned, the observations on \figref{fig:successRateVS_SNR36N3dB} clearly reveal the extent to which the estimator $\model{trunc}$ allows for the SNR to be decreased before the estimator attains too high a fail rate. 
+In other words, it shows that, at low SNR values $\model{trunc}$ is more reliable than $\model{exist}$. 
 
-%\comment{JL: do we have the numerical results to add a remark like: At an SNR of xdB, the respective success rates of $\hat G_\mathrm{trunc}$ and $\hat G_\mathrm{existing}$ are $90\%$ and $95\%$. This means that, for that SNR, chances of failure have been reduced by a factor of 2!
+%\comment{JL: do we have the numerical results to add a remark like: At an SNR of xdB, the respective success rates of $\model{trunc}$ and $\model{existing}$ are $90\%$ and $95\%$. This means that, for that SNR, chances of failure have been reduced by a factor of 2!
 %}
 %\ML{Yea, shown below!}
 %\EG{
@@ -612,8 +615,8 @@ In other words, it shows that, at low SNR values $\hat G_\mathrm{trunc}$ is more
 However, by using the truncated \gls{LPM}'s initial estimates, the number of failures is reduced fivefold ($\approx 95\%$ success rate) over the existing initial estimates.
 Moreover, the \gls{RFIR} initial values lead to poor estimates in less than $2\%$ ($>$ $98\%$ success rate) of the cases, since none were observed in the Monte Carlo simulation.
 
-\paragraph*{Extension of the SNR range for $\hat G_\mathrm{trunc}$ over $\hat G_\mathrm{exist}$}
-A close inspection of \figref{fig:successRateVS_SNR36N3dB} reveals that the \gls{SNR} range associated with an acceptable success rate (e.g. $\successRate \geqslant 90\%$) is improved for $\hat G_\mathrm{trunc}$ over $\hat G_\mathrm{exist}$. The range of improvement is approximately 5 dB where the success rate is above $90\%$. 
+\paragraph*{Extension of the SNR range for $\model{trunc}$ over $\model{exist}$}
+A close inspection of \figref{fig:successRateVS_SNR36N3dB} reveals that the \gls{SNR} range associated with an acceptable success rate (e.g. $\successRate \geqslant 90\%$) is improved for $\model{trunc}$ over $\model{exist}$. The range of improvement is approximately 5 dB where the success rate is above $90\%$. 
 This result is very useful for a user working with noisy data.
 
 \begin{figure}
@@ -961,14 +964,16 @@ In particular, all combinations of
   \item low-pass, high-pass, band-pass and band-stop 
   \item Chebyshev Type I, Chebyshev Type II, Elliptical and Butterworth
 \end{itemize}
-discrete-time filters~\citep{Zverev1967} of tenth degree generated by the MATLAB functions \mcode{cheby1}, \mcode{cheby2}, \mcode{ellip} and \mcode{butter} are simulated.
+discrete-time filters~\citep{Zverev1967} of tenth degree generated by the \MATLAB code in \lstref{lst:initvals:stressSystems} are simulated.
 Each of these filters $\true{G}$ have been normalized such that $\norm[2]{\true{G}} = 1$.
-The low-pass and high-pass filtes have a cross-over frequency of $\frac{\pi}{2} \unit{rad/S}$. 
-The band-pass, respectively band-stop, filters have a passband, respectively stopband, in the frequency range$\left[ \frac{2\pi}{5}, \frac{3\pi}{5}\right] \unit{rad/S}$.
+The low-pass and high-pass filtes have a cross-over frequency of $\frac{\pi}{2} \unit{rad/s}$. 
+The band-pass, respectively band-stop, filters have a passband, respectively stopband, in the frequency range$\left[ \frac{2\pi}{5}, \frac{3\pi}{5}\right] \unit{rad/s}$.
 Note also that both the band-pass and band-stop filters have a McMillan degree of 20 as per the \MATLAB conventions.
 See \tabref{tbl:init:stresstest} for an overview of the filters and  \figref{fig:bodeplots} for the corresponding bode plots.
 
-The input excitation and the disturbing output noise were $N=1024$ samples of white Gaussian noise such that and an \gls{SNR} of $20 \unit{dB}$ was attained at the output.
+\lstinputlisting[float,style=matlab,mathescape,basicstyle=\ttfamily\scriptsize,caption={Code to generate the systems of the stress tests.},label={lst:initvals:stressSystems}]{\thisDir/code/systemsForStressTest.m}
+
+The input excitation and the disturbing output noise were $N=1\,024$ samples of white Gaussian noise such that and an \gls{SNR} of $20 \unit{dB}$ was attained at the output.
 Note that due to $\norm[2]{\true{G}}=1$, the validation distance $\norm[2]{\model{\bullet} - \true{G}}$ is exactly the relative \gls{RMS} estimation error of the transfer function.
 
 \begin{table}

@@ -1,11 +1,11 @@
 \usepackage{listings}
 
-\definecolor{codebackground}{cmyk}{0,0,0,0.05}
+\definecolor{codebackground}{named}{TangoAluminium1}
 
-\definecolor{matlabCell}{rgb}{0,0.5,0}
-\definecolor{matlabComment}{rgb}{0,0.75,0}
-\definecolor{matlabString}{rgb}{0.75,0,0.75}
-\definecolor{matlabKeyword}{rgb}{0,0,0.5}
+\definecolor{matlabCell}{named}{TangoChameleon2}
+\definecolor{matlabComment}{named}{TangoChameleon3}
+\definecolor{matlabString}{named}{TangoPlum3}
+\definecolor{matlabKeyword}{named}{TangoSkyBlue3}
 
 \definecolor{javaKeyword}{rgb}{0.5,0,0.33}
 \definecolor{javaComment}{rgb}{.25,.5,.37}
@@ -35,6 +35,7 @@
 
 \lstdefinestyle{matlab}
 {language=Matlab,%
+  morekeywords={@},
   style=common,%
   commentstyle=\color{matlabComment},%
   stringstyle=\color{matlabString},%
@@ -113,6 +114,8 @@ stringstyle={\color{javaString}}
 \lstset{style=common}
 \renewcommand{\lstlistlistingname}{List of Listings}
 
+
+\lstnewenvironment{matlabcode}{\lstset{style=matlab}}{}
 
 % http://stackoverflow.com/questions/2809836/math-symbols-in-listings
 \newcommand{\mcode}[2][]{\lstinline[style=matlabbw,#1]!#2!}
