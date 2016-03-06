@@ -411,11 +411,13 @@ The first, with a quality factor $Q = 6\unit{dB}$, has the transfer function
     1.74 \cdot 10^{-3}
     \frac{ z^2 + 2 z + 1 }
          { z^2 - 1.93 z + 0.94}
-    \qquad 
+    \text{ i.e. }
+    \timeconst \approx 32 \unit{s}
     \text{ for } Q = 6 \unit{dB}
     \label{eq:systemundertest}
-    \text{.}
+    \text{,}
   \end{equation}
+where $\timeconst = (\damping \wn)^{-1}$ denotes the time constant of the system (with $\damping$ the damping and $\wn$ the frequency of the dominant pole).
 The second system, with a quality factor $Q = 20\unit{dB}$, has the transfer function
   \begin{equation}
     \true{G}(z)
@@ -423,13 +425,14 @@ The second system, with a quality factor $Q = 20\unit{dB}$, has the transfer fun
     309 \cdot 10^{-6}
             \frac{z^2 + 2 z + 1}
                  {z^2 - 1.98 z + 0.989}
-    \qquad 
+    \text{ i.e. }
+    \timeconst \approx 180 \unit{s}
     \text{ for } Q = 20 \unit{dB}
     \label{eq:systundertest-20dB}
     \text{.}
   \end{equation}
 
-Both systems are low-pass Chebyshev filters which have been generated using the \MATLAB command \mcode[mathescape]{cheby1(2, $\,Q$, 0.05)}. 
+Both systems are low-pass Chebyshev filters which have been generated using the \MATLAB command \mcode[mathescape]{cheby1(2, $\,Q$, 0.05)}.
 Their transfer functions are shown in \figref{fig:exampleFRF}.
 Their inputs are excited by zero mean white Gaussian noise with unit variance, and the outputs are disturbed by different realizations of white gaussian noise, as in \figref{fig:oesetup}, with a variance $\sigma_v^2$, such that a prescribed \gls{SNR} defined as
 \begin{equation}
@@ -464,7 +467,7 @@ $\rms{x} = \sqrt{N^{-1} \sum_t x^2(t)}$ denotes the root-mean-squared value of $
  The systems shown here are drawn randomly from the successes and failures observed in the Monte Carlo simulations, which are discussed later on in this chapter.
  
  It is clear from \figref{fig:exampleFRF} that the successful estimates virtually coincide with the true system. This means 
-that their distances from the true system, given by $\norm[2]{\model{\bullet} - \true{G}}$, have small values. 
+that their distances from the true system, e.g. as given by $\norm[2]{\model{\bullet} - \true{G}}$, have small values. 
 On the other hand, the `failed' estimates are inaccurate descriptions of the true system. It is apparent that their associated distances from the true system are larger by, at least, an order of magnitude than for the successful estimates.
    %Given the 2-norm \eqref{eq:successrateTol} employed 
    %Using the 2-norm in equation \eqref{eq:successrateTol} to classify `successes' and `failures', it can be observed that the `successes' approximate $\hat{G}_0$ well w.r.t. the relative error, except when $\abs{\true{G}(\omega)}$ is small.
@@ -482,7 +485,8 @@ On the other hand, the `failed' estimates are inaccurate descriptions of the tru
   \setlength{\figureheight}{0.6\figurewidth}
   \input{\thisDir/fig/exampleSystems.tikz}
  % \caption{Results of an example of Monte Carlo simulation.}
- \caption[Bodeplot of successful ad failed estimates.]{Illustrative Bode plots of some successful~\legref{leg:example-good-estimate} and failed~\legref{leg:example-bad-estimate} estimates $\model{\bullet}$ for both systems $\true{G}$~\legref{leg:example-exact} under test.
+ \caption[Bodeplot of successful ad failed estimates.]{Illustrative Bode plots of a few successful~\legref{leg:example-good-estimate} and `failed'~\legref{leg:example-bad-estimate} estimates $\model{\bullet}$ for both systems $\true{G}$~\legref{leg:example-exact} under test.
+ The `failed' estimates are caused by local minima in the cost function.
  Success or failure is determined using the criterion in equation~\eqref{eq:successrateTol}. The $3\unit{dB}$ bandwidth of each system is highlighted~\legref{leg:example-3db-bandwidth}.}
 \label{fig:exampleFRF}
 \end{figure}
@@ -491,9 +495,11 @@ On the other hand, the `failed' estimates are inaccurate descriptions of the tru
 \subsection{Computation of  the Success Rates}\label{se:CompuSR}
 
 \subsubsection{Simulation}
-A Monte Carlo simulation was set up to determine the success rate of the estimator with different initial estimates for the following ranges %\comment{ML: To modify text!}
+A Monte Carlo simulation was set up to determine the success rate of the estimator with different initial estimates.
+In each run, both the realization of the excitation signal $u$ and the disturbing noise realization ($e$) are varied.
+Each run is repeated for the following ranges:
 \begin{itemize}
-\item of SNR: 
+\item of \gls{SNR}: 
               $-20   \unit{dB}$, 
               $-16.7 \unit{dB}$, 
               $-13.3 \unit{dB}$, 
@@ -510,17 +516,15 @@ A Monte Carlo simulation was set up to determine the success rate of the estimat
               $ 13.3 \unit{dB}$, 
               $ 16.7 \unit{dB}$ and
               $ 20   \unit{dB}$
-\item of number of samples $N$ is $3\,368$ or $4\,462$ for the first system whose quality factor $Q= 6 \unit{dB}$,
-\item and of number of samples $N$ is $20\,250$ or $26\,792$ for the second system whose quality factor $Q = 20\unit{dB}$.
+\item of number of samples $N$ is $3\,368\approx 104\timeconst$ or $4\,462\approx 138\timeconst$ for the first system whose quality factor $Q= 6 \unit{dB}$,
+\item and of number of samples $N$ is $20\,250\approx 113\timeconst$ or $26\,792\approx 149\timeconst$ for the second system whose quality factor $Q = 20\unit{dB}$.
 \end{itemize}
-\TODO{johan: tijdsconstantes geven}
 One can, equivalently, express the experiment length as the number $N_{3\unit{dB}}$ of frequency bins that lie within the $3\unit{dB}$ bandwidth of the system.
 The $3\unit{dB}$ bandwidth is defined as the frequency band where the magnitude of the transfer function is, at most, $3\unit{dB}$ below its maximum as indicated in \figref{fig:exampleFRF}.
 For both systems, $N$ was chosen such that $N_{3\unit{dB}}$ is respectively $36$ or $48$.
 For each value-pair $(\SNR, N_{3\mathrm{dB}})$ and both systems, $n_{\mathrm{MC}} = 200$  simulations and estimations were performed.
 Each individual simulation yields an estimate of the model based on which one can determine whether the estimation was successful or not.
 This allows to empirically estimate the success rate $\successRate$ in equation \eqref{eq:successrateTol} as the proportion of the successes from the $N_{\MC} = 200$ runs.
-
 
 %\ML{
 \subsubsection{Illustrative Example}
