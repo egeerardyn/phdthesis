@@ -32,7 +32,7 @@ In particular, a generic excitation signal will be used, but its properties are 
 We will consider input design when it is known that the system has resonances, possibly spanning a frequency band that may cover several decades. 
 It is however not necessary to know how many resonances are in the system and at what precise frequencies those may occur.
 
-Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances~\citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy~\citep{Niedostatkiewicz2009,VanGheem2004,Breugelmans2010}, electronics~\citep{Munir2011}, mechatronics~\citep{Steinbuch1998,Oomen2016}, vibration analysis~\citep{Karnopp1995,Voorhoeve2015SYSID} and acoustics testing amongst others. %TODO reference acoustics (ISMA?)
+Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances~\citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy~\citep{Niedostatkiewicz2009,VanGheem2004,Breugelmans2010}, electronics~\citep{Munir2011}, mechatronics~\citep{Steinbuch1998,Oomen2016}, vibration analysis~\citep{Karnopp1995,Voorhoeve2015SYSID} and acoustic testing~\citep{GarciaLopez2014,DAmico2014} amongst others. 
 
   Any \gls{LTI} system of finite order can be expanded into a finite sum of sub-systems of first and second order by means of a partial fraction expansion~\citep{Oppenheim1983}.
   Therefore the performance of the proposed method is assessed on a prototype system of second order.
@@ -1125,9 +1125,10 @@ Also for the design of robust excitation signals, this is worthwhile observation
   This is shown by the solid lines in \figref{fig:excitation:worstCaseBeta}.
   One immediately notices that the variance depends strongly on the misalignment $\beta$ of the system and the frequency grid.
   
-  \begin{figure}
+  \begin{figure}[pht]
     \centering
-      \setlength\figurewidth{0.68\columnwidth}
+    \remakeNextFigure
+      \setlength\figurewidth{0.63\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/betaWC.tikz}
     \caption[Variance $\sigma_G^2\left( \wM \right)$ as a function of the grid misalignment coefficient $\beta$.]{Evaluation of the variance $\sigma_G^2\left( \wM \right) $ for different prototype systems as function of the misalignment $\beta$.
@@ -1148,9 +1149,10 @@ Also for the design of robust excitation signals, this is worthwhile observation
   For the corresponding values of the misalignment $\beta$, we evaluate the uncertainty when the frequency ratio $\alpha$ of the signal is decreased, while the total signal power is kept identical.
   The results are displayed in \figref{fig:excitation:worstCaseAlpha}, where the marked points correspond to the marked points in \figref{fig:excitation:worstCaseBeta}.
   
-  \begin{figure}[ht]
+  \begin{figure}[pht]
     \centering
-      \setlength\figurewidth{0.68\columnwidth}
+    \remakeNextFigure
+      \setlength\figurewidth{0.63\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/alphaWC.tikz}
     \caption[Worst-case variance $\sigma_G^2\left( \wM \right)$ as a function of the frequency ratio $\alpha$.]{Worst case variance of the peak in the transfer function for logarithmic
@@ -1365,6 +1367,10 @@ For example, a system composed of two second order systems with $\damping = 0.2$
 We observe that the amplitude of the transfer function is $9.8\unit{dB}$ and $8.1\unit{dB}$ at the resonant frequencies.
 The standard deviation on the \glspl{FRF} lies respectively $59.7 \unit{dB}$ and $59.6 \unit{dB}$ lower than the \gls{FRF} at these frequencies. 
 This shows that both resonances are captured with a practically identical relative error.
+
+\begin{guideline}[Use quasi-logarithmic multisines as initial excitation]
+  Quasi-logarithmic multisines with pink-colored amplitude spectrum facilitate the measurement of multiple sharp resonance peaks over a wide frequency band of interest with a constant quality.
+\end{guideline}
   
 \section{Measurements} 
 \label{sec:excitation:measurement}
@@ -1406,7 +1412,6 @@ This shows that both resonances are captured with a practically identical relati
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/qlog_a050mall.tikz}
     \caption[Measured FRFs of all BK1613 octave filters and their variance for different excitation signals.]{Measured FRFs of the different \bruelkjaer BK1613 octave filters together with the observed variance for a linear, quasi-log and pink quasi-log grid multisine.}
-    \TODO{use styles from above}
       \label{fig:excitation:measurements}
     \end{figure}
 
@@ -1432,9 +1437,3 @@ The suggested compensation works well as long as the considered systems are suff
 We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equi-damped set of systems.
 The presented method allows to select a maximal value for the frequency ratio $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
 In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
-
-\TODO{move this guideline somewhere else}
-\begin{guideline}[Use quasi-logarithmic multisines as initial excitation]
-  Quasi-logarithmic multisines with pink-colored amplitude spectrum facilitate the measurement of many sharp resonance peaks over a wide frequency band of interest with a constant quality.
-\end{guideline}
-

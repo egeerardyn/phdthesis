@@ -1,82 +1,51 @@
-% arara: pdflatex: { shell : yes }
-% arara: bibtex
-% arara: makeglossaries
-% arara: pdflatex: { shell : yes, synctex : yes}
-
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{xspace}
-smart
-\usepackage{natbib}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\usepackage{tangocolors}
-\usepackage{tikz}
-\usetikzlibrary{spy}
-\usepackage{pgfplots}
-
-\usepackage{color}
-\newcommand{\EDIT}{\textcolor{red}{EDIT}}
-
-\newlength\figureheight 
-\newlength\figurewidth 
-
-%\usepackage{hyperref}
 
 \input{definitions.inc.tex}
 \input{blockdiag.inc.tex}
 \input{styles.inc.tex}
-
-\usepackage{graphicx}
-\graphicspath{{./figures/}{.}{./tikz/}}
-
-\newcommand{\TODO}[1]{ {\color{red} #1} }
 
 
 \newcommand{\wnValue}{\ensuremath{0.95 \unit{rad/s}}}
 \newcommand{\dampingValue}{\ensuremath{0.025}}
 \newcommand{\TsValue}{\ensuremath{1 \unit{s}}}
 
-\begin{document}
+% \begin{document}
 
-\begin{frontmatter}
+% \begin{frontmatter}
 
-\title{Enhancing \Hinf{} Norm Estimation using Local LPM/LRM  Modeling: Applied to an AVIS\thanksref{thx}}
+% \title{Enhancing \Hinf{} Norm Estimation using Local LPM/LRM  Modeling: Applied to an AVIS\thanksref{thx}}
 
-\thanks[thx]{This work is supported by the Fund for Scientific Research (FWO-Vlaanderen), by the Flemish Government (Methusalem), and by the Belgian Government through the Interuniversity Poles of Attraction (IAP VII-Dysco) Program, the Innovational Research Incentives Scheme under the VENI grant ``Precision Motion: Beyond the Nanometer'' (no. 13073) awarded by NWO (Netherlands Organization for Scientific Research) and STW (Dutch Science Foundation).}
+% \thanks[thx]{This work is supported by the Fund for Scientific Research (FWO-Vlaanderen), by the Flemish Government (Methusalem), and by the Belgian Government through the Interuniversity Poles of Attraction (IAP VII-Dysco) Program, the Innovational Research Incentives Scheme under the VENI grant ``Precision Motion: Beyond the Nanometer'' (no. 13073) awarded by NWO (Netherlands Organization for Scientific Research) and STW (Dutch Science Foundation).}
 
-\author[VUB]{Egon Geerardyn} 
-\author[TUE]{Tom Oomen} 
-\author[VUB]{Johan Schoukens}
+% \author[VUB]{Egon Geerardyn} 
+% \author[TUE]{Tom Oomen} 
+% \author[VUB]{Johan Schoukens}
 
-\address[VUB]{ELEC Department, Vrije Universiteit Brussel, Brussels, Belgium. \\ (e-mails: \href{mailto:egon.geerardyn@vub.ac.be}{egon.geerardyn}, \href{mailto:johan.schoukens@vub.ac.be}{johan.schoukens} @vub.ac.be)}
-\address[TUE]{Control System Technology Group, Mechanical Engineering Department, Technische Universiteit Eindhoven, Eindhoven, the Netherlands. (e-mail: \href{mailto:t.a.e.oomen@tue.nl}{t.a.e.oomen@tue.nl})}
+% \address[VUB]{ELEC Department, Vrije Universiteit Brussel, Brussels, Belgium. \\ (e-mails: \href{mailto:egon.geerardyn@vub.ac.be}{egon.geerardyn}, \href{mailto:johan.schoukens@vub.ac.be}{johan.schoukens} @vub.ac.be)}
+% \address[TUE]{Control System Technology Group, Mechanical Engineering Department, Technische Universiteit Eindhoven, Eindhoven, the Netherlands. (e-mail: \href{mailto:t.a.e.oomen@tue.nl}{t.a.e.oomen@tue.nl})}
 
-\begin{keyword}
-Frequency-response;
-Uncertainty;
-Norms;
-Estimation;
-Polynomials;
-Signal Processing;
-System Identification;
-Robust Control.
-\end{keyword}
+% \begin{keyword}
+% Frequency-response;
+% Uncertainty;
+% Norms;
+% Estimation;
+% Polynomials;
+% Signal Processing;
+% System Identification;
+% Robust Control.
+% \end{keyword}
 
-\begin{abstract}~
-Accurate uncertainty modeling is of key importance in high performance robust control design. 
-The aim of this paper is to develop a new uncertainty modeling procedure that leads to enhanced accuracy for the $\mathcal{H}_\infty$ norm. 
-A frequency response based approach is adopted. 
-The key novelty of this paper is a new method to address the intergrid error using local parametric modeling methods. 
-These local polynomial and rational models enhance the estimates at the discrete frequency grid.
-Moreover, the presented methods are shown to enhance the intergrid error estimate.
-This is illustrated using simulations and experiments on an industrial active vibration isolation system.
-Compared to the local polynomial models, local rational models are able to handle lightly-damped resonances using far fewer data points, which means that measurement time can be kept short.
-\end{abstract}
+% \begin{abstract}~
+% Accurate uncertainty modeling is of key importance in high performance robust control design. 
+% The aim of this paper is to develop a new uncertainty modeling procedure that leads to enhanced accuracy for the $\mathcal{H}_\infty$ norm. 
+% A frequency response based approach is adopted. 
+% The key novelty of this paper is a new method to address the intergrid error using local parametric modeling methods. 
+% These local polynomial and rational models enhance the estimates at the discrete frequency grid.
+% Moreover, the presented methods are shown to enhance the intergrid error estimate.
+% This is illustrated using simulations and experiments on an industrial active vibration isolation system.
+% Compared to the local polynomial models, local rational models are able to handle lightly-damped resonances using far fewer data points, which means that measurement time can be kept short.
+% \end{abstract}
 
-\end{frontmatter}
+% \end{frontmatter}
 
 \section{Introduction}
 \label{sec:Intro}
@@ -469,9 +438,5 @@ Using measurements on an \gls{AVIS}, it is illustrated that the interpolation-ba
 Furthermore, the results are validated by a detailed validation measurement. 
 Ongoing research focuses on extending the technique to \gls{MIMO} systems and the study of its stochastic properties.
 
-%TODO: acknowledgments reviewers
-
-\bibliography{biblio/references,biblio/ownWork} 
-%\bibliographystyle{ifacconf}
 
 \end{document}
