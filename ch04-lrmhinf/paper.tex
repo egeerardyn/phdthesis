@@ -184,7 +184,7 @@ Two alternative methods allow evaluation of~\eqref{eq:gamma-inter-grid} in pract
   \setlength{\figurewidth}{0.8\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/interpolation-show.tikz}
-  \caption{Illustration of the local models $\LocalModel{\Delta}_k$ around each frequency bin $\omega_k$ for $k\in\set{1,\ldots,6}$.
+  \caption[Illustration of the local models.]{Illustration of the local models $\LocalModel{\Delta}_k$ around each frequency bin $\omega_k$ for $k\in\set{1,\ldots,6}$.
   The bottom part shows the equivalence of the frequency segments $\Omega_k$ and the intervals $\set{\omega \given{k_L(\omega) = k \vee k_R(\omega) = k}}$.}
 \label{fig:interpol-quantities}
 \end{figure}
@@ -382,7 +382,7 @@ Slightly different orders (e.g. $\lrm{4,1,1,1}$) yield comparable results.
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/example-both.tikz}
   %\input{\thisDir/figs/example-LRM-SNR1.tikz}
-  \caption{Simulation example revealing that $\gamma_{\mathrm{FRF}}$ (left) for both the \glsfirst{SA}~\legref{leg:example-SA} and \gls{LRM}~\legref{leg:example-LRM} underestimate the true $\gamma = \norm{\Delta} = 24$~\legref{leg:example-true-Hinf} due to limited frequency resolution.
+  \caption[Example: FRF underestimates $\E{\gamma}$]{Simulation example revealing that $\gamma_{\mathrm{FRF}}$ (left) for both the \glsfirst{SA}~\legref{leg:example-SA} and \gls{LRM}~\legref{leg:example-LRM} underestimate the true $\gamma = \norm{\Delta} = 24$~\legref{leg:example-true-Hinf} due to limited frequency resolution.
   Using the proposed \gls{LRM}-based approach, both the at-grid~($\gamma_{\mathrm{FRF}}$) and intergrid~($\gamma_{\mathrm{IG}}$) estimate are improved.
   The interpolated \gls{LRM}~\legref{leg:example-LRM-interpol} and true $\Delta$~\legref{leg:example-true} almost coincide.
   Hence, $\widehat{\norm[]{\Delta_{\mathrm{LRM}}}}_{\infty}$~\legref{leg:example-LRM-interpol-Hinf} approaches the theoretical $\gamma=24$.}
@@ -409,7 +409,7 @@ The resulting sample average and standard deviation $\sigma$ are shown in \figre
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/MC-runlength.tikz}
   %\input{figures/runLength.tikz}
-  \caption{The $\Hinf{}$ norm~\legref{leg:runlength-true} is underestimated significantly for short experiments ($N<20\timeconst$) by $\expectedValue{\gamma_{\mathrm{FRF}}}$~\legref{leg:runlength-frf} and the \gls{LPM}~\legref{leg:runlength-LPM}.
+  \caption[Estimated $\gamma$ versus measurement time.]{The $\Hinf{}$ norm~\legref{leg:runlength-true} is underestimated significantly for short experiments ($N<20\timeconst$) by $\expectedValue{\gamma_{\mathrm{FRF}}}$~\legref{leg:runlength-frf} and the \gls{LPM}~\legref{leg:runlength-LPM}.
   However, the proposed $\widehat{\norm[]{\Delta_{\mathrm{LRM}}}}_{\infty}$~\legref{leg:runlength-LRM} is already reliable from much shorter experiments ($N \geq 4 \timeconst$). A single observation for $N=97$~\legref{leg:runlength-special-case} is shown in \figref{fig:exampleIntergrid}. The shaded areas show the $\pm \sigma$ intervals which are mostly due to the noise.
   }
 \label{fig:MC-run-length}
@@ -436,14 +436,14 @@ The $r_1$ input consists of five periods of a random phase multisine~\citep{Geer
 \begin{figure}
  \centering
  \input{\thisDir/figs/tpcrobust.tikz}
- \caption{The considered feedback configuration $\ClosedLoop{\ModelSet[],\Controller}$.}
+ \caption[Closed-loop block schematic.]{The considered feedback configuration $\ClosedLoop{\ModelSet[],\Controller}$.}
  \label{fig:tpc}
 \end{figure}
 
 \begin{figure}
  \centering
  \input{\thisDir/figs/dualYoula.tikz}
- \caption{Dual-Youla parametrization of the closed-loop set-up  with controller $\Controller$,  model set $\ModelSet[]$ and nominal plant model $\estimated\Plant$.}
+ \caption[Dual-Youla parametrization.]{Dual-Youla parametrization of the closed-loop set-up  with controller $\Controller$,  model set $\ModelSet[]$ and nominal plant model $\estimated\Plant$.}
 \label{fig:dualYoula}
 \end{figure}
 
@@ -501,7 +501,7 @@ Some dynamics are left unmodeled and are hence part of $\Delta$~(\figref{fig:avi
     \setlength{\figurewidth}{0.75\columnwidth}
     \setlength{\figureheight}{0.68\figurewidth}
     \input{\thisDir/figs/avis-frf.tikz}
- \caption{Measured \gls{FRF} \legref{m2t:plantFRF} and estimated parametric model $\hat{P}$ \legref{m2t:plantModel} of the \glsfirst{AVIS}.}
+ \caption[\Glsentryname{FRF} and nominal model of \glsentryname{AVIS}.]{Measured \gls{FRF} \legref{m2t:plantFRF} and estimated parametric model $\hat{P}$ \legref{m2t:plantModel} of the \glsfirst{AVIS}.}
  \label{fig:avis-frf}
 \end{figure}
 
@@ -521,7 +521,7 @@ Second, the peak amplitudes of $\Delta(\omega)$ are inspected as these are  indi
     \setlength{\figureheight}{0.68\figurewidth}
     % \input{\thisDir/figs/avis-delta-full.tikz}
     \TODOfig{split plots}
- \caption{Measured (dual-Youla) $\Delta$ for the \gls{AVIS} using the \gls{LRM} and the proposed interpolation. The data in the rectangle is also shown in \figref{fig:avisMeasZoom}.}
+ \caption[$\Delta$ of the \glsentryname{AVIS}, estimated using local modeling.]{Measured (dual-Youla) $\Delta$ for the \gls{AVIS} using the \gls{LRM} and the proposed interpolation. The data in the rectangle is also shown in \figref{fig:avisMeasZoom}.}
 \label{fig:avisMeas}
 \end{figure}
 
@@ -530,7 +530,7 @@ Second, the peak amplitudes of $\Delta(\omega)$ are inspected as these are  indi
     \setlength{\figurewidth}{0.75\columnwidth}
     \setlength{\figureheight}{0.68\figurewidth}
    \input{\thisDir/figs/avis4.tikz}
- \caption{Measured $\Delta$ for the \gls{AVIS} using the \gls{LRM}~\legref{leg:avis4-LRMi} and the proposed interpolation. Clearly, the \gls{LRM} leads to a higher peak value~\legref{leg:avis4-LRM-hinf}, especially at $328\unit{Hz}$. The validity of the LRM local parametric model is confirmed by the validation measurement at the dense frequency grid~\legref{leg:avis4-validation}, which reveals excellent interpolation properties and a similar peak value~\legref{leg:avis4-valid-hinf}.}
+ \caption[$\Delta$ of the \glsentryname{AVIS}, estimated using local modeling (detail).]{Measured $\Delta$ for the \gls{AVIS} using the \gls{LRM}~\legref{leg:avis4-LRMi} and the proposed interpolation. Clearly, the \gls{LRM} leads to a higher peak value~\legref{leg:avis4-LRM-hinf}, especially at $328\unit{Hz}$. The validity of the LRM local parametric model is confirmed by the validation measurement at the dense frequency grid~\legref{leg:avis4-validation}, which reveals excellent interpolation properties and a similar peak value~\legref{leg:avis4-valid-hinf}.}
 \label{fig:avisMeasZoom}
 \end{figure}
 
