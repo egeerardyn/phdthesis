@@ -4,6 +4,7 @@
 % \end{abstract}
 
 \researchBasedOn[This section]{Lumori2014TIM}
+\TODO{figures to TikZ}
 
 \subsection{Introduction}
 
@@ -300,10 +301,10 @@ The truncation is applied at the time index beyond which the signal is indisting
 This is done via the fit of an exponential function on the maxima of the impulse response, implemented as follows.
 
 \begin{enumerate}
-\item Obtain the estimate of the impulse response $\hat g_\mathrm{poly}(t)$ from the \gls{LPM}, corrected for its \gls{DC} value as discussed in \secref{se:DCvalueEst}. Henceforth, $\hat g_\mathrm{poly}(t)$ will simply be denoted as $\hat g(t)$. %In the remainder of this procedure description $\hat g_\mathrm{poly}(t)$ will be simply denoted $\hat g(t)$.
+\item Obtain the estimate of the impulse response $\hat g_\mathrm{poly}(t)$ from the \gls{LPM}, corrected for its \gls{DC} value as discussed in \secref{se:DCvalueEst}. 
+Henceforth, $\hat g_\mathrm{poly}(t)$ will simply be denoted as $\hat g(t)$.
 
 \item Obtain an estimate $\hat \sigma_\mathrm{n}$ of the standard deviation of the noise from the last 10\% of the data, \emph{viz}:
-
 \begin{align}
 \hat \sigma^2_\mathrm{n}=\frac{1}{\lceil0.1N - 1\rceil}\sum_{t=\lfloor0.9N\rfloor}^{N-1}\hat g^2(t).
 \end{align}

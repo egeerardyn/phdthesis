@@ -1315,7 +1315,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   This can also be understood from equation \eqref{eq:excitation:systemInBulk:generic}.
   In that equation, $\alpha = \alpha^{\star} = 1 + \damping$ (see \secref{sec:excitation:optimAlpha}) such that the following guideline is the necessary condition for the $3\unit{dB}$ bandwidth of the system to lie within the bulk of the frequency grid.
 
-\begin{guideline}[Choose $2 \pi \Delta f \leq (\damping - \damping^2) \wn$]
+\begin{guideline}[Use a sufficient grid resolution for each resonance: $2 \pi \Delta f \leq (\damping - \damping^2) \wn$]
 \label{guide:excitation:systemInBulk:tuned}
  A quasi-logarithmic multisine with frequency resolution $\Delta f$ and tuned frequency spacing $\alpha=1+\damping$ is only guaranteed to properly excite resonances peaks with damping $\damping$ and resonance frequency $\wn$ when 
   \begin{equation}
