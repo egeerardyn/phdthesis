@@ -14,32 +14,33 @@
 \newcommand{\jurymember}[4][]{\personalTitles{#2}& #3 \affiliation{#4} {\juryRole{#1}}\\}
 
 
-\gdef\@promotortitle{Promotors}
-\gdef\@jurytitle{Jury}
-\gdef\@promotor{\ldots}
-\gdef\@jury{\ldots}
-\gdef\@faculty{Faculty of Engineering}
-\gdef\@department{Department of Fundamental Electricity and Instrumentation (ELEC)}
-\gdef\@reason{Thesis submitted in fulfillment of the requirements for the degree of\\Doctor in Engineering (Doctor in de Ingenieurswetenschappen)}
+\gdef\vub@promotortitle{Promotors}
+\gdef\vub@jurytitle{Jury}
+\gdef\vub@promotor{\ldots}
+\gdef\vub@jury{\ldots}
+\gdef\vub@faculty{Faculty of Engineering}
+\gdef\vub@department{Department of Fundamental Electricity and Instrumentation (ELEC)}
+\gdef\vub@reason{Thesis submitted in fulfillment of the requirements for the degree of\\Doctor in Engineering (Doctor in de Ingenieurswetenschappen)}
 
-\def\@titlepagefont{\sffamily}
-\def\@titlefont{\@titlepagefont\huge\textbf}
-\def\@reasonfont{\@titlepagefont\footnotesize}
-\def\@authorfont{\@titlepagefont\LARGE}
-\def\@facultyfont{\@titlepagefont\normalsize}
-\def\@departmentfont{\@titlepagefont\footnotesize}
-\def\@datefont{\@titlepagefont\small}
-\def\@promotorAndJuryFont{\@titlepagefont}
+\def\vub@titlepagefont{\sffamily}
+\def\vub@titlefont{\vub@titlepagefont\huge\textbf}
+\def\vub@reasonfont{\vub@titlepagefont\footnotesize}
+\def\vub@authorfont{\vub@titlepagefont\LARGE}
+\def\vub@facultyfont{\vub@titlepagefont\normalsize}
+\def\vub@departmentfont{\vub@titlepagefont\footnotesize}
+\def\vub@datefont{\vub@titlepagefont\small}
+\def\vub@promotorAndJuryFont{\vub@titlepagefont}
+\def\vub@promotorAndJuryTitleFont{\vub@titlepagefont\bfseries\large}
 
-\def\promotor#1{\gdef\@promotor{#1}}
-\def\advisors#1{\gdef\@advisors{#1}}
-\def\jury#1{\gdef\@jury{#1}}
-\def\faculty#1{\gdef\@faculty{#1}}
-\def\department#1{\gdef\@department{#1}}
-\def\reason#1{\gdef\@reason{#1}}
-\def\advisortitle#1{\gdef\@advisortitle{#1}}
-\def\promotortitle#1{\gdef\@promotortitle{#1}}
-\def\advisortitle#1{\gdef\@advisortitle{#1}}
+\def\promotor#1{\gdef\vub@promotor{#1}}
+\def\advisors#1{\gdef\vub@advisors{#1}}
+\def\jury#1{\gdef\vub@jury{#1}}
+\def\faculty#1{\gdef\vub@faculty{#1}}
+\def\department#1{\gdef\vub@department{#1}}
+\def\reason#1{\gdef\vub@reason{#1}}
+\def\advisortitle#1{\gdef\vub@advisortitle{#1}}
+\def\promotortitle#1{\gdef\vub@promotortitle{#1}}
+\def\advisortitle#1{\gdef\vub@advisortitle{#1}}
 
 %% actual definition of the title page
 \def\maketitlepage{
@@ -55,45 +56,42 @@
 \vspace*{-2.5mm}{
   \hspace*{-3.5mm}{
     \begin{tabular}{l|l}
-      & \parbox[t]{0.5\columnwidth}{{\parbox[t]{0.75\columnwidth}{\@facultyfont\@faculty}}\\
-                          {\parbox[t]{0.75\columnwidth}{\@departmentfont\@department}}
-        } \\
-
-        \rule{0pt}{85mm}
-        % \vfill{}
-      
-      & \rule{6pt}{0mm}
-                % Title
-          {\parbox[b]{\columnwidth}{\@titlefont\@title}}\\
+      & \parbox[t]{0.5\columnwidth}%
+         {{\parbox[t]{0.75\columnwidth}{\vub@facultyfont\vub@faculty}}\\
+          {\parbox[t]{0.75\columnwidth}{\vub@departmentfont\vub@department}}
+         } \\
+        \rule{0pt}{85mm} % should be a vfill
+      & \rule{0.5em}{0mm}
+          {\parbox[b]{\columnwidth}{\vub@titlefont\@title}}\\
           \rule{0pt}{5mm}\\
       \cline{2-2}
       \rule{0pt}{14mm}
-      & \rule{6pt}{0mm}\begin{tabular}{l}
-                        % Reason
-          {\parbox[t]{\columnwidth}{\@reasonfont\@reason}}\\
-
-                                % Author
-          \rule{0pt}{7mm}{\parbox[t]{\columnwidth}{\@authorfont\@author}}\\
+      & \rule{0.5em}{0mm}%
+        \begin{tabular}{l}
+          {\parbox[t]{\columnwidth}{\vub@reasonfont\vub@reason}}\\
+          \rule{0pt}{7mm}{\parbox[t]{\columnwidth}{\vub@authorfont\@author}}\\
           \\
         \end{tabular}\\
       \cline{2-2}
-      & \rule{6pt}{0mm}%
-        \@promotorAndJuryFont
+      & \rule{0.5em}{0mm}%
+        \vub@promotorAndJuryFont
         \begin{tabular}{r@{ }l}
           \rule{0pt}{0.5em}\\
-          &\textbf{\large\@promotortitle} \\
-          \@promotor \\
-          &\textbf{\large\@jurytitle} \\
-          \@jury\\
-
+          &{\vub@promotorAndJuryTitleFont\vub@promotortitle} \\
+            \vub@promotor\\
+          &{\vub@promotorAndJuryTitleFont\vub@jurytitle} \\
+            \vub@jury\\
         \end{tabular}\\
       
-      \rule{0pt}{50mm} %TODO: change to relative units
+      \rule{0pt}{50mm} % should be a vfill
 
         % Date
-      & \rule{6pt}{0mm} \begin{tabular}{llr}
-          {\@datefont\@date} & \rule{150pt}{0mm} & \includegraphics[width=43mm,height=43mm]{VUB_schild}
-        \end{tabular}
+      & \rule{0.5em}{0mm}%
+        \begin{tabular*}{\textwidth}{lcr}
+          {\vub@datefont\@date} & 
+           \rule{160pt}{0mm}& % should be hfill and relative to page
+           \includegraphics[width=43mm,height=43mm]{VUB_schild}
+        \end{tabular*}
     \end{tabular}
   }
 }
