@@ -45,3 +45,14 @@
 \makeatother
 \declaretheorem[mdthm={style=guidelinestyle},numberwithin=chapter]{guideline}
 
+% http://tex.stackexchange.com/questions/180747/editing-format-of-list-of-theorems-in-thmtools
+\makeatletter
+\def\ll@guideline{%
+  \protect\numberline{\csname the\thmt@envname\endcsname}%
+  \ifx\@empty\thmt@shortoptarg
+    \thmt@thmname
+  \else
+    \thmt@shortoptarg
+  \fi}
+\def\l@thmt@theorem{} 
+\makeatother
