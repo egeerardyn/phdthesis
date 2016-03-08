@@ -25,8 +25,10 @@
 \theoremstyle{definition}
 \newtheorem{lemma}{Lemma}[chapter]
 
-%% 
+%%
 \usepackage{mdframed}
+
+
 \mdfdefinestyle{guidelinestyle}{% 
   linecolor=black,
   linewidth=1pt,
@@ -35,10 +37,11 @@
   frametitlebackgroundcolor=gray!20,
   innertopmargin=\topskip
 } 
-\newmdtheoremenv[linecolor=black,
-  linewidth=1pt,
-  frametitlerule=true,
-  frametitlefont=\sffamily\bfseries,
-  frametitlebackgroundcolor=gray!20,
-  innertopmargin=\topskip]{guideline}{Guideline}[chapter]
-%\mdtheorem[style=guidelinestyle]{guideline}{Guideline}[chapter]
+
+% http://tex.stackexchange.com/questions/296965/adding-an-mdtheorem-i-e-with-frametitle-to-a-list-of-theorems/297839#297839
+\makeatletter
+\define@key{thmdef}{mdthm}[{}]{%
+\thmt@trytwice{\def\thmt@theoremdefiner{\mdtheorem[#1]}}{}}
+\makeatother
+\declaretheorem[mdthm={style=guidelinestyle},numberwithin=chapter]{guideline}
+
