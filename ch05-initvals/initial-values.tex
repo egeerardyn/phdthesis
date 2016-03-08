@@ -75,7 +75,8 @@ With reference to equation \eqref{lpmtd1}, the relation between the noiseless in
     A(q^{-1}) y_0(t) = B(q^{-1}) u_0(t) \quad \forall t \in n \Ts{}  \text{with}  n \in \IntegerNumbers
 \label{ABpolys}
 \end{equation}
-where $A$ and $B$ are polynomials in $q^{-1}$. Thus, it follows from equation \eqref{lpmtd1} that
+where $A$ and $B$ are polynomials in $q^{-1}$. 
+Thus, it follows from equation \eqref{lpmtd1} that
 \begin{equation}
     \true{G}(q^{-1})= \frac{B(q^{-1})}{A(q^{-1})}
     \text{.}
@@ -125,11 +126,12 @@ where $\sigma_Y^2$ is independent of $k$ for white noise, and the input error va
 Here, $\overline{B}$ denotes the complex conjugate of $B$.
 
 Consequently, $V(\theta)$ is a non-quadratic function of $\theta$ which, in general, results in a non-convex optimization problem. 
-The Levenberg-Marquardt~\citep{Marquardt1963} algorithm (see Algorithm~\ref{LMalgo}) is used to solve this optimization problem deterministically.
+The Levenberg-Marquardt algorithm~\citep{Marquardt1963}, is used to solve this optimization problem deterministically and is shown in~\algoref{alg:initvals:levenberg-marquardt}.
 Such an approach requires good initial estimates of $\theta$ to avoid inherent local optima, which is the focus of this chapter.
 
 \begin{algorithm}
-\caption{Levenberg-Marquardt~\citep{Marquardt1963}, \citep[Sec. 9.L.4]{Pintelon2012}}\label{LMalgo}
+\caption{Levenberg-Marquardt~\citep{Marquardt1963},~\citep[Sec. 9.L.4]{Pintelon2012}}
+\label{alg:initvals:levenberg-marquardt}
 \begin{algorithmic}[1]
   \Require Cost function \eqref{eq:MLEcf} is rewritten as $V(\theta) = \InnerProductSelf{\epsilon(\theta)}$. 
 \Function{LevenbergMarquardt}{$\epsilon(\theta),  \theta^{\mathrm{init}}$}
