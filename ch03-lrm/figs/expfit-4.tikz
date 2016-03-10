@@ -1,0 +1,57 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}
+\input{styles.inc.tex}
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+xmin=0,
+xmax=1024,
+xtick={ 0, 1024},
+xlabel={Time (S)},
+ymin=-10,
+ymax=40.7143028069402,
+ytick={-10,0,40},
+ylabel={Impulse response $g(t)$},
+axis x line*=bottom,
+axis y line*=left,
+ymajorgrids
+]
+\addplot [color=TangoScarletRed1,opacity=0.5,solid,forget plot] table{fig/expfit-full.tsv};
+
+%\addplot [color=TangoButter3,solid,forget plot] table{fig/expfit-abs.tsv};
+
+\addplot [color=TangoSkyBlue3,solid,line width=1.5pt,forget plot] table{fig/expfit-exp.tsv};
+
+%\addplot [color=TangoOrange2,mark=*,only marks,line width=1.25pt,mark size=0.5pt,forget plot] table{fig/expfit-peaks.tsv};
+
+\addplot [color=TangoChameleon3,solid,forget plot] table{fig/expfit-result.tsv};
+
+% \addplot [color=black,solid,forget plot]
+%   table[row sep=crcr]{%
+% 704	-28.3097809794082\\
+% 704	40.7143028069402\\
+% };
+% \addplot [color=black,dashed,forget plot]
+%   table[row sep=crcr]{%
+% 0	9.36561259891128\\
+% 1033.23	9.36561259891128\\
+% };
+% \addplot [color=black,dashed,forget plot]
+%   table[row sep=crcr]{%
+% 0	1.87312251978226\\
+% 1033.23	1.87312251978226\\
+% };
+% \node[right, align=left, text=black]
+% at (axis cs:1043.46,9.865613) {$5\hat\sigma_\mathrm{n}$};
+% \node[right, align=left, text=black]
+% at (axis cs:1043.46,2.373123) {$\hat\sigma_\mathrm{n}$};
+% \node[right, align=left, text=black]
+% at (axis cs:711.04,37.46245) {$\swarrow t_\mathrm{trunc}$};
+\end{axis}
+\end{tikzpicture}%

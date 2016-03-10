@@ -5,14 +5,15 @@
 
 \researchBasedOn[This section]{Lumori2014TIM}
 \TODO{figures to TikZ}
+\TODO{re-introduce $F$-test truncator and box-carr averager}
 
 \subsection{Introduction}
 
 The measurement of \glspl{FRF} of dynamic systems is an important topic in the measurement society.
 \gls{FRF} measurement techniques are discussed, for instance, in
-\citep{Schoukens1998ImprFRFmeas,Schoukens2006LPM,guillaume1996,broersen1995transferfunction,Pintelon2010LPM1,Antoni2007FRF,Pintelon2012}, and applied to real practical devices and systems \citep{Lim2010,Robinson1990,Behjat2010}, among others.
+\citep{Schoukens1998,Schoukens2006LPM,Guillaume1996,Broersen1995,Pintelon2010LPM1,Antoni2007FRF,Pintelon2012}, and applied to real practical devices and systems~\citep{Lim2010,Robinson1990,Behjat2010}, among others.
 Besides, \glspl{FRF} have been shown to provide a quick insight into the dynamic properties of \gls{LTI} systems.
-This capability is very useful for model validation and/or selection \citep{Pintelon2012}.
+This capability is very useful for model validation and/or model selection~\citep{Pintelon2012}.
 
 This section uses nonparametric models in conjunction with the \gls{LPM}~\citep{Pintelon2010LPM1} to estimate the complex-valued \gls{FRF} in a linear \gls{LS} fashion.
 The advantage of using the nonparametric models is basically the non-involvement of the user in choosing a model order, i.e. no user interaction. Among the current nonparametric methods, the \gls{LPM} method is chosen due to its superiority over the classical nonparametric methods (windowing) in suppressing leakage errors \citep{Bendat1993,Oppenheim1983}. 
@@ -203,7 +204,7 @@ The estimation of $\hat{G}_\text{poly}(\Omega_k)$ at a single frequency $\Omega_
    \includegraphics[scale=0.92]{\thisDir/figs/spectUOmegak}
    \includegraphics[scale=0.92]{\thisDir/figs/spectYOmegak}
    \includegraphics{\thisDir/figs/LPMfigOmegak}
-   \caption{Illustration of the \gls{LPM}. Top figures: input spectrum (left) and output spectrum (right). A small band is selected (gray area, top figure), in which $\hat G_\mathrm{poly}(\Omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_\mathrm{poly}(\Omega_k)$ (white circle) is retained. This procedure is repeated for all $\Omega_k$.}
+   \caption[Illustration of the LPM.]{Illustration of the \gls{LPM}. Top figures: input spectrum (left) and output spectrum (right). A small band is selected (gray area, top figure), in which $\hat G_\mathrm{poly}(\Omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_\mathrm{poly}(\Omega_k)$ (white circle) is retained. This procedure is repeated for all $\Omega_k$.}
    \label{LPM_Schematic_EG}
 \end{figure}
 This procedure is repeated at each central frequency $\Omega_k$ for  $k\in \Set{1,\dots,N/2}$ (i.e. the entire frequency band, including Nyquist, but excluding \gls{DC}, and regularizing at the boundaries). This completes the \gls{LPM}, yielding an intrinsic averaging of the spectra of the estimated \gls{FRF}, $\hat{G}_\text{poly}(\Omega_k)$.
@@ -286,8 +287,7 @@ m_{g10} = \frac{1}{\lceil0.1N - 1\rceil}\sum_{t=\lfloor0.9N\rfloor}^{N-1}\hat g_
 
 
 \begin{align}
-\hat g_\mathrm{poly}(t) = \hat g_{\mathrm{poly}\setminus \mathrm{DC
-}}(t) - m_{g10},\ \text{for}\ t=0,1,\dots,N-1
+\hat g_\mathrm{poly}(t) = \hat g_{\mathrm{poly}\setminus \mathrm{DC}}(t) - m_{g10},\ \text{for}\ t=0,1,\dots,N-1
 \end{align}
 
 
@@ -356,8 +356,10 @@ where the parameter $\gamma$ can be tuned such that an appropriate trade-off bet
 
 \begin{figure}[tbh] %top bottom here
 \centering
-
-\includegraphics[scale=0.9]{\thisDir/figs/expFitest}
+\setlength\figurewidth{0.85\columnwidth}
+\setlength\figureheight{0.68\figurewidth}
+% \includegraphics[scale=0.9]{\thisDir/figs/expFitest}
+\input{\thisDir/figs/expfit.tikz}
 \caption{Truncation of the impulse response via the fit of  an exponential. The light gray line is the noisy impulse response, and the dark gray one is its absolute value. Gray circles: monotonously decreasing maxima, greater than $5\hat\sigma$, as per \eqref{eq:TmaxDef}. Black thick line: estimated exponential function \eqref{eq:expFit}.}
 \label{FRF_truncate_expfitter}
 \end{figure}
@@ -376,8 +378,8 @@ The result is depicted in \figref{FRF_truncate_expfitter}. An exponential functi
 \begin{itemize}
 \item The tuning parameter $\gamma$ is application- and system-dependent.  A higher value lowers the variance of the estimated \gls{FRF}, but increases its bias, and vice versa.
 
-\item
-The bias error is highest in the vicinity of (sharp) resonance peaks. If the latter is to be estimated with a high accuracy, a value $\gamma \ll 1$ must be used. %If the latter must be estimated with a high accuracy, a value $\gamma \ll 1$ must be preferred.
+\item The bias error is highest in the vicinity of (sharp) resonance peaks. 
+If the latter is to be estimated with a high accuracy, a value $\gamma \ll 1$ must be used.
 
 \item If one is interested in obtaining a smooth initial estimate of the \gls{FRF}, a (small) bias error is acceptable, and choosing $\gamma \approx 1$ was found to be a good rule of thumb.
 \end{itemize}
@@ -398,29 +400,20 @@ where $e(t)$ is a white noise sequence, such that the \gls{SNR} of the output si
 
 
 \begin{figure}[tbh] %top bottom here
-\centering
-
-
-\includegraphics[scale=0.9]{\thisDir/figs/figLPMvsTruncWlegend}
-
-\caption{Comparison of the \gls{LPM} and Truncated \gls{LPM} estimates of the \gls{FRF} for an \gls{SNR} of $18.3\unit{dB}$. The gray plots pertain to the \gls{LPM} estimate without truncation, the black ones to the \gls{LPM} with truncation (trunc). Dots: \gls{FRF} estimates $\hat{G}$. Crosses: sample standard deviations $\hat{\sigma}$. Dashed lines: bias $\hat{b}$. White line: the true system $G_0$.}
-\label{figLPMvsTrunc}
+    \centering
+    \includegraphics[scale=0.9]{\thisDir/figs/figLPMvsTruncWlegend}
+    \caption{Comparison of the \gls{LPM} and Truncated \gls{LPM} estimates of the \gls{FRF} for an \gls{SNR} of $18.3\unit{dB}$. The gray plots pertain to the \gls{LPM} estimate without truncation, the black ones to the \gls{LPM} with truncation (trunc). Dots: \gls{FRF} estimates $\hat{G}$. Crosses: sample standard deviations $\hat{\sigma}$. Dashed lines: bias $\hat{b}$. White line: the true system $G_0$.}
+    \label{figLPMvsTrunc}
 \end{figure}
-
-
-
 
 
 In \figref{figLPMvsTrunc} one observes the following:
 \begin{itemize}
-\item
-a decrease of the variance on the truncated estimate of about $10 \unit{dB}$,  i.e. a decrease of the black crosses, compared to the gray ones, is observed. %i.e. a decrease of the black crosses w.r.t.~the gray ones is observed.
+\item a decrease of the variance on the truncated estimate of about $10 \unit{dB}$,  i.e. a decrease of the black crosses, compared to the gray ones, is observed. %i.e. a decrease of the black crosses w.r.t.~the gray ones is observed.
 
-\item
-the error on the truncated \gls{LPM} estimate is strongly correlated over the frequency. This must be taken into account when formulating a maximum likelihood parametric estimator of the system.
+\item the error on the truncated \gls{LPM} estimate is strongly correlated over the frequency. This must be taken into account when formulating a maximum likelihood parametric estimator of the system.
 
-\item
-an increase of the bias of the truncated estimate, especially in the vicinity of the resonance frequency. Still, this bias lies below the variance of the non-truncated estimate. As such, for a single experiment, the increase in bias still yields a better estimate when truncation is invoked.
+\item an increase of the bias of the truncated estimate, especially in the vicinity of the resonance frequency. Still, this bias lies below the variance of the non-truncated estimate. As such, for a single experiment, the increase in bias still yields a better estimate when truncation is invoked.
 
 This bias depends on the time instant at which the truncation is performed, as discussed below.
 
@@ -428,14 +421,8 @@ This bias depends on the time instant at which the truncation is performed, as d
 
 \begin{figure}[htb] %  figure placement: here, top, bottom, or page
    \centering
-
-
-
 	\includegraphics{\thisDir/figs/HistogramExpFitting.pdf}
- \caption{Black full line (left hand side y-axis (ordinate)): total \gls{RMS} error as a function of the truncation time (the single black dot is the minimum of the \gls{RMS}). Gray histogram (right hand side y-axis (ordinate)): selected truncation times for 1000 noise realizations by the exponential fitting methods.}
-
-
-
+         \caption{Black full line (left hand side y-axis (ordinate)): total \gls{RMS} error as a function of the truncation time (the single black dot is the minimum of the \gls{RMS}). Gray histogram (right hand side y-axis (ordinate)): selected truncation times for 1000 noise realizations by the exponential fitting methods.}
    \label{fig:pdfAndRMSeVStruncTime}
 \end{figure}
 
