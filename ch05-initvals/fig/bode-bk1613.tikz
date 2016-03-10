@@ -79,6 +79,7 @@ xmax=40000,
 xminorticks=true,
 ymin=-80,
 ymax=10,
+clip mode=individual, % to display GVXI on top (above FRFs)
 axis x line*=bottom,
 axis y line*=left]
 
@@ -92,7 +93,7 @@ axis y line*=left]
 % %\addlegendentry{mean Y/U};
 \label{leg:bk1613:meanETFE}
 
-\addplot [GVXI,mark=*,extremelytinymarkers]
+\addplot [GVXI]
   table[]{\thisDir/fig/bode-bk1613-GVXI.tsv};
 %\addlegendentry{$\text{G}_{\text{VXI}}$};
 \label{leg:bk1613:vxi}
