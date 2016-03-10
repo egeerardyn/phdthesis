@@ -1097,8 +1097,8 @@ Also for the design of robust excitation signals, this is worthwhile observation
    \text{ with } 0 \leq \beta < 1
    \label{eq:excitation:chosenVariationOmega}
   \end{equation}
-  where $\omega_k$ and $\omega_{k+1}$ are the excited grid lines closest to the frequency $\wM$ where the FRF has its peak amplitude and $\beta$ is the misalignment coefficient that is varied over the interval $\RightOpenInterval{0,1}$ as depicted graphically in \figref{fig:excitation:misalignment-logms}
-  This means that $\omega_k \leq \wM \leq \omega_{k+1}$ and that $\beta$ replaces the $\gamma$ factor in \eqref{eq:excitation:theoreticalBestVariationOmega}.
+  where $\omega_k$ and $\omega_{k+1}$ are the excited grid lines closest to the frequency $\wM$ where the FRF has its peak amplitude and $\beta$ is the misalignment coefficient that is varied over the interval $\RightOpenInterval{0,1}$ as depicted graphically in \figref{fig:excitation:misalignment-logms}.
+  This means that $\omega_k \leq \wM \leq \omega_{k+1}$ and that $\beta$ has the same role as $\gamma$ factor in \eqref{eq:excitation:theoreticalBestVariationOmega}.
   If we take a look at the special case when $\beta=0$ (or $\beta=1$) in this expression, we see that this situation occurs when the peak value of the \gls{FRF} at $\wM$ coincides with the grid line $\omega_k$ or $\omega_{k+1}$ respectively.
   Intuitively, we study second order systems whose peak frequency $\wM$ is shifted between two neighboring excited frequency lines.
   From the previous section, we know that the exact frequency matters little as long as it remains within the bulk of the frequency grid.
@@ -1130,7 +1130,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
       \setlength\figurewidth{0.63\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/betaWC.tikz}
-    \caption[Variance $\sigma_G^2\left( \wM \right)$ as a function of the grid misalignment coefficient $\beta$.]{Evaluation of the variance $\sigma_G^2\left( \wM \right) $ for different prototype systems as function of the misalignment $\beta$.
+    \caption[Variance $\sigma_G^2\left( \wM \right)$ as a function of the grid misalignment $\beta$.]{Evaluation of the variance $\sigma_G^2\left( \wM \right) $ for different prototype systems as function of the misalignment $\beta$.
              The full lines depict the variance for a coarsely spaced signal.
              The dashed lines show the variance for a signal with the optimal $\alpha = \alpha^{\star}$ (see \eqref{eq:excitation:optimAlpha}).}
     \label{fig:excitation:worstCaseBeta}
@@ -1258,7 +1258,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
       \setlength\figurewidth{0.68\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/Sys02-4.tikz}
-    \caption[Simulated \gls{FRF} and its variance for different excitation signals.]{\gls{FRF}~\legref{leg:excitation:sim:FRF} of a second order system with $\fR=40\unit{Hz}$ and $\damping=0.2$ along with the corresponding variance and bias of the parametric models obtained using three different kinds of multisine excitations.}%
+    \caption[Simulated \gls{FRF} of a single system using different excitation signals.]{\gls{FRF}~\legref{leg:excitation:sim:FRF} of a second order system with $\fR=40\unit{Hz}$ and $\damping=0.2$ along with the corresponding variance and bias of the parametric models obtained using three different kinds of multisine excitations.}%
     \label{fig:excitation:FRF1}
   \end{figure}
 
@@ -1270,7 +1270,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
       \setlength\figurewidth{0.68\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/damping02-cmp.tikz}
-    \caption[Simulated \glspl{FRF} and their variances of systems with $\damping=0.2$ for different excitation signals.]{%
+    \caption[Simulated \glspl{FRF} of systems with damping $0.2$ for different excitation signals.]{%
        \Glspl{FRF} for different second order systems with constant damping $\damping=0.2$ but different resonance frequencies. 
        Comparison of the variance around the respective resonance frequency reveals the performance of each excitation signal.}%
     \label{fig:excitation:damping02}
@@ -1300,7 +1300,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
       \setlength\figurewidth{0.68\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/damping005-cmp.tikz}
-    \caption[Simulated \glspl{FRF} and their variances of systems with $\damping=0.05$ for different excitation signals.]{\Glspl{FRF} for different second order systems with constant damping $\damping=0.05$ but different resonance frequencies. 
+    \caption[Simulated \glspl{FRF} of systems with damping $0.05$ for different excitation signals.]{\Glspl{FRF} for different second order systems with constant damping $\damping=0.05$ but different resonance frequencies. 
     Comparison of the variance around the respective resonance frequency reveals the performance of each excitation signal.}%
     \label{fig:excitation:damping005}
   \end{figure}
@@ -1357,8 +1357,7 @@ For example, a system composed of two second order systems with $\damping = 0.2$
   \setlength\figurewidth{0.68\columnwidth}
   \setlength\figureheight{0.68\figurewidth}
   \input{\thisDir/figs/Sum02log0-2.tikz}
-  \caption{FRF for the sum of two second order systems with $\damping=0.2$ and
-           resonances at $ 400 \unit{Hz}$ and 4 \unit{kHz} as observed by a quasi-logarithmic multisine.}%
+  \caption[Simulated FRF of sum of two sub-systems.]{FRF for the sum of two second order systems with $\damping=0.2$ and            resonances at $ 400 \unit{Hz}$ and 4 \unit{kHz} as observed by a quasi-logarithmic multisine.}%
   \label{fig:excitation:sumSys}
 \end{figure}
 
@@ -1409,7 +1408,7 @@ This shows that both resonances are captured with a practically identical relati
       \setlength\figurewidth{0.8\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/qlog_a050mall.tikz}
-    \caption[Measured FRFs of all BK1613 octave filters and their variance for different excitation signals.]{Measured FRFs of the different \bruelkjaer BK1613 octave filters together with the observed variance for a linear, quasi-log and pink quasi-log grid multisine.}
+    \caption[Measurements of all BK1613 octave filters using different excitation signals.]{Measured FRFs of the different \bruelkjaer BK1613 octave filters together with the observed variance for a linear, quasi-log and pink quasi-log grid multisine.}
       \label{fig:excitation:measurements}
     \end{figure}
 

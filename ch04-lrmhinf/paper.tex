@@ -1,12 +1,9 @@
-\TODO{
   \begin{itemize}
-    \item fix labels for chapter
-    \item add section from Benchmark paper
-    \item fix some bib entries
-    \item Hinf macro aanpassen voor PDF support (indien dit niet conflicteert met glossaries)
+    \item \TODO{fix labels for chapter}
+    \item \TODO{add section from Benchmark paper}
+    \item \TODO{fix some bib entries}
+    \item \TODO{Hinf macro aanpassen voor PDF support (indien dit niet conflicteert met glossaries)}
   \end{itemize}
-}
-\input{\thisDir/styles.inc.tex}
 
 \newcommand{\wnValue}{\ensuremath{0.95 \unit{rad/s}}}
 \newcommand{\dampingValue}{\ensuremath{0.025}}
@@ -24,7 +21,8 @@ However, the uncertainty estimation in these references is based on rough prior 
 On the one hand, this can lead to potentially dangerous results, since no stability and performance guarantees can be given if the estimated uncertainty is too small. 
 On the other hand, this can also lead to overly conservative controllers if the estimated uncertainty is too large.
 
-Several approaches have been developed to determine bounds on the model uncertainty. First, model validation techniques have been developed~\citep[see e.g.][]{Smith1992,Xu1999}.
+Several approaches have been developed to determine bounds on the model uncertainty. 
+First, model validation techniques have been developed~\citep[see e.g.][]{Smith1992,Xu1999}.
 However, these results are typically overly optimistic~\citep{Oomen2009UncEstim}.
 Second, model error modeling approaches based on parametric system identification~\citep{Ljung1999MEM} with explicit characterization of bias and variance errors have been proposed, but these require a significant amount of user intervention.
 Third, non-parametric identification approaches have been adopted, e.g.~\citep{vandeWal2002,deVries1994}. 
@@ -181,7 +179,7 @@ Two alternative methods allow evaluation of~\eqref{eq:gamma-inter-grid} in pract
 
 \begin{figure}
   \centering
-  \setlength{\figurewidth}{0.8\columnwidth}
+  \setlength{\figurewidth}{0.68\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/interpolation-show.tikz}
   \caption[Illustration of the local models.]{Illustration of the local models $\LocalModel{\Delta}_k$ around each frequency bin $\omega_k$ for $k\in\set{1,\ldots,6}$.
