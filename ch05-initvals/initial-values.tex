@@ -694,7 +694,6 @@ As such, the output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\t
   \input{\thisDir/fig/bode-bk1613.tikz}
   \caption[\BK{} 1613 filter transfer function]{Transfer function of the considered \BK{} 1613 filter.
   The empirical transfer function estimates $Y^{[r]}(\omega)/U^{[r]}(\omega)$~\legref{leg:bk1613:ETFE} and its average $\tilde{Y}(\omega)/\tilde{U}(\omega)$~\legref{leg:bk1613:meanETFE} obtained from the Elvis measurements are shown together with the estimated reference model $G_{\mathrm{VXI}}$~\legref{leg:bk1613:vxi}.} 
-  \TODO{fix figure (maybe downsample logarithmically for efficiency)}
   \label{fig:bk1613}
 \end{figure}
 
@@ -1156,8 +1155,9 @@ For the asymptotic runtime, we are mainly interested in how the runtime of the s
 % See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression-operation
 
 Overall, the time-truncated \gls{LPM} operates in $\bigO{N n_{\theta}^{3}}$.
-First, the \gls{LPM} solves $N$ linear systems of small dimensions ($2N_W + 1$ equations and a few degrees of freedom, i.e. $n_{\theta} \leq 2 N_W + 1$), hence the overall runtime will be $\bigO{N n_{\theta}^3}$ since solving a linear regression problem with $C$ parameters and $D$ data points takes $\bigO{C^3  + D C^2}$ operations\footnote{See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression}.
+First, the \gls{LPM} solves $\bigO{N}$ linear regression problems of small dimensions ($2N_W + 1$ data points and a few degrees of freedom, i.e. $n_{\theta} \leq 2 N_W + 1$ or $\bigO{N_W} = \bigO{n_{\theta}}$), hence the runtime will be $\bigO{N n_{\theta}^3}$ since solving a linear regression problem with $C$ parameters and $D$ data points requires $\bigO{C^3  + D C^2}$ operations\footnote{See \url{http://math.stackexchange.com/questions/84495}}.
 The truncation of the impulse response relies on linear regression which takes $\bigO{N}$ operations since only $3$ parameters are estimated during this step.
+As such, carrying out the first $\bigO{N n_{\theta}^3}$ step and then the $\bigO{N}$ step, the whole procedure remains a $\bigO{N n_{\theta}^3}$ or, equivalently, $\bigO{N N_W^3}$.
 
 The \gls{RFIR} relies on fitting a \gls{FIR} filter with $n_{\theta} = n_g$ taps to $N$ datapoints.
 Using the same logic as above, this requires $\bigO{N n_{g}^2 + n_g^3}$ operations.
@@ -1167,7 +1167,7 @@ However, since the required length $n_g$ of a \gls{FIR} filter is typically a lo
 Intuitively, the local modeling methods benefit from their locality since that enables them to be flexible without a huge amount of parameters.
 
 \subsection{Implementation aspects}
-This section discusses some implications and recommendations for the implementation of  a system identification toolbox.
+This section presents some implications and recommendations for the implementation of  a system identification toolbox.
 
 Whereas \gls{RFIR} is shown to provide reliable starting values, it remains advisable to have multiple initialization strategies available to improve the likelihood of attaining a good starting value.
 This is also the approach that toolboxes such as~\citep{FDIDENT} and~\citep{TDIDENT} employ.
