@@ -38,13 +38,12 @@
     \item Zippered multisines, where the frequency grids of the different input channels are interspersed. This has the downside that frequency resolution is traded in for computational simplicity and that the different entries in the \gls{FRF} matrix are known on different frequency grids.
     \item Orthogonal multisines, which are computationally more involved to process.
   \end{itemize}
-  Due to the intrinsic sparsity of quasi-logarithmic grids, however, zippered quasi-logarithmic multisines might offer a very easy and elegant  approach to measure \gls{MIMO} systems with a moderate number of inputs.
+  Due to the intrinsic sparsity of quasi-logarithmic grids, however, zippered quasi-logarithmic multisines might offer an easy and elegant  approach to measure \gls{MIMO} systems with a moderate number of inputs.
+  %TODO: for ny x nu MIMO system, alpha_MIMO = 1 + alpha_SISO/nu to satisfy the density of frequency lines. This means: lowest guaranteed observable resonance is at higher frequencies than for SISO (obviously).
+  %TODO: also zippered vs. orthogonal for non-linearities: sparsity destroys BLA relationship
 
   Also, in the related chapter, it has been assumed that the system is an \gls{LTI} system.
-  For weakly nonlinear systems, the proposed approach is likely to 
-
-  \TODO{MIMO extension}
-  \TODO{zippered vs. orthogonal}
+  For weakly nonlinear systems, the proposed approach is likely to yield approximately valid results.
 
   \subsection{Non-parametric estimators}
     \TODO{Order selection / BW selection}
@@ -58,12 +57,12 @@
   \subsection{Parametric initialization}
   In \chapref{sec:initvals} it was already illustrated that smoother can provide improved initial estimates of a system. 
   Intrinsically, this stems from the fact that the effective \gls{SNR} of the transfer function is improved by means of the smoothness assumption and, on the other hand by the reduction in the the dimensionality in the parameter space.
-  By no means smoothers studied in \chapref{sec:initvals} chosen in an optimal way, such that it remains an open topic to determine which smoother has the best chance to produce good initial values in practical settings.
+  By no means were the  smoothers studied in \chapref{sec:initvals} chosen in an optimal way, such that it remains an open topic to determine which smoother has the best chance to produce good initial values in practical settings.
 
   On the other hand, the \gls{LRM} and its variants discussed in \chapref{sec:nonparametric} provide some local information regarding the shape of the \gls{FRF} and hence also the transfer function.
   The usefulness has already been illustrated in \chapref{sec:hinf} in connection to the computation of the \Hinf norm of a system.
   Intrinsically, these local rational methods approximate the transfer function by a local model, or, equivalently a set of local poles and zeros.
   Especially for resonant poles, one can expect that these local poles are closely linked to the global (physical) poles of a system.
   As such, those could provide a valuable initialization strategy if the redundant local pole/zero information of neighboring windows can be reduced to a single global pole/zero initial value.
-  Probably techniques in model order reduction could provide a good starting point to calculate such initial values.
-  \TODO{optimal smoother}
+  Techniques in model order reduction are likely to provide a good starting point to simplify the local pole/zero estimates to a global parametric model which could then be used to serve as initial estimate for the non-convex optimization steps.
+  

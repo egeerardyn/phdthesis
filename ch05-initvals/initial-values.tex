@@ -72,7 +72,7 @@ It is also possible to apply the estimation procedure in this chapter to a syste
 
 With reference to equation \eqref{lpmtd1}, the relation between the noiseless input and the output signals ($v(t)= 0$) is assumed to be of the form
 \begin{equation}
-    A(q^{-1}) y_0(t) = B(q^{-1}) u_0(t) \quad \forall t \in n \Ts{}  \text{with}  n \in \IntegerNumbers
+    A(q^{-1}) y_0(t) = B(q^{-1}) u_0(t) \quad \forall t \in n \Ts{}  \text{ with }  n \in \IntegerNumbers
 \label{ABpolys}
 \end{equation}
 where $A$ and $B$ are polynomials in $q^{-1}$. 
@@ -84,7 +84,7 @@ Thus, it follows from equation \eqref{lpmtd1} that
 
 From~\citet[Section 6.3.2.]{Pintelon2012}, in the frequency domain, and for the \glspl{DFT} of the windowed signals, equation \eqref{ABpolys} is of the form
 \begin{align}
-A(e^{-j\omega_k})Y_0(k) = B(e^{-j\omega_k})U_0(k) + I(e^{-j\omega_k})
+A(e^{-j\omega_k})\true{Y}(k) = B(e^{-j\omega_k})\true{U}(k) + I(e^{-j\omega_k})
 \label{DFTspectra}
 \end{align}
 with $q^{-1}$ sampled in  $q_k^{-1} = e^{-j\omega_k}$, where $\omega_k = \frac{2\pi k}{N}$ are the \gls{DFT} frequencies, and $I$ is a polynomial of order $\max(N_a,N_b) - 1$, which depends on the difference between the initial and end conditions of the filters $\true{G}$ and $\true{H}$ during the measurement record.
@@ -118,8 +118,8 @@ The variance of the error is of the form:
 \begin{split}
 \sigma_\varepsilon^2(k,\theta) 
   &=  |A(k,\theta)|^2\sigma_Y^2(k) 
-   +  |B(k,\theta)|^2\sigma_U^2(k) \\
-  &- 2\RealPart \left( A(k,\theta) \overline{B(k,\theta)} \sigma_{YU}(k) \right)
+   +  |B(k,\theta)|^2\sigma_U^2(k)
+  - 2\RealPart \left( A(k,\theta) \overline{B(k,\theta)} \sigma_{YU}(k) \right)
 \end{split}
 \end{equation}
 where $\sigma_Y^2$ is independent of $k$ for white noise, and the input error variance is assumed to be zero, i.e. $\sigma^2_U=0$, and similarly, the covariance $\sigma_{YU} = 0$.
