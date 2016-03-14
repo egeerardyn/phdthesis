@@ -360,7 +360,7 @@ where the parameter $\gamma$ can be tuned such that an appropriate trade-off bet
 \setlength\figureheight{0.68\figurewidth}
 % \includegraphics[scale=0.9]{\thisDir/figs/expFitest}
 \input{\thisDir/figs/expfit.tikz}
-\caption{Truncation of the impulse response via the fit of  an exponential. 
+\caption[Impulse response truncation using exponential fit.]{Truncation of the impulse response via the fit of  an exponential. 
 The light gray line is the noisy impulse response, and the dark gray one is its absolute value. 
 Gray circles: monotonously decreasing maxima, greater than $5\hat\sigma$, as per \eqref{eq:TmaxDef}. 
 Black thick line: estimated exponential function \eqref{eq:expFit}.}
@@ -406,7 +406,7 @@ where $e(t)$ is a white noise sequence, such that the \gls{SNR} of the output si
 \begin{figure}[tbh] %top bottom here
     \centering
     \includegraphics[scale=0.9]{\thisDir/figs/figLPMvsTruncWlegend}
-    \caption{Comparison of the \gls{LPM} and Truncated \gls{LPM} estimates of the \gls{FRF} for an \gls{SNR} of $18.3\unit{dB}$. The gray plots pertain to the \gls{LPM} estimate without truncation, the black ones to the \gls{LPM} with truncation (trunc). Dots: \gls{FRF} estimates $\hat{G}$. Crosses: sample standard deviations $\hat{\sigma}$. Dashed lines: bias $\hat{b}$. White line: the true system $G_0$.}
+    \caption[Comparison of FRF estimated using LPM and Truncated LPM.]{Comparison of the \gls{LPM} and Truncated \gls{LPM} estimates of the \gls{FRF} for an \gls{SNR} of $18.3\unit{dB}$. The gray plots pertain to the \gls{LPM} estimate without truncation, the black ones to the \gls{LPM} with truncation (trunc). Dots: \gls{FRF} estimates $\hat{G}$. Crosses: sample standard deviations $\hat{\sigma}$. Dashed lines: bias $\hat{b}$. White line: the true system $G_0$.}
     \label{figLPMvsTrunc}
 \end{figure}
 
@@ -426,7 +426,7 @@ This bias depends on the time instant at which the truncation is performed, as d
 \begin{figure}[htb] %  figure placement: here, top, bottom, or page
    \centering
 	\includegraphics{\thisDir/figs/HistogramExpFitting.pdf}
-         \caption{Black full line (left hand side y-axis (ordinate)): total \gls{RMS} error as a function of the truncation time (the single black dot is the minimum of the \gls{RMS}). Gray histogram (right hand side y-axis (ordinate)): selected truncation times for 1000 noise realizations by the exponential fitting methods.}
+         \caption[RMS error of the FRF versus truncation time.]{Black full line (left hand side y-axis (ordinate)): total \gls{RMS} error as a function of the truncation time (the single black dot is the minimum of the \gls{RMS}). Gray histogram (right hand side y-axis (ordinate)): selected truncation times for 1000 noise realizations by the exponential fitting methods.}
    \label{fig:pdfAndRMSeVStruncTime}
 \end{figure}
 

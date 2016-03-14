@@ -14,6 +14,7 @@
 %
 %
 \begin{tikzpicture}
+\pgfplotsset{every axis title/.append style={font={\footnotesize},at={(rel axis cs:0.5,0.97),anchor=center}}}
 \begin{axis}[%
 name=Estim,
 width=0.5\figurewidth,
@@ -23,7 +24,7 @@ unbounded coords=jump,
 xmin=0.5,
 xmax=3.5,
 grid=both,
-title={\footnotesize{Estimation: $V_{\bullet} = V(\model{\bullet})$}},
+title={Estimation: $V_{\bullet} = V(\model{\bullet})$},
 x tick label as interval,
 xtick={0.5,1.5,2.5,3.5},
 xticklabels={{$\model{exist}$},{$\model{trunc}$},{$\model{RFIR}$}},
@@ -311,13 +312,13 @@ ymin=0.0001,
 ymax=100,
 yminorticks=true,
 ylabel={${D_{\bullet} - D}_{\mathrm{best}}$},
-title={\footnotesize Validation: $D_{\bullet} = \| \model{\bullet} - G_{\mathrm{VXI}} \|_2$},
+title={Validation: $D_{\bullet} = \norm[2]{\model{\bullet} - G_{\mathrm{VXI}}}$},
 axis x line*=bottom,
 axis y line*=right,
-legend to name=leg:init:secondBest,
+% legend to name=leg:init:secondBest,
 legend columns=-1,
 legend cell align=center,
-legend style={draw=none}
+legend style={draw=none, at={(rel axis cs:-0.05,1.1)},anchor=south}
 ]
 
 \addplot[enhancementBox, forget plot] table[row sep=crcr] {%

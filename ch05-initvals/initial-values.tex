@@ -630,7 +630,7 @@ This result is very useful for a user working with noisy data.
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/fig/successRates.tikz}
- \caption[Simulated success rate of the different initialization schemes for varying \gls{SNR}.]{The success rate $\successRate$  obtained using the smoothers, i.e. $\model{RFIR}$~\legref{leg:success-RFIR} and $\model{trunc}$~\legref{leg:success-LPMTrunc}, are significantly higher than for the existing methods $\model{exist}$~\legref{leg:success-existing} in most of the studied range of \glspl{SNR}, number of samples and for both test systems. The $95\%$ confidence intervals~\eqref{eq:initvals:Binomial:CI} are indicated by bars.}
+ \caption[Simulated success rate of the different initialization schemes for varying SNR.]{The success rate $\successRate$  obtained using the smoothers, i.e. $\model{RFIR}$~\legref{leg:success-RFIR} and $\model{trunc}$~\legref{leg:success-LPMTrunc}, are significantly higher than for the existing methods $\model{exist}$~\legref{leg:success-existing} in most of the studied range of \glspl{SNR}, number of samples and for both test systems. The $95\%$ confidence intervals~\eqref{eq:initvals:Binomial:CI} are indicated by bars.}
   \label{fig:successRateVS_SNR36N3dB}
 \end{figure}
 
@@ -639,7 +639,7 @@ This result is very useful for a user working with noisy data.
   \setlength{\figurewidth}{0.66\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/fig/RMSEvs_SNR36N3dB-ripple6.tikz}
- \caption[Simulated model \gls{RMSE} compared to rule-of-thumb.]{The accordance between the observed \gls{RMSE} of $\hat{G}_0$~\legref{leg:RMSE:delta:observed}(with $\pm2\sigma$ interval) and the rule-of-thumb~\eqref{eq:heur-RMSE}\legref{leg:RMSE:rule-of-thumb} shows how well $\model{\trueSymbol}$ approximates the true system $\true{G}$.
+ \caption[Simulated model RMSE compared to rule-of-thumb.]{The accordance between the observed \gls{RMSE} of $\hat{G}_0$~\legref{leg:RMSE:delta:observed}(with $\pm2\sigma$ interval) and the rule-of-thumb~\eqref{eq:heur-RMSE}\legref{leg:RMSE:rule-of-thumb} shows how well $\model{\trueSymbol}$ approximates the true system $\true{G}$.
  In the bottom plot, the difference between both is shown.
  Consequently, it makes sense to examine the behavior of the models in terms of $\model{\trueSymbol}$ as long as this RMSE meets the user's requirements.}
   \label{fig:RMSE}
@@ -728,7 +728,6 @@ Note that the SNR at the output $\mathrm{SNR}_{y} \approx 14 \unit{dB}$ is much 
   \setlength{\figurewidth}{0.75\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/fig/elvis-spectra.tikz}
-  %TODO: simplify figure
   \caption[Measured input/output spectra of \BK{} filter.]{Average input $\tilde{U}(\omega)$ and output $\tilde{Y}(\omega)$ spectra \legref[2]{leg:SpectraMeasurement:U:mean} measured using the Elvis and the noise levels $\hat\sigma_U$ and $\hat\sigma_Y$  \legref[2]{leg:SpectraMeasurement:U:noise}.}
   \label{fig:SpectraMeasurement}
 \end{figure}
@@ -934,11 +933,10 @@ The situation is already less severe for $\model{trunc}$ (in $75\%$ of the cases
 
 \begin{figure}
   \centering
-  \ref{leg:init:secondBest}
+  % \ref{leg:init:secondBest}
   \setlength{\figurewidth}{0.75\columnwidth}
   \setlength{\figureheight}{0.60\figurewidth}
   \input{\thisDir/fig/special-histogram.tikz}
-  %TODO: put legend inside figure (note: subplot magic!!)
   \caption[Performance degradation/enhancement for selecting the second best model.]{
   Performance degradation/enhancement ($X_{\bullet}-X_{\mathrm{best}}$) for choosing a given method $\bullet$ instead of the `best' method for the measurement example in this chapter.
   The markers show individual observations and the boxes show the \gls{IQR}.
