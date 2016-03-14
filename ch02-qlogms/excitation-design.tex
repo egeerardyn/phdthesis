@@ -1413,8 +1413,14 @@ This shows that both resonances are captured with a practically identical relati
     As excitation signals, a linear grid multisine, an uncompensated quasi-log multisine and pink quasi-log multisine with excited frequencies between $1 \unit{Hz}$ and $64 \unit{kHz}$ were used.
     These multisines were sampled at $\fs = 256\unit{kHz}$ and had a frequency resolution of $\Delta f = 1 \unit{Hz}$, a frequency spacing $\alpha = 1.05$ and identical \gls{RMS} values of approximately $0.25 \unit{V}$.
     This amplitude was chosen such that the peak amplitude $\max \abs{u(t)}$ was approximately $1 \unit{V}$.
+    An attempt was made to use a random-phase multisine with a limited crest factor
+    \begin{equation}
+      \crest{u} \isdef \frac{\norm[\infty]{u(t)}}{\norm[2]{u(t)}} = \frac{\max{\abs{u(t)}}}{ \sqrt{\Tm^{-1} \int_{0}^{\Tm} u(t)^2 \dd{t}}}
+    \end{equation}
+    to avoid excessive effects of nonlinear behavior of the filter.
+    In particular, for each signal $1000$ realizations of the phase spectrum $\phi_k$ were sampled from a uniform distribution over $\LeftOpenInterval{0,2\pi}$; from these realizations only the multisine with the lowest crest factor was retained and applied to the filters.
 
-    $R=50$ periods of the multisine were measured, from which the first period was discarded to suppress transient effects.
+    $R=50$ periods of each multisine were measured, from which the first period was discarded to suppress transient effects.
     For each of the remaining periods, the \gls{FRF} of the filter is calculated and its average $G\left(\omega \right)$ over the periods is calculated.
     We also calculate the corresponding standard deviation $\sigma_G\left( \omega \right)$ of the \gls{FRF} and normalize it for a single period of the excitation signal.
     We denote $G\left(\omega \right)$ the non-parametric FRF and $\sigma_G\left( \omega \right)$ its standard deviation, as these measures are determined completely nonparametrically from the measurements.
