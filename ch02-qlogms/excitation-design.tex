@@ -1373,14 +1373,37 @@ This shows that both resonances are captured with a practically identical relati
 \label{sec:excitation:measurement}
   \subsection{Setup}
     \label{sec:excitation:measurement:setup}
-    To show that this methodology also works for more complicated systems, we measured the frequency response functions of a \bruelkjaer Type 1613 Octave Filter Set using a National Instruments Elvis~II board driven by \labview.
+    To show that this methodology also works for more complicated systems, we measured the frequency response functions of a \bruelkjaer{} Type 1613 Octave Filter Set using a National Instruments Elvis~II board driven by \labview.
     
     The \BK~1613 contains a set of eleven analog passive band-pass filters with center frequencies $\fc$ that are logarithmically distributed between $31.5\unit{Hz}$ and $31.5\unit{kHz}$ inclusive.
     According to its manual~\citep{datasheet_bk1613}, a $0.5\unit{dB}$ ripple with three resonances is present in the pass-band and the $3\unit{dB}$ break frequencies are located at $\frac{\fc}{\sqrt{2}}$ and $\fc \sqrt{2}$.
-    A first guess to realize such a filter is a sixth-order Chebyshev band-pass filter of Type I~\citep{Zverev1967} for which the poles have a damping that is larger than $0.09$.
-    %TODO: datasheet FRF?, pzmap with \damping shown, evt. tabel: per pool-paar: \wn ifv \wc, \damping
+    This leads to a transfer function
+
+    This leads to a sixth-order Chebyshev band-pass filter of Type~I~\citep{Zverev1967} given in the transfer function
+    \begin{equation}
+       G_{\mathrm{init}}(s) \approx 
+      \frac{0.15922 s_{\mathrm{n}}^3 }{ s_{\mathrm{n}}^6 + 0.759 s_{\mathrm{n}}^5 + 3.564 s_{\mathrm{n}}^4 + 1.678 s_{\mathrm{n}}^3 + 3.564 s_{\mathrm{n}}^2 + 0.759 s_{\mathrm{n}} + 1}
+      \label{eq:excitation:bk1613:tf-init}
+     \end{equation}
+     where $s_{\mathrm{n}} \isdef s \wc^{-1}$ and $\wc=2\pi \fc$ is the center frequency of the respective filter.
+     It can be seen from \tabref{tbl:excitation:bk1613:poles} that each pole has $\damping \geq 0.09$.
     Since the different pole pairs that constitute such a filter have a different damping, this is an ideally suited system to evaluate the proposed method.
     The `shape' of the transfer function of the different filters is nominally identical, which allows for an easy visual comparison between the model uncertainty of the different filters.
+
+    \begin{table}[b]
+      \centering
+      \caption{Poles of the initial model of the \bruelkjaer{} 1613 filter with center frequency $\wc$.}
+      \label{tbl:excitation:bk1613:poles}
+      \begin{tabular}{crr}
+        \toprule
+        \textsc{Pole pair} & \textsc{Damping ($\damping$)} & \textsc{Frequency ($\wn$)} \\
+        \midrule
+        $-(0.067 \pm 0.733j)\wc$ & $0.091$ & $0.736\wc$ \\ 
+        $-(0.190 \pm 0.982j)\wc$ & $0.190$ & $\wc$ \\ 
+        $-(0.123 \pm 1.350j)\wc$ & $0.091$ & $1.36\wc$ \\ 
+        \bottomrule
+      \end{tabular}
+    \end{table}
 
     As excitation signals, a linear grid multisine, an uncompensated quasi-log multisine and pink quasi-log multisine with excited frequencies between $1 \unit{Hz}$ and $64 \unit{kHz}$ were used.
     These multisines were sampled at $\fs = 256\unit{kHz}$ and had a frequency resolution of $\Delta f = 1 \unit{Hz}$, a frequency spacing $\alpha = 1.05$ and identical \gls{RMS} values of approximately $0.25 \unit{V}$.
@@ -1396,7 +1419,7 @@ This shows that both resonances are captured with a practically identical relati
       G(s) = \frac{\Sum_{i=0}^3 b_i s^i}{\Sum_{i=0}^6 a_i s^i}
     \end{equation}
     was estimated using \texttt{elis}~\citep{FDIDENT}.
-    The initial estimate was a sixth-order band-pass type I Chebyshev filter~\citep{Zverev1967} that conformed to the information given in the datasheet~\citep{datasheet_bk1613} to aid convergence to a good optimum.
+    To aid convergence to a good optimum, the initial estimate was a sixth-order band-pass type I Chebyshev filter given in \eqref{eq:excitation:bk1613:tf-init}.
 
     We summarize the behavior of these parametric models by their average $G\left(\theta,\omega \right)$ over the different periods and their standard deviation $\sigma_G\left(\theta,\omega \right)$.
 
