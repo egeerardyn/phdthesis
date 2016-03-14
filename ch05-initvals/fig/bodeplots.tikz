@@ -50,13 +50,13 @@ axis y line*=left]
 
 % ================================================
 \nextgroupplot[cheby1, legend columns=-1,
-  legend to name=leg:init:stress:bodes,legend cell align=left]
+  legend cell align=left, legend style={at={(rel axis cs:0.5,1.05)}, anchor=south west}]
 \node[plotnum,anchor=south west] at (rel axis cs:0,0) {1};
 \addplot [color=G0Hat,solid,forget plot]
   table{\thisDir/fig/bodeplots-1.tsv};
 \addplot [color=G0Hat,solid]
   table{\thisDir/fig/bodeplots-2.tsv};
-\addlegendentry{\model{0}};
+\addlegendentry{\model{\trueSymbol}};
 \label{leg:bode:model0}
 
 \addplot [color=existing,solid,forget plot]
@@ -88,7 +88,7 @@ axis y line*=left]
 % \label{leg:bode:best}
 \addplot [exact]
   table{\thisDir/fig/bodeplots-11.tsv};
-\addlegendentry{$G_0$};
+\addlegendentry{$\true{G}$};
 \label{leg:bode:true}
 
 

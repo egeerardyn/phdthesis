@@ -65,7 +65,7 @@ However, the generalization to continuous time is straightforward~\citep[Chapter
 Numerous parametric identification techniques are devoted to the development of parametric plants $G(q^{-1},\theta)$ and parametric noise models  $H(q^{-1},\theta)$, where  $\theta$ is the model parameters vector  \citep{Ljung1999,Soderstrom1989}.
 
 In this chapter we assume that the output signal is disturbed by random noise, resulting in noisy error-prone data.
-For the simulations, white noise is used ($H_0 = 1$ and $e(t) = v(t)$).
+For the simulations, white noise is used ($\true{H} = 1$ and $e(t) = v(t)$).
 It is also possible to apply the estimation procedure in this chapter to a system that is disturbed by colored noise, as will be demonstrated in \secref{se:ExpMeas}. 
 
 \subsection{Parametric System Model}
@@ -1018,9 +1018,7 @@ This is equivalent to the relative criterion of success since $\norm[2]{\true{G}
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \centering
-  \ref{leg:init:stress:bodes}
   \input{\thisDir/fig/bodeplots.tikz}
-  %TODO: put legend inside figure (note: subplot magic!!)
   \caption[Bode plots of the stress test filters.]{Bode plots of the tested filters~\legref{leg:bode:true} in the stress test. 
   For each filter, two (randomly selected) instances of the parametric estimates $\model{\bullet}$ are shown per method.
   % Top to bottom: Chebyshev I, Chebyshev II, Elliptical and Butterworth characteristic.
@@ -1033,12 +1031,10 @@ This is equivalent to the relative criterion of success since $\norm[2]{\true{G}
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \centering
-  \ref{leg:distances}
   \input{\thisDir/fig/distances.tikz}
   \caption[Empirical \glsentrytext{CDF} of $\validationDistance{\bullet}$ in the stress test.]{Empirical cumulative distribution function of the validation distance $D_{\bullet} = \norm{\model{\bullet} - \true{G}}$ for the different tested systems (different numbered plots) and the different initial values (colors).
   Note that since $\norm{\true{G}}=1$ is chosen, $D_{\bullet}$ immediately indicates the relative RMS error of the estimates.
   }
-  %TODO: put legend inside figure (note: subplot magic!!)
   \label{fig:distancesStress}
 \end{figure}
 
@@ -1176,12 +1172,12 @@ As such, computing multiple starting values can happen without a significant inc
 
 \begin{guideline}[Try regularization to improve convergence]
 \label{guide:initvals:try-regularization}
-Regularized estimators, such as \gls{RFIR}, sometimes provide better estimates than the `true' model parameters.
+Regularized estimators, such as \gls{RFIR}, sometimes provide better initial estimates than the `true' model parameters.
 \end{guideline}
 
 \begin{guideline}[Try different initial values for non-convex optimization]
 \label{guide:initvals:try-many-initial-values}
-Trying different initial values is quite inexpensive, but the quality of the final model may improve by several order of magnitude if a local minimum can be avoided.
+Trying different initial values is quite inexpensive, but the quality of the final model may improve by several orders of magnitude if a local minimum can be avoided.
 As such, using multiple initial values, especially ones that have been derived with good judgment, pays off.
 \end{guideline}
 

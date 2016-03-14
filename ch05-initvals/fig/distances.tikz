@@ -52,11 +52,8 @@ axis x line*=bottom,
 axis y line*=left]
 
 % ================================================
-\nextgroupplot[%
-  legend columns=-1,
-  legend to name=leg:distances,
-  legend cell align=left
-]
+\nextgroupplot[legend columns=-1,
+  legend cell align=left, legend style={at={(rel axis cs:0.5,1.05)}, anchor=south west}]
 \node[plotnum] at (rel axis cs:0,1) {1};
 \addplot [color=G0Hat,solid]
   table{\thisDir/fig/distances-1.tsv};
