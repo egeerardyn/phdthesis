@@ -1317,7 +1317,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
 
 \begin{guideline}[Use a sufficient grid resolution for each resonance: $2 \pi \Delta f \leq (\damping - \damping^2) \wn$]
 \label{guide:excitation:systemInBulk:tuned}
- A quasi-logarithmic multisine with frequency resolution $\Delta f$ and tuned frequency spacing $\alpha=1+\damping$ is only guaranteed to properly excite resonances peaks with damping $\damping$ and resonance frequency $\wn$ when 
+ A quasi-logarithmic multisine with frequency resolution $\Delta f$ and tuned frequency spacing $\alpha=1+\damping$ is only guaranteed to properly excite resonance peaks with damping $\damping$ and resonance frequency $\wn$ when 
   \begin{equation}
     2 \pi \Delta f \leq (\damping - \damping^2) \wn 
     \approx \damping \wn \text{ if $\damping \ll 1$}
@@ -1377,30 +1377,35 @@ This shows that both resonances are captured with a practically identical relati
     
     The \BK~1613 contains a set of eleven analog passive band-pass filters with center frequencies $\fc$ that are logarithmically distributed between $31.5\unit{Hz}$ and $31.5\unit{kHz}$ inclusive.
     According to its manual~\citep{datasheet_bk1613}, a $0.5\unit{dB}$ ripple with three resonances is present in the pass-band and the $3\unit{dB}$ break frequencies are located at $\frac{\fc}{\sqrt{2}}$ and $\fc \sqrt{2}$.
-    This leads to a transfer function
-
-    This leads to a sixth-order Chebyshev band-pass filter of Type~I~\citep{Zverev1967} given in the transfer function
+    This leads to a sixth-order Chebyshev band-pass filter of Type~I~\citep{Zverev1967} with transfer function
     \begin{equation}
        G_{\mathrm{init}}(s) \approx 
-      \frac{0.15922 s_{\mathrm{n}}^3 }{ s_{\mathrm{n}}^6 + 0.759 s_{\mathrm{n}}^5 + 3.564 s_{\mathrm{n}}^4 + 1.678 s_{\mathrm{n}}^3 + 3.564 s_{\mathrm{n}}^2 + 0.759 s_{\mathrm{n}} + 1}
+      \frac{0.15922 s_{\mathrm{n}}^3 }
+                {              s_{\mathrm{n}}^6 
+                + 0.759 s_{\mathrm{n}}^5 
+                + 3.564 s_{\mathrm{n}}^4 
+                + 1.678 s_{\mathrm{n}}^3 
+                + 3.564 s_{\mathrm{n}}^2 
+                + 0.759 s_{\mathrm{n}} 
+                + 1}
       \label{eq:excitation:bk1613:tf-init}
      \end{equation}
      where $s_{\mathrm{n}} \isdef s \wc^{-1}$ and $\wc=2\pi \fc$ is the center frequency of the respective filter.
      It can be seen from \tabref{tbl:excitation:bk1613:poles} that each pole has $\damping \geq 0.09$.
-    Since the different pole pairs that constitute such a filter have a different damping, this is an ideally suited system to evaluate the proposed method.
+    Since the different pole pairs that constitute such a filter have a different damping, this is an ideally suited system to evaluate the proposed excitation signals.
     The `shape' of the transfer function of the different filters is nominally identical, which allows for an easy visual comparison between the model uncertainty of the different filters.
 
-    \begin{table}[b]
+    \begin{table}[bt]
       \centering
       \caption{Poles of the initial model of the \bruelkjaer{} 1613 filter with center frequency $\wc$.}
       \label{tbl:excitation:bk1613:poles}
-      \begin{tabular}{crr}
+      \begin{tabular}{rrrr}
         \toprule
-        \textsc{Pole pair} & \textsc{Damping ($\damping$)} & \textsc{Frequency ($\wn$)} \\
+        \textsc{Pole pair} & \textsc{Damping ($\damping$)} & \textsc{Frequency ($\wn$)} & \textsc{Time constant ($\timeconst$)}\\
         \midrule
-        $-(0.067 \pm 0.733j)\wc$ & $0.091$ & $0.736\wc$ \\ 
-        $-(0.190 \pm 0.982j)\wc$ & $0.190$ & $\wc$ \\ 
-        $-(0.123 \pm 1.350j)\wc$ & $0.091$ & $1.36\wc$ \\ 
+        $-(0.067 \pm 0.733j)\,\wc$ & $0.091$ & $0.74\,\wc$ & $15.0\,\wc^{-1}$\\ 
+        $-(0.190 \pm 0.982j)\,\wc$ & $0.190$ & $\wc$ & $5.3\, \wc^{-1}$\\ 
+        $-(0.123 \pm 1.350j)\,\wc$ & $0.091$ & $1.36\,\wc$ & $8.1 \,\wc^{-1}$\\ 
         \bottomrule
       \end{tabular}
     \end{table}
@@ -1431,7 +1436,7 @@ This shows that both resonances are captured with a practically identical relati
       \setlength\figurewidth{0.8\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/qlog_a050mall.tikz}
-    \caption[Measurements of all BK1613 octave filters using different excitation signals.]{Measured FRFs of the different \bruelkjaer BK1613 octave filters together with the observed variance for a linear, quasi-log and pink quasi-log grid multisine.}
+    \caption[Measurements of all BK1613 octave filters using different excitation signals.]{Measured FRFs of the different \bruelkjaer{} 1613 octave filters together with the observed variance for a linear, quasi-log and pink quasi-log grid multisine.}
       \label{fig:excitation:measurements}
     \end{figure}
 
