@@ -26,7 +26,7 @@ One can then gradually determine whether these segments are noise or the actual 
 $L_S = \floor{\frac{N}{N_S}}$. 
 If necessary, the length of the first segment is reduced to allow for the others to have equal lengths.
 The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,\ldots,N_S\right\}$.
-  By Assumption \ref{ass:decay90perctime}, the last segment, $\segm{\hat{g}}{N_S}$, is noise when $L_S \leqslant 0.1N$.
+  By \assref{ass:decay90perctime}, the last segment, $\segm{\hat{g}}{N_S}$, is noise when $L_S \leqslant 0.1N$.
   
   \item Iteration is then carried out from the last segment ($i = N_S$) towards the beginning of the impulse response. To determine whether the preceding segment $\segm{\hat{g}}{i-1}$ is completely dominated by noise,  both an $F$-test and an absolute criterion on the RMS are used.
 
@@ -68,21 +68,19 @@ The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,
   To start this refinement, the last $\segm{\hat{g}}{i}$ should be used to compare the RMS with the $F$-test, since the last subsegment of $\segm{\hat{g}}{i-1}$ cannot be asserted to be dominated by noise.
 
 \end{enumerate}
-%In Fig.~\ref{FRF_truncate_stat_EG}, this procedure is shown on the system depicted in \eqref{eq:systemSimulations}. 
-This procedure is illustrated in Fig.~\ref{FRF_truncate_stat_EG} for the system described by the following simulation equations, which are relevant to the LPM outlined in Section \ref{se:LPMFRFest}:
+This procedure is illustrated in \figref{FRF_truncate_stat_EG} for the system described by the following simulation equations, which are relevant to the LPM outlined in Section \ref{se:LPMFRFest}:
 \begin{subequations}
 \label{eq:systemSimulations}
 \begin{align}
-y_0(t)  &= 1.5371y_0(t-1)    -0.9025y_0(t-2) + u(t)
-\\
-y(t) &= y_0(t) + e(t),
+y_0(t)  &= 1.5371y_0(t-1)    -0.9025y_0(t-2) + u(t)\\
+y(t)       &= y_0(t) + e(t),
 \end{align}
 \end{subequations}
 where $e(t)$ is a white noise sequence, such that the SNR of the output signal is 78.2~dB.
 % \eqref{eq:systemSimulations}. 
 The figure shows segments of the estimated impulse response. The last two segments are dominated by the noise, while all samples at $t<80$ have large system contributions. The algorithm outlined above selects $t_{\mathrm{trunc}} = 80$, beyond which all samples are set to zero, resulting in a smooth estimate.  %after which all samples are fixed to a zero value for the smoothed estimate.
 
-\begin{figure}[tbh] %top bottom here
+\begin{figure}[tbh]
 \centering
  \setlength\figureheight{0.6\columnwidth}
  \setlength\figurewidth{0.8\columnwidth}
