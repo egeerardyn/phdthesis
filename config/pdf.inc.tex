@@ -1,0 +1,11 @@
+% These commands set up hyperref & PDF exportation.
+% It should take place in the pre-amble, after the title and author are set.
+
+\makeatletter
+\hypersetup{
+    pdftitle={\@title},
+    pdfauthor={\@author},
+    pdfcreator={revision \VCRevision},
+    pdfduplex=DuplexFlipLongEdge
+}
+\makeatother
