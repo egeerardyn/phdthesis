@@ -1,8 +1,8 @@
 function G0s = systemsForStressTest()
     order = 10;        % [] degree of the filter
-    Qp    = 3;         % [dB] peak-to-peak ripple in pass-band
+    Qp    =  3;        % [dB] peak-to-peak ripple in pass-band
     Qs    = 60;        % [dB] attenuation in stop-band
-    wPass = 0.5;       % [pi rad/sample] cross-over frequency
+    wPass =  0.5;      % [pi rad/sample] cross-over frequency
     wBand = [0.4 0.6]; % [pi rad/sample] edges of the pass/stop band
     G0s   = {DTFilter(@() cheby1(order, Qp,     wPass, 'low'      ))
              DTFilter(@() cheby1(order, Qp,     wBand, 'bandpass' ))

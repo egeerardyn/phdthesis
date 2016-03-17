@@ -1,6 +1,7 @@
 \usepackage{listings}
 
-\definecolor{codebackground}{named}{TangoAluminium1}
+%http://tex.stackexchange.com/questions/61366/use-red50blue-with-definecolor
+\colorlet{codebackground}{TangoAluminium1!60!white}
 
 \definecolor{matlabCell}{named}{TangoChameleon2}
 \definecolor{matlabComment}{named}{TangoChameleon3}
@@ -30,8 +31,11 @@
   prebreak={},%
   showstringspaces=false,%
   backgroundcolor=\color{codebackground},%
-  frame=lines
+  frame=lines,
+  framerule=\heavyrulewidth
 }
+
+% http://tex.stackexchange.com/questions/156122/booktabs-what-is-the-difference-between-toprule-and-hline
 
 \lstdefinestyle{matlab}
 {language=Matlab,%
@@ -44,9 +48,10 @@
 
   \lstdefinestyle{matlabbw}
 {language=Matlab,%
-  style=common,%
-  commentstyle=\color{darkgray},%
-  stringstyle=\color{gray},%
+  style=matlab,%
+  backgroundcolor=\color{white},%
+  commentstyle=\color{gray},%
+  stringstyle=\color{darkgray},%
   keywordstyle=\color{black}\textbf,%
   morecomment=[l][\color{gray}\textit]{\%\%}}
 

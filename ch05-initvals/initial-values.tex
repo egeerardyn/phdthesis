@@ -974,7 +974,9 @@ The band-pass, respectively band-stop, filters have a passband, respectively sto
 Note also that both the band-pass and band-stop filters have a McMillan degree of 20 as per the \MATLAB conventions.
 See \tabref{tbl:init:stresstest} for an overview of the filters and  \figref{fig:bodeplots} for the corresponding bode plots.
 
+
 \lstinputlisting[float,style=matlab,mathescape,basicstyle=\ttfamily\scriptsize,caption={Code to generate the systems of the stress tests.},label={lst:initvals:stressSystems}]{\thisDir/code/systemsForStressTest.m}
+
 
 The input excitation and the disturbing output noise were $N=1\,024$ samples of white Gaussian noise such that and an \gls{SNR} of $20 \unit{dB}$ was attained at the output.
 Note that due to $\norm[2]{\true{G}}=1$, the validation distance $\norm[2]{\model{\bullet} - \true{G}}$ is exactly the relative \gls{RMS} estimation error of the transfer function.
@@ -1019,8 +1021,6 @@ This is equivalent to the relative criterion of success since $\norm[2]{\true{G}
   \input{\thisDir/fig/bodeplots.tikz}
   \caption[Bode plots of the stress test filters.]{Bode plots of the tested filters~\legref{leg:bode:true} in the stress test. 
   For each filter, two (randomly selected) instances of the parametric estimates $\model{\bullet}$ are shown per method.
-  % Top to bottom: Chebyshev I, Chebyshev II, Elliptical and Butterworth characteristic.
-  % Left to right: low-pass, band-pass, high-pass and band-stop.
   }
   \label{fig:bodeplots}
 \end{figure}
