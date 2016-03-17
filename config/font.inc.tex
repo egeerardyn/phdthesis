@@ -2,24 +2,31 @@
 \ifXeTeX
     \usepackage{fontspec}
     %\usepackage{mathspec}
-    %% Theme 1
-    \setsansfont{Avenir Next}[UprightFont={* Regular},BoldFont={* Medium},BoldItalicFont={* Medium Italic}]
-    %\setmainfont{Merriweather}[Scale=MatchUppercase]
+
+   %% Alegreya
+   % \setmainfont{Alegreya}[SmallCapsFont={* SC}]
+   %  \setsansfont{Alegreya Sans}[SmallCapsFont={* SC}]
+   %  \setmonofont{Fira Code}[UprightFont={*}, ItalicFont={* Medium}, BoldFont={* Medium},BoldItalicFont={* Medium},Scale=MatchLowercase]
+
+    %% Avenir + Alegreya
     \setmainfont{Alegreya}[SmallCapsFont={* SC}]
-    % \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black},Scale=MatchLowercase]
-    
-    % yay, ligatures in code :)
+    \setsansfont{Avenir Next}[UprightFont={* Regular},BoldFont={* Medium},BoldItalicFont={* Medium Italic}]
     \setmonofont{Fira Code}[UprightFont={*}, ItalicFont={* Medium}, BoldFont={* Medium},BoldItalicFont={* Medium},Scale=MatchLowercase]
 
-    %% Theme 2
-    % \setmainfont{Source Serif Pro} %TODO: set SC font
+    %% Avenir + Merriweather
+    %\setmainfont{Merriweather}[Scale=MatchUppercase]
+    % \setsansfont{Avenir Next}[UprightFont={* Regular},BoldFont={* Medium},BoldItalicFont={* Medium Italic}]
+    % \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black},Scale=MatchLowercase]
+
+    %% Source
+    % \setmainfont{Source Serif Pro} %doesn't have small caps, i.e. DO NOT USE
     % \setsansfont{Source Sans Pro}
     % \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
 
-    % %% Theme 3
+    % %% Helvetica + Palatino
     % \setmainfont{Palatino}
     % \setsansfont{Helvetica}
-    % \setmonofont{Source Code Pro}
+    % \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
 \else
     \usepackage{fourier}
 \fi
