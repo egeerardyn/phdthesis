@@ -6,9 +6,8 @@
 \newcommand{\rms}[1]{\ensuremath{\RMS\left(#1\right)}}
 \newcommand{\floor}[1]{\ensuremath{\lfloor #1 \rfloor}}
 
-To distinguish the part of the measured impulse response where the actual impulse response dominates from the part where the noise dominates, the estimated
-%measured
- impulse response $\hat{g}_\mathrm{poly}$ is split into smaller segments. One can then gradually determine whether these segments are noise or the actual impulse response.
+To distinguish the part of the measured impulse response where the actual impulse response dominates from the part where the noise dominates, the estimated impulse response $\hat{g}_\mathrm{poly}$ is split into smaller segments. 
+One can then gradually determine whether these segments are noise or the actual impulse response.
 
 % 1) cut into NS segments of minimally NM samples
 % 2) assume last segment == noise
@@ -24,7 +23,8 @@ To distinguish the part of the measured impulse response where the actual impuls
 
 \begin{enumerate}
   \item The impulse response $\hat{g}_\mathrm{poly}(t)$ is split into $N_S$ segments of approximate equal lengths
-$L_S = \floor{\frac{N}{N_S}}$. If necessary, the length of the first segment is reduced to allow for the others to have equal lengths.
+$L_S = \floor{\frac{N}{N_S}}$. 
+If necessary, the length of the first segment is reduced to allow for the others to have equal lengths.
 The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,\ldots,N_S\right\}$.
   By Assumption \ref{ass:decay90perctime}, the last segment, $\segm{\hat{g}}{N_S}$, is noise when $L_S \leqslant 0.1N$.
   
