@@ -822,15 +822,7 @@ This yielded the model $G_\mathrm{VXI}$ (shown in \figref{fig:bk1613}) with a re
 \begin{table}[p]
   \centering
   \caption{Observed percentiles of the cost function $V(\model{\bullet}$).}
-% \input{\thisDir/table1.tex}
-\pgfplotstabletypeset[precision=0]{
-method            P000     P025     P050      P075       P100   
-\model{VXI}       4354.83  4442.31  4493.52   4706.61    9633.53
-\model{exist}     4345.3   4525.82  8740.54  12413.3    29236.5
-\model{trunc}     4335.68  4476.29  4841.74   8130.28   88308.1
-\model{RFIR}      4328.93  4422.11  4468.8    4716.46    9606.54
-\model{best}      4328.93  4414.87  4457.91   4644.07    8569.93 
-}
+  \input{\thisDir/tables/meas-cost-quantiles.tbl.tex}
   \label{tbl:costMeasurements}
 \end{table}
 
@@ -888,17 +880,7 @@ E.g. note in \tabref{tbl:validationMeasurements} that this step reduces the wors
 \begin{table}[p]
   \centering
   \caption{Observed percentiles of the validation distance $\norm{\model{\bullet}-G_{\mathrm{VXI}}}$.}
-% \input{\thisDir/table2.tex}
-\pgfplotstabletypeset[zerofill=true,precision=2]{
-method              P000      P025      P050        P075     P100   
-\model{VXI}         0.47325   0.916589   1.06396   1.29177   2.4089
-\model{exist}       1.48252   1.88392   13.7177   19.3113   26.7984
-\model[init]{trunc} 1.35399   2.72412   14.9431   24.7154   85.3351
-\model{trunc}       1.27344   1.71872    2.34574  13.0301   63.8373
-\model[init]{RFIR}  1.10525   1.61051    1.7778    2.00318  18.211
-\model{RFIR}        1.20554   1.57398    1.72416   1.84941   4.55004
-\model{best}        1.20554   1.55725    1.72059   1.84593  15.0063
-}
+  \input{\thisDir/tables/meas-validation-quantiles.tbl.tex}
 \label{tbl:validationMeasurements}
 \end{table}
 
@@ -985,28 +967,7 @@ Note that due to $\norm[2]{\true{G}}=1$, the validation distance $\norm[2]{\mode
 \begin{table}
   \centering
   \caption{Overview of the test cases for the initialization stress test.}
-\begin{tabular}{crlrrrrr}
-\toprule
-\textsc{Case}   &  \multicolumn{2}{c}{\textsc{Filter}}   &  $\true{\successRate} [\%]$  &  $\successRate_{\mathrm{exist}} [\%]$ &  $\successRate_{\mathrm{trunc}} [\%]$   &  $\successRate_{\mathrm{RFIR}} [\%]$  &  $\successRate_{\mathrm{best}} [\%]$ \\
-\midrule
-1  &  {Chebyshev I}  &  low-pass   & 100 & 100 & 95  & 100 & 100\\
-2  &  {Chebyshev I}  &  band-pass   & 100 & 14  & 7 & 16  & 34\\
-3  &  {Chebyshev I}  &  high-pass     & 100 & 100 & 96  & 100 & 100\\
-4  &  {Chebyshev I}  &  band-stop     & 100 & 40  & 28  & 74  & 90\\
-5  &  {Chebyshev II}   &  low-pass     & 100 & 98  & 73  & 100 & 100\\
-6  &  {Chebyshev II}   &  band-pass     & 100 & 23  & 16  & 70  & 79\\
-7  &  {Chebyshev II}   &  high-pass     & 100 & 97  & 74  & 100 & 100\\
-8  &  {Chebyshev II}   &  band-stop     & 16  & 0 & 0 & 0 & 0\\
-9  &  Elliptical   &  low-pass     & 100 & 83  & 34  & 95  & 98\\
-10   &  Elliptical   &  band-pass     & 100 & 0 & 0 & 2 & 1\\
-11   &  Elliptical   &  high-pass     & 100 & 83  & 33  & 97  & 100\\
-12   &  Elliptical   &  band-stop     & 0 & 0 & 0 & 0 & 0\\
-13   &  Butterworth  &  low-pass     & 100 & 100 & 100 & 100 & 100\\
-14   &  Butterworth  &  band-pass     & 100 & 100 & 100 & 100 & 100\\
-15   &  Butterworth  &  high-pass     & 100 & 100 & 100 & 100 & 100\\
-16   &  Butterworth  &  band-stop     & 100 & 100 & 100 & 100 & 100\\
-\bottomrule
-\end{tabular}
+  \input{\thisDir/tables/stresstest-cases.tbl.tex}
 \label{tbl:init:stresstest}
 \end{table}
 
@@ -1102,35 +1063,8 @@ The median timings as returned by \mcode{timeit} are reported in \tabref{tbl:ini
 
 \begin{table}
   \centering
-  \centering
   \caption{Observed timing of the different estimation steps.}
-% \input{\thisDir/table2.tex}
-\pgfplotstabletypeset[zerofill=true,string replace={nan}{},precision=0,relative*=0,empty cells with={\deemph{--}}, %round to 1 ms
-    columns/method/.style={string type,column type=l,column name={\textsc{Method}}},
-    columns/Q/.style={column type=c,column name={$Q\axisunit{dB}$},zerofill=false},
-    columns/NBW/.style={column type=c,column name={$N_{3\unit{dB}}$},zerofill=false},
-    columns/tsmooth/.style={column type=r,column name={$t_{\mathrm{smooth}} \axisunit{ms}$},multiply by=1000},
-    columns/tinit/.style={column type=r,column name={$t_{\mathrm{init}} \axisunit{ms}$},multiply by=1000},
-    columns/tfinal/.style={column type=r,column name={$t_{\mathrm{final}} \axisunit{ms}$},multiply by=1000},
-]{%
-Q  NBW  method  tsmooth    tinit  tfinal
- % 6  36  \model{\trueSymbol}    nan     nan     0.197034 
- % 6  36  \model{exist}   nan     nan     0.159937 
- 6  36  \model{trunc}   0.745073    0.0623485   0.163107 
- 6  36  \model{RFIR}    6.79873     0.0774866   0.175263 
- % 6  48  \model{\trueSymbol}    nan     nan     0.209216 
- % 6  48  \model{exist}   nan     nan     0.206823 
- 6  48  \model{trunc}   1.00383     0.0902347   0.208173 
- 6  48  \model{RFIR}    6.18632     0.0910651   0.221194 
-% 20  36  \model{\trueSymbol}    nan     nan     0.445936 
-% 20  36  \model{exist}   nan     nan     0.429752 
-20  36  \model{trunc}   4.83667     0.225876    0.454757 
-20  36  \model{RFIR}    6.92575     0.253981    0.482431 
-% 20  48  \model{\trueSymbol}    nan     nan     0.467081 
-% 20  48  \model{exist}   nan     nan     0.457577 
-20  48  \model{trunc}   6.59726     0.312937    0.461114 
-20  48  \model{RFIR}    8.05168     0.312297    0.468905 
-}
+  \input{\thisDir/tables/timings.tbl.tex}
 \label{tbl:init:timing}
 \end{table}
 
