@@ -398,7 +398,7 @@ In effect, such an approach calculates the \gls{PRESS} for each local model:
                           \text{,}
 \label{eq:PRESS-general}
 \end{equation}
-where $\ignoring{r}{\LocalVector{e}} = \LocalVector{Y}_{r} - \ignoring{r}{\LocalVector{\hat{Y}}}$, i.e. the difference between the observed (local) output spectrum at the $r^{\text{th}}$ line and the predicted output spectrum at the same line when the corresponding data point is removed from the estimation procedure.
+where $\ignoring{r}{\LocalVector{e}} = \LocalVector{Y}_{r} - \ignoring{r}{\LocalVector{\estimated{Y}}}$, i.e. the difference between the observed (local) output spectrum at the $r^{\text{th}}$ line and the predicted output spectrum at the same line when the corresponding data point is removed from the estimation procedure.
 The model with the smallest \gls{PRESS} is retained.
 In general, this means that \gls{LOOCV} requires estimating $2N_W + 1$ additional models (one for each omitted data point) and hence can be very time-consuming.
 
