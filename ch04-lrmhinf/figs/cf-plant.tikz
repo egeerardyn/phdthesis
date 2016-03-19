@@ -42,7 +42,7 @@ xticklabels={\empty},
 xminorticks=true,
 ymin=-50,
 ymax=39,
-ylabel={$\abs{\hat{N}}$ \plotunit{dB}},
+ylabel={$\abs{\hat{N}}$ \axisunit{dB}},
 name=plot1
 ]
 \addplot [frf,forget plot]
