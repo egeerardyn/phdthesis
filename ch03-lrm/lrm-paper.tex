@@ -1,0 +1,464 @@
+\section{Introduction}
+Estimating a non-parametric \gls{FRF} is often a key step in the analysis and/or design of physical systems.
+However, obtaining a good-quality non-parametric \gls{FRF} from a measured input-output data set can prove difficult due to the presence of noise and measurement time limitations to observe lightly-damped dynamics well.
+
+
+\citep{Pintelon2010LPM1},\citep{Pintelon2010LPM2},\citep{McKelvey2012LRM}
+
+
+\paragraph*{Contributions}
+In this paper, the existing \gls{LRM} is extended to the \gls{LRIC} that does not suffer from  the bias that is present in the \gls{LRM}.
+An extensive study is carried out to compare the performance of the \gls{LPM}, \gls{LRM} and \gls{LRIC} to describe resonant systems under varying conditions of the signal-to-noise ratio.
+Also, a pragmatic model-order-selection tool for the \gls{LPM} and \gls{LRM} is introduced.
+
+\paragraph*{Contents}
+\secref{sec:theory} introduces theory of estimating \glspl{FRF} and the relevant local modeling techniques.
+In \secref{sec:simulations} the performance of the different modeling methods is investigated by means of simulations.
+The methods are then illustrated on measurements of mechanical systems in \secref{sec:measurements}.
+Finally, conclusions are presented in \secref{sec:conclusion}.
+
+
+
+\TODO{
+\begin{itemize}
+    \item choice $s$ or $z$
+    \item bounds RMSE, Bias, StdDev
+    \item derivation Bias
+    \item comparison LPM/LRM
+      \begin{itemize}
+        \item Good LPM window
+        \item Good LRM window
+      \end{itemize}
+    \item influence of noise filter: mismatch with model
+    \item comparison LRM/LRik (LBTLS)
+\end{itemize}
+}
+
+
+
+\section{Local modeling approaches}
+\label{sec:theory}
+
+Consider a discrete-time generalized output-error \gls{LTI} set-up, excited by the input signal $u[n]$.
+For an infinite data length, such a system can be described in the time domain by
+\begin{equation}
+  y[n] = \ezbrace{\true{G}(z) u[n]}{\true{y}[n]} + \ezbrace{\true{H}(z) \true{e}[n]}{v[n]} \text{ with } n \in \ZZ
+  \label{eq:output-error-TD-infinite}
+\end{equation}
+where $v[n]$ is filtered white noise, $v[n] = \true{H}(z) \true{e}[n]$ where $z^{-1}$ is the backward shift operator, i.e. $z^ {-1}x[n] = x[n-1]$.
+The transfer functions $\true{G}$ and $\true{H}$ are rational functions that are stable and causal.
+
+During typical measurements, however, $y[n]$ and $u[n]$ are only measured over a limited time span, i.e. $n \in \set{0,1,\ldots,N-1}$.
+This introduces transient terms $t_{\bullet}$ in this relationship~\citep{Pintelon1997ARB}:
+\begin{equation}
+y[n] = \true{G}(z) u[n] + \true{H}(z) \true{e}[n] + \ezbrace{t_G[n] + t_H[n]}{t[n]}
+\label{eq:output-error-TD-finite}
+\end{equation}
+where $t_G[n]$ and $t_H[n]$ are due to the different state of respectively $\true{G}$ and $\true{H}$ at the beginning and end of the measurement record~\citep{Pintelon1997ARB}.
+Both terms can be lumped together as $t[n]$, which is often~\citep{Pintelon2010LPM1} dominated by $t_G[n]$.
+
+\begin{definition}\label{def:DFT}
+The $N$-points \glsfirst{DFT} of a signal $x(n\Ts) = x[n]$ with $n \in \set{0,\ldots,N-1}$ is
+\begin{equation}
+  X \left[ k \right] =
+  X \left( \omega_k \right)
+  \isdef
+  \frac{1}{\sqrt{N}}\sum_{n=0}^{N-1} x \left( n \Ts \right)  \exponent{- j \omega_k n \Ts }
+  \label{eq:DFT}
+\end{equation}
+where $\omega_k \isdef \tfrac{2 \pi k }{N \Ts}$, $k \in \set{0,\ldots,N-1}$ and $\Ts$ is the sampling time.
+\end{definition}
+
+By applying the \gls{DFT}~\eqref{eq:DFT} to both sides of \eqref{eq:output-error-TD-finite}, one obtains its frequency-domain counterpart:
+\begin{align}
+    Y \left( \omega_k \right) 
+    & = \true{G} \left( \omega_k \right) U \left( \omega_k \right) 
+      + \true{H} \left( \omega_k \right) E \left( \omega_k \right)
+      + T \left( \omega_k \right)\\
+      &= \true{G} \left( \omega_k \right) U \left( \omega_k \right)  + V(\omega_k) + T(\omega_k)
+      \text{.}
+  \label{eq:output-error-FD}
+\end{align}
+
+In this paper, we focus on using local modeling to separate the different terms, i.e.
+\begin{itemize}
+  \item the transfer function $\true{G}$,
+  \item the leakage term $T$, and
+  \item the noise term $V$.
+\end{itemize}
+
+\subsection{Local modeling}
+Local modeling methods  exploit the `smoothness' (or conversely `roughness') of the different terms of \eqref{eq:output-error-FD} over the frequency $\omega$.
+In particular, we will assume that $U(\omega)$ is `rough' over the frequency~\citep{Schoukens2009LPM}, e.g. as is the case for noise excitations or random phase multisines (see further).
+On the other hand, it is well-known that the transfer functions $\true{G}$, $\true{H}$ and hence also the corresponding transient contributions $T = T_G + T_H$ are smooth over the frequency.
+As such, these smooth contributions can be approximated well around each frequency $\omega_k$ using a local rational model:
+\begin{align}
+  \true{G}(\omega_{k}+d) 
+  &\approx
+  \frac{\sum_{i=0}^{N_B} b_i d^i}
+            {1 + \sum_{i=1}^{N_A} a_i d^i}
+    &\isdef
+    \frac{\LocalModel[k]{B}(d)}%
+           {\LocalModel[k]{A}(d)} 
+           = \LocalModel[k]{G}(d)
+  \text{,}
+  \label{eq:LRM:model:G}
+  \\
+  \true{T}(\omega_k + d) &\approx
+  \frac{\sum_{i=0}^{N_C} c_i d^i}
+            {1 + \sum_{i=1}^{N_A} a_i d^i}
+    &\isdef 
+      \frac{\LocalModel[k]{C}(d)}%
+           {\LocalModel[k]{A}(d)}
+      = \LocalModel[k]{T}(d)
+  \text{.}
+  \label{eq:LRM:model:T}
+\end{align}
+
+In these expressions, we denote $\LocalModel[k]{G}$ and $\LocalModel[k]{T}$ for the local model for respectively transfer function and the transient.
+Note that such local quantities (which depend on the frequency bin $k$) are denoted in bold throughout this paper.
+To alleviate the notations, the subscript $k$ is often omitted.
+
+To estimate the local parameters $\LocalVector{\theta} = \mat{a_1\; \cdots\; b_0 \cdots\; c_0\; \cdots}^{\T}$ in \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}, we consider a local window
+\begin{equation}
+  \LocalWindow[k] 
+  \isdef
+  \Set{
+    \omega_{k+r} 
+    | 
+    r \in \LocalShifts{k}
+  }
+\end{equation}
+with $\LocalShifts{k} \isdef \Set{-\numel{W}, -\numel{W}+1, \ldots, 0, \ldots, \numel{W}}$
+such that the local window around $\omega_k$ consists of $\numel{\LocalWindow} = 2 \numel{W} + 1$ bins. 
+If one denotes the input/output spectra in such a local frequency window $\LocalWindow[k]$ as
+\begin{equation}
+  \LocalVector{U}_k \isdef 
+  \mat{
+    U(\omega_{k-N_W})\\
+    \vdots\\
+    U(\omega_{k})\\
+    \vdots\\
+    U(\omega_{k+N_W})\\
+  }
+  \text{ and }
+  \LocalVector{Y}_k \isdef 
+  \mat{
+    Y(\omega_{k-N_W})\\
+    \vdots\\
+    Y(\omega_{k})\\
+    \vdots\\
+    Y(\omega_{k+N_W})\\
+  }
+  \text{,}
+\end{equation}
+and similarly for the other quantities, equation \eqref{eq:output-error-FD} limited to $\LocalWindow[k]$ can be written as
+$
+  \LocalVector{Y}_k  = {\true{\LocalVector{G}}}_k \hadamard \LocalVector{U}_k + \LocalVector{T}_k + \LocalVector{V}_k
+$, where $\hadamard$ denotes the entry-wise product (or Hadamard product).
+Substituting $\true{\LocalVector{G}}$ and $\LocalVector{T}$ with the local models $\LocalModel{G}$ and $\LocalModel{T}$ and neglecting the influence of $\LocalVector{V}$ yields
+\begin{equation}
+  \LocalVector{Y} 
+  \approx 
+  \hat{\LocalVector{Y}} 
+    =
+      \LocalModel{G} \hadamard \LocalVector{U} + \LocalModel{T}
+      \text{.}
+      \label{eq:local-system-equations}
+\end{equation}
+Note that this encompasses $\numel{\Window}$ complex equations in the $\numel{\theta} = \numel{A} + \numel{B} + \numel{C} + 2$  unknown complex model parameters ($a_i$, $b_i$ and $c_i$ in \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}).
+Consequently, a necessary condition to compute the model parameters is that
+\begin{equation}
+  \DOF = \numel{\Window} - \numel{\theta}
+       = 2 \numel{W} - \numel{A} - \numel{B} - \numel{C} - 1
+\end{equation}
+is positive.
+To effectively compute the local model parameters, the equation error in \eqref{eq:local-system-equations} is minimized by formulating a quadratic cost function:
+\begin{equation}
+  \LocalVector{\CostFunc{\LRIC}} 
+    \isdef 
+      \left( \LocalVector{Y}  -  \LocalModel{G} \hadamard \LocalVector{U} - \LocalModel{T} \right)^{\HT} 
+      \left( \LocalVector{Y}  -  \LocalModel{G} \hadamard \LocalVector{U} - \LocalModel{T} \right)
+   \label{eq:costfunc:LRIC}
+   \text{.}
+\end{equation}
+Due to the presence of the denominator of $\LocalModel{G} = \frac{\LocalModel{B}}{\LocalModel{A}}$, the equation error is not linear in the parameters $a_i$ and hence \eqref{eq:costfunc:LRIC} requires time-consuming iterative optimization schemes to obtain a parameter estimate.
+
+\subsection{The Local Rational Method}
+The \gls{LRM} as first introduced by \citep{McKelvey2012LRM}, overcomes the computational burden of an iterative procedure by weighting the equation error by the denominator polynomial $\LocalModel{A}$  akin to the procedure in \citep{Levy1959}.
+I.e. the \gls{LRM} procedure tries to minimize the equation error in
+\begin{equation}
+  \LocalModel{A}\LocalVector{Y} \approx \LocalModel{B} \LocalVector{U}  - \LocalVector{C}
+  \text{,}
+\end{equation}
+for which the corresponding cost function is
+\begin{equation}
+  \LocalVector{\CostFunc{\LRM}}
+  \isdef 
+  \left( \LocalModel{A} \LocalVector{Y}  -  \LocalModel{B} \hadamard \LocalVector{U} - \LocalModel{C} \right)^{\HT} 
+      \left( \LocalModel{A} \LocalVector{Y}  -  \LocalModel{B} \hadamard \LocalVector{U} - \LocalModel{C} \right)
+      \text{.}
+\end{equation}
+Equivalently, this can be rewritten as a linear regression problem
+\begin{equation}
+  \LocalVector{Y} = \LocalVector{K} \LocalVector{\theta} + \LocalModel{V}
+\end{equation}
+where $\LocalVector{K}$ is the so-called design matrix (or observation matrix):
+\begin{align}
+  \label{eq:design-matrix}
+  \LocalVector{K} 
+    & \isdef 
+  \mat{
+     \LocalVector{K}_A &
+     \LocalVector{K}_B & 
+     \LocalVector{K}_C
+  }\\
+  \LocalVector{K}_A 
+    &\isdef
+    \mat{
+      \LocalVector{Y} \hadamard \LocalVector{d}^1 &
+      \cdots &
+      \LocalVector{Y} \hadamard \LocalVector{d}^{\numel{A}}
+    }\\
+  \LocalVector{K}_B 
+    &\isdef
+    \mat{
+      \LocalVector{U} \hadamard \LocalVector{d}^0 &
+      \cdots &
+      \LocalVector{U} \hadamard \LocalVector{d}^{\numel{B}}
+    }\\
+  \LocalVector{K}_C
+    &\isdef
+    \mat{
+      \LocalVector{d}^0 &
+      \cdots &
+      \LocalVector{d}^{\numel{C}}
+    }\\
+    \LocalVector{d}^{n} & \isdef
+    \mat{
+      (-\numel{W})^{n} &
+      \cdots &
+      (\numel{W})^{n}
+    }^{\T}
+    \text{ with $n \in \mathbb{Z}$.}
+\end{align}
+and $\LocalModel{V}$ are the model residuals.
+This formulation facilitates to solve the problem in a one-step approach:
+\begin{equation}
+  \LocalVector{\theta}_{\LRM} 
+    \isdef \pinv{\LocalVector{K}} \LocalVector{Y}
+    = \left( \LocalVector{K}^{\HT} \LocalVector{K} \right)^{-1} \LocalVector{K}^{\HT} \LocalVector{Y}
+\end{equation}
+where $\pinv{K}$ denotes the Moore-Penroose pseudo-inverse of $K$.
+
+\TODO{hier voortschrijven}
+
+\subsection{The Local Rational Method with Iterative Cost}
+
+\subsection{Notes}
+
+Since it is well-known that the Vandemonde structure in the design matrix \eqref{eq:design-matrix} easily leads to ill-conditioned systems, additional measures are taken to improve numerical conditioning.
+To improve numerical conditioning~\citep{Pintelon2005} of the estimation problem, we substitute $d = \dw{r}{k}$ in equations \eqref{eq:LRM:model:G,eq:LRM:model:T}
+\begin{equation}
+\dw{r}{k} \isdef \frac{\omega_{k+r} - \omega_k}{\Delta \omega_k}
+\label{eq:freqScaling}
+\end{equation}
+where
+\begin{equation}
+  \Delta \omega_k \isdef
+  \max
+  \Set{
+    \abs{ \omega_k - \omega_j} |  \vphantom{\frac{a}{b}}  \omega_j \in \LocalWindow[k]
+  }
+\end{equation}
+such that $\abs{\dw{r}{k}} \leq 1$ when $r \in \LocalShifts{k}$.
+
+\TODO{define local cost}
+\TODO{define local design matrix}
+
+
+\section{Theory: bias}
+\label{sec:biascalc}
+Since the local design matrix \eqref{eq:designMatrix} contains the noisy output spectrum $\LocalVector{Y}$ when $\numel{A} > 0$, the \gls{LRM} is expected to be a biased estimator.
+In this section, we will derive expressions for the bias such that it can be quantified how important this bias is in different situations.
+
+To determine the bias, an approach similar to \citep[Appendix A]{Guillaume1995} is followed.
+Let us denote the expected value of the cost function over all measurements $\LocalVector{Z}$ as
+\begin{align}
+  \ELSCost{\theta}
+              & \isdef 
+                   \E[\LocalVector{Z}]%
+                         {    
+                                \LSCost{\LocalVector{\theta}, \LocalVector{Z}}} \\
+              & = \ELSCost[0]{\theta} + \ELSCost[n]{\theta} \\
+    \ELSCost[0]{\theta} & \isdef 
+            \frac{1}{F} 
+                \sum_{r} 
+                     \left| 
+                             \LocalModel{A}(r, \LocalVector{\theta}) \true{\LocalVector{Y}}
+                          - \LocalModel{B}(r, \LocalVector{\theta}) \true{\LocalVector{U}}
+                          - \LocalModel{C}(r, \LocalVector{\theta}) 
+                    \right|^2 \\
+    \ELSCost[n]{\theta} & \isdef 
+              \frac{1}{F} 
+                     \sum_{r} 
+                              \left| \LocalModel{A}(r,\LocalVector{\theta}) \right|^2 
+                              \sigma_V^2
+\end{align}
+Note that this function is a quadratic function of $\LocalVector{\theta}$ and hence it can be represented exactly by its second order Taylor series around $\true\theta$:
+\begin{multline}
+  \ELSCost{\theta} = \ELSCost{\true\theta} 
+  + \PartialDerivative{\ELSCost{\true\theta}}{\true\theta}  \left( \theta - \true\theta \right)\\
+  + \frac{1}{2} \left( \theta - \true\theta \right)^{\T} 
+  \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} 
+   \left( \theta - \true\theta \right)
+   \text{.}
+\end{multline}
+The minimizer $\estim\theta$ of this function can be obtained by equating the derivative
+\begin{equation}
+  \PartialDerivative{\ELSCost{\estim\theta}}{\estim\theta} = \left( \PartialDerivative{\ELSCost{\true\theta}}{\true\theta} \right)^{\T} + \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} 
+   \left( \estim\theta - \true\theta \right)
+\end{equation}
+to zero.
+This is equivalent to 
+\begin{equation}
+  \left( \estim\theta - \true\theta \right) = - \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} \right)^{-1}  \left( \PartialDerivative{\ELSCost{\true\theta}}{\true\theta} \right)^{\T}
+  \text{.}
+\end{equation}
+which expresses the bias $\Delta\theta = \left( \estim\theta - \true\theta \right)$ of the estimated parameters.
+Since $\ELSCost[0]{\theta}$ is minimized in $\true\theta$, this simplifies to
+\begin{equation}
+  \Delta\theta = - \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} \right)^{-1}  \left( \PartialDerivative{\ELSCost[n]{\true\theta}}{\true\theta} \right)^{\T}
+  \text{.}
+\end{equation}
+
+Do note that the estimated parameters are complex values but that $\ELSCost{\theta}$ is a real-valued function.
+This implies that the derivatives with respect to $\theta$ have to be calculated with respect to the real and imaginary part of $\theta$ separately as explained in~\citep{Messerschmitt2006} and~\citep[Section 15.9]{Pintelon2012}.
+
+\TODO{write out subexpressions}
+As a first order approximation, the bias on the \gls{FRF} can be written as
+\begin{equation}
+  \Delta \LocalModel{G}(\omega) \approx \PartialDerivative{\LocalModel{G}(\theta, \omega)}{\theta} \Delta \theta
+\end{equation}
+
+\section{Order selection}
+Selecting suitable values of $\numel{W}$, $\numel{B}$, $\numel{A}$ and $\numel{C}$ obviously affects the quality of the obtained local models.
+For local rational models, there are a few insights from parametric system identification that can be retained to make these choices easier.
+In particular $\numel{C} \leq \max\set{\numel{B},\numel{A}}$ and from statistical point of view~\citep{Mahata2006}, the degrees of freedom should remain positive such that $2N_W + 1 \geq N_B + N_A + N_C + 2$.
+
+Different heuristics exist to select the local bandwidth , e.g.~\citep{Fan1995,Thummala2012LPMBW,Stenman2000ASETFE} in the framework of local modeling approaches.
+As such, we focus mainly on the selection of the model order hyper-parameters ($N_A$, $N_B$ and $N_C$) for a fixed value of $N$.
+
+In this paper, we take an approach that decides amongst a group of candidate models, which model is a good model: i.e. one that captures that system dynamics but remains parsimonious.
+To do so, one needs to define a criterion that both takes `goodness-of-fit' (e.g. value of the cost function, $R^2$, \ldots) and model complexity into account to ensure that the model captures only the systematic behavior and not random variations of the particular measurement.
+The latter is often done using `cross-validation'.
+
+In statistical learning, many relevant cross-validation approaches exist.
+Within the system identification community a few simple approaches have been widely adopted~\citep[Chapter 11]{Pintelon2012} to ensure that one does not overmodel the data.
+\paragraph{Plug-in methods}
+In plug-in methods, a goodness-of-fit criterion (e.g. the log-likelihood function $\mathcal{L}$ of the estimated model $M$ given the estimation dataset $Z$), is penalized with a term accounting for the complexity of the model~\citep{Burnham2002}.
+E.g. a common choice is the \gls{AIC}~\citep{Akaike1974} or the \gls{AICc}~\citep{Hurvich1989}, which are defined as
+\begin{equation}
+  L_{\mathrm{AIC(c)}} = - 2  \mathcal{L}(M | Z) + 2 \numel{\theta} + c \frac{2 \numel{\theta} (\numel{\theta} + 1)}{\numel{\Window} - \numel{\theta} - 1}
+\end{equation}
+where $\numel{\Window}$ is the number of  estimated parameters in the model $M(\theta)$.
+For \gls{AIC} $c=0$, and $c=1$ produces the \gls{AICc}.
+In the context of local modeling, the \gls{AIC} is a poor choice since it relies on asymptotic arguments of the data set, i.e. $\numel{Z} \to \infty$, which is obviously an unwarranted choice.
+The best model among a set of $q$ possible models $\Set{M_1, \ldots, M_q}$ is then
+\begin{equation}
+  M_{\star} \isdef 
+  \arg_{M} \min 
+  \Set{
+    L_{\mathrm{AIC(c)}}(M)
+  }
+\end{equation}
+To select the best model $M_{\star}$ with such a criterion, the model $M_k$ among a set of models $\set{M_1, M_2, \ldots}$ that produces the smallest value of $L_{\mathrm{AICc}}$ is retained.
+
+\begin{remark}
+It should be noted that due to $\mathcal{L}(M | Z)$ , the value of $L_{\mathrm{AIC(c)}}(M,Z)$ is tightly coupled with the particular dataset $Z$.
+Practically, this means that such criteria can only be used to compare local models that estimated from the same local dataset (i.e. they have the same $\numel{\Window}$ and center frequency).
+\end{remark}
+
+\paragraph{Holdout method}
+The so-called `holdout' cross-validation method ensures a good model by first splitting the dataset into two smaller disjoint datasets: e.g. $70\%$ of the data  is used to estimate the model and a goodness-of-fit criterion (e.g. cost function) is used on the remaining data to determine which model has the best out-of-sample performance.
+By using independent datasets and assessing the performance of the model on (unseen) validation data, overfitted models can be rejected.
+
+\begin{remark}
+Unfortunately, these typical approaches either assume that an abundantly large dataset is available or  assume the models are estimated on  a fixed dataset.
+As such, these methods are not ideal for local modeling where the (local) dataset is rather small by design and could change by means of the local bandwidth $N_W$.
+\end{remark}
+
+\paragraph{Leave-out cross-validation}
+Instead, we use a better-suited cross-validation approach known as \gls{LOOCV} that is related to the \gls{AIC}~\citep{Stone1977}.
+Plainly, \gls{LOOCV} cross-validates the model by in turn leaving out each data point, estimating the local model parameters and observing the difference between the omitted data point and the estimate.
+In effect, such an approach calculates the \gls{PRESS} for each local model:
+\begin{equation}
+ \PRESS = \frac{1}{2N_W+1} \sum_{r=-N_W}^{N_W} 
+                          \abs{\ignoring{r}{\LocalVector{e}}}^2
+                          \text{,}
+\label{eq:PRESS-general}
+\end{equation}
+where $\ignoring{r}{\LocalVector{e}} = \LocalVector{Y}_{r} - \ignoring{r}{\LocalVector{\hat{Y}}}$, i.e. the difference between the observed (local) output spectrum at the $r^{\text{th}}$ line and the predicted output spectrum at the same line when the corresponding data point is removed from the estimation procedure.
+The model with the smallest \gls{PRESS} is retained.
+In general, this means that \gls{LOOCV} requires estimating $2N_W + 1$ additional models (one for each omitted data point) and hence can be very time-consuming.
+
+For linear models (i.e. $\LocalVector{Y} = \LocalVector{K} \LocalVector{\theta}$, such as for the \gls{LRM} and \gls{LPM}), however, the \gls{PRESS} can be calculated in a single step without estimating any additional models~\citep[Sec.~12.3.2]{Seber2003}:
+\begin{equation}
+\PRESS = \frac{\LocalVector{E}^{\HT} \LocalVector{W}^{-1} \LocalVector{E}}{2N_W + 1}
+\end{equation}
+where $\LocalVector{E}$ is the residual vector of the full estimation and $\LocalVector{W}$ is a diagonal weighting matrix with $\LocalVector{W}_{ii} = (1 - \LocalVector{H}_{ii})^{\HT} (1 - \LocalVector{H}_{ii})$ and
+$\LocalVector{H} = \LocalVector{K} \pinv{\LocalVector{K}}$ is the so-called `hat-matrix' that is known to be idempotent.
+
+\section{Simulation}
+\label{sec:simulations}
+
+In the simulations, we consider a discrete-time second order system with transfer function
+\begin{equation}
+G_0(z) = \frac{0.64587 z + 0.64143}
+                             {47.9426 z^2 - 51.2955 z + 46.9933}
+\end{equation}
+
+
+\begin{figure}
+ \centering
+  \input{\thisDir/figs/generalized-output-error.tikz}
+  \caption{Block schematic used in the simulations}
+\end{figure}
+
+\TODO{H0}    
+
+\TODO{SNR}
+The \gls{SNR} in the system bandwidth $\BW$ is defined as
+\begin{equation}
+  \SNR_{\BW} \isdef
+  \frac{\int_{\BW} \abs{Y_0(\omega)}^2 \dd{\omega}}
+            {\int_{\BW} \abs{V(\omega)}^2 \dd{\omega}}
+\end{equation}
+where $\BW$ is the frequency range where
+
+\TODO{plot example spectrums}
+
+
+  % \subsection{Implications of the model structure}
+  \subsection{Implications of the noise level}
+  % \subsection{Implications of the noise coloring}
+
+\TODO{insert figure: Y(Y,E,T) vs freq}
+\TODO{insert figure: err vs SNR}
+
+  \section{Measurements}
+  \label{sec:measurements}
+   \subsection{AVIS}
+   \subsection{F16}
+
+  \section{Conclusion}
+  \label{sec:conclusion}
+
+  \begin{itemize}
+    \item LRM: extension to LRIC
+    \item LRM: derivation of bias
+    \item LRM vs LPM: at which settings is LRM better than LPM
+    \item LRIC: much slower, performance is somewhat better, but at the cost of a lot of computational power and much harder model selection
+    \item practical advice: use LRM rather than LPM unless in very noisy conditions (10 dB), only use LRIC as last resort
+  \end{itemize}
+

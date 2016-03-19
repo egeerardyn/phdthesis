@@ -1,0 +1,27 @@
+\begin{tikzpicture}[scale=1,>=stealth]
+    \matrix[ampersand replacement=\&, row sep=0.3cm, column sep=0.4cm] {
+%% FIRST ROW
+        \node (E) {$\true{E}$}; \&
+        \node[block] (H0) {$\true{H}'$}; \&
+        \node[amplifier] (K) {$\kappa$}; \&
+        \node[none] (v) {};\\
+%% SECOND ROW
+        \node[input] (U) {$U$}; \&
+        \node[block] (G0) {$\true{G}$}; \&
+        \&
+        \node[sum]    (sum)  {}; \& 
+        \node (Y) {$Y$};\\
+    };
+    \draw [connector] (E)   -- (H0);
+    \draw [connector] (U)   -- (G0);
+    \draw [connector] (G0)  -- node[above] {$\true{Y}$} (sum);
+    \draw [connector] (H0)  -- (K);
+    \draw [connector] (K) -| node[above] {$V$} (sum);
+    \draw [connector] (sum) -- (Y);
+    % \draw [connector] (y)    -- ++(0,-1.5em) -| node[left,very near end,name=min] {{$-$}} (sum2);
+
+    \begin{pgfonlayer}{background}
+      \node[groupbox=black, inner sep=5pt,fit=(H0) (K)] (H0act) {};
+      \node at (H0act.north) [color=black, above] {$\true{H}$};
+   \end{pgfonlayer}
+\end{tikzpicture}

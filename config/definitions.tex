@@ -55,7 +55,7 @@
 \DeclareMathOperator{\RealImagPart}{\stackrel{\mathrm{Re}}{\mathrm{Im}}}
 \DeclareMathOperator{\Diagonal}{\mathrm{diag}}
 
-\DeclareMathOperator*{\argmin}{argmin} %cost function minimizer!! MLDL per JL
+\DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\Arg}{arg}
 
 \DeclareMathOperator{\ExpectedValue}{\mathrm{E}}
@@ -68,18 +68,18 @@
 \newcommand{\var}[2][]{\Variance_{#1} \left[ #2 \right]}
 \newcommand{\Cov}[3][]{\Covariance_{#1} \left[ #2 , #3 \right]}
 
-\newcommand{\expval}[1]{\Expectancy\left[#1\right]} %expected value
+\newcommand{\expval}[1]{\E{#1}} %expected value
 \newcommand{\bias}[1]{\ensuremath{\Bias \left( #1 \right)}}
 \newcommand{\mse}[1]{\ensuremath{\MSE \left( #1 \right)}}
 \newcommand{\rms}[1]{\ensuremath{\RootMeanSquare \left( #1 \right)}}
 
-\newcommand{\expectedValue}[1]{\ensuremath{\expval{#1}}}
+\newcommand{\expectedValue}[2][]{\ensuremath{\E[#1]{#2}}}
 
 \newcommand{\crest}[1]{\ensuremath{\mathrm{Cr}\left( #1 \right)}}
 
 %% Calculus operations
 \newcommand{\pd}{\partial}
-\newcommand{\dd}{\mathrm{d}}
+\newcommand{\dd}{\ensuremath{\mathrm{d}}}
 \newcommand{\derivativeNotation}[4][]{\frac{{#4}^{#1} #2}{#4 #3}}
 \newcommand{\PartialDerivative}[3][]{\derivativeNotation[#1]{#2}{#3}{\pd}}
 \newcommand{\FullDerivative}   [3][]{\derivativeNotation[#1]{#2}{#3}{\dd}}
@@ -87,6 +87,11 @@
 %% Matrix operations
 \newcommand{\I}{\ensuremath{\mathrm{I}}}
 \newcommand{\Identity}[1]{\ensuremath{\I_{#1}}}
+
+\newcommand{\CostFunc}[1]{\ensuremath{L_{#1}}}
+\newcommand{\LSCost}[1]{\ensuremath{L_{\mathrm{LS}}\left( #1 \right)}}
+\newcommand{\ELSCost}[2][]{\ensuremath{{E}_{\mathrm{LS#1}}\!\left( #2 \right)}}
+
 
 \newcommand{\TT}{\ensuremath{\mathrm{T}}}
 \renewcommand{\T}{\TT}   % \T is defined somewhere else: http://tex.stackexchange.com/questions/240691/disable-some-xunicode-macros-in-case-of-t1-font-encoding overwriting seems to work, but depends on the font used by XeTeX!
@@ -96,10 +101,16 @@
 \newcommand{\pinv}[1]{\ensuremath{#1^{+}}}
 \newcommand{\conj}[1]{\ensuremath{\overline{#1}}}
 
+\newcommand{\hadamard}{\ensuremath{\circ}}
+\newcommand{\conv}{\ensuremath{*}}
+%TODO: kronecker
+
 \newcommand{\real}[1]{\ensuremath{\RealPart \left[#1\right]}}
 \newcommand{\imag}[1]{\ensuremath{\ImagPart \left[#1\right]}}
 \newcommand{\realimag}[1]{\ensuremath{\RealImagPart \left[#1\right]}}
 \newcommand{\diag}[1]{\ensuremath{\Diagonal \left({#1}\right)}}
+\newcommand{\trace}[1]{\ensuremath{\mathrm{tr}\; #1}}
+
 
 %% Linear Algebra operations
 \newcommand{\OuterProduct} [3][\TT]{{#2}{#3}^{#1}} %AB^T
@@ -116,6 +127,9 @@
 \newcommand{\InnerQuadraticForm}[3][\TT]{#2^{#1} #3 #2} % A^T B A
 \newcommand{\QuadraticForm}[3][\TT]{\InnerQuadraticForm[#1]{#2}{#3}}
 
+\newcommand{\KTK}[2][\HT]{\ensuremath{ \inv{ \left( #2^{#1} #2 \right)} #2^{#1}}}
+
+
 %% Numbers sets
 \newcommand{\Negative}[1]{\ensuremath{{#1}^{-}}}
 \newcommand{\Positive}[1]{\ensuremath{{#1}^{+}}}
@@ -128,6 +142,9 @@
 \newcommand{\RealNumbers}{\ensuremath{\mathbb{R}}}
 \newcommand{\ComplexNumbers}{\ensuremath{\mathbb{C}}}
 
+\newcommand{\EvenNaturalNumbers}{\ensuremath{2\NaturalNumbers}}
+\newcommand{\OddNaturalNumbers}{\ensuremath{2\NaturalNumbers + 1}}
+
 \newcommand{\GenericField}{\ensuremath{\mathbb{F}}}
 \newcommand{\BoundedField}{\ensuremath{\mathbb{B}}}
 
@@ -138,6 +155,7 @@
 
 \newcommand{\NN}{\NaturalNumbers}
 \newcommand{\ZN}{\IntegerNumbers}
+\newcommand{\ZZ}{\ZN} %TODO: replace in text
 \newcommand{\QN}{\RationalNumbers}
 % \newcommand{\RN}{\RealNumbers}
 \newcommand{\RR}{\RealNumbers}
@@ -207,6 +225,8 @@
 
 \newcommand{\SNR}{\ensuremath{\mathrm{SNR}}}
 \newcommand{\RMSE}{\ensuremath{\mathrm{RMSE}}}
+\newcommand{\DOF}{\ensuremath{\mathrm{DOF}}}
+
 
 \newcommand{\mean}[2]{\ensuremath{\sqrt{#1 #2}}} %TODO: name is poorly chosen, this is the geomean
 
@@ -224,7 +244,10 @@
 \newcommand{\fc}{\ensuremath{f_{\mathrm{c}}}}
 %% Sets
 \newcommand{\given}[1]{\left| #1 \right.}
-\newcommand{\without}{\ensuremath{\backslash}}
+\newcommand{\setdiff}{\ensuremath{\backslash}}
+\newcommand{\without}{\setdiff}
+
+\newcommand{\ignoring}[2]{\ensuremath{ {#2}_{[#1]}}} 
 
 \newcommand{\decade}{\ensuremath{\mathrm{dec.}}}
 
@@ -236,11 +259,13 @@
 %%
 \newcommand{\trueSymbol}{\ensuremath{\circ}}
 \newcommand{\true}[1]{\ensuremath{{#1}_{\trueSymbol}}}
+\newcommand{\estim}[1]{\ensuremath{\hat{#1}}}
 
 
 %% Common symbols
-\newcommand{\wdB}{\ensuremath{\mathrm{BW}_{3\unit{dB}}}}
-\newcommand{\sysBW}{\wdB}
+\newcommand{\BW}{\ensuremath{\mathrm{BW}}}
+\newcommand{\wdB}{\ensuremath{\BW_{3\unit{dB}}}}
+\newcommand{\sysBW}{\wdB}  %TODO: replace in text
 \newcommand{\dc}[1][]{\ensuremath{K_{#1}}}
 \newcommand{\timeconst}[1][]{\ensuremath{\tau_{#1}}}
 \newcommand{\damping}[1][]{\ensuremath{\xi_{#1}}}
@@ -282,15 +307,21 @@
 
 \newcommand{\LandauBigO}{\ensuremath{\mathcal{O}}}
 \newcommand{\bigO}[1]{\ensuremath{\LandauBigO \left( #1 \right)}}
+\newcommand{\OrderOf}[1]{\bigO{#1}} %TODO: replace in text
 
 %\renewcommand{\fMax}[1]{\ensuremath{f_{#1+1/2}}}
 %\renewcommand{\fMin}[1]{\ensuremath{f_{#1-1/2}}}
   
+\newcommand{\leqByElement}{\ensuremath{\preceq}}
+\newcommand{\geqByElement}{\ensuremath{\succeq}}
+
 \newcommand{\placeholder}{\ensuremath{\bullet}}
 
 \newcommand{\DT}{\ensuremath{\mathrm{DT}}}
 \newcommand{\CT}{\ensuremath{\mathrm{CT}}}
 \newcommand{\DTmethod}{zero-order-hold}
+\newcommand{\ContTime}{\CT}
+\newcommand{\DiscTime}{\DT}
 
 
 %% Formatting
@@ -301,6 +332,11 @@
 \newcommand{\numel}[1]{\ensuremath{n_{#1}}}
 \newcommand{\order}[1]{\ensuremath{N_{#1}}}
 \newcommand{\f}{\ensuremath{\mathbb{f}}}
+\newcommand{\e}{\ensuremath{e}}
+\newcommand{\idx}[2]{\ensuremath{\left( #1 \right)_{#2}}}
+
+
+\newcommand{\exponent}[1]{\ensuremath{e^{#1}}}
 
 \newcommand{\LOGGRID}{\ensuremath{\mathrm{LG}}}
 \newcommand{\QLOGGRID}{\ensuremath{\mathrm{QLG}}}
@@ -343,10 +379,13 @@
 
 \newcommand{\singularValue}[1]{\ensuremath{\mathbf{\sigma} \left( #1 \right) }}
 
+\newcommand{\PRESS}{\ensuremath{\mathrm{PRESS}}}
 \newcommand{\LPM}{\ensuremath{\mathrm{LPM}}}
 \newcommand{\LRM}{\ensuremath{\mathrm{LRM}}}
+\newcommand{\LRIC}{\ensuremath{\mathrm{LRIC}}}
 \newcommand{\lpm}[1]{\ensuremath{\LPM \left( #1 \right) }}
 \newcommand{\lrm}[1]{\ensuremath{\LRM \left( #1 \right) }}
+\newcommand{\lric}[1]{\ensuremath{\LRIC \left( #1 \right) }}
 
 
 \newcommand{\Left}[1]{\ensuremath{#1_{\mathrm{L}}}}
@@ -358,6 +397,8 @@
 \newcommand{\unstablePart}[1]{}
 
 \newcommand{\stateSpace}[4]{\mat{ \begin{array}{c|c} #1 & #2 \\ \hline #3 & #4 \end{array} }}
+
+\newcommand{\dw}[2]{\ensuremath{\delta_{#1#2}}}
 
 \newcommand{\Vdm}[2]{\ensuremath{\mathrm{Vd}_{#1}^{#2}}}
 
@@ -376,8 +417,16 @@
 \newcommand{\robustcontrolrelevant}[1]{\ensuremath{#1^{\mathrm{RCR}}}}
 \newcommand{\ClosedLoop}[1]{\ensuremath{\mathrm{T}\left(#1\right)}}
 
-\newcommand{\LocalWindow}{\ensuremath{\mathbb{W}}}
 \newcommand{\LocalModel}[1]{\ensuremath{\widetilde{#1}}}
+
+\newcommand{\mathbold}[1]{\mathbf{#1}} % used instead of fixmath (can only be used with CM math font!!!)
+
+% \newcommand{\LocalModel}[2][]{\ensuremath{\mathbold{\tilde{#2}_{#1} }}}
+\newcommand{\LocalVector}[1]{\ensuremath{\mathbold{#1}}}
+\newcommand{\Window}{\ensuremath{\mathbb{W}}}
+\newcommand{\LocalWindow}[1][]{\ensuremath{\Window_{#1}}}
+\newcommand{\LocalShifts}[1]{\ensuremath{\mathcal{R}_{#1}}}
+
 
 \newcommand{\Frequencies}{\ensuremath{\Omega}}
 \newcommand{\DFTGrid}{\ensuremath{\Omega_{\mathrm{DFT}}}}

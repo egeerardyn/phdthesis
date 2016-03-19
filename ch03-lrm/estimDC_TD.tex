@@ -1,13 +1,7 @@
-% !TEX root =  LPMSmooth_ML_EG_JS_JL.tex
-
 \subsection{Estimating the DC Value of the FRF}\label{se:DCvalueEst}
 
 
 The correct mean value of the impulse response accounts for (i.e. estimates) the DC value of the FRF. A time-domain method is proposed for estimating the mean value of the impulse response in equation \eqref{eq:impRespiDFT}. %The first is a frequency-domain technique and the second is a time-domain technique.
-
-
-
-
 
 According to Assumption \ref{ass:imprespdecay}, the true impulse response tends   to zero asymptotically; and by Assumption \ref{ass:decay90perctime}, the last $10\%$ of the estimated impulse response is noise, plus a constant value due to an inaccuracy in the average value of the impulse response. The correct estimate of the mean value is obtained by shifting the whole signal such that the last $10\%$ of the impulse response is centered around 0.
 To this end, the following procedure is executed:
