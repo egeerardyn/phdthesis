@@ -49,11 +49,19 @@
   \subsection{Non-parametric estimators}
     \TODO{Order selection / BW selection}
     \TODO{MIMO LRM}
+    The \gls{LRM} has only been explored for \gls{SISO} systems in this thesis.
+    This technique can obviously be extended towards \gls{MIMO} systems, e.g. as the work by \citet{vanRietschoten2015MSc}.
+    As explored there, the choice of parametrization remains an open question for the \gls{MIMO} case.
+    Also, unlike the \gls{SISO} case, it becomes more important and tedious to select good local models since the dimensionality of the local estimation problem grows with the system dimensions.
 
-    \TODO{Slowly time-varying}
-    \TODO{Static LPV measurements}
-    \citep[Chapter 4]{vanderMaas2016PhD}
-    \citep{vanRietschoten2015MSc}
+    As the non-parametric methods such as \gls{LPM} and \gls{LRM} were originally intended to serve the same purpose as windows in classical spectral analysis, this naturally leads to other applications of these methods where windows are otherwise used to reduce the effect of spectral leakage.
+
+    In particular, for slowly time-varying systems, windows can be used in combination with the \gls{STFT} to obtain a rough approximation of either the output spectrum or the transfer characteristic of time-varying systems.
+    In this context, the \gls{LPM} has already been used~\citep{Lataire2012}.
+    Preliminary tests using the \gls{LRM} in lieu of the \gls{LPM} have proven fruitful.
+    Similarly, for \gls{LPV} systems, the \gls{LRM} allows to extract non-parametric models from \gls{LPV} systems where the scheduling parameter is fixed during the experiment~\citep[Chapter 4]{vanderMaas2016PhD}.
+    Given these successes of \gls{LRM} to estimate a preliminary model of both parameter-varying and time-varying models in more complicated experimental settings.
+    E.g. it could prove useful to extend the \gls{LRM} also towards measurements of \gls{LPV} systems where the scheduling parameter is allowed to vary continuously during the experiment.
 
   \subsection{Non-parametric estimation and interpolation}
   \TODO{Link between local models and weighting function design}
