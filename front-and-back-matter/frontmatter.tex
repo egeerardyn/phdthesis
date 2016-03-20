@@ -16,11 +16,9 @@
 \renewcommand{\listtheoremname}{List of Guidelines}
 \listoftheorems[ignoreall,show=guideline]
 
-%\TOCInsert{section}{List of Listings}   \lstlistoflistings %TODO: fix this
-
-\printglossary[type=\acronymtype,style=long,toctitle={List of Abbreviations}, title={List of Abbreviations}] %TODO: change format
+\printglossary[type=\acronymtype,style=longheader,toctitle={List of Abbreviations}, title={List of Abbreviations}]
     
 \glsaddall[types=symbols]
-\printglossary[type=symbols,style=altlong4colheader,title={List of Symbols},toctitle={List of Symbols}]
+\printglossary[type=symbols,style=longheader,title={List of Symbols},toctitle={List of Symbols}]
 
 \newpage
