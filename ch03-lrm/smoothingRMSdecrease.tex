@@ -2,9 +2,6 @@
 \subsubsection{Truncation Via a Statistical Test}\label{se:truncstattest}
 
 \newcommand{\segm}[2]{\ensuremath{{#1}^{[#2]}}}
-\newcommand{\RMS}{\ensuremath{\,\mathrm{rms}\,}}
-\newcommand{\rms}[1]{\ensuremath{\RMS\left(#1\right)}}
-\newcommand{\floor}[1]{\ensuremath{\lfloor #1 \rfloor}}
 
 To distinguish the part of the measured impulse response where the actual impulse response dominates from the part where the noise dominates, the estimated impulse response $\hat{g}_\mathrm{poly}$ is split into smaller segments. 
 One can then gradually determine whether these segments are noise or the actual impulse response.
@@ -30,25 +27,26 @@ The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,
   
   \item Iteration is then carried out from the last segment ($i = N_S$) towards the beginning of the impulse response. To determine whether the preceding segment $\segm{\hat{g}}{i-1}$ is completely dominated by noise,  both an $F$-test and an absolute criterion on the RMS are used.
 
-  The $F$-test is suited to compare the variances of different segments $\segm{\hat{g}}{i}$ and $\segm{\hat{g}}{i-1}$ \cite{Parsons1974}, while accounting for the degrees of freedom in each segment.
+  The $F$-test is suited to compare the variances of different segments $\segm{\hat{g}}{i}$ and $\segm{\hat{g}}{i-1}$ \citep{Parsons1974}, while accounting for the degrees of freedom in each segment.
   For zero-mean noise, these variances can be related to the RMS value of each noise segment.
   This has the advantage that a segment in which the impulse response still has a significant amplitude is likely to have a large RMS value, which is more likely to be detected.
   Let $s^2(i)$ denote the mean square value of segment $\segm{\hat{g}}{i}$, \emph{viz}:
   \begin{equation}
-    s^2(i) = \frac{1}{L_S} \sum_{j=1}^{L_S} \left(\segm{\hat{g}}{i}(j)\right)^2
-           = \left( \rms{\hat{g}^{[i]}} \right)^2
+    s^2(i) 
+    \isdef \frac{1}{L_S} \sum_{j=1}^{L_S} \left(\segm{\hat{g}}{i}(j)\right)^2
+    = \left( \rms{\hat{g}^{[i]}} \right)^2
            \text{.}
   \end{equation}
   Starting with the last segment ($i = N_S$), the following null hypothesis and the alternative hypothesis are formulated:
   \begin{align}
-     H_0 :&\,\, s^2(i-1) = s^2(i)\\
-     H_1 :&\,\, s^2(i-1) > s^2(i)
+     \nullHypothesis &: s^2(i-1) = s^2(i)\\
+     \altHypothesis    &: s^2(i-1) > s^2(i)
      \text{.}
   \end{align}
   As segment $\segm{\hat{g}}{i}$ has been tested and been classified as noise, the null hypothesis states that the segment $\segm{\hat{g}}{i-1}$ is also noise.
   The alternative case occurs when $\segm{\hat{g}}{i-1}$ has a significant change, which indicates the presence of the signal.
   Using the $F$-test on the RMS values of the two segments with a high confidence level of $\alpha=0.99$ and the aforementioned hypotheses, we can determine whether $\segm{\hat{g}}{i-1}$ is likely to be part of the actual impulse response.
-  The high level of confidence ($\alpha=0.99$) ensures that the probability of a Type~II error is smaller than $1-\alpha$ \cite{Parsons1974}.
+  The high level of confidence ($\alpha=0.99$) ensures that the probability of a Type~II error is smaller than $1-\alpha$ \citep{Parsons1974}.
   In our case, such an error means that a part of the actual impulse response would falsely be regarded as noise, which could significantly increase the bias as information of the system is discarded.
   A Type~I error is less detrimental since, in that case, noise is falsely classified as a signal component and kept in the impulse response, thereby causing a sub-optimal value of the variance of the estimate.
   As the LPM samples are correlated over a short frequency span, the actual noise present in $\hat{g}$ may be slightly non-stationary.
@@ -84,7 +82,8 @@ The figure shows segments of the estimated impulse response. The last two segmen
 \centering
  \setlength\figureheight{0.6\columnwidth}
  \setlength\figurewidth{0.8\columnwidth}
-  \input{truncRMS.tikz}
-\caption{Schematic of statistical determination of a smooth (improved) FRF. The different segments are separated by dotted lines.}
+  \input{\thisDir/figs/truncRMS.tikz}
+\caption{Schematic of statistical determination of a smooth (improved) FRF. 
+The different segments are separated by dotted lines.}
 \label{FRF_truncate_stat_EG}
 \end{figure}

@@ -53,7 +53,7 @@ cycle list name=linestyles*]
 0.476459	0.120062\\
 0.7	0.175033\\
 };
-\addlegendentry{$\wn[2] - \wn[1] = 4\sysBW$};
+\addlegendentry{$\wn[2] - \wn[1] = 4\wdB$};
 
 \addplot table[row sep=crcr]{ 
 1e-005	0.000695711\\
@@ -87,7 +87,7 @@ cycle list name=linestyles*]
 0.476459	0.0517209\\
 0.7	0.095736\\
 };
-\addlegendentry{$\wn[2] - \wn[1] = 8\sysBW$};
+\addlegendentry{$\wn[2] - \wn[1] = 8\wdB$};
 
 \addplot table[row sep=crcr]{
  1e-005	4.52139e-005\\
@@ -121,7 +121,7 @@ cycle list name=linestyles*]
 0.476459	0.022061\\
 0.7	0.0430551\\
 };
-\addlegendentry{$\wn[2] - \wn[1] = 16\sysBW$};
+\addlegendentry{$\wn[2] - \wn[1] = 16\wdB$};
 
 \addplot table[row sep=crcr]{
  1e-005	2.85537e-006\\
@@ -155,7 +155,7 @@ cycle list name=linestyles*]
 0.476459	0.0100217\\
 0.7	0.019292\\
 };
-\addlegendentry{$\wn[2] - \wn[1] = 32\sysBW$};
+\addlegendentry{$\wn[2] - \wn[1] = 32\wdB$};
 
 \addplot
 table[row sep=crcr]{%
@@ -190,7 +190,7 @@ table[row sep=crcr]{%
 0.476459	0.00477076\\
 0.7	0.00900354\\
 };
-\addlegendentry{$\wn[2] - \wn[1] = 64\sysBW$};
+\addlegendentry{$\wn[2] - \wn[1] = 64\wdB$};
 
 \draw [->, line width=1pt]
 (axis cs:0.4,0.3) -- (axis cs:0.52,0.0006);

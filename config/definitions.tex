@@ -77,6 +77,10 @@
 
 \newcommand{\crest}[1]{\ensuremath{\mathrm{Cr}\left( #1 \right)}}
 
+\newcommand{\statisticalHypothesis}[1]{\ensuremath{\mathrm{H}_{\mathrm{#1}}}}
+\newcommand{\nullHypothesis}{\statisticalHypothesis{0}}
+\newcommand{\altHypothesis}{\statisticalHypothesis{a}}
+
 %% Calculus operations
 \newcommand{\pd}{\partial}
 \newcommand{\dd}{\ensuremath{\mathrm{d}}}
@@ -265,7 +269,6 @@
 %% Common symbols
 \newcommand{\BW}{\ensuremath{\mathrm{BW}}}
 \newcommand{\wdB}{\ensuremath{\BW_{3\unit{dB}}}}
-\newcommand{\sysBW}{\wdB}  %TODO: replace in text
 \newcommand{\dc}[1][]{\ensuremath{K_{#1}}}
 \newcommand{\timeconst}[1][]{\ensuremath{\tau_{#1}}}
 \newcommand{\damping}[1][]{\ensuremath{\xi_{#1}}}
@@ -307,7 +310,6 @@
 
 \newcommand{\LandauBigO}{\ensuremath{\mathcal{O}}}
 \newcommand{\bigO}[1]{\ensuremath{\LandauBigO \left( #1 \right)}}
-\newcommand{\OrderOf}[1]{\bigO{#1}} %TODO: replace in text
 
 %\renewcommand{\fMax}[1]{\ensuremath{f_{#1+1/2}}}
 %\renewcommand{\fMin}[1]{\ensuremath{f_{#1-1/2}}}
