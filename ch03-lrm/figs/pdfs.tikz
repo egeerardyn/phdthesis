@@ -10,23 +10,26 @@ scale only axis,
 xmode=log,
 xmin=10,
 xmax=2048,
+xtick={10,100,1000},
+xticklabels={\empty},
 xminorticks=true,
-xlabel={Truncation Time (Samples)},
 ymin=0,
-ymax=2.5,
-ytick={  0, 0.5,   1, 1.5,   2, 2.5},
-ylabel={RMS Error},
-legend style={legend cell align=left,align=left,draw=black}
+ymax=500,
+ytick={  0, 100, 200, 300, 400, 500},
+ylabel={Number of realizations},
+axis x line*=bottom,
+axis y line*=right
 ]
-\addplot [color=black,solid,line width=1.5pt]
-  table[]{\thisDir/figs/pdfs-1.tsv};
-\addlegendentry{RMS Error};
+\addplot[ycomb,line width=1.5pt,fill=white!40!black,draw=white!40!black,area legend] plot table[] {\thisDir/figs/pdfs-3.tsv};
+% \addplot[forget plot,color=white!15!black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-4.tsv};
+\label{plotyyref:leg1};
 
-\addplot [color=black,line width=1.5pt,mark size=1.7pt,only marks,mark=*,mark options={solid}]
-  table[]{\thisDir/figs/pdfs-2.tsv};
-\addlegendentry{RMS Error};
+\addplot[ycomb,line width=1.5pt,fill=white!70!black,draw=white!70!black,opacity=0.8=,area legend] plot table[] {\thisDir/figs/pdfs-5.tsv};
+% \addplot[forget plot,color=white!15!black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-6.tsv};
+\label{plotyyref:leg2};
 
 \end{axis}
+
 
 \begin{axis}[%
 width=0.951\figurewidth,
@@ -36,23 +39,32 @@ scale only axis,
 xmode=log,
 xmin=10,
 xmax=2048,
-xtick={10,100,1000},
-xticklabels={\empty},
 xminorticks=true,
+xlabel={Truncation Time $\truncTime$ \axisunit{samples}},
 ymin=0,
-ymax=500,
-ytick={  0, 100, 200, 300, 400, 500},
-ylabel={\# Realizations},
-axis x line*=bottom,
-axis y line*=right
+ymax=2.5,
+ytick={  0, 0.5,   1, 1.5,   2, 2.5},
+ylabel={RMS Error \noaxisunit},
+legend style={legend cell align=left,align=left,draw=black}
 ]
-\addplot[ybar,bar width=6,fill=white!40!black,draw=white!40!black,area legend] plot table[] {\thisDir/figs/pdfs-3.tsv};
-\addplot[forget plot,color=white!15!black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-4.tsv};
-\label{plotyyref:leg1};
+\addplot [color=black,solid,line width=1.5pt]
+  table[]{\thisDir/figs/pdfs-1.tsv};
+\addlegendentry{RMS Error};
 
-\addplot[ybar,bar width=4,fill=white!70!black,draw=white!70!black,area legend] plot table[] {\thisDir/figs/pdfs-5.tsv};
-\addplot[forget plot,color=white!15!black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-6.tsv};
-\label{plotyyref:leg2};
+\addplot [color=black,mark size=1.5pt,only marks,mark=*,mark options={solid}]
+  table[]{\thisDir/figs/pdfs-2.tsv};
+\addlegendentry{Theoretical optimum};
+
+% \addlegendimage{empty legend}
+% \addlegendentry{\textbf{Histograms using:}};
+
+\addlegendimage{/pgfplots/refstyle=plotyyref:leg1}
+\addlegendentry{$F$-test};
+
+\addlegendimage{/pgfplots/refstyle=plotyyref:leg2}
+\addlegendentry{Exponential fitting};
+
+
 
 \end{axis}
 \end{tikzpicture}%

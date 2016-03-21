@@ -5,7 +5,6 @@
 
 \researchBasedOn[This section]{Lumori2014TIM}
 \TODO{figures to TikZ}
-\TODO{re-introduce $F$-test truncator and box-carr averager}
 \TODO{labels into standardized form}
 
 \subsection{Introduction}
@@ -31,7 +30,9 @@ where $G_0(q)$ represents the dynamics of the system to be estimated, $u_0(t)$ i
 
 \begin{figure}
 \centering
-\includegraphics{\thisDir/figs/tikz0.pdf}
+\setlength\figurewidth{0.85\columnwidth}
+\setlength\figureheight{0.68\figurewidth}
+\input{\thisDir/figs/oesetup.tikz}
 \caption{SISO LTI discrete-time system in an output error setup.}
 \label{lpmtdrep}
 \end{figure}
@@ -207,21 +208,20 @@ The estimation of $\hat{G}_\text{poly}(\Omega_k)$ at a single frequency $\Omega_
 This procedure is repeated at each central frequency $\Omega_k$ for  $k\in \Set{1,\dots,N/2}$ (i.e. the entire frequency band, including Nyquist, but excluding \gls{DC}, and regularizing at the boundaries). This completes the \gls{LPM}, yielding an intrinsic averaging of the spectra of the estimated \gls{FRF}, $\hat{G}_\text{poly}(\Omega_k)$.
 
 \section{Smoothing the \gls{FRF} estimate}\label{se:smoothingFRFestimate}
-The method for smoothing (improving) the \gls{LPM} estimate of the frequency response function  is presented in this section together with pertinent assumptions. After obtaining the \gls{LPM} estimate of the \gls{FRF} (denoted as $\hat{G}_{\mathrm{poly}}(\Omega_k)$) from \secref{se:LPMFRFest}, the smoothing method is decomposed into the following procedures, which will be elaborated on later:
+The method for smoothing (improving) the \gls{LPM} estimate of the frequency response function  is presented in this section together with pertinent assumptions. 
+After obtaining the \gls{LPM} estimate of the \gls{FRF} (denoted as $\hat{G}_{\mathrm{poly}}(\Omega_k)$) from \secref{se:LPMFRFest}, the smoothing method is decomposed into the following procedures, which will be elaborated on later:
 \begin{enumerate}
 \item The impulse response $\hat g_\mathrm{poly}(t)$  is computed from the \gls{IDFT} of $\hat{G}_{\mathrm{poly}}(\Omega_k)$.
 
-\item
-Assuming that the impulse response decays exponentially in time, the noise is bound to predominate after a certain time interval.
+\item Assuming that the impulse response decays with the passing of time, the noise is bound to predominate after a certain time interval. 
+In particular, when $t > \truncTime$, the impulse response has decayed below the noise floor.
+In \secref{sec:nonparametric:truncation:Ftest} and \secref{sec:nonparametric:truncation:exponentialFit}, two approaches are introduced to estimate $\truncTime$.
 
-\item
-An accurate estimate of the \gls{DC} value of the \gls{FRF} is computed by inspecting the average value of the tail of the estimated impulse response.
+\item An accurate estimate of the \gls{DC} value of the \gls{FRF} is computed by inspecting the average value of the tail of the estimated impulse response.
 
-\item
-A truncation is effected at the point beyond which the data record (impulse response) is buried in noise.
+\item A truncation is effected at the point beyond which the data record (impulse response) is buried in noise.
 
 This action results in smoothing the \gls{LPM} estimate of the \gls{FRF}.
-An exponential fitting method is introduced to determine the truncation point.
 \end{enumerate}
 
 These procedures require that the following assumptions are satisfied.
@@ -286,11 +286,105 @@ m_{g10} = \frac{1}{\lceil0.1N - 1\rceil}\sum_{t=\lfloor0.9N\rfloor}^{N-1}\hat g_
 \begin{align}
 \hat g_\mathrm{poly}(t) = \hat g_{\mathrm{poly}\setminus \mathrm{DC}}(t) - m_{g10},\ \text{for}\ t=0,1,\dots,N-1
 \end{align}
-
-
 \end{enumerate}
 
-\subsection{Truncation of the Impulse Response Via Exponential Fitting}\label{se:truncImpulseResp}
+\subsection{Truncation Via the $F$-Test}
+\label{sec:nonparametric:truncation:ftest}
+To distinguish the part of the measured impulse response where the actual impulse response dominates from the part where the noise dominates, the estimated impulse response $\hat{g}_\mathrm{poly}$ is split into smaller segments. 
+One can then gradually determine whether these segments are noise or the actual impulse response.
+
+% 1) cut into NS segments of minimally NM samples
+% 2) assume last segment == noise
+%    start from back
+% 3) F-test on Var, Var==RMS if dc == 0 (i.e. noise)
+%    H0: s²(1) =  s²(2)
+%    H1: s²(1) >  s²(2)
+%    alpha >> ==> beta <<
+% 4) if H1 and RMS(signal)/RMS(noise) > f
+%    robustness, SNR
+%    select segment i
+% 5) refine until wanted resolution is obtained
+
+\begin{enumerate}
+  \item The impulse response $\hat{g}_\mathrm{poly}(t)$ is split into $N_S$ segments of approximate equal lengths
+$L_S = \floor{\frac{N}{N_S}}$. 
+If necessary, the length of the first segment is reduced to allow for the others to have equal lengths.
+The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,\ldots,N_S\right\}$.
+  By \assref{ass:decay90perctime}, the last segment, $\segm{\hat{g}}{N_S}$, is noise when $L_S \leqslant 0.1N$.
+  
+  \item Iteration is then carried out from the last segment ($i = N_S$) towards the beginning of the impulse response. To determine whether the preceding segment $\segm{\hat{g}}{i-1}$ is completely dominated by noise,  both an $F$-test and an absolute criterion on the RMS are used.
+
+  The $F$-test is suited to compare the variances of different segments $\segm{\hat{g}}{i}$ and $\segm{\hat{g}}{i-1}$ \citep{Parsons1974}, while accounting for the degrees of freedom in each segment.
+  For zero-mean noise, these variances are the \gls{RMS} value of each noise segment.
+  This has the advantage that a segment in which the impulse response still has a significant amplitude is likely to have a large \gls{RMS} value, which is more likely to be detected.
+  Let $s^2(i)$ denote the mean square value of segment $\segm{\hat{g}}{i}$, \emph{viz}:
+  \begin{equation}
+    s^2(i) 
+    \isdef \frac{1}{L_S} \sum_{j=1}^{L_S} \left(\segm{\hat{g}}{i}(j)\right)^2
+    = \left( \rms{\hat{g}^{[i]}} \right)^2
+           \text{.}
+  \end{equation}
+  Starting with the last segment ($i = N_S$), the following null hypothesis and the alternative hypothesis are formulated:
+  \begin{align}
+     \nullHypothesis &: s^2(i-1) = s^2(i)\\
+     \altHypothesis    &: s^2(i-1) > s^2(i)
+     \text{.}
+  \end{align}
+  As segment $\segm{\hat{g}}{i}$ has been tested and been classified as noise, the null hypothesis states that the segment $\segm{\hat{g}}{i-1}$ is also noise.
+  The alternative case occurs when $\segm{\hat{g}}{i-1}$ has a significant change, which indicates the presence of the signal.
+  Using the $F$-test on the \gls{RMS} values of the two segments with a high confidence level of $\alpha=0.999$ and the aforementioned hypotheses, we can determine whether $\segm{\hat{g}}{i-1}$ is likely to be part of the actual impulse response.
+  In particular, the null hypothesis is rejected when the empirical $F$ statistic is small, i.e.
+  \begin{equation}
+    F \isdef \frac{s^2(i-1)}{s^2(i)} \leq \ICDF{\FDistribution} \left( \alpha; n_{i-1}, n_{i} \right)
+  \end{equation}
+  where $ \ICDF{\FDistribution}$ is the inverse \gls{CDF} of an $F$ distribution with $n_{i-1}$ and $n_{i}$ degrees of freedom.
+  In this case $n_{i-1}$ and $n_{i}$ are the respective number of samples in the $(i-1)^{\text{th}}$ and $i^{\text{th}}$ segment of the impulse response.
+
+  The high level of confidence ($\alpha=0.999$) ensures that the probability of a Type~II error is smaller than $1-\alpha$ \citep{Parsons1974}.
+  In our case, such an error means that a part of the actual impulse response would be falsely classified as noise, which could significantly increase the bias as information of the system is discarded.
+  A Type~I error is less detrimental since, in that case, noise is falsely classified as a signal component and kept in the impulse response, thereby causing a sub-optimal value of the variance of the estimate.
+  As the \gls{LPM} samples are correlated over a short frequency span, the actual noise present in $\hat{g}$ may be slightly non-stationary.
+  To cope with this, one can introduce other criteria which must be satisfied together with the outcome of the $F$-test.
+  A criterion that shows good results is to check whether the segment $\segm{\hat{g}}{i-1}$ has an RMS value that is at least a factor $\kappa$ larger than the RMS of the noise.
+  Even for a moderate $\kappa = 1.1$, a large improvement in the detection was observed. 
+%  \JL{Q: doesn't this increase the probability of a Type II error?}
+%  \EG{A: This slightly increases for small $\kappa$ and increases significantly for large values of $\kappa$. But it is needed to overcome nonstationarity of the noise.}
+
+  \item This procedure is repeated until a segment $\segm{\hat{g}}{i-1}$ is found that is dominated by the actual impulse response according to the outcome of the $F$-test and the absolute \gls{RMS} value of the segment.
+  At that point, it is very likely that the transition from noise to the actual impulse response happens within the segment $\segm{\hat{g}}{i-1}$.
+  One now has the choice to accept the last sample of $\segm{\hat{g}}{i-1}$ to be the last meaningful sample $\truncTime$ for the impulse response.
+  The accuracy of this estimate is limited by the length of the segment $L_S$.
+
+  \item
+  A more accurate estimate can be obtained by dividing the segment $\segm{\hat{g}}{i-1}$ -- which may contain both the signal and noise -- yet again into smaller segments. The procedure described above is then repeated until a satisfactory, accurate $\truncTime$ is obtained, or until the subsegments have a length that is too short ($L_{S\min} = 10$) to guarantee the accuracy of the RMS values. %rely on the RMS values to be accurate.
+  To start this refinement, the last $\segm{\hat{g}}{i}$ should be used to compare the RMS with the $F$-test, since the last subsegment of $\segm{\hat{g}}{i-1}$ cannot be asserted to be dominated by noise.
+
+\end{enumerate}
+This procedure is illustrated in \figref{fig:nonparametric:truncation:Ftest} for the system described by the following simulation equations, which are relevant to the LPM outlined in Section \ref{se:LPMFRFest}:
+\begin{subequations}
+\label{eq:systemSimulations}
+\begin{align}
+y_0(t)  &= 1.5371y_0(t-1)    -0.9025y_0(t-2) + u(t)\\
+y(t)       &= y_0(t) + e(t),
+\end{align}
+\end{subequations}
+where $e(t)$ is a white noise sequence, such that the SNR of the output signal is 78.2~dB.
+% \eqref{eq:systemSimulations}. 
+The figure shows segments of the estimated impulse response. The last two segments are dominated by the noise, while all samples at $t<80$ have large system contributions. The algorithm outlined above selects $\truncTime = 80$, beyond which all samples are set to zero, resulting in a smooth estimate.  %after which all samples are fixed to a zero value for the smoothed estimate.
+
+\begin{figure}[tbh]
+\centering
+\remakeNextFigure
+ \setlength\figurewidth{0.8\columnwidth}
+ \setlength\figureheight{0.68\figurewidth}
+  \input{\thisDir/figs/truncRMS.tikz}
+\caption[Illustration of impulse response truncation using the $F$-test.]{Illustration of truncating the impulse response by performing an $F$-test on successive segments of the impulse response. The different segments are separated by dotted lines.}
+\label{fig:nonparametric:truncation:Ftest}
+\end{figure}
+
+
+\subsection{Truncation of the Impulse Response Via Exponential Fitting}
+\label{sec:nonparametric:truncation:exponentialfit}
 
 The \gls{FRF} estimate is smoothed by truncating the estimated impulse response function. 
 The truncation is applied at the time index beyond which the signal is indistinguishable from the noise.
@@ -402,6 +496,9 @@ where $e(t)$ is a white noise sequence, such that the \gls{SNR} of the output si
 
 \begin{figure}[tbh] %top bottom here
     \centering
+    \setlength\figurewidth{0.85\columnwidth}
+    \setlength\figureheight{0.68\figurewidth}
+
     \includegraphics[scale=0.9]{\thisDir/figs/figLPMvsTruncWlegend}
     \caption[Comparison of FRF estimated using LPM and Truncated LPM.]{Comparison of the \gls{LPM} and Truncated \gls{LPM} estimates of the \gls{FRF} for an \gls{SNR} of $18.3\unit{dB}$. The gray plots pertain to the \gls{LPM} estimate without truncation, the black ones to the \gls{LPM} with truncation (trunc). Dots: \gls{FRF} estimates $\hat{G}$. Crosses: sample standard deviations $\hat{\sigma}$. Dashed lines: bias $\hat{b}$. White line: the true system $G_0$.}
     \label{figLPMvsTrunc}
@@ -422,8 +519,14 @@ This bias depends on the time instant at which the truncation is performed, as d
 
 \begin{figure}[htb] %  figure placement: here, top, bottom, or page
    \centering
-	\includegraphics{\thisDir/figs/HistogramExpFitting.pdf}
-         \caption[RMS error of the FRF versus truncation time.]{Black full line (left hand side y-axis (ordinate)): total \gls{RMS} error as a function of the truncation time (the single black dot is the minimum of the \gls{RMS}). Gray histogram (right hand side y-axis (ordinate)): selected truncation times for 1000 noise realizations by the exponential fitting methods.}
+        \setlength\figurewidth{0.85\columnwidth}
+        \setlength\figureheight{0.68\figurewidth}
+        \input{\thisDir/figs/pdfs.tikz}
+         \caption[RMS error of the FRF versus truncation time.]{
+         The left y-axis shows the \gls{RMS} error of the estimated \gls{FRF} as a function of the chosen truncation time $\truncTime$.
+         The corresponding optimal $\truncTime$ is indicated as well.
+         Both bar plots (right y-axis) indicate for $\nMC =1000$ realizations of the disturbing noise and excitation signal, the number of times that $\truncTime$ has been selected by means of either the method using the $F$-test or the method that fits an exponential.
+         It can be seen that both methods allow to almost halve the \gls{RMS} error and approach the optimal truncation time.}
    \label{fig:pdfAndRMSeVStruncTime}
 \end{figure}
 
@@ -434,16 +537,31 @@ To the right hand side of the minimum, the \gls{RMS} error increases very gradua
 A good practice would be to truncate the impulse response at the minimizer (black dot) of the \gls{RMS} error. 
 However, it should be noted that this minimizer is unknown in practice, because it would require the true \gls{FRF}.
 
-The truncation time is determined from the data as described in \secref{se:truncImpulseResp}. This was done on $1000$ realizations of the noise, and depicted in \figref{fig:pdfAndRMSeVStruncTime} by the histogram.
-Clearly, the method for selecting the truncation time $t_{\mathrm{trunc}}$ has a good overall performance, based on the mode of its distribution. A closely grouped set of values for $t_{\mathrm{trunc}}$ is obtained around the $90^{\text{th}}$ sample, without significant outliers.
+The truncation time is determined from the data as described in \secref{sec:nonparametric:truncation:exponentialfit}. This was done on $1000$ realizations of the noise, and depicted in \figref{fig:pdfAndRMSeVStruncTime} by the histogram.
+Clearly, both methoda for selecting the truncation time $\truncTime$ have a good overall performance, based on the mode of its distribution (around the $90^{\text{th}}$ sample). 
 
-From the plot, we can conclude that the \gls{RMSE} increases rapidly when $t_{\mathrm{trunc}}$ is smaller than the optimal.
-On the other hand, selection of a value of $t_{\mathrm{trunc}}$ that is too large, is not nearly as detrimental to the modeling error.
-The graph also shows that the \gls{RMSE} of the model can be decreased from $0.62$ (without truncation) to $0.18$ when the optimal truncation is applied. Also, one observes a low sensitivity of the \gls{RMSE} w.r.t.~$t_\mathrm{trunc}$, when truncating at times beyond that optimum. Therefore, a somewhat conservative truncation method is still likely to yield a close to optimal result.
+For the $F$-test based method, the obtained $\truncTime$ values only take a discrete set of values due to the limitation of the segment length.
+While most trials result in $\truncTime \in \Set{90, 80, 70}$, a few outliers can be observed.
+This can be attributed to the high power of the $F$-tests that are performed.
 
-\subsection{Conclusion}\label{se:conclusion}
+For the exponential fitting approach, however, a closely grouped set of (continuous) values for $\truncTime$ is obtained around the $90^{\text{th}}$ sample, without significant outliers.
+Although this distribution has a mode quite a bit higher than the method using the $F$-test, due to the absence of outliers, this method is more reliable to use.
 
-The section introduced a novel time domain method to smooth the \gls{LPM}-estimate of an \gls{FRF}. It consisted of, after obtaining the \gls{FRF} from the \gls{LPM}, computing the associated estimated impulse response via the \gls{IDFT}.
+From the plot, we can conclude that the \gls{RMSE} increases rapidly when $\truncTime$ is smaller than the optimal.
+On the other hand, selection of a value of $\truncTime$ that is too large, is not nearly as detrimental to the modeling error.
+The graph also shows that the \gls{RMSE} of the model can be decreased from $0.62$ (without truncation) to $0.18$ when the optimal truncation is applied. Also, one observes a low sensitivity of the \gls{RMSE} w.r.t.~$t_\mathrm{trunc}$, when truncating at times beyond that optimum. 
+Therefore, a somewhat conservative truncation method is still likely to yield a close to optimal result.
+
+\begin{guideline}[Check and reinforce assumptions in the data.]
+As illustrated by the presented smoothing operation, it pays off to check typical assumptions of the system (e.g. smoothness of the \gls{FRF}, finite support of the impulse response) and even artificially reinforce such assumptions to improve the model quality.
+\end{guideline}
+
+\subsection{Conclusion}
+\label{se:conclusion}
+
+The section introduced a novel time domain method to smooth the \gls{LPM}-estimate of an \gls{FRF}. 
+It consisted of, after obtaining the \gls{FRF} from the \gls{LPM}, computing the associated estimated impulse response via the \gls{IDFT}.
 Then, it was determined statistically at which time index the impulse response had decayed below the noise floor, yielding a point beyond which the response may be set to zero.
 
-The results clearly indicate that the truncation technique lowers the impact of the noise on the estimate of the \gls{FRF}, resulting in a decreased variance. A bias-variance trade-off is possible by tuning the time beyond which the impulse response is indistinguishable from the noise.
+The results clearly indicate that the truncation technique lowers the impact of the noise on the estimate of the \gls{FRF}, resulting in a decreased variance. 
+A bias-variance trade-off is possible by tuning the time beyond which the impulse response is indistinguishable from the noise.

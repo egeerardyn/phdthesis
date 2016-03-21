@@ -193,6 +193,7 @@
 
 %% Distributions
 \DeclareMathOperator{\NormalDistribution}{\mathcal{N}}
+\DeclareMathOperator{\FDistribution}{\mathcal{F}}
 \DeclareMathOperator{\DiracDistribution}{\delta}
 \DeclareMathOperator{\CircularNormalDistribution}{\mathcal{C}\!\NormalDistribution}
 \DeclareMathOperator{\ComplexCircularNormalDistribution}{\CN\!\CircularNormalDistribution}
@@ -288,11 +289,16 @@
 \newcommand{\wInterest}{\ensuremath{\omega_{\mathrm{I}}}}
 \newcommand{\snorm}[1][]{\frac{s^{#1}}{\wn^{#1}}}
 \newcommand{\nth}[1][]{\ensuremath{n_{\theta}}}
+\newcommand{\nMC}[1][]{\ensuremath{n_{\mathrm{MC}}}}
+
+\newcommand{\ICDF}[1]{\ensuremath{\mathrm{CDF}^{-1}_{#1}}}
 \newcommand{\pdf}[2][]{\ensuremath{f_{#1} \left(#2 \right)}}
 \newcommand{\placeBetweenGrid}[1]{\ensuremath{\mathrm{misalign} \left( #1 \right) }}
 \newcommand{\infgrid}[1]{\ensuremath{\vec{#1}}}
 \newcommand{\powerspec}[1]{\ensuremath{\phi_{#1}}}
 
+\newcommand{\trunc}{\ensuremath{\mathrm{trunc}}}
+\newcommand{\truncTime}{\ensuremath{t_{\trunc}}}
 
 \newcommand{\successRate}{\ensuremath{\eta}}
 \newcommand{\toleranceSymbol}{\ensuremath{\varepsilon}}
@@ -336,6 +342,7 @@
 \newcommand{\f}{\ensuremath{\mathbb{f}}}
 \newcommand{\e}{\ensuremath{e}}
 \newcommand{\idx}[2]{\ensuremath{\left( #1 \right)_{#2}}}
+\newcommand{\segm}[2]{\ensuremath{{#1}^{[#2]}}}
 
 
 \newcommand{\exponent}[1]{\ensuremath{e^{#1}}}
