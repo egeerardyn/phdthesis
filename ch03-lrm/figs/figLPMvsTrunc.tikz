@@ -14,9 +14,7 @@ ymin=-50,
 ymax=30,
 ytick={-100,  -80,  -60,  -40,  -20,    0,   20,   40,   60,   80,  100},
 ylabel={Amplitude (dB)},
-axis background/.style={fill=white},
-axis x line*=bottom,
-axis y line*=left
+axis background/.style={fill=white}
 ]
 \addplot [color=white!60!black,only marks,mark=*,mark options={solid},forget plot]
   table[]{\thisDir/figs/figLPMvsTrunc-1.tsv};
@@ -34,3 +32,5 @@ axis y line*=left
   table[]{\thisDir/figs/figLPMvsTrunc-7.tsv};
 \end{axis}
 \end{tikzpicture}%
+%TODO add legend
+%TODO change styles

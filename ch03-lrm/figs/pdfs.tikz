@@ -24,7 +24,7 @@ axis y line*=right
 % \addplot[forget plot,color=white!15!black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-4.tsv};
 \label{plotyyref:leg1};
 
-\addplot[ycomb,line width=1.5pt,fill=white!70!black,draw=white!70!black,opacity=0.8=,area legend] plot table[] {\thisDir/figs/pdfs-5.tsv};
+\addplot[ycomb,line width=1.5pt,fill=white!70!black,draw=white!70!black,opacity=0.8,area legend] plot table[] {\thisDir/figs/pdfs-5.tsv};
 % \addplot[forget plot,color=white!15!black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-6.tsv};
 \label{plotyyref:leg2};
 

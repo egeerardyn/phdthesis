@@ -337,7 +337,7 @@ The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,
   \begin{equation}
     F \isdef \frac{s^2(i-1)}{s^2(i)} \leq \ICDF{\FDistribution} \left( \alpha; n_{i-1}, n_{i} \right)
   \end{equation}
-  where $ \ICDF{\FDistribution}$ is the inverse \gls{CDF} of an $F$ distribution with $n_{i-1}$ and $n_{i}$ degrees of freedom.
+  where $ \ICDF{\FDistribution}$ is the inverse \gls{CDF} of the \mbox{$F$-distribution} with $n_{i-1}$ and $n_{i}$ degrees of freedom.
   In this case $n_{i-1}$ and $n_{i}$ are the respective number of samples in the $(i-1)^{\text{th}}$ and $i^{\text{th}}$ segment of the impulse response.
 
   The high level of confidence ($\alpha=0.999$) ensures that the probability of a Type~II error is smaller than $1-\alpha$ \citep{Parsons1974}.
@@ -374,7 +374,6 @@ The figure shows segments of the estimated impulse response. The last two segmen
 
 \begin{figure}[tbh]
 \centering
-\remakeNextFigure
  \setlength\figurewidth{0.8\columnwidth}
  \setlength\figureheight{0.68\figurewidth}
   \input{\thisDir/figs/truncRMS.tikz}
@@ -498,6 +497,7 @@ where $e(t)$ is a white noise sequence, such that the \gls{SNR} of the output si
     \centering
     \setlength\figurewidth{0.85\columnwidth}
     \setlength\figureheight{0.68\figurewidth}
+    \input{\thisDir/figs/figLPMvsTrunc.tikz}
 
     \includegraphics[scale=0.9]{\thisDir/figs/figLPMvsTruncWlegend}
     \caption[Comparison of FRF estimated using LPM and Truncated LPM.]{Comparison of the \gls{LPM} and Truncated \gls{LPM} estimates of the \gls{FRF} for an \gls{SNR} of $18.3\unit{dB}$. The gray plots pertain to the \gls{LPM} estimate without truncation, the black ones to the \gls{LPM} with truncation (trunc). Dots: \gls{FRF} estimates $\hat{G}$. Crosses: sample standard deviations $\hat{\sigma}$. Dashed lines: bias $\hat{b}$. White line: the true system $G_0$.}
@@ -517,9 +517,10 @@ This bias depends on the time instant at which the truncation is performed, as d
 
 \end{itemize}
 
-\begin{figure}[htb] %  figure placement: here, top, bottom, or page
+\begin{figure}
    \centering
-        \setlength\figurewidth{0.85\columnwidth}
+   \remakeNextFigure
+        \setlength\figurewidth{0.68\columnwidth}
         \setlength\figureheight{0.68\figurewidth}
         \input{\thisDir/figs/pdfs.tikz}
          \caption[RMS error of the FRF versus truncation time.]{
@@ -565,3 +566,15 @@ Then, it was determined statistically at which time index the impulse response h
 
 The results clearly indicate that the truncation technique lowers the impact of the noise on the estimate of the \gls{FRF}, resulting in a decreased variance. 
 A bias-variance trade-off is possible by tuning the time beyond which the impulse response is indistinguishable from the noise.
+
+
+\TODO{write about boxcar average, add reference}
+\begin{figure}
+   \centering
+        \setlength\figurewidth{0.68\columnwidth}
+        \setlength\figureheight{0.68\figurewidth}
+        \input{\thisDir/figs/expFitBoxAverager.tikz}
+         \caption{Exponential fit of a boxcar averager}
+\end{figure}
+
+\TODO{RMSE vs $\truncTime$ for boxcar figure}
