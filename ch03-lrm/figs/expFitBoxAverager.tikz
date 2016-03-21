@@ -1,0 +1,39 @@
+% This file was created by matlab2tikz.
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figurewidth,
+height=\figureheight,
+at={(0\figurewidth,0\figureheight)},
+scale only axis,
+xmin=0,
+xmax=1074.15,
+xtick={   0,  250,  500,  750, 1000},
+xlabel={time (samples)},
+ymin=-0.17410927258308,
+ymax=1.13796758214927,
+ytick={-100,  -90,  -80,  -70,  -60,  -50,  -40,  -30,  -20,  -10,    0,   10,   20,   30,   40,   50,   60,   70,   80,   90,  100},
+ylabel={Amplitude (a.u.)},
+axis background/.style={fill=white},
+axis x line*=bottom,
+axis y line*=left
+]
+\addplot [color=white!70!black,solid,forget plot]
+  table[]{\thisDir/figs/expFitBoxAverager-1.tsv};
+\addplot [color=black,solid,forget plot]
+  table[]{\thisDir/figs/expFitBoxAverager-2.tsv};
+\addplot [color=white!40!black,solid,forget plot]
+  table[]{\thisDir/figs/expFitBoxAverager-3.tsv};
+\addplot [color=black,solid,line width=2.0pt,forget plot]
+  table[]{\thisDir/figs/expFitBoxAverager-4.tsv};
+\addplot [color=white!60!black,line width=1.0pt,mark size=1.5pt,only marks,mark=o,mark options={solid},forget plot]
+  table[]{\thisDir/figs/expFitBoxAverager-5.tsv};
+\addplot [color=black,solid,forget plot]
+  table[]{\thisDir/figs/expFitBoxAverager-6.tsv};
+\addplot [color=black,dashed,forget plot]
+  table[]{\thisDir/figs/expFitBoxAverager-7.tsv};
+\addplot [color=black,dashed,forget plot]
+  table[]{\thisDir/figs/expFitBoxAverager-8.tsv};
+\end{axis}
+\end{tikzpicture}%
