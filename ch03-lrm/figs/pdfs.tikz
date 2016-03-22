@@ -20,13 +20,11 @@ ylabel={Number of realizations},
 axis x line*=bottom,
 axis y line*=right
 ]
-\addplot[ycomb,line width=1.5pt,fill=white!40!black,draw=white!40!black,area legend] plot table[] {\thisDir/figs/pdfs-3.tsv};
+\addplot[histogramSmootherFTest] plot table[] {\thisDir/figs/pdfs-3.tsv};
 % \addplot[forget plot,color=white!15!black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-4.tsv};
-\label{plotyyref:leg1};
 
-\addplot[ycomb,line width=1.5pt,fill=white!70!black,draw=white!70!black,opacity=0.8,area legend] plot table[] {\thisDir/figs/pdfs-5.tsv};
+\addplot[histogramSmootherExpFit] plot table[] {\thisDir/figs/pdfs-5.tsv};
 % \addplot[forget plot,color=white!15!black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-6.tsv};
-\label{plotyyref:leg2};
 
 \end{axis}
 
@@ -58,10 +56,10 @@ legend style={legend cell align=left,align=left,draw=black}
 % \addlegendimage{empty legend}
 % \addlegendentry{\textbf{Histograms using:}};
 
-\addlegendimage{/pgfplots/refstyle=plotyyref:leg1}
+\addlegendimage{histogramSmootherFTest}
 \addlegendentry{$F$-test};
 
-\addlegendimage{/pgfplots/refstyle=plotyyref:leg2}
+\addlegendimage{histogramSmootherExpFit}
 \addlegendentry{Exponential fitting};
 
 

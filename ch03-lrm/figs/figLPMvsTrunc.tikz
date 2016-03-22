@@ -3,34 +3,38 @@
 \begin{tikzpicture}
 
 \begin{axis}[%
-width=0.951\figurewidth,
+width=\figurewidth,
 height=\figureheight,
 at={(0\figurewidth,0\figureheight)},
 scale only axis,
 xmin=0,
 xmax=50,
-xlabel={Frequency (Hz)},
+xlabel={Frequency \axisunit{Hz}},
 ymin=-50,
 ymax=30,
-ytick={-100,  -80,  -60,  -40,  -20,    0,   20,   40,   60,   80,  100},
-ylabel={Amplitude (dB)},
-axis background/.style={fill=white}
+ylabel={Amplitude $\abs{G(\omega)}$ \axisunit{dB}},
+legend style={legend cell align=left}
 ]
-\addplot [color=white!60!black,only marks,mark=*,mark options={solid},forget plot]
-  table[]{\thisDir/figs/figLPMvsTrunc-1.tsv};
-\addplot [color=black,only marks,mark=*,mark options={solid},forget plot]
-  table[]{\thisDir/figs/figLPMvsTrunc-2.tsv};
-\addplot [color=white,solid,forget plot]
-  table[]{\thisDir/figs/figLPMvsTrunc-3.tsv};
-\addplot [color=white!60!black,dashed,forget plot]
-  table[]{\thisDir/figs/figLPMvsTrunc-4.tsv};
-\addplot [color=black,dashed,forget plot]
-  table[]{\thisDir/figs/figLPMvsTrunc-5.tsv};
-\addplot [color=white!60!black,mark size=2.0pt,only marks,mark=x,mark options={solid},forget plot]
-  table[]{\thisDir/figs/figLPMvsTrunc-6.tsv};
-\addplot [color=black,mark size=2.0pt,only marks,mark=x,mark options={solid},forget plot]
-  table[]{\thisDir/figs/figLPMvsTrunc-7.tsv};
+	\addplot [truesys] table[]{\thisDir/figs/figLPMvsTrunc-3.tsv};
+	\addlegendentry{$\true{G}$};
+
+	\addplot [FRFLPM] table[]{\thisDir/figs/figLPMvsTrunc-1.tsv};
+	\addlegendentry{$\hat{G}_{\LPM}$};
+
+	\addplot [FRFtrunc] table[]{\thisDir/figs/figLPMvsTrunc-2.tsv};
+	\addlegendentry{$\hat{G}_{\LPM,\trunc}$};
+
+	\addplot [sigmaLPM] table[]{\thisDir/figs/figLPMvsTrunc-6.tsv};
+	\addlegendentry{$\sampleStd{\LPM}$};
+
+	\addplot [sigmaTrunc] table[]{\thisDir/figs/figLPMvsTrunc-7.tsv};
+	\addlegendentry{$\sampleStd{\LPM,\trunc}$};
+
+	\addplot [biasLPM] table[]{\thisDir/figs/figLPMvsTrunc-4.tsv};
+	\addlegendentry{$\sampleBias{\LPM}$};
+
+	\addplot [biasTrunc] table[]{\thisDir/figs/figLPMvsTrunc-5.tsv};
+	\addlegendentry{$\sampleBias{\LPM,\trunc}$};
+
 \end{axis}
 \end{tikzpicture}%
-%TODO add legend
-%TODO change styles

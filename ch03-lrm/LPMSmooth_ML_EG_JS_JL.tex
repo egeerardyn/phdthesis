@@ -493,13 +493,12 @@ y(t) &= y_0(t) + e(t),
 where $e(t)$ is a white noise sequence, such that the \gls{SNR} of the output signal is $18.3\unit{dB}$.
 
 
-\begin{figure}[tbh] %top bottom here
+\begin{figure}
     \centering
+    \remakeNextFigure
     \setlength\figurewidth{0.85\columnwidth}
     \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/figLPMvsTrunc.tikz}
-
-    \includegraphics[scale=0.9]{\thisDir/figs/figLPMvsTruncWlegend}
     \caption[Comparison of FRF estimated using LPM and Truncated LPM.]{Comparison of the \gls{LPM} and Truncated \gls{LPM} estimates of the \gls{FRF} for an \gls{SNR} of $18.3\unit{dB}$. The gray plots pertain to the \gls{LPM} estimate without truncation, the black ones to the \gls{LPM} with truncation (trunc). Dots: \gls{FRF} estimates $\hat{G}$. Crosses: sample standard deviations $\hat{\sigma}$. Dashed lines: bias $\hat{b}$. White line: the true system $G_0$.}
     \label{figLPMvsTrunc}
 \end{figure}
@@ -575,5 +574,14 @@ A bias-variance trade-off is possible by tuning the time beyond which the impuls
         \input{\thisDir/figs/expFitBoxAverager.tikz}
          \caption{Exponential fit of a boxcar averager}
 \end{figure}
+
+\begin{figure}
+   \centering
+        \setlength\figurewidth{0.68\columnwidth}
+        \setlength\figureheight{0.68\figurewidth}
+        \input{\thisDir/figs/pdfs-rmse-boxcar.tikz}
+         \caption{RMSE vs $\truncTime$ for boxcar}
+\end{figure}
+
 
 \TODO{RMSE vs $\truncTime$ for boxcar figure}
