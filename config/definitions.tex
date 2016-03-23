@@ -4,6 +4,9 @@
 \newcommand{\TODO}[1]{{\color{red} #1}}
 \newcommand{\TODOfig}[1][figure]{\parbox[h][\figureheight][c]{\figurewidth}{\centering \vfill \TODO{#1} \vfill}}
 
+\newenvironment{personalNote}{ \color{blue} }
+                                                                    {}
+
 \newcommand{\TOCInsert}[2]{\addcontentsline{toc}{#1}{#2}}
 \newcommand{\chapterNoNum}[1]{\chapter*{#1} \TOCInsert{chapter}{#1}}
 \newcommand{\sectionNoNum}[1]{\section*{#1} \TOCInsert{section}{#1}}

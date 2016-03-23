@@ -294,11 +294,39 @@ The information matrix for this system is
 \end{align}
 To investigate the decoupling, we study the $(1,1)$ elements of blocks $\partial G_{1,1}$ and $\partial G_{1,2}$ of the information matrix \eqref{eq:excitation:infoEx}, when the input spectrum \eqref{eq:excitation:pink} is used; similar arguments can be made for the other elements of the two matrix blocks.
 
-Direct calculations for $\damping < 1$ give
+Direct calculations for $\damping \ll 1$ give
 \begin{align}
 \label{eq:excitation:auto}
-\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_1^{\HT}}{\partial \wn[1]}\right\}\frac{1}{\omega}\dd\omega = \frac{\pi}{16\wn[1]^2}\damping^{-3} + \mathcal{O}(\damping^{-1}).
+\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_1^{\HT}}{\partial \wn[1]}\right\}\frac{1}{\omega}\dd\omega
+ = 
+ \frac{\pi}
+          {8\wn[1]^2}\damping^{-3} 
++ \mathcal{O}(\damping^{-1}).
 \end{align}
+\begin{personalNote} 
+Value computed using Sage:
+\begin{align*}
+\frac{\pi {K}^{2}}
+          {16  \sqrt{1 - \damping^2}\wn^{2} \damping^{3}} 
++
+\frac{{\left(2  \damping^{2} + 1 \right)}  {K}^{2}}
+         {4  \sqrt{1-\damping^{2}} \wn^{2} \damping^{2}}
++ 
+\frac{{K}^{2} \arctan  
+                               \left(
+                                       \frac{(2  \damping^{2} - 1) \sqrt{1-\damping^{2}}}
+                                                {2  (\damping^{3} - \damping)}
+                              \right)}
+         {8  \sqrt{1-\damping^{2}} \wn^{2}  \damping^{3}}
+\end{align*}
+Remark that the latter term for $\damping \to 0$ becomes
+\begin{equation}
+  \frac{{K}^{2} \pi / 2}
+         {8  \sqrt{1-\damping^{2}} \wn^{2}  \damping^{3}}
+\end{equation}
+as the argument for the $\arctan$ function tends to $\infty$.
+\end{personalNote}
+%
 For the corresponding element in $\partial G_{1,2}$ we start by bounding the absolute value of the integral by
 \begin{gather}
 \left|\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right\}\frac{1}{\omega}\dd\omega\right|
