@@ -12,7 +12,7 @@
 % definition of the derivatives for the (K, wn, wz, xi) and \omega = x
 \newcommand{\dGdK}[4]{(#2)^2/(#3)*\amplitudeTf{#3}{x}{2*(#4)*(#2)*x}{(#2)^2-x^2}}
 \newcommand{\dGdWz}[4]{(#1)*(#2)^2/(#3)*\amplitudeTf{0}{x}{2*(#4)*(#2)*x}{(#2)^2-x^2}}
-\newcommand{\dGdWn}[4]{2*(#1)*(#2)/(#3)*\amplitudeTf{(#4)*(#2)*(#3)-x^2}{x*((#3)+(#2)*(#4))}{((#2)^2 - x^2)^2 - 4*(#2)^2*x^2*(#4)^2}{4*(#2)*x*(#4)*((#2)^2 - x^2)}}
+\newcommand{\dGdWn}[4]{2*(#1)*(#2)/(#3)*\amplitudeTf{x^2*((#3) + (#4)*(#2))}{x*((#4)*(#2)*(#3) - x^2)}{((#2)^2 - x^2)^2 - 4*(#2)^2*x^2*(#4)^2}{4*(#2)*x*(#4)*((#2)^2 - x^2)}}
 \newcommand{\dGdXi}[4]{2*(#1)*(#2)^3/(#3)*\amplitudeTf{-x^2}{(#3)*x}{((#2)^2 - x^2)^2 - 4*(#2)^2*x^2*(#4)^2}{4*(#2)*x*(#4)*((#2)^2 - x^2)}}
 % Use MATLAB/mupad to derive the equations in terms of (K, wn, wz, xi)
 % Then, retrieve real/imag parts
@@ -20,7 +20,7 @@
 
 \pgfplotsset{dGdK/.style={ylabel={$\abs{\PartialDerivative{G}{K}}$},ymin=0.001,ymax=500,ytickten={-2,...,2}}}
 \pgfplotsset{dGdWz/.style={ylabel={$\abs{\PartialDerivative{G}{\wz}}$},ymin=0.01,ymax=500,ytickten={-2,...,2}}}
-\pgfplotsset{dGdWn/.style={ylabel={$\abs{\PartialDerivative{G}{\wn}}$},ymin=0.001,ymax=10000,ytickten={-3,...,4}}}
+\pgfplotsset{dGdWn/.style={ylabel={$\abs{\PartialDerivative{G}{\wn}}$},ymin=0.0001,ymax=10000,ytickten={-3,...,4}}}
 \pgfplotsset{dGdXi/.style={ylabel={$\abs{\PartialDerivative{G}{\damping}}$},ymin=0.0001,ymax=10000,ytickten={-3,...,4}}}
 
 
