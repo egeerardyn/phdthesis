@@ -6,9 +6,11 @@ maxbibnames=10,
 minbibnames=4,
 maxcitenames=2,
 dashed=false,
+useprefix=true, % http://tex.stackexchange.com/questions/39955/sorting-of-author-names-like-von-beethoven-with-biblatex
 backend=biber]{biblatex}
-% \addbibresource{biblio/ownWork.bib}
-% \addbibresource{biblio/references.bib}
+
+% http://tex.stackexchange.com/questions/40097/disable-issn-but-keep-isbn-with-biblatex
+% \AtEveryBibitem{\ifentrytype{article}{\clearfield{issn}}{}}
 
 % http://tex.stackexchange.com/questions/16748/how-can-i-prevent-citations-with-the-second-author-as-firstname-lastname
 
