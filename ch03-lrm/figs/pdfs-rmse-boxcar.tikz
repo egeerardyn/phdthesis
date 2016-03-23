@@ -13,24 +13,22 @@ at={(0\figurewidth,0\figureheight)},
 scale only axis,
 xmode=log,
 xmin=1,
-xmax=2068.48,
+xmax=2100,
 xtick={10,100,1000},
 xticklabels={\empty},
 xminorticks=true,
 ymin=0,
 ymax=1000,
-ylabel={\# Realizations},
+ylabel={Number of realizations},
 axis x line*=bottom,
 axis y line*=right,
 legend style={nodes=right},
 ]
-\addplot[ycomb,line width=1.5pt,fill=red,draw=red,area legend] plot table[] {\thisDir/figs/pdfs-rmse-boxcar-1.tsv};
+\addplot[histogramSmootherFTest] plot table[] {\thisDir/figs/pdfs-rmse-boxcar-1.tsv};
 % \addplot[forget plot,color=black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-rmse-boxcar-2.tsv};
-\label{plotyyref:leg1};
 
-\addplot[ycomb,line width=1.5pt,fill=blue,draw=blue,area legend] plot table[] {\thisDir/figs/pdfs-rmse-boxcar-3.tsv};
+\addplot[histogramSmootherExpFit] plot table[] {\thisDir/figs/pdfs-rmse-boxcar-3.tsv};
 % \addplot[forget plot,color=black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-rmse-boxcar-4.tsv};
-\label{plotyyref:leg2};
 
 \end{axis}
 
@@ -42,7 +40,7 @@ scale only axis,
 separate axis lines,
 xmode=log,
 xmin=1,
-xmax=2068.48,
+xmax=2100,
 xminorticks=true,
 xlabel={Truncation Time $\truncTime$ \axisunit{samples}},
 ymin=0,
@@ -54,16 +52,22 @@ y tick label style={
         /tikz/.cd
     },
 ytick={0,0.035,0.103,0.12,0.15},
-ylabel={RMS Error},
-legend style={legend cell align=left,align=left,draw=white!15!black}
+ylabel={RMS Error \noaxisunit},
+legend style={legend cell align=left,align=left,draw=black},
+legend pos=south west
 ]
-\addplot [color=black,solid,line width=1.5pt]
-  table[]{\thisDir/figs/pdfs-rmse-boxcar-5.tsv};
+\addplot [mainCurve] table[]{\thisDir/figs/pdfs-rmse-boxcar-5.tsv};
 \addlegendentry{RMS Error};
 
-\addplot [color=black,line width=1.5pt,mark size=1.7pt,only marks,mark=*,mark options={solid}]
-  table[]{\thisDir/figs/pdfs-rmse-boxcar-6.tsv};
-\addlegendentry{RMS Error};
+\addplot [pointOfInterest] table[]{\thisDir/figs/pdfs-rmse-boxcar-6.tsv};
+\addlegendentry{Optimum};
+
+\addlegendimage{histogramSmootherFTest}
+\addlegendentry{$F$-test};
+
+\addlegendimage{histogramSmootherExpFit}
+\addlegendentry{Exponential fitting};
+
 
 \end{axis}
 \end{tikzpicture}%

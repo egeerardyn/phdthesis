@@ -220,7 +220,9 @@
 
 
 \colorlet{FSmooth}{TangoScarletRed3}
+\colorlet{FSmoothLight}{TangoScarletRed2}
 \colorlet{expFit}{TangoSkyBlue3}
+\colorlet{expFitLight}{TangoSkyBlue2}
 \colorlet{trunc}{clogms}
 
 \pgfplotsset{FRFLPM/.style={color=LPM}}
@@ -232,9 +234,18 @@
 \pgfplotsset{biasLPM/.style={biaslinms}}
 \pgfplotsset{biasTrunc/.style={biasclogms}}
 
-\pgfplotsset{histogramSmootherFTest/.style={ycomb,line width=1.5pt,fill=white!40!black,draw=white!40!black,area legend}}
-\pgfplotsset{histogramSmootherExpFit/.style={ycomb,line width=1.5pt,fill=white!70!black,draw=white!70!black,opacity=0.8,area legend}}
+% adapted from xbar legend from pgfplots manual
+\pgfplotsset{logHistogramLegend/.style={/pgfplots/legend image code/.code={%
+            \draw[##1,/tikz/.cd,bar width=3pt,yshift=-0.2em,bar shift=0pt]
+            plot coordinates {(0.15cm,0.6em) (0.3cm,0.8em) (0.45cm,0.6em)};}
+}}
 
+\pgfplotsset{logHistogram/.style={ycomb,line width=1.5pt,logHistogramLegend}}
+\pgfplotsset{histogramSmootherFTest/.style={logHistogram,fill=FSmoothLight,draw=FSmoothLight}}
+\pgfplotsset{histogramSmootherExpFit/.style={logHistogram,fill=expFitLight,draw=expFitLight,opacity=0.8}}
+
+\pgfplotsset{mainCurve/.style={color=black,solid,line width=1.5pt}}
+\pgfplotsset{pointOfInterest/.style={color=black,mark size=1.5pt,only marks,mark=*,mark options={solid}}}
 
 \pgfplotsset{rmsOfSegment/.style={color=gray,line width=1pt,densely dotted}}
 
