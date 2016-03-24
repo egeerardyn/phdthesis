@@ -93,7 +93,7 @@ In open loop experiments, the scaled average information matrix is given by
 By Parseval's theorem, $\IF$ can be expressed as
 \begin{align}
 \IF &= \frac{1}{\pi}
-         \int\limits_0^\infty \mathrm{Re}
+         \int\limits_0^\infty \RealPart
            \left\{      \frac{\partial G(j\omega)}{\partial \theta}
                   \left[\frac{\partial G(j\omega)}{\partial \theta}\right]^{\HT}
            \right\}
@@ -197,7 +197,7 @@ With this input spectrum, the power inside $\wdB$ is
   = \frac{1}{2\pi}
     \ln{\frac{1+\damping}{1-\damping}},
 \end{align}
-which is independent of $\wn$. The robustness of the $1/f$ input has been noted previously by e.g. \cite{Rojas2007}
+which is independent of $\wn$. The robustness of the $1/f$ input has been noted previously by e.g. \citet{Rojas2007,Rojas2012,Goodwin2006GBO}.
 
 Alternatively, one could also construct a signal with power spectrum concentrated at discrete frequency lines.
 Such signals are elaborated in \secref{sec:excitation:multisine}.
@@ -261,7 +261,7 @@ The information matrix for systems of the type \eqref{eq:excitation:sumSys} will
   \partial G_{K,1}        &\partial G_{K,2}       &\deemph{\cdots}         &\partial G_{K,K}
 \end{bmatrix},\\
 \partial G_{i,j} &= \int_0^\infty
-                      \mathrm{Re}\left\{
+                      \RealPart\left\{
                           \frac{\partial G_i}
                                {\partial \theta_i}
                           \frac{\partial G_j^{\HT}}
@@ -294,46 +294,44 @@ The information matrix for this system is
 \end{align}
 To investigate the decoupling, we study the $(1,1)$ elements of blocks $\partial G_{1,1}$ and $\partial G_{1,2}$ of the information matrix \eqref{eq:excitation:infoEx}, when the input spectrum \eqref{eq:excitation:pink} is used; similar arguments can be made for the other elements of the two matrix blocks.
 
-Direct calculations for $\damping \ll 1$ give
+The $(1,1)$ element of the $\partial G_{1,1}$ entry of the information matrix is
 \begin{align}
-\label{eq:excitation:auto}
-\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_1^{\HT}}{\partial \wn[1]}\right\}\frac{1}{\omega}\dd\omega
- = 
- \frac{\pi}
-          {8\wn[1]^2}\damping^{-3} 
-+ \mathcal{O}(\damping^{-1}).
+  \int_0^\infty\RealPart\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_1^{\HT}}{\partial \wn[1]}\right\}\frac{1}{\omega}\dd\omega
 \end{align}
-\begin{personalNote} 
-Value computed using Sage:
-\begin{align*}
-\frac{\pi {K}^{2}}
+which yields
+\begin{equation}
+\frac{\pi }
           {16  \sqrt{1 - \damping^2}\wn^{2} \damping^{3}} 
-+
-\frac{{\left(2  \damping^{2} + 1 \right)}  {K}^{2}}
-         {4  \sqrt{1-\damping^{2}} \wn^{2} \damping^{2}}
 + 
-\frac{{K}^{2} \arctan  
+\frac{ 2\arctan  
                                \left(
                                        \frac{(2  \damping^{2} - 1) \sqrt{1-\damping^{2}}}
                                                 {2  (\damping^{3} - \damping)}
                               \right)}
-         {8  \sqrt{1-\damping^{2}} \wn^{2}  \damping^{3}}
-\end{align*}
-Remark that the latter term for $\damping \to 0$ becomes
-\begin{equation}
-  \frac{{K}^{2} \pi / 2}
-         {8  \sqrt{1-\damping^{2}} \wn^{2}  \damping^{3}}
+         {16  \sqrt{1-\damping^{2}} \wn^{2}  \damping^{3}}
++
+\frac{{\left(2  \damping^{2} + 1 \right)} }
+         {4  \sqrt{1-\damping^{2}} \wn^{2} \damping^{2}}
+\label{eq:excitation:auto:full}
 \end{equation}
-as the argument for the $\arctan$ function tends to $\infty$.
-\end{personalNote}
-%
+after lengthy calculations.
+For $\damping \ll 1$ this can be simplified to
+\begin{equation}
+\label{eq:excitation:auto}
+\int_0^\infty\RealPart\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_1^{\HT}}{\partial \wn[1]}\right\}\frac{1}{\omega}\dd\omega
+ = 
+ \frac{\pi}
+          {8\wn[1]^2}\damping^{-3} 
++ \bigO{\damping^{-2}}
+\end{equation}
+since the $\arctan$ in \eqref{eq:excitation:auto:full} tends to $\frac{\pi}{2}$ for $\damping \to 0$.
 For the corresponding element in $\partial G_{1,2}$ we start by bounding the absolute value of the integral by
 \begin{gather}
-\left|\int_0^\infty\mathrm{Re}\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right\}\frac{1}{\omega}\dd\omega\right|
+\left|\int_0^\infty\RealPart\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right\}\frac{1}{\omega}\dd\omega\right|
 \qquad \qquad \qquad \qquad \qquad
 \label{eq:excitation:cross1} \\
 \leq
-\int_0^\infty\left|\mathrm{Re}\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right\}\right|\frac{1}{\omega}\dd\omega
+\int_0^\infty\left|\RealPart\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right\}\right|\frac{1}{\omega}\dd\omega
 \leq \\
 \qquad \qquad \qquad \qquad \qquad
 \int_0^\infty\left|\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right|\frac{1}{\omega}\dd\omega \text{.}\label{eq:excitation:cross}
