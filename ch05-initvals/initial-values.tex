@@ -6,7 +6,7 @@
 \researchBasedOn{Geerardyn2015TIM}
 
 \section{Introduction}
-\label{se:introd}
+\label{sec:initial-values:introd}
 The task of interpreting measurement data from dynamic systems often involves the estimation of a transfer function (TF). 
 Typical measurement techniques and identification strategies of  \glspl{TF} or \glspl{FRF} are presented in~\citep{Schoukens1998,Schoukens2006LPM,Guillaume1996,Broersen1995,Pintelon2010LPM1,Antoni2007FRF}.
 Application of these methods to real devices and systems is well-represented in the literature, e.g. \citep{Lim2010,Robinson1990,Behjat2010}.
@@ -32,14 +32,14 @@ These are compared with the existing initialization schemes, namely: (i) the \gl
 
 \paragraph{Outline}
 The rest of the chapter is structured as follows. 
-\secref{se:ProbForm} covers the problem formulation. 
-\secref{se:MethodEg} presents the methodology for obtaining the initial estimates, and their influence on the success rate of the \gls{MLE}. 
-This is followed by \secref{se:Demo} and \secref{se:ExpMeas}, which are demonstrations of the improved initial estimates on simulation and experimental data, respectively.
-In \secref{se:Generality} the generality of the results is investigated briefly.
+\secref{sec:initial-values:ProbForm} covers the problem formulation. 
+\secref{sec:initial-values:MethodEg} presents the methodology for obtaining the initial estimates, and their influence on the success rate of the \gls{MLE}. 
+This is followed by \secref{sec:initial-values:Demo} and \secref{sec:initial-values:ExpMeas}, which are demonstrations of the improved initial estimates on simulation and experimental data, respectively.
+In \secref{sec:initial-values:Generality} the generality of the results is investigated briefly.
 The computational effort and recommendations for practical implementations are given in \secref{sec:initvals:computation}.
-Ultimately, concluding remarks are presented in \secref{se:Conclusion}.
+Ultimately, concluding remarks are presented in \secref{sec:initial-values:Conclusion}.
 
-\section{Problem formulation}\label{se:ProbForm}
+\section{Problem formulation}\label{sec:initial-values:ProbForm}
 
 In this section, the assumptions on the system and the noise are presented, together with the associated MLE (formulated in the frequency domain), which turns out to be a non-convex function in the parameters, requiring initial estimates. The procedure for obtaining the initial estimates is elaborated in the subsequent sections.
 
@@ -47,13 +47,14 @@ In this section, the assumptions on the system and the noise are presented, toge
 \TODO{ hele subsectie verplaatsen na het param. sys. model?}
 \figref{fig:oesetup} depicts a schematic of the output error framework for  a generalized (single- or multiple-order) resonating, dynamic \gls{LTI} discrete-time \gls{SISO} system, subjected to a known white random noise input. 
 The full model of the system is
-\begin{equation}\label{lpmtd1}
+\begin{equation}
 y(t)=\true{G}(q^{-1})u_0(t)+H_0(q^{-1})e(t)
+\label{eq:initial-values:OE:TD}
 \end{equation}
 where $\true{G}(q^{-1})$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= H_0(q^{-1})e(t)$ is the noise source at the output, $H_0(q^{-1})$ is the noise dynamics, 
 $e(t)$ is white Gaussian noise, and $q^{-m}$ is the backwards shift operator ($q^{-m}x(t)$ = $x(t-mT_{\mathrm{s}})$  with $m$ a positive integer and $T_{\mathrm{s}}$ the sampling time).
 We only treat the discrete-time case (i.e. $t = n \cdot T_{\mathrm{s}}$ for integer values of $n$) theoretically in this chapter.
-However, the generalization to continuous time is straightforward~\citep[Chapter 6]{Pintelon2012} and has been demonstrated in Section~\ref{se:ExpMeas}.
+However, the generalization to continuous time is straightforward~\citep[Chapter 6]{Pintelon2012} and has been demonstrated in Section~\ref{sec:initial-values:ExpMeas}.
 
 \begin{figure}[tbh]
 \centering
@@ -67,17 +68,17 @@ Numerous parametric identification techniques are devoted to the development of 
 
 In this chapter we assume that the output signal is disturbed by random noise, resulting in noisy error-prone data.
 For the simulations, white noise is used ($\true{H} = 1$ and $e(t) = v(t)$).
-It is also possible to apply the estimation procedure in this chapter to a system that is disturbed by colored noise, as will be demonstrated in \secref{se:ExpMeas}. 
+It is also possible to apply the estimation procedure in this chapter to a system that is disturbed by colored noise, as will be demonstrated in \secref{sec:initial-values:ExpMeas}. 
 
 \subsection{Parametric System Model}
 
-With reference to equation \eqref{lpmtd1}, the relation between the noiseless input and the output signals ($v(t)= 0$) is assumed to be of the form
+With reference to equation \eqref{eq:initial-values:OE:TD}, the relation between the noiseless input and the output signals ($v(t)= 0$) is assumed to be of the form
 \begin{equation}
     A(q^{-1}) y_0(t) = B(q^{-1}) u_0(t) \quad \forall t \in n \Ts{}  \text{ with }  n \in \IntegerNumbers
 \label{ABpolys}
 \end{equation}
 where $A$ and $B$ are polynomials in $q^{-1}$. 
-Thus, it follows from equation \eqref{lpmtd1} that
+Thus, it follows from equation \eqref{eq:initial-values:OE:TD} that
 \begin{equation}
     \true{G}(q^{-1})= \frac{B(q^{-1})}{A(q^{-1})}
     \text{.}
@@ -100,7 +101,7 @@ It is assumed that the orders of the polynomials $A$, $B$ and $I$ are known.
 \end{assumption}
 
 
-\subsection{Parametric Identification Algorithm}\label{se:paramIdentAlgo}
+\subsection{Parametric Identification Algorithm}\label{sec:initial-values:paramIdentAlgo}
 
 The maximum likelihood estimate of the parameter vector $\theta$  containing the coefficients of the $A$, $B$ and $I$  polynomials is obtained by solving the optimization problem
 \begin{equation}
@@ -178,7 +179,7 @@ However, due to this random influence, their results are not always exactly repr
 Stochastic optimization is not discussed in the remainder of this chapter.
 \end{remark}
 
-\section{Methodology}\label{se:MethodEg}
+\section{Methodology}\label{sec:initial-values:MethodEg}
 In this section, the considered methods for obtaining the initial estimates of $\theta$ are briefly explained. Then their influence on the success rate of the maximum likelihood estimator is described.
 %}
 
@@ -334,7 +335,7 @@ This is because the \glspl{FRF} from 3) and 4) have been smoothed and, thus, hav
 
 %The latter 2 ....schematic is configured to include connections of the initial values and the input to the LPM block and/or to the MLE block(s) for estimation purposes.
 %\end{itemize}
-%\section{Example}\label{se:Example}
+%\section{Example}\label{sec:initial-values:Example}
 
 \subsection{Success Rates of the Initial Estimates}
 
@@ -394,7 +395,7 @@ The $\mathcal{L}_2$ norm used in equation \eqref{eq:successrateTol} is defined~\
 \norm[2]{G(s)} &\isdef \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} |G(j\omega)|^2\ \mathrm{d}\omega}& \text{ for continuous time}
 \end{align}
  which, in practice, is computed by using the adaptive global quadrature algorithm provided by the MATLAB function \code{integral}.
-The success rate in equation \eqref{eq:successrateTol} is estimated via Monte Carlo simulations in \secref{se:CompuSR}.
+The success rate in equation \eqref{eq:successrateTol} is estimated via Monte Carlo simulations in \secref{sec:initial-values:CompuSR}.
 
 \begin{remark}
 The specific norm that is used in~\eqref{eq:successrateTol} can be adapted to suit the eventual purpose of the models the user wants to obtain.
@@ -402,7 +403,7 @@ E.g. in robust control, it often makes sense to rather have a $\Hinf$ norm as in
 In this chapter, the $\mathcal{L}_2$ norm has been chosen since this is more closely related to the cost function~\eqref{eq:MLEcf}.
 \end{remark}
 
-\section{Demonstration}\label{se:Demo}
+\section{Demonstration}\label{sec:initial-values:Demo}
 
 \subsection{The System Under Consideration}
 
@@ -495,7 +496,7 @@ On the other hand, the `failed' estimates are inaccurate descriptions of the tru
 \end{figure}
 
 %\subsection{Computing the success rates}
-\subsection{Computation of  the Success Rates}\label{se:CompuSR}
+\subsection{Computation of  the Success Rates}\label{sec:initial-values:CompuSR}
 
 \subsubsection{Simulation}
 A Monte Carlo simulation was set up to determine the success rate of the estimator with different initial estimates.
@@ -661,7 +662,7 @@ It can be seen that these runs align almost perfectly, which shows that this rul
 When the RMSE is then divided by $\norm{\true{G}}$, this graph essentially shows the anticipated relative error on the transfer function and, hence, gives an indication on its usability.
 
 \section{Experimental Results}
-\label{se:ExpMeas}
+\label{sec:initial-values:ExpMeas}
 Measurements were performed on an electrical filter to assess the performance of the initial value generating methods in a physical setting.
 
 \subsection{Experimental Setup}
@@ -931,7 +932,7 @@ The situation is already less severe for $\model{trunc}$ (in $75\%$ of the cases
 \end{figure}
 
 \section{Remark on the generality}
-\label{se:Generality}
+\label{sec:initial-values:Generality}
 In the previous sections, the usability of the smoothers to produce initial values has been studied on very specific examples.
 In this section, an attempt will be made to illustrate the usefulness of these smoothers for the generation of starting values for other systems.
 However, due to the intricate relationship between the attraction regions in the cost function, the location of the actual system poles, the \gls{SNR} level and the choice of a particular excitation signal, we think it is intractable to construct rigid bounds on where the smoothers produce effective starting values.
@@ -1052,7 +1053,7 @@ This function  reports the median wall-clock time and chooses the number of repe
 The timings have been measured on an Early 2013 MacBook Pro Retina 15-inch with $2.7\unit{GHz}$ Intel Core i7 \gls{CPU} and $16 \unit{GB}$ \gls{RAM} running Mac OS X 10.11.3 and \MATLAB R2015b.
 The recommendations from the white paper by \citet{McKeeman2008} have been followed during these measurements.
 
-To measure the timing of the different methods, essentially the same settings were used as in \secref{se:Demo}: the systems from equations \eqref{eq:systemundertest} and \eqref{eq:systundertest-20dB} were simulated such that $N_{3\unit{dB}} \in \Set{36,48}$ and $\SNR = 0 \unit{dB}$.
+To measure the timing of the different methods, essentially the same settings were used as in \secref{sec:initial-values:Demo}: the systems from equations \eqref{eq:systemundertest} and \eqref{eq:systundertest-20dB} were simulated such that $N_{3\unit{dB}} \in \Set{36,48}$ and $\SNR = 0 \unit{dB}$.
 For each of the branches in \figref{fig:flowgraph}, three different timings are recorded (when applicable):
 \begin{itemize}
   \item $t_{\mathrm{smooth}}$ is the time it takes to perform the smoothing (all blocks before \gls{GTLS}/\gls{BTLS}),
@@ -1114,7 +1115,7 @@ Trying different initial values is quite inexpensive, but the quality of the fin
 As such, using multiple initial values, especially ones that have been derived with good judgment, pays off.
 \end{guideline}
 
-\section{Conclusion}\label{se:Conclusion}
+\section{Conclusion}\label{sec:initial-values:Conclusion}
 The simulations have demonstrated that use of a smoothed non-parametric estimate of the \gls{FRF} can improve the success rate of minimizing the \gls{ML} cost function for the estimation of the transfer functions of \gls{LTI} systems, subjected to noisy signals. Specifically, two smoothing methods were used and compared: 1) the truncated \gls{LPM} method, and 2) the \gls{RFIR} method. The simulation results clearly show that the \gls{RFIR} method is superior to the truncated \gls{LPM} method and the existing \gls{BTLS} and \gls{GTLS} methods.
 
 The usefulness of the initial values obtained via the proposed smoothing techniques was confirmed on a measurement of a band-pass filter in a noisy environment.

@@ -4,7 +4,6 @@
 % \end{abstract}
 
 \researchBasedOn[This section]{Lumori2014TIM}
-\TODO{figures to TikZ}
 \TODO{labels into standardized form}
 
 \subsection{Introduction}
@@ -199,9 +198,10 @@ The \gls{LPM} estimate of the \gls{FRF} is the first element of the estimate $\h
 The estimation of $\hat{G}_\text{poly}(\Omega_k)$ at a single frequency $\Omega_k = 0.586\unit{Hz}$ is illustrated in \figref{LPM_Schematic_EG}.% centered at $k$, where $r = 0$.
 \begin{figure}[htb] %  figure placement: here, top, bottom, or page
    \centering
-   \includegraphics[scale=0.92]{\thisDir/figs/spectUOmegak}
-   \includegraphics[scale=0.92]{\thisDir/figs/spectYOmegak}
-   \includegraphics{\thisDir/figs/LPMfigOmegak}
+   \setlength{\figurewidth}{0.8\columnwidth}
+   \setlength{\figureheight}{0.68\figurewidth}
+
+   \input{\thisDir/figs/LPMfig.tikz}
    \caption[Illustration of the LPM.]{Illustration of the \gls{LPM}. Top figures: input spectrum (left) and output spectrum (right). A small band is selected (gray area, top figure), in which $\hat G_\mathrm{poly}(\Omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_\mathrm{poly}(\Omega_k)$ (white circle) is retained. This procedure is repeated for all $\Omega_k$.}
    \label{LPM_Schematic_EG}
 \end{figure}
