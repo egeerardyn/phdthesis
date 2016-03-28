@@ -34,13 +34,13 @@ axis x line*=bottom,
 axis y line*=left
 ]
 % \addplot [FRFSingle,forget plot]
-%     table{\thisDir/fig/elvis-spectra-1.tsv};
+%     table{\thisDir/fig/data/meas-spectra/elvis-spectra-1.tsv};
 % \label{leg:SpectraMeasurement:U:single}
 \addplot [FRFNoise,forget plot]
-  table{\thisDir/fig/elvis-spectra-3.tsv};
+  table{\thisDir/fig/data/meas-spectra/elvis-spectra-3.tsv};
 \label{leg:SpectraMeasurement:U:noise}
 \addplot [FRFMean,forget plot]
-  table{\thisDir/fig/elvis-spectra-2.tsv};
+  table{\thisDir/fig/data/meas-spectra/elvis-spectra-2.tsv};
 \label{leg:SpectraMeasurement:U:mean}
 \end{axis}
 \begin{axis}[%
@@ -63,10 +63,10 @@ axis x line*=bottom,
 axis y line*=right
 ]
 % \addplot [FRFSingle,forget plot]
-%   table{\thisDir/fig/elvis-spectra-4.tsv};
+%   table{\thisDir/fig/data/meas-spectra/elvis-spectra-4.tsv};
 \addplot [FRFNoise,forget plot]
-  table{\thisDir/fig/elvis-spectra-6.tsv};
+  table{\thisDir/fig/data/meas-spectra/elvis-spectra-6.tsv};
 \addplot [FRFMean,forget plot]
-  table{\thisDir/fig/elvis-spectra-5.tsv};
+  table{\thisDir/fig/data/meas-spectra/elvis-spectra-5.tsv};
 \end{axis}
 \end{tikzpicture}%

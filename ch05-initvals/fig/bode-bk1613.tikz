@@ -33,27 +33,27 @@
 % legend style={legend cell align=left,align=left,draw=white!15!black}
 % ]
 % \addplot [color=mycolor1,only marks,mark=*,mark options={solid}]
-%   table[]{fig/bode-bk1613-1.tsv};
+%   table[]{fig/data/bk1613/bode-bk1613-1.tsv};
 % \addlegendentry{Y/U};
 
 % \addplot [color=blue,only marks,mark=*,mark options={solid}]
-%   table[]{fig/bode-bk1613-2.tsv};
+%   table[]{fig/data/bk1613/bode-bk1613-2.tsv};
 % \addlegendentry{mean Y/U};
 
 % \addplot [color=green,only marks,mark=*,mark options={solid}]
-%   table[]{fig/bode-bk1613-3.tsv};
+%   table[]{fig/data/bk1613/bode-bk1613-3.tsv};
 % \addlegendentry{$\text{G}_{\text{VXI}}\text{ (normal)}$};
 
 % \addplot [color=mycolor2,only marks,mark=*,mark options={solid}]
-%   table[]{fig/bode-bk1613-4.tsv};
+%   table[]{fig/data/bk1613/bode-bk1613-4.tsv};
 % \addlegendentry{$\text{G}_{\text{VXI}}\text{ (extra delay)}$};
 
 % \addplot [color=black,solid]
-%   table[]{fig/bode-bk1613-5.tsv};
+%   table[]{fig/data/bk1613/bode-bk1613-5.tsv};
 % \addlegendentry{$\text{G}_{\text{ds}}$};
 
 % \addplot [color=red,solid]
-%   table[]{fig/bode-bk1613-6.tsv};
+%   table[]{fig/data/bk1613/bode-bk1613-6.tsv};
 % \addlegendentry{$\text{G}_{\text{VXI}}$};
 
 % \end{axis}
@@ -84,17 +84,17 @@ axis x line*=bottom,
 axis y line*=left]
 
 \addplot [FRFSingle,forget plot]
-  table[]{\thisDir/fig/bode-bk1613-ETFE-single.tsv};
+  table[]{\thisDir/fig/data/bk1613/bode-bk1613-ETFE-single.tsv};
 %\addlegendentry{Y/U};
 \label{leg:bk1613:ETFE}
 
 \addplot [FRFMean,forget plot]
-  table[]{\thisDir/fig/bode-bk1613-ETFE-mean.tsv};
+  table[]{\thisDir/fig/data/bk1613/bode-bk1613-ETFE-mean.tsv};
 % %\addlegendentry{mean Y/U};
 \label{leg:bk1613:meanETFE}
 
 \addplot [GVXI]
-  table[]{\thisDir/fig/bode-bk1613-GVXI.tsv};
+  table[]{\thisDir/fig/data/bk1613/bode-bk1613-GVXI.tsv};
 %\addlegendentry{$\text{G}_{\text{VXI}}$};
 \label{leg:bk1613:vxi}
 

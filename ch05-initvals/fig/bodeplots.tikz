@@ -53,41 +53,41 @@ axis y line*=left]
   legend cell align=left, legend style={at={(rel axis cs:0.5,1.05)}, anchor=south west}]
 \node[plotnum,anchor=south west] at (rel axis cs:0,0) {1};
 \addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/fig/bodeplots-1.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-1.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-2.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-2.tsv};
 \addlegendentry{\model{\trueSymbol}};
 \label{leg:bode:model0}
 
 \addplot [color=existing,solid,forget plot]
-  table{\thisDir/fig/bodeplots-3.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-3.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-4.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-4.tsv};
 \addlegendentry{\model{exist}};
 \label{leg:bode:modelExisting}
 
 \addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/fig/bodeplots-5.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-5.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-6.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-6.tsv};
   \addlegendentry{\model{trunc}};
 \label{leg:bode:modelTrunc}
 
 \addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/fig/bodeplots-7.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-7.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-8.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-8.tsv};
 \addlegendentry{\model{RFIR}};
 \label{leg:bode:model:RFIR}
 
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-9.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-9.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-10.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-10.tsv};
 % \addlegendentry{\model{best}};
 % \label{leg:bode:best}
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-11.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-11.tsv};
 \addlegendentry{$\true{G}$};
 \label{leg:bode:true}
 
@@ -96,289 +96,289 @@ axis y line*=left]
 \nextgroupplot[cheby1]
 \node[plotnum,anchor=south] at (rel axis cs:0.5,0) {2};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-12.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-12.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-13.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-13.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-14.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-14.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-15.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-15.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-16.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-16.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-17.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-17.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-18.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-18.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-19.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-19.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-20.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-20.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-21.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-21.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-22.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-22.tsv};
 
 % ================================================
 \nextgroupplot[cheby1]
 \node[plotnum,anchor=south east] at (rel axis cs:1,0) {3};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-23.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-23.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-24.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-24.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-25.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-25.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-26.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-26.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-27.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-27.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-28.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-28.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-29.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-29.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-30.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-30.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-31.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-31.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-32.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-32.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-33.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-33.tsv};
 
 % ================================================
 \nextgroupplot[cheby1]
 \node[plotnum,anchor=south east] at (rel axis cs:1,0) {4};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-34.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-34.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-35.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-35.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-36.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-36.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-37.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-37.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-38.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-38.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-39.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-39.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-40.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-40.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-41.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-41.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-42.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-42.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-43.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-43.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-44.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-44.tsv};
 
 % ================================================
 % ================================================
 \nextgroupplot[cheby2]
 \node[plotnum,anchor=south west] at (rel axis cs:0,0) {5};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-45.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-45.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-46.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-46.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-47.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-47.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-48.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-48.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-49.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-49.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-50.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-50.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-51.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-51.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-52.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-52.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-53.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-53.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-54.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-54.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-55.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-55.tsv};
 
 % ================================================
 \nextgroupplot[cheby2]
 \node[plotnum,anchor=south] at (rel axis cs:0.5,0) {6};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-56.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-56.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-57.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-57.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-58.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-58.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-59.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-59.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-60.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-60.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-61.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-61.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-62.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-62.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-63.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-63.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-64.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-64.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-65.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-65.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-66.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-66.tsv};
 
 % ================================================
 \nextgroupplot[cheby2]
 \node[plotnum,anchor=south east] at (rel axis cs:1,0) {7};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-67.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-67.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-68.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-68.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-69.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-69.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-70.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-70.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-71.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-71.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-72.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-72.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-73.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-73.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-74.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-74.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-75.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-75.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-76.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-76.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-77.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-77.tsv};
 
 % ================================================
 \nextgroupplot[cheby2]
 \node[plotnum,anchor=south east] at (rel axis cs:1,0) {8};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-78.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-78.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-79.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-79.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-80.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-80.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-81.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-81.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-82.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-82.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-83.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-83.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-84.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-84.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-85.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-85.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-86.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-86.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-87.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-87.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-88.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-88.tsv};
 
 % ================================================
 % ================================================
 \nextgroupplot[ellip]
 \node[plotnum,anchor=south west] at (rel axis cs:0,0) {9};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-89.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-89.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-90.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-90.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-91.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-91.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-92.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-92.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-93.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-93.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-94.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-94.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-95.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-95.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-96.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-96.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-97.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-97.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-98.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-98.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-99.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-99.tsv};
 
 % ================================================
 \nextgroupplot[ellip]
 \node[plotnum,anchor=south] at (rel axis cs:0.5,0) {10};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-100.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-100.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-101.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-101.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-102.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-102.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-103.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-103.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-104.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-104.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-105.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-105.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-106.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-106.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-107.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-107.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-108.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-108.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-109.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-109.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-110.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-110.tsv};
 
 % ================================================
 \nextgroupplot[ellip]
 \node[plotnum,anchor=south east] at (rel axis cs:1,0) {11};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-111.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-111.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-112.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-112.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-113.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-113.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-114.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-114.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-115.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-115.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-116.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-116.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-117.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-117.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-118.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-118.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-119.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-119.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-120.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-120.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-121.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-121.tsv};
 
 % ================================================
 \nextgroupplot[ellip]
 \node[plotnum,anchor=south east] at (rel axis cs:1,0) {12};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-122.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-122.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-123.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-123.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-124.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-124.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-125.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-125.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-126.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-126.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-127.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-127.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-128.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-128.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-129.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-129.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-130.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-130.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-131.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-131.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-132.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-132.tsv};
 
 
 % ================================================
@@ -386,105 +386,105 @@ axis y line*=left]
 \nextgroupplot[butter]
 \node[plotnum,anchor=south west] at (rel axis cs:0,0) {13};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-133.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-133.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-134.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-134.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-135.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-135.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-136.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-136.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-137.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-137.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-138.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-138.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-139.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-139.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-140.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-140.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-141.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-141.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-142.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-142.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-143.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-143.tsv};
 
 % ================================================
 \nextgroupplot[butter]
 \node[plotnum,anchor=south] at (rel axis cs:0.5,0) {14};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-144.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-144.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-145.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-145.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-146.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-146.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-147.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-147.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-148.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-148.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-149.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-149.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-150.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-150.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-151.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-151.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-152.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-152.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-153.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-153.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-154.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-154.tsv};
 
 % ================================================
 \nextgroupplot[butter]
 \node[plotnum,anchor=south east] at (rel axis cs:1,0) {15};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-155.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-155.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-156.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-156.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-157.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-157.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-158.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-158.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-159.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-159.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-160.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-160.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-161.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-161.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-162.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-162.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-163.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-163.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-164.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-164.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-165.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-165.tsv};
 
 % ================================================
 \nextgroupplot[butter]
 \node[plotnum,anchor=south east] at (rel axis cs:1,0) {16};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-166.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-166.tsv};
 \addplot [color=G0Hat,solid]
-  table{\thisDir/fig/bodeplots-167.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-167.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-168.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-168.tsv};
 \addplot [color=existing,solid]
-  table{\thisDir/fig/bodeplots-169.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-169.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-170.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-170.tsv};
 \addplot [color=LPMTrunc,solid]
-  table{\thisDir/fig/bodeplots-171.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-171.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-172.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-172.tsv};
 \addplot [color=RFIR,solid]
-  table{\thisDir/fig/bodeplots-173.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-173.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-174.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-174.tsv};
 % \addplot [color=best,dotted]
-%   table{\thisDir/fig/bodeplots-175.tsv};
+%   table{\thisDir/fig/data/stress-frf/bodeplots-175.tsv};
 \addplot [exact]
-  table{\thisDir/fig/bodeplots-176.tsv};
+  table{\thisDir/fig/data/stress-frf/bodeplots-176.tsv};
 
 \end{groupplot}
 
