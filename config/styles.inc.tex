@@ -1,10 +1,19 @@
 \pgfplotsset{compat=newest}
 
+% http://tex.stackexchange.com/questions/287975/pgfplots-layer-issue
+\pgfplotsset{
+/pgfplots/layers/mylayer/.define layer set=
+{axis background,axis grid,main,axis ticks,axis lines,axis tick labels,axis descriptions,axis foreground}
+{/pgfplots/layers/standard}
+}
+\pgfplotsset{/dummy/workaround/.style={/pgfplots/axis on top}}
+
 \pgfplotsset{tick style={black!30},grid style={black!10}}
 \pgfplotsset{every axis legend/.append style={font=\footnotesize}}
 \pgfplotsset{every axis label/.append style={font=\footnotesize}}
 \pgfplotsset{every tick label/.append style={font=\footnotesize}}
 \pgfplotsset{every axis title/.append style={at={(0.5,1.025)}}}
+\pgfplotsset{every axis/.append style={set layers=mylayer, /dummy/workaround}}
 \pgfplotsset{every axis post/.style={unbounded coords=jump, line join=round}}
 
 %http://tex.stackexchange.com/questions/18152/how-can-i-adjust-the-horizontal-spacing-between-legend-entries-in-pgfplots
@@ -131,7 +140,7 @@
 \tikzset{showdistance/.style={|-|,line width=1pt}}
 
 \pgfplotsset{frf/.style={color=black,solid,line width=1pt}}
-\pgfplotsset{bw/.style={fill=bwfill,draw=bwline,area legend}}
+\pgfplotsset{bw/.style={fill=bwfill,draw=bwline,opacity=0.75,area legend}}
 \pgfplotsset{signal/.style={ycomb,color=signal,solid,line width=1pt}}
 \pgfplotsset{signalhighlight/.style={ycomb,color=signal,solid,line width=1pt,mark=o,mark size=2pt}}
 
