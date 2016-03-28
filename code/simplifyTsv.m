@@ -1,5 +1,23 @@
 function new = simplifyTsv(filename, doSave, cleanfigureArgs)
-    % SIMPLIFYTSV
+    % SIMPLIFYTSV simplifies TSV files using CLEANFIGURE
+    %
+    % This function uses the `cleanfigure` function from `matlab2tikz` to
+    % simplify the data contained in a TSV file. 
+    %
+    % Usage:
+    %  newData = SIMPLIFYTSV(filename, doSave, cleanfigureArgs)
+    %
+    % Arguments:
+    %  - filename: filename of TSV file to read (and write to)
+    %  - doSave: save the data back into the same file
+    %    (default value: false when "newData" is returned, true otherwise)
+    %  - cleanFigureArgs: extra arguments that are passed to `cleanfigure`
+    %    (default: {})
+    %
+    % Outputs:
+    %  - newData: structure containing the old and new data
+    %
+    % See also: matlab2tikz, cleanfigure
     
     %% default arguments
     if ~exist('doSave','var') || isempty(doSave)
@@ -56,7 +74,7 @@ function new = simplifyTsv(filename, doSave, cleanfigureArgs)
         FF     = '%g';
         COLSEP = '\t';
         ROWSEP = '\n';
-        fprintf(fid, [FF COLSEP FF ROWSEP], data(:));
+        fprintf(fid, [FF COLSEP FF ROWSEP], data.');
     end
     
 end
