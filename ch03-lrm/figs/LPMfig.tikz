@@ -2,20 +2,24 @@
 %
 \begin{tikzpicture}
 
+\pgfplotsset{xlimits/.append style={%
+xmin=0.4,
+xmax=0.7718,
+xtick={0.5,0.7},
+extra x ticks={0.5859375},
+extra x tick labels={$\Omega_k$}}}
+\pgfplotsset{ylimits/.append style={ymin=0,ymax=42}}
+
 \begin{axis}[%
 width=\figurewidth,
 height=0.5\figureheight,
 scale only axis,
 name=FRF,
-xmin=0.4,
-xmax=0.8,
 xlabel={Frequency \axisunit{Hz}},
 ymin=-25,
 ymax=5,
 ytick={-40, -30, -20, -10,   0,  10,  20},
-xtick={0.5,0.7},
-extra x ticks={0.5859375},
-extra x tick labels={$\Omega_k$},
+xlimits,
 ylabel={FRF $\abs{G}$ \axisunit{dB}}
 ]
 
@@ -26,27 +30,26 @@ ylabel={FRF $\abs{G}$ \axisunit{dB}}
 0.60546875	-50\\
 };
 
-\addplot [color=gray,solid,line width=1.5pt,forget plot] table[]{\thisDir/figs/LPMfig-1.tsv};
 \addplot [color=black,solid,line width=3.0pt,forget plot] table[]{\thisDir/figs/LPMfig-2.tsv};
+
+
 \addplot [color=black,line width=1.0pt,mark size=2.5pt,only marks,mark=*,mark options={solid,fill=white},forget plot] table[]{\thisDir/figs/LPMfig-3.tsv};
+
+\addplot [FRFMean] table[]{\thisDir/figs/LPMfig-1.tsv};
+
+
 \end{axis}
 
 \begin{axis}[%
 width=0.45\figurewidth,
 height=0.5\figureheight,
 anchor=south west,
-at={(FRF.north west)},
-yshift=2em,
+at={($(FRF.north west) + (0,2em)$)},
 scale only axis,
 name=specU,
-xmin=0.4,
-xmax=0.8,
-ymin=0,
-ymax=42,
-xtick={0.5,0.7},
-extra x ticks={0.5859375},
-extra x tick labels={$\Omega_k$},
-ylabel={$\abs{U}$ \axisunit{dB}}
+xlimits,
+ylimits,
+ylabel={$\abs{U}$ \axisunit{dB}},
 ]
 \addplot[bw] plot table[row sep=crcr]{
 0.56640625	-10\\
@@ -60,21 +63,15 @@ ylabel={$\abs{U}$ \axisunit{dB}}
 \begin{axis}[%
 name=specY,
 anchor=south east,
-at={(FRF.north east)},
-yshift=2em,
+at={($(FRF.north east) + (0,2em)$)},
 width=0.45\figurewidth,
 height=0.5\figureheight,
 scale only axis,
-xmin=0.4,
-xmax=0.8,
-xtick={0.5, 0.7},
-ymin=0,
-ymax=42,
-extra x ticks={0.5859375},
-extra x tick labels={$\Omega_k$},
+xlimits,
+ylimits,
 ylabel={$\abs{Y}$ \axisunit{dB}},
 ylabel near ticks, 
-yticklabel pos=right
+yticklabel pos=right,
 ]
 \addplot[bw] plot table[row sep=crcr]{
 0.56640625	-10\\

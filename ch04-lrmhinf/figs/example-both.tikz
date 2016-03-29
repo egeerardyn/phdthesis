@@ -85,7 +85,7 @@ ylabel={Amplitude $\abs{\Delta(\omega)}$}
 
 \begin{axis}[%
 anchor=north west,
-at={(gammaFRF.north east)},
+at={($(gammaFRF.north east) + (1em,0pt)$)},
 width=0.5\figurewidth,
 height=\figureheight,
 scale only axis,
@@ -103,7 +103,6 @@ ymax=25,
 ymajorgrids,
 yminorgrids,
 name=gammaIG,
-xshift=1em,
 %ylabel={Amplitude $\abs{\Delta}$}
 ]
 

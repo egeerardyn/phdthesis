@@ -26,7 +26,7 @@ ylabel={Impulse response $g(t)$ \noaxisunit},
   table[]{\thisDir/figs/expFitBoxAverager-4.tsv};
 \addplot [color=white!60!black,line width=1.0pt,mark size=1.5pt,only marks,mark=o,mark options={solid},forget plot]
   table[]{\thisDir/figs/expFitBoxAverager-5.tsv};
-\addplot [color=black,solid,forget plot]
+\addplot [truncationline]
   table[]{\thisDir/figs/expFitBoxAverager-6.tsv};
 \addplot [color=black,dashed,forget plot]
   table[]{\thisDir/figs/expFitBoxAverager-7.tsv};

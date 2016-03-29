@@ -36,7 +36,7 @@ ymajorgrids
 
 \addplot [color=TangoChameleon1,solid,forget plot] table{\thisDir/figs/expfit-result.tsv};
 
-\addplot [color=black,solid,forget plot]
+\addplot [truncationline]
   table[row sep=crcr]{%
 704	-28.3097809794082\\
 704	40.7143028069402\\

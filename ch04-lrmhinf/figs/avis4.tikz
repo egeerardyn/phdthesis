@@ -12,7 +12,6 @@
 \begin{axis}[%
 width=\figurewidth,
 height=\figureheight,
-view={0}{90},
 scale only axis,
 %xmode=log,
 xtick={296,310,328},
@@ -1113,6 +1112,7 @@ table[row sep=crcr]{
 \end{axis}
 
 %\spy [black, size=2cm] on (peak1) in node[fill=white] at (mpeak1);
-\spy [black, size=2cm] on (peak2) in node[fill=white] at (mpeak2);
+%\spy [black, size=2cm] on (peak2) in node[fill=white] at (mpeak2);
+%TODO: seems to be incompatible with pgfplots layer settings...
 
 \end{tikzpicture}%

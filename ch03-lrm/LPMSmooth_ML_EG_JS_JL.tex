@@ -202,7 +202,8 @@ The estimation of $\hat{G}_\text{poly}(\Omega_k)$ at a single frequency $\Omega_
    \setlength{\figureheight}{0.68\figurewidth}
 
    \input{\thisDir/figs/LPMfig.tikz}
-   \caption[Illustration of the LPM.]{Illustration of the \gls{LPM}. Top figures: input spectrum (left) and output spectrum (right). A small band is selected (gray area, top figure), in which $\hat G_\mathrm{poly}(\Omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_\mathrm{poly}(\Omega_k)$ (white circle) is retained. This procedure is repeated for all $\Omega_k$.}
+   \caption[Illustration of the LPM.]{Illustration of the \gls{LPM}. Top figures: input spectrum (left) and output spectrum (right). 
+   A small band is selected (gray area), in which $\hat G_\mathrm{poly}(\Omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_\mathrm{poly}(\Omega_k)$ (white circle) is retained. This procedure is repeated for all frequencies $\Omega_k$.}
    \label{LPM_Schematic_EG}
 \end{figure}
 This procedure is repeated at each central frequency $\Omega_k$ for  $k\in \Set{1,\dots,N/2}$ (i.e. the entire frequency band, including Nyquist, but excluding \gls{DC}, and regularizing at the boundaries). This completes the \gls{LPM}, yielding an intrinsic averaging of the spectra of the estimated \gls{FRF}, $\hat{G}_\text{poly}(\Omega_k)$.
@@ -481,6 +482,7 @@ If the latter is to be estimated with a high accuracy, a value $\gamma \ll 1$ mu
 \subsection{Simulation Results}\label{se:simResults}
 
 \figref{figLPMvsTrunc} and \figref{fig:pdfAndRMSeVStruncTime} compare the \gls{LPM} with and without truncation of the impulse response.
+Here, the truncation instant $\truncTime$ is determined using the exponential fitting method.
 They were obtained from simulations on  the system described by the following simulation equations, which are relevant to the \gls{LPM} outlined in \secref{se:LPMFRFest}:
 \begin{subequations}
 \label{eq:systemSimulations}
@@ -492,20 +494,20 @@ y(t) &= y_0(t) + e(t),
 \end{subequations}
 where $e(t)$ is a white noise sequence, such that the \gls{SNR} of the output signal is $18.3\unit{dB}$.
 
-
 \begin{figure}
     \centering
     \setlength\figurewidth{0.85\columnwidth}
     \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/figLPMvsTrunc.tikz}
-    \caption[Comparison of FRF estimated using LPM and Truncated LPM.]{Comparison of the \gls{LPM} and Truncated \gls{LPM} estimates of the \gls{FRF} for an \gls{SNR} of $18.3\unit{dB}$. The gray plots pertain to the \gls{LPM} estimate without truncation, the black ones to the \gls{LPM} with truncation (trunc). Dots: \gls{FRF} estimates $\hat{G}$. Crosses: sample standard deviations $\hat{\sigma}$. Dashed lines: bias $\hat{b}$. White line: the true system $G_0$.}
+    \caption[Comparison of FRF estimated using LPM and Truncated LPM.]{The bias $\sampleBias{\placeholder}$ and standard deviation $\sampleStd{\placeholder}$ of the \gls{FRF} estimates using both the \gls{LPM} (blue) and truncated~\gls{LPM} (red) are shown. 
+    It can be seen that the truncation reduces the variance at the cost of an increased bias, however, the overall \gls{RMS} error is reduced by the truncation.}
     \label{figLPMvsTrunc}
 \end{figure}
 
 
 In \figref{figLPMvsTrunc} one observes the following:
 \begin{itemize}
-\item a decrease of the variance on the truncated estimate of about $10 \unit{dB}$,  i.e. a decrease of the black crosses, compared to the gray ones, is observed. %i.e. a decrease of the black crosses w.r.t.~the gray ones is observed.
+\item a decrease of the variance on the truncated estimate of about $10 \unit{dB}$ compared to the non-truncated \gls{LPM}, is observed. %i.e. a decrease of the black crosses w.r.t.~the gray ones is observed.
 
 \item the error on the truncated \gls{LPM} estimate is strongly correlated over the frequency. This must be taken into account when formulating a maximum likelihood parametric estimator of the system.
 
