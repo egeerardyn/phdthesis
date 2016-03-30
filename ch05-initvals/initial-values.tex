@@ -200,7 +200,7 @@ The requisite procedures for the estimators are as follows, from left to right o
 
 The estimates from this procedure are for comparison purposes with those from the other procedures. They will be crucial to the computation of the global optimum of the \gls{MLE}.
 
-\item \emph{Quadratic approximations of the ML}
+\item \emph{Quadratic approximations of the \gls{MLE}}
 
 The \gls{GTLS} and the \gls{BTLS} have been presented in \citep{Pintelon1998}. 
 These are modifications of equation \eqref{eq:MLEcf}, which still take into account the noise information while retaining the quadratic nature w.r.t. $\theta$. 
@@ -209,7 +209,10 @@ Their finite sample behavior, however, is suitable for improvement by the \gls{F
 
 \item \emph{Local polynomial method (LPM) with truncation}
 
-A reliably good estimate of the FRF of the chosen system can be obtained via the LPM, which is summarized as follows~\citep{Lumori2014TIM}. Formulated as a nonparametric linear-least-squares-estimate, the LPM is first applied to estimate the FRF from a full data record of a SISO system, systematically expressed in an output-error framework, shown in \figref{fig:oesetup}. The smooth characteristics of both the exact \gls{FRF} $\true{G}$ and the transient term $T$ allow for an optimal application of the \gls{LPM}, leading to a smooth \gls{FRF} estimate with the transient suppressed.
+A good estimate of the \gls{FRF} of the chosen system can be obtained via the truncated \gls{LPM}, which is summarized as follows~\citep{Lumori2014TIM} and \secref{sec:nonparametric:truncation} of this thesis.
+Here, we repeat the main points briefly.
+The \gls{LPM} is first applied to estimate the \gls{FRF} from a full input/output data record of the \gls{SISO} system.
+The smooth characteristics of both the exact \gls{FRF} $\true{G}$ and the transient term $T$ allow for application of the \gls{LPM}, leading to a smooth \gls{FRF} estimate with the transient and noise suppressed.
 
   With reference to a detailed exposition in~\citep{Lumori2014TIM} and \chapref{sec:nonparametric}, the \gls{LPM} utilizes local polynomials to approximate the transfer function and transient contribution (in least squares sense) and, thus, smooth $\true{G}$ and $T$ around a central frequency $\Omega_{k}$ in a local frequency band $r\in\mathbb{W}_n$.
   In this chapter, we limit the notations to quadratic polynomials in a window with half-width $n=3$, such that
@@ -230,31 +233,28 @@ where, in general,$\ r\in \LocalShifts[]$ with $\LocalShifts[] = \{-n,-n+1,\dots
 \end{equation}
 This procedure is repeated for all $k$ in the frequency band of interest.
 
-%The estimation of $\hat{G}_\text{poly}(\Omega_k)$ at a single frequency $\Omega_k = 0.586$~Hz is illustrated in Fig. \ref{LPM_Schematic_EG}.
-
 \emph{Impulse response truncation}. 
-%\comment{JL: in this paper, the impulse response truncation as an initial estimator is considered together with the LPM. So I would not start a new subsection for it.}
-The estimate is smoothed further by truncating its impulse response function $g_{\text{poly}}(t) = \mathrm{IDFT}\, \left( \hat{G}_\text{poly}(\Omega_k)) \right)$ as originally presented in~\citep{Lumori2014TIM}.
-%\comment{JL: $\hat{G}_\text{poly}(\Omega_k))$ is undefined}.
+The estimate is smoothed further by truncating its impulse response function $g_{\text{poly}}(t) = \mathrm{IDFT}\, \left( \hat{G}_\text{poly}(\Omega_k)) \right)$ as originally presented in~\citep{Lumori2014TIM} and \secref{sec:nonparametric:truncation}.
 
-The impulse response is truncated after the time $\tau_{\mathrm{trunc}}$ where the signal becomes indistinguishable from the noise, i.e.,
+The impulse response is truncated after the time $\truncTime$ where the signal becomes indistinguishable from the noise, i.e.,
 \begin{equation}
   g_{\mathrm{trunc}}(t) = 
   \begin{cases}
-    g_{\text{poly}}(t) & t \leq \tau_{\mathrm{trunc}} \\
-    0                    & t \geq \tau_{\mathrm{trunc}}
+    g_{\text{poly}}(t) & t \leq \truncTime \\
+    0                              & t \geq \truncTime
   \end{cases}
   \text{.}
 \end{equation}
-To this end, an estimate of the envelope of impulse response is determined by fitting an exponential function $g_{\mathrm{exp}}(t) = B e^{\beta t}$ to the peaks of the impulse response $\abs{g_{\mathrm{poly}}(t)}$ using a linear least-squares approach.
-Then, $\tau_{\mathrm{trunc}}$ is determined as the time instant where this envelope function sinks below the noise level $\sigma_g$ of the impulse response, i.e. 
+
+To this end, an estimate of the envelope of impulse response is determined by fitting an exponential function $g_{\mathrm{exp}}(t) = B e^{\beta t}$ to the peaks of $\abs{g_{\mathrm{poly}}(t)}$ using a linear least-squares approach.
+Then, $\truncTime$ is determined as the time instant where this envelope function sinks below the noise level $\sigma_g$ of the impulse response, i.e. 
 \begin{equation}
-  \tau_{\mathrm{trunc}} = \min \left\{  t :  g_{\mathrm{exp}}(t) < \gamma \sigma_g \right\}
+  \truncTime = \min \Set{ t :  g_{\mathrm{exp}}(t) < \gamma \sigma_g  }
   = \beta^{-1} \ln \frac{\gamma \sigma_g}{B}
   \text{,}
 \end{equation}
 where $\gamma=1$ was used in this chapter for simplicity.
-By changing $\gamma$, the user can fine-tune the bias/variance trade-off of the estimated FRF $G_{\mathrm{trunc}}(\Omega_k) = \mathrm{DFT} \left( g_{\mathrm{trunc}}(t)\right)$ further.
+By changing $\gamma$, the user can fine-tune the bias/variance trade-off of the estimated \gls{FRF} $G_{\mathrm{trunc}}(\Omega_k) = \mathrm{DFT} \left( g_{\mathrm{trunc}}(t)\right)$ further.
 This can lead to a significant improvement over the classical LPM~\citep{Lumori2014TIM}.
  
 \item \emph{\Glsfirst{RFIR}}
@@ -262,7 +262,6 @@ This can lead to a significant improvement over the classical LPM~\citep{Lumori2
 The \gls{RFIR} method is a special case of the \gls{RARX} method. 
 %This is a well known method which is included in this paper for comparison purposes with the smooth LPM and with other existing estimators.
 
-%\JL{
 The \gls{RFIR} estimator is formulated in the time domain. 
 It estimates the impulse response of a discrete time system as the minimizer of the following regularized least squares objective function:
 \begin{align}\label{eq:hRFIRdef}

@@ -225,9 +225,6 @@
 \pgfplotsset{clogms/.style={color=clogms,solid,line width=0.5pt}}
 
 %% Truncation
-\pgfplotsset{truncationline/.style={dashdotdotted,line width=1.5pt,line join=round,line cap=round}}
-
-
 \colorlet{FSmooth}{TangoScarletRed3}
 \colorlet{FSmoothLight}{TangoScarletRed2}
 \colorlet{expFit}{TangoSkyBlue3}
@@ -248,6 +245,33 @@
             \draw[##1,/tikz/.cd,bar width=3pt,yshift=-0.2em,bar shift=0pt]
             plot coordinates {(0.15cm,0.6em) (0.3cm,0.8em) (0.45cm,0.6em)};}
 }}
+% adapted from line legend
+\pgfplotsset{verticalLineLegend/.style={
+  legend image code/.code={
+    \draw[mark repeat=2,mark phase=2,##1]
+      plot coordinates {
+         (0.3cm, 0cm)
+         (0.3cm, 0.25em)
+         (0.3cm, 0.5em)
+      };%
+  }
+}}
+
+\colorlet{impulseResponseFull}{TangoScarletRed1!50!white}
+\colorlet{impulseResponseAbs}{TangoChameleon1}
+\colorlet{impulseResponseTruncated}{TangoChameleon3}
+\colorlet{impulseResponsePeaks}{TangoScarletRed3}
+
+\pgfplotsset{imprespFull/.style={color=impulseResponseFull,solid}}
+\pgfplotsset{imprespAbs/.style={color=impulseResponseAbs,solid}}
+\pgfplotsset{imprespExpFit/.style={color=expFit, solid, line width=1.5pt}}
+\pgfplotsset{imprespPeaks/.style={color=TangoScarletRed3,mark=*,only marks,line width=1.25pt,mark size=0.5pt}}
+\pgfplotsset{imprespTrunc/.style={color=impulseResponseTruncated,solid}}
+
+\pgfplotsset{imprespDetectLevel/.style={color=black,dashed}}
+\pgfplotsset{imprespNoiseLevel/.style={color=black,dashed}}
+
+\pgfplotsset{truncationline/.style={dashdotdotted,line width=1.5pt,line join=round,line cap=round, verticalLineLegend}}
 
 \pgfplotsset{logHistogram/.style={ycomb,line width=1.5pt,logHistogramLegend}}
 \pgfplotsset{histogramSmootherFTest/.style={logHistogram,fill=FSmoothLight,draw=FSmoothLight}}

@@ -14,48 +14,45 @@ xmin=0,
 xmax=1024,
 xtick={ 0, 1024},
 xlabel={Time $t$ \axisunit{samples}},
-ymin=-10,
-ymax=40.7143028069402,
+ymin=-5,
+ymax=41,
 ytick={-10,0,40},
 extra y ticks={1.87,9.37},
-extra y tick labels={{$\hat\sigma_\mathrm{n}$},{$5\hat\sigma_\mathrm{n}$}},
+extra y tick labels={{$\noiseStd$},{$5\noiseStd$}},
 extra x ticks={704},
-extra x tick labels={$t_{\mathrm{trunc}}$},
+extra x tick labels={$\truncTime$},
 ylabel={Impulse response $g(t)$ \noaxisunit},
-axis x line*=bottom,
-axis y line*=left,
-ymajorgrids
+ymajorgrids,
+legend style={legend cell align=left},
 ]
-\addplot [color=TangoScarletRed1,opacity=0.5,solid,forget plot] table{\thisDir/figs/expfit-full.tsv};
+\addplot [imprespFull] table{\thisDir/figs/expfit-full.tsv};
+\addlegendentry{$g(t)$}
 
-\addplot [color=TangoChameleon3,solid,forget plot] table{\thisDir/figs/expfit-abs.tsv};
+\addplot [imprespAbs] table{\thisDir/figs/expfit-abs.tsv};
+\addlegendentry{$\abs{g(t)}$}
 
-\addplot [color=TangoSkyBlue3,solid,line width=1.5pt,forget plot] table{\thisDir/figs/expfit-exp.tsv};
+\addplot [imprespExpFit] table{\thisDir/figs/expfit-exp.tsv};
+\addlegendentry{Exponential fit}
 
-\addplot [color=TangoScarletRed3,mark=*,only marks,line width=1.25pt,mark size=0.5pt,forget plot] table{\thisDir/figs/expfit-peaks.tsv};
+\addplot [imprespPeaks] table{\thisDir/figs/expfit-peaks.tsv};
+\addlegendentry{Peaks}
 
-\addplot [color=TangoChameleon1,solid,forget plot] table{\thisDir/figs/expfit-result.tsv};
+\addplot [imprespTrunc] table{\thisDir/figs/expfit-result.tsv};
+\addlegendentry{$g_{\trunc}(t)$}
 
-\addplot [truncationline]
-  table[row sep=crcr]{%
+\addplot [truncationline] table[row sep=crcr]{%
 704	-28.3097809794082\\
 704	40.7143028069402\\
 };
-\addplot [color=black,dashed,forget plot]
-  table[row sep=crcr]{%
+\addlegendentry{$\truncTime$}
+
+\addplot [imprespDetectLevel, forget plot] table[row sep=crcr]{%
 0	9.37\\
 1033.23	9.37\\
 };
-\addplot [color=black,dashed,forget plot]
-  table[row sep=crcr]{%
+\addplot [imprespNoiseLevel, forget plot] table[row sep=crcr]{%
 0	1.87\\
 1033.23	1.87\\
 };
-% \node[right, align=left, text=black]
-% at (axis cs:1043.46,9.865613) {$5\hat\sigma_\mathrm{n}$};
-% \node[right, align=left, text=black]
-% at (axis cs:1043.46,2.373123) {$\hat\sigma_\mathrm{n}$};
-% \node[right, align=left, text=black]
-% at (axis cs:711.04,37.46245) {$\swarrow t_\mathrm{trunc}$};
 \end{axis}
 \end{tikzpicture}%

@@ -253,7 +253,7 @@ where $\pinv{K}$ denotes the Moore-Penroose pseudo-inverse of $K$.
 \subsection{Notes}
 
 Since it is well-known that the Vandemonde structure in the design matrix \eqref{eq:design-matrix} easily leads to ill-conditioned systems, additional measures are taken to improve numerical conditioning.
-To improve numerical conditioning~\citep{Pintelon2005} of the estimation problem, we substitute $d = \dw{r}{k}$ in equations \eqref{eq:LRM:model:G,eq:LRM:model:T}
+To improve numerical conditioning~\citep{Pintelon2005} of the estimation problem, we substitute $d = \dw{r}{k}$ in equations \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}
 \begin{equation}
 \dw{r}{k} \isdef \frac{\omega_{k+r} - \omega_k}{\Delta \omega_k}
 \label{eq:freqScaling}
@@ -303,7 +303,7 @@ Let us denote the expected value of the cost function over all measurements $\Lo
 Note that this function is a quadratic function of $\LocalVector{\theta}$ and hence it can be represented exactly by its second order Taylor series around $\true\theta$:
 \begin{multline}
   \ELSCost{\theta} = \ELSCost{\true\theta} 
-  + \PartialDerivative{\ELSCost{\true\theta}}{\true\theta}  \left( \theta - \true\theta \right)\\
+  + \PartialDerivative{\ELSCost{\true\theta}}{\true\theta}  \left( \theta - \true\theta \right) %\\
   + \frac{1}{2} \left( \theta - \true\theta \right)^{\T} 
   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} 
    \left( \theta - \true\theta \right)
