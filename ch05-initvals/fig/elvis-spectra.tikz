@@ -45,8 +45,7 @@ axis y line*=left
 \end{axis}
 \begin{axis}[%
 anchor=left of north west,
-at=(Uspectrum.right of north east),
-xshift=0.5em,
+at={($(Uspectrum.right of north east) +(0.5em,0pt)$)},
 width=0.5\figurewidth,
 height=\figureheight,
 scale only axis,

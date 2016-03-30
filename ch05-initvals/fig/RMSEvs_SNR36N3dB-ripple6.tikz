@@ -86,8 +86,7 @@ axis y line*=left
 \begin{axis}[%
 name=detail,
 anchor=north west,
-at=(global.south west),
-yshift=-0.25cm,
+at={($(global.south west) - (0pt,1em)$)},
 width=\figurewidth,
 height=0.4\figureheight,
 extra x ticks={22},

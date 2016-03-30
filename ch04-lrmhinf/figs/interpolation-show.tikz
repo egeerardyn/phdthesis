@@ -116,8 +116,7 @@ x     y\\
 \begin{axis}[%
 name=Omega,
 anchor=north west,
-yshift=-0.25em,
-at={(delta.south west)},
+at={($(delta.south west) - (0pt,0.25em)$)},
 width=\figurewidth,
 height=0.18\figureheight,
 unbounded coords=jump,

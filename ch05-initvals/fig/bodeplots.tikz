@@ -488,6 +488,6 @@ axis y line*=left]
 
 \end{groupplot}
 
-% \node at (bodes c4r3.north east) [xshift=1.5cm] {\pgfplotslegendfromname{legBodes}};
+% \node at ($(bodes c4r3.north east) + (1.5cm,0pt)$) {\pgfplotslegendfromname{legBodes}};
 
 \end{tikzpicture}

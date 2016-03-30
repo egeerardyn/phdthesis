@@ -295,8 +295,7 @@ x	y\\
 \begin{axis}[%
 name=Valid,
 anchor=north west,
-at={(Estim.right of north east)},
-xshift=1em,
+at={($(Estim.north east) + (1em,0pt)$)},
 width=0.5\figurewidth,
 height=\figureheight,
 scale only axis,

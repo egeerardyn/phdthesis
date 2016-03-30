@@ -1,8 +1,3 @@
-
-% \begin{abstract}
-% A statistical impulse response truncation technique is applied to the local-polynomial-method-estimate of the frequency response function, resulting in an improved, smooth frequency response function. Formulated as a nonparametric linear-least-squares-estimate, the local polynomial method is first applied to estimate the frequency response function from a full data record of a single-input-single-output system, systematically expressed in an output-error framework. The smooth characteristics of both the exact frequency response function and the leakage from transients allow for an optimal application of the local polynomial method, leading to the elimination of both the leakage and interpolation errors. The truncation method introduced in this section makes it possible for the user to fine-tune the trade-off between the uncertainty (variance) and the bias on the estimated instantaneous frequency response function.
-% \end{abstract}
-
 \researchBasedOn[This section]{Lumori2014TIM}
 \TODO{labels into standardized form}
 
@@ -18,9 +13,12 @@ This section uses nonparametric models in conjunction with the \gls{LPM}~\citep{
 The advantage of using the nonparametric models is basically the non-involvement of the user in choosing a model order, i.e. no user interaction. Among the current nonparametric methods, the \gls{LPM} method is chosen due to its superiority over the classical nonparametric methods (windowing) in suppressing leakage errors \citep{Bendat1993,Oppenheim1983}. 
 Consequently, the \gls{LPM} estimate of the \gls{FRF} is not hampered by leakage errors \citep{Pintelon2010LPM1,Schoukens2009LPM}. Note that a more general discussion on the \gls{LPM}, applied to noisy, real-valued data is found in \citep{Fan1996} with a specific focus on parametric tuning.
 
-The main contribution of this section is to come up with an improved \gls{FRF} by developing a method for smoothing the \gls{FRF} estimated via the LPM. This is done by truncating the associated impulse response, as in~\citep{Schoukens1998}, but with the following additional extension: the determination of the optimal truncation time, without any user interaction, in conjunction with the use of the \gls{LPM} for leakage reduction. The cutoff index (truncation point) is determined by a statistically sound method. It is then shown that a smooth \gls{LPM} estimate of the \gls{FRF} lowers the variance, thus improving the assessment level of the dynamic properties of a given LTI system.
+The main contribution of this section is to come up with an improved \gls{FRF} by developing a method for smoothing the \gls{FRF} estimated via the \gls{LPM}. This is done by truncating the associated impulse response, as in~\citep{Schoukens1998}, but with the following additional extension: the determination of the optimal truncation time, without any user interaction, in conjunction with the use of the \gls{LPM} for leakage reduction. 
+The truncation point (cut-off index) is determined by one of two statistically inspired methods.
+It is then shown that a smooth \gls{LPM} estimate of the \gls{FRF} lowers the variance, thus improving the assessment level of the dynamic properties of a given \gls{LTI} system.
 
-Based on \citep{Schoukens2009LPM}, the nonparametric method developed in this work is formulated in an output-error (OE) framework. A \gls{SISO} \gls{LTI} system is considered.
+Based on \citep{Schoukens2009LPM}, the nonparametric method developed in this work is formulated in an \gls{OE} framework. 
+A \gls{SISO} \gls{LTI} system is considered.
 The input signal is a known random noise signal and the output signal is corrupted by measurement noise. This is depicted in \figref{lpmtdrep} as a linear dynamic discrete-time \gls{SISO} system, whose full mathematical model is of the form:
 \begin{equation}\label{eq:nparam:trunc:LPM:TD}
 y(t)=G_0(q)u_0(t)+H_0(q)e(t)=G_0(q)u_0(t)+v(t)
@@ -268,7 +266,7 @@ This limitation is lifted by developing a simple estimator of the mean value, pr
 \subsubsection{Estimating the \glsentrytext{DC} Value of the \glsentrytext{FRF}}\label{se:DCvalueEst}
 The correct mean value of the impulse response accounts for (i.e. estimates) the \gls{DC} value of the \gls{FRF}. A time-domain method is proposed for estimating the mean value of the impulse response in equation \eqref{eq:impRespiDFT}. %The first is a frequency-domain technique and the second is a time-domain technique.
 
-According to \assref{ass:imprespdecay}, the true impulse response tends to zero asymptotically; and by \assref{ass:decay90perctime}, the last $10\%$ of the estimated impulse response is noise, plus a constant value due to an inaccuracy in the average value of the impulse response. The correct estimate of the mean value is obtained by shifting the whole signal such that the last $10\%$ of the impulse response is centered around 0.
+According to \assref{ass:imprespdecay}, the true impulse response tends to zero asymptotically; and by \assref{ass:decay90perctime}, the last $10\%$ of the estimated impulse response is noise, plus a constant value due to an inaccuracy in the    average value of the impulse response. The correct estimate of the mean value is obtained by shifting the whole signal such that the last $10\%$ of the impulse response is centered around 0.
 To this end, the following procedure is executed:
 
 
@@ -449,7 +447,6 @@ where the parameter $\gamma$ can be tuned such that an appropriate trade-off bet
 \centering
 \setlength\figurewidth{0.85\columnwidth}
 \setlength\figureheight{0.68\figurewidth}
-% \includegraphics[scale=0.9]{\thisDir/figs/expFitest}
 \input{\thisDir/figs/expfit.tikz}
 \caption[Impulse response truncation using exponential fit.]{Truncation of the impulse response via the fit of  an exponential. 
 The light gray line is the noisy impulse response, and the dark gray one is its absolute value. 

@@ -115,8 +115,8 @@ table {\thisDir/fig/data/meas-validation/meas-validation-19.tsv};
 
 \begin{axis}[%
 name=detail,
-anchor=above north west,
-at={(global.below south west)},
+anchor=north west,
+at={($(global.south west) - (0pt,1.5em)$)},
 width=\figurewidth,
 height=0.5\figureheight,
 scale only axis,

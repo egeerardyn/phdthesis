@@ -296,6 +296,6 @@ axis y line*=left]
 
 \end{groupplot}
 
-%\node at (dist c4r3.north east) [xshift=1.5cm] {\ref{legDistances}};
+%\node at ($(dist c4r3.north east) +(1.5cm,0pt)$) {\ref{legDistances}};
 
 \end{tikzpicture}%
