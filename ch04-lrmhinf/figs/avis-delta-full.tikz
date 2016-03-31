@@ -28,7 +28,7 @@ ylabel={Amplitude $\abs{\Delta}$ \axisunit{dB}},
 ymajorgrids,
 % axis x line*=bottom,
 % axis y line*=left,
-legend style={draw=none,fill=white,fill opacity=0.75,legend cell align=left,at={(0.02,0.2)},anchor=south west}
+legend style={fill=white,legend cell align=left,at={(0.02,0.2)},anchor=south west}
 ]
 
 \addplot [validation] table[] {\thisDir/data/avis-delta/lrm-validation.tsv};
@@ -49,7 +49,7 @@ legend style={draw=none,fill=white,fill opacity=0.75,legend cell align=left,at={
 % 1001 42\\
 % };
 
-\addlegendimage{LRMgrid,medsmallmarkers.interpol};
+\addlegendimage{LRMgrid,medsmallmarkers,interpol};
 \addlegendentry{LRM (estimation)};
 
 \draw (axis cs:280,0) rectangle (axis cs:350,-35);

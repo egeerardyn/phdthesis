@@ -119,7 +119,16 @@
 \newcommand{\diag}[1]{\ensuremath{\Diagonal \left({#1}\right)}}
 \newcommand{\trace}[1]{\ensuremath{\mathrm{tr}\; #1}}
 
-
+\newcommand{\AvisMatrixDiagonal}[2]{
+    \begin{bmatrix}
+      #1 & \deemph{0} & \deemph{0} & \deemph{0}&  \deemph{0}& \deemph{0}\\
+      \deemph{0} & #1 & \deemph{0} & \deemph{0} & \deemph{0}& \deemph{0} \\
+      \deemph{0} & \deemph{0} & #1 & \deemph{0} & \deemph{0} & \deemph{0}\\
+       \deemph{0}& \deemph{0} &  \deemph{0} & #2 & \deemph{0}& \deemph{0}\\
+       \deemph{0}& \deemph{0} &  \deemph{0} &  \deemph{0} & #2 & \deemph{0} \\
+      \deemph{0} & \deemph{0} & \deemph{0} &\deemph{0}  & \deemph{0} & #2\\
+    \end{bmatrix}
+}
 %% Linear Algebra operations
 \newcommand{\OuterProduct} [3][\TT]{{#2}{#3}^{#1}} %AB^T
 \newcommand{\OuterProductC}[2]{\OuterProduct[\HT]{#1}{#2}}
