@@ -45,7 +45,6 @@ The performance of these local parametric models with respect to robust control 
 Preliminary results appear in~\citep{Geerardyn2014IFAC,Geerardyn2014ISMA}.
 The present paper presents the full procedure, including more theoretical treatment of the $\Hinf{}$ norm estimation procedure, and a description of the required measurement time.
 
-\vspace{-1em}
 \paragraph*{Outline}
 \label{par:toc}
 The problem is formulated in \secref{sec:Problem}.
@@ -166,9 +165,9 @@ The frequency axis is partitioned into continuous segments $\Omega_k \isdef \Ope
 In particular, the inter-grid aspect of the $\Hinf$ norm is estimated as
 \begin{equation}
   \gamma_{\mathrm{IG}} = 
-    \sup \set{ \left. 
+    \sup \Set{ 
                 \sup_{\omega \in \Omega_k} \abs{\LocalModel{\Delta}_k(\omega)}
-                \right|
+                |
                 k = 1,\ldots,N-1
                 }
    \label{eq:gamma-inter-grid}
@@ -187,12 +186,12 @@ Two alternative methods allow evaluation of~\eqref{eq:gamma-inter-grid} in pract
 \label{fig:interpol-quantities}
 \end{figure}
 
-\vspace{-3em}
 \paragraph*{Direct method}
 % \subsubsection{Direct method}
 One can implement the definition~\eqref{eq:gamma-inter-grid} of $\gamma_{\mathrm{IG}}$ directly.
 Hence, it boils down to solving the optimization problems
 \begin{equation}
+  \estimated {\gammaIntergrid} = 
   % \gamma_{\mathrm{IG}}(k) 
   % = 
       \max_{\omega \in \Omega_k} 
@@ -203,7 +202,6 @@ for $k \in \set{1,\ldots,N-1}$.
 These are tractable since $\omega$ is one-dimensional and restricted to the intervals $\Omega_k$.
 Unfortunately, this approach offers no insight in the behavior of $\abs{\Delta(\omega)}$, e.g. around the peak amplitude.
 
-\vspace{-2em}
 \paragraph*{Interpolation method}
 To allow inspection of $\abs{\Delta(\omega)}$ in~\eqref{eq:HinfNormSISO} for arbitrary values of $\omega \in \Omega$, we propose an interpolation approach to estimate $\gamma$ and to allow visual inspection of $\abs{\Delta(\omega)}$.
 It can be understood intuitively that due to the limited validity domain of the local models, an estimate of $\Delta(\omega)$ can only be obtained from $\LocalModel{\Delta}_k(\omega)$ when $\abs{\omega_k-\omega}$ is small.
@@ -231,7 +229,7 @@ To this end, two functions that indicate respectively the left and the right adj
 Using the $k_L(\omega)$ and $k_R(\omega)$ functions, two candidate values for $\abs{\Delta(\omega)}$ are obtained: $\abs{\LocalModel{\Delta}_{k_L(\omega)}(\omega)}$ and $\abs{\LocalModel{\Delta}_{k_R(\omega)}(\omega)}$.
 In view of obtaining the maximum amplitude, these are `interpolated' to obtain a single estimate:
 \begin{equation}
-  \abs{\Delta_{\mathrm{LRM}}(\omega)}
+  \abs{\Delta_{\LMM}(\omega)}
     \isdef
     \sup \set{
        \abs{\LocalModel{\Delta}_{k_L(\omega)}(\omega)},
@@ -242,7 +240,7 @@ In view of obtaining the maximum amplitude, these are `interpolated' to obtain a
 by retaining the largest both.
 It follows that
 \begin{align}
-  \widehat{\norm[]{\Delta_{\mathrm{LRM}}}}_{\infty} 
+  \widehat{\norm[]{\Delta_{\LMM}}}_{\infty} 
     & \isdef
     \sup_{\omega\in\Omega}
     \abs{\Delta_{\mathrm{LRM}}(\omega)} \\
@@ -255,7 +253,6 @@ It follows that
   \text{.}
 \end{align}
 
-\vspace{-2em}
 \paragraph*{Remarks:}
 The optimization problems~\eqref{eq:gammaInterpolOptim} and~\eqref{eq:gamma-direct} can, e.g. be solved by griding the frequency $\omega$.
 The peak amplitudes obtained using~\eqref{eq:gammaInterpolOptim} and~\eqref{eq:gamma-direct} are identical since the local models $\LocalModel{\Delta}_k$ are evaluated over identical frequency ranges
@@ -532,13 +529,11 @@ Second, the peak amplitudes of $\Delta(\omega)$ are inspected as these are  indi
 \label{fig:avisMeasZoom}
 \end{figure}
 
-\vspace{-2em}
 \paragraph*{Interpolation performance}
 \label{sec:avis-interpol}
 \figref{fig:avisMeas} and \figref{fig:avisMeasZoom} show that the estimation and validation data for \gls{LRM} are generally in agreement.
 In the frequency range shown in \figref{fig:avisMeasZoom}, the relative difference between both is at most $2\%$.
 
-\vspace{-2em}
 \paragraph*{Peak value estimates}
 \label{sec:avis-peak-value}
 Near $296\unit{Hz}$, a modest improvement of the peak estimate from $-15.3 \unit{dB}$ (at-grid) to $-14.0 \unit{dB}$ is obtained by the interpolation.
