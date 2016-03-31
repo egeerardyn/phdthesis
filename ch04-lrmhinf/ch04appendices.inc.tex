@@ -31,9 +31,13 @@ This controller was present beforehand~\citep{Rademakers2005MSc,vanderMaas2011MS
   D       &= \AvisMatrixDiagonal{4.982}{0.886} \cdot 10^{-3}
 \end{align}
 with $\Identity{n}$ the $n\times n$ identify matrix.
-It can be seen that the controller is diagonal, i.e. the directions are decoupled, and that the dynamics are shared among the translational directions and the rotational direction respectively.
+It can be seen that the controller is diagonal, i.e. the directions are decoupled, and that the dynamics are shared among the translational directions and the rotational direction respectively as shown in \figref{fig:avis:bodeplots:controllerAndSensor}.
 
+\begin{figure}
 \TODO{show bode plot of controller directions}
+\caption{Bode plots of the $\experimental\Controller$ and sensor filter $F$.}
+\label{fig:avis:bodeplots:controllerAndSensor}
+\end{figure}
 
 For multisine excitations the \code{RepeatingSequence} block was used to load the \code{r2} signal from \MATLAB, for noise excitations, the \code{RandomNumber} block of \Simulink was used instead.
 The signals \code{r2}, \code{u} and \code{y} are returned from \Simulink to \MATLAB where further processing of the data is carried out.
@@ -57,10 +61,10 @@ These signals are limited to the range $\pm 5\unit{V}$ before they are sent to t
 The $6$ velocity signals that are read from the Q8 \gls{DAQ} are each filtered to \TODO{filtered such that what?} using a filter  $F$ with transfer function
 \begin{equation}
   F(s) \approx \input{\thisDir/data/avis-setup/sensor-filter.inc.tex}
-  \text{.}
 \end{equation}
-This filter is discretized automatically by \Simulink for the actual implementation, which obviously happens in discrete time.
-\TODO{show bode plot of $F$}
+which is shown in \figref{fig:avis:bodeplots:controllerAndSensor}.
+This filter is discretized automatically by \Simulink for the actual implementation, which happens in discrete time.
+
 The output \code{y} is clipped to $\pm 20$ for easier detection of errors.
 However, during normal operation and all the measurements, the signal levels were well within the linear region of this saturation block.
 
