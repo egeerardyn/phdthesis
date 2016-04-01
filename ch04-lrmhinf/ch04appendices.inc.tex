@@ -18,6 +18,15 @@ In the top-level model (\figref{fig:avis:simulink:setup}), all signals are six-d
   \item the rotational velocity around the $y$ axis,
   \item the rotational velocity around the $z$ axis.
 \end{enumerate}
+The axes are indicated in \figref{fig:avis:withAxes}.
+
+\begin{figure}
+  \centering
+  \includegraphics{\thisDir/figs/avis-with-axes.pdf}
+  \caption{\glsentrytext{AVIS} with $(x,y,z)$ coordinate frame indicated and bird's eye view of the approximate locations of the actuators and sensors. For each of the actuators and sensors, the color indicates the principal direction}
+  \label{fig:avis:withAxes}
+\end{figure}
+
 In the main text, we have simplified this system to consider only the translation in the vertical direction (i.e. the third signal).
 For the other directions, the applied signals (\code{r1} and \code{r2}) were set to $0$.
 However, inside the feedback loop, all directions are controlled by the experimental controller $\experimental\Controller$.
