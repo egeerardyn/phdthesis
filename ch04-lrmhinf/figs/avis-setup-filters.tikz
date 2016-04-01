@@ -1,0 +1,75 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}
+
+
+\pgfplotsset{amplitudePlot/.append style={%
+  height=0.5\figureheight,
+  ylabel={Amplitude \axisunit{dB}}}}
+\pgfplotsset{phasePlot/.append style={%
+  height=0.5\figureheight,
+  ylabel={Phase \axisunit{rad}},
+  ytick={-3.1416,-1.5708,0,1.5708,3.1416},
+  yticklabels={{$-\pi$},$-\pi/2$,$0$,$\pi/2$,$\pi$},
+  ymin=-3.142,
+  ymax=3.142
+  }}
+\pgfplotsset{controllerAmpl/.append style={ymin=-80,ymax=-20}}
+\pgfplotsset{filterAmpl/.append style={ymin=-20,ymax=20, yticklabel pos=right, ylabel near ticks, ytick={-20,0,20}}}
+\pgfplotsset{noXTicks/.append style={xticklabels={}}}
+\pgfplotsset{noYTicks/.append style={yticklabels={}}}
+\pgfplotsset{noXLabel/.append style={xlabel={}, noXTicks}}
+\pgfplotsset{noYLabel/.append style={ylabel={}, noYTicks}}
+
+
+\begin{groupplot}[%
+group style={%
+  group name=derivs,
+  group size=3 by 2,
+  horizontal sep=0.5em,
+  vertical sep=1em},
+xlabel={Frequency $\omega \axisunit{Hz}$},
+scale only axis,
+xmode=log,
+xmin=0.00016,
+xmax=500,
+xtick={0.01, 1, 100},
+xminorticks=true,
+grid=major,
+width=0.33\figurewidth]
+
+
+% ================================================
+\nextgroupplot[amplitudePlot, controllerAmpl, noXLabel, title={$\experimental\Controller_{\mathrm{tran}}$}]
+\addplot[myDerivs] table[] {\thisDir/data/avis-setup/Ctran-mag.tsv};
+
+% ================================================
+\nextgroupplot[amplitudePlot, controllerAmpl, noYLabel, noXLabel, title={$\experimental\Controller_{\mathrm{rot}}$}]
+\addplot[myDerivs] table[] {\thisDir/data/avis-setup/Crot-mag.tsv};
+
+% ================================================
+\nextgroupplot[amplitudePlot, filterAmpl, noXLabel, title={$F_{\phantom{rot}}$}]
+\addplot[myDerivs] table[] {\thisDir/data/avis-setup/sensFilter-mag.tsv};
+
+% ================================================
+% ================================================
+
+% ================================================
+\nextgroupplot[phasePlot]
+\addplot[myDerivs] table[] {\thisDir/data/avis-setup/Ctran-phase.tsv};
+
+% ================================================
+\nextgroupplot[phasePlot, noYLabel, noYTicks]
+\addplot[myDerivs] table[] {\thisDir/data/avis-setup/Crot-phase.tsv};
+
+% ================================================
+\nextgroupplot[phasePlot, noYLabel, noYTicks]
+\addplot[myDerivs] table[] {\thisDir/data/avis-setup/sensFilter-phase.tsv};
+
+\end{groupplot}
+
+\end{tikzpicture}%

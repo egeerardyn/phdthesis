@@ -1,6 +1,6 @@
 
-\section{Measurement set-up}
-The measurements of the \gls{AVIS} are carried from within \Simulink model as shown in \figref{fig:avis:simulink:setup} and \figref{fig:avis:simulink:avis}.
+\section{\glsentrytext{AVIS} Measurement set-up}
+The measurements of the \gls{AVIS} are carried out using a \Simulink model running at a sampling time of $\Ts = 1\unit{ms}$ as shown in \figref{fig:avis:simulink:setup} and \figref{fig:avis:simulink:avis}.
 
 \begin{figure}
 \setlength\figurewidth{\columnwidth}
@@ -9,15 +9,15 @@ The measurements of the \gls{AVIS} are carried from within \Simulink model as sh
   \label{fig:avis:simulink:setup}
 \end{figure}
 
-In the top-level model (\figref{fig:avis:simulink:setup}), all signals are six-dimensional and each element corresponds to a single mechanical degree-of-freedom of the \gls{AVIS}, in order:
-\begin{itemize}
-  \item the translation in $x$ direction (horizontal),
-  \item the translation in $y$ direction (horizontal),
-  \item the translation in $z$ direction (vertical),
-  \item the rotation along the $x$ axis,
-  \item the rotation along the $y$ axis,
-  \item the rotation along the $z$ axis.
-\end{itemize}
+In the top-level model (\figref{fig:avis:simulink:setup}), all signals are six-dimensional and each element corresponds to a mechanical degree-of-freedom of the \gls{AVIS}, i.e.
+\begin{enumerate}
+  \item the translational velocity in $x$ direction (horizontal),
+  \item the translational velocity in $y$ direction (horizontal),
+  \item the translational velocity in $z$ direction (vertical),
+  \item the rotational velocity around the $x$ axis,
+  \item the rotational velocity around the $y$ axis,
+  \item the rotational velocity around the $z$ axis.
+\end{enumerate}
 In the main text, we have simplified this system to consider only the translation in the vertical direction (i.e. the third signal).
 For the other directions, the applied signals (\code{r1} and \code{r2}) were set to $0$.
 However, inside the feedback loop, all directions are controlled by the experimental controller $\experimental\Controller$.
@@ -31,11 +31,25 @@ This controller was present beforehand~\citep{Rademakers2005MSc,vanderMaas2011MS
   D       &= \AvisMatrixDiagonal{4.982}{0.886} \cdot 10^{-3}
 \end{align}
 with $\Identity{n}$ the $n\times n$ identify matrix.
-It can be seen that the controller is diagonal, i.e. the directions are decoupled, and that the dynamics are shared among the translational directions and the rotational direction respectively as shown in \figref{fig:avis:bodeplots:controllerAndSensor}.
+It can be seen that the controller is diagonal, i.e. the directions are decoupled, and that the dynamics are common among the translational directions and the rotational directions respectively, such that
+\begin{equation}
+  \experimental\Controller = 
+  \AvisMatrixDiagonal{\experimental\Controller_{\mathrm{tran}}}{\experimental\Controller_{\mathrm{rot}}}
+\end{equation}
+with
+\begin{align}
+\experimental\Controller_{\mathrm{tran}} &  \approx 
+   \frac{4.9821 z + 4.6787}{ z - 0.8282} \cdot 10^{-3} \\
+  \experimental\Controller_{\mathrm{rot}} & \approx 
+    \frac{0.88595 z + 0.83201}{ z - 0.8282} \cdot 10^{-3}
+\end{align}
+ as visualized in \figref{fig:avis:bodeplots:controllerAndSensor}.
 
 \begin{figure}
-\TODO{show bode plot of controller directions}
-\caption{Bode plots of the $\experimental\Controller$ and sensor filter $F$.}
+\setlength\figurewidth{0.75\columnwidth}
+\setlength\figureheight{0.68\figurewidth}
+\input{\thisDir/figs/avis-setup-filters.tikz}
+\caption{Bode plots of the elements of $\experimental\Controller$ and sensor filter $F$ present in the set-up.}
 \label{fig:avis:bodeplots:controllerAndSensor}
 \end{figure}
 
@@ -45,25 +59,26 @@ This allows to compute the transfer function from \code{r2} to \code{u} and \cod
 
 The \gls{AVIS} block (\figref{fig:avis:simulink:avis}), conceptually, contains:
 \begin{itemize}
-  \item a static decoupling $(K_{\mathrm{act}}, K_{\mathrm{sens}})$ of the physical \gls{AVIS} system, as derived in \citep{Rademakers2005MSc},
+  \item static transformations $(K_{\mathrm{act}}, K_{\mathrm{sens}})$, as derived from first principles in \citep{Rademakers2005MSc}, which translates the sensor and actuator signals to physical velocities at the center of the payload,
   \item logic to communicate with the Quanser Q8 \gls{DAQ} board which is physically connected to the \gls{AVIS}, and
   \item signal conditioning.
 \end{itemize}
 
-Specifically, the static decoupling of the \gls{AVIS} is given by the following gain matrices: \TODO{use pgfplotstable to add these matrices}
+Specifically, the static transformations of the \gls{AVIS} are given by the following gain matrices~\citep[Appendix A.4]{Rademakers2005MSc}:
 \begin{align}
-  K_{\mathrm{act}}    &\approx \\
-  K_{\mathrm{sens}} &\approx
+  K_{\mathrm{act}}    & \approx \input{\thisDir/data/avis-setup/actuator-gains.tab.tex}\\
+  K_{\mathrm{sens}} & \approx \input{\thisDir/data/avis-setup/sensor-gains.tab.tex}
 \end{align}
 Note that $K_{\mathrm{act}} \in \RR^{8\times6}$ and hence produces signals for the $8$ actuators on the \gls{AVIS}.
 These signals are limited to the range $\pm 5\unit{V}$ before they are sent to the \glspl{DAC} on the Q8 \gls{DAQ} board to avoid overdriving the \glspl{DAC}.
 
-The $6$ velocity signals that are read from the Q8 \gls{DAQ} are each filtered to \TODO{filtered such that what?} using a filter  $F$ with transfer function
+The $6$ velocity signals that are digitized by the Q8 \gls{DAQ} are each filtered to transform the voltage induced in the coils of the geophones on the \gls{AVIS} into a velocity using a filter $F$ with transfer function
 \begin{equation}
   F(s) \approx \input{\thisDir/data/avis-setup/sensor-filter.inc.tex}
 \end{equation}
 which is shown in \figref{fig:avis:bodeplots:controllerAndSensor}.
-This filter is discretized automatically by \Simulink for the actual implementation, which happens in discrete time.
+More information regarding this design is given in \citep[Appendix A.3]{Rademakers2005MSc}.
+This filter is discretized automatically by \Simulink for the actual implementation.
 
 The output \code{y} is clipped to $\pm 20$ for easier detection of errors.
 However, during normal operation and all the measurements, the signal levels were well within the linear region of this saturation block.
