@@ -42,10 +42,12 @@
 \makeatother
 
 % http://tex.stackexchange.com/questions/18664/underline-my-name-in-the-bibliography
+% Plus see release notes of BIBLATEX 3.3/3.4
 \DeclareNameFormat{author}{%
-\ifthenelse{\equal{#1}{Geerardyn}}%
-    {\textbf{\ifblank{#3}{}{#3\space}#1}}%
-    {\ifblank{#3}{}{#3\space}\ifblank{#5}{}{#5\space}#1}%
+  \nameparts{#1}%
+\ifthenelse{\equal{\namepartfamily}{Geerardyn}}%
+    {\textbf{\ifblank{\namepartgiven}{}{\namepartgiven\space}\namepartfamily}}%
+    {\ifblank{\namepartgiven}{}{\namepartgiven\space}\ifblank{\namepartprefix}{}{\namepartprefix\space}\namepartfamily}%
 \ifthenelse{\value{listcount}<\value{liststop}}%
     {\addcomma\space}
     {}}
