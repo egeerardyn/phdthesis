@@ -19,7 +19,9 @@
   ymax=3.142
   }}
 \pgfplotsset{controllerAmpl/.append style={ymin=-80,ymax=-20}}
-\pgfplotsset{filterAmpl/.append style={ymin=-20,ymax=20, yticklabel pos=right, ylabel near ticks, ytick={-20,0,20}}}
+\pgfplotsset{filterAmpl/.append style={ymin=-20, ymax=20, 
+ylabel={Amplitude \axisunit{dB_{V m / s}}},
+yticklabel pos=right, ylabel near ticks, ytick={-20,0,20}}}
 \pgfplotsset{noXTicks/.append style={xticklabels={}}}
 \pgfplotsset{noYTicks/.append style={yticklabels={}}}
 \pgfplotsset{noXLabel/.append style={xlabel={}, noXTicks}}
@@ -32,7 +34,7 @@ group style={%
   group size=3 by 2,
   horizontal sep=0.5em,
   vertical sep=1em},
-xlabel={Frequency $\omega \axisunit{Hz}$},
+xlabel={Frequency $\omega$ \axisunit{Hz}},
 scale only axis,
 xmode=log,
 xmin=0.00016,

@@ -1,5 +1,6 @@
 
 \section{\glsentrytext{AVIS} Measurement set-up}
+\label{app:avis-setup}
 The measurements of the \gls{AVIS} are carried out using a \Simulink model running at a sampling time of $\Ts = 1\unit{ms}$ as shown in \figref{fig:avis:simulink:setup} and \figref{fig:avis:simulink:avis}.
 
 \begin{figure}
@@ -9,16 +10,16 @@ The measurements of the \gls{AVIS} are carried out using a \Simulink model runni
   \label{fig:avis:simulink:setup}
 \end{figure}
 
-In the top-level model (\figref{fig:avis:simulink:setup}), all signals are six-dimensional and each element corresponds to a mechanical degree-of-freedom of the \gls{AVIS}, i.e.
+In the top-level model (\figref{fig:avis:simulink:setup}), all signals are six-dimensional and each element corresponds to a mechanical degree-of-freedom of the \gls{AVIS}, i.e. 
 \begin{enumerate}
-  \item the translational velocity in $x$ direction (horizontal),
-  \item the translational velocity in $y$ direction (horizontal),
-  \item the translational velocity in $z$ direction (vertical),
-  \item the rotational velocity around the $x$ axis,
-  \item the rotational velocity around the $y$ axis,
-  \item the rotational velocity around the $z$ axis.
+  \item $v_x$: the velocity in $x$ direction (horizontal),
+  \item $v_y$: the velocity in $y$ direction (horizontal),
+  \item $v_z$: the velocity in $z$ direction (vertical),
+  \item $\phi_x$: the angular velocity around the $x$ axis,
+  \item $\phi_y$: the angular velocity around the $y$ axis,
+  \item $\phi_z$: the angular velocity around the $z$ axis.
 \end{enumerate}
-The axes are indicated in \figref{fig:avis:withAxes}.
+The coordinate frame and axes are indicated in \figref{fig:avis:withAxes}.
 
 \begin{figure}
   \centering
@@ -27,14 +28,19 @@ The axes are indicated in \figref{fig:avis:withAxes}.
   \label{fig:avis:withAxes}
 \end{figure}
 
-In the main text, we have simplified this system to consider only the translation in the vertical direction (i.e. the third signal).
+In the main text, we have simplified this system to consider only $v_z$, the vertical translation (i.e. the third signal).
 For the other directions, the applied signals (\code{r1} and \code{r2}) were set to $0$.
 However, inside the feedback loop, all directions are controlled by the experimental controller $\experimental\Controller$.
 
 Specifically, $\experimental\Controller$ is a $6\times6$ transfer function matrix that is implemented as a discrete state-space model.
-This controller was present beforehand~\citep{Rademakers2005MSc,vanderMaas2011MSc} and is given by the state-space matrices below
+This controller was constructed by~\citet{Rademakers2005MSc}
+ and is given by the state-space matrices below
 \begin{align}
-  \experimental\Controller & \isdef \stateSpace{A}{B}{C}{D}\\
+  \experimental\Controller & \isdef 
+  \begin{cases}
+     x[n+1] &= A x[n] + B u_c\\
+       y_c    &= C x + D u_c 
+  \end{cases}\\
   A       &\approx 828.8 \cdot 10^{-3} \cdot \Identity{6} \\
   B = C &\approx \AvisMatrixDiagonal{93.83}{39.57} \cdot 10^{-3}\\
   D       &= \AvisMatrixDiagonal{4.982}{0.886} \cdot 10^{-3}
@@ -54,7 +60,7 @@ with
 \end{align}
  as visualized in \figref{fig:avis:bodeplots:controllerAndSensor}.
 
-\begin{figure}
+\begin{figure}[p]
 \setlength\figurewidth{0.75\columnwidth}
 \setlength\figureheight{0.68\figurewidth}
 \input{\thisDir/figs/avis-setup-filters.tikz}
@@ -66,17 +72,24 @@ For multisine excitations the \code{RepeatingSequence} block was used to load th
 The signals \code{r2}, \code{u} and \code{y} are returned from \Simulink to \MATLAB where further processing of the data is carried out.
 This allows to compute the transfer function from \code{r2} to \code{u} and \code{y} respectively, or, the transfer function of the \gls{AVIS} block in the \Simulink model.
 
+\begin{figure}[p]
+\setlength\figurewidth{\columnwidth}
+  \includegraphics[width=\figurewidth]{\thisDir/figs/simulink-avis.pdf}
+  \caption{Simulink model of the AVIS sub-block.}
+  \label{fig:avis:simulink:avis}
+\end{figure}
+
 The \gls{AVIS} block (\figref{fig:avis:simulink:avis}), conceptually, contains:
 \begin{itemize}
-  \item static transformations $(K_{\mathrm{act}}, K_{\mathrm{sens}})$, as derived from first principles in \citep{Rademakers2005MSc}, which translates the sensor and actuator signals to physical velocities at the center of the payload,
+  \item static transformations $(K_{\mathrm{act}}, K_{\mathrm{sens}})$, as derived from first principles in~\citep{Rademakers2005MSc}, which translates the sensor and actuator signals to physical velocities at the center of the payload,
   \item logic to communicate with the Quanser Q8 \gls{DAQ} board which is physically connected to the \gls{AVIS}, and
   \item signal conditioning.
 \end{itemize}
 
-Specifically, the static transformations of the \gls{AVIS} are given by the following gain matrices~\citep[Appendix A.4]{Rademakers2005MSc}:
+In \citet[Appendix A.4]{Rademakers2005MSc}, linear static relationships are derived to link the velocities at the center of the payload to the corresponding actuator voltages.
+This yields the matrix:
 \begin{align}
   K_{\mathrm{act}}    & \approx \input{\thisDir/data/avis-setup/actuator-gains.tab.tex}\\
-  K_{\mathrm{sens}} & \approx \input{\thisDir/data/avis-setup/sensor-gains.tab.tex}
 \end{align}
 Note that $K_{\mathrm{act}} \in \RR^{8\times6}$ and hence produces signals for the $8$ actuators on the \gls{AVIS}.
 These signals are limited to the range $\pm 5\unit{V}$ before they are sent to the \glspl{DAC} on the Q8 \gls{DAQ} board to avoid overdriving the \glspl{DAC}.
@@ -88,14 +101,16 @@ The $6$ velocity signals that are digitized by the Q8 \gls{DAQ} are each filtere
 which is shown in \figref{fig:avis:bodeplots:controllerAndSensor}.
 More information regarding this design is given in \citep[Appendix A.3]{Rademakers2005MSc}.
 This filter is discretized automatically by \Simulink for the actual implementation.
+These velocities are then linked by a linear transformation to the (angular) velocities
 
 The output \code{y} is clipped to $\pm 20$ for easier detection of errors.
 However, during normal operation and all the measurements, the signal levels were well within the linear region of this saturation block.
 
-\begin{figure}
-\setlength\figurewidth{\columnwidth}
-  \includegraphics[width=\figurewidth]{\thisDir/figs/simulink-avis.pdf}
-  \caption{Simulink model of the AVIS sub-block.}
-  \label{fig:avis:simulink:avis}
-\end{figure}
+\begin{remark}
+It should be noted that while the benchmark paper by \citet{Voorhoeve2015SYSID} deals with the same physical \gls{AVIS}, the experimental data of the benchmark is fundamentally different from the data presented here.
+\Citet{Voorhoeve2015SYSID} only consider the `physical' \gls{AVIS} with $8$ inputs and $6$ outputs as indicated by the \code{QuanserQ8} block in \figref{fig:avis:simulink:avis} as the system under test.
+The measurements of the benchmark data were carried out in open-loop.
+Hence, the experimental controller ($\experimental\Controller_{\mathrm{benchmark}} = 0$),the saturations, the filter $F$ and the static matrices $K$ are different.
+Moreover, the sample rate of the benchmark data is much higher ($\fs  = 20 \unit{kHz}$) compared to the data in this work ($\fs = 1\unit{kHz}$) thanks to an upgrade of the real-time computer responsible for acquiring the signals.
+\end{remark}
 

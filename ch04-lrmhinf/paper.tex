@@ -1,7 +1,5 @@
   \begin{itemize}
-    \item \TODO{fix labels for chapter}
     \item \TODO{add section from Benchmark paper}
-    \item \TODO{fix some bib entries}
     \item \TODO{Hinf macro aanpassen voor PDF support (indien dit niet conflicteert met glossaries)}
   \end{itemize}
 
@@ -9,13 +7,13 @@
 \newcommand{\dampingValue}{\ensuremath{0.025}}
 \newcommand{\TsValue}{\ensuremath{1 \unit{s}}}
 
-\section{Introduction}
-\label{sec:Intro}
+% \section{Introduction}
+% \label{sec:lrmhinf:Intro}
 
-Robustness is of key importance in feedback controlled systems, since feedback can lead to performance degradation or even closed-loop instability. 
+Robustness is of key importance in feedback controlled systems, since feedback can lead to performance degradation or even closed-loop instability.
 An important example includes an \gls{AVIS}, where feedback is used to isolate high-precision equipment from external disturbances. 
 The underlying feedback control principle is skyhook damping~\citep{Karnopp1995}. 
-However, the performance of skyhook damping is limited by high-frequent parasitic resonance phenomena. 
+However, the performance of skyhook damping is limited by high-frequent lightly-damped parasitic resonance phenomena.
 Such model uncertainties can be taken into account explicitly in a robust control design~\citep{Zhang2005HybridAvis} for approaches based on \Hinf{} optimization.
 However, the uncertainty estimation in these references is based on rough prior assumptions and may be inaccurate. 
 On the one hand, this can lead to potentially dangerous results, since no stability and performance guarantees can be given if the estimated uncertainty is too small. 
@@ -37,39 +35,53 @@ This increases the measurement time significantly, especially for \gls{MIMO} pla
 When measurement time is expensive, this is a severe impediment.
 
 Although important steps have been made in model-error-modeling, existing methods involve a trade-off between accuracy, measurement time, and user intervention.
-The aim of the present paper is to develop a golden mean between traditional non-parametric techniques (third approach) and a full parametric model (second approach).
+The aim of this chapter is to develop a golden mean between traditional non-parametric techniques (third approach) and a full parametric model (second approach).
 The proposed $\Hinf{}$ norm estimation procedure exploits recent developments in frequency domain estimation the \gls{LPM}~\citep{Schoukens2009LPM} and \gls{LRM}~\citep{McKelvey2012LRM} as introduced in~\citep{Geerardyn2014IFAC,Geerardyn2014ISMA}.
 Before, these \gls{LPM} and \gls{LRM} techniques have been used to enhance at-grid frequency response estimates.
-In the present paper, these methods are extended to provide both an at-grid and inter-grid evaluation of the peak value, as is required for the $\Hinf{}$ norm. 
-The performance of these local parametric models with respect to robust control design is investigated, and bounds on the required measurement time to obtain a reliable estimate of the \Hinf{} norm are obtained.
-Preliminary results appear in~\citep{Geerardyn2014IFAC,Geerardyn2014ISMA}.
-The present paper presents the full procedure, including more theoretical treatment of the $\Hinf{}$ norm estimation procedure, and a description of the required measurement time.
+In the present paper, these methods are extended to provide both an at-grid and inter-grid evaluation of the maximum singular value near resonances, as is required for the $\Hinf{}$ norm and consequently the design of robust controllers.
+The performance of these local parametric models in the context of robust control design is investigated, and bounds on the required measurement time to obtain a reliable estimate of the \Hinf{} norm are obtained.
+% Preliminary results appear in~\citep{Geerardyn2014IFAC,Geerardyn2014ISMA}.
+% The present paper presents the full procedure, including more theoretical treatment of the $\Hinf{}$ norm estimation procedure, and a description of the required measurement time.
 
 \paragraph*{Outline}
-\label{par:toc}
-The problem is formulated in \secref{sec:Problem}.
-In \secref{sec:LPMHinf} the novel method to estimate the $\Hinf{}$ norm by means of the \gls{LRM} is introduced.
-In \secref{sec:simulation} the method is illustrated on simulations, and the required measurement time is determined.
-The technique is demonstrated on measurements of an \gls{AVIS} in \secref{sec:measurement}.
-Finally, the results and some challenges are discussed in \secref{sec:conclusion}.
+\label{par:lrmhinf:toc}
+The problem is formulated in \secref{sec:lrmhinf:Problem}.
+In \secref{sec:lrmhinf:LPMHinf} the novel method to estimate the $\Hinf{}$ norm by means of the \gls{LRM} is introduced.
+In \secref{sec:lrmhinf:simulation} the method is illustrated on simulations, and the required measurement time is determined.
+The technique is demonstrated on measurements of an \gls{AVIS} in \secref{sec:lrmhinf:measurement}.
+Finally, the results and some challenges are discussed in \secref{sec:lrmhinf:conclusion}.
 
-\glsresetall % reset the usage of all abbreviations s.t. intro and body get the explanation at first use
+%\glsresetall 
 
 \section{Problem Formulation}
-\label{sec:Problem}
+\label{sec:lrmhinf:Problem}
 Robust control based on \Hinf{} optimization requires a nominal parametric model $\estimated\Plant$ and a bound on the model error $\Delta$. 
 After the model $\estimated\Plant$ is determined, either through first principles modeling or system identification, it remains to determine a bound on the model error $\Delta$.
-The \Hinf{} norm of the error system $\Delta$, i.e.
+The \Hinf{} norm of the error system $\Delta$ is
 \begin{equation}
   \gamma 
      = 
        \infnorm{\Delta} 
     \isdef 
        \sup_{\omega} 
-         \abs{\Delta(\omega)}
-  \label{eq:HinfNormSISO}
+         \svdMax{\Delta(\omega)}
+  \label{eq:lrmhinf:HinfNorm}
 \end{equation}
-for a stable \gls{SISO} system, or its weighted form $\infnorm{W \Delta V}$, is a measure that serves an important purpose in many robust control design methodologies that specifies the `size' of the model class for which a controller is to be designed~\citep{Skogestad2005}.
+for a stable system where $\svdMax{\placeholder}$ denotes the maximum singular value of $\placeholder$.
+Note that for \gls{SISO} systems, $\svdMax{\Delta} = \abs{\Delta}$ and the definition above reduces to
+\begin{equation}
+  \gamma = \infnorm{\Delta} \isdef \sup_{\omega} \abs{\Delta(\omega)} \text{ for \gls{SISO} systems}
+  \text{.}
+  \label{eq:lrmhinf:HinfNormSISO}
+\end{equation}
+In robust control design methodologies, such \Hinf{} norms often play an important purpose to specify the `size' of a model class for which the controller that is to be designed should meet certain requirements~\citep{Skogestad2005}.
+
+\begin{remark}
+It is even more common to use a weighted norm, e.g.  $\infnorm{W \Delta V}$ in robust control designs for some weighting filters $(W,V)$ that are stable and minimum-phase.
+Two cases can be distinguished: either these filters are chosen by the control engineer and hence known, or, one wishes to construct such filters.
+In the case where the weighting filters are `known', the approach of this chapter can be adapted in a straightforward manner to account for these weights, i.e. by replacing $\svdMax{\Delta}$ with $\svdMax{W \Delta V}$ in the formulas.
+The other case is discussed in Remark~\ref{rem:lrmhinf:constructWeights} further on.
+\end{remark}
 
 To estimate $\gamma$, only $\Delta(\omega_{\star})$ is of interest, where
 $ \omega_{\star} 
@@ -78,10 +90,10 @@ $ \omega_{\star}
          \sup_{\omega} 
            \abs{\Delta(\omega)}
   \text{.}
-  \label{eq:omega-star}
+  \label{eq:lrmhinf:omega-star}
 $
 However, in a finite measurement time, non-parametric approaches only give access to a finite and discrete grid of frequencies $\omega_k \in \DFTGrid$.
-As such, \eqref{eq:HinfNormSISO} can be rewritten as
+As such, \eqref{eq:lrmhinf:HinfNormSISO} can be rewritten as
 \begin{equation}
   \gamma \isdef \sup_{\omega} \abs{\Delta(\omega)}
          = \sup 
@@ -90,9 +102,9 @@ As such, \eqref{eq:HinfNormSISO} can be rewritten as
                 \;,\;
                 \ezbrace{
                 \sup_{\omega \in \InterGrid} \abs{\Delta(\omega)}}{\gamma_{\mathrm{IG}}}}
-  \label{eq:gamma-split-grid}
+  \label{eq:lrmhinf:gamma-split-grid}
 \end{equation}
-where $\Omega \isdef \OpenInterval{0}{\frac{2\pi}{\Ts}}$ is the measured frequency range for a sampling time $\Ts$.
+where $\Omega \isdef \OpenInterval{0,\frac{2\pi}{\Ts}}$ is the measured frequency range for a sampling time $\Ts$.
 Two cases can be distinguished:
 \begin{enumerate}
   \item $\omega_{\star} \in \DFTGrid$ such that $\abs{\Delta(\omega_{\star})} = \gamma =\gamma_{\mathrm{FRF}}$ is observed directly on the discrete frequency grid,
@@ -102,8 +114,9 @@ The use of $\gamma_{\mathrm{FRF}}$ is standard in \gls{FRF}-based approaches, e.
 Its expected value over different realizations of the input signal $\expectedValue{\gamma_{\mathrm{FRF}}} \leq \gamma$ due to the limited frequency resolution.
 Such an underestimate may lead to overly optimistic controller designs.
 
-The main contribution of this paper is to  estimate the inter-grid term $\gamma_{\mathrm{IG}}$ without the need for a (global) parametric model.
+The main contribution of this chapter is to  estimate the inter-grid term $\gamma_{\mathrm{IG}}$ without the need for a (global) parametric model.
 Instead, a  realistic value of $\gamma$ is obtained using parametric models that are valid over small frequency ranges.
+
 
 \subsection{Set-up}
 \TODO{overgang $\Delta(q)$ naar output-error}
@@ -118,7 +131,7 @@ For an infinitely long data record, this can be described in the time-domain as
     = 
       \Delta(q)u_{\Delta}(n) 
       + H(q)e(n)
-  \label{eq:sysDeltaInfData}
+  \label{eq:lrmhinf:sysDeltaInfData}
 \end{equation}
 where $q^{-1}$ is the lag operator, $e(n)$ is white Gaussian noise with unity variance, and both $\Delta(q)$ and $H(q)$ are stable causal real-rational functions.
 For a limited data record ($n \in \set{0,\ldots,N-1}$), the transient contributions $t_{\Delta}(n)$ lead to:
@@ -129,7 +142,7 @@ For a limited data record ($n \in \set{0,\ldots,N-1}$), the transient contributi
         + H(q)e(n) 
         + t_{\Delta}(n)
     \text{.}
-    \label{eq:sysDeltaFiniteData}
+    \label{eq:lrmhinf:sysDeltaFiniteData}
 \end{equation}
 By applying the \gls{DFT}
 \begin{equation}
@@ -141,9 +154,9 @@ By applying the \gls{DFT}
             x(n) \exp \left( \frac{- j 2 \pi k n }{N} \right)
          \quad   
          \forall k \in \mathbb{Z}
-  \label{eq:DFT}
+  \label{eq:lrmhinf:DFT}
 \end{equation} 
-to both sides of~\eqref{eq:sysDeltaFiniteData}, one obtains:
+to both sides of~\eqref{eq:lrmhinf:sysDeltaFiniteData}, one obtains:
 \begin{equation}
   Y_{\Delta}(k) 
                 = 
@@ -151,15 +164,15 @@ to both sides of~\eqref{eq:sysDeltaFiniteData}, one obtains:
                   + T_{\Delta}(\omega_k) 
                   + V(k) 
   \text{.}
-  \label{eq:sysDeltaFiniteDataFD}
+  \label{eq:lrmhinf:sysDeltaFiniteDataFD}
 \end{equation}
 The index $k$ corresponds to the $k^{\text{th}}$ frequency bin with frequency $\omega_{k} = 2\pi k / (N \Ts)$ such that the frequency grid $\DFTGrid \isdef \set{\left.\omega_k \right| k = 1,\ldots,N-1}$.
 
-The presented results in this paper directly extend to closed-loop systems, as is shown in \secref{sec:control}.
+The presented results in this paper directly extend to closed-loop systems, as is shown in \secref{sec:lrmhinf:control}.
 The results in this paper are presented in discrete time, but the extension to the continuous time case is straightforward.
 
 \section{\Hinf{} Norm Estimation Procedure}
-\label{sec:LPMHinf}
+\label{sec:lrmhinf:LPMHinf}
 To estimate $\gamma_{\mathrm{IG}}$, we propose to identify local parametric models in the frequency domain.
 The frequency axis is partitioned into continuous segments $\Omega_k \isdef \OpenInterval{ \omega_{k-1} }{ \omega_{k+1} }$ in view of the local validity of the local models.
 In particular, the inter-grid aspect of the $\Hinf$ norm is estimated as
@@ -170,11 +183,11 @@ In particular, the inter-grid aspect of the $\Hinf$ norm is estimated as
                 |
                 k = 1,\ldots,N-1
                 }
-   \label{eq:gamma-inter-grid}
+   \label{eq:lrmhinf:gamma-inter-grid}
 \end{equation}
 where the $\LocalModel{\Delta}_{k}$ is the local model around the ($k$th) frequency $\omega_k$.
-An example of such local models is shown in \figref{fig:interpol-quantities}.
-Two alternative methods allow evaluation of~\eqref{eq:gamma-inter-grid} in practice.
+An example of such local models is shown in \figref{fig:lrmhinf:interpol-quantities}.
+Two alternative methods allow evaluation of~\eqref{eq:lrmhinf:gamma-inter-grid} in practice.
 
 \begin{figure}
   \centering
@@ -183,12 +196,12 @@ Two alternative methods allow evaluation of~\eqref{eq:gamma-inter-grid} in pract
   \input{\thisDir/figs/interpolation-show.tikz}
   \caption[Illustration of the local models.]{Illustration of the local models $\LocalModel{\Delta}_k$ around each frequency bin $\omega_k$ for $k\in\set{1,\ldots,6}$.
   The bottom part shows the equivalence of the frequency segments $\Omega_k$ and the intervals $\set{\omega \given{k_L(\omega) = k \vee k_R(\omega) = k}}$.}
-\label{fig:interpol-quantities}
+\label{fig:lrmhinf:interpol-quantities}
 \end{figure}
 
 \paragraph*{Direct method}
 % \subsubsection{Direct method}
-One can implement the definition~\eqref{eq:gamma-inter-grid} of $\gamma_{\mathrm{IG}}$ directly.
+One can implement the definition~\eqref{eq:lrmhinf:gamma-inter-grid} of $\gamma_{\mathrm{IG}}$ directly.
 Hence, it boils down to solving the optimization problems
 \begin{equation}
   \estimated {\gammaIntergrid} = 
@@ -196,14 +209,14 @@ Hence, it boils down to solving the optimization problems
   % = 
       \max_{\omega \in \Omega_k} 
       \abs{\LocalModel{\Delta}_k(\omega)}
-      \label{eq:gamma-direct}
+      \label{eq:lrmhinf:gamma-direct}
 \end{equation}
 for $k \in \set{1,\ldots,N-1}$.
 These are tractable since $\omega$ is one-dimensional and restricted to the intervals $\Omega_k$.
 Unfortunately, this approach offers no insight in the behavior of $\abs{\Delta(\omega)}$, e.g. around the peak amplitude.
 
 \paragraph*{Interpolation method}
-To allow inspection of $\abs{\Delta(\omega)}$ in~\eqref{eq:HinfNormSISO} for arbitrary values of $\omega \in \Omega$, we propose an interpolation approach to estimate $\gamma$ and to allow visual inspection of $\abs{\Delta(\omega)}$.
+To allow inspection of $\abs{\Delta(\omega)}$ in~\eqref{eq:lrmhinf:HinfNormSISO} for arbitrary values of $\omega \in \Omega$, we propose an interpolation approach to estimate $\gamma$ and to allow visual inspection of $\abs{\Delta(\omega)}$.
 It can be understood intuitively that due to the limited validity domain of the local models, an estimate of $\Delta(\omega)$ can only be obtained from $\LocalModel{\Delta}_k(\omega)$ when $\abs{\omega_k-\omega}$ is small.
 To this end, two functions that indicate respectively the left and the right adjacent local models for frequency $\omega \in \Omega$ are defined:
 \begin{align}
@@ -224,9 +237,9 @@ To this end, two functions that indicate respectively the left and the right adj
                       \omega_k \geq \omega}
                   }
   \text{.}
-  \label{eq:kL-kR-indexing-functions}
+  \label{eq:lrmhinf:kL-kR-indexing-functions}
 \end{align}
-Using the $k_L(\omega)$ and $k_R(\omega)$ functions, two candidate values for $\abs{\Delta(\omega)}$ are obtained: $\abs{\LocalModel{\Delta}_{k_L(\omega)}(\omega)}$ and $\abs{\LocalModel{\Delta}_{k_R(\omega)}(\omega)}$.
+Using the $k_L(\omega)$ and $k_R(\omega)$ functions, two candidate values for $\abs{\Delta(\omega)}$ are obtained:lrmhinf: $\abs{\LocalModel{\Delta}_{k_L(\omega)}(\omega)}$ and $\abs{\LocalModel{\Delta}_{k_R(\omega)}(\omega)}$.
 In view of obtaining the maximum amplitude, these are `interpolated' to obtain a single estimate:
 \begin{equation}
   \abs{\Delta_{\LMM}(\omega)}
@@ -235,37 +248,37 @@ In view of obtaining the maximum amplitude, these are `interpolated' to obtain a
        \abs{\LocalModel{\Delta}_{k_L(\omega)}(\omega)},
         \abs{\LocalModel{\Delta}_{k_R(\omega)}(\omega)}
     }
-    \label{eq:DeltaLRMInterpolation}
+    \label{eq:lrmhinf:DeltaLRMInterpolation}
 \end{equation}
 by retaining the largest both.
 It follows that
 \begin{align}
-  \widehat{\norm[]{\Delta_{\LMM}}}_{\infty} 
+  \widehat{\infnorm{\Delta_{\LMM}}}
     & \isdef
     \sup_{\omega\in\Omega}
-    \abs{\Delta_{\mathrm{LRM}}(\omega)} \\
+    \abs{\Delta_{\LMM}(\omega)} \\
    &  =
       \sup_{\omega\in\Omega} \; 
       \sup \set{
                  \abs{\LocalModel{\Delta}_{k_L(\omega)}(\omega)}, 
                  \abs{\LocalModel{\Delta}_{k_R(\omega)}(\omega)}}
-  \label{eq:gammaInterpolOptim}
+  \label{eq:lrmhinf:gammaInterpolOptim}
   \text{.}
 \end{align}
 
 \paragraph*{Remarks:}
-The optimization problems~\eqref{eq:gammaInterpolOptim} and~\eqref{eq:gamma-direct} can, e.g. be solved by griding the frequency $\omega$.
-The peak amplitudes obtained using~\eqref{eq:gammaInterpolOptim} and~\eqref{eq:gamma-direct} are identical since the local models $\LocalModel{\Delta}_k$ are evaluated over identical frequency ranges
+The optimization problems~\eqref{eq:lrmhinf:gammaInterpolOptim} and~\eqref{eq:lrmhinf:gamma-direct} can, e.g. be solved by griding the frequency $\omega$.
+The peak amplitudes obtained using~\eqref{eq:lrmhinf:gammaInterpolOptim} and~\eqref{eq:lrmhinf:gamma-direct} are identical since the local models $\LocalModel{\Delta}_k$ are evaluated over identical frequency ranges
 $% \begin{equation}
   \Omega_k = \set{\omega \given{k_L(\omega) = k \vee k_R(\omega) = k}}
 $ % \end{equation}
 for both methods (but in different order) and aggregated using the supremum operator, which is indifferent to the order of its arguments.
-In \figref{fig:interpol-quantities} the functions $k_L(\omega)$ and $k_R(\omega)$ are visualized and the equivalence with $\Omega_k$ is apparent.
+In \figref{fig:lrmhinf:interpol-quantities} the functions $k_L(\omega)$ and $k_R(\omega)$ are visualized and the equivalence with $\Omega_k$ is apparent.
 
 \subsection{The \glsentrydesc{LRM}}
-\label{sec:LRM}
+\label{sec:lrmhinf:LRM}
 The local models $\LocalModel{\Delta}_k$ are estimated using the \gls{LRM}~\citep{McKelvey2012LRM}.
-The \gls{LRM} exploits the fact that the transfer function $\Delta(\omega)$ and the leakage term $T_{\Delta}(\omega)$  in \eqref{eq:sysDeltaFiniteDataFD} are smooth functions of the frequency.
+The \gls{LRM} exploits the fact that the transfer function $\Delta(\omega)$ and the leakage term $T_{\Delta}(\omega)$  in \eqref{eq:lrmhinf:sysDeltaFiniteDataFD} are smooth functions of the frequency.
 As such, $\Delta$ and $T_{\Delta}$ are approximated locally by rational functions around each bin $k$:
 \begin{align}
   \Delta(\omega_{k+r})     
@@ -275,7 +288,7 @@ As such, $\Delta$ and $T_{\Delta}$ are approximated locally by rational function
         \frac{B_k(r)}{A_k(r)} 
       \isdef 
         \LocalModel{\Delta}_{k}(\omega_{k+r})
-      \label{eq:LRMTaylorSystem} \\
+      \label{eq:lrmhinf:LRMTaylorSystem} \\
   T_{\Delta}(\omega_{k+r}) 
     &\approx 
         \frac{\sum_{i=0}^{N_{T}} t_{i}(k) r^{i}}{1 + \sum_{i=1}^{N_{A}} a_{i}(k) r^{i}}  
@@ -283,10 +296,10 @@ As such, $\Delta$ and $T_{\Delta}$ are approximated locally by rational function
         \frac{T_k'(r)}{A_k(r)} 
       \isdef 
         \LocalModel{T}_{k}(\omega_{k+r})
-  \label{eq:LRMTaylorTransient}
+  \label{eq:lrmhinf:LRMTaylorTransient}
   \text{.}
 \end{align}
-Its local parameters $a_{i}(k)$, $b_{i}(k)$ and $t_{i}(k)$ are estimated by considering~\eqref{eq:sysDeltaFiniteDataFD} in the local window $\LocalWindow = \set{-N_W,\ldots,+N_W}$ around each bin $k$.
+Its local parameters $a_{i}(k)$, $b_{i}(k)$ and $t_{i}(k)$ are estimated by considering~\eqref{eq:lrmhinf:sysDeltaFiniteDataFD} in the local window $\LocalWindow = \set{-N_W,\ldots,+N_W}$ around each bin $k$.
 This yields
 \begin{equation}
   Y_{\Delta}(k+r) 
@@ -296,7 +309,7 @@ This yields
     \quad
     \forall r \in \LocalWindow
     \text{.}
-    \label{eq:LocalWindowSpectra}
+    \label{eq:lrmhinf:LocalWindowSpectra}
 \end{equation}
 By substituting the local models $\LocalModel{\Delta}_k$ and $\LocalModel{T}_k$, one obtains
 \begin{align}
@@ -311,7 +324,7 @@ By substituting the local models $\LocalModel{\Delta}_k$ and $\LocalModel{T}_k$,
                     \frac{T'_k(r)}{A_k(r)} 
                     & \forall r \in \LocalWindow
     \text{.}
-    \label{eq:LocalWindowSpectraLRM}
+    \label{eq:lrmhinf:LocalWindowSpectraLRM}
 \end{align}
 To make this expression linear in the parameters $a_i(k)$, both sides are multiplied by $A_k(r)$ as in~\citep{Levy1959}.
 By doing so, the local linear-least-squares cost function
@@ -320,7 +333,7 @@ By doing so, the local linear-least-squares cost function
   \left| 
     A_k(r) Y_{\Delta}(k+r) - B_k(r) U_{\Delta}(k+r) - T'_{k}(r)
   \right|^2
-  \label{eq:localCostLRM}
+  \label{eq:lrmhinf:localCostLRM}
 \end{equation}
  around each bin $k$ can be constructed.
 We denote $\lrm{N_W,N_B,N_A,N_T}$ to be the \gls{LRM} with the orders $N_B$, $N_A$, $N_T$ and bandwidth $N_W$ defined above.
@@ -330,24 +343,27 @@ For a more detailed overview of  the \gls{LPM} and \gls{LRM} see~\citep{Schouken
 
 
 \section{Simulation}
-\label{sec:simulation}
+\label{sec:lrmhinf:simulation}
 To allow the generalization of the results of the simulations, we first introduce a way to decompose complex systems into simpler systems.
 The behavior of these simpler systems then allows to predict the behavior for these more complex systems.
-Any real-rational system $\Delta$ can be decomposed in a parallel structure of lower-order sub-systems by means of a partial fraction expansion as in \eqref{eq:excitation:PFE} and using the same logic as in \chapref{sec:excitation}.
+Concretely, any proper real-rational system $\Delta$ can be decomposed in a parallel connection of lower-order sub-systems by means of a partial fraction expansion as in \eqref{eq:excitation:PFE}.
+For clarity, we repeat the expression here again:
+It is well-known in the mechanical engineering community (see e.g. \citet{Gawronski2004}), that around re
+ and using the same logic as in \chapref{sec:excitation}.
 As a result, systems can often be well-represented, in a small frequency range, by a sum of a few low-order sub-systems (often first or second order for e.g. mechanical systems)~\citep[Section 2.2.2]{Gawronski2004}.
-To estimate $\norm{\Delta}$ mainly the resonant sub-systems are of interest.
+To estimate $\infnorm{\Delta}$ mainly the resonant sub-systems are of interest.
 Assuming such resonances are sufficiently separated in the frequency,~\citep{Schoukens2013LPMerror,Geerardyn2013TIM,Gawronski2004} show that results for a single resonance are applicable to more complex systems.
 This is done by considering only the dominant resonance -- \emph{viz.} the one that is the most relevant for the $\Hinf{}$ controller design.
 By normalizing the conclusions for the time constant $\timeconst$ (or the $3\unit{dB}$ bandwidth), the results are generally valid for different values of the damping $\damping$.
-Specifically, the system's $\timeconst \isdef (\damping \wn)^{-1}$ dictates the required measurement time~\citep{Schoukens2013LPMerror}, where $\damping$ is the relative damping and $\wn$ the undamped natural frequency.
+Specifically, the system's $\timeconst \isdef (\damping \wn)^{-1}$ dictates the required measurement time~\citep{Schoukens2013LPMerror}, where $\damping$ is the relative damping and $\wn$ the natural frequency of the dominant pole.
 
 \subsection{A concrete simulation}
-Consider a discrete time system $\Delta$ (see \figref{fig:exampleIntergrid}) as unmodeled dynamics in an output-error setting:
+Consider a discrete time system $\Delta$ (see \figref{fig:lrmhinf:exampleIntergrid}) as unmodeled dynamics in an output-error setting:
 \begin{equation}
   \Delta(z) 
     =  \frac{0.45373 z + 0.44752}
             {z^2 - 1.0595 z + 0.96079}
-  \label{eq:O2sysDT}
+  \label{eq:lrmhinf:O2sysDT}
   \text{,}
 \end{equation}
 which has $\timeconst = 50 \unit{samples}$ (i.e. $\damping=0.02$ and $\wn = 1 \unit{rad/s}$).
@@ -357,7 +373,7 @@ The input signal $u_{\Delta}$ is white Gaussian noise with unit variance and the
               {\sqrt{\inv{N}\sum_n v^2(n) }}
        = \frac{\sigma_{y_{\Delta0}}}{\sigma_v}
        \approx \frac{\norm[2]{\Delta} \sigma_{u_{\Delta}}}{\sigma_v}
-  \label{eq:SNR}
+  \label{eq:lrmhinf:SNR}
 \end{equation}
 of $10$ is obtained.
 
@@ -367,7 +383,7 @@ By dividing the resulting output/input spectra, the \gls{FRF} is obtained.
 In this paper a Hann window and $N_S=1$ are used.
 Note that $N_S>1$  increases the measurement time by a factor $N_S$ to attain the same frequency resolution (but would improve  transient and noise rejection).
 
-\figref{fig:exampleIntergrid} illustrates for $N=97$ that $\gamma_{\mathrm{FRF}}$ for the \gls{SA}, $\lpm{5,4,4}$ and $\lrm{5,2,2,2}$ approaches yield unreliable estimates of $\infnorm{\Delta}$, since the frequency resolution is too coarse.
+\figref{fig:lrmhinf:exampleIntergrid} illustrates for $N=97$ that $\gamma_{\mathrm{FRF}}$ for the \gls{SA}, $\lpm{5,4,4}$ and $\lrm{5,2,2,2}$ approaches yield unreliable estimates of $\infnorm{\Delta}$, since the frequency resolution is too coarse.
 The specific orders of  \gls{LRM}/\gls{LPM} have been chosen to  keep $N_W$ small while not restricting ourselves to linear models ($N_B=1$). 
 Slightly different orders (e.g. $\lrm{4,1,1,1}$) yield comparable results.
 
@@ -377,14 +393,14 @@ Slightly different orders (e.g. $\lrm{4,1,1,1}$) yield comparable results.
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/example-both.tikz}
   %\input{\thisDir/figs/example-LRM-SNR1.tikz}
-  \caption[Example: FRF underestimates $\E{\gamma}$]{Simulation example revealing that $\gamma_{\mathrm{FRF}}$ (left) for both the \glsfirst{SA}~\legref{leg:example-SA} and \gls{LRM}~\legref{leg:example-LRM} underestimate the true $\gamma = \norm{\Delta} = 24$~\legref{leg:example-true-Hinf} due to limited frequency resolution.
+  \caption[Example: FRF underestimates $\E{\gamma}$]{Simulation example revealing that $\gamma_{\mathrm{FRF}}$ (left) for both the \glsfirst{SA}~\legref{leg:example-SA} and \gls{LRM}~\legref{leg:example-LRM} underestimate the true $\gamma = \infnorm{\Delta} = 24$~\legref{leg:example-true-Hinf} due to limited frequency resolution.
   Using the proposed \gls{LRM}-based approach, both the at-grid~($\gamma_{\mathrm{FRF}}$) and intergrid~($\gamma_{\mathrm{IG}}$) estimate are improved.
   The interpolated \gls{LRM}~\legref{leg:example-LRM-interpol} and true $\Delta$~\legref{leg:example-true} almost coincide.
-  Hence, $\widehat{\norm[]{\Delta_{\mathrm{LRM}}}}_{\infty}$~\legref{leg:example-LRM-interpol-Hinf} approaches the theoretical $\gamma=24$.}
-  \label{fig:exampleIntergrid}
+  Hence, $\widehat{\infnorm{\Delta_{\mathrm{LRM}}}}_{\infty}$~\legref{leg:example-LRM-interpol-Hinf} approaches the theoretical $\gamma=24$.}
+  \label{fig:lrmhinf:exampleIntergrid}
 \end{figure}
 
-It can be observed for $\gamma_{\mathrm{IG}}$ in \figref{fig:exampleIntergrid} that the \gls{LRM} is able to model the resonance well and yields a useful estimate $\infnorm{\Delta_{\mathrm{LRM}}} = 24$ in the simulation.
+It can be observed for $\gamma_{\mathrm{IG}}$ in \figref{fig:lrmhinf:exampleIntergrid} that the \gls{LRM} is able to model the resonance well and yields a useful estimate $\infnorm{\Delta_{\mathrm{LRM}}} = 24$ in the simulation.
 Intuitively, the \gls{LRM} locally approximates the resonant pole which allows for a reliable inter-grid estimate.
 The \gls{LPM}, on the other hand, does not provide a reliable estimate.
 
@@ -392,11 +408,11 @@ The \gls{LPM}, on the other hand, does not provide a reliable estimate.
 Frequency resolution, and hence the experiment length, is key to obtain a reliable \Hinf{} norm estimate.
 In this section, we determine the minimal experiment length needed for the proposed approach by means of simulations.
 
-We simulate the system \eqref{eq:O2sysDT} for $16\,100$ samples and discard the first $100$ samples to randomize the initial conditions.
-To mimic the effect of progressively measuring longer data records, the first remaining $N$ samples are used to estimate $\infnorm{\Delta}$ as in \secref{sec:LPMHinf}.
+We simulate the system \eqref{eq:lrmhinf:O2sysDT} for $16\,100$ samples and discard the first $100$ samples to randomize the initial conditions.
+To mimic the effect of progressively measuring longer data records, the first remaining $N$ samples are used to estimate $\infnorm{\Delta}$ as in \secref{sec:lrmhinf:LPMHinf}.
 The values of $N \in \ClosedInterval{35,16\,000}$ are chosen such that $\expectedValue{\gamma_{\mathrm{FRF}}(N)}$ is a non-decreasing function of $N$.
 These simulations are then repeated in a Monte Carlo simulation of $n_{\mathrm{MC}}=200$ runs where each run has a different realization of  $u_{\Delta}(n)$ and $v(n)$.
-The resulting sample average and standard deviation $\sigma$ are shown in \figref{fig:MC-run-length}.
+The resulting sample average and standard deviation $\sigma$ are shown in \figref{fig:lrmhinf:MC-run-length}.
 
 \begin{figure}
   \centering
@@ -405,41 +421,53 @@ The resulting sample average and standard deviation $\sigma$ are shown in \figre
   \input{\thisDir/figs/MC-runlength.tikz}
   %\input{figures/runLength.tikz}
   \caption[Estimated $\gamma$ versus measurement time.]{The $\Hinf{}$ norm~\legref{leg:runlength-true} is underestimated significantly for short experiments ($N<20\timeconst$) by $\expectedValue{\gamma_{\mathrm{FRF}}}$~\legref{leg:runlength-frf} and the \gls{LPM}~\legref{leg:runlength-LPM}.
-  However, the proposed $\widehat{\norm[]{\Delta_{\mathrm{LRM}}}}_{\infty}$~\legref{leg:runlength-LRM} is already reliable from much shorter experiments ($N \geq 4 \timeconst$). A single observation for $N=97$~\legref{leg:runlength-special-case} is shown in \figref{fig:exampleIntergrid}. The shaded areas show the $\pm \sigma$ intervals which are mostly due to the noise.
+  However, the proposed $\widehat{\infnorm{\Delta_{\mathrm{LRM}}}}$~\legref{leg:runlength-LRM} is already reliable from much shorter experiments ($N \geq 4 \timeconst$). A single observation for $N=97$~\legref{leg:runlength-special-case} is shown in \figref{fig:lrmhinf:exampleIntergrid}. The shaded areas show the $\pm \sigma$ intervals which are due to the noise.
   }
-\label{fig:MC-run-length}
+\label{fig:lrmhinf:MC-run-length}
 \end{figure}
 
-It can be seen in \figref{fig:MC-run-length} that $N \geq 20\timeconst$ is required to attain a frequency grid that is dense enough to obtain a reliable $\gamma_{\mathrm{FRF}}$, i.e. $\expectedValue{\gamma_{\mathrm{FRF}}} \approx \gamma$.
+It can be seen in \figref{fig:lrmhinf:MC-run-length} that $N \geq 20\timeconst$ is required to attain a frequency grid that is dense enough to obtain a reliable $\gamma_{\mathrm{FRF}}$, i.e. $\expectedValue{\gamma_{\mathrm{FRF}}} \approx \gamma$.
 Starting from about $N=4 \text{ to } 5\timeconst$, the interpolated \gls{LRM} starts to yield good estimates for $\gamma_{\mathrm{IG}}$.
-For long experiments $(N \to \infty)$, the true $\norm{\Delta}$ is recovered.
+For long experiments $(N \to \infty)$, the true $\infnorm{\Delta}$ is recovered.
 Practically, this implies that the interpolated \gls{LRM} beats the on-grid estimate using a data record that is only a fraction of the length.
 
+\begin{remark} \label{rem:lrmhinf:constructWeights}
+The construction of weighting filters $(W,V)$ for the design of a robust controller typically happens based on measurement data which is available non-parametrically, i.e. only available at a limited frequency grid.
+The goal of the filter design is to construct low-order minimum-phase filters that form a tight overbound of particular real-valued functions of the frequency.
+Concretely, such a real-valued function is often a singular value of e.g. the loop gain or one of the loop sensitivity functions~\citep{Boeren2013,Scheid1995,Bibel1992,Skogestad2005} such that the design entails practical control objectives (disturbance rejection, input tracking, \ldots).
+However, since such a function is only measured at a limited amount of frequency points, such overbounds can be hard to construct when resonances are present.
+E.g. \citet{Scheid1995} describes a method to produce parametric overbounds, but notes in Section~IV that limited frequency resolution can hamper construction of these filters.
+The obvious solution to collect more densely-sampled data, is often not desirable (e.g. due to time constraints, limited access to the actual plant, cost of experimentation, \ldots).
+However, the method proposed  in this chapter can provide more densely-sampled view of the data without an increase in measurement time.
+\end{remark}
+
 \section{Application to an \glsentryname{AVIS}}
-\label{sec:measurement}
-The proposed method is illustrated on the \gls{AVIS} shown in \figref{fig:avis}.
+\label{sec:lrmhinf:measurement}
+The proposed method is illustrated on the \gls{AVIS} shown in \figref{fig:lrmhinf:avis}.
 The \gls{AVIS} consists of a support fixed to the ground and a payload platform, suspended on airmounts, that is free to move in six degrees of freedom.
 Six geophones measure the payload velocity and eight linear motors allow to actively compensate for vibration of the platform.
 To facilitate the presentation, only the vertical translation, i.e. a \gls{SISO} system,  is considered.
 
 \subsection{Measurement \& control framework}
-\label{sec:control}
-The experiments on the \gls{AVIS} are carried out in closed-loop (\figref{fig:tpc}) with $r_2 = 0$.
-The controller $\Controller=\experimental\Controller$  stabilizes the \gls{AVIS} but yields only moderate vibration isolation.
-The $r_1$ input consists of five periods of a random phase multisine~\citep{Geerardyn2013TIM} of $65\,536$ samples with excited bins such that $\omega_k \approx 1.001 \omega_{k-1}$  and $\Ts=1\unit{ms}$.
+\label{sec:lrmhinf:control}
+The experiments on the \gls{AVIS} are carried out in closed-loop (\figref{fig:lrmhinf:tpc}) with $r_2 = 0$.
+The controller $\Controller=\experimental\Controller$ is a diagonal \gls{PI} regulator which stabilizes the \gls{AVIS} but yields only moderate vibration isolation.
+See \appref{app:avis-setup} for detailed information regarding both the experimental setup and the experimental controller.
+The $r_1$ input consists of five periods of a random phase multisine of $65\,536$ samples with excited bins such that $\omega_k \approx 1.001 \omega_{k-1}$  and $\Ts=1\unit{ms}$.
+See \chapref{sec:excitation} and \citep{Geerardyn2013TIM} for more information regarding the design of such a signal.
 
 \begin{figure}
  \centering
  \input{\thisDir/figs/tpcrobust.tikz}
  \caption[Closed-loop block schematic.]{The considered feedback configuration $\ClosedLoop{\ModelSet[],\Controller}$.}
- \label{fig:tpc}
+ \label{fig:lrmhinf:tpc}
 \end{figure}
 
 \begin{figure}
  \centering
  \input{\thisDir/figs/dualYoula.tikz}
  \caption[Dual-Youla parametrization.]{Dual-Youla parametrization of the closed-loop set-up  with controller $\Controller$,  model set $\ModelSet[]$ and nominal plant model $\estimated\Plant$.}
-\label{fig:dualYoula}
+\label{fig:lrmhinf:dualYoula}
 \end{figure}
 
 The parametrization of the plant model set $\ModelSet[]$ conforms to the dual-\YK{} framework~\citep{Hansen1989,Anderson1998} that parametrizes $\ModelSet[]$ in terms of  all plants $P$ that are stabilized by the controller $C$:
@@ -453,13 +481,13 @@ The parametrization of the plant model set $\ModelSet[]$ conforms to the dual-\Y
           \right| 
             \hinfnorm{\Delta} \leq \gamma
         }
-  \label{eq:dualYoulaModelSet}
+  \label{eq:lrmhinf:dualYoulaModelSet}
   \text{,}
 \end{equation}
-where $C=N_c D_c^{-1}$ and $\estimated\Plant = \estimated{N}\estimated{D}^{-1}$ are decomposed as \gls{RCF} (see \figref{fig:dualYoula}).
-To estimate $\Delta$ and $\hinfnorm{\Delta}$, the signals $u_{\Delta}$ and $y_{\Delta}$ in~\figref{fig:dualYoula} are required.
+where $C=N_c D_c^{-1}$ and $\estimated\Plant = \estimated{N}\estimated{D}^{-1}$ are decomposed as \gls{RCF} (see \figref{fig:lrmhinf:dualYoula}).
+To estimate $\Delta$ and $\hinfnorm{\Delta}$, the signals $u_{\Delta}$ and $y_{\Delta}$ in~\figref{fig:lrmhinf:dualYoula} are required.
 These can be computed from $u$ and $y$ directly~\citep{Anderson1998}.
-In addition, $u_{\Delta}$ is noise free under standard assumptions~\citep{Hansen1989}, hence the method of \secref{sec:LPMHinf} applies.
+In addition, $u_{\Delta}$ is noise free under standard assumptions~\citep{Hansen1989}, hence the method of \secref{sec:lrmhinf:LPMHinf} applies.
 
 The non-uniqueness of the \gls{RCF} can be exploited to satisfy additional conditions.
 In view of the robust control criterion
@@ -467,7 +495,7 @@ In view of the robust control criterion
   \Crit(\Plant,\Controller) 
     \isdef 
       \infnorm{W \ClosedLoop{\Plant,\Controller} V}
-  \label{eq:controlCrit}
+  \label{eq:lrmhinf:controlCrit}
   \text{,}
 \end{equation}
 the \glspl{RCF} are constructed such that
@@ -479,16 +507,16 @@ $
 $
 where $\worstCase\Crit(\ModelSet[],C) \isdef \sup_{P\in\ModelSet[]} \Crit(P,C)$~\citep{Oomen2012SIRP}.
 % Obviously, $\Crit( \true\Plant, \experimental\Controller) \leq \worstCase\Crit ( \ModelSet[], \experimental\Controller )$ is guaranteed when $\true\Plant \in \ModelSet[]$.
-I.e. even for a weighted control criterion \eqref{eq:controlCrit}, there is no need to incorporate weights $W'$ and $V'$ into the estimation of the uncertainty bound as $\infnorm{W' \Delta V'}$.
-In this paper, an eighth-order $\estimated\Plant$~(\figref{fig:avis-frf}) is estimated.
-Some dynamics are left unmodeled and are hence part of $\Delta$~(\figref{fig:avisMeas}).
+I.e. even for a weighted control criterion \eqref{eq:lrmhinf:controlCrit}, there is no need to incorporate weights $W'$ and $V'$ into the estimation of the uncertainty bound as $\infnorm{W' \Delta V'}$.
+In this paper, an eighth-order $\estimated\Plant$~(\figref{fig:lrmhinf:avis-frf}) is estimated.
+Some dynamics are left unmodeled and are hence part of $\Delta$~(\figref{fig:lrmhinf:avisMeas}).
 
 \begin{figure}
   \centering
   \setlength\figurewidth{0.75\columnwidth}
   \includegraphics[width=\figurewidth]{\thisDir/figs/avis.jpg}
   \caption{\Glsentryfirst{AVIS}.}
-  \label{fig:avis}
+  \label{fig:lrmhinf:avis}
 \end{figure}
 
 \begin{figure}
@@ -497,15 +525,15 @@ Some dynamics are left unmodeled and are hence part of $\Delta$~(\figref{fig:avi
     \setlength{\figureheight}{0.68\figurewidth}
     \input{\thisDir/figs/avis-frf.tikz}
  \caption[\Glsentryname{FRF} and nominal model of \glsentryname{AVIS}.]{Measured \gls{FRF} \legref{m2t:plantFRF} and estimated parametric model $\hat{P}$ \legref{m2t:plantModel} of the \glsfirst{AVIS}.}
- \label{fig:avis-frf}
+ \label{fig:lrmhinf:avis-frf}
 \end{figure}
 
 \subsection{Results}
-\label{sec:resultsAvis}
+\label{sec:lrmhinf:resultsAvis}
 To estimate $\Delta(\omega_k)$ and $\hinfnorm{\Delta}$  using the proposed approach with $\lrm{6,2,2,2}$, an estimation dataset consisting of only a fourth of the excited bins is used.
 The full dataset that includes bins not used in the estimation is used to validate the interpolation results.
 
-The measured $\Delta$ is shown in \figref{fig:avisMeas} for the whole frequency band and \figref{fig:avisMeasZoom} for a frequency range containing $\omega_{\star}$.
+The measured $\Delta$ is shown in \figref{fig:lrmhinf:avisMeas} for the whole frequency band and \figref{fig:lrmhinf:avisMeasZoom} for a frequency range containing $\omega_{\star}$.
 Two aspects of the proposed method are examined.
 First, the interpolation results for a continuous frequency range are validated.
 Second, the peak amplitudes of $\Delta(\omega)$ are inspected as these are  indicators for $\infnorm{\Delta}$.
@@ -516,8 +544,8 @@ Second, the peak amplitudes of $\Delta(\omega)$ are inspected as these are  indi
     \setlength{\figureheight}{0.68\figurewidth}
     \input{\thisDir/figs/avis-delta-full.tikz}
     %\TODOfig{split plots}
- \caption[$\Delta$ of the \glsentryname{AVIS}, estimated using local modeling.]{Measured (dual-Youla) $\Delta$ for the \gls{AVIS} using the \gls{LRM} and the proposed interpolation. The data in the rectangle is also shown in \figref{fig:avisMeasZoom}.}
-\label{fig:avisMeas}
+ \caption[$\Delta$ of the \glsentryname{AVIS}, estimated using local modeling.]{Measured (dual-Youla) $\Delta$ for the \gls{AVIS} using the \gls{LRM} and the proposed interpolation. The data in the rectangle is also shown in \figref{fig:lrmhinf:avisMeasZoom}.}
+\label{fig:lrmhinf:avisMeas}
 \end{figure}
 
 \begin{figure}
@@ -525,30 +553,30 @@ Second, the peak amplitudes of $\Delta(\omega)$ are inspected as these are  indi
     \setlength{\figurewidth}{0.75\columnwidth}
     \setlength{\figureheight}{0.68\figurewidth}
    \input{\thisDir/figs/avis4.tikz}
- \caption[$\Delta$ of the \glsentryname{AVIS}, estimated using local modeling (detail).]{Measured $\Delta$ for the \gls{AVIS} using the \gls{LRM}~\legref{leg:avis4-LRMi} and the proposed interpolation. Clearly, the \gls{LRM} leads to a higher peak value~\legref{leg:avis4-LRM-hinf}, especially at $328\unit{Hz}$. The validity of the LRM local parametric model is confirmed by the validation measurement at the dense frequency grid~\legref{leg:avis4-validation}, which reveals excellent interpolation properties and a similar peak value~\legref{leg:avis4-valid-hinf}.}
-\label{fig:avisMeasZoom}
+ \caption[$\Delta$ of the \glsentryname{AVIS}, estimated using local modeling (detail).]{Measured $\Delta$ for the \gls{AVIS} using the \gls{LRM}~\legref{leg:lrmhinf:avis4-LRMi} and the proposed interpolation. Clearly, the \gls{LRM} leads to a higher peak value~\legref{leg:lrmhinf:avis4-LRM-hinf}, especially at $328\unit{Hz}$. The validity of the LRM local parametric model is confirmed by the validation measurement at the dense frequency grid~\legref{leg:lrmhinf:avis4-validation}, which reveals excellent interpolation properties and a similar peak value~\legref{leg:lrmhinf:avis4-valid-hinf}.}
+\label{fig:lrmhinf:avisMeasZoom}
 \end{figure}
 
 \paragraph*{Interpolation performance}
-\label{sec:avis-interpol}
-\figref{fig:avisMeas} and \figref{fig:avisMeasZoom} show that the estimation and validation data for \gls{LRM} are generally in agreement.
-In the frequency range shown in \figref{fig:avisMeasZoom}, the relative difference between both is at most $2\%$.
+\label{sec:lrmhinf:avis-interpol}
+\figref{fig:lrmhinf:avisMeas} and \figref{fig:lrmhinf:avisMeasZoom} show that the estimation and validation data for \gls{LRM} are generally in agreement.
+In the frequency range shown in \figref{fig:lrmhinf:avisMeasZoom}, the relative difference between both is at most $2\%$.
 
 \paragraph*{Peak value estimates}
-\label{sec:avis-peak-value}
+\label{sec:lrmhinf:avis-peak-value}
 Near $296\unit{Hz}$, a modest improvement of the peak estimate from $-15.3 \unit{dB}$ (at-grid) to $-14.0 \unit{dB}$ is obtained by the interpolation.
 The estimate near $\omega_{\star} \approx 328\unit{Hz}$ is improved more substantially.
-The proposed method \eqref{eq:gammaInterpolOptim} yields $\gamma_{\mathrm{IG}}=-2.5\unit{dB}$.
+The proposed method \eqref{eq:lrmhinf:gammaInterpolOptim} yields $\gamma_{\mathrm{IG}}=-2.5\unit{dB}$.
 $\gamma_{\mathrm{FRF}}\approx -9.9\unit{dB}$ for the estimation data, which means that a $7.4\unit{dB}$ improvement is achieved by the proposed method.
 This peak agrees well with the validation data, where the nearest (at-grid) value has an amplitude of $-3.2\unit{dB}$ (i.e. $8\%$ difference).
 
 This suggests that the local rational models with interpolation are a very good approximation to the actual $\Delta$ and also to estimate $\hinfnorm{\Delta}$ even if the actual peak does not coincide with the discrete frequency grid.
 
 \section{Conclusion and Further Research}
-\label{sec:conclusion}
+\label{sec:lrmhinf:conclusion}
 A reliable \Hinf{} norm estimation technique for high performance, non-conservative robust control design is investigated.
-In this paper, a new approach is presented that employs so-called local parametric \gls{LRM} models that lead to an enhanced estimate of $\norm{\Delta}$ of a \gls{SISO} error system by interpolating between neighboring local models.
-It is also shown that the \gls{LPM} is not a worthwhile alternative to the \gls{LRM} to estimate $\norm{\Delta}$.
+In this paper, a new approach is presented that employs so-called local parametric \gls{LRM} models that lead to an enhanced estimate of $\infnorm{\Delta}$ of a \gls{SISO} error system by interpolating between neighboring local models.
+It is also shown that the \gls{LPM} is not a worthwhile alternative to the \gls{LRM} to estimate $\infnorm{\Delta}$.
 The technique is illustrated on a simulation example where the \gls{LRM}-based interpolation yields a reliable estimate of the $\Hinf{}$ norm.
 It is observed that the measurement time is reduced by almost an order of magnitude compared to techniques that only examine $\Delta(\omega)$ on the \gls{DFT} frequency grid.
 Using measurements on an \gls{AVIS}, it is illustrated that the interpolation-based results can substantially improve $\hinfnorm{\Delta}$ and/or reduce the measurement time four-fold.
