@@ -23,7 +23,7 @@ The axes are indicated in \figref{fig:avis:withAxes}.
 \begin{figure}
   \centering
   \includegraphics{\thisDir/figs/avis-with-axes.pdf}
-  \caption{\glsentrytext{AVIS} with $(x,y,z)$ coordinate frame indicated and bird's eye view of the approximate locations of the actuators and sensors. For each of the actuators and sensors, the color indicates the principal direction}
+  \caption{\glsentrytext{AVIS} with $(x,y,z)$ coordinate frame indicated and bird's eye view of the approximate locations of the actuators and sensors at each of the four corners. For each of the actuators and sensors, the color indicates the principal direction.}
   \label{fig:avis:withAxes}
 \end{figure}
 
@@ -31,7 +31,7 @@ In the main text, we have simplified this system to consider only the translatio
 For the other directions, the applied signals (\code{r1} and \code{r2}) were set to $0$.
 However, inside the feedback loop, all directions are controlled by the experimental controller $\experimental\Controller$.
 
-Specifically, $\experimental\Controller$ is a $6\times6$ transfer function that is implemented as a discrete state-space model.
+Specifically, $\experimental\Controller$ is a $6\times6$ transfer function matrix that is implemented as a discrete state-space model.
 This controller was present beforehand~\citep{Rademakers2005MSc,vanderMaas2011MSc} and is given by the state-space matrices below
 \begin{align}
   \experimental\Controller & \isdef \stateSpace{A}{B}{C}{D}\\
