@@ -6,7 +6,7 @@ The measurements of the \gls{AVIS} are carried out using a \Simulink model runni
 \begin{figure}
 \setlength\figurewidth{\columnwidth}
   \includegraphics[width=\figurewidth]{\thisDir/figs/simulink-setup.pdf}
-  \caption{Simulink model used during the AVIS measurements. All signals are six-dimensional real values.}
+  \caption[\Simulink model used on the \glsentryshort{AVIS}]{\Simulink model used during the AVIS measurements. All signals are six-dimensional real values.}
   \label{fig:avis:simulink:setup}
 \end{figure}
 
@@ -24,7 +24,7 @@ The coordinate frame and axes are indicated in \figref{fig:avis:withAxes}.
 \begin{figure}
   \centering
   \includegraphics{\thisDir/figs/avis-with-axes.pdf}
-  \caption{\glsentrytext{AVIS} with $(x,y,z)$ coordinate frame indicated and bird's eye view of the approximate locations of the actuators and sensors at each of the four corners. For each of the actuators and sensors, the color indicates the principal direction.}
+  \caption[\glsentryshort{AVIS} with coordinate frame, sensors and actuators.]{\glsentrytext{AVIS} with $(x,y,z)$ coordinate frame indicated and bird's eye view of the approximate locations of the actuators and sensors at each of the four corners. For each of the actuators and sensors, the color indicates the principal direction.}
   \label{fig:avis:withAxes}
 \end{figure}
 
@@ -64,7 +64,7 @@ with
 \setlength\figurewidth{0.75\columnwidth}
 \setlength\figureheight{0.68\figurewidth}
 \input{\thisDir/figs/avis-setup-filters.tikz}
-\caption{Bode plots of the elements of $\experimental\Controller$ and sensor filter $F$ present in the set-up.}
+\caption[\glsentryshort{AVIS} controller and filters]{Bode plots of the elements of $\experimental\Controller$ and sensor filter $F$ present in the set-up.}
 \label{fig:avis:bodeplots:controllerAndSensor}
 \end{figure}
 
@@ -75,7 +75,7 @@ This allows to compute the transfer function from \code{r2} to \code{u} and \cod
 \begin{figure}[p]
 \setlength\figurewidth{\columnwidth}
   \includegraphics[width=\figurewidth]{\thisDir/figs/simulink-avis.pdf}
-  \caption{Simulink model of the AVIS sub-block.}
+  \caption{\Simulink model of the \glsentryshort{AVIS} sub-block.}
   \label{fig:avis:simulink:avis}
 \end{figure}
 

@@ -57,19 +57,22 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 
 \newsymbolglos{operator-cardinality}{\numberOf \placeholder}{Number of elements (cardinality) in the set \placeholder}
 \newsymbolglos{operator-exp}{\expval{\placeholder}}{Expected value of \placeholder}
-\newsymbolglos{operator-ln}{\ln \placeholder}{Natural logarithm of \placeholder}
+\newsymbolglos{operator-ln}{\ln}{Natural logarithm}
 \newsymbolglos{operator-conj}{\conj \placeholder}{Complex conjugate of \placeholder}
-\newsymbolglos{operator-log}{\log_{B} \placeholder}{Logarithm in base $B$ of \placeholder{}  (when $B$ is omitted, $B=10$ is implied)}
+\newsymbolglos{operator-log}{\log_{B}}{Logarithm in base $B$ (when $B$ is omitted, $B=10$ is implied)}
 \newsymbolglos{operator-matrix-ht}{\placeholder^{\HT}}{Hermitian (complex conjugated) transpose of the matrix \placeholder}
 \newsymbolglos{operator-matrix-pinv}{\pinv{\placeholder}}{Moore-Penrose pseudo-inverse of the matrix \placeholder}
 \newsymbolglos{operator-matrix-tran}{\placeholder^{\TT}}{Transpose of the matrix \placeholder}
+\newsymbolglos{operator-matrix-conv}{\conv}{Convolution}
+\newsymbolglos{operator-matrix-kron}{\kron}{Kronecker product of matrices (\code{kron})}
+\newsymbolglos{operator-matrix-hadamard}{\hadamard}{Hadamard (element-wise) product of matrices (\code{.*})}
 \newsymbolglos{operator-round-ceil}{\ceil{\placeholder}}{\placeholder{} rounded upwards (\code{ceil})}
 \newsymbolglos{operator-round-floor}{\floor{\placeholder}}{\placeholder{} rounded downwards (\code{floor})}
 \newsymbolglos{operator-round-round}{\round{\placeholder}}{\placeholder{} rounded towards the nearest integer, as in \glsentrytext{IEEE} 754-2008 (\code{round})}
 
-\newsymbolglos{sys-damping}{\damping}{Relative damping of a system}
-\newsymbolglos{sys-resonance}{\wn}{Natural (resonance) frequency of a system}
-\newsymbolglos{sys-timeconst}{\tau}{Time constant of a system}
+\newsymbolglos{sys-damping}{\damping}{Relative damping of a pole or system}
+\newsymbolglos{sys-resonance}{\wn}{Natural (resonance) frequency of a pole or system}
+\newsymbolglos{sys-timeconst}{\timeconst}{Time constant of a pole or system ($\timeconst \isdef (\damping \wn)^{-1}$)}
 
 \newsymbolglos{w}{\omega}{Angular frequency (pulsation)}
 
