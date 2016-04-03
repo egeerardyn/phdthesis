@@ -1,15 +1,18 @@
   \begin{itemize}
     \item \TODO{add section from Benchmark paper}
-    \item \TODO{Hinf macro aanpassen voor PDF support (indien dit niet conflicteert met glossaries)}
-    \item \TODO{refer to book chapter of Tom}
   \end{itemize}
-
 \newcommand{\wnValue}{\ensuremath{0.95 \unit{rad/s}}}
 \newcommand{\dampingValue}{\ensuremath{0.025}}
 \newcommand{\TsValue}{\ensuremath{1 \unit{s}}}
 
 % \section{Introduction}
 % \label{sec:lrmhinf:Intro}
+
+For mechatronic design and many other engineering disciplines it is important to obtain good parametric models.
+However, in many state-of-the-art disciplines that involve increasingly complicated systems, building a full-scale model quickly becomes a burden that is not guaranteed to provide a level of model fidelity that is proportional to the required modeling effort and cost.
+Often, such parametric models are required to understand basic properties of the system such as the resonance frequencies and their corresponding damping values.
+In this chapter, we will investigate the use of the local parametric approaches to extract such basic information from the system without having to build a full parametric model.
+The approach that is followed in this chapter is applied to estimating the \Hinf{} norm of the transfer function of a system, a problem that directly depends on the resonances of system and has shown to be a crucial step in designing robust controllers~\citep{Oomen2016}.
 
 Robustness is of key importance in feedback controlled systems, since feedback can lead to performance degradation or even closed-loop instability.
 An important example includes an \gls{AVIS}, where feedback is used to isolate high-precision equipment from external disturbances. 
@@ -218,7 +221,6 @@ Two alternative methods allow evaluation of~\eqref{eq:lrmhinf:gamma-inter-grid} 
 \end{figure}
 
 \paragraph*{Direct method}
-% \subsubsection{Direct method}
 One can implement the definition~\eqref{eq:lrmhinf:gamma-inter-grid} of $\gammaIntergrid$ directly.
 Hence, it boils down to solving the optimization problems
 \begin{align}
@@ -261,12 +263,16 @@ To this end, two functions that indicate respectively the left and the right adj
   \text{.}
   \label{eq:lrmhinf:kL-kR-indexing-functions}
 \end{align}
-Using the $k_L(\omega)$ and $k_R(\omega)$ functions, two candidate values for $\svdMax{\Delta(\omega)}$ are obtained: $\svdMax{\LocalModel{\Delta}_{k_L(\omega)}(\omega)}$ and $\svdMax{\LocalModel{\Delta}_{k_R(\omega)}(\omega)}$.
+Using the $k_L(\omega)$ and $k_R(\omega)$ functions, two candidate values for $\svdMax{\Delta(\omega)}$ are obtained:
+\begin{itemize}
+ \item $\svdMax{\LocalModel{\Delta}_{k_L(\omega)}(\omega)}$, and 
+ \item $\svdMax{\LocalModel{\Delta}_{k_R(\omega)}(\omega)}$.
+\end{itemize}
 In view of obtaining the maximum singular value, these are `interpolated' to obtain a single estimate:
 \begin{equation}
   \svdMax{\Delta_{\LMM}(\omega)}
     \isdef
-    \sup \Set{
+    \max \Set{
        \svdMax{\LocalModel{\Delta}_{k_L(\omega)}(\omega)},
         \svdMax{\LocalModel{\Delta}_{k_R(\omega)}(\omega)}
     }
@@ -281,7 +287,7 @@ It follows that
     \svdMax{\Delta_{\LMM}(\omega)} \\
    &  =
       \sup_{\omega\in\Omega} \; 
-      \sup \Set{
+      \max \Set{
                  \svdMax{\LocalModel{\Delta}_{k_L(\omega)}(\omega)}, 
                  \svdMax{\LocalModel{\Delta}_{k_R(\omega)}(\omega)}}
   \label{eq:lrmhinf:gammaInterpolOptim}
