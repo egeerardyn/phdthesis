@@ -50,7 +50,7 @@ ymin=0,
 ymax=30,
 ymajorgrids,
 yminorgrids,
-ylabel={Maximal Amplitude $|\Delta(\omega_{\star})|$}
+ylabel={Amplitude $\svdMax{\Delta(\omega_{\star})}$}
 %legend style={draw=black,fill=white,legend cell align=left}
 ]
 
@@ -97,7 +97,7 @@ ylabel={Maximal Amplitude $|\Delta(\omega_{\star})|$}
 
 \node at (axis cs:200,26.5) [color=LRM] {LRM};
 \node at (axis cs:600,17) [color=LPM,rotate=50] {LPM};
-\node at (axis cs:160,15) [rotate=50] {$\expectedValue{\gamma_{\mathrm{FRF}}}$};
+\node at (axis cs:160,15) [rotate=50] {$\expectedValue{\gammaAtGrid}$};
 \node at (axis cs:10000,25.75) [color=truesys] {$\hinfnorm{\Delta}$};
 
 \end{axis}

@@ -22,7 +22,7 @@ xmajorgrids=false,
 %xlabel={Frequency $\omega$ \axisunit{rad/s}},
 ymin=1.6,
 ymax=26,
-ylabel={Amplitude $\abs{\Delta}$}
+ylabel={Amplitude $\svdMax{\Delta}$}
 % axis x line*=bottom,
 % axis y line*=left,
 ]
@@ -109,7 +109,7 @@ x     y\\
 \node[fifth]  (D5) at (axis cs:1.11701,10)    {$\hphantom{_5}\LocalModel{\Delta}_5$};
 \node[sixth]  (D6) at (axis cs:1.18682,6.5)     {$\hphantom{_6}\LocalModel{\Delta}_6$};
 
-\node[color=black] (gamma) at (axis cs:1.15,21) {$\gamma_{\mathrm{IG}}$};
+\node[color=black] (gamma) at (axis cs:1.15,21) {$\gammaIntergrid$};
 
 \end{axis}
 

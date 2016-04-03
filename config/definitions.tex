@@ -111,7 +111,7 @@
 
 \newcommand{\hadamard}{\ensuremath{\circ}}
 \newcommand{\conv}{\ensuremath{*}}
-%TODO: kronecker
+\newcommand{\kron}{\ensuremath{\otimes}}
 
 \newcommand{\real}[1]{\ensuremath{\RealPart \left[#1\right]}}
 \newcommand{\imag}[1]{\ensuremath{\ImagPart \left[#1\right]}}
@@ -128,6 +128,14 @@
        \deemph{0}& \deemph{0} &  \deemph{0} &  \deemph{0} & #2 & \deemph{0} \\
       \deemph{0} & \deemph{0} & \deemph{0} &\deemph{0}  & \deemph{0} & #2\\
     \end{bmatrix}
+}
+\renewcommand{\AvisMatrixDiagonal}[2]{
+    \begin{bmatrix}
+    #1 & \deemph{0}\\
+    \deemph{0} & #2\\
+    \end{bmatrix}
+    \kron
+    \Identity{3}
 }
 %% Linear Algebra operations
 \newcommand{\OuterProduct} [3][\TT]{{#2}{#3}^{#1}} %AB^T
@@ -464,8 +472,10 @@
 
 
 \newcommand{\Frequencies}{\ensuremath{\Omega}}
-\newcommand{\DFTGrid}{\ensuremath{\Omega_{\mathrm{DFT}}}}
+\newcommand{\DFT}{\ensuremath{\mathrm{DFT}}}
+\newcommand{\DFTGrid}{\ensuremath{\Omega_{\DFT}}}
 \newcommand{\InterGrid}{\ensuremath{\Omega \setminus \DFTGrid}}
 \newcommand{\IG}{\ensuremath{\mathrm{IG}}}
 
 \newcommand{\gammaIntergrid}{\ensuremath{\gamma_{\IG}}}
+\newcommand{\gammaAtGrid}{\ensuremath{\gamma_{\mathrm{FRF}}}}
