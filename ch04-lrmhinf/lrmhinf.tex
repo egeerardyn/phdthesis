@@ -501,9 +501,11 @@ For purely \gls{FRF}-based estimates, on the other hand, the measurement only at
 \section{Application to an \glsentryname{AVIS}}
 \label{sec:lrmhinf:measurement}
 The proposed method is illustrated on the \gls{AVIS} shown in \figref{fig:lrmhinf:avis}.
-The \gls{AVIS} consists of a support fixed to the ground and a payload platform, suspended on airmounts, that is free to move in six degrees of freedom.
-Six geophones measure the payload velocity and eight linear motors allow to actively compensate for vibration of the platform.
+The \gls{AVIS} consists of a support fixed to the ground and a payload platform, suspended on airmounts (see \figref{fig:lrmhinf:avis:details}), that is free to move in six degrees of freedom.
+Six geophones measure the payload velocity and eight linear motors (see \figref{fig:lrmhinf:avis:details}) allow to actively compensate for vibration of the platform.
+Please refer to \appref{app:avis-setup} for more details regarding the mechanical set-up.
 To facilitate the presentation, only the vertical translation, i.e. a \gls{SISO} system,  is considered.
+%TODO: include benchmark section about vibration isolation
 
 \subsection{Measurement \& control framework}
 \label{sec:lrmhinf:control}
