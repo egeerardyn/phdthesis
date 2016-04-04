@@ -20,7 +20,7 @@
   }}
 \pgfplotsset{controllerAmpl/.append style={ymin=-80,ymax=-20}}
 \pgfplotsset{filterAmpl/.append style={ymin=-20, ymax=20, 
-ylabel={Amplitude \axisunit{dB_{V m / s}}},
+ylabel={Amplitude \axisunit{dB_{m/(s V)}}},
 yticklabel pos=right, ylabel near ticks, ytick={-20,0,20}}}
 \pgfplotsset{noXTicks/.append style={xticklabels={}}}
 \pgfplotsset{noYTicks/.append style={yticklabels={}}}

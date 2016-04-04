@@ -38,8 +38,8 @@ This controller was constructed by~\citet{Rademakers2005MSc}
 \begin{align}
   \experimental\Controller & \isdef 
   \begin{cases}
-     x[n+1] &= A x[n] + B u_c\\
-       y_c    &= C x + D u_c 
+     x[n+1] &= A x[n] + B u_c[n]\\
+       y_c[n]   &= C x[n] + D u_c[n] 
   \end{cases}\\
   A       &\approx 828.8 \cdot 10^{-3} \cdot \Identity{6} \\
   B = C &\approx \AvisMatrixDiagonal{93.83}{39.57} \cdot 10^{-3}\\
