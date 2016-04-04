@@ -1,0 +1,38 @@
+\begin{tikzpicture}
+
+\tikzstyle{payload}=[mass,minimum width=0.8\figurewidth, minimum height=3em]
+
+\node (gnd) [ground,minimum width=\figurewidth] {\contour[150]{white}{Floor}};
+
+\node (payload) at ($(gnd) + (0,7em)$) [payload] {Payload};
+
+\node (sky) at ($(payload) + (0,7em)$) [sky,minimum width=\figurewidth] {\contour[150]{white}{``Sky''}};
+
+
+\coordinate (payload1) at ($(payload.north west)!0.333!(payload.north east)$);
+\coordinate (payload2) at ($(payload.south west)!0.333!(payload.south east)$);
+\coordinate (payload3) at ($(payload.south west)!0.666!(payload.south east)$);
+\coordinate (payloadD) at ($(payload.north west)!0.666!(payload.north east)$);
+\coordinate (gndD) at ($(gnd.north west)!0.9!(gnd.north east)$);
+\coordinate (help) at ($(payload.west)!-0.1!(payload.east)$);
+\coordinate (refVelocity) at ($(help)!0.5!(payload.west)$);
+
+
+\draw[spring] (payload2) -- ($(gnd.north west)!(payload2)!(gnd.north east)$);
+\draw[damper] (payload3) -- ($(gnd.north west)!(payload3)!(gnd.north east)$);
+\draw[thick] (payload1) -- ($(sky.south west)!(payload1)!(sky.south east)$) node [midway, mechController] {$C$};
+
+%% draw forces
+\draw[force] ($(payloadD)+(0,2em)$) -- (payloadD) node[pos=0,above] {$F_{\mathrm{d(pl)}}$};
+
+\draw[force] ($(gndD)+(0,2em)$) -- (gndD) node[pos=0,above] {$F_{\mathrm{d(ext)}}$};
+
+%% draw sensors
+\draw[help lines] (help) -- (payload.west);
+\draw[sensorLine] (refVelocity) -- ($(sky.south east)!(refVelocity)!(sky.south west)$) node[midway,right] {\small $y = v_z$};
+
+%% draw lines again
+\draw [groundline] (gnd.north east) -- (gnd.north west);
+\draw [skyline] (sky.south east) -- (sky.south west);
+
+\end{tikzpicture}

@@ -3,7 +3,8 @@
 \usepackage{xcolor}
 \usepackage{tangocolors}
 \usepackage{grffile}
-\usepackage[caption=false,font=footnotesize]{subfig}
+% \usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{subcaption}
 
 %% TikZ configuration
 % http://tex.stackexchange.com/questions/14771/tabs-in-output-file-written-by-xelatex-and-pdflatex-are-different
@@ -28,11 +29,10 @@
   \pgfplotsset{compat=newest}
 
 \input{config/blockdiag.inc.tex}
+\input{config/mechanical.inc.tex}
 
   \newlength\figureheight
    \newlength\figurewidth
-
-\newlength\onecolumnwidth %TODO: replace
 
 % I keep forgetting the exact syntax to remake the figures, so 
 \newcommand{\remakeNextFigure}{\tikzset{external/force remake}}

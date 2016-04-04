@@ -1,0 +1,40 @@
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{decorations.markings}
+\usepackage{contour}
+% http://tex.stackexchange.com/questions/18472/tikz-halo-around-text
+% http://tex.stackexchange.com/questions/19348/how-to-draw-a-line-passing-through-a-point-and-perpendicular-to-another
+% http://tex.stackexchange.com/questions/13933/drawing-mechanical-systems-in-latex
+
+\tikzstyle{spring}=[thick,decorate,decoration={coil,pre length=0.5em,post length=0.5em,segment length=0.5em,amplitude=0.75em}] %try decoration=zigzag
+\tikzstyle{damper}=[thick,decoration={markings,  
+  mark connection node=dmp,
+  mark=at position 0.5 with 
+  {
+    \node (dmp) [thick,inner sep=0pt,transform shape,rotate=-90,minimum width=15pt,minimum height=3pt,draw=none] {};
+    \draw [thick] ($(dmp.north east)+(2pt,0)$) -- (dmp.south east) -- (dmp.south west) -- ($(dmp.north west)+(2pt,0)$);
+    \draw [thick] ($(dmp.north)+(0,-5pt)$) -- ($(dmp.north)+(0,5pt)$);
+  }
+}, decorate]
+
+\tikzstyle{force}=[everyMechanical,-latex,thick]
+\tikzstyle{sensorLine}=[everyMechanical,<->,very thick]
+
+\colorlet{gndcolor}{TangoAluminium5}
+\colorlet{skycolor}{TangoSkyBlue2}
+\colorlet{darkSkycolor}{TangoSkyBlue3}
+\colorlet{masscolor}{TangoAluminium1}
+
+\tikzstyle{everyMechanical}=[draw,outer sep=0pt,thick,font=\bfseries]
+
+
+\tikzstyle{mass}=[everyMechanical,minimum width=3em,minimum height=1.5em,draw=black,fill=masscolor]
+\tikzstyle{mechController}=[mass,very thick,fill=white,minimum height=2.5em,minimum width=2em]
+
+
+\tikzstyle{ground}=[everyMechanical,pattern color=gndcolor,pattern=north east lines,draw=none,minimum width=3em,minimum height=1.5em]
+\tikzstyle{sky}=[ground, pattern color=skycolor,font={\color{darkSkycolor}}]
+
+\tikzstyle{groundline}=[everyMechanical,color=gndcolor,line width=1pt]
+\tikzstyle{skyline}=[groundline,color=skycolor]

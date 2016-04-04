@@ -11,7 +11,13 @@
 \newcommand{\chapterNoNum}[1]{\chapter*{#1} \TOCInsert{chapter}{#1}}
 \newcommand{\sectionNoNum}[1]{\section*{#1} \TOCInsert{section}{#1}}
 
-\newcommand{\researchBasedOn}[2][This chapter]{\begin{centering}\small\textsf{#1 is based on~\citet{#2}.}\end{centering}}
+\newcommand{\disclaimer}[1]{
+    \begin{centering}
+    \small\textsf{#1}
+    \end{centering}
+}
+
+\newcommand{\researchBasedOn}[2][This chapter]{\disclaimer{#1 is based on~\citet{#2}.}}
 
 %% Referencing
 %TODO: see whether cleveref, smartref, varioref, ... doesn't provide something similar...
