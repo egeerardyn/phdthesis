@@ -1,6 +1,6 @@
-  \begin{itemize}
-    \item \TODO{add section from Benchmark paper}
-  \end{itemize}
+  % \begin{itemize}
+  %   \item \TODO{add section from Benchmark paper}
+  % \end{itemize}
 \newcommand{\wnValue}{\ensuremath{0.95 \unit{rad/s}}}
 \newcommand{\dampingValue}{\ensuremath{0.025}}
 \newcommand{\TsValue}{\ensuremath{1 \unit{s}}}
@@ -453,6 +453,7 @@ In this section, we determine the minimal experiment length needed for the propo
 We simulate the system \eqref{eq:lrmhinf:O2sysDT} for $16\,100$ samples and discard the first $100$ samples to randomize the initial conditions.
 To mimic the effect of progressively measuring longer data records, the first remaining $N$ samples are used to estimate $\infnorm{\Delta}$ as in \secref{sec:lrmhinf:LPMHinf}.
 The values of $N \in \ClosedInterval{35,16\,000}$ are chosen such that $\expectedValue{\gamma_{\mathrm{FRF}}(N)}$ is a non-decreasing function of $N$.
+This ensures that grid misalignment between the actual resonance frequency and the observed frequency grid is accounted for such that the worst-case estimate of the resonance is obtained.
 These simulations are then repeated in a Monte Carlo simulation of $n_{\mathrm{MC}}=200$ runs where each run has a different realization of  $u_{\Delta}(n)$ and $v(n)$.
 The resulting sample average and standard deviation $\sigma$ are shown in \figref{fig:lrmhinf:MC-run-length}.
 
@@ -482,6 +483,11 @@ E.g. \citet{Scheid1995} describes a method to produce parametric overbounds, but
 The obvious solution to collect more densely-sampled data, is often not desirable (e.g. due to time constraints, limited access to the actual plant, cost of experimentation, \ldots).
 However, the method proposed  in this chapter can provide more densely-sampled view of the data without an increase in measurement time.
 \end{remark}
+
+\begin{guideline}[Measure $4$ to $5\timeconst$ to observe its peak value using the local models]
+After $4$ to $5$ time constants of the dominant pole, the local models offer a reliable insight into the peak value of a transfer function when a sufficient \gls{SNR} of approximately $20\unit{dB}$ is available such that the \gls{LRM} can be used.
+For purely \gls{FRF}-based estimates, on the other hand, the measurement only attains similar performance when measuring for $20\timeconst$.
+\end{guideline}
 
 \section{Application to an \glsentryname{AVIS}}
 \label{sec:lrmhinf:measurement}
