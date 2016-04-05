@@ -516,8 +516,8 @@ The broad aim of vibration isolation~\citep{Karnopp1995,Collette2011} is to supp
   \end{subfigure}
   \disclaimer{Figure based on \citep[Fig. 3 and 4]{Voorhoeve2015SYSID} and \citep[Fig. 3 and 6]{Karnopp1995}.}
   \caption{Conceptual illustration of (active) vibration isolation set-ups. In addition to the passive isolation (spring and damper), the active controller $C$ provides additional isolation using the measurement of the payload velocity ($y=v_z$).
-  If the velocity relative to ground is measured (a), the controller design involves trading-off which disturbance should be suppressed better.
-  When the absolute velocity the payload is measured (b), the controller can suppress both disturbances as it acts as a damper between a virtual fixed point (``sky'') and the payload.
+  % If the velocity relative to ground is measured (a), the controller design involves trading-off which disturbance should be suppressed better.
+  % When the absolute velocity the payload is measured (b), the controller can suppress both disturbances as it acts as a damper between a virtual fixed point (``sky'') and the payload.
   }
   \label{fig:lrmhinf:vibration-isolation}
 \end{figure}
@@ -532,7 +532,7 @@ Typically, the controller $C$ acts as an additional damping term.
 However, when such measurements are relative to the floor or other objects which are subject to the external disturbances $F_{\mathrm{d(ext)}}$ themselves, the trade-off for passive vibration isolation remains applicable.
 
 On the other hand, when a measurement of the absolute velocity of the payload is available, the external disturbances can be reduced effectively.
-Absolute velocity measurements can be obtained e.g. from inertial sensors~\citep{Collette2011} such as geophones~\citep{Rademakers2005MSc,Vandermaas2011MSc}.
+Absolute velocity measurements can be obtained e.g. from inertial sensors~\citep{Collette2011} such as geophones~\citep{Rademakers2005MSc,vanderMaas2011MSc}.
 In particular, such sensors suspend an inertial mass using suspension with very low resonance frequency to the payload.
 By observing the relative movement of the inertial mass and the payload, the absolute velocity of the payload can be measured~\citep{Collette2011}.
 Conceptually, the active controller $C$ can be seen as connected to an imaginary fixed point in the `sky' (\figref{fig:lrmhinf:vibration-isolation:skyhook}), which is not disturbed by $F_{\mathrm{d(ext)}}$ for an ideal sensor.
