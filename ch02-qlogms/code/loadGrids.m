@@ -32,7 +32,7 @@ for iFile = 1:numel(files)
 end
 
 %% compute frequency spacing and ratio
-computeDelta = @(f) reshape(diff([f(1);f(:)]), size(f));
+computeDelta = @(f) reshape(diff([f(:);f(end)]), size(f));
 computeAlpha = @(f) 10.^(computeDelta(log10(f)));
 
 for iFile = 1:numel(files)

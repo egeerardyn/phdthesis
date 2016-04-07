@@ -1,0 +1,62 @@
+% This file was created by matlab2tikz v0.1.3.
+% Copyright (c) 2008--2011, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}
+
+\begin{groupplot}[
+  group style={%
+    group name=props,
+    group size=3 by 4,
+    horizontal sep=0.06\figurewidth},
+  xlabel={Frequency \axisunit{Hz}},
+  scale only axis,
+  width=0.47\figurewidth,
+  height=\figureheight,
+  xmin=0.96,
+  xmax=1000,
+  xtick={1,100,1000},
+  xmode=log,
+  ymode=log,
+  grid=both,
+  extra x ticks={20},
+  extra x tick labels={$\omegaLinLog\phantom{^1}$},
+]
+
+\pgfplotsset{every axis plot post/.append style={medsmallmarkers,line width=0.75pt}}
+
+\pgfplotsset{legendAboveGroupPlot/.style={legend style={at={(1.03,1.025)},anchor={south},nodes=right,legend columns=-1,font=\footnotesize,draw=none,/tikz/every even column/.append style={column sep=1em}}}}
+
+% ================================================
+
+\nextgroupplot[ylabel={$\Delta f_k$ \axisunit{Hz}},legendAboveGroupPlot,extra y ticks={1},extra y tick labels={$\Delta f$},ytick={0.1,10}]
+\addplot[linmsconnect] table[x index=0,y index=2]{\thisDir/data/gridProps/linms.tsv};
+\addlegendentry{Linear};
+
+\addplot[logmsconnect] table[x index=0,y index=2]{\thisDir/data/gridProps/logms.tsv};
+\addlegendentry{Logarithmic};
+
+% \addplot[clogmsconnect] table[x index=0,y index=2]{\thisDir/data/gridProps/clogms.tsv};
+% \addlegendentry{Comp. quasi-log multisine};
+
+\addplot[plogmsconnect] table[x index=0,y index=2]{\thisDir/data/gridProps/plogms.tsv};
+\addlegendentry{Quasi-logarithmic};
+
+% ================================================
+
+\nextgroupplot[ylabel={$\alpha_k - 1$},yticklabel pos=right, ylabel near ticks,extra y ticks={0.05},extra y tick labels={$\alpha-1$}]
+\addplot[linmsconnect] table[x index=0,y index=3]{\thisDir/data/gridProps/linms.tsv};
+
+\addplot[logmsconnect] table[x index=0,y index=3]{\thisDir/data/gridProps/logms.tsv};
+
+% \addplot[clogmsconnect] table[x index=0,y index=2]{\thisDir/data/gridProps/clogms.tsv};
+
+\addplot[plogmsconnect] table[x index=0,y index=3]{\thisDir/data/gridProps/plogms.tsv};
+
+\end{groupplot}
+
+\end{tikzpicture}

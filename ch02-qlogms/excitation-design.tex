@@ -857,7 +857,6 @@ with
   
   \begin{figure}[ht]
     \centering
-      \remakeNextFigure
       \setlength\figurewidth{0.8\columnwidth}
       \setlength\figureheight{0.5\figurewidth}
     \input{\thisDir/figs/freqGrid.tikz}
@@ -868,6 +867,7 @@ with
 
   \begin{table}
   \centering
+  \label{tbl:excitation:gridProperties}
    \caption{Summary of  properties of the different frequency grids.}
     \begin{tabular}{rccc} 
     \toprule
@@ -904,12 +904,19 @@ with
     \end{tabular}
   \end{table}
 
-  \TODO{plot: $\alpha $ (evt. $\cdot A_k^2$) i.f.v. $\omega$ voor verschillende signalen.}
-  \TODO{plot: $\Delta f $ i.f.v. $\omega$ voor verschillende signalen} 
-  \TODO{plot: $\# \omega / \mathrm{decade}$ i.f.v. $\omega$ voor verschillende signalen} 
+  \begin{figure}
+    \centering
+    \setlength\figurewidth{0.85\columnwidth}
+    \setlength\figureheight{0.68\figurewidth}
+    \input{\thisDir/figs/gridProps.tikz}
+    \caption[Actual frequency grid spacing and ratio for different grids]{Actual frequency grid spacing $\Delta f_k$ and ratio $\alpha_k$ as a function of the frequency, for the different grid types with $f_0 =1\unit{Hz}$, $\Delta f = 1\unit{Hz}$ and $\alpha =1.05$ as in \figref{fig:excitation:freqGrids}. $\omegaLinLog$ marks the transition between linear and logarithmic regime in the quasi-logarithmic grid.}
+    \label{fig:excitation:gridPropertyPlots}
+  \end{figure}
 
   At the lowest frequencies the quasi-log grid and the linear grid frequencies do coincide and each line in the quasi-log grid is surrounded by many lines of the log grid.
   The amplitudes of the compensated and pink quasi-log lines show that the compensation only has effect at the lower frequencies since the uncompensated counterpart has an amplitude spectrum close to $1$.
+  The properties of these frequency grids are summarized in \tabref{tbl:excitation:gridProperties} and \figref{fig:excitation:gridPropertyPlots}.
+
   We can expect a very similar behavior from properly designed compensated quasi-log multisines and from the `pink' quasi-log multisine, since their amplitude spectra are almost identical.
   As such, it is advised to use `pink' quasi-log multisines as those can be constructed using more straightforward code (equation \eqref{eq:excitation:pink}) than the compensated quasi-log multisines (equations \eqref{eq:excitation:nfk}, \eqref{eq:excitation:nearestLines} , and \eqref{eq:excitation:compensationAk}).
   %TODO: mention crest factor? (here compensation/pink hurts)
