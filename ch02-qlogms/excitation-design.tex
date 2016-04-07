@@ -857,10 +857,12 @@ with
   
   \begin{figure}[ht]
     \centering
+      \remakeNextFigure
       \setlength\figurewidth{0.8\columnwidth}
       \setlength\figureheight{0.5\figurewidth}
     \input{\thisDir/figs/freqGrid.tikz}
-    \caption[Amplitude spectrum for linear, logarithmic, quasi-logarithmic grids.]{Comparison of the amplitude spectrum of a linear grid multisine, a logarithmic grid multisine, the compensated quasi-logarithmic multisine and the `pink' quasi-log multisine.}%
+    \caption[Amplitude spectrum for linear, logarithmic, quasi-logarithmic grids.]{Comparison of the amplitude spectrum of a linear grid multisine, a logarithmic grid multisine, the compensated quasi-logarithmic multisine and the `pink' quasi-log multisine.
+    $\omegaLinLog$ indicates the cross-over between the linear and logarithmic regions. }%
     \label{fig:excitation:freqGrids}
   \end{figure}
 
@@ -1057,7 +1059,12 @@ Also for the design of robust excitation signals, this is worthwhile observation
   The value $\gamma$ is varied for a fixed value of $N \in \ZN$.
   The value of $N$ will not influence the `shape` (and uncertainty) of the FRF.
 
-  The arguments for a logarithmically spaced grid with an infinite span remain approximately valid for quasi-logarithmically spaced grids with a finite frequency support if the resonance peak of the system under test lies well within the `bulk' of the frequency grid with finite support, i.e. $\RightOpenInterval{\frac{2\pi \Delta f}{\alpha - 1}, +\infty}$.
+  The arguments for a logarithmically spaced grid with an infinite span remain approximately valid for quasi-logarithmically spaced grids with a finite frequency support if the resonance peak of the system under test lies well within the `bulk' of the frequency grid with finite support, i.e. $\RightOpenInterval{\omegaLinLog, +\infty}$, where
+  \begin{equation}
+    \omegaLinLog \isdef \frac{2\pi \Delta f}{\alpha - 1}
+    \label{eq:excitation:linearLogTransitionFrequency}
+  \end{equation}
+  indicates the lowest frequency where the quasi-logarithmic grid can effectively reproduce the logarithmic spacing.
   In particular for lightly-damped sub-systems, $\wdB \approx \ClosedInterval{(1-\damping)\wn, (1+\damping)\wn}$, such that the resonance peak is in the bulk of the frequency grid when
   \begin{equation} 
     \frac{2 \pi \Delta f}{\alpha -1} \leq \left( 1 - \damping \right) \wn

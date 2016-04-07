@@ -70,29 +70,14 @@ function new = simplifyTsv(filename, doSave, cleanfigureArgs)
         data = [new.X(:), new.Y(:)];
         fid = fopen(filename, 'w');
         closeFileAfterwards = onCleanup(@() fclose(fid));
-        
-        FF     = '%g';
-        COLSEP = '\t';
-        ROWSEP = '\n';
-        fprintf(fid, [FF COLSEP FF ROWSEP], data.');
+
+        fprintf(fid, printMatrix(data, ...
+                                 'floatFormat','%g', ...
+                                 'columnSep','\t', ...
+                                 'rowSep','\n'));
     end
     
 end
-
 function N = nPoints(data)
     N = numel(data.X);
-end
-
-function [data]  = loadFile(filename)
-    data = importdata(filename);
-    data = struct('data', data);
-    data.X = data.data(:,1);
-    data.Y = data.data(:,2);
-    
-    data.nPoints = numel(data.X);
-    if size(data.data, 2) >= 3
-        sz = size(data.data);
-        warning('simplifyTsv:TooManyDimensions', ...
-                'File has dimensions %d x %d. Only 2D is handled!', sz(1), sz(2));
-    end
 end
