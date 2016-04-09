@@ -1,14 +1,19 @@
 %% font configuration
-\ifXeTeX
-    %\usepackage[no-math]{fontspec}
-    \usepackage{mathspec}
 
-    % http://tex.stackexchange.com/questions/85696/what-causes-this-strange-interaction-between-glossaries-and-amsmath
-    \makeatletter % undo the wrong changes made by mathspec
-    \let\RequirePackage\original@RequirePackage
-    \let\usepackage\RequirePackage
-    \makeatother
+\ifPDFTeX
+    \usepackage{fourier}
+\else
 
+    \ifXeTeX
+      \usepackage{mathspec}
+      % http://tex.stackexchange.com/questions/85696/what-causes-this-strange-interaction-between-glossaries-and-amsmath
+        \makeatletter % undo the wrong changes made by mathspec
+        \let\RequirePackage\original@RequirePackage
+        \let\usepackage\RequirePackage
+        \makeatother
+    \else % LuaTeX
+      \usepackage[no-math]{fontspec}
+    \fi
    %% Alegreya
    % \setmainfont{Alegreya}[SmallCapsFont={* SC}]
    %  \setsansfont{Alegreya Sans}[SmallCapsFont={* SC}]
@@ -34,6 +39,4 @@
     % \setmainfont{Palatino}
     % \setsansfont{Helvetica}
     % \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
-\else
-    \usepackage{fourier}
 \fi

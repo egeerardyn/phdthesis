@@ -110,9 +110,22 @@
 
 
 \newcommand{\TT}{\ensuremath{\mathrm{T}}}
-\renewcommand{\T}{\TT}   % \T is defined somewhere else: http://tex.stackexchange.com/questions/240691/disable-some-xunicode-macros-in-case-of-t1-font-encoding overwriting seems to work, but depends on the font used by XeTeX!
+
+% http://tex.stackexchange.com/questions/240691/disable-some-xunicode-macros-in-case-of-t1-font-encoding
+% redefining seems to work, but it depends on the font used !!!!!!!
+\ifcsname C\endcsname
+      \renewcommand{\C}{\ensuremath{\mathrm{C}}}
+  \else%
+       \newcommand{\C}{\ensuremath{\mathrm{C}}}
+  \fi
+  \ifcsname T\endcsname
+     \renewcommand{\T}{\TT}
+  \else
+     \newcommand{\T}{\TT}
+  \fi
+
 \newcommand{\HT}{\ensuremath{\mathrm{H}}}
-\renewcommand{\C}{\ensuremath{\mathrm{C}}}
+
 \newcommand{\inv}[1]{\ensuremath{#1^{-1}}}
 \newcommand{\pinv}[1]{\ensuremath{#1^{+}}}
 \newcommand{\conj}[1]{\ensuremath{\overline{#1}}}
