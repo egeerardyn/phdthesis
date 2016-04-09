@@ -19,10 +19,11 @@
   height=\figureheight,
   xmin=0.96,
   xmax=1000,
-  xtick={1,100,1000},
+  xtick={1,10,100,1000},
   xmode=log,
   ymode=log,
-  grid=both,
+  grid=major,
+  ticks=both,
   extra x ticks={20},
   extra x tick labels={$\omegaLinLog\phantom{^1}$},
 ]
@@ -33,7 +34,7 @@
 
 % ================================================
 
-\nextgroupplot[ylabel={$\Delta f_k$ \axisunit{Hz}},legendAboveGroupPlot,extra y ticks={1},extra y tick labels={$\Delta f$},ytick={0.1,10}]
+\nextgroupplot[ylabel={$\Delta f_k$ \axisunit{Hz}},legendAboveGroupPlot,extra y ticks={1},extra y tick labels={$\Delta f$},ytick={0.1,1,10},yticklabels={{$10^{-1}$},$\Delta f$,$10^1$}]
 \addplot[linmsconnect] table[x index=0,y index=2]{\thisDir/data/gridProps/linms.tsv};
 \addlegendentry{Linear};
 
