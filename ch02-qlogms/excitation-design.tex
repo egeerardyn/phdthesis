@@ -919,7 +919,6 @@ with
 
   We can expect a very similar behavior from properly designed compensated quasi-log multisines and from the `pink' quasi-log multisine, since their amplitude spectra are almost identical.
   As such, it is advised to use `pink' quasi-log multisines as those can be constructed using more straightforward code (equation \eqref{eq:excitation:pink}) than the compensated quasi-log multisines (equations \eqref{eq:excitation:nfk}, \eqref{eq:excitation:nearestLines} , and \eqref{eq:excitation:compensationAk}).
-  %TODO: mention crest factor? (here compensation/pink hurts)
 
 \section{Optimization of the frequency spacing} 
 \label{sec:excitation:optimAlpha}
@@ -1074,7 +1073,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
   indicates the lowest frequency where the quasi-logarithmic grid can effectively reproduce the logarithmic spacing.
   In particular for lightly-damped sub-systems, $\wdB \approx \ClosedInterval{(1-\damping)\wn, (1+\damping)\wn}$, such that the resonance peak is in the bulk of the frequency grid when
   \begin{equation} 
-    \frac{2 \pi \Delta f}{\alpha -1} \leq \left( 1 - \damping \right) \wn
+    \omegaLinLog = \frac{2 \pi \Delta f}{\alpha -1} \leq \left( 1 - \damping \right) \wn
     \text{.}
     \label{eq:excitation:systemInBulk:generic}
   \end{equation}

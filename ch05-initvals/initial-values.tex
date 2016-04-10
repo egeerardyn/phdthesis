@@ -841,7 +841,7 @@ To this end, the model is validated using the 2-norm (or distance) on the model 
 \begin{equation}
   \validationDistance{\bullet} 
   \isdef 
-  \norm{\model{\bullet} - G_{\mathrm{VXI}}}
+  \norm[2]{\model{\bullet} - G_{\mathrm{VXI}}}
   \text{.}
   \label{eq:measurementCriterion}
 \end{equation} 
@@ -879,7 +879,7 @@ E.g. note in \tabref{tbl:validationMeasurements} that this step reduces the wors
 \end{figure}
 \begin{table}[p]
   \centering
-  \caption{Observed percentiles of the validation distance $\norm{\model{\bullet}-G_{\mathrm{VXI}}}$.}
+  \caption{Observed percentiles of the validation distance $\norm[2]{\model{\bullet}-G_{\mathrm{VXI}}}$.}
   \input{\thisDir/tables/meas-validation-quantiles.tbl.tex}
 \label{tbl:validationMeasurements}
 \end{table}
@@ -909,7 +909,7 @@ The situation is already less severe for $\model{trunc}$ (in $75\%$ of the cases
   \caption[$\costFunc{\bullet}$ and $\validationDistance{\bullet}$ for each repeated measurement.]{Cost function $V(\model{\bullet})$ and validation distance of the model estimated in each repetition of the measurement.
   Based on the cost function, $\model{RFIR}$~\legref{leg:RFIR} is not always the best estimate $\model{best}$~\legref{leg:best}.
   Especially in the validation plot (bottom), $\model{RFIR}$ performs (almost) as well or even better than $\model{exist}$~\legref{leg:exist} and $\model{trunc}$~\legref{leg:trunc}.
-  Both latter methods often produce models that perform poorly compared to $\| G_{VXI} \|$~\legref{leg:reference} and $\model{VXI}$~\legref{leg:VXI}.
+  Both latter methods often produce models that perform poorly compared to $\norm[2]{G_{\mathrm{VXI}} }$~\legref{leg:reference} and $\model{VXI}$~\legref{leg:VXI}.
   This means that in our limited experimental study, the performance degradation of choosing RFIR to produce initial values over the studied alternatives is small.}
   \label{fig:overview}
 \end{figure}
