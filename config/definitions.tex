@@ -17,6 +17,9 @@
     \end{centering}
 }
 
+%http://tex.stackexchange.com/questions/31186/how-to-move-a-paragraph-to-the-bottom-of-the-page-without-vspace
+\newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
+
 \newcommand{\researchBasedOn}[2][This chapter]{\disclaimer{#1 is based on~\citet{#2}.}}
 
 %% Referencing
