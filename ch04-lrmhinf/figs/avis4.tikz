@@ -1113,6 +1113,6 @@ table[row sep=crcr]{
 
 %\spy [black, size=2cm] on (peak1) in node[fill=white] at (mpeak1);
 %\spy [black, size=2cm] on (peak2) in node[fill=white] at (mpeak2);
-%TODO: seems to be incompatible with pgfplots layer settings...
+%NOTE: spy seems to be incompatible with pgfplots layer settings...
 
 \end{tikzpicture}%
