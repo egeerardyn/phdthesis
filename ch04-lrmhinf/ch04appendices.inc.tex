@@ -1,8 +1,8 @@
 
 \section{\glsentrytext{AVIS} Measurement set-up}
 \label{app:avis-setup}
-The measurements of the \gls{AVIS} are carried out using a \Simulink model that configures the \gls{DAQ} card, implements a digital controller and provides some basic signal processing.
-\Simulink executes the code, as shown in \figref{fig:avis:simulink:setup} and \figref{fig:avis:simulink:avis},  using a constant time step $\Ts = 1\unit{ms}$ on a real-time computer equipped with \code{xPC Target} (nowadays: \Simulink Real-Time).
+The measurements of the \gls{AVIS} are carried out using a \Simulink model that configures the \gls{DAQ} card, implements a digital controller and processes the signals.
+\Simulink executes the code, as shown in \figref{fig:avis:simulink:setup} and \figref{fig:avis:simulink:avis},  using a constant time step $\Ts = 1\unit{ms}$ on a real-time computer running \code{xPC Target} (nowadays: \Simulink Real-Time) equiped with a Quanser Q8 \gls{DAQ} card that is connected to the physical \gls{AVIS} setup.
 
 \begin{figure}
 \setlength\figurewidth{\columnwidth}
@@ -25,7 +25,7 @@ The coordinate frame and axes are indicated in \figref{fig:avis:withAxes}.
 \begin{figure}
   \centering
   \includegraphics{\thisDir/figs/avis-with-axes.pdf}
-  \caption[\glsentrytext{AVIS} with coordinate frame, sensors and actuators.]{\glsentrytext{AVIS} with $(x,y,z)$ coordinate frame indicated and bird's eye view of the approximate locations of the actuators and sensors at each of the four corners. For each of the actuators and sensors, the color indicates the principal direction (x:red, y:green, z:blue).}
+  \caption[\glsentrytext{AVIS} with coordinate frame, sensors and actuators.]{\glsentrytext{AVIS} with $(x,y,z)$ coordinate frame indicated and bird's eye view of the approximate locations of the actuators and sensors at each of the four corners. For each of the actuators and sensors, the color indicates the principal direction.}
   \label{fig:avis:withAxes}
 \end{figure}
 

@@ -27,7 +27,7 @@ w = logspace(log10(0.001), log10(fNyquist), nPoints);
 %% static transformations
 Kact  = avis.actuator.polarity * avis.actuator.matrix;
 Ksens = avis.sensor.matrix * avis.sensor.polarity;
-tabOpts = {'floatFormat', ff, 'col', ' & ', 'row', '\\\\\n'};
+tabOpts = {'floatFormat', '%g', 'col', ' & ', 'row', '\\\\\n'};
 printMatrix(Kact, tabOpts{:} )
 printMatrix(Ksens, tabOpts{:} )
 %% plots

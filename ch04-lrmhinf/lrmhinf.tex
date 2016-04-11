@@ -321,7 +321,7 @@ In \figref{fig:lrmhinf:interpol-quantities} the functions $k_L(\omega)$ and $k_R
 
 \disclaimer{
 The \gls{LRM} and \gls{LPM} are described in \chapref{sec:nonparametric} and \citep{Schoukens2009LPM,Pintelon2010LPM1,Pintelon2010LPM2,McKelvey2012LRM} in more detail.
-Below, we give briefly re-iterate some pertinent aspects and notations.
+Below, we briefly re-iterate some pertinent aspects and notations.
 }
 
 The local models $\LocalModel{\Delta}_k$ are estimated using the \gls{LRM}~\citep{McKelvey2012LRM}.
@@ -501,9 +501,17 @@ The obvious solution to collect more densely-sampled data, is often not desirabl
 However, the method proposed  in this chapter can provide more densely-sampled view of the data without an increase in measurement time.
 \end{remark}
 
-\begin{guideline}[Measure $4$ to $5\timeconst$ to observe its peak value using the local models]
+\begin{guideline}[Measure $4$ to $5\timeconst\,$ to observe its peak value using the local models]
+\begin{minipage}{0.725\textwidth}
 After $4$ to $5$ time constants of the dominant pole, the local models offer a reliable insight into the peak value of a transfer function when a sufficient \gls{SNR} of approximately $20\unit{dB}$ is available such that the \gls{LRM} can be used.
 For purely \gls{FRF}-based estimates, on the other hand, the measurement only attains similar performance when measuring for $20\timeconst$.
+\end{minipage}
+\hfill
+\begin{minipage}{0.25\textwidth}
+\setlength\figurewidth{\columnwidth}
+\setlength\figureheight{0.618\figurewidth}
+\input{\thisDir/figs/sketch-SNR.tikz}
+\end{minipage}
 \end{guideline}
 
 \section{Application to an \glsentryname{AVIS}}

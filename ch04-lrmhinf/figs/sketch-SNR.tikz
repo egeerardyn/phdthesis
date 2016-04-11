@@ -1,0 +1,38 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+xmin=0,
+xmax=2.5,
+ymin=-30,
+ymax=2,
+xtick=\empty,
+ytick=\empty,
+xlabel={$\omega$},
+ylabel={$\abs{Y}$},
+axis x line=bottom,
+axis y line=left,
+every axis y label/.style={at={(axis description cs:0.08,0.925)},rotate=0},
+every axis x label/.style={at={(axis description cs:0.925,-0.1))},rotate=0},
+]
+
+\draw[<->,line width=1.25pt] (axis cs:0.95,0) -- (axis cs:0.95,-15);
+% \node[meas] (SNR) at (rel axis cs:0.75,0.8) {\textbf{SNR}};
+\node[] (SNR) at (axis cs:0.6,-9) {\textbf{SNR}};
+% \draw[meas,line width=1.25pt] (axis cs:0.95,-7.5) -- (SNR.west);
+
+\addplot [truesys] table[]{\thisDir/data/sketch-SNR/sketch-SNR-1.tsv};
+\addplot [color=TangoAluminium4,mark size=0.5pt,mark=*,mark options={solid},forget plot]
+  table[]{\thisDir/data/sketch-SNR/sketch-SNR-2.tsv};
+
+
+\end{axis}
+\end{tikzpicture}%
