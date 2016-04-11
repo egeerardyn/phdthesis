@@ -252,7 +252,8 @@ Unfortunately, this approach offers no insight in the behavior of $\svdMax{\Delt
 
 \paragraph{Interpolation method}
 To allow inspection of $\svdMax{\Delta(\omega)}$ in~\eqref{eq:lrmhinf:HinfNormSISO} for arbitrary values of $\omega \in \Omega$, we propose an interpolation approach to estimate $\gamma$ and to allow visual inspection of $\svdMax{\Delta(\omega)}$.
-It can be understood intuitively that due to the limited validity domain of the local models, an estimate of $\Delta(\omega)$ can only be obtained from $\LocalModel{\Delta}_k(\omega)$ when $\svdMax{\omega_k-\omega}$ is small.
+It can be understood intuitively that due to the limited validity domain of the local models, an estimate of $\Delta(\omega)$ can only be obtained from $\LocalModel{\Delta}_k(\omega)$ when the distance $\abs{\omega_k-\omega}$ is small.
+As the local models are each constructed around the frequency $\omega_k$, for an arbitrary $\omega \in \Omega$, one can find two adjacent frequencies around which such local models are available.
 To this end, two functions that indicate respectively the left and the right adjacent local models for frequency $\omega \in \Omega$ are defined:
 \begin{align}
   k_L(\omega) & 
@@ -317,7 +318,12 @@ In \figref{fig:lrmhinf:interpol-quantities} the functions $k_L(\omega)$ and $k_R
 
 \subsection{The \glsentrydesc{LRM}}
 \label{sec:lrmhinf:LRM}
-\TODO{remove whole LRM section in favor for \chapref{sec:nonparametric}}
+
+\disclaimer{
+The \gls{LRM} and \gls{LPM} are described in \chapref{sec:nonparametric} and \citep{Schoukens2009LPM,Pintelon2010LPM1,Pintelon2010LPM2,McKelvey2012LRM} in more detail.
+Below, we give briefly re-iterate some pertinent aspects and notations.
+}
+
 The local models $\LocalModel{\Delta}_k$ are estimated using the \gls{LRM}~\citep{McKelvey2012LRM}.
 The \gls{LRM} exploits the fact that the transfer function $\Delta(\omega)$ and the leakage term $T_{\Delta}(\omega)$  in \eqref{eq:lrmhinf:sysDeltaFiniteDataFD} are smooth functions of the frequency.
 As such, $\Delta$ and $T_{\Delta}$ are approximated locally by rational functions around each bin $k$:
@@ -377,11 +383,9 @@ By doing so, the local linear-least-squares cost function
   \label{eq:lrmhinf:localCostLRM}
 \end{equation}
  around each bin $k$ can be constructed.
+
 We denote $\lrm{N_W,N_B,N_A,N_T}$ to be the \gls{LRM} with the orders $N_B$, $N_A$, $N_T$ and bandwidth $N_W$ defined above.
 For $N_A=0$ the \gls{LRM} simplifies to the \gls{LPM} which we shall denote as $\lpm{N_W,N_B,N_T}$.
-
-For a more detailed overview of  the \gls{LPM} and \gls{LRM} see~\citep{Schoukens2009LPM,Pintelon2010LPM1,Pintelon2010LPM2,McKelvey2012LRM} and \chapref{sec:nonparametric}.
-
 
 \section{Simulation}
 \label{sec:lrmhinf:simulation}
@@ -458,7 +462,6 @@ Slightly different orders (e.g. $\lrm{4,1,1,1}$) yield comparable results.
 It can be observed for $\gammaIntergrid$ in \figref{fig:lrmhinf:exampleIntergrid} that the \gls{LRM} is able to model the resonance well and yields a useful estimate $\infnorm{\Delta_{\mathrm{LRM}}} = 24$ in the simulation.
 Intuitively, the \gls{LRM} locally approximates the resonant pole which allows for a reliable inter-grid estimate.
 The \gls{LPM}, on the other hand, does not provide a reliable estimate.
-This behavior is related to the Runge phenomenon~\citep{Runge1901}.
 
 \subsection{Study of the experiment length}
 The frequency resolution, and hence the experiment length, is key to obtain a reliable \Hinf{} norm estimate.
