@@ -1,4 +1,4 @@
-\chapter{Non-parametric Resonance Peak Modeling}
+\chapter{Non-parametric Peak Modeling}
 \label{sec:hinf}
 \def\thisDir{ch04-lrmhinf}
 \tikzsetfigurename{ch04fig}
@@ -14,7 +14,8 @@
 % \label{sec:lrmhinf:Intro}
 
 For mechatronic design and many other engineering disciplines it is important to obtain good parametric models.
-However, in many state-of-the-art disciplines that involve increasingly complicated systems, building a full-scale model quickly becomes a burden that is not guaranteed to provide a level of model fidelity that is proportional to the required modeling effort and cost.
+Recent trends in many disciplines have produced increasingly complicated systems.
+Consequently, building a full-complexity model rapidly becomes disproportionately expensive for a required model fidelity.
 Often, such parametric models are required to understand basic properties of the system such as the resonance frequencies and their corresponding damping values.
 In this chapter, we will investigate the use of the local parametric approaches to extract such basic information from the system without having to build a full parametric model.
 The approach that is followed in this chapter is applied to estimating the \Hinf{} norm of the transfer function of a system, a problem that directly depends on the resonances of a system and has shown to be a crucial step in designing robust controllers~\citep{Oomen2016}.
@@ -32,20 +33,20 @@ Several approaches have been developed to determine bounds on the model uncertai
 First, model validation techniques have been developed~\citep[see e.g.][]{Smith1992,Xu1999}.
 However, these results are typically overly optimistic~\citep{Oomen2009UncEstim}.
 Second, model error modeling approaches based on parametric system identification~\citep{Ljung1999MEM} with explicit characterization of bias and variance errors have been proposed, but these require a significant amount of user intervention.
-Third, non-parametric identification approaches have been adopted, e.g.~\citep{vandeWal2002,deVries1994}. 
-In~\citep{vandeWal2002}, an identified frequency response function is used directly to evaluate the \Hinf{} norm on a discrete frequency grid. 
-In~\citep{deVries1994}, an extended method is presented that bounds the error in between frequency points in a worst-case fashion. 
+Third, non-parametric identification approaches have been adopted~\citep[][see e.g.]{vandeWal2002,deVries1994}. 
+In~\citet{vandeWal2002}, an identified frequency response function is used directly to evaluate the \Hinf{} norm on a discrete frequency grid. 
+In~\citet{deVries1994}, an extended method is presented that bounds the error in between frequency points in a worst-case fashion. 
 However, such worst-case methods are well-known to be overly conservative~\citep[Section 9.5.2]{Vinnicombe2001}. 
-Fourth, recently a data-driven \Hinf{} norm estimation has been developed in~\citep{Wahlberg2010,Oomen2014ILH}.
-These methods rely on a sequence of iterative experiments and directly delivers an estimate of the \Hinf{} norm, and combines an optimal experiment design while essentially taking inter-grid errors into account.
-A recent application of this method in~\citep{Oomen2014ILH} has revealed that these iterative methods lead to significantly more accurate \Hinf{} estimates compared with traditional frequency response-based methods, thereby underlining the importance of the inter-grid error.
+Fourth, recently a data-driven \Hinf{} norm estimation has been developed in \citet{Wahlberg2010,Oomen2014ILH}.
+These methods rely on a sequence of iterative experiments and directly deliver an estimate of the \Hinf{} norm, and combine an optimal experiment design while essentially taking inter-grid errors into account.
+A recent application of this method in \citet{Oomen2014ILH} has revealed that these iterative methods lead to significantly more accurate \Hinf{} estimates compared with traditional frequency response-based methods, thereby underlining the importance of the inter-grid error.
 Unfortunately, these methods require a sequence of dedicated iterative experiments.
 This increases the measurement time significantly, especially for \gls{MIMO} plants.
 When measurement time is expensive, this is a severe impediment.
 
 Although important steps have been made in model-error-modeling, existing methods involve a trade-off between accuracy, measurement time, and user intervention.
 The aim of this chapter is to develop a golden mean between traditional non-parametric techniques (third approach) and a full parametric model (second approach).
-The proposed $\Hinf{}$ norm estimation procedure exploits recent developments in frequency domain estimation using the \gls{LPM} \citep{Schoukens2009LPM} and the \gls{LRM} \citep{McKelvey2012LRM} as introduced in \citep{Geerardyn2014IFAC,Geerardyn2014ISMA}.
+The proposed $\Hinf{}$ norm estimation procedure exploits recent developments in frequency domain estimation using the \gls{LPM} \citep{Schoukens2009LPM} and the \gls{LRM} \citep{McKelvey2012LRM} as introduced in \citet{Geerardyn2014IFAC,Geerardyn2014ISMA}.
 Before, these \gls{LPM} and \gls{LRM} techniques have been used to enhance at-grid frequency response estimates.
 Here, these methods are extended to provide both an at-grid and inter-grid evaluation of the maximum singular value near resonances, as is required for the $\Hinf{}$ norm and consequently the design of robust controllers.
 The performance of these local parametric models in the context of robust control design is investigated, and bounds on the required measurement time to obtain a reliable estimate of the \Hinf{} norm are obtained.
@@ -55,7 +56,7 @@ The performance of these local parametric models in the context of robust contro
 \paragraph*{Outline}
 \label{par:lrmhinf:toc}
 The problem is formulated in \secref{sec:lrmhinf:Problem}.
-In \secref{sec:lrmhinf:LPMHinf} the novel method to estimate the $\Hinf{}$ norm by means of the \gls{LRM} is introduced.
+In \secref{sec:lrmhinf:LPMHinf} the proposed method to estimate the $\Hinf{}$ norm by means of the \gls{LRM} is introduced.
 In \secref{sec:lrmhinf:simulation} the method is illustrated on simulations, and the required measurement time is determined.
 The technique is demonstrated on measurements of an \gls{AVIS} in \secref{sec:lrmhinf:measurement}.
 Finally, the results and some challenges are discussed in \secref{sec:lrmhinf:conclusion}.
@@ -94,8 +95,8 @@ In robust control design methodologies, such \Hinf{} norms often play an importa
 \begin{remark}
 It is even more common to use a weighted norm $\infnorm{W \Delta V}$ in robust control designs where $(W,V)$ are stable and minimum-phase weighting filters.
 Two use cases can be distinguished: either these filters are chosen by the control engineer and hence known, or, one wishes to construct such filters from data.
-In the case where the weighting filters are `known', the approach of this chapter can be adapted in a straightforward manner to account for these weights, i.e. by replacing $\svdMax{\Delta}$ with $\svdMax{W \Delta V}$ in the formulas.
-The other case is discussed in Remark~\ref{rem:lrmhinf:constructWeights} further on.
+In the case where the weighting filters are `known', the approach of this chapter can be adapted in a straightforward manner to account for these weights, i.e., by replacing $\svdMax{\Delta}$ with $\svdMax{W \Delta V}$ in the formulas.
+The other case is explained in Remark~\ref{rem:lrmhinf:constructWeights}.
 \end{remark}
 
 To estimate $\gamma$, only $\Delta(\omega_{\star})$ is of interest, where
@@ -108,7 +109,8 @@ To estimate $\gamma$, only $\Delta(\omega_{\star})$ is of interest, where
   \text{.}
   \label{eq:lrmhinf:omega-star}
 \end{equation}
-However, in a finite measurement time, non-parametric approaches only give access to a finite and discrete grid of frequencies $\omega_k \in \DFTGrid $, i.e. $\DFTGrid \isdef{\omega_1, \omega_2, \ldots, \omega_{N-1}}$.
+If the measurement time is finite, non-parametric approaches only give access to a finite and discrete grid of frequencies $\omega_k \in \DFTGrid $, i.e. $\DFTGrid \isdef{\omega_1, \omega_2, \ldots, \omega_{N-1}}$.
+Typically, this discrete grid is the frequency grid of the \gls{DFT}.
 As such, \eqref{eq:lrmhinf:HinfNorm} can be rewritten as
 \begin{equation}
   \gamma \isdef 
@@ -143,12 +145,14 @@ Two cases can be distinguished:
   \item $\omega_{\star} \in \DFTGrid$ such that $\svdMax{\Delta(\omega_{\star})} = \gamma =\gamma_{\mathrm{FRF}}$ is observed directly on the discrete frequency grid,
   \item $\omega_{\star} \not\in \DFTGrid$, i.e. the extremal value $\svdMax{\Delta(\omega_{\star})}  = \gamma = \gammaIntergrid$ is determined by the inter-grid behavior.
 \end{enumerate}
-The use of $\gamma_{\mathrm{FRF}}$ is standard in \gls{FRF}-based approaches, e.g.~\citep{vandeWal2002}.
-Its expected value over different realizations of the input signal $\expectedValue{\gammaAtGrid} \leq \gamma$ due to the limited frequency resolution.
-Such an underestimate may lead to overly optimistic controller designs.
 
-The main contribution of this chapter is to  estimate the inter-grid term $\gammaIntergrid$ without the need for a (global) parametric model.
-Instead, a  realistic value of $\gamma$ is obtained using parametric models that are valid over small frequency ranges.
+The use of $\gamma_{\mathrm{FRF}}$ is standard in \gls{FRF}-based approaches, e.g.~\citet{vandeWal2002}.
+However, the expected value of  $\gamma_{\mathrm{FRF}}$  for different realizations of the input signal and noise for a fixed measurement time, underestimates the actual peak gain $\gamma$, i.e. $\expectedValue{\gammaAtGrid} \leq \gamma$.
+This is due to the limited frequency resolution imposed by the measurement time: the frequency where the actual peak gain occurs might not coincide with the excited frequency grid.
+Such an underestimate of $\gamma$ leads to overly optimistic controller designs which in turn can cause unstable behavior of the plant.
+
+The main contribution of this chapter is to  estimate the inter-grid term $\gammaIntergrid$ without the need for a (global) parametric model or imposing worst-case prior knowledge that leads to conservatism.
+Instead, a  realistic value of $\gamma$ is obtained using parametric models that are valid over a finite frequency range.
 
 \subsection{Set-up}
 Consider an output error \gls{LTI} discrete-time \gls{SISO} system $\Delta(q)$ excited by an input signal $u_{\Delta}(n)$.
@@ -163,7 +167,7 @@ For an infinitely long data record, this can be described in the time-domain as
       + H(q)e(n)
   \label{eq:lrmhinf:sysDeltaInfData}
 \end{equation}
-where $q^{-1}$ is the lag operator, $e(n)$ is white Gaussian noise with unity variance, and both $\Delta(q)$ and $H(q)$ are stable causal real-rational functions.
+where $q^{-1}$ is the lag operator, $e(n)$ is white Gaussian noise with unity variance such that $v(n) = H(q)e(n)$ can be colored noise, and both $\Delta(q)$ and $H(q)$ are stable causal real-rational functions.
 For a limited data record ($n \in \Set{0,\ldots,N-1}$), the transient contributions $t_{\Delta}(n)$ lead to:
 \begin{equation}
     y_{\Delta}(n) 
@@ -218,7 +222,6 @@ In particular, the inter-grid aspect of the $\Hinf$ norm is estimated as
 \end{equation}
 where the $\LocalModel{\Delta}_{k}$ is the local model around the ($k^{\text{th}}$) frequency bin $\omega_k$.
 An example of such local models is shown in \figref{fig:lrmhinf:interpol-quantities}.
-Two alternative methods allow evaluation of~\eqref{eq:lrmhinf:gamma-inter-grid} in practice.
 
 \begin{figure}
   \centering
@@ -230,25 +233,9 @@ Two alternative methods allow evaluation of~\eqref{eq:lrmhinf:gamma-inter-grid} 
 \label{fig:lrmhinf:interpol-quantities}
 \end{figure}
 
-\paragraph*{Direct method}
-One can implement the definition~\eqref{eq:lrmhinf:gamma-inter-grid} of $\gammaIntergrid$ directly.
-Hence, it boils down to solving the optimization problems
-\begin{align}
-  \estimated{\gammaIntergrid}(k) & \isdef 
-      \sup_{\omega \in \Omega_k}
-      \svdMax{\LocalModel{\Delta}_k(\omega)}
-       \quad \forall k \in \Set{1,\ldots,N-1} 
-       \label{eq:lrmhinf:gamma-direct:optimizations}\\
-  \estimated {\gammaIntergrid} &= 
-  \max \Set{
-    \estimated{\gammaIntergrid}(k) 
-    | 
-    k \in \Set{1,\ldots,N-1}
-  }
-      \label{eq:lrmhinf:gamma-direct}
-\end{align}
-These are tractable since $\omega$ is one-dimensional and restricted to the closed intervals $\Omega_k$.
-Unfortunately, this approach offers no insight in the behavior of $\svdMax{\Delta(\omega)}$, e.g. around the peak amplitude.
+Direct implementation of \eqref{eq:lrmhinf:gamma-inter-grid} allows a simple and efficient evaluation of $\gammaIntergrid$ that matches well to parallel computation frameworks such as \code{MapReduce}~\citep{Dean2008}.
+In particular, the inner $\sup_{\omega\in\Omega_k}$ can be understood as a \code{map} operation that maps a local model to its peak value and the outer $\sup$ is a \code{reduce} that only retains the global peak value given the peak value of each local model.
+Unfortunately, such an implementation offers no access to the behavior of $\svdMax{\Delta(\omega)}$, e.g. around the peak amplitude.
 
 \paragraph{Interpolation method}
 To allow inspection of $\svdMax{\Delta(\omega)}$ in~\eqref{eq:lrmhinf:HinfNormSISO} for arbitrary values of $\omega \in \Omega$, we propose an interpolation approach to estimate $\gamma$ and to allow visual inspection of $\svdMax{\Delta(\omega)}$.
@@ -291,7 +278,7 @@ In view of obtaining the maximum singular value, these are `interpolated' to obt
     }
     \label{eq:lrmhinf:DeltaLRMInterpolation}
 \end{equation}
-by retaining the largest both.
+by retaining the largest of both.
 It follows that
 \begin{align}
   \widehat{\infnorm{\Delta_{\LMM}}}
@@ -307,14 +294,19 @@ It follows that
   \text{.}
 \end{align}
 
-\paragraph*{Remarks:}
-The optimization problems~\eqref{eq:lrmhinf:gammaInterpolOptim} and~\eqref{eq:lrmhinf:gamma-direct:optimizations} each amount to one-dimensional optimization problems, hence they be solved easily by griding the frequency $\omega$.
-The peak amplitudes obtained using~\eqref{eq:lrmhinf:gammaInterpolOptim} and~\eqref{eq:lrmhinf:gamma-direct} are identical since the local models $\LocalModel{\Delta}_k$ are evaluated over identical frequency ranges
+\begin{remark}
+The construction of $ \svdMax{\Delta_{\LMM}(\omega)}$  makes it more involved to implement the interpolation approach in an efficient and/or parallel fashion.
+\end{remark}
+
+\begin{remark}
+The optimization problems \eqref{eq:lrmhinf:gammaInxterpolOptim} and \eqref{eq:lrmhinf:gamma-inter-grid} each amount to one-dimensional optimization problems, hence they can be solved accurately, fast and easily by gridding the frequency $\omega$.
+The peak amplitudes obtained using both implementations are identical since the local models $\LocalModel{\Delta}_k$ are evaluated over identical frequency ranges
  \begin{equation}
   \Omega_k = \Set{\omega \given{k_L(\omega) = k \vee k_R(\omega) = k}}
  \end{equation}
 for both methods (but in different order) and aggregated using the supremum operator, which is indifferent to the order of its arguments.
 In \figref{fig:lrmhinf:interpol-quantities} the functions $k_L(\omega)$ and $k_R(\omega)$ are visualized and the equivalence with $\Omega_k$ is apparent.
+\end{remark}
 
 \subsection{The \glsentrydesc{LRM}}
 \label{sec:lrmhinf:LRM}
@@ -413,7 +405,7 @@ To estimate $\infnorm{\Delta}$ mainly the resonant sub-systems are of interest a
 Assuming such resonances are sufficiently separated in the frequency,~\citep{Schoukens2013LPMerror,Geerardyn2013TIM,Gawronski2004} show that results for a single resonance are applicable to more complex systems.
 This is done by considering only the dominant resonance -- \emph{viz.} the one that is the most relevant for the $\Hinf{}$ controller design.
 By normalizing the conclusions for the time constant $\timeconst$ (or the $3\unit{dB}$ bandwidth), the results are generally valid for different values of the damping $\damping$.
-Specifically, the system's $\timeconst \isdef (\damping \wn)^{-1}$ dictates the required measurement time~\citep{Schoukens2013LPMerror}, where $\damping$ is the relative damping and $\wn$ the natural frequency of the dominant pole.
+Specifically, the time constant $\timeconst \isdef (\damping \wn)^{-1}$ of the dominant pole dictates the required measurement time~\citep{Schoukens2013LPMerror}, where $\damping$ is the relative damping and $\wn$ the natural frequency of the dominant pole.
 
 \subsection{A concrete simulation}
 Consider a discrete time system $\Delta$ (see \figref{fig:lrmhinf:exampleIntergrid}) as unmodeled dynamics in an output-error setting:
@@ -480,7 +472,7 @@ The resulting sample average and standard deviation $\sigma$ are shown in \figre
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/MC-runlength.tikz}
   %\input{figures/runLength.tikz}
-  \caption[Estimated $\gamma$ versus measurement time.]{The $\Hinf{}$ norm~\legref{leg:runlength-true} is underestimated significantly for short experiments ($N<20\timeconst$) by $\expectedValue{\gammaAtGrid}$~\legref{leg:runlength-frf} and the \gls{LPM}~\legref{leg:runlength-LPM}.
+  \caption[Estimated $\gamma$ versus measurement time.]{This Monte Carlo simulation shows that the $\Hinf{}$ norm~\legref{leg:runlength-true} is underestimated significantly for short experiments ($N<20\timeconst$) by $\expectedValue{\gammaAtGrid}$~\legref{leg:runlength-frf} and the \gls{LPM}~\legref{leg:runlength-LPM}.
   However, the proposed $\widehat{\infnorm{\Delta_{\mathrm{LRM}}}}$~\legref{leg:runlength-LRM} is already reliable from much shorter experiments ($N \geq 4 \timeconst$). A single observation for $N=97$~\legref{leg:runlength-special-case} is shown in \figref{fig:lrmhinf:exampleIntergrid}. The shaded areas show the $\pm \sigma$ intervals which are due to the noise.
   }
 \label{fig:lrmhinf:MC-run-length}
@@ -492,16 +484,15 @@ For long experiments $(N \to \infty)$, the true $\infnorm{\Delta}$ is recovered.
 Practically, this implies that the interpolated \gls{LRM} beats the on-grid estimate using a data record that is only a fraction of the length.
 
 \begin{remark} \label{rem:lrmhinf:constructWeights}
-The construction of weighting filters $(W,V)$ for the design of a robust controller typically happens based on measurement data which is available non-parametrically, i.e. only available at a limited frequency grid.
-The goal of the filter design is to construct low-order minimum-phase filters that form a tight overbound of particular real-valued functions of the frequency.
-Concretely, such a real-valued function is often a singular value of e.g. the loop gain or one of the loop sensitivity functions~\citep{Boeren2013,Scheid1995,Bibel1992,Skogestad2005} such that the design entails practical control objectives (disturbance rejection, input tracking, \ldots).
-However, since such a function is only measured at a limited amount of frequency points, such overbounds can be hard to construct when resonances are present.
-E.g. \citet{Scheid1995} describes a method to produce parametric overbounds, but note in Section~IV that limited frequency resolution can hamper construction of these filters.
-The obvious solution to collect more densely-sampled data, is often not desirable (e.g. due to time constraints, limited access to the actual plant, cost of experimentation, \ldots).
-However, the method proposed  in this chapter can provide more densely-sampled view of the data without an increase in measurement time.
+In robust control design, often the interest is not only in determining the peak value of the uncertainty, but also in obtaining a tight overbound of the uncertainty, e.g. as in \citet{Scheid1995}.
+This is closely related to the design of (parametric) weighting filters $(W,V)$ such that $\abs{W \Delta V}$ is almost a constant function of the frequency in the frequency bands of interest for control design.
+Essentially, this is done to ensure that a synthesized robust controller is largely invariant under the choice of uncertainty structure chosen in the model set.
+
+The proposed local parametric approach can be extended straightforwardly to accommodate for this.
+In particular, the overbound of $\Delta$ can be generated for an arbitrarily dense frequency grid---i.e. this includes the inter-grid behavior--- such that the approach of \citet{Scheid1995} can be used directly.
 \end{remark}
 
-\begin{guideline}[Measure $4$ to $5\timeconst\,$ to observe its peak value using the local models]
+\begin{guideline}[Measure at least $5\timeconst\,$ to observe its peak value using the local models]
 \begin{minipage}{0.725\textwidth}
 After $4$ to $5$ time constants of the dominant pole, the local models offer a reliable insight into the peak value of a transfer function when a sufficient \gls{SNR} of approximately $20\unit{dB}$ is available such that the \gls{LRM} can be used.
 For purely \gls{FRF}-based estimates, on the other hand, the measurement only attains similar performance when measuring for $20\timeconst$.
@@ -517,7 +508,7 @@ For purely \gls{FRF}-based estimates, on the other hand, the measurement only at
 \section{Application to an \glsentryname{AVIS}}
 \label{sec:lrmhinf:measurement}
 The proposed method is illustrated on the \gls{AVIS} shown in \figref{fig:lrmhinf:avis}.
-The broad aim of vibration isolation~\citep{Karnopp1995,Collette2011} is to suppress vibrations such that a certain payload (e.g. passengers in a car, sensitive equipment such as atomic force microscopes or wafer-scanners used for lithography) is not disturbed by vibrations generated by either the payload itself ($F_{\mathrm{d(pl)}}$) or by the outside world ($F_{\mathrm{d(pl)}}$) as indicated in \figref{fig:lrmhinf:vibration-isolation}.
+The broad aim of vibration isolation~\citep{Karnopp1995,Collette2011} is to suppress vibrations such that a certain payload---e.g. passengers in a car, sensitive equipment such as atomic force microscopes and wafer-scanners used for lithography---is not disturbed by vibrations generated by either the payload itself ($\systemDisturbance$) or by the outside world ($\systemDisturbance$) as indicated in \figref{fig:lrmhinf:vibration-isolation}.
 
 \begin{figure}
  \centering
@@ -533,7 +524,8 @@ The broad aim of vibration isolation~\citep{Karnopp1995,Collette2011} is to supp
     \label{fig:lrmhinf:vibration-isolation:skyhook}
   \end{subfigure}
   \disclaimer{Figure based on \citep[Fig. 3 and 4]{Voorhoeve2015SYSID} and \citep[Fig. 3 and 6]{Karnopp1995}.}
-  \caption[Vibration isolation set-ups (traditional, sky-hook dampinng)]{Conceptual illustration of (active) vibration isolation set-ups. In addition to the passive isolation (spring and damper), the active controller $C$ provides additional isolation using the measurement of the payload velocity ($y=v_z$).
+  \caption[Vibration isolation set-ups (traditional, sky-hook dampinng)]{Conceptual illustration of (active) vibration isolation set-ups. 
+  In addition to the passive isolation (spring and damper), the active controller $C$ provides additional isolation using the measurement of the payload velocity ($y=v_z$).
   % If the velocity relative to ground is measured (a), the controller design involves trading-off which disturbance should be suppressed better.
   % When the absolute velocity the payload is measured (b), the controller can suppress both disturbances as it acts as a damper between a virtual fixed point (``sky'') and the payload.
   }
@@ -541,21 +533,21 @@ The broad aim of vibration isolation~\citep{Karnopp1995,Collette2011} is to supp
 \end{figure}
 
 The typical set-up for vibration isolation is illustrated in \figref{fig:lrmhinf:vibration-isolation:traditional}.
-If the controller $C$ is removed, the set-up reduces to a passive isolation system where the suspension is to be designed such that the payload velocity $y=v_z$ is influenced as little as possible by both the internal disturbances ($F_{\mathrm{d(pl)}}$) and the external disturbances ($F_{\mathrm{d(pl)}}$).
-To suppress $F_{\mathrm{d(ext)}}$, a compliant suspension is required such that the payload and the floor are decoupled.
-However, to enable suppression of the system disturbances $F_{\mathrm{d(pl)}}$, a stiff suspension is desirable to minimize the deflection of the payload~\citep{Voorhoeve2015SYSID}.
+If the controller $C$ is removed, the set-up reduces to a passive isolation system where the suspension is to be designed such that the payload velocity $y=v_z$ is influenced as little as possible by both the internal disturbances ($\systemDisturbance$) and the external disturbances ($\externalDisturbance$).
+To suppress $\externalDisturbance$, a compliant suspension is required such that the payload and the floor are decoupled.
+However, to enable suppression of the system disturbances $\systemDisturbance$, a stiff suspension is desirable to minimize the deflection of the payload~\citep{Voorhoeve2015SYSID}.
 This obviously leads to a trade-off in the design.
 In active vibration isolation, measurements of the position, velocity and even acceleration of the payload allow more freedom in tuning the suspension of the payload.
 Typically, the controller $C$ acts as an additional damping term.
-However, when such measurements are relative to the floor or other objects which are subject to the external disturbances $F_{\mathrm{d(ext)}}$ themselves, the trade-off for passive vibration isolation remains applicable.
+However, when such measurements are relative to the floor or other objects which are subject to the external disturbances $\externalDisturbance$ themselves, the trade-off for passive vibration isolation remains applicable.
 
 On the other hand, when a measurement of the absolute velocity of the payload is available, the external disturbances can be reduced effectively.
 Absolute velocity measurements can be obtained e.g. from inertial sensors~\citep{Collette2011} such as geophones~\citep{Rademakers2005MSc,vanderMaas2011MSc}.
 In particular, such sensors suspend an inertial mass using suspension with very low resonance frequency to the payload.
 By observing the relative movement of the inertial mass and the payload, the absolute velocity of the payload can be measured~\citep{Collette2011}.
-Conceptually, the active controller $C$ can be seen as connected to an imaginary fixed point in the `sky' (\figref{fig:lrmhinf:vibration-isolation:skyhook}), which is not disturbed by $F_{\mathrm{d(ext)}}$ for an ideal sensor.
-Consequently, the trade-off that exists in passive isolation is no longer relevant.
-A compliant passive suspension can decouple the payload from external disturbances while the active controller acts as a stiff damper to the `sky' such that the effect $F_{\mathrm{d(pl)}}$ is suppressed.
+Conceptually, the active controller $C$ can be seen as connected to an imaginary fixed point in the `sky' (\figref{fig:lrmhinf:vibration-isolation:skyhook}), which is not disturbed by $\externalDisturbance$ for an ideal sensor.
+Consequently, the trade-off that exists in passive isolation is eliminated.
+A compliant passive suspension can decouple the payload from external disturbances while the active controller acts as a stiff damper to the `sky' such that the effect $\systemDisturbance$ is suppressed.
 
 The particular \gls{AVIS} used for the experiments, consists of a support fixed to the ground and a payload platform, suspended on airmounts (see \figref{fig:lrmhinf:avis:details}) providing passive vibration isolation.
 The payload platform is able to move in six mechanical degrees of freedom.
@@ -566,7 +558,7 @@ To facilitate the presentation, only the vertical translative velocity ($v_z$), 
 \begin{figure}[p]
   \centering
   \setlength\figurewidth{0.75\columnwidth}
-  \includegraphics[width=\figurewidth]{\thisDir/figs/avis.jpg}
+  \photobox{\includegraphics[width=\figurewidth]{\thisDir/figs/avis.jpg}}
   \caption{\Glsentryfirst{AVIS}.}
   \label{fig:lrmhinf:avis}
 \end{figure}
@@ -574,8 +566,10 @@ To facilitate the presentation, only the vertical translative velocity ($v_z$), 
 \begin{figure}[p]
   \centering
   \setlength{\figurewidth}{0.475\columnwidth}
-  \includegraphics[width=\figurewidth]{\thisDir/figs/avis-airmount-cropped.jpg}
-  \includegraphics[width=\figurewidth]{\thisDir/figs/avis-motors-cropped.jpg}
+  \photobox{\includegraphics[width=\figurewidth]{\thisDir/figs/avis-airmount-cropped.jpg}}
+  \hfill
+  \photobox{\includegraphics[width=\figurewidth]{\thisDir/figs/avis-motors-cropped.jpg}}
+  %TODO: right figure is just a tad too small
   \caption[\glsentrytext{AVIS} isolation module.]{Isolation module of the \glsentrytext{AVIS}. 
   The left photo shows one of the air mounts providing passive vibration isolation.
   The right photo shows two linear motors that play a role in the active vibration isolation.}
@@ -621,7 +615,7 @@ where $C=N_c D_c^{-1}$ and $\estimated\Plant = \estimated{N}\estimated{D}^{-1}$ 
 To estimate $\Delta$ and $\hinfnorm{\Delta}$, the signals $u_{\Delta}$ and $y_{\Delta}$ in~\figref{fig:lrmhinf:dualYoula} are required.
 These can be computed from $u$ and $y$ directly~\citep{Anderson1998}.
 %TODO{formules Hansen schema}
-In addition, $u_{\Delta}$ is noise free under standard assumptions~\citep{Hansen1989}, hence the method of \secref{sec:lrmhinf:LPMHinf} applies.
+In addition, $u_{\Delta}$ is noise free under standard assumptions~\citep{Hansen1989}, hence the method of \secref{sec:lrmhinf:LPMHinf} applies directly.
 
 The non-uniqueness of the \gls{RCF} can be exploited to satisfy additional conditions.
 In view of the robust control criterion
@@ -699,8 +693,8 @@ This suggests that the local rational models with interpolation are a very good 
 
 \section{Conclusions}
 \label{sec:lrmhinf:conclusion}
-A reliable local parametric \Hinf{} norm estimation technique for high performance, non-conservative robust control design is investigated.
-In this paper, a new approach is presented that employs so-called local parametric \gls{LRM} models that lead to an enhanced estimate of $\infnorm{\Delta}$ of a \gls{SISO} error system by interpolating between neighboring local models.
+A reliable local parametric \Hinf{} norm estimation technique for high performance, non-conservative robust control design is presented.
+In this chapter, a new approach is presented that employs so-called local parametric \gls{LRM} models that lead to an enhanced estimate of $\infnorm{\Delta}$ of a \gls{SISO} error system by interpolating between neighboring local models.
 It is also shown that the \gls{LPM} is not a worthwhile alternative to the \gls{LRM} to estimate $\infnorm{\Delta}$.
 
 The technique is illustrated on a simulation example where the \gls{LRM}-based interpolation yields a reliable estimate of the $\Hinf{}$ norm.

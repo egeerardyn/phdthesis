@@ -23,9 +23,9 @@
 \draw[thick] (payload1) -- ($(sky.south west)!(payload1)!(sky.south east)$) node [midway, mechController] {$C$};
 
 %% draw forces
-\draw[force] ($(payloadD)+(0,2em)$) -- (payloadD) node[pos=0,above] {$F_{\mathrm{d(pl)}}$};
+\draw[force] ($(payloadD)+(0,2em)$) -- (payloadD) node[pos=0,above] {$\systemDisturbance$};
 
-\draw[force] ($(gndD)+(0,2em)$) -- (gndD) node[pos=0,above] {$F_{\mathrm{d(ext)}}$};
+\draw[force] ($(gndD)+(0,2em)$) -- (gndD) node[pos=0,above] {$\externalDisturbance$};
 
 %% draw sensors
 \draw[help lines] (help) -- (payload.west);
