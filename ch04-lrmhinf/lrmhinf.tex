@@ -13,12 +13,14 @@
 % \section{Introduction}
 % \label{sec:lrmhinf:Intro}
 
-For mechatronic design and many other engineering disciplines it is important to obtain good parametric models.
-Recent trends in many disciplines have produced increasingly complicated systems.
-Consequently, building a full-complexity model rapidly becomes disproportionately expensive for a required model fidelity.
-Often, such parametric models are required to understand basic properties of the system such as the resonance frequencies and their corresponding damping values.
+For mechatronic design and many other engineering disciplines it is important to obtain good  models that approximate the physical reality.
+Recent trends in many disciplines have led to increasingly complicated systems.
+Consequently, building a full-complexity parametric model rapidly becomes disproportionately expensive for a required model fidelity.
+Often, such parametric models are required to understand elementary properties of the system such as the resonance frequencies, damping of different poles, the maximal gain of the system.
 In this chapter, we will investigate the use of the local parametric approaches to extract such basic information from the system without having to build a full parametric model.
-The approach that is followed in this chapter is applied to estimating the \Hinf{} norm of the transfer function of a system, a problem that directly depends on the resonances of a system and has shown to be a crucial step in designing robust controllers~\citep{Oomen2016}.
+The approach that is followed in this chapter is applied to estimating the \Hinf{} norm of the transfer function of a system.
+This is a problem that is important in the design of robust controllers~\citep{Oomen2016} to characterize the effect of unmodeled dynamics in low-complexity models used for control.
+Such analysis allows one to verify that the eventually designed controller stabilizes the system.
 
 Robustness is of key importance in feedback controlled systems, since feedback can lead to performance degradation or even closed-loop instability.
 An important example includes an \gls{AVIS}, where feedback is used to isolate high-precision equipment from external disturbances. 
@@ -109,7 +111,7 @@ To estimate $\gamma$, only $\Delta(\omega_{\star})$ is of interest, where
   \text{.}
   \label{eq:lrmhinf:omega-star}
 \end{equation}
-If the measurement time is finite, non-parametric approaches only give access to a finite and discrete grid of frequencies $\omega_k \in \DFTGrid $, i.e. $\DFTGrid \isdef{\omega_1, \omega_2, \ldots, \omega_{N-1}}$.
+If the measurement time is finite, non-parametric approaches only give access to a finite and discrete grid of frequencies $\omega_k \in \DFTGrid $, i.e. $\DFTGrid \isdef \set{\omega_1, \omega_2, \ldots, \omega_{N-1}}$.
 Typically, this discrete grid is the frequency grid of the \gls{DFT}.
 As such, \eqref{eq:lrmhinf:HinfNorm} can be rewritten as
 \begin{equation}
@@ -147,7 +149,7 @@ Two cases can be distinguished:
 \end{enumerate}
 
 The use of $\gamma_{\mathrm{FRF}}$ is standard in \gls{FRF}-based approaches, e.g.~\citet{vandeWal2002}.
-However, the expected value of  $\gamma_{\mathrm{FRF}}$  for different realizations of the input signal and noise for a fixed measurement time, underestimates the actual peak gain $\gamma$, i.e. $\expectedValue{\gammaAtGrid} \leq \gamma$.
+However, when the measurement time is finite, the expected value of  $\gamma_{\mathrm{FRF}}$  for different realizations of the input signal and noise, may underestimate the actual peak gain $\gamma$, i.e. $\expectedValue{\gammaAtGrid} \leq \gamma$.
 This is due to the limited frequency resolution imposed by the measurement time: the frequency where the actual peak gain occurs might not coincide with the excited frequency grid.
 Such an underestimate of $\gamma$ leads to overly optimistic controller designs which in turn can cause unstable behavior of the plant.
 
@@ -209,7 +211,7 @@ The results in this chapter are presented in discrete time, but the extension to
 \section{\Hinf{} Norm Estimation Procedure}
 \label{sec:lrmhinf:LPMHinf}
 To estimate $\gammaIntergrid$, we propose to identify local parametric models in the frequency domain.
-The frequency axis is partitioned into continuous segments $\Omega_k \isdef \OpenInterval{ \omega_{k-1} , \omega_{k+1} }$ in view of the local validity of the local models.
+The frequency axis is partitioned into continuous segments $\Omega_k \isdef \ClosedInterval{ \omega_{k-1} , \omega_{k+1} }$ in view of the local validity of the local models.
 In particular, the inter-grid aspect of the $\Hinf$ norm is estimated as
 \begin{equation}
   \gammaIntergrid = 
@@ -399,8 +401,9 @@ Concretely, any proper real-rational system $\Delta$ can be decomposed in a para
                      {\wz[i] \left(s^2 + 2 \damping[i] \wn[i] s + \wn[i]^2 \right)^{\multiplicity}}
 \end{equation}
 with the same notations as in \chapref{sec:excitation}, most importantly, each resonant pole can be characterized by its frequency $\wn[i]$ and damping $\damping[i]$.
-In the structural engineering community (see e.g. \citet[Chapter 2]{Gawronski2004}) it is well-known that around sharp resonance peaks ($\omega \approx \wn[i]$), the shape of a structural transfer function is mainly determined by its modal transfer function: the gray terms in the equation above are negligible such that only a single second-order term needs to be accounted for.
-As a result, systems can often be well-represented, in a small frequency range, by a sum of a few low-order sub-systems (often first or second order for e.g. mechanical systems)~\citep[Section 2.2.2]{Gawronski2004}.
+In the structural engineering community\citep[Section 2.2.2][see e.g.{Gawronski2004} it is well-known that around sharp resonance peaks ($\omega \approx \wn[i]$), the shape of a structural transfer function is mainly determined by its modal transfer function.
+In many practical situations, this means that the gray terms in the equation often have a negligible influence.
+For local modeling, the response is hence well-approximated by only considering the poles and zeros in the local frequency window.
 To estimate $\infnorm{\Delta}$ mainly the resonant sub-systems are of interest as those are responsible for large gains of the system.
 Assuming such resonances are sufficiently separated in the frequency,~\citep{Schoukens2013LPMerror,Geerardyn2013TIM,Gawronski2004} show that results for a single resonance are applicable to more complex systems.
 This is done by considering only the dominant resonance -- \emph{viz.} the one that is the most relevant for the $\Hinf{}$ controller design.
@@ -426,13 +429,39 @@ The input signal $u_{\Delta}$ is white Gaussian noise with unit variance and the
   \label{eq:lrmhinf:SNR}
 \end{equation}
 of $10$ is obtained.
+%TODO: give the SNR also in frequency domain
 
 Classical \gls{SA} techniques~\citep{Bendat1993} can estimate the \gls{FRF} of $\Delta$.
-This is done by first splitting the input/output signals into $N_S$ segments of ${N}/{N_S}$ samples, windowing the segments to reduce leakage and applying the \gls{DFT}.
-By dividing the resulting output/input spectra, the \gls{FRF} is obtained.
-\TODO{formules}
-In this chapter a Hann window and $N_S=1$ are used.
-Note that $N_S>1$  increases the measurement time by a factor $N_S$ to attain the same frequency resolution (but would improve  transient and noise rejection).
+This is done by first splitting the input and output signals ($u(n)$ and $y(n)$)  into $\nSegments$ segments of $N/\nSegments$ samples that we will denote as
+\begin{equation}
+  x^{[i]}(n) = x\left( (i-1) \nSegments + n \right) 
+  \text{ with }
+  n \in \set{0, \ldots N/\nSegments - 1}
+  \text{ and }
+  i \in \set{1, \ldots, \nSegments}
+  \text{.}
+  \label{eq:lrmhinf:SA:segmentation}
+\end{equation}
+Each of these segments is windowed using a function $w_{N/\nSegments}(n)$ to reduce leakage such that 
+\begin{equation}
+x^{[i]}_{w}(n) = x^{[i]}(n) \cdot w_{N/\nSegments}(n)
+\text{.}
+\end{equation}
+The frequency domain counterparts are obtained by means of the \gls{DFT}, and are denoted 
+\begin{equation}
+X^{[i]}_W(k) = \DFT(x^{[i]}_w(n))
+\text{,}
+\end{equation}
+where it should be noted that $k \in \set{0,N/\nSegments}$ such that the frequency resolution is $\frac{2\pi \nSegments}{N}$.
+By dividing the resulting auto- and cross-spectra, the \gls{FRF} of $\Delta$ can be estimated
+\begin{equation}
+  \hat{\Delta}_{\mathrm{SA}}(k) \isdef 
+  \frac{\frac{1}{\nSegments} \Sum_{i=1}^{\nSegments} Y_W^{[i]}(k) \conj{U_{W}^{[i]}(k)} }
+           {\frac{1}{\nSegments} \Sum_{i=1}^{\nSegments} U_W^{[i]}(k) \conj{U_{W}^{[i]}(k)} }
+  \
+\end{equation}
+In this chapter a Hann window ($w_{N/\nSegments}(n) = \sin^2 (\frac{\pi n}{N/\nSegments -1})$) and $\nSegments=1$ are used.
+Note that $\nSegments>1$  increases the measurement time by a factor $\nSegments$ to attain the same frequency resolution (but would improve transient and noise rejection).
 
 \figref{fig:lrmhinf:exampleIntergrid} illustrates for $N=97$ that $\gamma_{\mathrm{FRF}}$ for the \gls{SA}, $\lpm{5,4,4}$ and $\lrm{5,2,2,2}$ approaches yield unreliable estimates of $\infnorm{\Delta}$, since the frequency resolution is too coarse.
 The specific orders of  \gls{LRM}/\gls{LPM} have been chosen to  keep $N_W$ small while not restricting ourselves to local linear models ($N_B=1$). 
@@ -542,7 +571,7 @@ Typically, the controller $C$ acts as an additional damping term.
 However, when such measurements are relative to the floor or other objects which are subject to the external disturbances $\externalDisturbance$ themselves, the trade-off for passive vibration isolation remains applicable.
 
 On the other hand, when a measurement of the absolute velocity of the payload is available, the external disturbances can be reduced effectively.
-Absolute velocity measurements can be obtained e.g. from inertial sensors~\citep{Collette2011} such as geophones~\citep{Rademakers2005MSc,vanderMaas2011MSc}.
+Absolute velocity measurements can be obtained e.g. from inertial sensors such as geophones~\citep{MunnigSchmidt2014}.
 In particular, such sensors suspend an inertial mass using suspension with very low resonance frequency to the payload.
 By observing the relative movement of the inertial mass and the payload, the absolute velocity of the payload can be measured~\citep{Collette2011}.
 Conceptually, the active controller $C$ can be seen as connected to an imaginary fixed point in the `sky' (\figref{fig:lrmhinf:vibration-isolation:skyhook}), which is not disturbed by $\externalDisturbance$ for an ideal sensor.
@@ -650,10 +679,11 @@ Some dynamics are left unmodeled and are hence part of $\Delta$~(\figref{fig:lrm
 
 \subsection{Results}
 \label{sec:lrmhinf:resultsAvis}
-To estimate $\Delta(\omega_k)$ and $\hinfnorm{\Delta}$  using the proposed approach with $\lrm{6,2,2,2}$, an estimation dataset consisting of only a fourth of the excited bins is used.
-The full dataset that includes bins not used in the estimation is used to validate the interpolation results.
+To estimate $\Delta(\omega_k)$ and $\hinfnorm{\Delta}$  using the proposed approach with $\lrm{6,2,2,2}$, a short estimation dataset is used.
+This estimation dataset is sampled from a larger dataset that contains four times more excited frequency lines (and hence produces a four times more densely sampled \gls{FRF}).
+The full dataset, i.e. including the bins not seen during the estimation phase, is used to validate the interpolation results.
 
-The measured $\Delta$ is shown in \figref{fig:lrmhinf:avisMeas} for the whole frequency band and \figref{fig:lrmhinf:avisMeasZoom} for a frequency range containing $\omega_{\star}$.
+The measured $\Delta$ is shown in \figref{fig:lrmhinf:avisMeas} for the whole frequency band and \figref{fig:lrmhinf:avisMeasZoom} for a frequency subrange containing $\omega_{\star}$.
 Two aspects of the proposed method are examined.
 First, the interpolation results for a continuous frequency range are validated.
 Second, the peak amplitudes of $\Delta(\omega)$ are inspected as these are  indicators for $\infnorm{\Delta}$.
@@ -689,15 +719,15 @@ The proposed method \eqref{eq:lrmhinf:gammaInterpolOptim} yields $\gammaIntergri
 $\gamma_{\mathrm{FRF}}\approx -9.9\unit{dB}$ for the estimation data, which means that a $7.4\unit{dB}$ improvement is achieved by the proposed method.
 This peak agrees well with the validation data, where the nearest (at-grid) value has an amplitude of $-3.2\unit{dB}$ (i.e. $8\%$ difference).
 
-This suggests that the local rational models with interpolation are a very good approximation to the actual $\Delta$ and also to estimate $\hinfnorm{\Delta}$ even if the actual peak does not coincide with the discrete frequency grid.
+This suggests that the local rational models with interpolation enable accurate estimation of  $\abs{\Delta}$ and hence also $\hinfnorm{\Delta}$ even if the actual peak does not coincide with the discrete frequency grid.
 
 \section{Conclusions}
 \label{sec:lrmhinf:conclusion}
-A reliable local parametric \Hinf{} norm estimation technique for high performance, non-conservative robust control design is presented.
+A local parametric \Hinf{} norm estimation technique for high performance, non-conservative robust control design is presented.
 In this chapter, a new approach is presented that employs so-called local parametric \gls{LRM} models that lead to an enhanced estimate of $\infnorm{\Delta}$ of a \gls{SISO} error system by interpolating between neighboring local models.
-It is also shown that the \gls{LPM} is not a worthwhile alternative to the \gls{LRM} to estimate $\infnorm{\Delta}$.
+It is also shown that the \gls{LPM} is not a worthwhile alternative to the \gls{LRM} to estimate $\infnorm{\Delta}$, at least for lightly-damped systems.
 
-The technique is illustrated on a simulation example where the \gls{LRM}-based interpolation yields a reliable estimate of the $\Hinf{}$ norm.
+The technique is illustrated on a simulation example where the \gls{LRM}-based interpolation yields a n accurate estimate of the $\Hinf{}$ norm.
 It is observed that the measurement time is reduced by almost an order of magnitude compared to techniques that only examine $\Delta(\omega)$ on the \gls{DFT} frequency grid.
 Using measurements on an \gls{AVIS}, it is illustrated that the interpolation-based results can substantially improve $\hinfnorm{\Delta}$ and/or reduce the measurement time four-fold.
 Furthermore, the results are validated by a detailed validation measurement.
