@@ -52,10 +52,12 @@ classdef SamplingProp < handle & Describable & WithUserData & Codegeneratable
         w  % [rad/s] pulsation
         wn % [rad] normalized pulsation
         f  % [Hz] frequency
-        w_pos % [rad/s] negative frequency axis
+        w_pos % [rad/s] positive frequency axis
         f_pos % [Hz] positive frequency axis
         sel_pos % [] logical array indicating positive frequency spectrum
-        %TODO: sel_DC, sel_Nyquist, sel_DCNyquist
+        sel_DC % [] logical array indicating DC
+        sel_Nyquist % [] logical array indicating Nyquist frequency
+        sel_DCNyquist % [] logical array indicating DC and Nyquist frequency
     end
     %% Conveniance aliasses
     properties(Hidden,Dependent)
@@ -184,6 +186,15 @@ classdef SamplingProp < handle & Describable & WithUserData & Codegeneratable
         end
         function value = get.w_pos(obj)
             value = obj.w(obj.sel_pos);
+        end
+        function value = get.sel_DC(obj)
+            value = obj.f == 0;
+        end
+        function value = get.sel_Nyquist(obj)
+            value = obj.f == obj.fs/2
+        end
+        function value = get.sel_DCNyquist(obj)
+            value = ismember(obj.f,[0 obj.fs/2]);
         end
         
         % setters
