@@ -589,7 +589,7 @@ In particular, the $(1-\alpha)$  confidence bounds on $\successRate$ are given b
   \overline{\successRate} &\isdef
   \mathrm{CDF}_B^{-1}(1-\alpha/2; n_{\mathrm{success}} + 1, N_{\MC} - n_{\mathrm{success}})
 \end{align}
-where $\mathrm{CDF}_B^{-1}(\alpha; n,m)$ denotes the inverse \gls{CDF} of a $\mathrm{Beta}(n,m)$ distribution. %TODO: maybe add reference for Beta distribution
+where $\mathrm{CDF}_B^{-1}(\alpha; n,m)$ denotes the inverse \gls{CDF} of a $\mathrm{Beta}(n,m)$ distribution~\citep{EncyclopediaOfMathematics}.
 This is known to yield somewhat conservative bounds, especially if only failures or successes are observed~\citep{Ross2003}.
 
 In this chapter, the Clopper-Pearson method---as implemented in \MATLAB's \code{binofit}---is used whenever confidence bounds are shown.
