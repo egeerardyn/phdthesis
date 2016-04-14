@@ -32,3 +32,7 @@ phdthesis.makefile
 *.sls
 *.xdy
 *.loe
+*.snm
+*.nav
+phdFigures.pdf
+phdFigures.makefile

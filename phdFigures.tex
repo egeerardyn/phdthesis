@@ -1,0 +1,221 @@
+% !arara: clean: { files: [phdFigures.aux, phdFigures.bbl, phdFigures.acn, phdFigures.acr, phdFigures.out, phdFigures.toc, phdFigures.blg, phdFigures.log, phdFigures.makefile, phdFigures.sls] }
+% arara: vc
+% arara: xelatex: { shell : yes, action : nonstopmode, options : "-8bit -file-line-error -halt-on-error" }
+% arara: make: { task : "-j 8 -f phdFigures.makefile"}
+% !arara: make: { task : "-j 8 -f phdFigures.makefile -B"}
+% arara: biber
+% arara: xelatex: { shell : yes, synctex : yes, action : nonstopmode, options : "-8bit -file-line-error -halt-on-error" }
+% !arara: xelatex: { shell : yes, synctex : yes, action : nonstopmode, options : "-8bit" }
+% arara: say: {phrase: "Compilation complete!"}
+\documentclass{beamer}
+\usepackage{environ}
+\input{config/preamble.tex}
+\usenavigationsymbolstemplate{}
+%TODO: maybe some other styles for in the presentations?
+
+% http://tex.stackexchange.com/questions/3169/making-a-new-environment-combining-equation-and-split
+\NewEnviron{fig}{%
+  \begin{frame}
+  \begin{figure}
+    \setlength\figurewidth{0.85\textwidth}
+    \setlength\figureheight{0.75\textheight}
+    \BODY
+  \end{figure}
+  \end{frame}}
+
+% http://tex.stackexchange.com/questions/178800/creating-sections-each-with-title-pages-in-beamers-slides
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}{Figures for inclusion in presentations}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chapter 1}
+\def\thisDir{ch01-intro}
+\tikzsetfigurename{ch01pres}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chapter 2}
+\def\thisDir{ch02-qlogms}
+\tikzsetfigurename{ch02pres}
+
+\begin{fig}
+  \input{\thisDir/figs/coupling.tikz}
+\end{fig}
+
+\begin{fig}
+  \input{\thisDir/figs/derivs.tikz}
+\end{fig}
+
+\begin{fig}
+  \input{\thisDir/figs/freqGrid.tikz}
+\end{fig}
+
+\begin{fig}
+  \input{\thisDir/figs/gridProps.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/misalign.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/betaWC.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/alphaWC.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/SignalAndSystem.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/Sys02-4.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/damping02-cmp.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/damping005-cmp.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/Sum02log0-2.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/qlog_a050mall.tikz}
+\end{fig}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chapter 3}
+\def\thisDir{ch03-lrm}
+\tikzsetfigurename{ch03pres}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chapter 4}
+\def\thisDir{ch04-lrmhinf}
+\tikzsetfigurename{ch04pres}
+
+\begin{fig}
+\input{\thisDir/figs/interpolation-show.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/example-both.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/MC-runlength.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/sketch-SNR.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/vibrationisolation-classical.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/vibrationisolation-skyhook.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/tpcrobust.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/dualYoula.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/avis-frf.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/avis-delta-full.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/avis4.tikz}
+\end{fig}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chapter 5}
+\def\thisDir{ch05-initvals}
+\tikzsetfigurename{ch05pres}
+
+\begin{fig}
+\input{\thisDir/fig/exampleSystems.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/fig/MC-RFIR-1.11111dBSNR36pts3dB-ripple6dB.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/fig/successRates.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/fig/RMSEvs_SNR36N3dB-ripple6.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/fig/bode-bk1613.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/fig/elvis-spectra.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/fig/CostFunctionsMLE-measurement.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/fig/meas-validation.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/fig/overview-cost-val.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/fig/special-histogram.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/fig/bodeplots.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/fig/distances.tikz}
+\end{fig}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chapter 6}
+\def\thisDir{ch06-concl}
+\tikzsetfigurename{ch06pres}
+
+
+\end{document}

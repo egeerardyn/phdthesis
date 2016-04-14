@@ -10,6 +10,16 @@
 			],
 			"name": "Arara (phdthesis)",
 			"working_dir": "${project_path}"
+		},
+		{
+			"cmd":
+			[
+				"arara",
+				"-v",
+				"phdFigures.tex"
+			],
+			"name": "Arara (figures)",
+			"working_dir": "${project_path}"
 		}
 	],
 	"folders":
@@ -30,6 +40,7 @@
 				"*.fls",
 				"*.glg","*.glo","*.gls",
 				"*.sbl","*.slg","*.slo","*.sls",
+				"*.nav","*.snm",
 				"*.aux",
 				"*.xdy",
 				"*.loe",

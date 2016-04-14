@@ -1,6 +1,12 @@
+% http://tex.stackexchange.com/questions/16199/test-if-a-package-or-package-option-is-loaded
+\makeatletter
+\newcommand{\ifDoc}[1]{\@ifpackageloaded{beamer}{#1}{}}
+\newcommand{\ifPres}[1]{\@ifpackageloaded{beamer}{}{#1}}
+\makeatother
+
 %\usepackage[utf8]{inputenc}
 \usepackage{scrhack} % http://tex.stackexchange.com/questions/51867/koma-warning-about-toc
-\usepackage{vubtitlepage}
+\ifDoc{\usepackage{vubtitlepage}}
 \usepackage[english]{babel}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -22,18 +28,18 @@
 \input{config/bib.inc.tex}
 \input{config/graphics.inc.tex}
 \input{config/tables.inc.tex}
-\input{config/code.inc.tex}
-\input{config/listing.inc.tex}
-\input{config/appendices.inc.tex}
+\ifDoc{\input{config/code.inc.tex}}
+\ifDoc{\input{config/listing.inc.tex}}
+\ifDoc{\input{config/appendices.inc.tex}}
 
 % https://norwied.wordpress.com/2012/07/10/how-to-break-long-urls-in-bibtex/
 % http://tex.stackexchange.com/questions/823/remove-ugly-borders-around-clickable-cross-references-and-hyperlinks
-\usepackage[breaklinks,hidelinks]{hyperref}
+\ifDoc{\usepackage[breaklinks,hidelinks]{hyperref}}
 
-\input{config/theorems.inc.tex}
+\ifDoc{\input{config/theorems.inc.tex}}
 \input{config/definitions.tex}
 \input{config/styles.inc.tex}
-\input{config/glossaries.inc.tex}
+\ifDoc{\input{config/glossaries.inc.tex}}
 
 \usepackage{epigraph}
 \usepackage{ifthen}
@@ -45,4 +51,4 @@
 % http://tex.stackexchange.com/questions/127822/how-do-i-combine-the-vc-bundle-arara-and-sublime-text-2s-build-methods
 \input{vc.tex}
 
-\input{config/page.inc.tex}
+\ifDoc{\input{config/page.inc.tex}}
