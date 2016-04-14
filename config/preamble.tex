@@ -1,7 +1,7 @@
 % http://tex.stackexchange.com/questions/16199/test-if-a-package-or-package-option-is-loaded
 \makeatletter
-\newcommand{\ifDoc}[1]{\@ifpackageloaded{beamer}{#1}{}}
-\newcommand{\ifPres}[1]{\@ifpackageloaded{beamer}{}{#1}}
+\newcommand{\ifDoc}[1]{\@ifpackageloaded{beamer}{}{#1}}
+\newcommand{\ifPres}[1]{\@ifpackageloaded{beamer}{#1}{}}
 \makeatother
 
 %\usepackage[utf8]{inputenc}
