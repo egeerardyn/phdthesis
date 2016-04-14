@@ -32,8 +32,11 @@
 				"*.sbl","*.slg","*.slo","*.sls",
 				"*.aux",
 				"*.xdy",
+				"*.loe",
 				"*.auxlock",
 				"*.fdb_latexmk",
+				"*.md5",
+				"*.dpth",
 				"*.synctex.gz",
 				"vc-git.awk",
 				"vc.tex","vc"
