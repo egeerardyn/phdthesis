@@ -291,12 +291,20 @@ More information about the \gls{RFIR} estimator can be found in
 The \gls{DFT} of the obtained regularized estimate of the impulse response $\hat g_{\mathrm{RFIR}}$ of the system yields a smoothed estimate of the \gls{FRF}.
 \end{enumerate}
 
+\begin{remark} \label{rem:initvals:orders:RFIR}
+In this chapter, all results are obtained using $n_g=200$ since this exceeds the length of most impulse responses used.
+However, for general use, the model complexity $n_g$ might need to be increased.
+One could use $n_g \approx N$ and rely on regularization to reduce the effective model complexity.
+Unfortunately, this scales very poorly for long measurement records as explained in \secref{sec:initvals:computation}.
+\end{remark}
+
 \begin{remark}
 The \gls{LRM} has also been tried to generate better initial values.
 However, given the discussion in \chapref{sec:nonparametric}, it is clear that the \gls{LRM} performs poorly in low \gls{SNR} situations.
 The same was apparent from the quick trial we ran on \gls{LRM} starting values.
 As such, the use of \gls{LRM} over \gls{LPM} offers no advantage for generating initial estimates in the settings used in this chapter.
 \end{remark}
+
 
 \begin{remark}
 Note that methods 3) and 4) result in a non-parametric estimate of the transfer function, represented as the \gls{FRF}. 

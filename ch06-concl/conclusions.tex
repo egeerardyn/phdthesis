@@ -34,14 +34,13 @@
   \subsection{Excitation design}
   In this thesis, quasi-logarithmic multisines were proposed as a robust excitation signal that provide efficient estimation of sharp resonance peaks in the \gls{SISO} case.
   Obviously, a first important extension of this research is towards the \gls{MIMO} case which is more involved.
-  To measure \gls{MIMO} systems using multisines, one of two typical approaches is often followed when measuring all channels at the same time:
+  To measure \gls{MIMO} systems using multisines, one of two typical approaches is often followed when measuring all channels at the same time~\citep[Section 2.7]{Pintelon2012}:
   \begin{itemize}
     \item Zippered multisines, where the frequency grids of the different input channels are interspersed. This has the downside that frequency resolution is traded in for computational simplicity and that the different entries in the \gls{FRF} matrix are known on different frequency grids.
-    \item Orthogonal multisines, which are computationally more involved to process.
+    \item Orthogonal multisines, which are computationally more involved to process, require multiple experiments but allow for finer frequency resolution.
   \end{itemize}
   Due to the intrinsic sparsity of quasi-logarithmic grids, however, zippered quasi-logarithmic multisines might offer an easy and elegant  approach to measure \gls{MIMO} systems with a moderate number of inputs.
   %TODO: for ny x nu MIMO system, alpha_MIMO = 1 + alpha_SISO/nu to satisfy the density of frequency lines. This means: lowest guaranteed observable resonance is at higher frequencies than for SISO (obviously).
-  %TODO: also zippered vs. orthogonal for non-linearities: sparsity destroys BLA relationship
 
   Also, in the related chapter, it has been assumed that the system is an \gls{LTI} system.
   For weakly nonlinear systems, the proposed approach is likely to yield approximately valid results.
@@ -77,4 +76,12 @@
   Especially for resonant poles, one can expect that these local poles are closely linked to the global (physical) poles of a system.
   As such, those could provide a valuable initialization strategy if the redundant local pole/zero information of neighboring windows can be reduced to a single global pole/zero initial value.
   Techniques in model order reduction are likely to provide a good starting point to simplify the local pole/zero estimates to a global parametric model which could then be used to serve as initial estimate for the non-convex optimization steps.
+
+As noted in \remref{rem:initvals:orders:RFIR}, the selection of the model order used in \gls{RFIR} is still an open topic.
+There are a few approaches that we think are worthwhile to investigate.
+On the one hand, the truncation methods explained in \secref{sec:nparam:trunc} could lead to a initial estimate of the impulse response length and hence the required model complexity for \gls{RFIR}.
+On the other hand, one could devise crude model order selection procedures, e.g.  estimating \gls{RFIR} models with increasing complexity until increasing the model order offers no improvement in the non-parametric model.
+Alternatively, more flexible model structures (e.g. \gls{RARX}) could be tried.
+This doesn't do away with the model order selection of the initial model, but it will improve the computational efficiency since less parameters are needed to approximate a particular system.
+
   
