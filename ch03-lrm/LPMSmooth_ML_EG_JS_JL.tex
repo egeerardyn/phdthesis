@@ -38,20 +38,20 @@ The following  choices are made:
 \begin{itemize}
 
 \item The work in this section is for discrete-time systems. 
-Denote the $k^{\text{th}}$ discretized frequency as $\Omega_k$ = $e^{-j2{\pi}k\fs/N}$, with $f_s$ the sample frequency and $N$ the total number of sample points.
+Denote the $k^{\text{th}}$ discretized frequency as $\omega_k$ = $e^{-j2{\pi}k\fs/N}$, with $f_s$ the sample frequency and $N$ the total number of sample points.
 
-\item  Describe the parametric plant model  $G(q,\theta)$ by the nonparametric \gls{FRF} counterpart  $G(\Omega_k)$  at the $k^{\text{th}}$ frequency.
+\item  Describe the parametric plant model  $G(q,\theta)$ by the nonparametric \gls{FRF} counterpart  $G(\omega_k)$  at the $k^{\text{th}}$ frequency.
 
-\item Describe  the parametric noise model $H(q,\theta)$ (associated with the output noise source $v(t)$) by a nonparametric noise variance contribution $\sigma^2_v(\Omega_k)$ at the $k^{\text{th}}$ frequency.
+\item Describe  the parametric noise model $H(q,\theta)$ (associated with the output noise source $v(t)$) by a nonparametric noise variance contribution $\sigma^2_v(\omega_k)$ at the $k^{\text{th}}$ frequency.
 
 \end{itemize}
 
 The rest of the section is structured as follows. 
 \secref{sec:nparam:trunc:theoryLPMandWindowing} covers the theory on the \gls{LPM} and windowing for an \gls{OE} setup.
 \secref{sec:nparam:trunc:smoothingFRFestimate} discusses the novel smoothing method.
-Ultimately, in \secref{sec:nparam:trunc:simResults}, simulation results of the following FRF estimates and their corresponding variances are compared: (i) the smooth \gls{LPM} estimate $\hat{G}_{\trunc}(\Omega_k)$, (ii) the \gls{LPM} estimate $\hat{G}_{\LPM}(\Omega_k)$.
+Ultimately, in \secref{sec:nparam:trunc:simResults}, simulation results of the following FRF estimates and their corresponding variances are compared: (i) the smooth \gls{LPM} estimate $\hat{G}_{\trunc}(\omega_k)$, (ii) the \gls{LPM} estimate $\hat{G}_{\LPM}(\omega_k)$.
 
-These FRF estimates are also compared with the true \gls{LTI} system ${G}_0(\Omega_k)$.
+These FRF estimates are also compared with the true \gls{LTI} system ${G}_0(\omega_k)$.
 Discussion of the simulation results is then followed by a conclusion in \secref{sec:nparam:trunc:conclusion}.
 
 \subsection{Theory on the LPM and Windowing: \glsentrytext{OE} Setup}
@@ -63,15 +63,15 @@ Details of the theory pertaining to this section may be found in \citet{Schouken
 \subsubsection{Spectral Nonparametric Model and Assumptions}
 
 Using convolution, the noiseless output signal in \figref{lpmtdrep} is $y_0(t) = g_0(t)*u_0(t)$, where the signals are sampled at $t = 0, 1, 2,...,N-1$ and the excitation signal $u_0(t)$ is random noise. 
-As shown in \citet{Pintelon2012} and \citet{Pintelon1997ARB} the \gls{DFT} spectra of the sampled signals at the frequency $\Omega_k$ are related as follows:
+As shown in \citet{Pintelon2012} and \citet{Pintelon1997ARB} the \gls{DFT} spectra of the sampled signals at the frequency $\omega_k$ are related as follows:
 \begin{equation}\label{eq:nparam:trunc:LPM:leakage}
-Y_0(k)=G_0(\Omega_k)U_0(k)+T_G(\Omega_k)
+Y_0(k)=G_0(\omega_k)U_0(k)+T_G(\omega_k)
 \end{equation}
-where $U_0(k)$ is the \gls{DFT} spectrum of the random noise excitation,  $G_0(\Omega_k)$ is the transfer function and $T_G(\Omega_k)$ is the transients leakage term.
+where $U_0(k)$ is the \gls{DFT} spectrum of the random noise excitation,  $G_0(\omega_k)$ is the transfer function and $T_G(\omega_k)$ is the transients leakage term.
 In this section, the \gls{DFT} of a signal $x(t)$ is defined explicitly as~\citep{Oppenheim1983}
 
 \begin{equation}\label{eq:defDFT}
-X(\Omega_k) = \frac{1}{\sqrt{N}}\sum_{t=0}^{N-1}x(t)e^{-\frac{j2\pi kt}{N}}
+X(\omega_k) = \frac{1}{\sqrt{N}}\sum_{t=0}^{N-1}x(t)e^{-\frac{j2\pi kt}{N}}
 \end{equation}
 
 
@@ -110,17 +110,17 @@ The anomalies due to interpolation errors, associated with windowing, can easily
 
 % The \gls{DFT} spectra at the output of the \gls{SISO} system in \figref{lpmtdrep} are derived from equations \eqref{eq:nparam:trunc:LPM:TD} and \eqref{eq:nparam:trunc:LPM:leakage}, \emph{viz}:
 % \begin{equation}\label{lpm1spectra}
-% Y(k)=G_0(\Omega_k)U_0(k)+T(\Omega_k)+V_0(k)
+% Y(k)=G_0(\omega_k)U_0(k)+T(\omega_k)+V_0(k)
 % \end{equation}
-% where $V_0(k) = H_0(\Omega_k)E(k)$ is a noise term, and $T(\Omega_k)$ is the leakage term. The latter is the sum of the system and the noise leakage terms, i.e. $T(\Omega_k) = T_G(\Omega_k) + T_H(\Omega_k)$.
+% where $V_0(k) = H_0(\omega_k)E(k)$ is a noise term, and $T(\omega_k)$ is the leakage term. The latter is the sum of the system and the noise leakage terms, i.e. $T(\omega_k) = T_G(\omega_k) + T_H(\omega_k)$.
 
-% The smooth characteristics of $G_0(\Omega_k)$ and $T(\Omega_k)$ allow for the use of the Taylor series representations at the frequency lines $k+r$ in a frequency domain window of width $2n+1$, with a remainder $\bigO{\left(\frac{r}{N}\right)^{R+1}}$ of the first order Taylor series expansion \citep{Schoukens2009LPM}, \emph{viz}:
+% The smooth characteristics of $G_0(\omega_k)$ and $T(\omega_k)$ allow for the use of the Taylor series representations at the frequency lines $k+r$ in a frequency domain window of width $2n+1$, with a remainder $\bigO{\left(\frac{r}{N}\right)^{R+1}}$ of the first order Taylor series expansion \citep{Schoukens2009LPM}, \emph{viz}:
 % \begin{align}\label{lpmGTaylorS}
-% G_0(\Omega_{k+r})&=G_0(\Omega_k)+\sum_{p=1}^{R}g_p(k)r^p+
+% G_0(\Omega_{k+r})&=G_0(\omega_k)+\sum_{p=1}^{R}g_p(k)r^p+
 % \bigO{\left(\frac{r}{N}\right)^{R+1}},
 % \\
 % \label{lpmTTaylorS}
-% T(\Omega_{k+r})&=T(\Omega_k)+\sum_{p=1}^{R}t_p(k)r^p+N^{-1/2}
+% T(\Omega_{k+r})&=T(\omega_k)+\sum_{p=1}^{R}t_p(k)r^p+N^{-1/2}
 % \bigO{  \left(\frac{r}{N}\right)^{R+1}  }
 % ,
 % \\
@@ -133,7 +133,7 @@ The anomalies due to interpolation errors, associated with windowing, can easily
 % \begin{equation}\label{lpmGTMatrix}
 % Y(k+r)\approx{K(k, r)\theta(k)+V_0(k+r)}
 % \end{equation}
-% where $\theta(k)\in\mathbb{C}^{2R+2}$ is the column vector of the  parameters ($G_0(\Omega_k)$, $T(\Omega_k)$, $g_p$, $t_p$, and $p = 1, 2, ...., R$) and $K(k, r)$ is the row vector of their respective coefficients:
+% where $\theta(k)\in\mathbb{C}^{2R+2}$ is the column vector of the  parameters ($G_0(\omega_k)$, $T(\omega_k)$, $g_p$, $t_p$, and $p = 1, 2, ...., R$) and $K(k, r)$ is the row vector of their respective coefficients:
 % \begin{align}
 % K(k,r) = &\left[
 % \begin{matrix}
@@ -164,25 +164,25 @@ In this section, the $\lpm{3,2,2}$ is used.
 % \begin{align}
 % G_0(\Omega_{k+r})
 %   &\approx 
-%   G_0(\Omega_k)+g_1r+g_2r^2
+%   G_0(\omega_k)+g_1r+g_2r^2
 %   \label{eq:lpm:expansionG:quadratic}
 % \\
 %   T(\Omega_{k+r})
 %     &\approx 
-%     T(\Omega_k)+t_1r+t_2r^2
+%     T(\omega_k)+t_1r+t_2r^2
 %     \label{eq:lpm:expansionT:quadratic}
 % \end{align}
 % with ($r\in\mathbb{W}_3$) and the vector of parameters:
 % \begin{equation}\label{lpmThetaEst}
-% \theta^{\TT}(k)=\left[G_0(\Omega_k) \ g_1 \ g_2\  T_G(k)\  t_1 \ t_2\right]
+% \theta^{\TT}(k)=\left[G_0(\omega_k) \ g_1 \ g_2\  T_G(k)\  t_1 \ t_2\right]
 % \end{equation}
 % The \gls{LPM} estimate of the \gls{FRF} is the first element of the estimate $\hat\theta(k)$, obtained from \eqref{eq:LSsolutionLPM}, \emph{viz}:
 % \begin{equation}
-% \hat{G}_{\LPM}(\Omega_k) = \hat\theta_1(k)
+% \hat{G}_{\LPM}(\omega_k) = \hat\theta_1(k)
 % \end{equation}
 
 
-The estimation of $\hat{G}_{\LPM}(\Omega_k)$ at a single frequency $\Omega_k = 0.586\unit{Hz}$ is illustrated in \figref{LPM_Schematic_EG}.% centered at $k$, where $r = 0$.
+The estimation of $\hat{G}_{\LPM}(\omega_k)$ at a single frequency $\omega_k = 0.586\unit{Hz}$ is illustrated in \figref{LPM_Schematic_EG}.% centered at $k$, where $r = 0$.
 \begin{figure}[htb] %  figure placement: here, top, bottom, or page
    \centering
    \setlength{\figurewidth}{0.8\columnwidth}
@@ -190,17 +190,17 @@ The estimation of $\hat{G}_{\LPM}(\Omega_k)$ at a single frequency $\Omega_k = 0
 
    \input{\thisDir/figs/LPMfig.tikz}
    \caption[Illustration of the LPM.]{Illustration of the \gls{LPM}. Top figures: input spectrum (left) and output spectrum (right). 
-   A small band is selected (gray area), in which $\hat G_{\LPM}(\Omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_{\LPM}(\Omega_k)$ (white circle) is retained. This procedure is repeated for all frequencies $\Omega_k$.}
+   A small band is selected (gray area), in which $\hat G_{\LPM}(\Omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_{\LPM}(\omega_k)$ (white circle) is retained. This procedure is repeated for all frequencies $\omega_k$.}
    \label{LPM_Schematic_EG}
 \end{figure}
-This procedure is repeated at each central frequency $\Omega_k$ for  $k\in \Set{1,\dots,N/2}$ (i.e. the entire frequency band, including Nyquist, but excluding \gls{DC}, and regularizing at the boundaries). This completes the \gls{LPM}, yielding an intrinsic averaging of the spectra of the estimated \gls{FRF}, $\hat{G}_{\LPM}(\Omega_k)$.
+This procedure is repeated at each central frequency $\omega_k$ for  $k\in \Set{1,\dots,N/2}$ (i.e. the entire frequency band, including Nyquist, but excluding \gls{DC}, and regularizing at the boundaries). This completes the \gls{LPM}, yielding an intrinsic averaging of the spectra of the estimated \gls{FRF}, $\hat{G}_{\LPM}(\omega_k)$.
 
 \section{Smoothing the \gls{FRF} estimate}
 \label{sec:nparam:trunc:smoothingFRFestimate}
 The method for smoothing (improving) the \gls{LPM} estimate of the frequency response function  is presented in this section together with pertinent assumptions. 
-After obtaining the \gls{LPM} estimate of the \gls{FRF} (denoted as $\hat{G}_{{\LPM}}(\Omega_k)$) from \secref{sec:nparam:trunc:LPMFRFest}, the smoothing method is decomposed into the following procedures, which will be elaborated on later:
+After obtaining the \gls{LPM} estimate of the \gls{FRF} (denoted as $\hat{G}_{{\LPM}}(\omega_k)$) from \secref{sec:nparam:trunc:LPMFRFest}, the smoothing method is decomposed into the following procedures, which will be elaborated on later:
 \begin{enumerate}
-\item The impulse response $\hat g_{\LPM}(t)$  is computed from the \gls{IDFT} of $\hat{G}_{{\LPM}}(\Omega_k)$.
+\item The impulse response $\hat g_{\LPM}(t)$  is computed from the \gls{IDFT} of $\hat{G}_{{\LPM}}(\omega_k)$.
 
 \item Assuming that the impulse response decays with the passing of time, the noise is bound to predominate after a certain time interval. 
 In particular, when $t > \truncTime$, the impulse response has decayed below the noise floor.
@@ -216,7 +216,7 @@ This action results in smoothing the \gls{LPM} estimate of the \gls{FRF}.
 These procedures require that the following assumptions are satisfied.
 
 \begin{assumption}
-The estimate $\hat G_{\LPM}(\Omega_k)$ is available at all frequencies $\Omega_k$ for $k\in\{1,2,\dots,N/2\}$.
+The estimate $\hat G_{\LPM}(\omega_k)$ is available at all frequencies $\omega_k$ for $k\in\{1,2,\dots,N/2\}$.
 \end{assumption}
 
 This assumption ensures that the impulse response corresponding to the \gls{FRF} can be computed (up to its mean value). It requires that the input signal excites the whole unit circle. This is satisfied, for instance, by using white noise as an excitation signal.
@@ -236,16 +236,16 @@ Note that \assref{ass:imprespdecay} and \assref{ass:decay90perctime} exclude the
 \subsubsection{Obtaining the Impulse Response Function}
 
 The estimated impulse response function  $\hat g_{{\LPM}\setminus \mathrm{DC
-}}(t)$ is obtained explicitly via the \gls{IDFT} of the \gls{LPM}-estimate $\hat G_{\LPM}(\Omega_k)$ of the \gls{FRF} in accordance with equation \eqref{eq:defDFT}, \emph{viz}:
+}}(t)$ is obtained explicitly via the \gls{IDFT} of the \gls{LPM}-estimate $\hat G_{\LPM}(\omega_k)$ of the \gls{FRF} in accordance with equation \eqref{eq:defDFT}, \emph{viz}:
 
 \begin{align}\label{eq:impRespiDFT}
 \hat g_{{\LPM}\setminus \mathrm{DC
-}}(t) &= \frac{1}{\sqrt{N}}\sum_{k=1}^{N-1}\hat G_{\LPM}(\Omega_k)e^{\frac{j2\pi kt}{N}}
+}}(t) &= \frac{1}{\sqrt{N}}\sum_{k=1}^{N-1}\hat G_{\LPM}(\omega_k)e^{\frac{j2\pi kt}{N}}
 \end{align}
 where the estimated \gls{FRF} in the frequency band between  the Nyquist and the sample frequencies is obtained as follows:
 
 \begin{align}
-\hat G_{\LPM}(\Omega_{N-k}) = \overline{\hat G_{\LPM}(\Omega_k)},\ \text{for}\ k=1,\dots,N/2
+\hat G_{\LPM}(\Omega_{N-k}) = \overline{\hat G_{\LPM}(\omega_k)},\ \text{for}\ k=1,\dots,N/2
 \end{align}
 (with $\conj{\hat G_{\LPM}}$ the complex conjugate of $\hat G_{\LPM}$) to ensure $\hat g_{\LPM}(t)$ to be real.
 

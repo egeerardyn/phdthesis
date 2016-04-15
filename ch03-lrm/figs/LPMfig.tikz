@@ -7,7 +7,7 @@ xmin=0.4,
 xmax=0.7718,
 xtick={0.5,0.7},
 extra x ticks={0.5859375},
-extra x tick labels={$\Omega_k$}}}
+extra x tick labels={$\omega_k$}}}
 \pgfplotsset{ylimits/.append style={ymin=0,ymax=42}}
 
 \begin{axis}[%
