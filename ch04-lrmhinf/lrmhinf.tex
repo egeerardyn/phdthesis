@@ -644,9 +644,13 @@ The parametrization of the plant model set $\ModelSet[]$ conforms to the dual-\Y
 \end{equation}
 where $C=N_c D_c^{-1}$ and $\estimated\Plant = \estimated{N}\estimated{D}^{-1}$ are decomposed as \gls{RCF} (see \figref{fig:lrmhinf:dualYoula}).
 To estimate $\Delta$ and $\hinfnorm{\Delta}$, the signals $u_{\Delta}$ and $y_{\Delta}$ in~\figref{fig:lrmhinf:dualYoula} are required.
-These can be computed from $u$ and $y$ directly~\citep{Anderson1998}.
-%TODO{formules Hansen schema}
-In addition, $u_{\Delta}$ is noise free under standard assumptions~\citep{Hansen1989}, hence the method of \secref{sec:lrmhinf:LPMHinf} applies directly.
+These can be computed from $u$ and $y$ directly~\citep{Anderson1998}:
+\begin{align}
+  u_{\Delta}(t) &= \left(\hat{D} + C \hat{N} \right)^{-1} \mat{C & \I} \mat{y(t)\\u(t)}\\
+  y_{\Delta}(t) &= \left(D_c + \hat{P} N_c \right)^{-1} \mat{\I & -\hat{P}} \mat{y(t)\\u(t)}
+\end{align}
+In addition, $u_{\Delta}$ is noise free under standard assumptions~\citep{Hansen1989} and uncorrelated to $y_{\Delta}$. 
+Hence the method of \secref{sec:lrmhinf:LPMHinf} applies directly.
 
 The non-uniqueness of the \gls{RCF} can be exploited to satisfy additional conditions.
 In view of the robust control criterion

@@ -208,14 +208,14 @@ These estimators preserve consistency, such that the estimates converge asymptot
 Their finite sample behavior, however, is suitable for improvement by the \gls{FRF} smoothing tools as described below.
 
 \item \emph{Local polynomial method (LPM) with truncation}
-
+\disclaimer{The time-truncated \gls{LPM} has been explained in \secref{sec:nparam:trunc} in more detail. The pertinent details are repeated here to aid readability.}
 A good estimate of the \gls{FRF} of the chosen system can be obtained via the truncated \gls{LPM}, which is summarized as follows~\citep{Lumori2014TIM} and \secref{sec:nonparametric:truncation} of this thesis.
 Here, we repeat the main points briefly.
 The \gls{LPM} is first applied to estimate the \gls{FRF} from a full input/output data record of the \gls{SISO} system.
 The smooth characteristics of both the exact \gls{FRF} $\true{G}$ and the transient term $T$ allow for application of the \gls{LPM}, leading to a smooth \gls{FRF} estimate with the transient and noise suppressed.
 
   With reference to a detailed exposition in~\citep{Lumori2014TIM} and \chapref{sec:nonparametric}, the \gls{LPM} utilizes local polynomials to approximate the transfer function and transient contribution (in least squares sense) and, thus, smooth $\true{G}$ and $T$ around a central frequency $\Omega_{k}$ in a local frequency band $r\in\mathbb{W}_n$.
-  In this chapter, we limit the notations to quadratic polynomials in a window with half-width $n=3$, such that
+  In this chapter, we limit the notations to quadratic polynomials in a window with half-width $N_W=3$, such that
 \begin{subequations}\label{lpmImplQuadG}
 \begin{align}
 \true{G}(\Omega_{k+r})&\approx \hat G_k + g_{1,k} r + g_{2,k}r^2
@@ -223,30 +223,30 @@ The smooth characteristics of both the exact \gls{FRF} $\true{G}$ and the transi
 T(\Omega_{k+r})&\approx T(\Omega_k)+t_{1,k}r + t_{2,k}r^2\label{lpmImplQuadT}
 \end{align}
 \end{subequations}
-where, in general,$\ r\in \LocalShifts[]$ with $\LocalShifts[] = \{-n,-n+1,\dots,n\}$ and $n$ is a tunable parameter. 
-\TODO{notatie LPM uniform maken met CH03/CH04}
+where, in general,$\ r\in \LocalShifts[]$ with $\LocalShifts[] = \{-N_W,-N_W+1,\dots,B_W\}$ and $N_W$ is a tunable parameter. 
+%TODO notation LPM uniform maken met CH03/CH04
 
   The \gls{LPM} estimate of the \gls{FRF} at frequency index $k$ is the first estimated local parameter, \emph{viz}:
 \begin{equation}
-\hat{G}_\text{poly}(\Omega_k) = \hat{G}_k
+\hat{G}_\text{LPM}(\Omega_k) = \hat{G}_k
 \text{.}
 \end{equation}
 This procedure is repeated for all $k$ in the frequency band of interest.
 
 \emph{Impulse response truncation}. 
-The estimate is smoothed further by truncating its impulse response function $g_{\text{poly}}(t) = \mathrm{IDFT}\, \left( \hat{G}_\text{poly}(\Omega_k)) \right)$ as originally presented in~\citep{Lumori2014TIM} and \secref{sec:nonparametric:truncation}.
+The estimate is smoothed further by truncating its impulse response function $g_{\LPM}(t) = \mathrm{IDFT}\, \left( \hat{G}_{\LPM}(\Omega_k)) \right)$ as originally presented in~\citep{Lumori2014TIM} and \secref{sec:nonparametric:truncation}.
 
 The impulse response is truncated after the time $\truncTime$ where the signal becomes indistinguishable from the noise, i.e.,
 \begin{equation}
-  g_{\mathrm{trunc}}(t) = 
+  g_{\trunc}(t) = 
   \begin{cases}
-    g_{\text{poly}}(t) & t \leq \truncTime \\
+    g_{\LPM}(t) & t \leq \truncTime \\
     0                              & t \geq \truncTime
   \end{cases}
   \text{.}
 \end{equation}
 
-To this end, an estimate of the envelope of impulse response is determined by fitting an exponential function $g_{\mathrm{exp}}(t) = B e^{\beta t}$ to the peaks of $\abs{g_{\mathrm{poly}}(t)}$ using a linear least-squares approach.
+To this end, an estimate of the envelope of impulse response is determined by fitting an exponential function $g_{\mathrm{exp}}(t) = B e^{\beta t}$ to the peaks of $\abs{g_{\LPM}(t)}$ using a linear least-squares approach.
 Then, $\truncTime$ is determined as the time instant where this envelope function sinks below the noise level $\sigma_g$ of the impulse response, i.e. 
 \begin{equation}
   \truncTime = \min \Set{ t :  g_{\mathrm{exp}}(t) < \gamma \sigma_g  }
@@ -254,7 +254,7 @@ Then, $\truncTime$ is determined as the time instant where this envelope functio
   \text{,}
 \end{equation}
 where $\gamma=1$ was used in this chapter for simplicity.
-By changing $\gamma$, the user can fine-tune the bias/variance trade-off of the estimated \gls{FRF} $G_{\mathrm{trunc}}(\Omega_k) = \mathrm{DFT} \left( g_{\mathrm{trunc}}(t)\right)$ further.
+By changing $\gamma$, the user can fine-tune the bias/variance trade-off of the estimated \gls{FRF} $G_{\trunc}(\Omega_k) = \mathrm{DFT} \left( g_{\trunc}(t)\right)$ further.
 This can lead to a significant improvement over the classical LPM~\citep{Lumori2014TIM}.
  
 \item \emph{\Glsfirst{RFIR}}
