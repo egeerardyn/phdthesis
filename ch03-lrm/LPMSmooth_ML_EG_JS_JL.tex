@@ -15,7 +15,7 @@ It is then shown that a smooth \gls{LPM} estimate of the \gls{FRF} lowers the va
 
 Based on \citet{Schoukens2009LPM}, the nonparametric method developed in this work is formulated in an \gls{OE} framework. 
 A \gls{SISO} \gls{LTI} system is considered.
-The input signal is a known random noise signal and the output signal is corrupted by measurement noise. This is depicted in \figref{lpmtdrep} as a linear dynamic discrete-time \gls{SISO} system, whose full mathematical model is of the form:
+The input signal is a known random noise signal and the output signal is corrupted by measurement noise. This is depicted in \figref{fig:nparam:trunc:oe} as a linear dynamic discrete-time \gls{SISO} system, whose full mathematical model is of the form:
 \begin{equation}\label{eq:nparam:trunc:LPM:TD}
 y(t)=G_0(q)u_0(t)+H_0(q)e(t)=G_0(q)u_0(t)+v(t)
 \end{equation}
@@ -27,7 +27,7 @@ where $G_0(q)$ represents the dynamics of the system to be estimated, $u_0(t)$ i
 \setlength\figureheight{0.68\figurewidth}
 \input{\thisDir/figs/oesetup.tikz}
 \caption{SISO LTI discrete-time system in an output error setup.}
-\label{lpmtdrep}
+\label{fig:nparam:trunc:oe}
 \end{figure}
 
 Numerous parametric identification techniques are devoted to the development of parametric plant $G(q,\theta)$ and noise models  $H(q,\theta)$, where  $\theta$ is the model parameters vector~\citep{Ljung1999,Soderstrom1989}. 
@@ -38,7 +38,7 @@ The following  choices are made:
 \begin{itemize}
 
 \item The work in this section is for discrete-time systems. 
-Denote the $k^{\text{th}}$ discretized frequency as $\omega_k$ = $e^{-j2{\pi}k\fs/N}$, with $f_s$ the sample frequency and $N$ the total number of sample points.
+Denote the $k^{\text{th}}$ discretized frequency as $\omega_k$ = $e^{-j2{\pi}k\fs/N}$, with $\fs$ the sample frequency and $N$ the total number of sample points.
 
 \item  Describe the parametric plant model  $G(q,\theta)$ by the nonparametric \gls{FRF} counterpart  $G(\omega_k)$  at the $k^{\text{th}}$ frequency.
 
@@ -49,9 +49,9 @@ Denote the $k^{\text{th}}$ discretized frequency as $\omega_k$ = $e^{-j2{\pi}k\f
 The rest of the section is structured as follows. 
 \secref{sec:nparam:trunc:theoryLPMandWindowing} covers the theory on the \gls{LPM} and windowing for an \gls{OE} setup.
 \secref{sec:nparam:trunc:smoothingFRFestimate} discusses the novel smoothing method.
-Ultimately, in \secref{sec:nparam:trunc:simResults}, simulation results of the following FRF estimates and their corresponding variances are compared: (i) the smooth \gls{LPM} estimate $\hat{G}_{\trunc}(\omega_k)$, (ii) the \gls{LPM} estimate $\hat{G}_{\LPM}(\omega_k)$.
+Ultimately, in \secref{sec:nparam:trunc:simResults}, simulation results of the following \gls{FRF} estimates and their corresponding variances are compared: (i) the smooth \gls{LPM} estimate $\hat{G}_{\trunc}(\omega_k)$, (ii) the \gls{LPM} estimate $\hat{G}_{\LPM}(\omega_k)$.
 
-These FRF estimates are also compared with the true \gls{LTI} system ${G}_0(\omega_k)$.
+These \gls{FRF} estimates are also compared with the true \gls{LTI} system ${G}_0(\omega_k)$.
 Discussion of the simulation results is then followed by a conclusion in \secref{sec:nparam:trunc:conclusion}.
 
 \subsection{Theory on the LPM and Windowing: \glsentrytext{OE} Setup}
@@ -62,7 +62,7 @@ Details of the theory pertaining to this section may be found in \citet{Schouken
 
 \subsubsection{Spectral Nonparametric Model and Assumptions}
 
-Using convolution, the noiseless output signal in \figref{lpmtdrep} is $y_0(t) = g_0(t)*u_0(t)$, where the signals are sampled at $t = 0, 1, 2,...,N-1$ and the excitation signal $u_0(t)$ is random noise. 
+Using convolution, the noiseless output signal in \figref{fig:nparam:trunc:oe} is $y_0(t) = g_0(t)*u_0(t)$, where the signals are sampled at $t = 0, 1, 2,...,N-1$ and the excitation signal $u_0(t)$ is random noise. 
 As shown in \citet{Pintelon2012} and \citet{Pintelon1997ARB} the \gls{DFT} spectra of the sampled signals at the frequency $\omega_k$ are related as follows:
 \begin{equation}\label{eq:nparam:trunc:LPM:leakage}
 Y_0(k)=G_0(\omega_k)U_0(k)+T_G(\omega_k)
@@ -75,7 +75,7 @@ X(\omega_k) = \frac{1}{\sqrt{N}}\sum_{t=0}^{N-1}x(t)e^{-\frac{j2\pi kt}{N}}
 \end{equation}
 
 
-The following assumptions are consistent with \citep{Schoukens2009LPM} for an \gls{OE} setup (\figref{lpmtdrep}):
+The following assumptions are consistent with \citep{Schoukens2009LPM} for an \gls{OE} setup (\figref{fig:nparam:trunc:oe}):
 \begin{assumption}
 The \gls{SISO} system $G_0$ and  the transients leakage spectrum $T_G$ are both smooth functions of the frequency.
 \end{assumption}
@@ -99,7 +99,8 @@ The effect of windowing may be  exemplified by use of the Hanning window, which 
 In a nutshell, the Hanning window is effective in reducing  the leakage errors, but  with a trade off of increased interpolation errors. 
 Pertinent details of the Hanning window are discussed in \citep{Schoukens2006LPM,Antoni2007FRF,Schoukens2009LPM,Wellstead1981} and \citep{Harris1978}.
 
-The anomalies due to interpolation errors, associated with windowing, can easily be mitigated or circumvented by use of the \gls{LPM}. As shown in \citep{Pintelon2012}, the leakage errors are reduced from  $\bigO{{N}^{-1}}$, for Hanning windowing, to $\bigO{{N}^{-3}}$ or better, for the \gls{LPM}.
+The anomalies due to interpolation errors, associated with windowing, can easily be mitigated or circumvented by use of the \gls{LPM}. 
+As shown in \citep{Pintelon2012}, the leakage errors are reduced from  $\bigO{{N}^{-1}}$, for Hanning windowing, to $\bigO{{N}^{-3}}$ or better, for the \gls{LPM}.
 
 
 %TODO: re-use into LPM/LRM sections
@@ -108,7 +109,7 @@ The anomalies due to interpolation errors, associated with windowing, can easily
 % \citet[Section 7.2.2]{Pintelon2012} gives the general formulation of the \gls{LPM} for \gls{MIMO} systems.
 % The formulation in this section is a summary for a \gls{SISO} system.
 
-% The \gls{DFT} spectra at the output of the \gls{SISO} system in \figref{lpmtdrep} are derived from equations \eqref{eq:nparam:trunc:LPM:TD} and \eqref{eq:nparam:trunc:LPM:leakage}, \emph{viz}:
+% The \gls{DFT} spectra at the output of the \gls{SISO} system in \figref{fig:nparam:trunc:oe} are derived from equations \eqref{eq:nparam:trunc:LPM:TD} and \eqref{eq:nparam:trunc:LPM:leakage}, \emph{viz}:
 % \begin{equation}\label{lpm1spectra}
 % Y(k)=G_0(\omega_k)U_0(k)+T(\omega_k)+V_0(k)
 % \end{equation}
@@ -237,20 +238,19 @@ Note that \assref{ass:imprespdecay} and \assref{ass:decay90perctime} exclude the
 
 The estimated impulse response function  $\hat g_{{\LPM}\setminus \mathrm{DC
 }}(t)$ is obtained explicitly via the \gls{IDFT} of the \gls{LPM}-estimate $\hat G_{\LPM}(\omega_k)$ of the \gls{FRF} in accordance with equation \eqref{eq:defDFT}, \emph{viz}:
-
 \begin{align}\label{eq:impRespiDFT}
 \hat g_{{\LPM}\setminus \mathrm{DC
 }}(t) &= \frac{1}{\sqrt{N}}\sum_{k=1}^{N-1}\hat G_{\LPM}(\omega_k)e^{\frac{j2\pi kt}{N}}
 \end{align}
 where the estimated \gls{FRF} in the frequency band between  the Nyquist and the sample frequencies is obtained as follows:
-
 \begin{align}
-\hat G_{\LPM}(\Omega_{N-k}) = \overline{\hat G_{\LPM}(\omega_k)},\ \text{for}\ k=1,\dots,N/2
+\hat G_{\LPM}(\omega_{N-k}) = \overline{\hat G_{\LPM}(\omega_k)},\ \text{for}\ k=1,\dots,N/2
 \end{align}
 (with $\conj{\hat G_{\LPM}}$ the complex conjugate of $\hat G_{\LPM}$) to ensure $\hat g_{\LPM}(t)$ to be real.
 
-\TODO{fix reference Section II}
-Smoothing of the estimated \gls{FRF} requires the correct estimate of the impulse response. Unfortunately, the \gls{LPM} presented in \secref{sec:nparam:trunc:theoryLPMandWindowing} and in \citep{Schoukens2009LPM} does not estimate the \gls{FRF}  at the frequency $\Omega_0$ (i.e. \gls{DC} value of the \gls{FRF}), hence the subscript $\setminus\mathrm{DC}$ in equation \eqref{eq:impRespiDFT}. Consequently, the mean value of the corresponding estimated impulse response given in equation \eqref{eq:impRespiDFT} is not correct. 
+Smoothing of the estimated \gls{FRF} requires the correct estimate of the impulse response. 
+Unfortunately, the \gls{LPM} presented in \TODO{\secref{sec:nparam:trunc:theoryLPMandWindowing}} and in \citep{Schoukens2009LPM} does not estimate the \gls{FRF}  at the frequency $\omega_0$ (i.e. \gls{DC} value of the \gls{FRF}), hence the subscript ``$\setminus\mathrm{DC}$'' in equation \eqref{eq:impRespiDFT}. 
+Consequently, the mean value of the corresponding estimated impulse response given in equation \eqref{eq:impRespiDFT} is not correct. 
 This limitation is lifted by developing a simple estimator of the mean value, presented below.
 
 \subsubsection{Estimating the \glsentrytext{DC} Value of the \glsentrytext{FRF}}\label{sec:nparam:trunc:DCvalueEst}
