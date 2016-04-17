@@ -691,10 +691,10 @@ The excitation signal $r(t)$ was white random noise with a standard deviation $\
 The same noise sequence was repeated $N_R = 100$ times in succession, such that a non-parametric estimate of the noise could be obtained and the performance of the methods could be gauged over these different repetitions.
 To distinguish the different repetitions, we denote the $r^{\text{th}}$ repetition of the $u$ signal as $u^{[r]}(t)$ (and similarly for $y(t)$).
 The signal generation and acquisition was by means of a \gls{NI} Elvis II, using the respective \code{AO} and \code{AI} pins on the breadboard, which were wired to BNC connectors.
-Although acquisition and generation were synchronized, there is a small delay $\tau = 9\unit{\mu s}$ between the acquisition of the input $u(t)$ and the output $y(t)$ due to the hardware architecture of the \gls{NI} Elvis II.
+Although acquisition and generation were synchronized, there is a small delay $\tau_{\mathrm{MUX}} \approx 9\unit{\mu s}$ between the acquisition of the input $u(t)$ and the output $y(t)$ due to the hardware architecture of the \gls{NI} Elvis II.
 Particularly, the involved channels are captured by means of a single \gls{ADC} which is preceded by a multiplexer to select the active channel.
 This obviously introduces a slight delay between the acquisition of a sample of input and output channels that is not part of system dynamics of the \BK{} filter, but rather of the experimental set-up.
-As such, the output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\tau \right)$ such that this inter-channel acquisition delay of the \gls{NI} Elvis is compensated; the time-domain counterpart $y(t)$ is obtained using the \gls{IDFT}.
+As such, the output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\tau_{\mathrm{MUX}} \right)$ such that this inter-channel acquisition delay of the \gls{NI} Elvis is compensated; the time-domain counterpart $y(t)$ is obtained using the \gls{IDFT}.
 
 \begin{figure}
   \centering
