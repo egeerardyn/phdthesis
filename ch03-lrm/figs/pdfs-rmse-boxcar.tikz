@@ -13,7 +13,7 @@ at={(0\figurewidth,0\figureheight)},
 scale only axis,
 xmode=log,
 xmin=1,
-xmax=2100,
+xmax=1100,
 xtick={10,100,1000},
 xticklabels={\empty},
 xminorticks=true,
@@ -24,11 +24,9 @@ axis x line*=bottom,
 axis y line*=right,
 legend style={nodes=right},
 ]
-\addplot[histogramSmootherFTest] plot table[] {\thisDir/figs/pdfs-rmse-boxcar-1.tsv};
-% \addplot[forget plot,color=black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-rmse-boxcar-2.tsv};
+\addplot[histogramSmootherFTest] plot table[] {\thisDir/data/rmse-boxcar/histogram-F-test.tsv};
 
-\addplot[histogramSmootherExpFit] plot table[] {\thisDir/figs/pdfs-rmse-boxcar-3.tsv};
-% \addplot[forget plot,color=black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-rmse-boxcar-4.tsv};
+\addplot[histogramSmootherExpFit] plot table[] {\thisDir/data/rmse-boxcar/histogram-expFit.tsv};
 
 \end{axis}
 
@@ -40,7 +38,7 @@ scale only axis,
 separate axis lines,
 xmode=log,
 xmin=1,
-xmax=2100,
+xmax=1100,
 xminorticks=true,
 xlabel={Truncation Time $\truncTime$ \axisunit{samples}},
 ymin=0,
@@ -48,18 +46,18 @@ ymax=0.15,
 y tick label style={
         /pgf/number format/.cd,
             fixed,
-            precision=2,
+            precision=3,
         /tikz/.cd
     },
-ytick={0,0.035,0.103,0.12,0.15},
+ytick={0,0.0577,0.101,0.135,0.150},
 ylabel={RMS Error \noaxisunit},
 legend style={legend cell align=left,align=left,draw=black},
 legend pos=south west
 ]
-\addplot [mainCurve] table[]{\thisDir/figs/pdfs-rmse-boxcar-5.tsv};
+\addplot [mainCurve] table[]{\thisDir/data/rmse-boxcar/rmse.tsv};
 \addlegendentry{RMS Error};
 
-\addplot [pointOfInterest] table[]{\thisDir/figs/pdfs-rmse-boxcar-6.tsv};
+\addplot [pointOfInterest] table[]{\thisDir/data/rmse-boxcar/optimum.tsv};
 \addlegendentry{Optimum};
 
 \addlegendimage{histogramSmootherFTest}

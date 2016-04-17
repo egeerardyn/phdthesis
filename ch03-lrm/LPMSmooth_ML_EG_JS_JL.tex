@@ -236,8 +236,7 @@ Note that \assref{ass:imprespdecay} and \assref{ass:decay90perctime} exclude the
 
 \subsubsection{Obtaining the Impulse Response Function}
 
-The estimated impulse response function  $\hat g_{{\LPM}\setminus \mathrm{DC
-}}(t)$ is obtained explicitly via the \gls{IDFT} of the \gls{LPM}-estimate $\hat G_{\LPM}(\omega_k)$ of the \gls{FRF} in accordance with equation \eqref{eq:defDFT}, \emph{viz}:
+The estimated impulse response function  $\hat g_{{\LPM}\setminus \mathrm{DC}}(t)$ is obtained explicitly via the \gls{IDFT} of the \gls{LPM}-estimate $\hat G_{\LPM}(\omega_k)$ of the \gls{FRF} in accordance with equation \eqref{eq:defDFT}, \emph{viz}:
 \begin{align}\label{eq:impRespiDFT}
 \hat g_{{\LPM}\setminus \mathrm{DC
 }}(t) &= \frac{1}{\sqrt{N}}\sum_{k=1}^{N-1}\hat G_{\LPM}(\omega_k)e^{\frac{j2\pi kt}{N}}
@@ -249,7 +248,7 @@ where the estimated \gls{FRF} in the frequency band between  the Nyquist and the
 (with $\conj{\hat G_{\LPM}}$ the complex conjugate of $\hat G_{\LPM}$) to ensure $\hat g_{\LPM}(t)$ to be real.
 
 Smoothing of the estimated \gls{FRF} requires the correct estimate of the impulse response. 
-Unfortunately, the \gls{LPM} presented in \TODO{\secref{sec:nparam:trunc:theoryLPMandWindowing}} and in \citep{Schoukens2009LPM} does not estimate the \gls{FRF}  at the frequency $\omega_0$ (i.e. \gls{DC} value of the \gls{FRF}), hence the subscript ``$\setminus\mathrm{DC}$'' in equation \eqref{eq:impRespiDFT}. 
+Unfortunately, the \gls{LPM} presented in \TODO{\secref{sec:nparam:trunc:theoryLPMandWindowing}} and in \citep{Schoukens2009LPM} does not estimate the \gls{DC} value of the \gls{FRF}, hence the subscript ``$\setminus\mathrm{DC}$'' in equation \eqref{eq:impRespiDFT}. 
 Consequently, the mean value of the corresponding estimated impulse response given in equation \eqref{eq:impRespiDFT} is not correct. 
 This limitation is lifted by developing a simple estimator of the mean value, presented below.
 
@@ -264,14 +263,15 @@ To this end, the following procedure is executed:
 \item Compute the mean value $m_{g10}$ of the last 10\% of the impulse response $\hat g_{{\LPM}\setminus \mathrm{DC
 }}(t)$, estimated by the \gls{LPM}, as %$\hat g_{\LPM}(t)$ as
 \begin{align}
-m_{g10} = \frac{1}{\lceil0.1N - 1\rceil}\sum_{t=\lfloor0.9N\rfloor}^{N-1}\hat g_{{\LPM}\setminus \mathrm{DC
-}}(t)
+   m_{g10} 
+   = 
+   \frac{1}{\lceil0.1N - 1\rceil}
+   \sum_{t=\lfloor0.9N\rfloor}^{N-1}
+      \hat g_{{\LPM}\setminus \mathrm{DC}}(t)
 \end{align}
 
 \item Next, subtract the computed mean value $m_{g10}$ from $\hat g_{{\LPM}\setminus \mathrm{DC
 }}(t)$ to obtain the improved impulse response $\hat g_{\LPM}(t)$, \emph{viz}:
-
-
 \begin{align}
 \hat g_{\LPM}(t) = \hat g_{{\LPM}\setminus \mathrm{DC}}(t) - m_{g10},\ \text{for}\ t=0,1,\dots,N-1
 \end{align}
@@ -528,8 +528,8 @@ This was done on $1000$ realizations of the noise, and depicted in \figref{fig:n
 Clearly, both methods for selecting the truncation time $\truncTime$ have a good overall performance, based on the mode of their distribution (around the $90^{\text{th}}$ sample). 
 
 For the $F$-test based method, the obtained $\truncTime$ values only take a discrete set of values due to the limitation of the segment length.
-While most trials result in $\truncTime \in \Set{90, 80, 70}$, a few outliers can be observed.
-This can be attributed to the high power of the $F$-tests that are performed.
+While most trials result in $\truncTime \in \Set{70, 80, 90}$, a few outliers with much higher truncation times can be observed.
+These outliers can be attributed to the high power of the $F$-tests.
 
 For the exponential fitting approach, however, a closely grouped set of (continuous) values for $\truncTime$ is obtained around the $90^{\text{th}}$ sample, without significant outliers.
 Although this distribution has a mode that is quite a bit higher than the method using the $F$-test, due to the absence of outliers, this method is more reliable to use for the particular system that we studied.
@@ -540,25 +540,36 @@ The graph also shows that the \gls{RMSE} of the model can be decreased from $0.6
 Also, one observes a low sensitivity of the \gls{RMSE} w.r.t.~$\truncTime$, when truncating at times beyond that optimum. 
 Therefore, a somewhat conservative truncation method is still likely to yield a close to optimal result.
 
-\begin{guideline}[Check and reinforce assumptions in the data.]
-As illustrated by the presented smoothing operation, it pays off to check typical assumptions of the system (e.g. smoothness of the \gls{FRF}, finite support of the impulse response) and even artificially reinforce such assumptions to improve the model quality.
-\end{guideline}
+\paragraph{Interaction of the truncation method and the system properties}
+As seen in the previous simulation example, the exponential fitting method is well-suited to determine $\truncTime$ when the underlying system exhibits an exponential decay.
+However, if the system under test is not part of this class of systems, the exponential fitting method may provide sub-optimal results or even be ineffective.
 
-\paragraph{Alternative system}
-%% BEGIN BOXCAR
-\TODO{write about boxcar average, add reference}
+Consider instead that we are measuring a boxcar averager, i.e. a moving-average filter.
+Such a system is governed by the difference equation:
 \begin{align}
-  y(t) = \sum_{i=1}^{\Nbc} \Nbc^{-1} u(t-i)
+  y(t) = \sum_{i=0}^{\Nbc-1} \Nbc^{-1} u(t-i) 
+  \text{,}
 \end{align}
+where $\Nbc = 88$.
+Since this system is a trivial \gls{FIR}, it is easy to see that $\truncTime = \Nbc$ provides the optimal truncation point. 
+
+We simulate the boxcar averager for a white noise input $u(t)$ and add white noise with standard deviation $\sigma_e \approx 0.1$ to the output $y(t)$ for $2\,048$ samples from which the first $1\,024$ samples are discarded to randomize the state of the system under test.
+A single realization of the impulse response function is shown in \figref{fig:nparam:trunc:boxcar:impresp} together with the $\truncTime$ and other relevant quantities of the exponential fitting method.
+It is easy to observe that the exponential fitting provides sub-optimal results since it truncates well past the end of the finite impulse response.
 
 \begin{figure}
    \centering
         \setlength\figurewidth{0.68\columnwidth}
         \setlength\figureheight{0.68\figurewidth}
         \input{\thisDir/figs/expFitBoxAverager.tikz}
-         \caption{Exponential fit of the impulse response of a boxcar averager.}
+         \caption{Exponential fit of the impulse response of a boxcar averager. $\truncTime \gg \Nbc$ shows that a sub-optimal truncation point is found.}
          \label{fig:nparam:trunc:boxcar:impresp}
 \end{figure}
+
+By repeating the experiment above $\nMC = 1\,000$ times as a Monte Carlo simulation where both the input signal and disturbing noise are varied, we gain insight into the behavior of both truncation methods.
+The histograms of the observed values of $\truncTime$ for both methods is shown in \figref{fig:nparam:trunc:boxcar:trunctime} together with the \gls{RMS} error as a function of $\truncTime$.
+It can be seen that the $F$-test based method mostly selects the optimal truncation point.
+On the other hand, the exponential fitting method is largely ineffective and doesn't truncate the response in most of the cases.
 
 \begin{figure}
    \centering
@@ -571,12 +582,22 @@ As illustrated by the presented smoothing operation, it pays off to check typica
          The exponential fitting method is not effective in most cases.}
          \label{fig:nparam:trunc:boxcar:trunctime}
 \end{figure}
-%% END BOXCAR
+
+It can be seen that both the $F$-test method and the exponential fitting method each have their own strengths and weaknesses.
+Particularly, the $F$-test method can only select $\truncTime$ from a discrete set of values, but works well for specifically designed \gls{FIR} filters where there is a clear jump in the amplitude of the impulse response.
+On the other hand, the exponential fitting method relies on the exponential decay of the impulse response to obtain sensible values of $\truncTime$ and is hence a better match for `physical' systems.
+One should remember, however, that for the studied examples, both approaches only very seldomly select a $\truncTime$ that increases the \gls{RMS} error on the impulse response compared to not truncating the response.
+As such, a use has little to lose by trying out both methods: the model quality is very unlikely to decrease and the additional computational effort is minimal.
+
+\begin{guideline}[Check and reinforce assumptions in the data.]
+As illustrated by the presented smoothing operation, it pays off to check typical assumptions of the system (e.g. smoothness of the \gls{FRF}, finite support of the impulse response) and even reinforce such assumptions to improve the model quality.
+For the truncation approaches, even if the assumptions do not hold, the methods are constructed such that the unavoidable model error is unlikely to increase.
+\end{guideline}
 
 \subsection{Conclusion}
 \label{sec:nparam:trunc:conclusion}
 
-The section introduced a novel time domain method to smooth the \gls{LPM}-estimate of an \gls{FRF}. 
+This section introduced a time domain method to smooth the \gls{LPM}-estimate of an \gls{FRF}. 
 It consisted of, after obtaining the \gls{FRF} from the \gls{LPM}, computing the associated estimated impulse response via the \gls{IDFT}.
 Then, it was determined statistically at which time index the impulse response had decayed below the noise floor, yielding a point beyond which the response may be set to zero.
 
