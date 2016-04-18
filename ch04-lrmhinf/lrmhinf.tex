@@ -218,13 +218,13 @@ In particular, the inter-grid aspect of the $\Hinf$ norm is estimated as
 \begin{equation}
   \gammaIntergrid = 
     \sup \Set{ 
-                \sup_{\omega \in \Omega_k} \svdMax{\LocalModel{\Delta}_k(\omega)}
+                \sup_{\omega \in \Omega_k} \svdMax{\LocalModel[k(\omega)]{\Delta}}
                 |
                 k = 1,\ldots,N-1
                 }
    \label{eq:lrmhinf:gamma-inter-grid}
 \end{equation}
-where the $\LocalModel{\Delta}_{k}$ is the local model around the ($k^{\text{th}}$) frequency bin $\omega_k$.
+where the $\LocalModel[k]{\Delta}$ is the local model around the ($k^{\text{th}}$) frequency bin $\omega_k$.
 An example of such local models is shown in \figref{fig:lrmhinf:interpol-quantities}.
 
 \begin{figure}
@@ -232,8 +232,8 @@ An example of such local models is shown in \figref{fig:lrmhinf:interpol-quantit
   \setlength{\figurewidth}{0.68\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/interpolation-show.tikz}
-  \caption[Illustration of the local models.]{Illustration of the local models $\LocalModel{\Delta}_k$ around each frequency bin $\omega_k$ for $k\in\Set{1,\ldots,6}$.
-  The bottom part shows the equivalence of the frequency segments $\Omega_k$ and the intervals $\Set{\omega \given{k_L(\omega) = k \vee k_R(\omega) = k}}$.}
+  \caption[Illustration of the local models.]{Illustration of the local models $\LocalModel[k]{\Delta}$ around each frequency bin $\omega_k$ for $k\in\Set{1,\ldots,6}$.
+  The bottom part shows the equivalence of the frequency segments $\Omega_k$ and the intervals $\Set{\omega \given{\leftAdjacent(\omega) = k \vee \rightAdjacent(\omega) = k}}$.}
 \label{fig:lrmhinf:interpol-quantities}
 \end{figure}
 
@@ -243,11 +243,11 @@ Unfortunately, such an implementation offers no access to the behavior of $\svdM
 
 \paragraph{Interpolation method}
 To allow inspection of $\svdMax{\Delta(\omega)}$ in~\eqref{eq:lrmhinf:HinfNormSISO} for arbitrary values of $\omega \in \Omega$, we propose an interpolation approach to estimate $\gamma$ and to allow visual inspection of $\svdMax{\Delta(\omega)}$.
-It can be understood intuitively that due to the limited validity domain of the local models, an estimate of $\Delta(\omega)$ can only be obtained from $\LocalModel{\Delta}_k(\omega)$ when the distance $\abs{\omega_k-\omega}$ is small.
+It can be understood intuitively that due to the limited validity domain of the local models, an estimate of $\Delta(\omega)$ can only be obtained from $\LocalModel[k(\omega)]{\Delta}$ when the distance $\abs{\omega_k-\omega}$ is small.
 As the local models are each constructed around the frequency $\omega_k$, for an arbitrary $\omega \in \Omega$, one can find two adjacent frequencies around which such local models are available.
 To this end, two functions that indicate respectively the left and the right adjacent local models for frequency $\omega \in \Omega$ are defined:
 \begin{align}
-  k_L(\omega) & 
+  \leftAdjacent(\omega) & 
                 \isdef
                   \max
                   \Set{
@@ -255,7 +255,7 @@ To this end, two functions that indicate respectively the left and the right adj
                     |
                       \omega_k \in \DFTGrid,  \omega_k \leq \omega
                   }\\
-  k_R(\omega) & 
+  \rightAdjacent(\omega) & 
                 \isdef
                   \min
                   \Set{
@@ -266,19 +266,19 @@ To this end, two functions that indicate respectively the left and the right adj
   \text{.}
   \label{eq:lrmhinf:kL-kR-indexing-functions}
 \end{align}
-Using the $k_L(\omega)$ and $k_R(\omega)$ functions, two candidate values for $\svdMax{\Delta(\omega)}$ are obtained:
+Using the $\leftAdjacent(\omega)$ and $\rightAdjacent(\omega)$ functions, two candidate values for $\svdMax{\Delta(\omega)}$ are obtained:
 \begin{equation*}
- \svdMax{\LocalModel{\Delta}_{k_L(\omega)}(\omega)} 
+ \svdMax{\LocalModel[\leftAdjacent(\omega)]{\Delta}(\omega)} 
  \quad \text{ and } \quad
- \svdMax{\LocalModel{\Delta}_{k_R(\omega)}(\omega)}
+ \svdMax{\LocalModel[\rightAdjacent(\omega)]{\Delta}(\omega)}
 \end{equation*}
 In view of obtaining the maximum singular value, these are `interpolated' to obtain a single estimate:
 \begin{equation}
   \svdMax{\Delta_{\LMM}(\omega)}
     \isdef
     \max \Set{
-       \svdMax{\LocalModel{\Delta}_{k_L(\omega)}(\omega)},
-        \svdMax{\LocalModel{\Delta}_{k_R(\omega)}(\omega)}
+       \svdMax{\LocalModel[\leftAdjacent(\omega)]{\Delta}(\omega)},
+        \svdMax{\LocalModel[\rightAdjacent(\omega)]{\Delta}(\omega)}
     }
     \label{eq:lrmhinf:DeltaLRMInterpolation}
 \end{equation}
@@ -292,8 +292,8 @@ It follows that
    &  =
       \sup_{\omega\in\Omega} \; 
       \max \Set{
-                 \svdMax{\LocalModel{\Delta}_{k_L(\omega)}(\omega)}, 
-                 \svdMax{\LocalModel{\Delta}_{k_R(\omega)}(\omega)}}
+                 \svdMax{\LocalModel[\leftAdjacent(\omega)]{\Delta}(\omega)}, 
+                 \svdMax{\LocalModel[\rightAdjacent(\omega)]{\Delta}(\omega)}}
   \label{eq:lrmhinf:gammaInterpolOptim}
   \text{.}
 \end{align}
@@ -304,12 +304,20 @@ The construction of $ \svdMax{\Delta_{\LMM}(\omega)}$  makes it more involved to
 
 \begin{remark}
 The optimization problems \eqref{eq:lrmhinf:gammaInxterpolOptim} and \eqref{eq:lrmhinf:gamma-inter-grid} each amount to one-dimensional optimization problems, hence they can be solved accurately, fast and easily by gridding the frequency $\omega$.
-The peak amplitudes obtained using both implementations are identical since the local models $\LocalModel{\Delta}_k$ are evaluated over identical frequency ranges
+The peak amplitudes obtained using both implementations are identical since the local models $\LocalModel[k]{\Delta}$ are evaluated over identical frequency ranges
  \begin{equation}
-  \Omega_k = \Set{\omega \given{k_L(\omega) = k \vee k_R(\omega) = k}}
+  \Omega_k 
+     = 
+       \Set{
+           \omega 
+           | 
+               \leftAdjacent(\omega) = k 
+               \vee 
+               \rightAdjacent(\omega) = k
+      }
  \end{equation}
 for both methods (but in different order) and aggregated using the supremum operator, which is indifferent to the order of its arguments.
-In \figref{fig:lrmhinf:interpol-quantities} the functions $k_L(\omega)$ and $k_R(\omega)$ are visualized and the equivalence with $\Omega_k$ is apparent.
+In \figref{fig:lrmhinf:interpol-quantities} the functions $\leftAdjacent(\omega)$ and $\rightAdjacent(\omega)$ are visualized and the equivalence with $\Omega_k$ is apparent.
 \end{remark}
 
 \subsection{The \glsentrydesc{LRM}}
@@ -320,7 +328,7 @@ The \gls{LRM} and \gls{LPM} are described in \chapref{sec:nonparametric} and \ci
 Below, we briefly re-iterate some pertinent aspects and notations.
 }
 
-The local models $\LocalModel{\Delta}_k$ are estimated using the \gls{LRM}~\citep{McKelvey2012LRM}.
+The local models $\LocalModel[k]{\Delta}$ are estimated using the \gls{LRM}~\citep{McKelvey2012LRM}.
 The \gls{LRM} exploits the fact that the transfer function $\Delta(\omega)$ and the leakage term $T_{\Delta}(\omega)$  in \eqref{eq:lrmhinf:sysDeltaFiniteDataFD} are smooth functions of the frequency.
 As such, $\Delta$ and $T_{\Delta}$ are approximated locally by rational functions around each bin $k$:
 \begin{align}
@@ -330,7 +338,7 @@ As such, $\Delta$ and $T_{\Delta}$ are approximated locally by rational function
       = 
         \frac{B_k(r)}{A_k(r)} 
       \isdef 
-        \LocalModel{\Delta}_{k}(\omega_{k+r})
+        \LocalModel[k]{\Delta}(\omega_{k+r})
       \label{eq:lrmhinf:LRMTaylorSystem} \\
   T_{\Delta}(\omega_{k+r}) 
     &\approx 
@@ -338,7 +346,7 @@ As such, $\Delta$ and $T_{\Delta}$ are approximated locally by rational function
       = 
         \frac{T_k'(r)}{A_k(r)} 
       \isdef 
-        \LocalModel{T}_{k}(\omega_{k+r})
+        \LocalModel[k]{T}(\omega_{k+r})
   \label{eq:lrmhinf:LRMTaylorTransient}
   \text{.}
 \end{align}
@@ -354,12 +362,12 @@ This yields
     \text{.}
     \label{eq:lrmhinf:LocalWindowSpectra}
 \end{equation}
-By substituting the local models $\LocalModel{\Delta}_k$ and $\LocalModel{T}_k$, one obtains
+By substituting the local models $\LocalModel[k]{\Delta}$ and $\LocalModel[k]{T}$, one obtains
 \begin{align}
   Y_{\Delta}(k+r) 
                   & \approx
-                    \LocalModel{\Delta}_k(\omega_{k+r}) U_{\Delta}(k+r) 
-                    + \LocalModel{T}_k(\omega_{k+r}) 
+                    \LocalModel[k]{\Delta}(\omega_{k+r}) U_{\Delta}(k+r) 
+                    + \LocalModel[k]{T}(\omega_{k+r}) 
                     & \forall r \in \LocalWindow \\
                   & = 
                     \frac{B_k(r)}{A_k(r)} U_{\Delta}(k+r) 

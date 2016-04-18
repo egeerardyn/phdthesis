@@ -102,12 +102,12 @@ x     y\\
 
 % \addplot[domain=1.18682:1.32645,first]{47.4368*x^2 + -152.992*x + 119.19};
 
-\node[first]  (D1) at (axis cs:0.837758,10)   {$\hphantom{_1}\LocalModel{\Delta}_1$};
-\node[second] (D2) at (axis cs:0.907571,17)   {$\hphantom{_2}\LocalModel{\Delta}_2$};
-\node[third]  (D3) at (axis cs:0.977384,24) {$\hphantom{_3}\LocalModel{\Delta}_3$};
-\node[fourth] (D4) at (axis cs:1.0472,10)     {$\hphantom{_4}\LocalModel{\Delta}_4$};
-\node[fifth]  (D5) at (axis cs:1.11701,10)    {$\hphantom{_5}\LocalModel{\Delta}_5$};
-\node[sixth]  (D6) at (axis cs:1.18682,6.5)     {$\hphantom{_6}\LocalModel{\Delta}_6$};
+\node[first]  (D1) at (axis cs:0.837758,10) {$\hphantom{_1}\LocalModel[1]{\Delta}$};
+\node[second] (D2) at (axis cs:0.907571,17) {$\hphantom{_2}\LocalModel[2]{\Delta}$};
+\node[third]  (D3) at (axis cs:0.977384,24) {$\hphantom{_3}\LocalModel[3]{\Delta}$};
+\node[fourth] (D4) at (axis cs:1.0472,10)   {$\hphantom{_4}\LocalModel[4]{\Delta}$};
+\node[fifth]  (D5) at (axis cs:1.11701,10)  {$\hphantom{_5}\LocalModel[5]{\Delta}$};
+\node[sixth]  (D6) at (axis cs:1.18682,6.5) {$\hphantom{_6}\LocalModel[6]{\Delta}$};
 
 \node[color=black] (gamma) at (axis cs:1.15,21) {$\gammaIntergrid$};
 
@@ -166,13 +166,13 @@ scale only axis,
 xtick={0.83776,0.90757,0.97738,1.0472,1.117,1.1868},
 xticklabels={$\omega_1$,$\omega_2$,$\omega_3$,$\omega_4$,$\omega_5$,$\omega_6$},
 ytick={2.5,-1.5},
-yticklabels={$k_L(\omega)=$,$k_R(\omega)=$},
+yticklabels={$\leftAdjacent(\omega)=$,$\rightAdjacent(\omega)=$},
 xmin=0.78,
 xmax=1.25,
 xminorticks=true,
 yminorticks=false,
 xmajorgrids,
-xlabel={Frequency $\omega$ $[\mathrm{rad/s}]$},
+xlabel={Frequency $\omega$ \axisunit{rad/s}},
 ymin=-3.3,
 ymax=4.7,
 % axis x line*=bottom,

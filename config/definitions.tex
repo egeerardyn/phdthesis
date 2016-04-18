@@ -490,10 +490,14 @@
 \newcommand{\mathbold}[1]{\mathbf{#1}} % used instead of fixmath (can only be used with CM math font!!!)
 
 
-\newcommand{\LocalModel}[1]{\ensuremath{\widetilde{\mathbold{#1}}}}
+% \newcommand{\LocalModel}[1]{\ensuremath{\widetilde{\mathbold{#1}}}}
 
 
-% \newcommand{\LocalModel}[2][]{\ensuremath{\mathbold{\tilde{#2}_{#1} }}}
+\newcommand{\LocalModel}[2][]{\ensuremath{\mathbold{\widetilde{#2}}_{#1} }}
+\newcommand{\leftAdjacent}{\ensuremath{k_{\mathrm{L}}}}
+\newcommand{\rightAdjacent}{\ensuremath{k_{\mathrm{R}}}}
+
+
 \newcommand{\LocalVector}[1]{\ensuremath{\mathbold{#1}}}
 \newcommand{\Window}{\ensuremath{\mathbb{W}}}
 \newcommand{\LocalWindow}[1][]{\ensuremath{\Window_{#1}}}
