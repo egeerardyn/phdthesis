@@ -1,17 +1,19 @@
-\section{Introduction}
 Estimating a non-parametric \gls{FRF} is often a key step in the analysis and/or design of physical systems.
 However, obtaining a good-quality non-parametric \gls{FRF} from a measured input-output data set can prove difficult due to the presence of noise and measurement time limitations to observe lightly-damped dynamics well.
+
+Recently, there has been a renewed interest in the development of non-parametric estimators to estimate the \gls{FRF} of a system.
+Many of these approaches have focused on separating the periodic response (i.e. the \gls{FRF}), the measurement noise and leakage contributions of the spectrum by exploiting the structure that those different contributions exhibit.
 
 
 \citep{Pintelon2010LPM1},\citep{Pintelon2010LPM2},\citep{McKelvey2012LRM}
 
 
-\paragraph*{Contributions}
-In this paper, the existing \gls{LRM} is extended to the \gls{LRIC} that does not suffer from  the bias that is present in the \gls{LRM}.
-An extensive study is carried out to compare the performance of the \gls{LPM}, \gls{LRM} and \gls{LRIC} to describe resonant systems under varying conditions of the signal-to-noise ratio.
-Also, a pragmatic model-order-selection tool for the \gls{LPM} and \gls{LRM} is introduced.
+% \paragraph*{Contributions}
+% In this paper, the existing \gls{LRM} is extended to the \gls{LRIC} that does not suffer from  the bias that is present in the \gls{LRM}.
+% An extensive study is carried out to compare the performance of the \gls{LPM}, \gls{LRM} and \gls{LRIC} to describe resonant systems under varying conditions of the signal-to-noise ratio.
+% Also, a pragmatic model-order-selection tool for the \gls{LPM} and \gls{LRM} is introduced.
 
-\paragraph*{Contents}
+\paragraph*{Outline}
 \secref{sec:theory} introduces theory of estimating \glspl{FRF} and the relevant local modeling techniques.
 In \secref{sec:simulations} the performance of the different modeling methods is investigated by means of simulations.
 The methods are then illustrated on measurements of mechanical systems in \secref{sec:measurements}.
@@ -190,8 +192,8 @@ for which the corresponding cost function is
 \begin{equation}
   \LocalVector{\CostFunc{\LRM}}
   \isdef 
-  \left( \LocalModel{A} \LocalVector{Y}  -  \LocalModel{B} \hadamard \LocalVector{U} - \LocalModel{C} \right)^{\HT} 
-      \left( \LocalModel{A} \LocalVector{Y}  -  \LocalModel{B} \hadamard \LocalVector{U} - \LocalModel{C} \right)
+  \left( \LocalModel{A} \hadamard \LocalVector{Y}  -  \LocalModel{B} \hadamard \LocalVector{U} - \LocalModel{C} \right)^{\HT} 
+      \left( \LocalModel{A} \hadamard \LocalVector{Y}  -  \LocalModel{B} \hadamard \LocalVector{U} - \LocalModel{C} \right)
       \text{.}
 \end{equation}
 Equivalently, this can be rewritten as a linear regression problem
@@ -200,7 +202,7 @@ Equivalently, this can be rewritten as a linear regression problem
 \end{equation}
 where $\LocalVector{K}$ is the so-called design matrix (or observation matrix):
 \begin{align}
-  \label{eq:design-matrix}
+  \label{eq:nparam:designMatrix}
   \LocalVector{K} 
     & \isdef 
   \mat{
@@ -252,7 +254,7 @@ where $\pinv{K}$ denotes the Moore-Penroose pseudo-inverse of $K$.
 
 \subsection{Notes}
 
-Since it is well-known that the Vandemonde structure in the design matrix \eqref{eq:design-matrix} easily leads to ill-conditioned systems, additional measures are taken to improve numerical conditioning.
+Since it is well-known that the Vandemonde structure in the design matrix \eqref{eq:nparam:designMatrix} easily leads to ill-conditioned systems, additional measures are taken to improve numerical conditioning.
 To improve numerical conditioning~\citep{Pintelon2005} of the estimation problem, we substitute $d = \dw{r}{k}$ in equations \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}
 \begin{equation}
 \dw{r}{k} \isdef \frac{\omega_{k+r} - \omega_k}{\Delta \omega_k}
@@ -274,7 +276,7 @@ such that $\abs{\dw{r}{k}} \leq 1$ when $r \in \LocalShifts{k}$.
 
 \section{Theory: bias}
 \label{sec:biascalc}
-Since the local design matrix \eqref{eq:designMatrix} contains the noisy output spectrum $\LocalVector{Y}$ when $\numel{A} > 0$, the \gls{LRM} is expected to be a biased estimator.
+Since the local design matrix \eqref{eq:nparam:designMatrix} contains the noisy output spectrum $\LocalVector{Y}$ when $\numel{A} > 0$, the \gls{LRM} is expected to be a biased estimator.
 In this section, we will derive expressions for the bias such that it can be quantified how important this bias is in different situations.
 
 To determine the bias, an approach similar to \citep[Appendix A]{Guillaume1995} is followed.
@@ -300,6 +302,7 @@ Let us denote the expected value of the cost function over all measurements $\Lo
                               \left| \LocalModel{A}(r,\LocalVector{\theta}) \right|^2 
                               \sigma_V^2
 \end{align}
+where $\true{\LocalVector{U}}$ and $\true{\LocalVector{Y}}$ denote the `true' (noiseless) input-output spectra in the local window.
 Note that this function is a quadratic function of $\LocalVector{\theta}$ and hence it can be represented exactly by its second order Taylor series around $\true\theta$:
 \begin{multline}
   \ELSCost{\theta} = \ELSCost{\true\theta} 
@@ -317,23 +320,110 @@ The minimizer $\estim\theta$ of this function can be obtained by equating the de
 to zero.
 This is equivalent to 
 \begin{equation}
-  \left( \estim\theta - \true\theta \right) = - \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} \right)^{-1}  \left( \PartialDerivative{\ELSCost{\true\theta}}{\true\theta} \right)^{\T}
+  \left( \estim\theta - \true\theta \right) 
+  = 
+  - \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} \right)^{-1}  
+     \left( \PartialDerivative{\ELSCost{\true\theta}}{\true\theta} \right)^{\T}
   \text{.}
 \end{equation}
 which expresses the bias $\Delta\theta = \left( \estim\theta - \true\theta \right)$ of the estimated parameters.
-Since $\ELSCost[0]{\theta}$ is minimized in $\true\theta$, this simplifies to
+Remark that 
 \begin{equation}
-  \Delta\theta = - \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} \right)^{-1}  \left( \PartialDerivative{\ELSCost[n]{\true\theta}}{\true\theta} \right)^{\T}
+  \PartialDerivative{\ELSCost{\true\theta}}{\true\theta}  
+  = 
+  \PartialDerivative{\ELSCost[0]{\theta} + \ELSCost[n]{\theta} }{\true\theta} 
+  = 
+  \PartialDerivative{\ELSCost[n]{\theta} }{\true\theta} 
+\end{equation}
+since $\ELSCost[0]{\theta}$ is minimized in $\true\theta$ by definition.
+As such, the bias on the parameters can be simplified to
+\begin{equation}
+  \Delta\theta = - \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta^2} \right)^{-1}  \left( \PartialDerivative{\ELSCost[n]{\true\theta}}{\true\theta} \right)^{\T}
   \text{.}
 \end{equation}
 
 Do note that the estimated parameters are complex values but that $\ELSCost{\theta}$ is a real-valued function.
-This implies that the derivatives with respect to $\theta$ have to be calculated with respect to the real and imaginary part of $\theta$ separately as explained in~\citep{Messerschmitt2006} and~\citep[Section 15.9]{Pintelon2012}.
+In contrast to a complex-valued function, this requires additional attention when the derivatives are calculated~\citep{Messerschmitt2006} and~\citep[Section 15.9]{Pintelon2012} since $\ELSCost{\theta}$ is not an analytic function.
+Particularly, the function $\ELSCost{\theta}$ is regarded as a two-dimensional function of $\ELSCost{\theta,\conj{\theta}}$ where $\conj{\theta}$ and $\theta$ are considered as independent variables which will be derived with respect to the real and imaginary part of $\theta$.
+Let us introduce the notations
+\begin{equation}
+  \ReIm{X} 
+  \isdef 
+  \begin{bmatrix}
+    \real{X}\\
+    \imag{X}
+  \end{bmatrix}
+  \quad  \text{,} \quad
+  \ReImImRe{X} 
+  \isdef 
+  \begin{bmatrix}
+    \real{X} & -\imag{X}\\
+    \imag{X} & \real{X}
+  \end{bmatrix}
+\end{equation}
+and the shorthand $\ReIm{\theta} = \ReImTheta$.
+E.g. in \citet[Section 15.9]{Pintelon2012} and \citet[Section 5.1]{Seber2007}, it is stated that $\ReImImRe{X}$ is isomorphic with $X$ such that operations on a complex matrix $X$ can be written as equivalent operations on the real matrix $\ReImImRe{X}$.
+Consequently, \citep[Equation 15-60]{Pintelon2012}:
+\begin{equation}
+  \left(
+     \PartialDerivative{\ELSCost{\theta,\conj{\theta}}}{\ReImTheta}
+  \right)^{\TT}
+  = 
+  2 
+  \ReIm{ \left(
+        \left(
+            \PartialDerivative{\ELSCost{\theta,\conj{\theta}}}{\theta}
+        \right)^{\HT}
+    \right) }
+  \text{.}
+\end{equation}
+To facilitate the derivations, we rewrite the expected cost functions in terms of $\theta$ and $\conj{\theta}$:
+\begin{align}
+   \ELSCost[0]{\theta,\conj{\theta}} & =
+      \frac{1}{F}
+           \sum_{r}
+           \LocalModel{Q}(      r,        \LocalVector{\theta},  \true{      \LocalVector{Y}},  \true{      \LocalVector{U} })
+           \LocalModel{Q}(\conj{r}, \conj{\LocalVector{\theta}}, \true{\conj{\LocalVector{Y}}}, \true{\conj{\LocalVector{U}}})
+   \\
+   \LocalModel{Q}(r, \LocalVector{\theta},  \true{\LocalVector{Y}},  \true{ \LocalVector{U} }) & \isdef
+                 \LocalModel{A}(r, \LocalVector{\theta}) \true{\LocalVector{Y}}(r)
+               - \LocalModel{B}(r, \LocalVector{\theta}) \true{\LocalVector{U}}(r)
+               - \LocalModel{C}(r, \LocalVector{\theta})
+    \\             
+    \ELSCost[n]{\theta,\conj{\theta}} & =
+              \frac{\sigma_V^2}{F} 
+                     \sum_{r} 
+                               \LocalModel{A}(      r,        \LocalVector{\theta} ) 
+                               \LocalModel{A}(\conj{r}, \conj{\LocalVector{\theta}}) 
+\end{align}
+since $\conj{ \LocalModel{A}(r,\theta)} =  \LocalModel{A}(\conj{r},\conj{\theta}) $, and similar for $\LocalModel{B}$ and $\LocalModel{C}$ and $\LocalModel{Q}$.
+
+\paragraph{Contributions to the first order derivative}
+
+\begin{align}
+  \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{a_i} 
+     &= 
+     \frac{\sigma_V^2}{F}
+     \sum_r r^i \LocalModel{A}(\conj{r},\conj{\LocalVector{\theta}}) 
+     & \forall i \in \set{1,\ldots,N_A}
+     \\
+   \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{b_i} 
+   &= 0
+   & \forall i \in \set{0,\ldots,N_B}
+   \\
+   \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{c_i} 
+   &= 0
+   &\forall i \in \set{0,\ldots,N_C}
+\end{align}
 
 \TODO{write out subexpressions}
 As a first order approximation, the bias on the \gls{FRF} can be written as
 \begin{equation}
-  \Delta \LocalModel{G}(\omega) \approx \PartialDerivative{\LocalModel{G}(\theta, \omega)}{\theta} \Delta \theta
+  \Delta \LocalModel{G}(\omega) 
+     \approx 
+        \PartialDerivative{\LocalModel{G}(\theta, \omega)}
+                                          {\theta} 
+      \Delta \theta
 \end{equation}
 
 \section{Order selection}

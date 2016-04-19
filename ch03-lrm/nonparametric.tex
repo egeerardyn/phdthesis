@@ -1,4 +1,4 @@
-\chapter{Non-parametric modeling}
+\chapter{Non-parametric Modeling}
 \def\thisDir{ch03-lrm}
 \tikzsetfigurename{ch03fig}
 \label{sec:nonparametric}
@@ -35,56 +35,5 @@ This capability is very useful for model validation and/or model selection~\cite
 
 \subsubsection{\TODO{AVIS}}
 
-\begin{subappendices}
-  \section{Proof of the \glsentrytext{LOOCV} statistic for linear models}
 
-  We follow an approach similar to \citet{Hyndman2014LOOCV} and \citet[Section 12.3.2]{Seber2003} to prove that for a linear model, one can easily compute the \gls{PRESS}/\gls{LOOCV} statistic by means of the so-called `hat-diagonals`, the diagonal entries of the hat matrix $H$.
-  This is relevant, e.g. for local linear models used in the \gls{LRM} and hence also the \gls{LPM}.
-
-  We consider the linear model
-  \begin{equation}
-    Z = K \theta + V
-  \end{equation}
-  with $Z \in \ComplexMatrix{N\times1}$, $\theta \in \ComplexMatrix{\nth \times 1}$, $K \in \ComplexMatrix{N \times \nth}$.
-$V \in \ComplexMatrix{N \times 1}$ is a \gls{iid} complex gaussian random variable.
-The least-squares solution of such a linear model is:
-\begin{equation}
-  \hat{\theta} = \left(K^{\HT} K \right)^{-1} K^{\HT} Z = \pinv{K} Z
-\end{equation}
-such that the estimated output $\hat{Z}$ is given by
-\begin{equation}
-  \hat{Z} = K \pinv{K} Z = H Z
-\end{equation}
-where $H$ is the so-called `hat matrix' that projects the measurements $Z$ onto the estimates $\hat{Z}$.
-
-The \gls{PRESS} statistic used in \gls{LOOCV} is defined as~\citep[Chapter 12]{Seber2003}
-\begin{equation}
-  \PRESS \isdef 
-    \frac{1}{N} 
-      \sum_{i=1}^{N}
-      \abs{
-        Z_i - \ignoring{i}{\hat{Z}}
-      }^2
-\end{equation}
-where $\hat{Z}_i$ is the $i^{\text{th}}$ row of $\hat{Z}$ and $\ignoring{i}{\hat{Z}}$ denotes the estimated $\hat{Z}_i$ when the $i^{\text{th}}$ data point (i.e. row) is removed from the estimation problem.
-For linear models, this is equivalent to
-\begin{equation}
-  \PRESS_{\mathrm{linear}} = 
-     \frac{1}{N}
-     \sum_{i=1}^{N}
-     \abs{
-       \frac{Z_i - \hat{Z}_i}
-                {1 - H_{ii}}
-     }^2
-     \text{.}
-\end{equation}
-Note that in this last expression, no terms $\ignoring{i}{\hat{Z}}$ occur, such that the statistic can be computed without having to compute $N$ additional linear models.
-In this appendix, we prove that these last two expressions are equivalent for linear models.
-
-\paragraph{Proof}
-\TODO{proof}
-\TODO{matrix inversion lemma}
-\TODO{evt. Seber2003/ChristensenXXXX: QR decomposition to compute $H$}
-
-
-\end{subappendices}
+\input{\thisDir/proofLOOCV.tex}
