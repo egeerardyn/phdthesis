@@ -196,7 +196,9 @@ for which the corresponding cost function is
       \left( \LocalModel{A} \hadamard \LocalVector{Y}  -  \LocalModel{B} \hadamard \LocalVector{U} - \LocalModel{C} \right)
       \text{.}
 \end{equation}
-Equivalently, this can be rewritten as a linear regression problem
+Here, $A\hadamard B$ denotes the Hadamard, or element-wise, product of matrices $A$ and $B$ which have identical dimensions.
+In \MATLAB the corresponding operator is \mcode{.*}.
+Equivalently, the last equation can be rewritten as a linear regression problem
 \begin{equation}
   \LocalVector{Y} = \LocalVector{K} \LocalVector{\theta} + \LocalModel{V}
 \end{equation}
@@ -338,8 +340,11 @@ Remark that
 since $\ELSCost[0]{\theta}$ is minimized in $\true\theta$ by definition.
 As such, the bias on the parameters can be simplified to
 \begin{equation}
-  \Delta\theta = - \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta^2} \right)^{-1}  \left( \PartialDerivative{\ELSCost[n]{\true\theta}}{\true\theta} \right)^{\T}
+  \Delta\theta = 
+  - \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta^2} \right)^{-1} 
+     \left( \PartialDerivative{\ELSCost[n]{\true\theta}}{\true\theta} \right)^{\T}
   \text{.}
+  \label{eq:nparam:bias-basic}
 \end{equation}
 
 Do note that the estimated parameters are complex values but that $\ELSCost{\theta}$ is a real-valued function.
@@ -358,26 +363,22 @@ Let us introduce the notations
   \isdef 
   \begin{bmatrix}
     \real{X} & -\imag{X}\\
-    \imag{X} & \real{X}
+    \imag{X} & \hphantom{-} \real{X}
   \end{bmatrix}
 \end{equation}
 and the shorthand $\ReIm{\theta} = \ReImTheta$.
 E.g. in \citet[Section 15.9]{Pintelon2012} and \citet[Section 5.1]{Seber2007}, it is stated that $\ReImImRe{X}$ is isomorphic with $X$ such that operations on a complex matrix $X$ can be written as equivalent operations on the real matrix $\ReImImRe{X}$.
-Consequently, \citep[Equation 15-60]{Pintelon2012}:
-\begin{equation}
-  \left(
-     \PartialDerivative{\ELSCost{\theta,\conj{\theta}}}{\ReImTheta}
-  \right)^{\TT}
-  = 
-  2 
-  \ReIm{ \left(
-        \left(
-            \PartialDerivative{\ELSCost{\theta,\conj{\theta}}}{\theta}
-        \right)^{\HT}
-    \right) }
-  \text{.}
-\end{equation}
-To facilitate the derivations, we rewrite the expected cost functions in terms of $\theta$ and $\conj{\theta}$:
+As a result,
+\begin{align}
+  \Delta\theta &=
+  \left( \mat{1 & j} \kron \Identity{\nth[]}  \right) 
+  \ReIm{\Delta\theta}
+  \\
+  \ReIm{\Delta\theta} &= 
+  - \ReImImRe{ \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta^2} \right)^{-1} }
+    \ReIm{ \left( \PartialDerivative{\ELSCost[n]{\true\theta}}{\true\theta} \right)^{\T}}
+\end{align}
+To facilitate the derivations, we rewrite the expected value of the cost function in terms of $\theta$ and $\conj{\theta}$:
 \begin{align}
    \ELSCost[0]{\theta,\conj{\theta}} & =
       \frac{1}{F}
@@ -397,9 +398,21 @@ To facilitate the derivations, we rewrite the expected cost functions in terms o
                                \LocalModel{A}(\conj{r}, \conj{\LocalVector{\theta}}) 
 \end{align}
 since $\conj{ \LocalModel{A}(r,\theta)} =  \LocalModel{A}(\conj{r},\conj{\theta}) $, and similar for $\LocalModel{B}$ and $\LocalModel{C}$ and $\LocalModel{Q}$.
+Remember also that $\theta = \mat{\theta_A^{\TT} & \theta_B^{\TT} & \theta_C^{\TT}}$.
 
 \paragraph{Contributions to the first order derivative}
-
+The last term, i.e. the first order derivative, 
+\begin{equation}
+  \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta}
+  = 
+  \begin{bmatrix}
+  \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta_A} &
+  \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta_B} &
+  \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta_C} &
+  \end{bmatrix}
+\end{equation}
+is broken up into the parts pertaining to respectively the $A$, $B$ and $C$ polynomials.
+The respective components are given by:
 \begin{align}
   \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{a_i} 
      &= 
@@ -414,7 +427,10 @@ since $\conj{ \LocalModel{A}(r,\theta)} =  \LocalModel{A}(\conj{r},\conj{\theta}
    \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{c_i} 
    &= 0
    &\forall i \in \set{0,\ldots,N_C}
+   \text{.}
 \end{align}
+It can be seen that only the factors pertaining to $\LocalModel{A}$ are present.
+As this term occurs linearly in expression \eqref{eq:nparam:bias-basic}, only $\theta_A$ can incur a bias.
 
 \TODO{write out subexpressions}
 As a first order approximation, the bias on the \gls{FRF} can be written as
