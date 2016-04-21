@@ -98,7 +98,7 @@
 %% Sampled statistics
 \newcommand{\sampleMean}[1]{\ensuremath{\estimated{\mathrm{m}}_{#1}}}
 \newcommand{\sampleBias}[1]{\ensuremath{\estimated{\mathrm{b}}_{#1}}}
-\newcommand{\sampleVariance}[1]{\ensuremath{\estimated{\mathrm{s}}^2_{#1}}}
+\newcommand{\sampleVariance}[1]{\ensuremath{\estimated{\sigma}^2_{#1}}}
 \newcommand{\sampleError}[1]{\ensuremath{\estimated{\mathrm{e}}^2_{#1}}}
 \newcommand{\sampleStd}[1]{\ensuremath{\estimated{\sigma}_{#1}}}
 
@@ -414,7 +414,7 @@
 \newcommand{\segm}[2]{\ensuremath{{#1}^{[#2]}}}
 
 \newcommand{\atIter}[2][]{\ensuremath{{#2}^{[#1]}}}
-\newcommand{\atSimulation}[2][]{\atIter[#1]{#2}}
+\newcommand{\atSimulation}[1]{\mathnormal{[#1]}}
 
 \newcommand{\exponent}[1]{\ensuremath{e^{#1}}}
 
@@ -502,6 +502,7 @@
 
 
 \newcommand{\LocalVector}[1]{\ensuremath{\mathbold{#1}}}
+\newcommand{\LocalMatrix}[1]{\LocalVector{#1}}
 \newcommand{\Window}{\ensuremath{\mathbb{W}}}
 \newcommand{\LocalWindow}[1][]{\ensuremath{\Window_{#1}}}
 \newcommand{\LocalShifts}[1]{\ensuremath{\mathcal{R}_{#1}}}

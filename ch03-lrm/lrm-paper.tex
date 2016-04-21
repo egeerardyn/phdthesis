@@ -92,8 +92,8 @@ As such, these smooth contributions can be approximated well around each frequen
 \begin{align}
   \true{G}(\omega_{k}+d) 
   &\approx
-  \frac{\sum_{i=0}^{\order{B}} b_i d^i}
-            {1 + \sum_{i=1}^{\order{A}} a_i d^i}
+  \frac{\Sum_{i=0}^{\order{B}} b_i d^i}
+            {1 + \Sum_{i=1}^{\order{A}} a_i d^i}
     &\isdef
     \frac{\LocalModel[k]{B}(d)}%
            {\LocalModel[k]{A}(d)} 
@@ -102,8 +102,8 @@ As such, these smooth contributions can be approximated well around each frequen
   \label{eq:LRM:model:G}
   \\
   \true{T}(\omega_k + d) &\approx
-  \frac{\sum_{i=0}^{\order{C}} c_i d^i}
-            {1 + \sum_{i=1}^{\order{A}} a_i d^i}
+  \frac{\Sum_{i=0}^{\order{C}} c_i d^i}
+            {1 + \Sum_{i=1}^{\order{A}} a_i d^i}
     &\isdef 
       \frac{\LocalModel[k]{C}(d)}%
            {\LocalModel[k]{A}(d)}
@@ -113,10 +113,34 @@ As such, these smooth contributions can be approximated well around each frequen
 \end{align}
 
 In these expressions, we denote $\LocalModel[k]{G}$ and $\LocalModel[k]{T}$ for the local model for respectively transfer function and the transient.
-Note that such local quantities (which depend on the frequency bin $k$) are denoted in bold throughout this paper.
-To alleviate the notations, the subscript $k$ is often omitted.
+Note that such local quantities (which depend on the frequency bin $k$) are denoted in bold.
+To alleviate the notations, the subscript $k$ is omitted unless 
 
-To estimate the local parameters $\LocalVector{\theta} = \mat{a_1\; \cdots\; b_0 \cdots\; c_0\; \cdots}^{\T}$ in \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}, we consider a local window
+The local parameters $\theta$  
+\begin{equation}
+\theta \isdef 
+\begin{bmatrix}
+\theta_A\\ 
+\theta_B\\
+\theta_C
+\end{bmatrix}
+\qquad \text{ with }
+\theta_A \isdef
+\begin{bmatrix}
+a_1\\ \vdots\\ a_{\order{A}}
+\end{bmatrix}
+\text{, }
+\theta_B \isdef
+\begin{bmatrix}
+b_0\\ \vdots\\ b_{\order{B}}
+\end{bmatrix}
+\text{, and }
+\theta_C \isdef
+\begin{bmatrix}
+c_0\\ \vdots\\ c_{\order{C}}
+\end{bmatrix}
+\end{equation}
+in \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}, we consider a local window
 \begin{equation}
   \LocalWindow[k] 
   \isdef
@@ -150,9 +174,11 @@ If one denotes the input/output spectra in such a local frequency window $\Local
   \text{,}
 \end{equation}
 and similarly for the other quantities, equation \eqref{eq:output-error-FD} limited to $\LocalWindow[k]$ can be written as
-$
+\begin{equation}
   \LocalVector{Y}_k  = {\true{\LocalVector{G}}}_k \hadamard \LocalVector{U}_k + \LocalVector{T}_k + \LocalVector{V}_k
-$, where $\hadamard$ denotes the entry-wise product (or Hadamard product).
+\text{,}
+\end{equation} 
+where $\hadamard$ denotes the element-wise product (also, Hadamard product).
 Substituting $\true{\LocalVector{G}}$ and $\LocalVector{T}$ with the local models $\LocalModel{G}$ and $\LocalModel{T}$ and neglecting the influence of $\LocalVector{V}$ yields
 \begin{equation}
   \LocalVector{Y} 
@@ -163,10 +189,10 @@ Substituting $\true{\LocalVector{G}}$ and $\LocalVector{T}$ with the local model
       \text{.}
       \label{eq:local-system-equations}
 \end{equation}
-Note that this encompasses $\numel{\Window}$ complex equations in the $\numel{\theta} = \numel{A} + \numel{B} + \numel{C} + 2$  unknown complex model parameters ($a_i$, $b_i$ and $c_i$ in \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}).
+Note that this encompasses $\nWind$ complex equations in the $\nth = \numel{A} + \numel{B} + \numel{C} + 2$  unknown complex model parameters ($a_i$, $b_i$ and $c_i$ in \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}).
 Consequently, a necessary condition to compute the model parameters is that
 \begin{equation}
-  \DOF = \numel{\Window} - \numel{\theta}
+  \DOF = \nWind - \nth
        = 2 \numel{W} - \numel{A} - \numel{B} - \numel{C} - 1
 \end{equation}
 is positive.
@@ -185,7 +211,7 @@ Due to the presence of the denominator of $\LocalModel{G} = \frac{\LocalModel{B}
 The \gls{LRM} as first introduced by \citep{McKelvey2012LRM}, overcomes the computational burden of an iterative procedure by weighting the equation error by the denominator polynomial $\LocalModel{A}$  akin to the procedure in \citep{Levy1959}.
 I.e. the \gls{LRM} procedure tries to minimize the equation error in
 \begin{equation}
-  \LocalModel{A}\LocalVector{Y} \approx \LocalModel{B} \LocalVector{U}  - \LocalVector{C}
+  \LocalModel{A} \hadamard \LocalVector{Y} = \LocalModel{B} \hadamard \LocalVector{U}  + \LocalVector{C} + \LocalVector{V}
   \text{,}
 \end{equation}
 for which the corresponding cost function is
@@ -196,37 +222,36 @@ for which the corresponding cost function is
       \left( \LocalModel{A} \hadamard \LocalVector{Y}  -  \LocalModel{B} \hadamard \LocalVector{U} - \LocalModel{C} \right)
       \text{.}
 \end{equation}
-Here, $A\hadamard B$ denotes the Hadamard, or element-wise, product of matrices $A$ and $B$ which have identical dimensions.
-In \MATLAB the corresponding operator is \mcode{.*}.
+where $\LocalVector{V}$ is vector consisting of \gls{iid} complex normally distributed variables~\citep{Gallager2008} that each have a variance $\sigma_V^2$, i.e. the disturbing noise is assumed white over the local frequency window.
 Equivalently, the last equation can be rewritten as a linear regression problem
 \begin{equation}
-  \LocalVector{Y} = \LocalVector{K} \LocalVector{\theta} + \LocalModel{V}
+  \LocalVector{Y} = \LocalMatrix{K} \LocalVector{\theta} + \LocalVector{V}
 \end{equation}
-where $\LocalVector{K}$ is the so-called design matrix (or observation matrix):
+where $\LocalMatrix{K}$ is the so-called design matrix (or observation matrix):
 \begin{align}
   \label{eq:nparam:designMatrix}
-  \LocalVector{K} 
+  \LocalMatrix{K} 
     & \isdef 
   \mat{
-     \LocalVector{K}_A &
-     \LocalVector{K}_B & 
-     \LocalVector{K}_C
+     \LocalMatrix{K}_A &
+     \LocalMatrix{K}_B & 
+     \LocalMatrix{K}_C
   }\\
-  \LocalVector{K}_A 
+  \LocalMatrix{K}_A 
     &\isdef
     \mat{
       \LocalVector{Y} \hadamard \LocalVector{d}^1 &
       \cdots &
       \LocalVector{Y} \hadamard \LocalVector{d}^{\numel{A}}
     }\\
-  \LocalVector{K}_B 
+  \LocalMatrix{K}_B 
     &\isdef
     \mat{
       \LocalVector{U} \hadamard \LocalVector{d}^0 &
       \cdots &
       \LocalVector{U} \hadamard \LocalVector{d}^{\numel{B}}
     }\\
-  \LocalVector{K}_C
+  \LocalMatrix{K}_C
     &\isdef
     \mat{
       \LocalVector{d}^0 &
@@ -241,20 +266,16 @@ where $\LocalVector{K}$ is the so-called design matrix (or observation matrix):
     }^{\T}
     \text{ with $n \in \mathbb{Z}$.}
 \end{align}
-and $\LocalModel{V}$ are the model residuals.
 This formulation facilitates to solve the problem in a one-step approach:
 \begin{equation}
   \LocalVector{\theta}_{\LRM} 
-    \isdef \pinv{\LocalVector{K}} \LocalVector{Y}
-    = \left( \LocalVector{K}^{\HT} \LocalVector{K} \right)^{-1} \LocalVector{K}^{\HT} \LocalVector{Y}
+    \isdef \pinv{\LocalMatrix{K}} \LocalVector{Y}
+    = \KTK{\LocalMatrix{K}} \LocalVector{Y}
 \end{equation}
-where $\pinv{K}$ denotes the Moore-Penroose pseudo-inverse of $K$.
+where $\pinv{\LocalMatrix{K}}$ denotes the Moore-Penroose pseudo-inverse of $\LocalMatrix{K}$.
 
 \TODO{hier voortschrijven}
 
-\subsection{The Local Rational Method with Iterative Cost}
-
-\subsection{Notes}
 
 Since it is well-known that the Vandemonde structure in the design matrix \eqref{eq:nparam:designMatrix} leads to numerical ill-conditioning for higher model complexities, additional measures are taken to improve numerical conditioning.
 To improve numerical conditioning~\citep{Pintelon2005} of the estimation problem, we substitute $d = \dw{r}{k}$ in equations \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}
@@ -272,6 +293,8 @@ where
 \end{equation}
 such that $\abs{\dw{r}{k}} \leq 1$ when $r \in \LocalShifts{k}$.
 
+\subsection{The Local Rational Method with Iterative Cost}
+
 \TODO{define local cost}
 \TODO{define local design matrix}
 
@@ -282,7 +305,7 @@ Since the local design matrix \eqref{eq:nparam:designMatrix} contains the noisy 
 In this section, we will derive expressions for the bias such that it can be quantified how important this bias is in different situations.
 
 To determine the bias, an approach similar to \citep[Appendix A]{Guillaume1995} is followed.
-Let us denote the expected value of the cost function over all measurements $\LocalVector{Z}$ as
+Let us denote the expected value of the cost function over all measurements $\LocalVector{Z} = \mat{\LocalMatrix{Y}, \LocalMatrix{U}}$ as
 \begin{align}
   \ELSCost{\theta}
               & \isdef 
@@ -291,7 +314,7 @@ Let us denote the expected value of the cost function over all measurements $\Lo
                                 \LSCost{\LocalVector{\theta}, \LocalVector{Z}}} \\
               & = \ELSCost[0]{\theta} + \ELSCost[n]{\theta} \\
     \ELSCost[0]{\theta} & \isdef 
-            \frac{1}{F} 
+            \frac{1}{\nWind} 
                 \sum_{r} 
                      \left| 
                              \LocalModel{A}(r, \LocalVector{\theta}) \true{\LocalVector{Y}}
@@ -299,7 +322,7 @@ Let us denote the expected value of the cost function over all measurements $\Lo
                           - \LocalModel{C}(r, \LocalVector{\theta}) 
                     \right|^2 \\
     \ELSCost[n]{\theta} & \isdef 
-              \frac{1}{F} 
+              \frac{1}{\nWind} 
                      \sum_{r} 
                               \left| \LocalModel{A}(r,\LocalVector{\theta}) \right|^2 
                               \sigma_V^2
@@ -386,7 +409,7 @@ The derivatives are then computed with respect to these variables.
 To facilitate the derivations, we rewrite the expected value of the cost function in terms of $\theta$ and $\conj{\theta}$:
 \begin{align}
    \ELSCost[0]{\theta,\conj{\theta}} & =
-      \frac{1}{F}
+      \frac{1}{\nWind}
            \sum_{r}
            \LocalModel{Q}(      r,        \LocalVector{\theta},  \true{      \LocalVector{Y}},  \true{      \LocalVector{U} })
            \LocalModel{Q}(\conj{r}, \conj{\LocalVector{\theta}}, \true{\conj{\LocalVector{Y}}}, \true{\conj{\LocalVector{U}}})
@@ -397,7 +420,7 @@ To facilitate the derivations, we rewrite the expected value of the cost functio
                - \LocalModel{C}(r, \LocalVector{\theta})
     \\             
     \ELSCost[n]{\theta,\conj{\theta}} & =
-              \frac{\sigma_V^2}{F} 
+              \frac{\sigma_V^2}{\nWind} 
                      \sum_{r} 
                                \LocalModel{A}(      r,        \LocalVector{\theta} ) 
                                \LocalModel{A}(\conj{r}, \conj{\LocalVector{\theta}}) 
@@ -413,7 +436,7 @@ The last term in \eqref{eq:nparam:bias-basic}, i.e. the first order derivative, 
   \begin{bmatrix}
   \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta_A} &
   \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta_B} &
-  \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta_C} &
+  \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta_C}
   \end{bmatrix}
 \end{equation}
 and split into the parts pertaining to respectively $\LocalModel{A}$, $\LocalModel{B}$ and, $\LocalModel{C}$.
@@ -421,24 +444,42 @@ The respective components are given by:
 \begin{align}
   \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{a_i} 
      &= 
-     \frac{\sigma_V^2}{F}
+     \frac{\sigma_V^2}{\nWind}
      \sum_r r^i \LocalModel{A}(\conj{r},\conj{\LocalVector{\theta}}) 
-     & \forall i \in \set{1,\ldots,\order{A}}
+     && \forall i \in \set{1,\ldots,\order{A}}
      \\
    \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{b_i} 
    &= 0
-   & \forall i \in \set{0,\ldots,\order{B}}
+   && \forall i \in \set{0,\ldots,\order{B}}
    \\
    \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{c_i} 
    &= 0
-   &\forall i \in \set{0,\ldots,\order{C}}
+   &&\forall i \in \set{0,\ldots,\order{C}}
    \text{.}
 \end{align}
-It can be seen that only the factors pertaining to $\LocalModel{A}$ are present.
+It can be seen that only the factors pertaining to $\theta_{A}$ are present.
 As this term occurs linearly in expression \eqref{eq:nparam:bias-basic}, only $\theta_A$ can incur a bias.
-Consequently, only the poles are shifted by the presence of noise.
+Consequently, only the poles can shifted by the presence of noise.
+As such, the bias term $\Delta \theta$ can be written in the following sparse form:
+\begin{equation}
+  \Delta \theta = 
+  \begin{bmatrix}
+    \Delta \theta_A\\
+    \Delta \theta_B\\
+    \Delta \theta_C
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \Delta \theta_A\\
+    \deemph{\Zero{\order{B}+1\times1}}\\
+    \deemph{\Zero{\order{C}+1\times1}}
+  \end{bmatrix}
+  \text{.}
+  \label{eq:nparam:lrm:bias:sparse}
+\end{equation}
 
 \TODO{write out subexpressions}
+\paragraph{Bias on the \glsentrydesc{FRF}}
 As a first order approximation, the bias on the \gls{FRF} can be written as
 \begin{equation}
   \Delta \LocalModel{G}(\omega) 
@@ -460,12 +501,14 @@ The derivative in that expression can be evaluated easily
      \\
      \PartialDerivative{\LocalModel{G}(\theta, r)}{\theta_A} 
      &=
+     - \frac{\LocalModel{B}(\theta, r)}{\LocalModel{A}^2(\theta, r)}
      \begin{bmatrix}
          r^1 & r^2 & \deemph{\cdots} & r^{\order{A}}
      \end{bmatrix}
      \\
      \PartialDerivative{\LocalModel{G}(\theta, r)}{\theta_B} 
      &=
+     \frac{1}{\LocalModel{A}(\theta, r)}
      \begin{bmatrix}
          1 & r^1 & r^2 & \deemph{\cdots} & r^{\order{B}}
      \end{bmatrix}
@@ -476,11 +519,11 @@ The derivative in that expression can be evaluated easily
      \text{.}
 \end{align}
 
-However, the sparsity of $\Delta\theta$ can be exploited such that the bias on the \gls{FRF} is expressed as:
+However, the sparsity of $\Delta\theta$, see \eqref{eq:nparam:lrm:bias:sparse}, can be exploited such that the bias on the \gls{FRF} can be expressed as:
 \begin{equation}
   \Delta \LocalModel{G}(\theta,r)
   \approx
-  - \LocalModel{A}(r,\theta)^{-2}
+  \frac{\LocalModel{G}(\theta, r)}{\LocalModel{}}
 \end{equation}
 
 \section{Order selection}
@@ -513,7 +556,7 @@ E.g. a common choice is the \gls{AIC}~\citep{Akaike1974} or the \gls{AICc}~\cite
 \begin{align}
 L_{\mathrm{\AIC}} &=
  - 2  \loglikelihood{M | Z} 
- + 2 \numel{\theta}\\
+ + 2 \nth\\
 L_{\mathrm{\AICc}} &= 
 - 2  \loglikelihood{M | Z} 
 +   \frac{2 \nth\nWind}{\nWind - \nth - 1}
@@ -527,8 +570,9 @@ The best model among a set of $q$ possible models $\Set{M_1, \ldots, M_q}$ is th
   \Set{
     L_{\mathrm{AIC(c)}}(M)
   }
+  \text{,}
 \end{equation}
-To select the best model $M_{\star}$ with such a criterion, the model $M_k$ among a set of models $\set{M_1, M_2, \ldots}$ that produces the smallest value of $L_{\mathrm{AICc}}$ is retained.
+which is the only model that is hence retained.
 
 \begin{remark}
 It should be noted that due to $\loglikelihood{M | Z}$ , the value of $L_{\mathrm{AIC(c)}}(M,Z)$ is inherently coupled with the particular dataset $Z$.
@@ -561,12 +605,12 @@ where $\ignoring{r}{\LocalVector{E}} = \LocalVector{Y}_{r} - \ignoring{r}{\Local
 To select the best model from a set of candidate models, only the model with the lowest \gls{PRESS} value is retained.
 In general, this means that \gls{LOOCV} requires estimating $\nWind$ additional models (one for each omitted data point) and hence can be very time-consuming.
 
-For linear models (i.e. $\LocalVector{Y} = \LocalVector{K} \LocalVector{\theta}$, such as for the \gls{LRM} and \gls{LPM}), however, the \gls{PRESS} can be calculated in a single step without estimating any additional models~\citep[Sec.~12.3.2]{Seber2003}:
+For linear models (i.e. $\LocalVector{Y} = \LocalMatrix{K} \LocalVector{\theta}$, such as for the \gls{LRM} and \gls{LPM}), however, the \gls{PRESS} can be calculated in a single step without estimating any additional models~\citep[Sec.~12.3.2]{Seber2003}:
 \begin{equation}
 \PRESS = \frac{\LocalVector{E}^{\HT} \LocalVector{W}^{-1} \LocalVector{E}}{2N_W + 1}
 \end{equation}
 where $\LocalVector{E}$ is the residual vector of the full estimation and $\LocalVector{W}$ is a diagonal weighting matrix with $\LocalVector{W}_{ii} = (1 - \LocalVector{H}_{ii})^{\HT} (1 - \LocalVector{H}_{ii})$ and
-$\LocalVector{H} = \LocalVector{K} \pinv{\LocalVector{K}}$ is the so-called `hat-matrix' that is known to be idempotent.
+$\LocalVector{H} = \LocalMatrix{K} \pinv{\LocalMatrix{K}}$ is the so-called `hat-matrix' that is known to be idempotent.
 
 \section{Simulation}
 \label{sec:simulations}
@@ -597,37 +641,32 @@ where $\BW$ is the frequency range of the $3 \unit{dB}$ bandwidth of the system,
 
 \TODO{plot example spectrums}
 
-We then compute basic statistics of the estimated \glspl{FRF} over all  Monte Carlo runs.
-Specifically, the mean value
+We then compute basic statistics of the estimated \glspl{FRF} $\model[\atSimulation{i}]{\bullet}$ over all  Monte Carlo runs.
+Specifically, the following values
 \begin{align}
   \sampleMean{\bullet}(\omega_k) & 
   \isdef
     \frac{1}{\nMC}
     \sum_{i=1}^{\nMC}
-    \atSimulation[i]{\model{\bullet}(\omega_k)}
-  &
-  \approx
-  \expectedValue{\model{\bullet}(\omega_k)}
+    \model[\atSimulation{i}]{\bullet}(\omega_k)
   \\
   \sampleBias{\bullet}(\omega_k) &
     \isdef
     \frac{1}{\nMC}
     \sum_{i=1}^{\nMC}
-    \atSimulation[i]{\model{\bullet}(\omega_k)} - \true{G}(\omega_k)
-    &
-    \approx
-    \Bias{\model{\bullet}(\omega_k)}
+    \model[\atSimulation{i}]{\bullet}(\omega_k) - \true{G}(\omega_k)
+    = 
+    \sampleMean{\bullet}(\omega_k) - \true{G}(\omega_k)
     \\
     \sampleVariance{\bullet}(\omega_k) &
     \isdef
     \frac{1}{\nMC - 1}
     \sum_{i=1}^{\nMC}
-    \left(\atSimulation[i]{\model{\bullet}(\omega_k)} - \true{G}(\omega_k) \right)
-    \conj { \left(\atSimulation[i]{\model{\bullet}(\omega_k)} - \true{G}(\omega_k) \right) }
-    &
-    \approx
-    \Var{\model{\bullet}(\omega_k)}
+                   \left({\model[\atSimulation{i}]{\bullet}}(\omega_k) - \true{G}(\omega_k) \right)
+    \conj { \left({\model[\atSimulation{i}]{\bullet}}(\omega_k) - \true{G}(\omega_k) \right) }
 \end{align}
+are computed and are the sample estimates of respectively the expected value $\E{\model{\bullet}}$, bias $\bias{\model{\bullet}}$ and variance $\Var{\model{\bullet}}$ of the model.
+Remark, that the standard deviation on the $\sampleBias{\bullet} \approx \sqrt{\sampleVariance{\bullet} / \nMC}$ which limits the precision with which we can hence observe $\sampleBias{\bullet}$.
 
   % \subsection{Implications of the model structure}
   \subsection{Implications of the noise level}
