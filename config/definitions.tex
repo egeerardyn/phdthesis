@@ -1,12 +1,3 @@
-
-\newcommand{\term}[1]{\emph{#1}}
-
-\newcommand{\TODO}[1]{{\color{red} #1}}
-\newcommand{\TODOfig}[1][figure]{\parbox[h][\figureheight][c]{\figurewidth}{\centering \vfill \TODO{#1} \vfill}}
-
-\newenvironment{personalNote}{ \color{blue} }
-                                                                    {}
-
 \newcommand{\photobox}[1]{\frame{#1}}
 
 \newcommand{\TOCInsert}[2]{\addcontentsline{toc}{#1}{#2}}
@@ -50,16 +41,24 @@
 \newcommand{\bruelkjaer}{\BK{}}
 \newcommand{\HP}{Hewlett~Packard\xspace}
 \newcommand{\YK}{Youla-Ku\v{c}era}
-
-
-\newcommand{\latin}[1]{\emph{#1}}
-%% Common terms
 \newcommand{\IEEEfloat}{\textsc{IEEE~754}\xspace}
 
-%% Statistical operators
-%TODO: only single definition of E, Bias, MSE, ...
-\newcommand{\Prob}[1]{\ensuremath{\mathrm{P}}\!\left( #1 \right)}
+%% Formatting
+\newcommand{\mathbold}[1]{\mathbf{#1}} % used instead of fixmath (can only be used with CM math font!!!)
+\newcommand{\latin}[1]{\emph{#1}}
+\newcommand{\term}[1]{\emph{#1}}
+\newcommand{\deemph}[1]{{\color{gray}{#1}}}
+\newcommand{\TODO}[1]{{\color{red} #1}}
+\newcommand{\TODOfig}[1][figure]{\parbox[h][\figureheight][c]{\figurewidth}{\centering \vfill \TODO{#1} \vfill}}
+\newenvironment{personalNote}{\color{blue}}{}
 
+%% Unit formatting
+\newcommand{\unit}[1]{\ensuremath{\,\mathrm{#1}}}
+\newcommand{\axisunit}[1]{\ensuremath{\,\left[\mathrm{#1}\right]}}
+\newcommand{\noaxisunit}{ }
+
+%% Statistical operators
+\DeclareMathOperator{\Probability}{P}
 \DeclareMathOperator{\Expectancy}{E}
 \DeclareMathOperator{\Bias}{Bias}
 \DeclareMathOperator{\MSE}{MSE}
@@ -70,6 +69,7 @@
 \DeclareMathOperator{\ImagPart}{\mathrm{Im}}
 \DeclareMathOperator{\RealImagPart}{\stackrel{\mathrm{Re}}{\mathrm{Im}}}
 \DeclareMathOperator{\Diagonal}{\mathrm{diag}}
+\DeclareMathOperator{\LogLikelihood}{\ell}
 
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\Arg}{arg}
@@ -79,23 +79,42 @@
 \DeclareMathOperator{\Covariance}{\mathrm{Cov}}
 \DeclareMathOperator{\BiasValue}{\mathrm{bias}}
 
+\newcommand{\Prob}[1]{\ensuremath{\mathrm{P}}\!\left( #1 \right)}
 \newcommand{\E}[2][]{\ExpectedValue_{#1} \left[ #2 \right]}
 \newcommand{\Var}[2][]{\Variance_{#1} \left[ #2 \right]}
 \newcommand{\var}[2][]{\Variance_{#1} \left[ #2 \right]}
 \newcommand{\Cov}[3][]{\Covariance_{#1} \left[ #2 , #3 \right]}
 
-\newcommand{\expval}[1]{\E{#1}} %expected value
+\newcommand{\expectedValue}[2][]{\ensuremath{\E[#1]{#2}}}
+\newcommand{\expval}[1]{\E{#1}} %TODO: remove
 \newcommand{\bias}[1]{\ensuremath{\Bias \left( #1 \right)}}
 \newcommand{\mse}[1]{\ensuremath{\MSE \left( #1 \right)}}
 \newcommand{\rms}[1]{\ensuremath{\RootMeanSquare \left( #1 \right)}}
 
-\newcommand{\expectedValue}[2][]{\ensuremath{\E[#1]{#2}}}
-
-\newcommand{\crest}[1]{\ensuremath{\mathrm{Cr}\left( #1 \right)}}
-
 \newcommand{\statisticalHypothesis}[1]{\ensuremath{\mathrm{H}_{\mathrm{#1}}}}
 \newcommand{\nullHypothesis}{\statisticalHypothesis{0}}
 \newcommand{\altHypothesis}{\statisticalHypothesis{a}}
+
+%% Sampled statistics
+\newcommand{\sampleMean}[1]{\ensuremath{\estimated{\mathrm{m}}_{#1}}}
+\newcommand{\sampleBias}[1]{\ensuremath{\estimated{\mathrm{b}}_{#1}}}
+\newcommand{\sampleVariance}[1]{\ensuremath{\estimated{\mathrm{s}}^2_{#1}}}
+\newcommand{\sampleError}[1]{\ensuremath{\estimated{\mathrm{e}}^2_{#1}}}
+\newcommand{\sampleStd}[1]{\ensuremath{\estimated{\sigma}_{#1}}}
+
+\newcommand{\noiseStd}{\ensuremath{\sampleStd{\mathrm{n}}}}
+\newcommand{\crest}[1]{\ensuremath{\mathrm{Cr}\left( #1 \right)}}
+
+%% Counters
+\newcommand{\numberOf}{\ensuremath{\#}}
+\newcommand{\numel}[1]{\ensuremath{n_{#1}}}
+\newcommand{\order}[1]{\ensuremath{N_{#1}}}
+
+\newcommand{\nWind}{\ensuremath{\numel{\Window}}}
+\newcommand{\nth}[1][]{\ensuremath{\numel{\theta}}}
+\newcommand{\nMC}{\ensuremath{\numel{\mathrm{MC}}}}
+\newcommand{\nSegments}{\ensuremath{\numel{\mathrm{S}}}}
+\newcommand{\Nbc}{\ensuremath{\order{\mathrm{bc}}}}
 
 %% Calculus operations
 \newcommand{\pd}{\partial}
@@ -107,6 +126,7 @@
 %% Matrix operations
 \newcommand{\I}{\ensuremath{\mathrm{I}}}
 \newcommand{\Identity}[1]{\ensuremath{\I_{#1}}}
+\newcommand{\Zero}[1]{\ensuremath{\mathrm{0}_{#1}}}
 
 \newcommand{\CostFunc}[1]{\ensuremath{L_{#1}}}
 \newcommand{\LSCost}[1]{\ensuremath{L_{\mathrm{LS}}\left( #1 \right)}}
@@ -114,7 +134,6 @@
 
 
 \newcommand{\TT}{\ensuremath{\mathrm{T}}}
-
 % http://tex.stackexchange.com/questions/240691/disable-some-xunicode-macros-in-case-of-t1-font-encoding
 % redefining seems to work, but it depends on the font used !!!!!!!
 \ifcsname C\endcsname
@@ -147,24 +166,6 @@
 \newcommand{\ReImImRe}[1]{\ensuremath{#1_{\RealNumbers\RealNumbers}}}
 \newcommand{\ReImTheta}{\ensuremath{\vartheta}}
 
-\newcommand{\AvisMatrixDiagonal}[2]{
-    \begin{bmatrix}
-      #1 & \deemph{0} & \deemph{0} & \deemph{0}&  \deemph{0}& \deemph{0}\\
-      \deemph{0} & #1 & \deemph{0} & \deemph{0} & \deemph{0}& \deemph{0} \\
-      \deemph{0} & \deemph{0} & #1 & \deemph{0} & \deemph{0} & \deemph{0}\\
-       \deemph{0}& \deemph{0} &  \deemph{0} & #2 & \deemph{0}& \deemph{0}\\
-       \deemph{0}& \deemph{0} &  \deemph{0} &  \deemph{0} & #2 & \deemph{0} \\
-      \deemph{0} & \deemph{0} & \deemph{0} &\deemph{0}  & \deemph{0} & #2\\
-    \end{bmatrix}
-}
-\renewcommand{\AvisMatrixDiagonal}[2]{
-    \begin{bmatrix}
-    #1 & \deemph{0}\\
-    \deemph{0} & #2\\
-    \end{bmatrix}
-    \kron
-    \Identity{3}
-}
 %% Linear Algebra operations
 \newcommand{\OuterProduct} [3][\TT]{{#2}{#3}^{#1}} %AB^T
 \newcommand{\OuterProductC}[2]{\OuterProduct[\HT]{#1}{#2}}
@@ -213,7 +214,6 @@
 \newcommand{\NN}{\NaturalNumbers}
 \newcommand{\ZN}{\IntegerNumbers}
 \newcommand{\QN}{\RationalNumbers}
-% \newcommand{\RN}{\RealNumbers}
 \newcommand{\RR}{\RealNumbers}
 \newcommand{\CN}{\ComplexNumbers}
 \newcommand{\FF}{\GenericField}
@@ -236,14 +236,9 @@
 \newcommand{\abs }[1]{ \left|      #1 \right|}
 \newcommand{\norm}[2][]{\ensuremath{\left\| #2 \right\|_{#1}}}
 \newcommand{\infnorm} [1]   {\ensuremath{\norm[\infty]{#1}}}
-\newcommand{\hinfnorm}[1]{\ensuremath{\infnorm{#1}}}
+\newcommand{\hinfnorm}[1]{\ensuremath{\infnorm{#1}}} %TODO: remove
 
 \newcommand{\svdMax}[1]{\ensuremath{ \overline{\sigma} \left( #1 \right)  }}
-
-%% Unit formatting
-\newcommand{\unit}[1]{\ensuremath{\,\mathrm{#1}}}
-\newcommand{\axisunit}[1]{\ensuremath{\,\left[\mathrm{#1}\right]}}
-\newcommand{\noaxisunit}{ }
 
 %% Distributions
 \DeclareMathOperator{\NormalDistribution}{\mathcal{N}}
@@ -270,10 +265,7 @@
 %TODO Hinf macro aanpassen voor PDF support (indien dit niet conflicteert met glossaries)
 \newcommand{\Hinf}{\ensuremath{\Hardy_{\infty}}}
 
-\newcommand{\deemph}[1]{{\color{gray}{#1}}}
-
 \newcommand{\MC}{\ensuremath{\mathrm{MC}}}
-\newcommand{\atIter}[2][]{{#2}^{[#1]}}
 
 % http://tex.stackexchange.com/questions/183955/sum-within-a-fraction
 \newcommand{\Sum}{\sum\limits}
@@ -283,24 +275,54 @@
 
 \newcommand{\code}[1]{\texttt{#1}}
 
-\newcommand{\SNR}{\ensuremath{\mathrm{SNR}}}
-\newcommand{\RMSE}{\ensuremath{\mathrm{RMSE}}}
+\newcommand{\AICc}{\ensuremath{\mathrm{AICc}}}
+\newcommand{\AIC}{\ensuremath{\mathrm{AIC}}}
+\newcommand{\CT}{\ensuremath{\mathrm{CT}}}
 \newcommand{\DOF}{\ensuremath{\mathrm{DOF}}}
+\newcommand{\DT}{\ensuremath{\mathrm{DT}}}
+\newcommand{\excited }{\ensuremath{\mathrm{exc}}}
+\newcommand{\interest}{\ensuremath{\mathrm{int}}}
+\newcommand{\LMM}{\ensuremath{\mathrm{local}}}
+\newcommand{\LPM}{\ensuremath{\mathrm{LPM}}}
+\newcommand{\LRIC}{\ensuremath{\mathrm{LRIC}}}
+\newcommand{\LRM}{\ensuremath{\mathrm{LRM}}}
+\newcommand{\PRESS}{\ensuremath{\mathrm{PRESS}}}
+\newcommand{\RMSE}{\ensuremath{\mathrm{RMSE}}}
+\newcommand{\SNR}{\ensuremath{\mathrm{SNR}}}
+\newcommand{\trunc}{\ensuremath{\mathrm{trunc}}}
 
 
+
+% \newcommand{\AvisMatrixDiagonal}[2]{
+%     \begin{bmatrix}
+%       #1 & \deemph{0} & \deemph{0} & \deemph{0}&  \deemph{0}& \deemph{0}\\
+%       \deemph{0} & #1 & \deemph{0} & \deemph{0} & \deemph{0}& \deemph{0} \\
+%       \deemph{0} & \deemph{0} & #1 & \deemph{0} & \deemph{0} & \deemph{0}\\
+%        \deemph{0}& \deemph{0} &  \deemph{0} & #2 & \deemph{0}& \deemph{0}\\
+%        \deemph{0}& \deemph{0} &  \deemph{0} &  \deemph{0} & #2 & \deemph{0} \\
+%       \deemph{0} & \deemph{0} & \deemph{0} &\deemph{0}  & \deemph{0} & #2\\
+%     \end{bmatrix}
+% }
+\newcommand{\AvisMatrixDiagonal}[2]{
+    \begin{bmatrix}
+    #1 & \deemph{0}\\
+    \deemph{0} & #2\\
+    \end{bmatrix}
+    \kron
+    \Identity{3}
+}
 \newcommand{\geomean}[2]{\ensuremath{\sqrt{#1 #2}}}
 
 \newcommand{\FisherInformation}{\ensuremath{\mathrm{Fi}}}
 \newcommand{\Fi}[1]{\ensuremath{\FisherInformation \left(#1\right)}}
-\newcommand{\IF}{\ensuremath{\Fi{\theta}}}
+\newcommand{\IF}{\ensuremath{\Fi{\theta}}} %TODO: replace
 
 \newcommand{\CramerRao}{\ensuremath{\mathrm{CR}}}
 \newcommand{\CR}[1]{\ensuremath{\CramerRao \left(#1\right)}}
 
 \newcommand{\jac}[1]{\ensuremath{J_{#1}}}
-\newcommand{\interest}{\ensuremath{\mathrm{int}}}
-\newcommand{\excited }{\ensuremath{\mathrm{exc}}}
-\newcommand{\loglikelihood}[1]{\ensuremath{\ell\left( #1 \right) }}
+
+\newcommand{\loglikelihood}[1]{\ensuremath{\LogLikelihood\left( #1 \right) }}
 \newcommand{\fc}{\ensuremath{f_{\mathrm{c}}}}
 %% Sets
 \newcommand{\given}[1]{\left| #1 \right.}
@@ -319,15 +341,8 @@
 %%
 \newcommand{\trueSymbol}{\ensuremath{\circ}}
 \newcommand{\true}[1]{\ensuremath{{#1}_{\trueSymbol}}}
-\newcommand{\estim}[1]{\ensuremath{\hat{#1}}}
-
-\newcommand{\sampleStd}[1]{\ensuremath{\estimated{\sigma}_{#1}}}
-\newcommand{\sampleBias}[1]{\ensuremath{\estimated{\mathrm{b}}_{#1}}}
-
-\newcommand{\noiseStd}{\ensuremath{\sampleStd{\mathrm{n}}}}
-\newcommand{\Nbc}{\ensuremath{N_{\mathrm{bc}}}}
-
 \newcommand{\starred}[1]{\ensuremath{#1_{\star}}}
+
 %% Common symbols
 \newcommand{\BW}{\ensuremath{\mathrm{BW}}}
 \newcommand{\wdB}{\ensuremath{\BW_{3\unit{dB}}}}
@@ -350,9 +365,6 @@
 \newcommand{\Tw}[1][]{\ensuremath{\wn^{#1}\Ts^{#1}}}
 \newcommand{\wInterest}{\ensuremath{\omega_{\mathrm{I}}}}
 \newcommand{\snorm}[1][]{\frac{s^{#1}}{\wn^{#1}}}
-\newcommand{\nth}[1][]{\ensuremath{n_{\theta}}}
-\newcommand{\nMC}[1][]{\ensuremath{n_{\mathrm{MC}}}}
-\newcommand{\nSegments}{\ensuremath{n_{\mathrm{S}}}}
 
 \newcommand{\ICDF}[1]{\ensuremath{\mathrm{CDF}^{-1}_{#1}}}
 \newcommand{\pdf}[2][]{\ensuremath{f_{#1} \left(#2 \right)}}
@@ -360,7 +372,7 @@
 \newcommand{\infgrid}[1]{\ensuremath{\vec{#1}}}
 \newcommand{\powerspec}[1]{\ensuremath{\phi_{#1}}}
 
-\newcommand{\trunc}{\ensuremath{\mathrm{trunc}}}
+
 \newcommand{\truncTime}{\ensuremath{t_{\trunc}}}
 
 \newcommand{\successRate}{\ensuremath{\eta}}
@@ -388,25 +400,21 @@
 
 \newcommand{\placeholder}{\ensuremath{\bullet}}
 
-\newcommand{\DT}{\ensuremath{\mathrm{DT}}}
-\newcommand{\CT}{\ensuremath{\mathrm{CT}}}
+
 \newcommand{\DTmethod}{zero-order-hold}
 \newcommand{\ContTime}{\CT}
 \newcommand{\DiscTime}{\DT}
 
-
 %% Formatting
-
 \newcommand{\emspace}{\ensuremath{\qquad}}
 
-\newcommand{\numberOf}{\ensuremath{\#}}
-\newcommand{\numel}[1]{\ensuremath{n_{#1}}}
-\newcommand{\order}[1]{\ensuremath{N_{#1}}}
 \newcommand{\f}{\ensuremath{\mathbb{f}}}
-\newcommand{\e}{\ensuremath{e}}
+\newcommand{\e}{\ensuremath{e}} %TODO: unused
 \newcommand{\idx}[2]{\ensuremath{\left( #1 \right)_{#2}}}
 \newcommand{\segm}[2]{\ensuremath{{#1}^{[#2]}}}
 
+\newcommand{\atIter}[2][]{\ensuremath{{#2}^{[#1]}}}
+\newcommand{\atSimulation}[2][]{\atIter[#1]{#2}}
 
 \newcommand{\exponent}[1]{\ensuremath{e^{#1}}}
 
@@ -438,7 +446,6 @@
 \newcommand{\ControlObjective} {\ensuremath{\mathcal{J}}}
 \newcommand{\estimated} [1]    {\ensuremath{\hat{#1}}}
 
-% \newcommand{\set}   [1] {\ensuremath{ \left\{ {#1} \right\} }}
 \newcommand{\tuple} [1] {\ensuremath{ \left( {#1} \right) }}
 \newcommand{\mat}   [1] {\ensuremath{ \left[ \begin{matrix} #1 \end{matrix} \right] }}
 \newcommand{\poly}  [1] {\ensuremath{\widetilde{#1}}}
@@ -451,23 +458,14 @@
 
 \newcommand{\singularValue}[1]{\ensuremath{\mathbf{\sigma} \left( #1 \right) }}
 
-\newcommand{\PRESS}{\ensuremath{\mathrm{PRESS}}}
-\newcommand{\LMM}{\ensuremath{\mathrm{local}}}
-\newcommand{\LPM}{\ensuremath{\mathrm{LPM}}}
-\newcommand{\LRM}{\ensuremath{\mathrm{LRM}}}
-\newcommand{\LRIC}{\ensuremath{\mathrm{LRIC}}}
+
 \newcommand{\lpm}[1]{\ensuremath{\LPM \left( #1 \right) }}
 \newcommand{\lrm}[1]{\ensuremath{\LRM \left( #1 \right) }}
 \newcommand{\lric}[1]{\ensuremath{\LRIC \left( #1 \right) }}
 
-
-\newcommand{\Left}[1]{\ensuremath{#1_{\mathrm{L}}}}
-\newcommand{\Right}[1]{\ensuremath{#1_{\mathrm{R}}}}
-
-\newcommand{\stable}{\ensuremath{\;\mbox{stable}}}
-
-\newcommand{\stablePart}[1]{S}
-\newcommand{\unstablePart}[1]{}
+% \newcommand{\stable}{\ensuremath{\;\mbox{stable}}}
+% \newcommand{\stablePart}[1]{S}
+% \newcommand{\unstablePart}[1]{}
 
 \newcommand{\stateSpace}[4]{\mat{ \begin{array}{c|c} #1 & #2 \\ \hline #3 & #4 \end{array} }}
 
@@ -493,8 +491,6 @@
 \newcommand{\disturbance}[1]{\ensuremath{F_{\mathrm{d(#1)}}}}
 \newcommand{\externalDisturbance}{\disturbance{ext}}
 \newcommand{\systemDisturbance}{\disturbance{pl}}
-
-\newcommand{\mathbold}[1]{\mathbf{#1}} % used instead of fixmath (can only be used with CM math font!!!)
 
 
 % \newcommand{\LocalModel}[1]{\ensuremath{\widetilde{\mathbold{#1}}}}

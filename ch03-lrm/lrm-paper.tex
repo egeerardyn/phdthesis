@@ -92,8 +92,8 @@ As such, these smooth contributions can be approximated well around each frequen
 \begin{align}
   \true{G}(\omega_{k}+d) 
   &\approx
-  \frac{\sum_{i=0}^{N_B} b_i d^i}
-            {1 + \sum_{i=1}^{N_A} a_i d^i}
+  \frac{\sum_{i=0}^{\order{B}} b_i d^i}
+            {1 + \sum_{i=1}^{\order{A}} a_i d^i}
     &\isdef
     \frac{\LocalModel[k]{B}(d)}%
            {\LocalModel[k]{A}(d)} 
@@ -102,8 +102,8 @@ As such, these smooth contributions can be approximated well around each frequen
   \label{eq:LRM:model:G}
   \\
   \true{T}(\omega_k + d) &\approx
-  \frac{\sum_{i=0}^{N_C} c_i d^i}
-            {1 + \sum_{i=1}^{N_A} a_i d^i}
+  \frac{\sum_{i=0}^{\order{C}} c_i d^i}
+            {1 + \sum_{i=1}^{\order{A}} a_i d^i}
     &\isdef 
       \frac{\LocalModel[k]{C}(d)}%
            {\LocalModel[k]{A}(d)}
@@ -256,7 +256,7 @@ where $\pinv{K}$ denotes the Moore-Penroose pseudo-inverse of $K$.
 
 \subsection{Notes}
 
-Since it is well-known that the Vandemonde structure in the design matrix \eqref{eq:nparam:designMatrix} easily leads to ill-conditioned systems, additional measures are taken to improve numerical conditioning.
+Since it is well-known that the Vandemonde structure in the design matrix \eqref{eq:nparam:designMatrix} leads to numerical ill-conditioning for higher model complexities, additional measures are taken to improve numerical conditioning.
 To improve numerical conditioning~\citep{Pintelon2005} of the estimation problem, we substitute $d = \dw{r}{k}$ in equations \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}
 \begin{equation}
 \dw{r}{k} \isdef \frac{\omega_{k+r} - \omega_k}{\Delta \omega_k}
@@ -314,21 +314,24 @@ Note that this function is a quadratic function of $\LocalVector{\theta}$ and he
    \left( \theta - \true\theta \right)
    \text{.}
 \end{multline}
-The minimizer $\estim\theta$ of this function can be obtained by equating the derivative
+The minimizer $\estimated\theta$ of this function can be obtained by equating the derivative
 \begin{equation}
-  \PartialDerivative{\ELSCost{\estim\theta}}{\estim\theta} = \left( \PartialDerivative{\ELSCost{\true\theta}}{\true\theta} \right)^{\T} + \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} 
-   \left( \estim\theta - \true\theta \right)
+  \PartialDerivative{\ELSCost{\estimated\theta}}
+                                          {\estimated\theta} 
+  = 
+  \left( \PartialDerivative{\ELSCost{\true\theta}}{\true\theta} \right)^{\T} 
+  + \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} \left( \estimated\theta - \true\theta \right)
 \end{equation}
 to zero.
 This is equivalent to 
 \begin{equation}
-  \left( \estim\theta - \true\theta \right) 
+  \left( \estimated\theta - \true\theta \right) 
   = 
   - \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} \right)^{-1}  
      \left( \PartialDerivative{\ELSCost{\true\theta}}{\true\theta} \right)^{\T}
   \text{.}
 \end{equation}
-which expresses the bias $\Delta\theta = \left( \estim\theta - \true\theta \right)$ of the estimated parameters.
+which expresses the bias $\Delta\theta = \left( \estimated\theta - \true\theta \right)$ of the estimated parameters.
 Remark that 
 \begin{equation}
   \PartialDerivative{\ELSCost{\true\theta}}{\true\theta}  
@@ -347,37 +350,39 @@ As such, the bias on the parameters can be simplified to
   \label{eq:nparam:bias-basic}
 \end{equation}
 
-Do note that the estimated parameters are complex values but that $\ELSCost{\theta}$ is a real-valued function.
+Do note that the estimated parameters $\theta \in \ComplexMatrix{\nth \times 1}$ but that $\ELSCost{\theta}$ is a real-valued function.
 In contrast to a complex-valued function, this requires additional attention when the derivatives are calculated~\citep{Messerschmitt2006} and~\citep[Section 15.9]{Pintelon2012} since $\ELSCost{\theta}$ is not an analytic function.
-Particularly, the function $\ELSCost{\theta}$ is regarded as a two-dimensional function of $\ELSCost{\theta,\conj{\theta}}$ where $\conj{\theta}$ and $\theta$ are considered as independent variables which will be derived with respect to the real and imaginary part of $\theta$.
-Let us introduce the notations
-\begin{equation}
-  \ReIm{X} 
-  \isdef 
-  \begin{bmatrix}
-    \real{X}\\
-    \imag{X}
-  \end{bmatrix}
-  \quad  \text{,} \quad
-  \ReImImRe{X} 
-  \isdef 
-  \begin{bmatrix}
-    \real{X} & -\imag{X}\\
-    \imag{X} & \hphantom{-} \real{X}
-  \end{bmatrix}
-\end{equation}
-and the shorthand $\ReIm{\theta} = \ReImTheta$.
-E.g. in \citet[Section 15.9]{Pintelon2012} and \citet[Section 5.1]{Seber2007}, it is stated that $\ReImImRe{X}$ is isomorphic with $X$ such that operations on a complex matrix $X$ can be written as equivalent operations on the real matrix $\ReImImRe{X}$.
-As a result,
-\begin{align}
-  \Delta\theta &=
-  \left( \mat{1 & j} \kron \Identity{\nth[]}  \right) 
-  \ReIm{\Delta\theta}
-  \\
-  \ReIm{\Delta\theta} &= 
-  - \ReImImRe{ \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta^2} \right)^{-1} }
-    \ReIm{ \left( \PartialDerivative{\ELSCost[n]{\true\theta}}{\true\theta} \right)^{\T}}
-\end{align}
+Particularly, the function $\ELSCost{\theta}$ is regarded as a two-dimensional function $\ELSCost{\theta,\conj{\theta}}$ where $\conj{\theta}$ and $\theta$ are considered as independent variables~\citep{Hjorungnes2007,Hjorungnes2011}.
+The derivatives are then computed with respect to these variables.
+% Let us introduce the notations
+% \begin{equation}
+%   \ReIm{X} 
+%   \isdef 
+%   \begin{bmatrix}
+%     \real{X}\\
+%     \imag{X}
+%   \end{bmatrix}
+%   \quad  \text{,} \quad
+%   \ReImImRe{X} 
+%   \isdef 
+%   \begin{bmatrix}
+%     \real{X} & -\imag{X}\\
+%     \imag{X} & \hphantom{-} \real{X}
+%   \end{bmatrix}
+% \end{equation}
+% and the shorthand $\ReIm{\theta} = \ReImTheta$.
+% E.g. in \citet[Section 15.9]{Pintelon2012} and \citet[Section 5.1]{Seber2007}, it is stated that $\ReImImRe{X}$ is isomorphic with $X$ such that operations on a complex matrix $X$ can be written as equivalent operations on the real matrix $\ReImImRe{X}$.
+% As a result,
+% \begin{align}
+%   \Delta\theta &=
+%   \left( \mat{1 & j} \kron \Identity{\nth[]}  \right) 
+%   \ReIm{\Delta\theta}
+%   \\
+%   \ReIm{\Delta\theta} &= 
+%   - \ReImImRe{ \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta^2} \right)^{-1} }
+%     \ReIm{ \left( \PartialDerivative{\ELSCost[n]{\true\theta}}{\true\theta} \right)^{\T}}
+% \end{align}
+% where $\kron$ denotes the Kronecker product~\citep{Brewer1978}.
 To facilitate the derivations, we rewrite the expected value of the cost function in terms of $\theta$ and $\conj{\theta}$:
 \begin{align}
    \ELSCost[0]{\theta,\conj{\theta}} & =
@@ -401,7 +406,7 @@ since $\conj{ \LocalModel{A}(r,\theta)} =  \LocalModel{A}(\conj{r},\conj{\theta}
 Remember also that $\theta = \mat{\theta_A^{\TT} & \theta_B^{\TT} & \theta_C^{\TT}}$.
 
 \paragraph{Contributions to the first order derivative}
-The last term, i.e. the first order derivative, 
+The last term in \eqref{eq:nparam:bias-basic}, i.e. the first order derivative,  is given by
 \begin{equation}
   \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta}
   = 
@@ -411,26 +416,27 @@ The last term, i.e. the first order derivative,
   \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta_C} &
   \end{bmatrix}
 \end{equation}
-is broken up into the parts pertaining to respectively the $A$, $B$ and $C$ polynomials.
+and split into the parts pertaining to respectively $\LocalModel{A}$, $\LocalModel{B}$ and, $\LocalModel{C}$.
 The respective components are given by:
 \begin{align}
   \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{a_i} 
      &= 
      \frac{\sigma_V^2}{F}
      \sum_r r^i \LocalModel{A}(\conj{r},\conj{\LocalVector{\theta}}) 
-     & \forall i \in \set{1,\ldots,N_A}
+     & \forall i \in \set{1,\ldots,\order{A}}
      \\
    \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{b_i} 
    &= 0
-   & \forall i \in \set{0,\ldots,N_B}
+   & \forall i \in \set{0,\ldots,\order{B}}
    \\
    \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{c_i} 
    &= 0
-   &\forall i \in \set{0,\ldots,N_C}
+   &\forall i \in \set{0,\ldots,\order{C}}
    \text{.}
 \end{align}
 It can be seen that only the factors pertaining to $\LocalModel{A}$ are present.
 As this term occurs linearly in expression \eqref{eq:nparam:bias-basic}, only $\theta_A$ can incur a bias.
+Consequently, only the poles are shifted by the presence of noise.
 
 \TODO{write out subexpressions}
 As a first order approximation, the bias on the \gls{FRF} can be written as
@@ -440,31 +446,80 @@ As a first order approximation, the bias on the \gls{FRF} can be written as
         \PartialDerivative{\LocalModel{G}(\theta, \omega)}
                                           {\theta} 
       \Delta \theta
+      \text{.}
+\end{equation}
+The derivative in that expression can be evaluated easily
+\begin{align}
+    \PartialDerivative{\LocalModel{G}(\theta, r)}{\theta} 
+     &=
+     \begin{bmatrix}
+       \PartialDerivative{\LocalModel{G}(\theta,r)}{\theta_A} &
+       \PartialDerivative{\LocalModel{G}(\theta,r)}{\theta_B} &
+       \PartialDerivative{\LocalModel{G}(\theta,r)}{\theta_C} 
+     \end{bmatrix}
+     \\
+     \PartialDerivative{\LocalModel{G}(\theta, r)}{\theta_A} 
+     &=
+     \begin{bmatrix}
+         r^1 & r^2 & \deemph{\cdots} & r^{\order{A}}
+     \end{bmatrix}
+     \\
+     \PartialDerivative{\LocalModel{G}(\theta, r)}{\theta_B} 
+     &=
+     \begin{bmatrix}
+         1 & r^1 & r^2 & \deemph{\cdots} & r^{\order{B}}
+     \end{bmatrix}
+     \\
+     \PartialDerivative{\LocalModel{G}(\theta, r)}{\theta_C} 
+     &=
+     \Zero{1 \times \order{C}+1}
+     \text{.}
+\end{align}
+
+However, the sparsity of $\Delta\theta$ can be exploited such that the bias on the \gls{FRF} is expressed as:
+\begin{equation}
+  \Delta \LocalModel{G}(\theta,r)
+  \approx
+  - \LocalModel{A}(r,\theta)^{-2}
 \end{equation}
 
 \section{Order selection}
-Selecting suitable values of $\numel{W}$, $\numel{B}$, $\numel{A}$ and $\numel{C}$ obviously affects the quality of the obtained local models.
+Selecting suitable values of $\nWind$, $\order{B}$, $\order{A}$ and $\order{C}$ obviously affects the quality of the obtained local models.
 For local rational models, there are a few insights from parametric system identification that can be retained to make these choices easier.
-In particular $\numel{C} \leq \max\set{\numel{B},\numel{A}}$ and from statistical point of view~\citep{Mahata2006}, the degrees of freedom should remain positive such that $2N_W + 1 \geq N_B + N_A + N_C + 2$.
+In particular~\citep{Pintelon2010LPM1}:
+\begin{equation}
+\order{C} \leq \max\set{\order{B},\order{A}}
+\end{equation}
+ and from statistical point of view~\citep{Mahata2006}, the degrees of freedom should remain positive such that 
+ \begin{equation}
+ \nWind \geq \order{B} + \order{A} + \order{C} + 2
+ \text{.}
+ \end{equation}
+ 
+Different heuristics exist to select the local bandwidth $\nWind$, e.g.~\citet{Fan1995,Thummala2012LPMBW,Stenman2000ASETFE} in the framework of local modeling approaches.
+As such, we focus mainly on the selection of the model order hyper-parameters ($\order{A}$, $\order{B}$ and $\order{C}$) for a fixed value of $\nWind$.
 
-Different heuristics exist to select the local bandwidth , e.g.~\citep{Fan1995,Thummala2012LPMBW,Stenman2000ASETFE} in the framework of local modeling approaches.
-As such, we focus mainly on the selection of the model order hyper-parameters ($N_A$, $N_B$ and $N_C$) for a fixed value of $N$.
-
-In this paper, we take an approach that decides amongst a group of candidate models, which model is a good model: i.e. one that captures that system dynamics but remains parsimonious.
+Here, we take an approach that decides amongst a group of candidate models $\Set{M_1, \ldots, M_N}$, which model $M_i$ is the best model according to some criterion: i.e. one that captures that system dynamics but remains parsimonious.
 To do so, one needs to define a criterion that both takes `goodness-of-fit' (e.g. value of the cost function, $R^2$, \ldots) and model complexity into account to ensure that the model captures only the systematic behavior and not random variations of the particular measurement.
 The latter is often done using `cross-validation'.
 
 In statistical learning, many relevant cross-validation approaches exist.
 Within the system identification community a few simple approaches have been widely adopted~\citep[Chapter 11]{Pintelon2012} to ensure that one does not overmodel the data.
+In the following, a short overview is given of different approaches.
+
 \paragraph{Plug-in methods}
-In plug-in methods, a goodness-of-fit criterion (e.g. the log-likelihood function $\mathcal{L}$ of the estimated model $M$ given the estimation dataset $Z$), is penalized with a term accounting for the complexity of the model~\citep{Burnham2002}.
+In plug-in methods, a goodness-of-fit criterion (e.g. the log-likelihood function $\LogLikelihood$ of the estimated model $M$ given the estimation dataset $Z$), is penalized with a term accounting for the complexity of the model~\citep{Burnham2002}.
 E.g. a common choice is the \gls{AIC}~\citep{Akaike1974} or the \gls{AICc}~\citep{Hurvich1989}, which are defined as
-\begin{equation}
-  L_{\mathrm{AIC(c)}} = - 2  \mathcal{L}(M | Z) + 2 \numel{\theta} + c \frac{2 \numel{\theta} (\numel{\theta} + 1)}{\numel{\Window} - \numel{\theta} - 1}
-\end{equation}
-where $\numel{\Window}$ is the number of  estimated parameters in the model $M(\theta)$.
-For \gls{AIC} $c=0$, and $c=1$ produces the \gls{AICc}.
-In the context of local modeling, the \gls{AIC} is a poor choice since it relies on asymptotic arguments of the data set, i.e. $\numel{Z} \to \infty$, which is obviously an unwarranted choice.
+\begin{align}
+L_{\mathrm{\AIC}} &=
+ - 2  \loglikelihood{M | Z} 
+ + 2 \numel{\theta}\\
+L_{\mathrm{\AICc}} &= 
+- 2  \loglikelihood{M | Z} 
++   \frac{2 \nth\nWind}{\nWind - \nth - 1}
+\end{align}
+where $\nth$ is the number of  estimated parameters in the model $M(\theta)$.
+In the context of local modeling, the \gls{AIC} is a poor choice since it relies on asymptotic arguments of the data set, i.e. $\nWind \to \infty$, which is obviously an unwarranted choice in this context.
 The best model among a set of $q$ possible models $\Set{M_1, \ldots, M_q}$ is then
 \begin{equation}
   M_{\star} \isdef 
@@ -476,8 +531,9 @@ The best model among a set of $q$ possible models $\Set{M_1, \ldots, M_q}$ is th
 To select the best model $M_{\star}$ with such a criterion, the model $M_k$ among a set of models $\set{M_1, M_2, \ldots}$ that produces the smallest value of $L_{\mathrm{AICc}}$ is retained.
 
 \begin{remark}
-It should be noted that due to $\mathcal{L}(M | Z)$ , the value of $L_{\mathrm{AIC(c)}}(M,Z)$ is tightly coupled with the particular dataset $Z$.
-Practically, this means that such criteria can only be used to compare local models that estimated from the same local dataset (i.e. they have the same $\numel{\Window}$ and center frequency).
+It should be noted that due to $\loglikelihood{M | Z}$ , the value of $L_{\mathrm{AIC(c)}}(M,Z)$ is inherently coupled with the particular dataset $Z$.
+Practically, this means that such criteria can only be used to compare local models that are estimated from the same local dataset (i.e. they have the same $\nWind$ and center frequency).
+Consequently, the \gls{AICc} criterion cannot be used to select a proper $\nWind$.
 \end{remark}
 
 \paragraph{Holdout method}
@@ -494,14 +550,16 @@ Instead, we use a better-suited cross-validation approach known as \gls{LOOCV} t
 Plainly, \gls{LOOCV} cross-validates the model by in turn leaving out each data point, estimating the local model parameters and observing the difference between the omitted data point and the estimate.
 In effect, such an approach calculates the \gls{PRESS} for each local model:
 \begin{equation}
- \PRESS = \frac{1}{2N_W+1} \sum_{r=-N_W}^{N_W} 
-                          \abs{\ignoring{r}{\LocalVector{e}}}^2
-                          \text{,}
+ \PRESS = 
+ \frac{1}{\nWind} 
+  \sum_{r \in \LocalShifts{}}
+    \abs{\ignoring{r}{\LocalVector{E}}}^2
+    \text{,}
 \label{eq:PRESS-general}
 \end{equation}
-where $\ignoring{r}{\LocalVector{e}} = \LocalVector{Y}_{r} - \ignoring{r}{\LocalVector{\estimated{Y}}}$, i.e. the difference between the observed (local) output spectrum at the $r^{\text{th}}$ line and the predicted output spectrum at the same line when the corresponding data point is removed from the estimation procedure.
-The model with the smallest \gls{PRESS} is retained.
-In general, this means that \gls{LOOCV} requires estimating $2N_W + 1$ additional models (one for each omitted data point) and hence can be very time-consuming.
+where $\ignoring{r}{\LocalVector{E}} = \LocalVector{Y}_{r} - \ignoring{r}{\LocalVector{\estimated{Y}}}$, i.e. the difference between the observed (local) output spectrum at the $r^{\text{th}}$ line and the predicted output spectrum at the same line when the corresponding data point is removed from the estimation procedure.
+To select the best model from a set of candidate models, only the model with the lowest \gls{PRESS} value is retained.
+In general, this means that \gls{LOOCV} requires estimating $\nWind$ additional models (one for each omitted data point) and hence can be very time-consuming.
 
 For linear models (i.e. $\LocalVector{Y} = \LocalVector{K} \LocalVector{\theta}$, such as for the \gls{LRM} and \gls{LPM}), however, the \gls{PRESS} can be calculated in a single step without estimating any additional models~\citep[Sec.~12.3.2]{Seber2003}:
 \begin{equation}
@@ -515,8 +573,8 @@ $\LocalVector{H} = \LocalVector{K} \pinv{\LocalVector{K}}$ is the so-called `hat
 
 In the simulations, we consider a discrete-time second order system with transfer function
 \begin{equation}
-G_0(z) = \frac{0.64587 z + 0.64143}
-                             {47.9426 z^2 - 51.2955 z + 46.9933}
+\true{G}(z) = \frac{0.64587 z + 0.64143}
+                                      {47.9426 z^2 - 51.2955 z + 46.9933}
 \end{equation}
 
 
@@ -535,10 +593,41 @@ The \gls{SNR} in the system bandwidth $\BW$ is defined as
   \frac{\int_{\BW} \abs{Y_0(\omega)}^2 \dd{\omega}}
             {\int_{\BW} \abs{V(\omega)}^2 \dd{\omega}}
 \end{equation}
-where $\BW$ is the frequency range where
+where $\BW$ is the frequency range of the $3 \unit{dB}$ bandwidth of the system, i.e. where $\abs{G_0} \geq \norm[\infty]{\true G} - 3 \unit{dB}$.
 
 \TODO{plot example spectrums}
 
+We then compute basic statistics of the estimated \glspl{FRF} over all  Monte Carlo runs.
+Specifically, the mean value
+\begin{align}
+  \sampleMean{\bullet}(\omega_k) & 
+  \isdef
+    \frac{1}{\nMC}
+    \sum_{i=1}^{\nMC}
+    \atSimulation[i]{\model{\bullet}(\omega_k)}
+  &
+  \approx
+  \expectedValue{\model{\bullet}(\omega_k)}
+  \\
+  \sampleBias{\bullet}(\omega_k) &
+    \isdef
+    \frac{1}{\nMC}
+    \sum_{i=1}^{\nMC}
+    \atSimulation[i]{\model{\bullet}(\omega_k)} - \true{G}(\omega_k)
+    &
+    \approx
+    \Bias{\model{\bullet}(\omega_k)}
+    \\
+    \sampleVariance{\bullet}(\omega_k) &
+    \isdef
+    \frac{1}{\nMC - 1}
+    \sum_{i=1}^{\nMC}
+    \left(\atSimulation[i]{\model{\bullet}(\omega_k)} - \true{G}(\omega_k) \right)
+    \conj { \left(\atSimulation[i]{\model{\bullet}(\omega_k)} - \true{G}(\omega_k) \right) }
+    &
+    \approx
+    \Var{\model{\bullet}(\omega_k)}
+\end{align}
 
   % \subsection{Implications of the model structure}
   \subsection{Implications of the noise level}
@@ -546,6 +635,17 @@ where $\BW$ is the frequency range where
 
 \TODO{insert figure: Y(Y,E,T) vs freq}
 \TODO{insert figure: err vs SNR}
+\paragraph{Noiseless case}
+In the noiseless case, one can observe the approximation error that is made by using the \gls{LRM}, \gls{LPM} and \gls{ETFE}.
+For the \gls{ETFE}, it can be seen that the error is very high.
+This can be expected since the \gls{ETFE} does not separate transient and leakage contributions.
+this error only disappears very slowly by measuring a longer record due to the presence of the leakage term.
+As such, 
+\TODO{figure: RMS, bias, std voor inf SNR}
+
+\TODO{figure: RMS, bias, std voor high SNR}
+\TODO{figure: RMS, bias, std voor 20 dB SNR}
+\TODO{figure: RMS, bias, std voor 10 dB SNR}
 
   \section{Measurements}
   \label{sec:measurements}
