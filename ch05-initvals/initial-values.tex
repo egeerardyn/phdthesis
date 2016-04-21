@@ -214,13 +214,13 @@ Here, we repeat the main points briefly.
 The \gls{LPM} is first applied to estimate the \gls{FRF} from a full input/output data record of the \gls{SISO} system.
 The smooth characteristics of both the exact \gls{FRF} $\true{G}$ and the transient term $T$ allow for application of the \gls{LPM}, leading to a smooth \gls{FRF} estimate with the transient and noise suppressed.
 
-  With reference to a detailed exposition in~\citep{Lumori2014TIM} and \chapref{sec:nonparametric}, the \gls{LPM} utilizes local polynomials to approximate the transfer function and transient contribution (in least squares sense) and, thus, smooth $\true{G}$ and $T$ around a central frequency $\Omega_{k}$ in a local frequency band $r\in\mathbb{W}_n$.
+  With reference to a detailed exposition in~\citep{Lumori2014TIM} and \chapref{sec:nonparametric}, the \gls{LPM} utilizes local polynomials to approximate the transfer function and transient contribution (in least squares sense) and, thus, smooth $\true{G}$ and $T$ around a central frequency $\omega_{k}$ in a local frequency band $r\in\mathbb{W}_n$.
   In this chapter, we limit the notations to quadratic polynomials in a window with half-width $N_W=3$, such that
 \begin{subequations}\label{lpmImplQuadG}
 \begin{align}
-\true{G}(\Omega_{k+r})&\approx \hat G_k + g_{1,k} r + g_{2,k}r^2
+\true{G}(\omega_{k+r})&\approx \hat G_k + g_{1,k} r + g_{2,k}r^2
 \\
-T(\Omega_{k+r})&\approx T(\Omega_k)+t_{1,k}r + t_{2,k}r^2\label{lpmImplQuadT}
+T(\omega_{k+r})&\approx T(\omega_k)+t_{1,k}r + t_{2,k}r^2\label{lpmImplQuadT}
 \end{align}
 \end{subequations}
 where, in general,$\ r\in \LocalShifts[]$ with $\LocalShifts[] = \{-N_W,-N_W+1,\dots,B_W\}$ and $N_W$ is a tunable parameter. 
@@ -228,13 +228,13 @@ where, in general,$\ r\in \LocalShifts[]$ with $\LocalShifts[] = \{-N_W,-N_W+1,\
 
   The \gls{LPM} estimate of the \gls{FRF} at frequency index $k$ is the first estimated local parameter, \emph{viz}:
 \begin{equation}
-\hat{G}_\text{LPM}(\Omega_k) = \hat{G}_k
+\hat{G}_\text{LPM}(\omega_k) = \hat{G}_k
 \text{.}
 \end{equation}
 This procedure is repeated for all $k$ in the frequency band of interest.
 
 \emph{Impulse response truncation}. 
-The estimate is smoothed further by truncating its impulse response function $g_{\LPM}(t) = \mathrm{IDFT}\, \left( \hat{G}_{\LPM}(\Omega_k)) \right)$ as originally presented in~\citep{Lumori2014TIM} and \secref{sec:nonparametric:truncation}.
+The estimate is smoothed further by truncating its impulse response function $g_{\LPM}(t) = \IDFT \left( \hat{G}_{\LPM}(\omega_k)) \right)$ as originally presented in~\citep{Lumori2014TIM} and \secref{sec:nonparametric:truncation}.
 
 The impulse response is truncated after the time $\truncTime$ where the signal becomes indistinguishable from the noise, i.e.,
 \begin{equation}
@@ -254,7 +254,7 @@ Then, $\truncTime$ is determined as the time instant where this envelope functio
   \text{,}
 \end{equation}
 where $\gamma=1$ was used in this chapter for simplicity.
-By changing $\gamma$, the user can fine-tune the bias/variance trade-off of the estimated \gls{FRF} $G_{\trunc}(\Omega_k) = \mathrm{DFT} \left( g_{\trunc}(t)\right)$ further.
+By changing $\gamma$, the user can fine-tune the bias/variance trade-off of the estimated \gls{FRF} $G_{\trunc}(\omega_k) = \DFT \left( g_{\trunc}(t)\right)$ further.
 This can lead to a significant improvement over the classical LPM~\citep{Lumori2014TIM}.
  
 \item \emph{\Glsfirst{RFIR}}
@@ -401,7 +401,7 @@ The $\mathcal{L}_2$ norm used in equation \eqref{eq:successrateTol} is defined~\
 \norm[2]{G(z)} &\isdef \sqrt{\frac{1}{2\pi}\int_0^{2\pi} |G(e^{-j\omega})|^2\ \mathrm{d}\omega}& \text{ for discrete time,}\\
 \norm[2]{G(s)} &\isdef \sqrt{\frac{1}{2\pi}\int_{-\infty}^{+\infty} |G(j\omega)|^2\ \mathrm{d}\omega}& \text{ for continuous time}
 \end{align}
- which, in practice, is computed by using the adaptive global quadrature algorithm provided by the MATLAB function \code{integral}.
+ which, in practice, is computed by using the adaptive global quadrature algorithm provided by the \MATLAB function \code{integral}.
 The success rate in equation \eqref{eq:successrateTol} is estimated via Monte Carlo simulations in \secref{sec:initial-values:CompuSR}.
 
 \begin{remark}

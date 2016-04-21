@@ -22,19 +22,97 @@ This capability is very useful for model validation and/or model selection~\cite
 
 \input{\thisDir/lrm-paper.tex}
 
+\section{Trading off the bias and variance}
+
+\subsection{Order selection}
+Selecting suitable values of $\nWind$, $\order{B}$, $\order{A}$ and $\order{C}$ obviously affects the quality of the obtained local models.
+For local rational models, there are a few insights from parametric system identification that can be retained to make these choices easier.
+In particular~\citep{Pintelon2010LPM1}:
+\begin{equation}
+\order{C} \leq \max\set{\order{B},\order{A}}
+\end{equation}
+ and from statistical point of view~\citep{Mahata2006}, the degrees of freedom should remain positive such that 
+ \begin{equation}
+ \nWind \geq \order{B} + \order{A} + \order{C} + 2
+ \text{.}
+ \end{equation}
+ 
+Different heuristics exist to select the local bandwidth $\nWind$, e.g.~\citet{Fan1995,Thummala2012LPMBW,Stenman2000ASETFE} in the framework of local modeling approaches.
+As such, we focus mainly on the selection of the model order hyper-parameters ($\order{A}$, $\order{B}$ and $\order{C}$) for a fixed value of $\nWind$.
+
+Here, we take an approach that decides amongst a group of candidate models $\Set{M_1, \ldots, M_N}$, which model $M_i$ is the best model according to some criterion: i.e. one that captures that system dynamics but remains parsimonious.
+To do so, one needs to define a criterion that both takes `goodness-of-fit' (e.g. value of the cost function, $R^2$, \ldots) and model complexity into account to ensure that the model captures only the systematic behavior and not random variations of the particular measurement.
+The latter is often done using `cross-validation'.
+
+In statistical learning, many relevant cross-validation approaches exist.
+Within the system identification community a few simple approaches have been widely adopted~\citep[Chapter 11]{Pintelon2012} to ensure that one does not overmodel the data.
+In the following, a short overview is given of different approaches.
+
+\paragraph{Plug-in methods}
+In plug-in methods, a goodness-of-fit criterion (e.g. the log-likelihood function $\LogLikelihood$ of the estimated model $M$ given the estimation dataset $Z$), is penalized with a term accounting for the complexity of the model~\citep{Burnham2002}.
+E.g. a common choice is the \gls{AIC}~\citep{Akaike1974} or the \gls{AICc}~\citep{Hurvich1989}, which are defined as
+\begin{align}
+L_{\mathrm{\AIC}} &=
+ - 2  \loglikelihood{M | Z} 
+ + 2 \nth\\
+L_{\mathrm{\AICc}} &= 
+- 2  \loglikelihood{M | Z} 
++   \frac{2 \nth\nWind}{\nWind - \nth - 1}
+\end{align}
+where $\nth$ is the number of  estimated parameters in the model $M(\theta)$.
+In the context of local modeling, the \gls{AIC} is a poor choice since it relies on asymptotic arguments of the data set, i.e. $\nWind \to \infty$, which is obviously an unwarranted choice in this context.
+The best model among a set of $q$ possible models $\Set{M_1, \ldots, M_q}$ is then
+\begin{equation}
+  M_{\star} \isdef 
+  \arg_{M} \min 
+  \Set{
+    L_{\mathrm{AIC(c)}}(M)
+  }
+  \text{,}
+\end{equation}
+which is the only model that is hence retained.
+
+\begin{remark}
+It should be noted that due to $\loglikelihood{M | Z}$ , the value of $L_{\mathrm{AIC(c)}}(M,Z)$ is inherently coupled with the particular dataset $Z$.
+Practically, this means that such criteria can only be used to compare local models that are estimated from the same local dataset (i.e. they have the same $\nWind$ and center frequency).
+Consequently, the \gls{AICc} criterion cannot be used to select a proper $\nWind$.
+\end{remark}
+
+\paragraph{Holdout method}
+The so-called `holdout' cross-validation method ensures a good model by first splitting the dataset into two smaller disjoint datasets: e.g. $70\%$ of the data  is used to estimate the model and a goodness-of-fit criterion (e.g. cost function) is used on the remaining data to determine which model has the best out-of-sample performance.
+By using independent datasets and assessing the performance of the model on (unseen) validation data, overfitted models can be rejected.
+
+\begin{remark}
+Unfortunately, these typical approaches either assume that an abundantly large dataset is available or  assume the models are estimated on  a fixed dataset.
+As such, these methods are not ideal for local modeling where the (local) dataset is rather small by design and could change by means of the local bandwidth $N_W$.
+\end{remark}
+
+\paragraph{Leave-out cross-validation}
+Instead, we use a better-suited cross-validation approach known as \gls{LOOCV} that is related to the \gls{AIC}~\citep{Stone1977}.
+Plainly, \gls{LOOCV} cross-validates the model by in turn leaving out each data point, estimating the local model parameters and observing the difference between the omitted data point and the estimate.
+In effect, such an approach calculates the \gls{PRESS} for each local model:
+\begin{equation}
+ \PRESS = 
+ \frac{1}{\nWind} 
+  \sum_{r \in \LocalShifts{}}
+    \abs{\ignoring{r}{\LocalVector{E}}}^2
+    \text{,}
+\label{eq:PRESS-general}
+\end{equation}
+where $\ignoring{r}{\LocalVector{E}} = \LocalVector{Y}_{r} - \ignoring{r}{\LocalVector{\estimated{Y}}}$, i.e. the difference between the observed (local) output spectrum at the $r^{\text{th}}$ line and the predicted output spectrum at the same line when the corresponding data point is removed from the estimation procedure.
+To select the best model from a set of candidate models, only the model with the lowest \gls{PRESS} value is retained.
+In general, this means that \gls{LOOCV} requires estimating $\nWind$ additional models (one for each omitted data point) and hence can be very time-consuming.
+
+For linear models (i.e. $\LocalVector{Y} = \LocalMatrix{K} \LocalVector{\theta}$, such as for the \gls{LRM} and \gls{LPM}), however, the \gls{PRESS} can be calculated in a single step without estimating any additional models~\citep[Sec.~12.3.2]{Seber2003}:
+\begin{equation}
+\PRESS = \frac{\LocalVector{E}^{\HT} \LocalVector{W}^{-1} \LocalVector{E}}{2N_W + 1}
+\end{equation}
+where $\LocalVector{E}$ is the residual vector of the full estimation and $\LocalVector{W}$ is a diagonal weighting matrix with $\LocalVector{W}_{ii} = (1 - \LocalVector{H}_{ii})^{\HT} (1 - \LocalVector{H}_{ii})$ and
+$\LocalVector{H} = \LocalMatrix{K} \pinv{\LocalMatrix{K}}$ is the so-called `hat-matrix' that is known to be idempotent.
+
 \section{LPM with impulse response truncation}
 \input{\thisDir/LPMSmooth_ML_EG_JS_JL.tex}
 
-\section{\TODO{Bias-variance trade-off }}
-
-
-\subsection{\TODO{Tuning rules}}
-\subsubsection{\TODO{Tuning using an Oracle}}
-\subsubsection{\TODO{Cross-validation}}
-
-\subsection{\TODO{Application}}
-
-\subsubsection{\TODO{AVIS}}
 
 
 \input{\thisDir/proofLOOCV.tex}
