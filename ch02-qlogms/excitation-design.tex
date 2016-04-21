@@ -82,7 +82,7 @@ This can be done by optimizing the input power spectrum such that  a scalar crit
 
 In open loop experiments, the scaled average information matrix is given by
 \begin{align}
-\IF & = \lim_{N\rightarrow\infty}
+\Fi{\theta} & = \lim_{N\rightarrow\infty}
           \frac{1}{N}
             \sum_{t=1}^{N}
               {\left(\frac{\partial\hat{y}(t)}{\partial\theta}\right)
@@ -90,9 +90,9 @@ In open loop experiments, the scaled average information matrix is given by
 \frac{\partial\hat{y}(t)}{\partial\theta}
     & =\frac{\partial G(s,\theta)}{\partial \theta}u(t).
 \end{align}
-By Parseval's theorem, $\IF$ can be expressed as
+By Parseval's theorem, $\Fi{\theta}$ can be expressed as
 \begin{align}
-\IF &= \frac{1}{\pi}
+\Fi{\theta} &= \frac{1}{\pi}
          \int\limits_0^\infty \RealPart
            \left\{      \frac{\partial G(j\omega)}{\partial \theta}
                   \left[\frac{\partial G(j\omega)}{\partial \theta}\right]^{\HT}
@@ -102,7 +102,7 @@ By Parseval's theorem, $\IF$ can be expressed as
 \label{eq:excitation:IF}
 \end{align}
 The information matrix is a function of the input power spectrum $\powerspec{u}$, which is the only entity that can be used to improve the quality of the estimates. 
-A common optimality criterion is D-optimality where $\det{\IF}$ is maximized~\citep{Goodwin1977}.
+A common optimality criterion is D-optimality where $\det{\Fi{\theta}}$ is maximized~\citep{Goodwin1977}.
 
 \begin{remark}
 D-optimal input designs are quite popular since this criterion minimizes the volume of uncertainty ellipsoid of the parameters.
@@ -112,7 +112,7 @@ Moreover, the D-optimal input design is independent of the parametrization of th
 The information matrix tells us how good the individual parameter estimates are. However, if we are interested in estimating a transfer function $G(s,\theta)$ the quality of this estimate is of more importance. 
 It is possible to find an expression for the variance of $\hat{G}(j\omega,\theta)$ using the Gauss approximation formula \citep{Ljung1999, Pintelon2012}. This gives
 \begin{align}
-\var{\hat{G}(j\omega)} &\approx \frac{\partial G^H(j\omega)}{\partial \theta}\IF^{-1}\frac{\partial G(j\omega)}{\partial \theta}.
+\var{\hat{G}(j\omega)} &\approx \frac{\partial G^H(j\omega)}{\partial \theta}\Fi{\theta}^{-1}\frac{\partial G(j\omega)}{\partial \theta}.
 \label{eq:excitation:varG}
 \end{align}
 
@@ -253,7 +253,7 @@ To properly identify the system $G$, excitation is required such that all subsys
 
 The information matrix for systems of the type \eqref{eq:excitation:sumSys} will have a block structure commensurate with the dimension of $\theta_i$ given by
 \begin{align}
-\IF &= \frac{1}{\pi}
+\Fi{\theta} &= \frac{1}{\pi}
 \begin{bmatrix}
   \partial G_{1,1}        &\partial G_{1,2}       &\deemph{\cdots}         &\partial G_{1,K}\\
   \partial G_{2,1}        &\partial G_{2,2}       &\deemph{\cdots}         &\partial G_{2,K}\\
@@ -285,7 +285,7 @@ G(s,\theta) &= G_1(s,\theta_1) + G_2(s,\theta_2)%\\
 with $\theta_1=[\wn[1]\;\damping[1]]^{\T}$ and $\theta_2=[\wn[2]\;\damping[2]]^{\T}$.
 The information matrix for this system is
 \begin{align}
-\IF &=
+\Fi{\theta} &=
        \begin{bmatrix}
          \partial G_{1,1}  & \partial G_{1,2}\\
          \partial G_{2,1}  & \partial G_{2,2}
@@ -379,13 +379,13 @@ Hence \eqref{eq:excitation:cross1} cannot grow faster than $\mathcal{O}(\damping
 To further illustrate the decoupling of the two systems, we calculate \eqref{eq:excitation:infoEx} for different values of the damping $\damping$ and separations of the two resonances $\wn[1]$ and $\wn[2]$. If the separation is taken in terms of $\wdB$-units for the lower resonance, the result only depends on the difference $\wn[1]-\wn[2]$ and not on the actual frequencies. The resulting information matrix is then normalized so that the largest element is $1$.
 
 In \figref{fig:excitation:coupling} the largest element in $\partial G_{1,2}$ is plotted for different dampings and separations. It is clear that highly resonant systems have a large degree of decoupling and that resonances that are well-separated increases the decoupling. 
-The diagonal blocks of the normalized $\IF$ in all cases have some elements close to $1$. 
+The diagonal blocks of the normalized $\Fi{\theta}$ in all cases have some elements close to $1$. 
 In this example, the $\damping$ is set to be the same in both sub-systems. 
 Using different dampings in the sub-systems would, however, not change the argument, the systems with the lowest damping will limit the separation.
 
 Based on the above arguments, we approximate the information matrix for lightly-damped systems as a block-diagonal matrix:
 \begin{align}
-\IF&\approx \begin{bmatrix}\partial G_{1,1} &\deemph{0}\\
+\Fi{\theta}&\approx \begin{bmatrix}\partial G_{1,1} &\deemph{0}\\
                         \deemph{0}&\partial G_{2,2}\end{bmatrix}.
 \end{align}
 Hence the variance of the estimate $\hat{G}(s,\theta)$ becomes

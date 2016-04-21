@@ -48,6 +48,7 @@
 \newcommand{\latin}[1]{\emph{#1}}
 \newcommand{\term}[1]{\emph{#1}}
 \newcommand{\deemph}[1]{{\color{gray}{#1}}}
+\newcommand{\FIXME}[1]{{\color{green} #1}}
 \newcommand{\TODO}[1]{{\color{red} #1}}
 \newcommand{\TODOfig}[1][figure]{\parbox[h][\figureheight][c]{\figurewidth}{\centering \vfill \TODO{#1} \vfill}}
 \newenvironment{personalNote}{\color{blue}}{}
@@ -89,7 +90,6 @@
 \newcommand{\Cov}[3][]{\Covariance_{#1} \left[ #2 , #3 \right]}
 
 \newcommand{\expectedValue}[2][]{\ensuremath{\E[#1]{#2}}}
-\newcommand{\expval}[1]{\E{#1}} %TODO: remove
 \newcommand{\bias}[1]{\ensuremath{\Bias \left( #1 \right)}}
 \newcommand{\mse}[1]{\ensuremath{\MSE \left( #1 \right)}}
 \newcommand{\rms}[1]{\ensuremath{\RootMeanSquare \left( #1 \right)}}
@@ -238,8 +238,7 @@
 \newcommand{\ceil }[1]{ \left\lceil      #1 \right\rceil}
 \newcommand{\abs }[1]{ \left|      #1 \right|}
 \newcommand{\norm}[2][]{\ensuremath{\left\| #2 \right\|_{#1}}}
-\newcommand{\infnorm} [1]   {\ensuremath{\norm[\infty]{#1}}}
-\newcommand{\hinfnorm}[1]{\ensuremath{\infnorm{#1}}} %TODO: remove
+\newcommand{\infnorm} [1]{\ensuremath{\norm[\infty]{#1}}}
 
 \newcommand{\svdMax}[1]{\ensuremath{ \overline{\sigma} \left( #1 \right)  }}
 
@@ -255,7 +254,7 @@
 \newcommand{\CircularNormal}[3]{\CircularNormalDistribution\!\left(#1,#2,#3\right)}
 \newcommand{\ComplexCircularNormal}[2]{\ComplexCircularNormalDistribution\!\left(#1,#2\right)}
 
-\newcommand{\dirac}[1]{\ensuremath{\delta \left( #1 \right)}} %TODO: replace
+\newcommand{\dirac}[1]{\ensuremath{\delta \left( #1 \right)}}
 
 %% Interval Specifications
 \newcommand{\LeftOpenInterval}[1]{\ensuremath{\left] #1 \right]}}
@@ -318,7 +317,6 @@
 
 \newcommand{\FisherInformation}{\ensuremath{\mathrm{Fi}}}
 \newcommand{\Fi}[1]{\ensuremath{\FisherInformation \left(#1\right)}}
-\newcommand{\IF}{\ensuremath{\Fi{\theta}}} %TODO: replace
 
 \newcommand{\CramerRao}{\ensuremath{\mathrm{CR}}}
 \newcommand{\CR}[1]{\ensuremath{\CramerRao \left(#1\right)}}

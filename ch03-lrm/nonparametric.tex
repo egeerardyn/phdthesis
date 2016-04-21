@@ -83,8 +83,8 @@ The so-called `holdout' cross-validation method ensures a good model by first sp
 By using independent datasets and assessing the performance of the model on (unseen) validation data, overfitted models can be rejected.
 
 \begin{remark}
-Unfortunately, these typical approaches either assume that an abundantly large dataset is available or  assume the models are estimated on  a fixed dataset.
-As such, these methods are not ideal for local modeling where the (local) dataset is rather small by design and could change by means of the local bandwidth $N_W$.
+The typical approaches, such as the holdout and plug-in methods, either assume that an abundantly large dataset is available or  assume the models are estimated on a fixed dataset.
+As such, these methods are not ideal for local modeling where the (local) dataset is rather small by design and could change by means of the local bandwidth $\nWind$ over the frequency.
 \end{remark}
 
 \paragraph{Leave-out cross-validation}
@@ -113,6 +113,16 @@ $\LocalVector{H} = \LocalMatrix{K} \pinv{\LocalMatrix{K}}$ is the so-called `hat
 \section{LPM with impulse response truncation}
 \input{\thisDir/LPMSmooth_ML_EG_JS_JL.tex}
 
+  \section{Conclusion}
+  \label{sec:conclusion}
+
+  \begin{itemize}
+    \item LRM: extension to LRIC
+    \item LRM: derivation of bias
+    \item LRM vs LPM: at which settings is LRM better than LPM
+    \item LRIC: much slower, performance is somewhat better, but at the cost of a lot of computational power and much harder model selection
+    \item practical advice: use LRM rather than LPM unless in very noisy conditions (10 dB), only use LRIC as last resort
+  \end{itemize}
 
 
 \input{\thisDir/proofLOOCV.tex}

@@ -644,13 +644,13 @@ The parametrization of the plant model set $\ModelSet[]$ conforms to the dual-\Y
             \frac{\hat{N} + D_c \Delta}
                  {\hat{D} - N_c \Delta} 
           |
-            \hinfnorm{\Delta} \leq \gamma
+            \infnorm{\Delta} \leq \gamma
         }
   \label{eq:lrmhinf:dualYoulaModelSet}
   \text{,}
 \end{equation}
 where $C=N_c D_c^{-1}$ and $\estimated\Plant = \estimated{N}\estimated{D}^{-1}$ are decomposed as \gls{RCF} (see \figref{fig:lrmhinf:dualYoula}).
-To estimate $\Delta$ and $\hinfnorm{\Delta}$, the signals $u_{\Delta}$ and $y_{\Delta}$ in~\figref{fig:lrmhinf:dualYoula} are required.
+To estimate $\Delta$ and $\infnorm{\Delta}$, the signals $u_{\Delta}$ and $y_{\Delta}$ in~\figref{fig:lrmhinf:dualYoula} are required.
 These can be computed from $u$ and $y$ directly~\citep{Anderson1998}:
 \begin{align}
   u_{\Delta}(t) &= \left(\hat{D} + C \hat{N} \right)^{-1} \mat{C & \I} \mat{y(t)\\u(t)}\\
@@ -692,7 +692,7 @@ Some dynamics are left unmodeled and are hence part of $\Delta$~(\figref{fig:lrm
 
 \subsection{Results}
 \label{sec:lrmhinf:resultsAvis}
-To estimate $\Delta(\omega_k)$ and $\hinfnorm{\Delta}$  using the proposed approach with $\lrm{6,2,2,2}$, a short estimation dataset is used.
+To estimate $\Delta(\omega_k)$ and $\infnorm{\Delta}$  using the proposed approach with $\lrm{6,2,2,2}$, a short estimation dataset is used.
 This estimation dataset is sampled from a larger dataset that contains four times more excited frequency lines (and hence produces a four times more densely sampled \gls{FRF}).
 The full dataset, i.e. including the bins not seen during the estimation phase, is used to validate the interpolation results.
 
@@ -732,7 +732,7 @@ The proposed method \eqref{eq:lrmhinf:gammaInterpolOptim} yields $\gammaIntergri
 $\gamma_{\mathrm{FRF}}\approx -9.9\unit{dB}$ for the estimation data, which means that a $7.4\unit{dB}$ improvement is achieved by the proposed method.
 This peak agrees well with the validation data, where the nearest (at-grid) value has an amplitude of $-3.2\unit{dB}$ (i.e. $8\%$ difference).
 
-This suggests that the local rational models with interpolation enable accurate estimation of  $\abs{\Delta}$ and hence also $\hinfnorm{\Delta}$ even if the actual peak does not coincide with the discrete frequency grid.
+This suggests that the local rational models with interpolation enable accurate estimation of  $\abs{\Delta}$ and hence also $\infnorm{\Delta}$ even if the actual peak does not coincide with the discrete frequency grid.
 
 \section{Conclusions}
 \label{sec:lrmhinf:conclusion}
@@ -742,7 +742,7 @@ It is also shown that the \gls{LPM} is not a worthwhile alternative to the \gls{
 
 The technique is illustrated on a simulation example where the \gls{LRM}-based interpolation yields a n accurate estimate of the $\Hinf{}$ norm.
 It is observed that the measurement time is reduced by almost an order of magnitude compared to techniques that only examine $\Delta(\omega)$ on the \gls{DFT} frequency grid.
-Using measurements on an \gls{AVIS}, it is illustrated that the interpolation-based results can substantially improve $\hinfnorm{\Delta}$ and/or reduce the measurement time four-fold.
+Using measurements on an \gls{AVIS}, it is illustrated that the interpolation-based results can substantially improve $\infnorm{\Delta}$ and/or reduce the measurement time four-fold.
 Furthermore, the results are validated by a detailed validation measurement.
 Ongoing research focuses on extending the technique to \gls{MIMO} systems.
 

@@ -98,7 +98,7 @@ ylabel={Amplitude $\svdMax{\Delta(\omega_{\star})}$}
 \node at (axis cs:200,26.5) [color=LRM] {LRM};
 \node at (axis cs:600,17) [color=LPM,rotate=50] {LPM};
 \node at (axis cs:160,15) [rotate=50] {$\expectedValue{\gammaAtGrid}$};
-\node at (axis cs:10000,25.75) [color=truesys] {$\hinfnorm{\Delta}$};
+\node at (axis cs:10000,25.75) [color=truesys] {$\infnorm{\Delta}$};
 
 \end{axis}
 \end{tikzpicture}%

@@ -248,7 +248,7 @@ where the estimated \gls{FRF} in the frequency band between  the Nyquist and the
 (with $\conj{\hat G_{\LPM}}$ the complex conjugate of $\hat G_{\LPM}$) to ensure $\hat g_{\LPM}(t)$ to be real.
 
 Smoothing of the estimated \gls{FRF} requires the correct estimate of the impulse response. 
-Unfortunately, the \gls{LPM} presented in \TODO{\secref{sec:nparam:trunc:theoryLPMandWindowing}} and in \citep{Schoukens2009LPM} does not estimate the \gls{DC} value of the \gls{FRF}, hence the subscript ``$\setminus\mathrm{DC}$'' in equation \eqref{eq:impRespiDFT}. 
+Unfortunately, the \gls{LPM} presented in \secref{sec:nparam:LRM} and in \citep{Schoukens2009LPM} does not estimate the \gls{DC} value of the \gls{FRF}, hence the subscript ``$\setminus\mathrm{DC}$'' in equation \eqref{eq:impRespiDFT}. 
 Consequently, the mean value of the corresponding estimated impulse response given in equation \eqref{eq:impRespiDFT} is not correct. 
 This limitation is lifted by developing a simple estimator of the mean value, presented below.
 

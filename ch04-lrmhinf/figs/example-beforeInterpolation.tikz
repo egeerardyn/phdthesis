@@ -1286,7 +1286,7 @@ ylabel={Amplitude $\abs{\Delta}$}
 \node at (axis cs:0.7,14.5) [color=SA] {SA};
 \node at (axis cs:0.7,11.7) [color=LRM] {LRM};
 % \node at (axis cs:0.7,8.5) [color=LPM] {LPM};
-\node at (axis cs:0.7,22) [color=truesys] {$\hinfnorm{\Delta}$};
+\node at (axis cs:0.7,22) [color=truesys] {$\infnorm{\Delta}$};
 
 \end{axis}
 \end{tikzpicture}%

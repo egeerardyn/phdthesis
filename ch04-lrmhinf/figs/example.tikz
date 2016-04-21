@@ -2010,7 +2010,7 @@ table[row sep=crcr]{
 0 19.6964620954765\\
 3.12195769950486 19.6964620954765\\
 };
-\addlegendentry{$\hinfnorm{\Delta}$};
+\addlegendentry{$\infnorm{\Delta}$};
 
 \addplot [
 color=blue,
@@ -2022,7 +2022,7 @@ table[row sep=crcr]{
 0 18.5515794527183\\
 3.12195769950486 18.5515794527183\\
 };
-\addlegendentry{$\hinfnorm{\Delta_{\mathrm{LPM}}}$};
+\addlegendentry{$\infnorm{\Delta_{\mathrm{LPM}}}$};
 
 \addplot [
 color=red,
@@ -2031,7 +2031,7 @@ table[row sep=crcr]{
 0 19.656504738983\\  
 3.12195769950486 19.656504738983\\  
 };
-\addlegendentry{$\hinfnorm{\Delta_{\mathrm{LRM}}}$};
+\addlegendentry{$\infnorm{\Delta_{\mathrm{LRM}}}$};
 
 \addplot [
 color=green,
@@ -2041,7 +2041,7 @@ table[row sep=crcr]{
 0 14.6937956588782\\
 3.12195769950486 14.6937956588782\\
 };
-\addlegendentry{$\hinfnorm{\Delta_{\mathrm{SA}}}$};
+\addlegendentry{$\infnorm{\Delta_{\mathrm{SA}}}$};
 
 \end{axis}
 \end{tikzpicture}%

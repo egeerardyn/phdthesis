@@ -79,7 +79,7 @@ ylabel={Amplitude $\abs{\Delta(\omega)}$}
 \node at (axis cs:0.75,15.5) [color=SA] {SA};
 \node at (axis cs:0.75,12.9) [color=LRM] {LRM};
 \node at (axis cs:0.75,11) [color=LPM] {LPM};
-\node at (axis cs:0.75,22) [color=truesys] {$\hinfnorm{\Delta}$};
+\node at (axis cs:0.75,22) [color=truesys] {$\infnorm{\Delta}$};
 
 \end{axis}
 
@@ -153,7 +153,7 @@ name=gammaIG,
 \node at (axis cs:0.75,15.5) [color=SA] {SA};
 \node at (axis cs:0.75,22) [color=LRM] {LRM};
 \node at (axis cs:0.75,11.7) [color=LPM] {LPM};
-\node at (axis cs:1.25,22) [color=truesys] {$\hinfnorm{\Delta}$};
+\node at (axis cs:1.25,22) [color=truesys] {$\infnorm{\Delta}$};
 
 \end{axis}
 \end{tikzpicture}%

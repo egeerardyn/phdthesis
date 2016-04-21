@@ -205,6 +205,7 @@ To effectively compute the local model parameters, the equation error in \eqref{
 Due to the presence of the denominator of $\LocalModel{G} = \frac{\LocalModel{B}}{\LocalModel{A}}$, the equation error is not linear in the parameters $a_i$ and hence \eqref{eq:costfunc:LRIC} requires time-consuming iterative optimization schemes to obtain a parameter estimate.
 
 \subsection{The Local Rational Method}
+\label{sec:nparam:LRM}
 The \gls{LRM} as first introduced by \citep{McKelvey2012LRM}, overcomes the computational burden of an iterative procedure by weighting the equation error by the denominator polynomial $\LocalModel{A}$  akin to the procedure in \citep{Levy1959}.
 I.e. the \gls{LRM} procedure tries to minimize the equation error in
 \begin{equation}
@@ -545,7 +546,6 @@ The \gls{SNR} in the system bandwidth $\BW$ is defined as
 \end{equation}
 where $\BW$ is the frequency range of the $3 \unit{dB}$ bandwidth of the system, i.e. where $\abs{G_0} \geq \norm[\infty]{\true G} - 3 \unit{dB}$.
 
-\TODO{plot example spectrums}
 \begin{figure}
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
@@ -647,10 +647,13 @@ As such, \TODO{afschrijven}
   \label{fig:nparam:comparison:terribleSNR}
 \end{figure}
 
-\begin{guideline}{For resonant systems, use the LRM when $\SNR \geq 20 \unit{dB}$}
+\begin{guideline}[Use the LRM when $\SNR \geq 20 \unit{dB}$ for resonant systems]
 \end{guideline}
 
-\begin{guideline}{For long measurements, the choice of local modeling method does not matter}
+\begin{guideline}[Use the LPM when $\SNR \leq 20 \unit{dB}$]
+\end{guideline}
+
+\begin{guideline}[For long measurements, LPM and LRM are similar]
 \end{guideline}
 
 \begin{remark}
@@ -662,15 +665,4 @@ In all the simulations, it can be seen that for $\nWind \to \infty$, the error t
   \label{sec:measurements}
    \subsection{AVIS}
    % \subsection{F16}
-
-  \section{Conclusion}
-  \label{sec:conclusion}
-
-  \begin{itemize}
-    \item LRM: extension to LRIC
-    \item LRM: derivation of bias
-    \item LRM vs LPM: at which settings is LRM better than LPM
-    \item LRIC: much slower, performance is somewhat better, but at the cost of a lot of computational power and much harder model selection
-    \item practical advice: use LRM rather than LPM unless in very noisy conditions (10 dB), only use LRIC as last resort
-  \end{itemize}
 
