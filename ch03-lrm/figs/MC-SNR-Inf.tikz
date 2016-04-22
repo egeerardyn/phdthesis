@@ -1,0 +1,78 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.12549,0.29020,0.52941}%
+\definecolor{mycolor2}{rgb}{0.64314,0.00000,0.00000}%
+\definecolor{mycolor3}{rgb}{0.76863,0.62745,0.00000}%
+\definecolor{mycolor4}{rgb}{0.36078,0.20784,0.40000}%
+\definecolor{mycolor5}{rgb}{0.80784,0.36078,0.00000}%
+\definecolor{mycolor6}{rgb}{0.30588,0.60392,0.02353}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figurewidth,
+height=\figureheight,
+at={(0\figurewidth,0\figureheight)},
+scale only axis,
+unbounded coords=jump,
+xmode=log,
+xmin=2,
+xmax=256,
+xtick={2,3,4,5,6,7,8,9,10,11,12,14,16,32,40,64,80,92,128,256},
+xticklabels={{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{14},{16},{32},{40},{64},{80},{92},{128},{256}},
+xminorticks=true,
+xlabel={$\text{N}_{\text{BW}}$},
+ymin=-300,
+ymax=0,
+ylabel={mean* Error [dB]},
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={SNR = Inf dB},
+axis x line*=bottom,
+axis y line*=left,
+xmajorgrids,
+xminorgrids,
+ymajorgrids
+]
+\addplot [color=mycolor1,dotted,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-1.tsv};
+\addplot [color=mycolor1,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-2.tsv};
+\addplot [color=mycolor1,dashed,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-3.tsv};
+\addplot [color=mycolor2,dotted,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-4.tsv};
+\addplot [color=mycolor2,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-5.tsv};
+\addplot [color=mycolor2,dashed,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-6.tsv};
+\addplot [color=mycolor3,dotted,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-7.tsv};
+\addplot [color=mycolor3,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-8.tsv};
+\addplot [color=mycolor3,dashed,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-9.tsv};
+\addplot [color=mycolor4,dotted,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-10.tsv};
+\addplot [color=mycolor4,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-11.tsv};
+\addplot [color=mycolor4,dashed,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-12.tsv};
+\addplot [color=mycolor5,dotted,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-13.tsv};
+\addplot [color=mycolor5,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-14.tsv};
+\addplot [color=mycolor5,dashed,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-15.tsv};
+\addplot [color=mycolor6,dotted,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-16.tsv};
+\addplot [color=mycolor6,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-17.tsv};
+\addplot [color=mycolor6,dashed,forget plot]
+  table[]{\thisDir/data/MC-SNR-Inf/MC-SNR-Inf-18.tsv};
+\end{axis}
+\end{tikzpicture}%

@@ -1,0 +1,43 @@
+\paragraph{File name} data/BiasScanLMLEW-LOOCV-2000RunsMSExc-WhiteNoise-NoisePerBin-rerun
+\paragraph{Date} 25-Aug-2015 16:34:19
+\paragraph{Commit} e58a71d
+
+\paragraph{Log} \begin{itemize}
+\item file: \verb|data/BiasScanLMLEW-LOOCV-2000RunsMSExc-WhiteNoise-NoisePerBin-rerun.mat|
+\item commit: \verb|e58a71d|
+\item MC runs: \verb|2000|
+\item MC $\sqrt{n}$ (dB): \verb|33.0103|
+\item $N_{BW}$: \verb|[2 3 4 5 6 7 8 9 10 11 12 14 16 32 40 64 80 92 128 256]|
+\item SNR (dB): \verb|[10 20 40 60 Inf]|
+\item rel. damp (CT): \verb|0.01|
+\item H0: \verb|White|
+\item H0f: \verb|@(G0,SP)scaleUnityPowerPerLineInBW(H0Proto(G0),G0,SP)|
+\end{itemize}
+
+\paragraph{Factories}
+\begin{tabular}{llll}
+Modelet & DOF & $n_{\theta}$ & $\Delta$ SNR (dB)\\ \hline
+\color{rgb:red,32;green,74;blue,135} LRM(7,2,2,2) &  7 & 8 & 2.73001 \\
+\color{rgb:red,164;green,0;blue,0} LPM(7,4,4) &  5 & 10 & 1.76091 \\
+\color{rgb:red,196;green,160;blue,0} ETFE(0,0) &  0 & 1 & 0 \\
+\color{rgb:red,92;green,53;blue,102} LRM(7,1,1,1) &  10 & 5 & 4.77121 \\
+\color{rgb:red,206;green,92;blue,0} LRM(6,2,2,2) &  5 & 8 & 2.10853 \\
+\color{rgb:red,78;green,154;blue,6} CT-Rik(7,2,2,2) &  7 & 8 & 2.73001 \\
+\end{tabular}
+
+\paragraph{Last log}
+\begin{verbatim}
+workdir  : /Users/egon/Dropbox/VUB/phd/lpmhinf/Code/MCLARX
+stack    : ./loadAndPlot (47)
+git info : commit e58a71db8bc81f472e6b57a7d1c8e6746efbe09e
+           Author: Egon Geerardyn <egon.geerardyn@gmail.com>
+           Date:   Tue Aug 18 11:01:34 2015 +0200
+           
+               Relink toolbox
+           
+            loadAndPlot.m       | 1 +
+            test_mc_scan_bias.m | 4 +++-
+            2 files changed, 4 insertions(+), 1 deletion(-)
+           
+
+\end{verbatim}
