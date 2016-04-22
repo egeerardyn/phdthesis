@@ -770,6 +770,9 @@ with
   \begin{example} \label{eg:excitation:quasilogarithmicGrid:matlab}
   An easy way to produce a quasi-logarithmic grid in \MATLAB is to first produce the logarithmic grid \code{fLog} as in  \egref{eg:excitation:logarithmicGrid:matlab} and reducing it to a quasi-logarithmic grid with resolution $\Delta f$ using \mcode[mathescape]{f = unique(round(fLog/$\Delta f$))*$\Delta f$}.
   Note that this is a computationally efficient way since both \mcode{logspace} and \mcode{unique} require at most $\bigO{ F }$ time, where \mcode[mathescape]{$F\;$ = numel(fLog)}.
+  % computational complexity: 
+  % `logspace` := O(F) in both time and space (just a for-loop)
+  % `unique` := O(F) in both time and space (values are sorted beforehand, so just for-loop, flag items that are equal to the last and return unflagged items)
   \end{example}
 
   As this signal approximates a logarithmically spaced signal,  we expect that it will exhibit comparable properties.

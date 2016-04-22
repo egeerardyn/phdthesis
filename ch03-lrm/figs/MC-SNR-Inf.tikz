@@ -4,75 +4,66 @@
 %  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
 %where you can also make suggestions and rate matlab2tikz.
 %
-\definecolor{mycolor1}{rgb}{0.12549,0.29020,0.52941}%
-\definecolor{mycolor2}{rgb}{0.64314,0.00000,0.00000}%
-\definecolor{mycolor3}{rgb}{0.76863,0.62745,0.00000}%
-\definecolor{mycolor4}{rgb}{0.36078,0.20784,0.40000}%
-\definecolor{mycolor5}{rgb}{0.80784,0.36078,0.00000}%
-\definecolor{mycolor6}{rgb}{0.30588,0.60392,0.02353}%
-%
 \begin{tikzpicture}
 
+\def\dataDir{\thisDir/data/MC-SNR-Inf}
+\def\SNRval{\infty}
+
 \begin{axis}[%
-width=0.951\figurewidth,
+width=\figurewidth,
 height=\figureheight,
-at={(0\figurewidth,0\figureheight)},
 scale only axis,
 unbounded coords=jump,
 xmode=log,
 xmin=2,
 xmax=256,
-xtick={2,3,4,5,6,7,8,9,10,11,12,14,16,32,40,64,80,92,128,256},
-xticklabels={{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{14},{16},{32},{40},{64},{80},{92},{128},{256}},
+xtick={2,4,8,16,32,64,128,256},
+log basis x=2,
+extra x ticks={3,5,6,7,9,10,11,12,14,40,80,92},
+extra x tick labels={},
 xminorticks=true,
-xlabel={$\text{N}_{\text{BW}}$},
+xlabel={$\nBW$},
 ymin=-300,
 ymax=0,
-ylabel={mean* Error [dB]},
-axis background/.style={fill=white},
-title style={font=\bfseries},
-title={SNR = Inf dB},
+ylabel={Aggregated Error \axisunit{dB}},
 axis x line*=bottom,
 axis y line*=left,
 xmajorgrids,
 xminorgrids,
-ymajorgrids
+ymajorgrids,
+legend pos=south west,
+legend cell align=left,
 ]
-\addplot [color=mycolor1,dotted,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LRM7222-rmse.tsv};
-\addplot [color=mycolor1,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LRM7222-bias.tsv};
-\addplot [color=mycolor1,dashed,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LRM7222-std.tsv};
-\addplot [color=mycolor2,dotted,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LPM744-rmse.tsv};
-\addplot [color=mycolor2,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LPM744-bias.tsv};
-\addplot [color=mycolor2,dashed,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LPM744-std.tsv};
-\addplot [color=mycolor3,dotted,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/ETFE-rmse.tsv};
-\addplot [color=mycolor3,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/ETFE-bias.tsv};
-\addplot [color=mycolor3,dashed,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/ETFE-std.tsv};
-\addplot [color=mycolor4,dotted,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LRM7111-rmse.tsv};
-\addplot [color=mycolor4,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LRM7111-bias.tsv};
-\addplot [color=mycolor4,dashed,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LRM7111-std.tsv};
-\addplot [color=mycolor5,dotted,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LRM6222-rmse.tsv};
-\addplot [color=mycolor5,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LRM6222-bias.tsv};
-\addplot [color=mycolor5,dashed,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LRM6222-std.tsv};
-\addplot [color=mycolor6,dotted,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LRIC7222-rmse.tsv};
-\addplot [color=mycolor6,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LRIC7222-bias.tsv};
-\addplot [color=mycolor6,dashed,forget plot]
-  table[]{\thisDir/data/MC-SNR-Inf/LRIC7222-std.tsv};
+
+\node[annotation, anchor=north east] at (rel axis cs: 1,1) {$\SNR = \SNRval \unit{dB}$};
+
+\addplot [lrm7222,mcrmse,forget plot] table[]{\dataDir/LRM7222-rmse.tsv};
+\addplot [lrm7222,forget plot] table[]{\dataDir/LRM7222-bias.tsv};
+\addplot [lrm7222,mcvar,forget plot] table[]{\dataDir/LRM7222-std.tsv};
+\addplot [lpm744,mcrmse,forget plot] table[]{\dataDir/LPM744-rmse.tsv};
+\addplot [lpm744,forget plot] table[]{\dataDir/LPM744-bias.tsv};
+\addplot [lpm744,mcvar,forget plot] table[]{\dataDir/LPM744-std.tsv};
+\addplot [etfe,mcrmse,forget plot] table[]{\dataDir/ETFE-rmse.tsv};
+\addplot [etfe,forget plot] table[]{\dataDir/ETFE-bias.tsv};
+\addplot [etfe,mcvar,forget plot] table[]{\dataDir/ETFE-std.tsv};
+\addplot [lrm7111,mcrmse,forget plot] table[]{\dataDir/LRM7111-rmse.tsv};
+\addplot [lrm7111,forget plot] table[]{\dataDir/LRM7111-bias.tsv};
+\addplot [lrm7111,mcvar,forget plot] table[]{\dataDir/LRM7111-std.tsv};
+\addplot [lrm6222,mcrmse,forget plot] table[]{\dataDir/LRM6222-rmse.tsv};
+\addplot [lrm6222,forget plot] table[]{\dataDir/LRM6222-bias.tsv};
+\addplot [lrm6222,mcvar,forget plot] table[]{\dataDir/LRM6222-std.tsv};
+\addplot [lric7222,mcrmse,forget plot] table[]{\dataDir/LRIC7222-rmse.tsv};
+\addplot [lric7222,forget plot] table[]{\dataDir/LRIC7222-bias.tsv};
+\addplot [lric7222,mcvar,forget plot] table[]{\dataDir/LRIC7222-std.tsv};
+
+\addlegendimage{mcrmse}
+\addlegendentry{\RMSE}
+
+\addlegendimage{mcvar}
+\addlegendentry{$\sampleStd{\bullet}$}
+
+\addlegendimage{mcbias}
+\addlegendentry{$\sampleBias{\bullet}$}
+
 \end{axis}
 \end{tikzpicture}%
