@@ -135,6 +135,13 @@
   \colorlet{bwfill}{TangoAluminium1}
   \colorlet{bwline}{TangoAluminium5}
 
+\colorlet{etfe}{TangoButter3}
+\colorlet{lrm7111}{TangoPlum3}
+\colorlet{lric7222}{TangoChameleon3}
+\colorlet{lrm7222}{TangoSkyBlue3}
+\colorlet{lrm6222}{TangoOrange3}
+\colorlet{lpm744}{TangoScarletRed3}
+
 %% Marker sizes
 \pgfplotsset{mediummarkers/.append style={mark size=1pt}}
 \pgfplotsset{smallmarkers/.append style={mark size=0.75pt}}
@@ -203,12 +210,11 @@
 \pgfplotsset{clogmsgrid/.style={color=clogms,gridline,clogmsmarker}}
 \pgfplotsset{plogmsgrid/.style={color=plogms,gridline,plogmsmarker}}
 
-%TODO: replace *res -> *meas
-\pgfplotsset{results/.style={solid,line width=0.7pt}}
-\pgfplotsset{linmsres/.style={color=linms,results}}
-\pgfplotsset{qlogmsres/.style={color=qlogms,results}}
-\pgfplotsset{clogmsres/.style={color=clogms,results}}
-\pgfplotsset{plogmsres/.style={color=plogms,results}}
+% \pgfplotsset{results/.style={solid,line width=0.7pt}}
+% \pgfplotsset{linmsres/.style={color=linms,results}}
+% \pgfplotsset{qlogmsres/.style={color=qlogms,results}}
+% \pgfplotsset{clogmsres/.style={color=clogms,results}}
+% \pgfplotsset{plogmsres/.style={color=plogms,results}}
 
 \pgfplotsset{measline/.style={solid,line width=0.7pt}}
 \pgfplotsset{linmsmeas/.style={color=linms,measline}}
@@ -241,6 +247,13 @@
 \pgfplotsset{linms/.style={color=linms,solid,line width=0.5pt}}
 \pgfplotsset{qlogms/.style={color=qlogms,solid,line width=0.5pt}}
 \pgfplotsset{clogms/.style={color=clogms,solid,line width=0.5pt}}
+
+%% MC LRM
+\pgfplotsset{mcrmse/.style={dotted}}
+\pgfplotsset{mcbias/.style={solid}}
+\pgfplotsset{mcvar/.style={dashed}}
+
+
 
 %% Truncation
 \colorlet{FSmooth}{TangoScarletRed3}

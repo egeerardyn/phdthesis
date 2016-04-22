@@ -596,6 +596,24 @@ Remark, that the standard deviation on the $\sampleBias{\bullet} \approx \sqrt{\
 
 \TODO{describe aggregation over $\omega$}
 
+\begin{table}
+\centering
+\caption{Local modeling methods used in the Monte Carlo analysis.}
+\label{tbl:nparam:methods}
+\begin{tabular}{lcccr} \toprule
+\textsc{Method} & \DOF & $\nWind$ & $\nth$ & $\Delta$ SNR (dB)\\
+\midrule
+\color{rgb:red,196;green,160;blue,0} $\ETFE$ & 1 & 0  & 1 & 0 \\
+\color{rgb:red,92;green,53;blue,102} $\lrm{7,1,1,1}$ & 15 & 10 & 5 & 4.77121 \\
+\color{rgb:red,78;green,154;blue,6} $\lric{7,2,2,2}$ &  15&7 & 8 & 2.73001 \\
+\color{rgb:red,32;green,74;blue,135} $\lrm{7,2,2,2}$ &  15&7 & 8 & 2.73001 \\
+\color{rgb:red,206;green,92;blue,0} $\lrm{6,2,2,2}$ &  135 & 8 & 2.10853 \\
+\color{rgb:red,164;green,0;blue,0} $\lpm{7,4,4}$ &  15&5 & 10 & 1.76091 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
 \paragraph{Noiseless case}
 In the noiseless case, one can observe the approximation error that is made by using the \gls{LRM}, \gls{LPM} and \gls{ETFE}.
 For the \gls{ETFE}, it can be seen that the error is very high.
@@ -607,8 +625,8 @@ As such, \TODO{afschrijven}
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
-  \TODOfig[ RMS, bias, std for $\SNR = \infty$]
-  \caption[Comparison of local models for $\SNR = \infty$]{Local modeling of a discrete-time system results in a relative approximation error of $-100\unit{dB}$.}
+  \input{\thisDir/figs/MC-SNR-Inf.tikz}
+  \caption[Comparison of local models for $\SNR = \infty$]{Local modeling of a discrete-time system results in an approximation error that is low enough for many practical uses.}
   \label{fig:nparam:comparison:noiseless}
 \end{figure}
 
@@ -618,7 +636,7 @@ As such, \TODO{afschrijven}
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
-  \TODOfig[ RMS, bias, std for $\SNR = 60\unit{dB}$]
+  \input{\thisDir/figs/MC-SNR-60.tikz}
   \caption[Comparison of local models for $\SNR = 60 \unit{dB}$]{The \gls{RMSE}, bias and variance of different local modeling methods is compared as a function of the number of points in the $3\unit{dB}$ bandwidth of the system. A relative approximation error of $-100 \unit{dB}$ is observed.}
   \label{fig:nparam:comparison:hiSNR}
 \end{figure}
@@ -628,7 +646,7 @@ As such, \TODO{afschrijven}
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
-  \TODOfig[ RMS, bias, std for $\SNR = 20\unit{dB}$]
+  \input{\thisDir/figs/MC-SNR-20.tikz}
   \caption[Comparison of local models for $\SNR = 20 \unit{dB}$]{The \gls{RMSE}, bias and variance of different local modeling methods is compared as a function of the number of points in the $3\unit{dB}$ bandwidth of the system when $\SNR = 20\unit{dB}$. The \gls{LRM} outperforms the \gls{LPM}.}
   \label{fig:nparam:comparison:lowSNR}
 \end{figure}
@@ -637,7 +655,7 @@ As such, \TODO{afschrijven}
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
-  \TODOfig[ RMS, bias, std for $\SNR = 10\unit{dB}$]
+  \input{\thisDir/figs/MC-SNR-10.tikz}
   \caption[Comparison of local models for $\SNR = 10 \unit{dB}$]{The \gls{RMSE}, bias and variance of different local modeling methods is compared as a function of the number of points in the $3\unit{dB}$ bandwidth of the system when $\SNR = 20\unit{dB}$. An approximation error of $-100 \unit{dB}$ is observed.}
   \label{fig:nparam:comparison:terribleSNR}
 \end{figure}

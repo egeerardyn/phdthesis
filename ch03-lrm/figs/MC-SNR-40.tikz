@@ -39,40 +39,40 @@ xminorgrids,
 ymajorgrids
 ]
 \addplot [color=mycolor1,dotted,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-1.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LRM7222-rmse.tsv};
 \addplot [color=mycolor1,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-2.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LRM7222-bias.tsv};
 \addplot [color=mycolor1,dashed,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-3.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LRM7222-std.tsv};
 \addplot [color=mycolor2,dotted,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-4.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LPM744-rmse.tsv};
 \addplot [color=mycolor2,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-5.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LPM744-bias.tsv};
 \addplot [color=mycolor2,dashed,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-6.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LPM744-std.tsv};
 \addplot [color=mycolor3,dotted,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-7.tsv};
+  table[]{\thisDir/data/MC-SNR-40/ETFE-rmse.tsv};
 \addplot [color=mycolor3,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-8.tsv};
+  table[]{\thisDir/data/MC-SNR-40/ETFE-bias.tsv};
 \addplot [color=mycolor3,dashed,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-9.tsv};
+  table[]{\thisDir/data/MC-SNR-40/ETFE-std.tsv};
 \addplot [color=mycolor4,dotted,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-10.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LRM7111-rmse.tsv};
 \addplot [color=mycolor4,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-11.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LRM7111-bias.tsv};
 \addplot [color=mycolor4,dashed,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-12.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LRM7111-std.tsv};
 \addplot [color=mycolor5,dotted,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-13.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LRM6222-rmse.tsv};
 \addplot [color=mycolor5,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-14.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LRM6222-bias.tsv};
 \addplot [color=mycolor5,dashed,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-15.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LRM6222-std.tsv};
 \addplot [color=mycolor6,dotted,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-16.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LRIC7222-rmse.tsv};
 \addplot [color=mycolor6,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-17.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LRIC7222-bias.tsv};
 \addplot [color=mycolor6,dashed,forget plot]
-  table[]{\thisDir/data/MC-SNR-40/MC-SNR-40-18.tsv};
+  table[]{\thisDir/data/MC-SNR-40/LRIC7222-std.tsv};
 \end{axis}
 \end{tikzpicture}%
