@@ -23,7 +23,7 @@ extra x ticks={3,5,6,7,9,10,11,12,14,40,80,92},
 extra x tick labels={},
 xminorticks=true,
 xlabel={$\nBW$},
-ymin=-80,
+ymin=-90,
 ymax=0,
 ylabel={Aggregated Error \axisunit{dB}},
 axis x line*=bottom,
@@ -32,11 +32,12 @@ xmajorgrids,
 xminorgrids,
 ymajorgrids,
 legend columns=-1,
+legend pos=south west,
 legend cell align=left,
 domain=2:256
 ]
 
-\draw[opacity=0.5, fill=TangoAluminium1] (axis cs:2,-80) rectangle (axis cs:256,-40);
+\draw[opacity=0.5, fill=TangoAluminium1] (axis cs:2,-90) rectangle (axis cs:256,-40);
 
 \pgfplotsinvokeforeach{1,2,...,9} {
 	\addplot[slopegrid,

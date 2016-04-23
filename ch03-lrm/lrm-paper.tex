@@ -4,10 +4,6 @@ However, obtaining a good-quality non-parametric \gls{FRF} from a measured input
 Recently, there has been a renewed interest in the development of non-parametric estimators to estimate the \gls{FRF} of a system.
 Many of these approaches have focused on separating the periodic response (i.e. the \gls{FRF}), the measurement noise and leakage contributions of the spectrum by exploiting the structure that those different contributions exhibit.
 
-
-\citep{Pintelon2010LPM1},\citep{Pintelon2010LPM2},\citep{McKelvey2012LRM}
-
-
 % \paragraph*{Contributions}
 % In this paper, the existing \gls{LRM} is extended to the \gls{LRIC} that does not suffer from  the bias that is present in the \gls{LRM}.
 % An extensive study is carried out to compare the performance of the \gls{LPM}, \gls{LRM} and \gls{LRIC} to describe resonant systems under varying conditions of the signal-to-noise ratio.
@@ -15,15 +11,11 @@ Many of these approaches have focused on separating the periodic response (i.e. 
 
 \paragraph*{Outline}
 \secref{sec:theory} introduces theory of estimating \glspl{FRF} and the relevant local modeling techniques.
-In \secref{sec:simulations} the performance of the different modeling methods is investigated by means of simulations.
-The methods are then illustrated on measurements of mechanical systems in \secref{sec:measurements}.
+In \secref{sec:biascalc}, the bias of the \gls{LRM} is derived.
+In \secref{sec:simulations} the performance of the different modeling methods are compared by means of simulations.
 Finally, conclusions are presented in \secref{sec:conclusion}.
-
-
-\begin{itemize}
-    \item \TODO{choice $s$ or $z$}
-    \item \TODO{influence of noise filter: mismatch with model}
-\end{itemize}
+%TODO: choice s vs z
+%TODO: influence of resonant noise filter
 
 \section{Local modeling approaches}
 \label{sec:theory}
@@ -277,7 +269,13 @@ This formulation facilitates to solve the problem in a one-step approach:
 \end{equation}
 where $\pinv{\LocalMatrix{K}}$ denotes the Moore-Penroose pseudo-inverse of $\LocalMatrix{K}$.
 
-\TODO{hier voortschrijven}
+\TODO{hier voortschrijven: ruisvariantie berekenen}
+
+\begin{remark}
+This system can only be solved reliably if the columns in \eqref{eq:nparam:designMatrix} are linearly independent.
+In practice, this corresponds to the requirements on the input spectrum as stated in \citet{Schoukens2009LPM}: the input spectrum should be sufficiently `rough' to separate the transient contribution.
+This can be obtained e.g. using random phase multisines or random input signals.
+\end{remark}
 
 \begin{remark}
 Since it is well-known that the Vandemonde structure in the design matrix \eqref{eq:nparam:designMatrix} leads to numerical ill-conditioning for higher model complexities, additional measures are taken to improve numerical conditioning.
@@ -450,7 +448,6 @@ To facilitate the derivations, we rewrite the expected value of the cost functio
                                \LocalModel{A}(\conj{\dW}, \conj{\LocalVector{\theta}}) 
 \end{align}
 since $\conj{ \LocalModel{A}(\dW,\theta)} =  \LocalModel{A}(\conj{\dW},\conj{\theta}) $, and similar for $\LocalModel{B}$ and $\LocalModel{C}$ and $\LocalModel{Q}$.
-Remember also that $\theta = \mat{\theta_A^{\TT} & \theta_B^{\TT} & \theta_C^{\TT}}$.
 
 \paragraph{Contributions to the first order derivative}
 The last term in \eqref{eq:nparam:bias-basic}, i.e. the first order derivative,  is given by
@@ -495,8 +492,8 @@ As such, the bias term $\Delta \theta$ can be written in the following sparse fo
   =
   \begin{bmatrix}
     \Delta \theta_A\\
-    \deemph{\Zero{\order{B}+1\times1}}\\
-    \deemph{\Zero{\order{C}+1\times1}}
+    \deemph{0}\\
+    \deemph{0}
   \end{bmatrix}
   \text{.}
   \label{eq:nparam:lrm:bias:sparse}
@@ -628,17 +625,21 @@ However, the sparsity of $\Delta\theta$, see \eqref{eq:nparam:lrm:bias:sparse}, 
 \end{equation}
 Equivalently, the relative bias of the \gls{FRF} can be written as
 \begin{equation}
-\frac{\Delta \LocalModel{G}(\theta,\dw{0}{k})}{\LocalModel{G}(\theta,\dw{0}{k})}
+\frac{\Delta \LocalModel{G}(\theta,\dW)}{\LocalModel{G}(\theta,\dW)}
 \approx
 \LocalModel{A}(\theta,\dW)^{-1}
 \begin{bmatrix}
-    \dw{0}{k}^1 & \deemph{\cdots} & \dw{0}{k}^{\order{A}}
+    \dW^1 & \deemph{\cdots} & \dW^{\order{A}}
   \end{bmatrix}
-  H^{-1}
+  \left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}
   \begin{bmatrix}
-  
+  \Delta\theta_A\\
+  0\\
+  0\\
   \end{bmatrix}
+  \text{.}
 \end{equation}
+
 
 \section{Simulations}
 \label{sec:simulations}
@@ -730,11 +731,11 @@ Remark, that the standard deviation on the $\sampleBias{\bullet} \approx \sqrt{\
 \textsc{Method} & \textsc{Color} & $\nWind$ & $\nth$ & \DOF & $\Delta\SNR \axisunit{dB}$ \\
 \midrule
  $\ETFE$ &\color{etfe} --- & 1  & 1  & 0 & 0 \\
- $\lrm{7,1,1,1}$ & \color{lrm7111} --- & 15  & 5 & 10  & 4.77 \\
- $\lric{7,2,2,2}$ &\color{lric7222} --- &   15 & 8 & 7  & 2.73 \\
- $\lrm{7,2,2,2}$ &\color{lrm7222} --- &   15 & 8 & 7  & 2.73 \\
- $\lrm{6,2,2,2}$ &\color{lrm6222} --- &   13 & 8 & 5  & 2.11 \\
- $\lpm{7,4,4}$ &\color{lpm744} --- &   15 & 10 & 5  & 1.76 \\
+ $\lrm{7,1,1,1}$ & \color{lrm7111}\bfseries --- & 15  & 5 & 10  & 4.77 \\
+ $\lric{7,2,2,2}$ &\color{lric7222} \bfseries --- &   15 & 8 & 7  & 2.73 \\
+ $\lrm{7,2,2,2}$ &\color{lrm7222} \bfseries --- &   15 & 8 & 7  & 2.73 \\
+ $\lrm{6,2,2,2}$ &\color{lrm6222} \bfseries --- &   13 & 8 & 5  & 2.11 \\
+ $\lpm{7,4,4}$ &\color{lpm744} \bfseries --- &   15 & 10 & 5  & 1.76 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -821,13 +822,13 @@ Again, it can be seen that \gls{LRIC} is plagued by high variance and is hence n
   \label{fig:nparam:comparison:terribleSNR}
 \end{figure}
 
-\begin{guideline}[Use the LRM when $\SNR \geq 20 \unit{dB}$ for resonant systems]
-\end{guideline}
-
-\begin{guideline}[Use the LPM when $\SNR \leq 20 \unit{dB}$]
+\begin{guideline}[Use the LRM for resonant systems when $\SNR > 10 \unit{dB}$]
+For resonant systems, the \gls{LRM} offers better performance than \gls{LPM} when a good \gls{SNR} is obtained in the frequency domain.
+When the \gls{SNR} is poor ($\leq 10\unit{dB}$), the \gls{LPM} may perform a bit better than \gls{LRM}.
 \end{guideline}
 
 \begin{guideline}[For long measurements, LPM and LRM are similar]
+For very long measurements, the difference between \gls{LPM} and \gls{LRM} becomes negligible if the different resonances are well-separated.
 \end{guideline}
 
 \begin{remark}
@@ -835,8 +836,8 @@ In all the simulations, it can be seen that for $\nWind \to \infty$, the error t
 \TODO{andere pieken gaan in de praktijk alles om zeep helpen en dus bovengrens stellen}
 \end{remark}
 
-  \section{Measurements}
-  \label{sec:measurements}
-   \subsection{AVIS}
+  % \section{Measurements}
+  % \label{sec:measurements}
+  %  \subsection{AVIS}
    % \subsection{F16}
 
