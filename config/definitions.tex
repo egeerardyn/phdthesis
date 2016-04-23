@@ -470,7 +470,9 @@
 
 \newcommand{\stateSpace}[4]{\mat{ \begin{array}{c|c} #1 & #2 \\ \hline #3 & #4 \end{array} }}
 
-\newcommand{\dw}[2]{\ensuremath{\delta_{#1#2}}}
+\newcommand{\dW}{\ensuremath{\delta}}
+\newcommand{\dw}[2]{\ensuremath{\dW_{#1#2}}}
+
 
 \newcommand{\Crit}{\ensuremath{\mathcal{J}}}
 \newcommand{\Controller}{\ensuremath{C}}
@@ -503,7 +505,7 @@
 \newcommand{\LocalVector}[1]{\ensuremath{\mathbold{#1}}}
 \newcommand{\LocalMatrix}[1]{\LocalVector{#1}}
 \newcommand{\Window}{\ensuremath{\mathbb{W}}}
-\newcommand{\LocalWindow}[1][]{\ensuremath{\Window_{#1}}}
+\newcommand{\LocalWindow}[1][]{\ensuremath{\Omega_{#1}}}
 \newcommand{\LocalShifts}[1]{\ensuremath{\mathcal{R}_{#1}}}
 
 

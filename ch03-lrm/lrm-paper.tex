@@ -148,20 +148,20 @@ If one denotes the input/output spectra in such a local frequency window $\Local
 \begin{equation}
   \LocalVector{U}_k \isdef 
   \mat{
-    U(\omega_{k-N_W})\\
+    U(\omega_{k-\numel{W}})\\
     \vdots\\
     U(\omega_{k})\\
     \vdots\\
-    U(\omega_{k+N_W})\\
+    U(\omega_{k+\numel{W}})\\
   }
   \text{ and }
   \LocalVector{Y}_k \isdef 
   \mat{
-    Y(\omega_{k-N_W})\\
+    Y(\omega_{k-\numel{W}})\\
     \vdots\\
     Y(\omega_{k})\\
     \vdots\\
-    Y(\omega_{k+N_W})\\
+    Y(\omega_{k+\numel{W}})\\
   }
   \text{,}
 \end{equation}
@@ -181,11 +181,11 @@ Substituting $\true{\LocalVector{G}}$ and $\LocalVector{T}$ with the local model
       \text{.}
       \label{eq:local-system-equations}
 \end{equation}
-Note that this encompasses $\nWind$ complex equations in the $\nth = \numel{A} + \numel{B} + \numel{C} + 2$  unknown complex model parameters ($a_i$, $b_i$ and $c_i$ in \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}).
+Note that this encompasses $\nWind$ complex equations in the $\nth = \order{A} + \order{B} + \order{C} + 2$  unknown complex model parameters ($a_i$, $b_i$ and $c_i$ in \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}).
 Consequently, a necessary condition to compute the model parameters is that
 \begin{equation}
   \DOF = \nWind - \nth
-       = 2 \numel{W} - \numel{A} - \numel{B} - \numel{C} - 1
+       = 2 \numel{W} - \order{A} - \order{B} - \order{C} - 1
 \end{equation}
 is positive.
 To effectively compute the local model parameters, the equation error in \eqref{eq:local-system-equations} is minimized by formulating a quadratic cost function:
@@ -197,7 +197,8 @@ To effectively compute the local model parameters, the equation error in \eqref{
    \label{eq:costfunc:LRIC}
    \text{.}
 \end{equation}
-Due to the presence of the denominator of $\LocalModel{G} = \frac{\LocalModel{B}}{\LocalModel{A}}$, the equation error is not linear in the parameters $a_i$ and hence \eqref{eq:costfunc:LRIC} requires time-consuming iterative optimization schemes to obtain a parameter estimate.
+Due to the presence of the denominator of $\LocalModel{G} = \frac{\LocalModel{B}}{\LocalModel{A}}$, the equation error is not linear in the parameters $a_i$ and hence \eqref{eq:costfunc:LRIC} requires starting values and time-consuming iterative optimization schemes to obtain a parameter estimate.
+We denote such a method as $\lric{\numel{W},\order{B},\order{A},\order{C}}$.
 
 \subsection{The Local Rational Method}
 \label{sec:nparam:LRM}
@@ -214,6 +215,7 @@ for which the corresponding cost function is
   \left( \LocalModel{A} \hadamard \LocalVector{Y}  -  \LocalModel{B} \hadamard \LocalVector{U} - \LocalModel{C} \right)^{\HT} 
       \left( \LocalModel{A} \hadamard \LocalVector{Y}  -  \LocalModel{B} \hadamard \LocalVector{U} - \LocalModel{C} \right)
       \text{.}
+      \label{eq:nparam:LRM:costFunc}
 \end{equation}
 where $\LocalVector{V}$ is vector consisting of \gls{iid} complex normally distributed variables~\citep{Gallager2008} that each have a variance $\sigma_V^2$, i.e. the disturbing noise is assumed white over the local frequency window.
 Equivalently, the last equation can be rewritten as a linear regression problem
@@ -235,41 +237,49 @@ where $\LocalMatrix{K}$ is the so-called design matrix (or observation matrix):
     \mat{
       \LocalVector{Y} \hadamard \LocalVector{d}^1 &
       \cdots &
-      \LocalVector{Y} \hadamard \LocalVector{d}^{\numel{A}}
+      \LocalVector{Y} \hadamard \LocalVector{d}^{\order{A}}
     }\\
   \LocalMatrix{K}_B 
     &\isdef
     \mat{
       \LocalVector{U} \hadamard \LocalVector{d}^0 &
       \cdots &
-      \LocalVector{U} \hadamard \LocalVector{d}^{\numel{B}}
+      \LocalVector{U} \hadamard \LocalVector{d}^{\order{B}}
     }\\
   \LocalMatrix{K}_C
     &\isdef
     \mat{
       \LocalVector{d}^0 &
       \cdots &
-      \LocalVector{d}^{\numel{C}}
-    }\\
-    \LocalVector{d}^{n} & \isdef
+      \LocalVector{d}^{\order{C}}
+    }
+    \text{.}
+\end{align}
+In this formulation, we have used $\LocalVector{d}^{n}$ to denote the $n^{\text{th}}$ Hadamard power of $\LocalVector{d}$ (this corresponds to \mcode{d.^n} in \MATLAB) such that
+\begin{equation}
+    \LocalVector{d}^{n} 
+    \isdef
     \mat{
       (-\numel{W})^{n} &
       \cdots &
       (\numel{W})^{n}
     }^{\T}
-    \text{ with $n \in \mathbb{Z}$.}
-\end{align}
+    \text{ with $n \in \mathbb{Z}$}
+\end{equation}
+where every element corresponds to a value of $d^{n}$ in accordance with $\LocalShifts{k}$.
+
 This formulation facilitates to solve the problem in a one-step approach:
 \begin{equation}
   \LocalVector{\theta}_{\LRM} 
     \isdef \pinv{\LocalMatrix{K}} \LocalVector{Y}
     = \KTK{\LocalMatrix{K}} \LocalVector{Y}
+    \label{eq:nparam:LRM:normalEquations}
 \end{equation}
 where $\pinv{\LocalMatrix{K}}$ denotes the Moore-Penroose pseudo-inverse of $\LocalMatrix{K}$.
 
 \TODO{hier voortschrijven}
 
-
+\begin{remark}
 Since it is well-known that the Vandemonde structure in the design matrix \eqref{eq:nparam:designMatrix} leads to numerical ill-conditioning for higher model complexities, additional measures are taken to improve numerical conditioning.
 To improve numerical conditioning~\citep{Pintelon2005} of the estimation problem, we substitute $d = \dw{r}{k}$ in equations \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}
 \begin{equation}
@@ -285,12 +295,37 @@ where
   }
 \end{equation}
 such that $\abs{\dw{r}{k}} \leq 1$ when $r \in \LocalShifts{k}$.
+\end{remark}
 
-\TODO{define notations for LPM etc.}
+We denote a method that solves \eqref{eq:nparam:LRM:costFunc} for given bandwidth and local orders as $\lrm{\numel{W}, \order{B},\order{A},\order{C}}$.
+
+\subsection{The Local Polynomial Method}
+The \gls{LPM} is method that predates the \gls{LRM} and has been devised by~\citet{Schoukens2006LPM}.
+The \gls{LPM} approximates both the \gls{FRF} and transient contribution by means of complex-valued local polynomials in the frequency domain.
+
+The \gls{LPM} can be understood as a specific case of the \gls{LRM}: for  $\order{A} = 0$, the \gls{LRM} reduces to the \gls{LPM}.
+As such, we can use the notation $\lpm{\numel{W}, \order{B}, \order{C}}$ as a synonym for $\lrm{\nWind, 0, \order{C}}$.
+
+\begin{remark}
+The trivial setting for local `modeling' where a window with a total width of $1\unit{bin}$ and no transient estimation ($\order{C} = -1$), actually corresponds to the simple \gls{ETFE}~\citep{Broersen1995,Stenman2000ASETFE,Stenman2001ASFRF} when no further smoothing or windowing is applied:
+\begin{equation}
+  \estimated{G}_{\ETFE}(\omega_k) \isdef \frac{Y(\omega_k)}{U(\omega_k)}
+  \label{eq:nparam:ETFE}
+\end{equation}
+As such, $\ETFE \equiv \lrm{0,0,0,-1} \equiv \lpm{0,0,-1}$.
+\end{remark}
+
+\begin{remark}
+The methods proposed by \citet{Stenman2001ASFRF,Stenman2000ASETFE} also refer to `local polynomial regression' to smoothen the \gls{FRF}.
+It should be noted, however, that such methods differ significantly from the \gls{LPM}.
+Specifically, those methods operate directly on the raw \gls{ETFE}, in contrast to the \gls{LPM} which uses the input-output spectra and can hence estimate both an \gls{FRF} and a transient contribution.
+Moreover, the methods proposed by \citet{Stenman2001ASFRF} build upon `local regression` approaches such as \gls{LOWESS}.
+See e.g. \citet{Loader1999} for more information regarding these `local regression' approaches.
+\end{remark}
 
 \section{Theory: bias}
 \label{sec:biascalc}
-Since the local design matrix \eqref{eq:nparam:designMatrix} contains the noisy output spectrum $\LocalVector{Y}$ when $\numel{A} > 0$, the \gls{LRM} is expected to be a biased estimator.
+Since the local design matrix \eqref{eq:nparam:designMatrix} of the \gls{LRM} contains the noisy output spectrum $\LocalVector{Y}$ when $\order{A} > 0$, the \gls{LRM} is expected to be a biased estimator.
 In this section, we will derive expressions for the bias such that it can be quantified how important this bias is in different situations.
 
 To determine the bias, an approach similar to \citep[Appendix A]{Guillaume1995} is followed.
@@ -304,16 +339,16 @@ Let us denote the expected value of the cost function over all measurements $\Lo
               & = \ELSCost[0]{\theta} + \ELSCost[n]{\theta} \\
     \ELSCost[0]{\theta} & \isdef 
             \frac{1}{\nWind} 
-                \sum_{r} 
+                \sum_{\dW} 
                      \left| 
-                             \LocalModel{A}(r, \LocalVector{\theta}) \true{\LocalVector{Y}}
-                          - \LocalModel{B}(r, \LocalVector{\theta}) \true{\LocalVector{U}}
-                          - \LocalModel{C}(r, \LocalVector{\theta}) 
+                             \LocalModel{A}(\dW, \LocalVector{\theta}) \true{\LocalVector{Y}}
+                          - \LocalModel{B}(\dW, \LocalVector{\theta}) \true{\LocalVector{U}}
+                          - \LocalModel{C}(\dW, \LocalVector{\theta}) 
                     \right|^2 \\
     \ELSCost[n]{\theta} & \isdef 
               \frac{1}{\nWind} 
-                     \sum_{r} 
-                              \left| \LocalModel{A}(r,\LocalVector{\theta}) \right|^2 
+                     \sum_{\dW} 
+                              \left| \LocalModel{A}(\dW,\LocalVector{\theta}) \right|^2 
                               \sigma_V^2
 \end{align}
 where $\true{\LocalVector{U}}$ and $\true{\LocalVector{Y}}$ denote the `true' (noiseless) input-output spectra in the local window.
@@ -399,22 +434,22 @@ To facilitate the derivations, we rewrite the expected value of the cost functio
 \begin{align}
    \ELSCost[0]{\theta,\conj{\theta}} & =
       \frac{1}{\nWind}
-           \sum_{r}
-           \LocalModel{Q}(      r,        \LocalVector{\theta},  \true{      \LocalVector{Y}},  \true{      \LocalVector{U} })
-           \LocalModel{Q}(\conj{r}, \conj{\LocalVector{\theta}}, \true{\conj{\LocalVector{Y}}}, \true{\conj{\LocalVector{U}}})
+           \sum_{\dW}
+           \LocalModel{Q}(      \dW,        \LocalVector{\theta},  \true{      \LocalVector{Y}},  \true{      \LocalVector{U} })
+           \LocalModel{Q}(\conj{\dW}, \conj{\LocalVector{\theta}}, \true{\conj{\LocalVector{Y}}}, \true{\conj{\LocalVector{U}}})
    \\
-   \LocalModel{Q}(r, \LocalVector{\theta},  \true{\LocalVector{Y}},  \true{ \LocalVector{U} }) & \isdef
-                 \LocalModel{A}(r, \LocalVector{\theta}) \true{\LocalVector{Y}}(r)
-               - \LocalModel{B}(r, \LocalVector{\theta}) \true{\LocalVector{U}}(r)
-               - \LocalModel{C}(r, \LocalVector{\theta})
+   \LocalModel{Q}(\dW, \LocalVector{\theta},  \true{\LocalVector{Y}},  \true{ \LocalVector{U} }) & \isdef
+                 \LocalModel{A}(\dW, \LocalVector{\theta}) \true{\LocalVector{Y}}(\dW)
+               - \LocalModel{B}(\dW, \LocalVector{\theta}) \true{\LocalVector{U}}(\dW)
+               - \LocalModel{C}(\dW, \LocalVector{\theta})
     \\             
     \ELSCost[n]{\theta,\conj{\theta}} & =
               \frac{\sigma_V^2}{\nWind} 
                      \sum_{r} 
-                               \LocalModel{A}(      r,        \LocalVector{\theta} ) 
-                               \LocalModel{A}(\conj{r}, \conj{\LocalVector{\theta}}) 
+                               \LocalModel{A}(      \dW,        \LocalVector{\theta} ) 
+                               \LocalModel{A}(\conj{\dW}, \conj{\LocalVector{\theta}}) 
 \end{align}
-since $\conj{ \LocalModel{A}(r,\theta)} =  \LocalModel{A}(\conj{r},\conj{\theta}) $, and similar for $\LocalModel{B}$ and $\LocalModel{C}$ and $\LocalModel{Q}$.
+since $\conj{ \LocalModel{A}(\dW,\theta)} =  \LocalModel{A}(\conj{\dW},\conj{\theta}) $, and similar for $\LocalModel{B}$ and $\LocalModel{C}$ and $\LocalModel{Q}$.
 Remember also that $\theta = \mat{\theta_A^{\TT} & \theta_B^{\TT} & \theta_C^{\TT}}$.
 
 \paragraph{Contributions to the first order derivative}
@@ -434,7 +469,7 @@ The respective components are given by:
   \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{a_i} 
      &= 
      \frac{\sigma_V^2}{\nWind}
-     \sum_r r^i \LocalModel{A}(\conj{r},\conj{\LocalVector{\theta}}) 
+     \sum_{\dW} \dW^i \LocalModel{A}(\conj{\dW},\conj{\LocalVector{\theta}}) 
      && \forall i \in \set{1,\ldots,\order{A}}
      \\
    \PartialDerivative{\ELSCost[n]{\theta,\conj{\theta}}}{b_i} 
@@ -471,38 +506,40 @@ As such, the bias term $\Delta \theta$ can be written in the following sparse fo
 \paragraph{Bias on the \glsentrydesc{FRF}}
 As a first order approximation, the bias on the \gls{FRF} can be written as
 \begin{equation}
-  \Delta \LocalModel{G}(\omega) 
+  \Delta \LocalModel{G}(\omega_k) 
+  =
+  \Delta \LocalModel{G}(\dw{0}{k}) 
      \approx 
-        \PartialDerivative{\LocalModel{G}(\theta, \omega)}
+        \PartialDerivative{\LocalModel{G}(\theta, \dw{0}{k})}
                                           {\theta} 
       \Delta \theta
       \text{.}
 \end{equation}
 The derivative in that expression can be evaluated easily
 \begin{align}
-    \PartialDerivative{\LocalModel{G}(\theta, r)}{\theta} 
+    \PartialDerivative{\LocalModel{G}(\theta, \dW)}{\theta} 
      &=
      \begin{bmatrix}
-       \PartialDerivative{\LocalModel{G}(\theta,r)}{\theta_A} &
-       \PartialDerivative{\LocalModel{G}(\theta,r)}{\theta_B} &
-       \PartialDerivative{\LocalModel{G}(\theta,r)}{\theta_C} 
+       \PartialDerivative{\LocalModel{G}(\theta,\dW)}{\theta_A} &
+       \PartialDerivative{\LocalModel{G}(\theta,\dW)}{\theta_B} &
+       \PartialDerivative{\LocalModel{G}(\theta,\dW)}{\theta_C} 
      \end{bmatrix}
      \\
-     \PartialDerivative{\LocalModel{G}(\theta, r)}{\theta_A} 
+     \PartialDerivative{\LocalModel{G}(\theta, \dW)}{\theta_A} 
      &=
      - \frac{\LocalModel{B}(\theta, r)}{\LocalModel{A}^2(\theta, r)}
      \begin{bmatrix}
-         r^1 & r^2 & \deemph{\cdots} & r^{\order{A}}
+         \dW^1 & \dW^2 & \deemph{\cdots} & \dW^{\order{A}}
      \end{bmatrix}
      \\
-     \PartialDerivative{\LocalModel{G}(\theta, r)}{\theta_B} 
+     \PartialDerivative{\LocalModel{G}(\theta, \dW)}{\theta_B} 
      &=
-     \frac{1}{\LocalModel{A}(\theta, r)}
+     \frac{1}{\LocalModel{A}(\theta, \dW)}
      \begin{bmatrix}
-         1 & r^1 & r^2 & \deemph{\cdots} & r^{\order{B}}
+         1 & \dW^1 & \dW^2 & \deemph{\cdots} & \dW^{\order{B}}
      \end{bmatrix}
      \\
-     \PartialDerivative{\LocalModel{G}(\theta, r)}{\theta_C} 
+     \PartialDerivative{\LocalModel{G}(\theta, \dW)}{\theta_C} 
      &=
      \Zero{1 \times \order{C}+1}
      \text{.}
@@ -510,9 +547,24 @@ The derivative in that expression can be evaluated easily
 
 However, the sparsity of $\Delta\theta$, see \eqref{eq:nparam:lrm:bias:sparse}, can be exploited such that the bias on the \gls{FRF} can be expressed as:
 \begin{equation}
-  \Delta \LocalModel{G}(\theta,r)
+  \Delta \LocalModel{G}(\theta,\dW)
   \approx
-  \frac{\LocalModel{G}(\theta, r)}{\LocalModel{}}
+  \frac{\LocalModel{G}(\theta, \dW)}
+           {\LocalModel{A}(\theta, \dW)}
+  \begin{bmatrix}
+    \dW^1 & \deemph{\cdots} & \dW^{\order{A}}
+  \end{bmatrix}
+  \Delta \theta_A
+  \text{.}
+\end{equation}
+Equivalently, the relative bias of the \gls{FRF} can be written as
+\begin{equation}
+\frac{\Delta \LocalModel{G}(\theta,\dw{0}{k})}{\LocalModel{G}(\theta,\dw{0}{k})}
+\approx
+\LocalModel{A}(\theta,\dW)^{-1}
+\begin{bmatrix}
+    \dw{0}{k}^1 & \deemph{\cdots} & \dw{0}{k}^{\order{A}}
+  \end{bmatrix}
 \end{equation}
 
 \section{Simulation}
