@@ -34,7 +34,14 @@ ymajorgrids,
 legend pos=north west,
 legend cell align=left,
 legend columns=-1,
+domain=2:256,
 ]
+
+\pgfplotsinvokeforeach{1,2,...,9} {
+	\addplot[slopegrid,
+	         text mark={\footnotesize \color{gray} {$\hphantom{---}\nBW^{-#1}$}}] 
+	         expression {-20*#1*log10(x)};
+}
 
 \node[annotation, anchor=north east] at (rel axis cs: 1,1) {$\SNR = \SNRval \unit{dB}$};
 

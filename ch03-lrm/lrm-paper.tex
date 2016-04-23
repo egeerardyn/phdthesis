@@ -600,26 +600,32 @@ Remark, that the standard deviation on the $\sampleBias{\bullet} \approx \sqrt{\
 \centering
 \caption{Local modeling methods used in the Monte Carlo analysis.}
 \label{tbl:nparam:methods}
-\begin{tabular}{lcccr} \toprule
-\textsc{Method} & \DOF & $\nWind$ & $\nth$ & $\Delta$ SNR (dB)\\
+\begin{tabular}{lccccr} 
+\toprule
+\textsc{Method} & \textsc{Color} & $\nWind$ & $\nth$ & \DOF & $\Delta$ SNR (dB)\\
 \midrule
-\color{etfe} $\ETFE$ & 1 & 0  & 1 & 0 \\
-\color{lrm7111} $\lrm{7,1,1,1}$ & 15 & 10 & 5 & 4.77 \\
-\color{lric7222} $\lric{7,2,2,2}$ &  15&7 & 8 & 2.73 \\
-\color{lrm7222} $\lrm{7,2,2,2}$ &  15&7 & 8 & 2.73 \\
-\color{lrm6222} $\lrm{6,2,2,2}$ &  13&5 & 8 & 2.11 \\
-\color{lpm744} $\lpm{7,4,4}$ &  15&5 & 10 & 1.76 \\
+ $\ETFE$ &\color{etfe} --- & 1  & 1  & 0 & 0 \\
+ $\lrm{7,1,1,1}$ & \color{lrm7111} --- & 15  & 5 & 10  & 4.77 \\
+ $\lric{7,2,2,2}$ &\color{lric7222} --- &   15 & 8 & 7  & 2.73 \\
+ $\lrm{7,2,2,2}$ &\color{lrm7222} --- &   15 & 8 & 7  & 2.73 \\
+ $\lrm{6,2,2,2}$ &\color{lrm6222} --- &   13 & 8 & 5  & 2.11 \\
+ $\lpm{7,4,4}$ &\color{lpm744} --- &   15 & 10 & 5  & 1.76 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 
 \paragraph{Noiseless case}
-In the noiseless case, one can observe the approximation error that is made by using the \gls{LRM}, \gls{LPM} and \gls{ETFE}.
+In the noiseless case, one can observe the approximation error that is made by using the \gls{LRM}, \gls{LPM}, \gls{LRIC} and \gls{ETFE}.
 For the \gls{ETFE}, it can be seen that the error is very high.
-This can be expected since the \gls{ETFE} does not separate transient and leakage contributions.
-this error only disappears very slowly by measuring a longer record due to the presence of the leakage term.
-As such, \TODO{afschrijven}
+This can be expected since the \gls{ETFE} does not separate transient/leakage contributions.
+Consequently, the leakage contributions (which change over the different Monte Carlo runs), lead to a large variance error for the \gls{ETFE}.
+The approximation error of the \gls{LPM} for short datasets ($\nBW \leq 8$) is dominated by the bias error.
+The is to be expected since the resonance in the band of interest is modeled using only polynomials instead of the full rational form.
+For longer datasets, 
+For the \gls{LRM} and \gls{LRIC}, the \gls{RMS} error is already very low for small datasets ($-60 \unit{dB}$ for the first-order method, $-120\unit{dB}$ for second-order methods).
+For short datasets ($\nBW \leq 16$), the $\lrm{7,1,1,1}$ error has a bias contribution that is slightly larger ($1$ to $4\unit{dB}$) than the variance contribution.
+For larger datasets ($\nBW \geq 16$), this bias contribution starts to diminish significantly as $\bigO{\frac{}{}}$
 
 \begin{figure}
   \centering

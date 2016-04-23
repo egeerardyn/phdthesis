@@ -38,6 +38,12 @@
     }
 }
 
+\pgfplotsset{slopegrid/.style={
+  mark phase=2,mark repeat=1,samples=2,mark=text,
+  color={black!15},forget plot,
+  text mark style={}
+}}
+
 %% Number formatting
 \pgfset{number format/1000 sep={\,}}
 
