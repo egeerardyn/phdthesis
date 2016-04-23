@@ -588,10 +588,10 @@ In the simulations, we consider a discrete-time second order system with transfe
 The \gls{SNR} in the system bandwidth $\BW$ is defined as
 \begin{equation}
   \SNR_{\BW} \isdef
-  \frac{\int_{\BW} \abs{Y_0(\omega)}^2 \dd{\omega}}
+  \frac{\int_{\BW} \abs{\true{Y}(\omega)}^2 \dd{\omega}}
             {\int_{\BW} \abs{V(\omega)}^2 \dd{\omega}}
 \end{equation}
-where $\BW$ is the frequency range of the $3 \unit{dB}$ bandwidth of the system, i.e. where $\abs{G_0} \geq \norm[\infty]{\true G} - 3 \unit{dB}$.
+where $\BW$ is the $3 \unit{dB}$ bandwidth of the system.
 
 \begin{figure}
   \centering
@@ -654,7 +654,7 @@ Remark, that the standard deviation on the $\sampleBias{\bullet} \approx \sqrt{\
 \label{tbl:nparam:methods}
 \begin{tabular}{lccccr} 
 \toprule
-\textsc{Method} & \textsc{Color} & $\nWind$ & $\nth$ & \DOF & $\Delta$ SNR (dB)\\
+\textsc{Method} & \textsc{Color} & $\nWind$ & $\nth$ & \DOF & $\Delta\SNR \axisunit{dB}$ \\
 \midrule
  $\ETFE$ &\color{etfe} --- & 1  & 1  & 0 & 0 \\
  $\lrm{7,1,1,1}$ & \color{lrm7111} --- & 15  & 5 & 10  & 4.77 \\
@@ -666,29 +666,46 @@ Remark, that the standard deviation on the $\sampleBias{\bullet} \approx \sqrt{\
 \end{tabular}
 \end{table}
 
-
 \paragraph{Noiseless case}
-In the noiseless case, one can observe the approximation error that is made by using the \gls{LRM}, \gls{LPM}, \gls{LRIC} and \gls{ETFE}.
+In the noiseless case, one can observe the approximation error that is made by using the \gls{LRM}, \gls{LPM}, \gls{LRIC} and \gls{ETFE} as shown in \figref{fig:nparam:comparison:noiseless}.
 For the \gls{ETFE}, it can be seen that the error is very high.
 This can be expected since the \gls{ETFE} does not separate transient/leakage contributions.
 Consequently, the leakage contributions (which change over the different Monte Carlo runs), lead to a large variance error for the \gls{ETFE}.
 The approximation error of the \gls{LPM} for short datasets ($\nBW \leq 8$) is dominated by the bias error.
 The is to be expected since the resonance in the band of interest is modeled using only polynomials instead of the full rational form.
 For longer datasets, 
-For the \gls{LRM} and \gls{LRIC}, the \gls{RMS} error is already very low for small datasets ($-60 \unit{dB}$ for the first-order method, $-120\unit{dB}$ for second-order methods).
+For the \gls{LRM} and \gls{LRIC}, the \gls{RMS} error is already very low for small datasets ($-64 \unit{dB}$ for the first-order method, $-114\unit{dB}$ for second-order methods).
 For short datasets ($\nBW \leq 16$), the $\lrm{7,1,1,1}$ error has a bias contribution that is slightly larger ($1$ to $4\unit{dB}$) than the variance contribution.
-For larger datasets ($\nBW \geq 16$), this bias contribution starts to diminish significantly as $\bigO{\frac{}{}}$
+For larger datasets ($\nBW \geq 16$), this bias contribution starts to diminish significantly as $\bigO{\nBW^{-2}}$.
+For second-order rational methods, the error is dominated by the variance and is about $50\unit{dB}$ smaller than for the first-order methods.
+Practically, this approximation error is very likely to be negligible in measurements as such an error level corresponds to the quantization noise level of a $19\unit{bit}$ \gls{ADC}.
 
 \begin{figure}
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR-Inf.tikz}
-  \caption[Comparison of local models for $\SNR = \infty$]{Local modeling of a discrete-time system results in an approximation error that is low enough for many practical uses.}
+  \caption[Comparison of local models for $\SNR = \infty$]{Local modeling of a discrete-time system results in an approximation error that is low enough for many practical uses. See \tabref{tbl:nparam:methods} for the color legend.}
   \label{fig:nparam:comparison:noiseless}
 \end{figure}
 
 \paragraph{Good signal-to-noise ratios}
+The next situation we consider is when $\SNR=60\unit{dB}$ as shown in \figref{fig:nparam:comparison:hiSNR}.
+Here, the \gls{LPM} remains severly biased for small datasets ($\nBW < 12$).
+However, for sufficiently long experiments ($\nBW > 32$), the bias becomes negligible.
+For the \gls{LRM} and \gls{LRIC}, the bias is always much smaller than the variance.
+In contrast to \gls{LPM}, the \gls{LPM} already reaches a constant variance level when $\nBW > 10$.
+It should also be noted that for the \gls{LRIC}, the variance is almost $10\unit{dB}$ more than the corresponding \gls{LPM} method.
+It is hence not advantageous to use the \gls{LRIC} as-is.
+For all methods (except the \gls{ETFE} and \gls{LRIC}), the simulations show that the \gls{RMSE} reaches
+\begin{equation}
+  \lim_{\nBW \to \infty} \RMSE \approx \frac{\SNR}{\Delta \SNR}
+\end{equation}
+where
+\begin{equation}
+  \Delta\SNR = \sqrt{\frac{\nth}{\nWind}}
+\end{equation}
+accounts for the smoothing action of local modeling (see \tabref{tbl:nparam:methods} for numerical values of $\Delta \SNR$).
 
 \begin{figure}
   \centering

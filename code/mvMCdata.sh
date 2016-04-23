@@ -1,0 +1,19 @@
+#!/bin/sh
+mv MC-SNR-*-1.tsv  LRM7222-rmse.tsv
+mv MC-SNR-*-2.tsv  LRM7222-bias.tsv
+mv MC-SNR-*-3.tsv  LRM7222-std.tsv
+mv MC-SNR-*-4.tsv  LPM744-rmse.tsv
+mv MC-SNR-*-5.tsv  LPM744-bias.tsv
+mv MC-SNR-*-6.tsv  LPM744-std.tsv
+mv MC-SNR-*-7.tsv  ETFE-rmse.tsv
+mv MC-SNR-*-8.tsv  ETFE-bias.tsv
+mv MC-SNR-*-9.tsv  ETFE-std.tsv
+mv MC-SNR-*-10.tsv LRM7111-rmse.tsv
+mv MC-SNR-*-11.tsv LRM7111-bias.tsv
+mv MC-SNR-*-12.tsv LRM7111-std.tsv
+mv MC-SNR-*-13.tsv LRM6222-rmse.tsv
+mv MC-SNR-*-14.tsv LRM6222-bias.tsv
+mv MC-SNR-*-15.tsv LRM6222-std.tsv
+mv MC-SNR-*-16.tsv LRIC7222-rmse.tsv
+mv MC-SNR-*-17.tsv LRIC7222-bias.tsv
+mv MC-SNR-*-18.tsv LRIC7222-std.tsv

@@ -34,9 +34,10 @@ xminorgrids,
 ymajorgrids,
 legend pos=south west,
 legend cell align=left,
-legend columns=-1,
 domain=2:256,
 ]
+
+\draw[opacity=0.5, fill=TangoAluminium1] (axis cs:2,-60) rectangle (axis cs:256,-10);
 
 \pgfplotsinvokeforeach{1,2,...,9} {
 	\addplot[slopegrid,

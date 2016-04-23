@@ -36,6 +36,8 @@ legend cell align=left,
 domain=2:256,
 ]
 
+\draw[opacity=0.5, fill=TangoAluminium1] (axis cs:2,-120) rectangle (axis cs:256,-60);
+
 \pgfplotsinvokeforeach{1,2,...,9} {
 	\addplot[slopegrid,
 	         text mark={\footnotesize \color{gray} {$\hphantom{---}\nBW^{-#1}$}}] 

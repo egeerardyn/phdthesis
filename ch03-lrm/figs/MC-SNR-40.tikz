@@ -31,8 +31,18 @@ axis y line*=left,
 xmajorgrids,
 xminorgrids,
 ymajorgrids,
-title={$\SNR = \SNRval \unit{dB}$}
+legend columns=-1,
+legend cell align=left,
+domain=2:256
 ]
+
+\draw[opacity=0.5, fill=TangoAluminium1] (axis cs:2,-80) rectangle (axis cs:256,-40);
+
+\pgfplotsinvokeforeach{1,2,...,9} {
+	\addplot[slopegrid,
+	         text mark={\footnotesize \color{gray} {$\hphantom{---}\nBW^{-#1}$}}] 
+	         expression {-20*#1*log10(x)};
+}
 
 \node[annotation, anchor=north east] at (rel axis cs: 1,1) {$\SNR = \SNRval \unit{dB}$};
 
