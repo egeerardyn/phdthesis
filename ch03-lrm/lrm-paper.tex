@@ -502,7 +502,76 @@ As such, the bias term $\Delta \theta$ can be written in the following sparse fo
   \label{eq:nparam:lrm:bias:sparse}
 \end{equation}
 
-\TODO{write out subexpressions}
+\paragraph{Contributions to the Hessian}
+Computing the Hessian in \eqref{eq:nparam:bias-basic} also boils down to recognizing the block structure.
+This results in the following block matrix:
+\begin{equation}
+  \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta^2} =
+  \begin{bmatrix}
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_A \pd \theta_A } &
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_B \pd \theta_A } & 
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_C \pd \theta_A } \\
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_A \pd \theta_B } &
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_B \pd \theta_B } & 
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_C \pd \theta_B } \\
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_A \pd \theta_C } &
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_B \pd \theta_C } & 
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_C \pd \theta_C }
+  \end{bmatrix}
+  \label{eq:nparam:lrm:bias:hessian}
+\end{equation}
+where every sub-block consists of the different second-order derivatives and exhibit a similar pattern.
+
+The different contributions are given below:
+\begin{align}
+  \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{a_{i_1}} \pd a_{i_2}} & = 
+  \frac{1}{\nWind} \sum_{\dW} \dW^{i_1+i_2} \abs{\true{\LocalVector{Y}}(\dW)}^2\\
+  \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{b_{i_1}} \pd b_{i_2}} & = 
+  \frac{1}{\nWind} \sum_{\dW} \dW^{i_1+i_2} \abs{\true{\LocalVector{U}}(\dW)}^2\\
+  \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{c_{i_1}} \pd c_{i_2}} & = 
+  \frac{1}{\nWind} \sum_{\dW} \dW^{i_1+i_2}\\
+  \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{b_{i_1}} \pd a_{i_2}}  =
+  \conj{ \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{a_{i_2}} \pd b_{i_1}} }& = 
+  \frac{1}{\nWind} \sum_{\dW} \dW^{i_1+i_2} \conj{\true{\LocalVector{U}}(\dW)} \true{\LocalVector{Y}}(\dW)\\
+  \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{c_{i_1}} \pd a_{i_2}}  =
+  \conj{ \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{a_{i_2}} \pd c_{i_1}} }& = 
+  \frac{1}{\nWind} \sum_{\dW} \dW^{i_1+i_2} \true{\LocalVector{Y}}(\dW)\\
+  \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{c_{i_1}} \pd b_{i_2}}  =
+  \conj{ \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{c_{i_2}} \pd b_{i_1}} }& = 
+  \frac{1}{\nWind} \sum_{\dW} \dW^{i_1+i_2} \true{\LocalVector{U}}(\dW)
+  \text{.}
+\end{align}
+
+\begin{remark}
+Computing the inverse of this Hessian cannot, to the knowledge of the author, be reduced to a form that yields more insight.
+However, if the non-diagonal blocks can be neglected, this would lead to an inverse that is also block-diagonal:
+\begin{equation}
+   \begin{bmatrix}
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_A \pd \theta_A } &
+    \deemph{0} & 
+    \deemph{0} \\
+    \deemph{0} &
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_B \pd \theta_B } & 
+    \deemph{0} \\
+    \deemph{0} &
+    \deemph{0} & 
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_C \pd \theta_C }
+  \end{bmatrix}^{-1}
+  \!\!\!=
+  \begin{bmatrix}
+    \left( \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_A \pd \theta_A }\right)^{-1} &
+    \deemph{0} & 
+    \deemph{0} \\
+    \deemph{0} &
+    \left( \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_B \pd \theta_B }\right)^{-1} & 
+    \deemph{0} \\
+    \deemph{0} &
+    \deemph{0} & 
+    \left( \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_C \pd \theta_C }\right)^{-1}
+  \end{bmatrix}
+  % \text{.}
+\end{equation}
+\end{remark}
 \paragraph{Bias on the \glsentrydesc{FRF}}
 As a first order approximation, the bias on the \gls{FRF} can be written as
 \begin{equation}
@@ -565,9 +634,13 @@ Equivalently, the relative bias of the \gls{FRF} can be written as
 \begin{bmatrix}
     \dw{0}{k}^1 & \deemph{\cdots} & \dw{0}{k}^{\order{A}}
   \end{bmatrix}
+  H^{-1}
+  \begin{bmatrix}
+  
+  \end{bmatrix}
 \end{equation}
 
-\section{Simulation}
+\section{Simulations}
 \label{sec:simulations}
 
 In the simulations, we consider a discrete-time second order system with transfer function
@@ -707,31 +780,44 @@ where
 \end{equation}
 accounts for the smoothing action of local modeling (see \tabref{tbl:nparam:methods} for numerical values of $\Delta \SNR$).
 
-\begin{figure}
+\begin{figure}[p]
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR-60.tikz}
-  \caption[Comparison of local models for $\SNR = 60 \unit{dB}$]{The \gls{RMSE}, bias and variance of different local modeling methods is compared as a function of the number of points in the $3\unit{dB}$ bandwidth of the system. A relative approximation error of $-100 \unit{dB}$ is observed.}
+  \caption[Comparison of local models for $\SNR = 60 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=60\unit{dB}$. See \tabref{tbl:nparam:methods} for the color legend.}
+  \label{fig:nparam:comparison:hiSNR}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \setlength{\figurewidth}{0.85\columnwidth}
+  \setlength{\figureheight}{0.62\figurewidth}
+  \input{\thisDir/figs/MC-SNR-40.tikz}
+  \caption[Comparison of local models for $\SNR = 40 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=40\unit{dB}$. See \tabref{tbl:nparam:methods} for the color legend.}
   \label{fig:nparam:comparison:hiSNR}
 \end{figure}
 
 \paragraph{Poor signal-to-noise ratios}
-\begin{figure}
+In \figref{fig:nparam:comparison:lowSNR} and \figref{fig:nparam:comparison:terribleSNR}, the results are shown for $\SNR=20\unit{dB}$ and $\SNR=10\unit{dB}$ respectively.
+Again, it can be seen that \gls{LRIC} is plagued by high variance and is hence not directly usable.
+
+
+\begin{figure}[p]
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR-20.tikz}
-  \caption[Comparison of local models for $\SNR = 20 \unit{dB}$]{The \gls{RMSE}, bias and variance of different local modeling methods is compared as a function of the number of points in the $3\unit{dB}$ bandwidth of the system when $\SNR = 20\unit{dB}$. The \gls{LRM} outperforms the \gls{LPM}.}
+  \caption[Comparison of local models for $\SNR = 20 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=20\unit{dB}$. See \tabref{tbl:nparam:methods} for the color legend.}
   \label{fig:nparam:comparison:lowSNR}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[p]
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR-10.tikz}
-  \caption[Comparison of local models for $\SNR = 10 \unit{dB}$]{The \gls{RMSE}, bias and variance of different local modeling methods is compared as a function of the number of points in the $3\unit{dB}$ bandwidth of the system when $\SNR = 20\unit{dB}$. An approximation error of $-100 \unit{dB}$ is observed.}
+ \caption[Comparison of local models for $\SNR = 10 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=10\unit{dB}$. See \tabref{tbl:nparam:methods} for the color legend.}
   \label{fig:nparam:comparison:terribleSNR}
 \end{figure}
 
