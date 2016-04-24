@@ -112,20 +112,26 @@ For linear models (i.e. $\LocalVector{Y} = \LocalMatrix{K} \LocalVector{\theta}$
 where $\LocalVector{E}$ is the residual vector of the full estimation and $\LocalVector{W}$ is a diagonal weighting matrix with $\LocalVector{W}_{ii} = (1 - \LocalVector{H}_{ii})^{\HT} (1 - \LocalVector{H}_{ii})$ and
 $\LocalVector{H} = \LocalMatrix{K} \pinv{\LocalMatrix{K}}$ is the so-called `hat-matrix' that is known to be idempotent.
 
-
 \section{LPM with impulse response truncation}
 \input{\thisDir/LPMSmooth_ML_EG_JS_JL.tex}
 
   \section{Conclusion}
   \label{sec:conclusion}
+In this chapter, the performance of non-parametric \gls{LPM} and \gls{LRM} estimators were compared to observe the \gls{FRF} of resonant systems.
+Since the \gls{LRM} is an inherently biased estimator while the \gls{LPM} is asymptotically unbiased, it is important to compare their behavior.
+Hence, expressions for the bias of the \gls{LRM} were derived.
+For good \glspl{SNR} in resonant systems, it was seen that the \gls{LRM} is always superior to the \gls{LRM}.
+For extremely poor \gls{SNR}, i.e. $\SNR \approx 10\unit{dB}$, the \gls{LPM} may perform slightly better than the \gls{LRM} when short measurement records are available.
+For
+In this chapter, the \gls{LRIC} was introduced.
+This is an extension of the \gls{LRM} which solves the non-linear optimization problem and should thus be able to avoid a bias altogether.
+However, it is seen that this estimator is extremely noisy but seems to provide a smaller bias than the \gls{LRM}.
+Since the overall \gls{RMS} error for the \gls{LRIC} is much larger than most other methods, the \gls{LRIC} cannot be used in its current form.
 
-  \begin{itemize}
-    \item LRM: extension to LRIC
-    \item LRM: derivation of bias
-    \item LRM vs LPM: at which settings is LRM better than LPM
-    \item LRIC: much slower, performance is somewhat better, but at the cost of a lot of computational power and much harder model selection
-    \item practical advice: use LRM rather than LPM unless in very noisy conditions (10 dB), only use LRIC as last resort
-  \end{itemize}
+Relatedly, two approaches to aid in performing the bias-variance trade-off for these local methods are illustrated.
+First, a short study of cross-validation for local models is given.
+Secondly, an approach to truncate the impulse response obtained from the \gls{LPM} is illustrated.
+The latter can improve the performance of the \gls{LPM} considerably if a large number of noisy samples is measured.
 
 
 % \input{\thisDir/proofLOOCV.tex}

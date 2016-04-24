@@ -648,34 +648,40 @@ In the simulations, we consider a discrete-time second order system with transfe
 \begin{equation}
 \true{G}(z) = \frac{0.64587 z + 0.64143}
                                       {47.9426 z^2 - 51.2955 z + 46.9933}
+                                      \text{,}
 \end{equation}
-
-
-\begin{figure}
- \centering
-  \input{\thisDir/figs/generalized-output-error.tikz}
-  \caption{Block schematic used in the simulations}
-\end{figure}
-
-\TODO{H0}    
-
-The \gls{SNR} in the system bandwidth $\BW$ is defined as
+this is a resonant system with a resonance near $\omega=1\unit{rad/sample}$.
+The system is scaled such that its peak amplitude is $3\unit{dB}$ and the 
+As indicated in \figref{fig:nparam:blockH0}, the noise filter $\true{H}' = 1$ is used such that white noise is disturbing the output.
+The gain of this filter is adapted such that the \gls{SNR} in the $3\unit{dB}$ bandwidth of the system, i.e.
 \begin{equation}
   \SNR_{\BW} \isdef
   \frac{\int_{\BW} \abs{\true{Y}(\omega)}^2 \dd{\omega}}
             {\int_{\BW} \abs{V(\omega)}^2 \dd{\omega}}
 \end{equation}
-where $\BW$ is the $3 \unit{dB}$ bandwidth of the system.
+where $\BW$ is the $3 \unit{dB}$ bandwidth of the system, is fixed to $\set{10, 20, 40, 60, \infty} \unit{dB}$.
+
+\begin{figure}
+ \centering
+  \input{\thisDir/figs/generalized-output-error.tikz}
+  \caption{Block schematic used in the simulations. }
+  \label{fig:nparam:blockH0}
+\end{figure}
+
+The input signal used is a random-phase multisine with a full linear grid.
+A number of samples of the input- and output are measured, in such a way that the \gls{DFT} grid excited $\nBW$ bins within the $3\unit{dB}$ bandwidth of the system.
+The different values for $\nBW \in \set{2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 32, 40, 64, 80, 92, 128, 256}$ are tried. 
+
+The \gls{FRF} is estimated using the local modeling approaches indicated in \tabref{tbl:nparam:methods}.
 
 \begin{figure}
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
-  \TODOfig[Example spectra]
-  \label{fig:nparam:spectra}
+  \TODOfig[Y(Y,E,T) vs freq of single simulation]
 \end{figure}
 
-We then compute basic statistics of the estimated \glspl{FRF} $\model[\atSimulation{i}]{\bullet}$ over all  Monte Carlo runs.
+We then compute basic statistics of the estimated \glspl{FRF} $\model[\atSimulation{i}]{\bullet}$ over $\nMC=2000$ Monte Carlo runs of the simulations above.
 Specifically, the following values
 \begin{align}
   \sampleMean{\bullet}(\omega_k) & 
@@ -703,24 +709,24 @@ are computed and are the sample estimates of respectively the expected value $\E
 Remark, that the standard deviation on the $\sampleBias{\bullet} \approx \sqrt{\sampleVariance{\bullet} / \nMC}$ which limits the precision with which we can hence observe $\sampleBias{\bullet}$.
 
   % \subsection{Implications of the model structure}
-  \subsection{Implications of the noise level}
+  % \subsection{Implications of the noise level}
   % \subsection{Implications of the noise coloring}
 
 \begin{figure}
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
-  \TODOfig[Y(Y,E,T) vs freq of single simulation]
-\end{figure}
-
-\begin{figure}
-  \centering
-  \setlength{\figurewidth}{0.85\columnwidth}
-  \setlength{\figureheight}{0.62\figurewidth}
   \TODOfig[RMSE, var, bias for (SNR, NBW) over freq]
+  \label{}
 \end{figure}
 
-\TODO{describe aggregation over $\omega$}
+As the Monte Carlo simulations yield the estimated \gls{FRF}, the bias and variance for the different methods as a function of frequency, a huge amount of data is generated.
+To interpret the data, we aggregate the observed values over the frequencies to obtain:
+\begin{align}
+  \sampleVariance{\bullet} &= \frac{1}{\nBW} \sum_{\omega_k \in \BW} \abs{\sampleVariance{\bullet}(\omega_k)} \\
+  \sampleBias{\bullet} &= \frac{1}{\nBW} \sum_{\omega_k \in \BW} \abs{\sampleBias{\bullet}(\omega_k)}
+\end{align}
+which can be visualized for the different values of the $\SNR$, $\nBW$ and for each method.
 
 \begin{table}
 \centering
@@ -781,13 +787,15 @@ where
 \end{equation}
 accounts for the smoothing action of local modeling (see \tabref{tbl:nparam:methods} for numerical values of $\Delta \SNR$).
 
+For the more noisy situation where $\SNR = 40 \unit{dB}$ (\figref{fig:nparam:comparison:midSNR}), the situation is qualitatively equal except the bias incurred by the \gls{LRM} is similar to the noise level.
+
 \begin{figure}[p]
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR-60.tikz}
   \caption[Comparison of local models for $\SNR = 60 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=60\unit{dB}$. See \tabref{tbl:nparam:methods} for the color legend.}
-  \label{fig:nparam:comparison:hiSNR}
+  \label{fig:nparam:comparison:SNR}
 \end{figure}
 
 \begin{figure}[p]
@@ -796,13 +804,12 @@ accounts for the smoothing action of local modeling (see \tabref{tbl:nparam:meth
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR-40.tikz}
   \caption[Comparison of local models for $\SNR = 40 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=40\unit{dB}$. See \tabref{tbl:nparam:methods} for the color legend.}
-  \label{fig:nparam:comparison:hiSNR}
+  \label{fig:nparam:comparison:midSNR}
 \end{figure}
 
 \paragraph{Poor signal-to-noise ratios}
 In \figref{fig:nparam:comparison:lowSNR} and \figref{fig:nparam:comparison:terribleSNR}, the results are shown for $\SNR=20\unit{dB}$ and $\SNR=10\unit{dB}$ respectively.
 Again, it can be seen that \gls{LRIC} is plagued by high variance and is hence not directly usable.
-
 
 \begin{figure}[p]
   \centering
@@ -830,11 +837,6 @@ When the \gls{SNR} is poor ($\leq 10\unit{dB}$), the \gls{LPM} may perform a bit
 \begin{guideline}[For long measurements, LPM and LRM are similar]
 For very long measurements, the difference between \gls{LPM} and \gls{LRM} becomes negligible if the different resonances are well-separated.
 \end{guideline}
-
-\begin{remark}
-In all the simulations, it can be seen that for $\nWind \to \infty$, the error tapers off.
-\TODO{andere pieken gaan in de praktijk alles om zeep helpen en dus bovengrens stellen}
-\end{remark}
 
   % \section{Measurements}
   % \label{sec:measurements}
