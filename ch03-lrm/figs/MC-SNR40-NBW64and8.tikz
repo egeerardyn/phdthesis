@@ -1,0 +1,199 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+%
+\begin{tikzpicture}
+
+\begin{groupplot}[%
+group style={
+  group name=singleMC,
+  group size=2 by 1,
+  horizontal sep=1em,
+  y descriptions at=edge left,
+  x descriptions at=edge bottom
+},
+width=0.5\figurewidth,
+height=\figureheight,
+ylabel={$\abs{G} \axisunit{dB}$},
+xlabel={$\omega \axisunit{rad/s}$},
+scale only axis,
+ymin=-90,
+ymax=5,
+xmajorgrids,
+ymajorgrids,
+%http://tex.stackexchange.com/questions/75531/is-it-possible-to-multiply-the-x-coordinates-of-a-plot-by-a-certain-factor-using
+scaled x ticks={real:0.15915}, %Hz -> rad/s
+xtick scale label code/.code={},
+]
+
+\nextgroupplot[title={$\nBW = 8$},xmin=0.1543755,xmax=0.1639245]
+
+\addplot [black,dashdotted,line width=1.5pt]
+  table[]{\thisDir/data/MC-SNR40-NBW8/H0.tsv};
+% \addlegendentry{$\true{H}$};
+\label{leg:nparam:trueH}
+\addplot [black,line width=2.0pt]
+  table[]{\thisDir/data/MC-SNR40-NBW8/G0.tsv};
+% \addlegendentry{$\true{G}$};
+\label{leg:nparam:trueG}
+
+\addplot [mcrmse,lrm7222,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LRM7222-rmse.tsv};
+\addplot [mcbias,lrm7222,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LRM7222-bias.tsv};
+\label{leg:nparam:lrm7222}
+\addplot [mcvar,lrm7222,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LRM7222-std.tsv};
+% \addlegendentry{$\lrm{7,2,2,2}$};
+
+
+\addplot [lpm744,mcrmse,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LPM744-rmse.tsv};
+\addplot [lpm744,mcbias,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LPM744-bias.tsv};
+\label{leg:nparam:lpm744}
+\addplot [lpm744,mcvar,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LPM744-std.tsv};
+% \addlegendentry{$\lpm{7,4,4}$};
+
+\addplot [etfe,mcrmse,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/ETFE-rmse.tsv};
+\addplot [etfe,mcbias,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/ETFE-bias.tsv};
+\label{leg:nparam:etfe}
+\addplot [etfe,mcvar,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/ETFE-std.tsv};
+% \addlegendentry{$\ETFE$};
+
+\addplot [lrm7111,mcrmse,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LRM7111-rmse.tsv};
+\addplot [lrm7111,mcbias,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LRM7111-bias.tsv};
+\label{leg:nparam:lrm7111}
+\addplot [lrm7111,mcvar,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LRM7111-std.tsv};
+% \addlegendentry{LRM(7,1,1,1)};
+
+
+\addplot [lrm6222,mcrmse,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LRM6222-rmse.tsv};
+\addplot [lrm6222,mcbias,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LRM6222-bias.tsv};
+% \addlegendentry{LRM(6,2,2,2)};
+\label{leg:nparam:lrm6222}
+\addplot [lrm6222,mcvar,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LRM6222-std.tsv};
+
+\addplot [lric7222,mcrmse,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LRIC7222-rmse.tsv};
+\addplot [lric7222,mcbias,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LRIC7222-bias.tsv};
+% \addlegendentry{CT-Rik(7,2,2,2)};
+\label{leg:nparam:lric7222}
+\addplot [lric7222,mcvar,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW8/LRIC7222-std.tsv};
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nextgroupplot[title={$\nBW = 64$},xmax=0.16120327803318,xmin=0.157055766540076,legend style={at={(0.5,0.95)},anchor=north,legend cell align=left,align=left}]
+
+% \node[annotation] at (rel axis cs:1,1) {$\nBW = 8$};
+\addplot [black,dashdotted,line width=1.5pt,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/H0.tsv};
+\addplot [black,line width=2.0pt,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/G0.tsv};
+
+\addplot [lrm7222,mcrmse,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LRM7222-rmse.tsv};
+\addplot [lrm7222,mcbias,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LRM7222-bias.tsv};
+
+\addplot [lrm7222,mcvar,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LRM7222-std.tsv};
+\addplot [lpm744,mcrmse,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LPM744-rmse.tsv};
+\addplot [lpm744,mcbias,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LPM744-bias.tsv};
+
+\addplot [lpm744,mcvar,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LPM744-std.tsv};
+\addplot [etfe,mcrmse,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/ETFE-rmse.tsv};
+\addplot [etfe,mcbias,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/ETFE-bias.tsv};
+
+\addplot [etfe,mcvar,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/ETFE-std.tsv};
+\addplot [lrm7111,mcrmse,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LRM7111-rmse.tsv};
+\addplot [lrm7111,mcbias,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LRM7111-bias.tsv};
+
+\addplot [lrm7111,mcvar,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LRM7111-std.tsv};
+\addplot [lrm6222,mcrmse,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LRM6222-rmse.tsv};
+\addplot [lrm6222,mcbias,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LRM6222-bias.tsv};
+
+\addplot [lrm6222,mcvar,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LRM6222-std.tsv};
+\addplot [lric7222,mcrmse,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LRIC7222-rmse.tsv};
+\addplot [lric7222,mcbias,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LRIC7222-bias.tsv};
+
+\addplot [lric7222,mcvar,forget plot]
+  table[]{\thisDir/data/MC-SNR40-NBW64/LRIC7222-std.tsv};
+
+\addlegendimage{mcrmse}
+\addlegendentry{$\RMSE(\omega_k)$}
+
+\addlegendimage{mcvar}
+\addlegendentry{$\sampleStd{\bullet}(\omega_k)$}
+
+\addlegendimage{mcbias}
+\addlegendentry{$\sampleBias{\bullet}(\omega_k)$}
+
+\end{groupplot}
+
+
+% \begin{axis}[%
+% width=0.5\figurewidth,
+% height=\figureheight,
+% name={NB64},
+% scale only axis,
+% xmin=0.157055766540076,
+% xmax=0.16120327803318,
+% xlabel={$\omega$ \axisunit{Hz}},
+% ymin=-90,
+% ymax=22,
+% ylabel={$\abs{G}$ \axisunit{dB}},
+
+% ]
+
+% \end{axis}
+
+% \begin{axis}[%
+% width=0.951\figurewidth,
+% height=\figureheight,
+% at={(0\figurewidth,0\figureheight)},
+% scale only axis,
+% xmin=0.15390625,
+% xmax=0.164453125,
+% xlabel={Frequency [Hz]},
+% ymin=-81,
+% ymax=ETFE-std,
+% ylabel={$|$G$|$ [dB]},
+% axis background/.style={fill=white},
+% xmajorgrids,
+% ymajorgrids,
+% legend style={at={(0.97,0.03)},anchor=south east,legend cell align=left,align=left,draw=white!15!black}
+% ]
+
+% \end{axis}
+
+\end{tikzpicture}%

@@ -1,0 +1,87 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.12549,0.29020,0.52941}%
+\definecolor{mycolor2}{rgb}{0.64314,0.00000,0.00000}%
+\definecolor{mycolor3}{rgb}{0.76863,0.62745,0.00000}%
+\definecolor{mycolor4}{rgb}{0.36078,0.20784,0.40000}%
+\definecolor{mycolor5}{rgb}{0.80784,0.36078,0.00000}%
+\definecolor{mycolor6}{rgb}{0.30588,0.60392,0.02353}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figurewidth,
+height=\figureheight,
+at={(0\figurewidth,0\figureheight)},
+scale only axis,
+xmin=0.15390625,
+xmax=0.164453125,
+xlabel={Frequency [Hz]},
+ymin=-81,
+ymax=11,
+ylabel={$|$G$|$ [dB]},
+axis background/.style={fill=white},
+xmajorgrids,
+ymajorgrids,
+legend style={at={(0.97,0.03)},anchor=south east,legend cell align=left,align=left,draw=white!15!black}
+]
+\addplot [color=black,dashdotted,line width=1.5pt,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-1.tsv};
+\addplot [color=black,line width=2.0pt]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-2.tsv};
+\addlegendentry{$\text{G}_\text{0}$};
+
+\addplot [color=mycolor1,dotted,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-3.tsv};
+\addplot [color=mycolor1]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-4.tsv};
+\addlegendentry{LRM(7,2,2,2)};
+
+\addplot [color=mycolor1,dashed,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-5.tsv};
+\addplot [color=mycolor2,dotted,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-6.tsv};
+\addplot [color=mycolor2]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-7.tsv};
+\addlegendentry{LPM(7,4,4)};
+
+\addplot [color=mycolor2,dashed,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-8.tsv};
+\addplot [color=mycolor3,dotted,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-9.tsv};
+\addplot [color=mycolor3]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-10.tsv};
+\addlegendentry{ETFE(0,0)};
+
+\addplot [color=mycolor3,dashed,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-11.tsv};
+\addplot [color=mycolor4,dotted,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-12.tsv};
+\addplot [color=mycolor4]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-13.tsv};
+\addlegendentry{LRM(7,1,1,1)};
+
+\addplot [color=mycolor4,dashed,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-14.tsv};
+\addplot [color=mycolor5,dotted,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-15.tsv};
+\addplot [color=mycolor5]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-16.tsv};
+\addlegendentry{LRM(6,2,2,2)};
+
+\addplot [color=mycolor5,dashed,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-17.tsv};
+\addplot [color=mycolor6,dotted,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-18.tsv};
+\addplot [color=mycolor6]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-19.tsv};
+\addlegendentry{CT-Rik(7,2,2,2)};
+
+\addplot [color=mycolor6,dashed,forget plot]
+  table[]{\thisDir/MC-SNR40-NBW8/MC-SNR40-NBW8-20.tsv};
+\end{axis}
+\end{tikzpicture}%

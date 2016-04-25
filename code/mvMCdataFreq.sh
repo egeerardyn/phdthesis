@@ -1,0 +1,21 @@
+#!/bin/sh
+mv MC-SNR40-NBW*-1.tsv  H0.tsv
+mv MC-SNR40-NBW*-2.tsv  G0.tsv
+mv MC-SNR40-NBW*-3.tsv  LRM7222-rmse.tsv
+mv MC-SNR40-NBW*-4.tsv  LRM7222-bias.tsv
+mv MC-SNR40-NBW*-5.tsv  LRM7222-std.tsv
+mv MC-SNR40-NBW*-6.tsv  LPM744-rmse.tsv
+mv MC-SNR40-NBW*-7.tsv  LPM744-bias.tsv
+mv MC-SNR40-NBW*-8.tsv  LPM744-std.tsv
+mv MC-SNR40-NBW*-9.tsv  ETFE-rmse.tsv
+mv MC-SNR40-NBW*-10.tsv ETFE-bias.tsv
+mv MC-SNR40-NBW*-11.tsv ETFE-std.tsv
+mv MC-SNR40-NBW*-12.tsv LRM7111-rmse.tsv
+mv MC-SNR40-NBW*-13.tsv LRM7111-bias.tsv
+mv MC-SNR40-NBW*-14.tsv LRM7111-std.tsv
+mv MC-SNR40-NBW*-15.tsv LRM6222-rmse.tsv
+mv MC-SNR40-NBW*-16.tsv LRM6222-bias.tsv
+mv MC-SNR40-NBW*-17.tsv LRM6222-std.tsv
+mv MC-SNR40-NBW*-18.tsv LRIC7222-rmse.tsv
+mv MC-SNR40-NBW*-19.tsv LRIC7222-bias.tsv
+mv MC-SNR40-NBW*-20.tsv LRIC7222-std.tsv

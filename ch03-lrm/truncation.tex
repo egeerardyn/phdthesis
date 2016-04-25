@@ -15,20 +15,11 @@ It is then shown that a smooth \gls{LPM} estimate of the \gls{FRF} lowers the va
 
 Based on \citet{Schoukens2009LPM}, the nonparametric method developed in this work is formulated in an \gls{OE} framework. 
 A \gls{SISO} \gls{LTI} system is considered.
-The input signal is a known random noise signal and the output signal is corrupted by measurement noise. This is depicted in \figref{fig:nparam:trunc:oe} as a linear dynamic discrete-time \gls{SISO} system, whose full mathematical model is of the form:
+The input signal is a known random noise signal and the output signal is corrupted by measurement noise. This is depicted in \figref{fig:nparam:blockH0} as a linear dynamic discrete-time \gls{SISO} system, whose full mathematical model is of the form:
 \begin{equation}\label{eq:nparam:trunc:LPM:TD}
 y(t)=G_0(q)u_0(t)+H_0(q)e(t)=G_0(q)u_0(t)+v(t)
 \end{equation}
 where $G_0(q)$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= H_0(q)e(t)$ is the noise source at the output, $H_0(q)$ is the noise dynamics, $e(t)$ is white noise, and $q^{-m}$ is the backwards shift operator ($q^{-m}x(t)$ = $x(t-m)$  with $m$ a positive integer).
-
-\begin{figure}
-\centering
-\setlength\figurewidth{0.85\columnwidth}
-\setlength\figureheight{0.68\figurewidth}
-\input{\thisDir/figs/oesetup.tikz}
-\caption{SISO LTI discrete-time system in an output error setup.}
-\label{fig:nparam:trunc:oe}
-\end{figure}
 
 Numerous parametric identification techniques are devoted to the development of parametric plant $G(q,\theta)$ and noise models  $H(q,\theta)$, where  $\theta$ is the model parameters vector~\citep{Ljung1999,Soderstrom1989}. 
 In this section, however, a nonparametric technique is developed, and formulated in the frequency domain, consistent with \citep{Pintelon2012,Mahata2006}. 
@@ -54,7 +45,7 @@ Ultimately, in \secref{sec:nparam:trunc:simResults}, simulation results of the f
 These \gls{FRF} estimates are also compared with the true \gls{LTI} system ${G}_0(\omega_k)$.
 Discussion of the simulation results is then followed by a conclusion in \secref{sec:nparam:trunc:conclusion}.
 
-\subsection{Theory on the LPM and Windowing: \glsentrytext{OE} Setup}
+\subsection*{Theory on the LPM and Windowing}
 \label{sec:nparam:trunc:theoryLPMandWindowing}
 
 Details of the theory pertaining to this section may be found in \citet{Schoukens2009LPM}, basic aspects of which are presented below.
@@ -103,7 +94,6 @@ The anomalies due to interpolation errors, associated with windowing, can easily
 As shown in \citep{Pintelon2012}, the leakage errors are reduced from  $\bigO{{N}^{-1}}$, for Hanning windowing, to $\bigO{{N}^{-3}}$ or better, for the \gls{LPM}.
 
 
-%TODO: re-use into LPM/LRM sections
 % \paragraph{Formulation of the Linear LS LPM}
 % The \gls{LPM} is formulated as a nonparametric local linear \gls{LS} estimate using the full data record of length $N$ as outlined below \citep{Schoukens2009LPM}.
 % \citet[Section 7.2.2]{Pintelon2012} gives the general formulation of the \gls{LPM} for \gls{MIMO} systems.
@@ -117,11 +107,11 @@ As shown in \citep{Pintelon2012}, the leakage errors are reduced from  $\bigO{{N
 
 % The smooth characteristics of $G_0(\omega_k)$ and $T(\omega_k)$ allow for the use of the Taylor series representations at the frequency lines $k+r$ in a frequency domain window of width $2n+1$, with a remainder $\bigO{\left(\frac{r}{N}\right)^{R+1}}$ of the first order Taylor series expansion \citep{Schoukens2009LPM}, \emph{viz}:
 % \begin{align}\label{lpmGTaylorS}
-% G_0(\Omega_{k+r})&=G_0(\omega_k)+\sum_{p=1}^{R}g_p(k)r^p+
+% G_0(\omega_{k+r})&=G_0(\omega_k)+\sum_{p=1}^{R}g_p(k)r^p+
 % \bigO{\left(\frac{r}{N}\right)^{R+1}},
 % \\
 % \label{lpmTTaylorS}
-% T(\Omega_{k+r})&=T(\omega_k)+\sum_{p=1}^{R}t_p(k)r^p+N^{-1/2}
+% T(\omega_{k+r})&=T(\omega_k)+\sum_{p=1}^{R}t_p(k)r^p+N^{-1/2}
 % \bigO{  \left(\frac{r}{N}\right)^{R+1}  }
 % ,
 % \\
@@ -161,14 +151,14 @@ As shown in \citep{Pintelon2012}, the leakage errors are reduced from  $\bigO{{N
 % The values $R = 2$, and $n=R+1=3$ will be used in the \gls{LPM}.
 In this section, the $\lpm{3,2,2}$ is used.
 
-% When substituted into equations \eqref{lpmGTaylorS} and \eqref{lpmGTMatrix},  these yield the following quadratic local polynomials of $G_0$ and $T$ around a central frequency $\Omega_{k}$:
+% When substituted into equations \eqref{lpmGTaylorS} and \eqref{lpmGTMatrix},  these yield the following quadratic local polynomials of $G_0$ and $T$ around a central frequency $\omega_{k}$:
 % \begin{align}
-% G_0(\Omega_{k+r})
+% G_0(\omega_{k+r})
 %   &\approx 
 %   G_0(\omega_k)+g_1r+g_2r^2
 %   \label{eq:lpm:expansionG:quadratic}
 % \\
-%   T(\Omega_{k+r})
+%   T(\omega_{k+r})
 %     &\approx 
 %     T(\omega_k)+t_1r+t_2r^2
 %     \label{eq:lpm:expansionT:quadratic}
@@ -191,12 +181,12 @@ The estimation of $\hat{G}_{\LPM}(\omega_k)$ at a single frequency $\omega_k = 0
 
    \input{\thisDir/figs/LPMfig.tikz}
    \caption[Illustration of the LPM.]{Illustration of the \gls{LPM}. Top figures: input spectrum (left) and output spectrum (right). 
-   A small band is selected (gray area), in which $\hat G_{\LPM}(\Omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_{\LPM}(\omega_k)$ (white circle) is retained. This procedure is repeated for all frequencies $\omega_k$.}
+   A small band is selected (gray area), in which $\hat G_{\LPM}(\omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_{\LPM}(\omega_k)$ (white circle) is retained. This procedure is repeated for all frequencies $\omega_k$.}
    \label{LPM_Schematic_EG}
 \end{figure}
 This procedure is repeated at each central frequency $\omega_k$ for  $k\in \Set{1,\dots,N/2}$ (i.e. the entire frequency band, including Nyquist, but excluding \gls{DC}, and regularizing at the boundaries). This completes the \gls{LPM}, yielding an intrinsic averaging of the spectra of the estimated \gls{FRF}, $\hat{G}_{\LPM}(\omega_k)$.
 
-\section{Smoothing the \gls{FRF} estimate}
+\subsubsection{Smoothing the \gls{FRF} estimate}
 \label{sec:nparam:trunc:smoothingFRFestimate}
 The method for smoothing (improving) the \gls{LPM} estimate of the frequency response function  is presented in this section together with pertinent assumptions. 
 After obtaining the \gls{LPM} estimate of the \gls{FRF} (denoted as $\hat{G}_{{\LPM}}(\omega_k)$) from \secref{sec:nparam:trunc:LPMFRFest}, the smoothing method is decomposed into the following procedures, which will be elaborated on later:
@@ -277,7 +267,7 @@ To this end, the following procedure is executed:
 \end{align}
 \end{enumerate}
 
-\subsection{Truncation Via the $F$-Test}
+\subsubsection{Truncation Via the $F$-Test}
 \label{sec:nonparametric:truncation:ftest}
 To distinguish the part of the measured impulse response where the actual impulse response dominates from the part where the noise dominates, the estimated impulse response $\hat{g}_{\LPM}$ is split into smaller segments. 
 One can then gradually determine whether these segments are noise or the actual impulse response.
@@ -371,7 +361,7 @@ The figure shows segments of the estimated impulse response. The last two segmen
 \label{fig:nparam:trunc:nonparametric:truncation:Ftest}
 \end{figure}
 
-\subsection{Truncation of the Impulse Response Via Exponential Fitting}
+\subsubsection{Truncation of the Impulse Response Via Exponential Fitting}
 \label{sec:nonparametric:truncation:exponentialfit}
 
 The \gls{FRF} estimate is smoothed by truncating the estimated impulse response function. 
@@ -462,7 +452,7 @@ If the latter is to be estimated with a high accuracy, a value $\gamma \ll 1$ mu
 \item If one is interested in obtaining a smooth initial estimate of the \gls{FRF}, a (small) bias error is acceptable, and choosing $\gamma \approx 1$ was found to be a good rule of thumb.
 \end{itemize}
 
-\subsection{Simulation Results}
+\subsubsection{Simulation Results}
 \label{sec:nparam:trunc:simResults}
 
 \figref{fig:nparam:trunc:LPMvsTRunc} and \figref{fig:nparam:trunc:pdfAndRMSeVStruncTime} compare the \gls{LPM} with and without truncation of the impulse response.
@@ -594,7 +584,7 @@ As illustrated by the presented smoothing operation, it pays off to check typica
 For the truncation approaches, even if the assumptions do not hold, the methods are constructed such that the unavoidable model error is unlikely to increase.
 \end{guideline}
 
-\subsection{Conclusion}
+\subsubsection{Conclusion}
 \label{sec:nparam:trunc:conclusion}
 
 This section introduced a time domain method to smooth the \gls{LPM}-estimate of an \gls{FRF}. 
