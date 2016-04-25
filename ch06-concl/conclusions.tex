@@ -79,7 +79,7 @@
 
 As noted in \remref{rem:initvals:orders:RFIR}, the selection of the model order used in \gls{RFIR} is still an open topic.
 There are a few approaches that we think are worthwhile to investigate.
-On the one hand, the truncation methods explained in \secref{sec:nparam:trunc} could lead to a initial estimate of the impulse response length and hence the required model complexity for \gls{RFIR}.
+On the one hand, the truncation methods explained in \secref{sec:nonparametric:truncation} could lead to a initial estimate of the impulse response length and hence the required model complexity for \gls{RFIR}.
 On the other hand, one could devise crude model order selection procedures, e.g.  estimating \gls{RFIR} models with increasing complexity until increasing the model order offers no improvement in the non-parametric model.
 Alternatively, more flexible model structures (e.g. \gls{RARX}) could be tried.
 This doesn't do away with the model order selection of the initial model, but it will improve the computational efficiency since less parameters are needed to approximate a particular system.

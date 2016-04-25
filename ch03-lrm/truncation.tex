@@ -53,7 +53,7 @@ Details of the theory pertaining to this section may be found in \citet{Schouken
 
 \subsubsection{Spectral Nonparametric Model and Assumptions}
 
-Using convolution, the noiseless output signal in \figref{fig:nparam:trunc:oe} is $y_0(t) = g_0(t)*u_0(t)$, where the signals are sampled at $t = 0, 1, 2,...,N-1$ and the excitation signal $u_0(t)$ is random noise. 
+Using convolution, the noiseless output signal in \figref{fig:nparam:blockH0} is $y_0(t) = g_0(t)*u_0(t)$, where the signals are sampled at $t = 0, 1, 2,...,N-1$ and the excitation signal $u_0(t)$ is random noise. 
 As shown in \citet{Pintelon2012} and \citet{Pintelon1997ARB} the \gls{DFT} spectra of the sampled signals at the frequency $\omega_k$ are related as follows:
 \begin{equation}\label{eq:nparam:trunc:LPM:leakage}
 Y_0(k)=G_0(\omega_k)U_0(k)+T_G(\omega_k)
@@ -66,7 +66,7 @@ X(\omega_k) = \frac{1}{\sqrt{N}}\sum_{t=0}^{N-1}x(t)e^{-\frac{j2\pi kt}{N}}
 \end{equation}
 
 
-The following assumptions are consistent with \citep{Schoukens2009LPM} for an \gls{OE} setup (\figref{fig:nparam:trunc:oe}):
+The following assumptions are consistent with \citep{Schoukens2009LPM} for an \gls{OE} setup (\figref{fig:nparam:blockH0}):
 \begin{assumption}
 The \gls{SISO} system $G_0$ and  the transients leakage spectrum $T_G$ are both smooth functions of the frequency.
 \end{assumption}
@@ -99,7 +99,7 @@ As shown in \citep{Pintelon2012}, the leakage errors are reduced from  $\bigO{{N
 % \citet[Section 7.2.2]{Pintelon2012} gives the general formulation of the \gls{LPM} for \gls{MIMO} systems.
 % The formulation in this section is a summary for a \gls{SISO} system.
 
-% The \gls{DFT} spectra at the output of the \gls{SISO} system in \figref{fig:nparam:trunc:oe} are derived from equations \eqref{eq:nparam:trunc:LPM:TD} and \eqref{eq:nparam:trunc:LPM:leakage}, \emph{viz}:
+% The \gls{DFT} spectra at the output of the \gls{SISO} system in \figref{fig:nparam:blockH0} are derived from equations \eqref{eq:nparam:trunc:LPM:TD} and \eqref{eq:nparam:trunc:LPM:leakage}, \emph{viz}:
 % \begin{equation}\label{lpm1spectra}
 % Y(k)=G_0(\omega_k)U_0(k)+T(\omega_k)+V_0(k)
 % \end{equation}
