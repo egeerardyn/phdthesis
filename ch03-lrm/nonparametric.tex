@@ -192,6 +192,7 @@ Consequently, a necessary condition to compute the model parameters is that
 \begin{equation}
   \DOF = \nWind - \nth
        = 2 \numel{W} - \order{A} - \order{B} - \order{C} - 1
+       \label{eq:nparam:DOF}
 \end{equation}
 is positive.
 To effectively compute the local model parameters, the equation error in \eqref{eq:local-system-equations} is minimized by formulating a quadratic cost function:
@@ -205,6 +206,12 @@ To effectively compute the local model parameters, the equation error in \eqref{
 \end{equation}
 Due to the presence of the denominator of $\LocalModel{G} = \frac{\LocalModel{B}}{\LocalModel{A}}$, the equation error is not linear in the parameters $a_i$ and hence \eqref{eq:costfunc:LRIC} requires starting values and time-consuming iterative optimization schemes to obtain a parameter estimate.
 We denote such a method as $\lric{\numel{W},\order{B},\order{A},\order{C}}$.
+
+Note that the estimated \gls{FRF} is given by evaluating the local model $\LocalModel{G}$:
+\begin{equation}
+  \hat{G}_{\LRIC}(\omega_k) \isdef \LocalModel[k]{G}(d=0)
+  \text{.}
+\end{equation}
 
 \subsection{The Local Rational Method}
 \label{sec:nparam:LRM}
@@ -227,6 +234,7 @@ where $\LocalVector{V}$ is vector consisting of \gls{iid} complex normally distr
 Equivalently, the last equation can be rewritten as a linear regression problem
 \begin{equation}
   \LocalVector{Y} = \LocalMatrix{K} \LocalVector{\theta} + \LocalVector{V}
+  \label{eq:nparam:linearRegression}
 \end{equation}
 where $\LocalMatrix{K}$ is the so-called design matrix (or observation matrix):
 \begin{align}
@@ -276,18 +284,50 @@ where every element corresponds to a value of $d^{n}$ in accordance with $\Local
 
 This formulation facilitates to solve the problem in a one-step approach:
 \begin{equation}
-  \LocalVector{\theta}_{\LRM} 
+  \estimated{\LocalVector{\theta}}_{\LRM} 
     \isdef \pinv{\LocalMatrix{K}} \LocalVector{Y}
     = \KTK{\LocalMatrix{K}} \LocalVector{Y}
     \label{eq:nparam:LRM:normalEquations}
 \end{equation}
 where $\pinv{\LocalMatrix{K}}$ denotes the Moore-Penroose pseudo-inverse of $\LocalMatrix{K}$.
+Furthermore, it is possible to define the relationship between the measured output spectrum $\LocalVector{Y}$ and the periodic output spectrum $\estimated{\LocalVector{Y}}$:
+\begin{equation}
+  \estimated{\LocalVector{Y}} 
+  = \LocalMatrix{K} \LocalVector{\theta}_{\LRM} 
+  = \LocalMatrix{K} \pinv{\LocalMatrix{K}} \LocalVector{Y}
+  = \LocalMatrix{H} \LocalVector{Y}
+\end{equation}
+where $\LocalMatrix{H}$ is sometimes called the `hat' matrix since it projects measurements ($\LocalVector{Y}$) onto the estimates ($\estimated{\LocalVector{Y}}$).
+It should be noted that the hat matrix is idempotent~\citep[Section 2.1.1]{Cook1982}.
 
-\TODO{hier voortschrijven: ruisvariantie berekenen}
+Following the approach in \citet[equation (12) and further]{Pintelon2010LPM1} or \citet[Chapter 2]{Cook1982}, the (ordinary) residuals $\LocalVector{E}$ of the fit are given by
+\begin{equation}
+  \LocalVector{E} = \LocalVector{Y} - \estimated{\LocalVector{Y}}
+  = \LocalVector{Y} - \LocalMatrix{H}\LocalVector{Y}
+  =  \left( \Identity{\nWind} - \LocalMatrix{H} \right) \LocalVector{Y}
+  \text{.}
+\end{equation}
+Substitution of \eqref{eq:nparam:linearRegression} in this equation yields
+\begin{align}
+  \LocalVector{E}  
+  &= (\I - \LocalMatrix{H})(\LocalMatrix{K} \LocalVector{\theta} + \LocalVector{V})\\
+  &= (\I - \LocalMatrix{H}) \LocalVector{V} + (\I - \LocalMatrix{H})\LocalMatrix{K}\LocalVector{\theta}\\
+  &= (\I - \LocalMatrix{H}) \LocalVector{V} + \LocalMatrix{K}\LocalVector{\theta} - \LocalMatrix{K} \pinv{\LocalMatrix{K}} \LocalMatrix{K} \LocalVector{\theta}\\
+   &= (\I - \LocalMatrix{H}) \LocalVector{V}
+\end{align}
+since $\LocalMatrix{K} \pinv{\LocalMatrix{K}} \LocalMatrix{K} = \LocalMatrix{K}$ by construction of the pseudo-inverse~\citep{Penrose1955}.
+This equation relates the residuals $\LocalVector{E}$ to the noise $\LocalVector{V}$, which aids to estimate the noise variance:
+\begin{equation}
+  \estimated{\sigma}^2_{\LocalVector{V}} =
+    \frac{1}{\DOF} 
+     \LocalVector{E}^{\HT} \LocalVector{E}
+\end{equation}
+as elaborated in~\citep[Appendix B]{Pintelon2010LPM1}.
+Note that $\DOF$ indicates the degrees of freedom of the residuals as in \eqref{eq:nparam:DOF} and could also be computed as either the rank or the trace of the idempotent matrix $(\I - \LocalMatrix{H})$.
 
 \begin{remark}
 This system can only be solved reliably if the columns in \eqref{eq:nparam:designMatrix} are linearly independent.
-In practice, this corresponds to the requirements on the input spectrum as stated in \citet{Schoukens2009LPM}: the input spectrum should be sufficiently `rough' to separate the transient contribution.
+In practice, this corresponds to the requirements on the input spectrum as stated in \citet{Schoukens2009LPM}: the input spectrum should be sufficiently `rough' to separate the transient contribution from the contribution $\LocalModel{G} \LocalModel{U}$.
 This can be obtained e.g. using random phase multisines or random input signals.
 \end{remark}
 
@@ -636,10 +676,10 @@ In the simulations, we consider a discrete-time second order system with transfe
                                       {47.9426 z^2 - 51.2955 z + 46.9933}
                                       \text{,}
 \end{equation}
-this is a resonant system with a resonance near $\omega=1\unit{rad/sample}$.
-The system is scaled such that its peak amplitude is $3\unit{dB}$ and the 
+this is a resonant system with a resonance near $\omega=1\unit{rad/sample}$, $\damping=0.05$.
+The system is scaled such that its peak amplitude is $3\unit{dB}$ and hence its $3\unit{dB}$ bandwidth can be read easily from bode plots.
 As indicated in \figref{fig:nparam:blockH0}, the noise filter $\true{H}' = 1$ is used such that white noise is disturbing the output.
-The gain of this filter is adapted such that the \gls{SNR} in the $3\unit{dB}$ bandwidth of the system, i.e.
+The gain $\kappa$ of this filter is adapted such that the \gls{SNR} in the $3\unit{dB}$ bandwidth of the system, i.e.
 \begin{equation}
   \SNR_{\BW} \isdef
   \frac{\int\limits_{\BW} \powerspec{\true{Y}}(\omega) \dd\omega}
@@ -647,7 +687,9 @@ The gain of this filter is adapted such that the \gls{SNR} in the $3\unit{dB}$ b
   % \frac{\int_{\BW} \abs{\true{Y}(\omega)}^2 \dd{\omega}}
   %           {\int_{\BW} \abs{V(\omega)}^2 \dd{\omega}}
 \end{equation}
-where $\powerspec{\bullet}$ denotes the \gls{PSD} of $\bullet$ and $\BW$ is the $3 \unit{dB}$ bandwidth of the system, is fixed to $\set{10, 20, 40, 60, \infty} \unit{dB}$ 
+where $\powerspec{\bullet}$ denotes the \gls{PSD} of $\bullet$ and $\BW$ is the $3 \unit{dB}$ bandwidth of the system, is fixed to \[
+\SNR_{\BW} \in \set{10, 20, 40, 60, \infty} \unit{dB}\text{.}
+\]
 
 \begin{figure}
  \centering
@@ -714,7 +756,7 @@ For $\nMC=\num{2000}$, this means that we can detect the bias only when it is at
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR40-NBW64and8.tikz}
-  \caption[Bias, variance for $\nBW\in{8,64}$ at $\SNR=40\unit{dB}$]{The bias, variance and \gls{RMS} error of the different estimators is shown for $\SNR= 40 \unit{dB}$ and $\nBW \in \set{8,64}$ samples in the $3 \unit{dB}$ bandwidth of the system.}
+  \caption[Bias, variance for $\nBW\in{8,64}$ at $\SNR=40\unit{dB}$]{The bias, variance and \gls{RMS} error of the different estimators is shown for $\SNR= 40 \unit{dB}$ and $\nBW \in \set{8,64}$ samples in the $3 \unit{dB}$ bandwidth of the system which has been highlighted.}
   \label{fig:nparam:mc:singleTuple}
 \end{figure}
 
@@ -949,8 +991,6 @@ In particular, when there is a large difference between the residuals and the \g
   \caption[Output spectrum for local modeling, together the PRESS statistic]{It is convenient to compare the variance of the residuals and the \glsentrytext{PRESS} statistic to select a good local model.}
   \label{fig:nparam:PRESS}
 \end{figure}
-
-\TODO{discuss experiment + figure about PRESS}
 
 \subsection{LPM with impulse response truncation}
 \input{\thisDir/truncation.tex}

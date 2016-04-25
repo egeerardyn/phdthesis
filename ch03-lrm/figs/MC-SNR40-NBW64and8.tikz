@@ -31,14 +31,20 @@ xtick scale label code/.code={},
 
 \nextgroupplot[title={$\nBW = 8$},xmin=0.1543755,xmax=0.1639245]
 
-\addplot [black,dashdotted,line width=1.5pt]
-  table[]{\thisDir/data/MC-SNR40-NBW8/H0.tsv};
-% \addlegendentry{$\true{H}$};
-\label{leg:nparam:trueH}
-\addplot [black,line width=2.0pt]
-  table[]{\thisDir/data/MC-SNR40-NBW8/G0.tsv};
+
+\addplot [black,line width=2.0pt,name path=G01] table[]{\thisDir/data/MC-SNR40-NBW8/G0.tsv};
 % \addlegendentry{$\true{G}$};
 \label{leg:nparam:trueG}
+
+\path[name path=bottom1] (rel axis cs:0,0) -- (rel axis cs:1,0);
+
+\addplot[bw,forget plot] fill between[of=G01 and bottom1,soft clip={domain=0.157555466719968:0.160703577853288}];
+
+\addplot [black,dashdotted,line width=1.5pt] table[]{\thisDir/data/MC-SNR40-NBW8/H0.tsv};
+% \addlegendentry{$\true{H}$};
+\label{leg:nparam:trueH}
+
+
 
 \addplot [mcrmse,lrm7222,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/LRM7222-rmse.tsv};
@@ -96,6 +102,9 @@ xtick scale label code/.code={},
 \addplot [lric7222,mcvar,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/LRIC7222-std.tsv};
 
+\node at (axis cs:0.1635,-3) {$\true{G}$};
+\node at (axis cs:0.1635,-35) {$\true{H}$};
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \nextgroupplot[title={$\nBW = 64$},xmax=0.16120327803318,xmin=0.157055766540076,legend style={at={(0.5,0.95)},anchor=north,legend cell align=left,align=left}]
@@ -103,8 +112,12 @@ xtick scale label code/.code={},
 % \node[annotation] at (rel axis cs:1,1) {$\nBW = 8$};
 \addplot [black,dashdotted,line width=1.5pt,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW64/H0.tsv};
-\addplot [black,line width=2.0pt,forget plot]
+\addplot [black,line width=2.0pt,forget plot,name path=G02]
   table[]{\thisDir/data/MC-SNR40-NBW64/G0.tsv};
+
+\path[name path=bottom2] (rel axis cs:0,0) -- (rel axis cs:1,0);
+
+\addplot[bw,forget plot] fill between[of=G02 and bottom2,soft clip={domain=0.157555466719968:0.160703577853288}];
 
 \addplot [lrm7222,mcrmse,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW64/LRM7222-rmse.tsv};

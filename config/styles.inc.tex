@@ -3,7 +3,7 @@
 % http://tex.stackexchange.com/questions/287975/pgfplots-layer-issue
 \pgfplotsset{
 /pgfplots/layers/mylayer/.define layer set=
-{axis background,axis grid,main,axis ticks,axis lines,axis tick labels,axis descriptions,axis foreground}
+{axis background,axis grid,pre main,main,axis ticks,axis lines,axis tick labels,axis descriptions,axis foreground}
 {/pgfplots/layers/standard}
 }
 \pgfplotsset{/dummy/workaround/.style={/pgfplots/axis on top}}

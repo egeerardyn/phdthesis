@@ -431,13 +431,13 @@
 \newcommand{\circledNum}[1]{\ding{\numexpr201 + #1}}
 
 %% Hinf stuff
-\newcommand{\HardySpace}[1][]    {\texorpdfstring{\ensuremath{\mathcal{H}_{#1}}}{H#1}}
+\newcommand{\HardySpace}[1][]    {\ensuremath{\mathcal{H}_{#1}}}
 \newcommand{\LebesgueSpace}[1][] {\ensuremath{\mathcal{L}_{#1}}}
 
 \newcommand{\RealRational}{\ensuremath{\mathcal{R}}}
 
 \renewcommand{\Hinf}{\texorpdfstring{\HardySpace[\infty]}{Hinf}}
-\renewcommand{\Hinf}{\ensuremath{\mathcal{H}_{\infty}}}
+% \renewcommand{\Hinf}{\ensuremath{\mathcal{H}_{\infty}}}
 \newcommand{\RHinf}{\RealRational\Hinf}
 
 \newcommand{\worstCase}[1]             {\ensuremath{{#1_{\text{wc}}}}}
