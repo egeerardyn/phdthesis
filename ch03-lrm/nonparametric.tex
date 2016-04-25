@@ -469,7 +469,7 @@ To facilitate the derivations, we rewrite the expected value of the cost functio
     \\             
     \ELSCost[n]{\theta,\conj{\theta}} & =
               \frac{\sigma_V^2}{\nWind} 
-                     \sum_{r} 
+                     \sum_{\delta} 
                                \LocalModel{A}(      \dW,        \LocalVector{\theta} ) 
                                \LocalModel{A}(\conj{\dW}, \conj{\LocalVector{\theta}}) 
 \end{align}
@@ -690,6 +690,7 @@ The gain $\kappa$ of this filter is adapted such that the \gls{SNR} in the $3\un
 where $\powerspec{\bullet}$ denotes the \gls{PSD} of $\bullet$ and $\BW$ is the $3 \unit{dB}$ bandwidth of the system, is fixed to \[
 \SNR_{\BW} \in \set{10, 20, 40, 60, \infty} \unit{dB}\text{.}
 \]
+This ensures that the excited bins in the $3\unit{dB}$ bandwidth of the system each receive a pre-defined \gls{SNR}.
 
 \begin{figure}
  \centering
@@ -707,13 +708,13 @@ This means that the obtained results generalize to systems with a different rela
 
 The \gls{FRF} is estimated using the local modeling approaches indicated in \tabref{tbl:nparam:methods}.
 
-\begin{figure}
-  \centering
-  \setlength{\figurewidth}{0.85\columnwidth}
-  \setlength{\figureheight}{0.62\figurewidth}
-  \TODOtikzfig[figure with G and errors for 1 simulation]
-  \caption[Estimated FRF using local modeling]{The figure shows the \gls{FRF} of a single simulation for $\SNR= 40 \unit{dB}$ and $\nBW =  64$, together the the error ($\model{\bullet} - \true{G}$) for the different methods. The $3\unit{dB}$ bandwidth of the system is highlighted.}
-\end{figure}
+% \begin{figure}
+%   \centering
+%   \setlength{\figurewidth}{0.85\columnwidth}
+%   \setlength{\figureheight}{0.62\figurewidth}
+%   \TODOtikzfig[figure with G and errors for 1 simulation]
+%   \caption[Estimated FRF using local modeling]{The figure shows the \gls{FRF} of a single simulation for $\SNR= 40 \unit{dB}$ and $\nBW =  64$, together the the error ($\model{\bullet} - \true{G}$) for the different methods. The $3\unit{dB}$ bandwidth of the system is highlighted.}
+% \end{figure}
 
 We then compute basic statistics of the estimated \glspl{FRF} $\model[\atSimulation{i}]{\bullet}$ over $\nMC=\num{2000}$ Monte Carlo runs of the simulations above.
 Specifically, the following values
@@ -736,8 +737,8 @@ Specifically, the following values
     \isdef
     \frac{1}{\nMC - 1}
     \sum_{i=1}^{\nMC}
-                   \left({\model[\atSimulation{i}]{\bullet}}(\omega_k) - \true{G}(\omega_k) \right)
-    \conj { \left({\model[\atSimulation{i}]{\bullet}}(\omega_k) - \true{G}(\omega_k) \right) }
+                   \left({\model[\atSimulation{i}]{\bullet}}(\omega_k) - \sampleMean{\bullet}(\omega_k) \right)
+    \conj { \left({\model[\atSimulation{i}]{\bullet}}(\omega_k) - \sampleMean{\bullet}(\omega_k) \right) }
     \\
     \RMSE_{\bullet}(\omega_k) & \isdef \sqrt{\sampleVariance{\bullet}(\omega_k) + \sampleBias{\bullet}^{2}(\omega_k)}
 \end{align}
@@ -756,7 +757,7 @@ For $\nMC=\num{2000}$, this means that we can detect the bias only when it is at
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR40-NBW64and8.tikz}
-  \caption[Bias, variance for $\nBW\in{8,64}$ at $\SNR=40\unit{dB}$]{The bias, variance and \gls{RMS} error of the different estimators is shown for $\SNR= 40 \unit{dB}$ and $\nBW \in \set{8,64}$ samples in the $3 \unit{dB}$ bandwidth of the system which has been highlighted.}
+  \caption[Bias, variance for $\nBW\in{8,64}$ at $\SNR=40\unit{dB}$]{The bias, variance and \gls{RMS} error of the different estimators is shown for $\SNR= 40 \unit{dB}$ and $\nBW \in \set{8,64}$ samples in the $3 \unit{dB}$ bandwidth of the system (as highlighted).}
   \label{fig:nparam:mc:singleTuple}
 \end{figure}
 
@@ -857,8 +858,14 @@ For the more noisy situation where $\SNR = 40 \unit{dB}$ (\figref{fig:nparam:com
 \paragraph{Poor signal-to-noise ratios}
 In \figref{fig:nparam:comparison:lowSNR} and \figref{fig:nparam:comparison:terribleSNR}, the results are shown for $\SNR=20\unit{dB}$ and $\SNR=10\unit{dB}$ respectively.
 Again, it can be seen that \gls{LRIC} is plagued by high variance and is hence not directly usable.
-The
+At $\SNR=20\unit{dB}$ the \gls{LPM} and the \gls{LRM} is significantly biased for small datasets ($\nBW < 6$), however, the \gls{LRM} still perform better than the \gls{LPM}.
+For larger datasets ($\nBW \geq 16$), all methods perform similarly and at a nearly constant level of (variance) error.
+The \gls{LRM}, in contrast to the \gls{LPM}, still contains an observable bias in the simulations.
+At even lower $\SNR=10\unit{dB}$,  most methods perform quite poorly for short datasets ($\nBW < 6$).
+However, here it can be seen that the $\lpm{7,4,4}$ outperforms both the $\lrm{7,1,1,1}$ and $\lrm{7,2,2,2}$ and slightly worse than $\lrm{6,2,2,2}$.
+It can be seen that the bias error of the \gls{LPM} drops off more quickly ($\bigO{\nBW^{-3}}$) than the \gls{LRM} bias which drops in approximately $\bigO{\nBW^{-1}}$.
 
+ 
 \begin{figure}[phtb]
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
@@ -981,16 +988,16 @@ where $\LocalVector{E}$ is the residual vector of the full estimation and $\Loca
 $\LocalVector{H} = \LocalMatrix{K} \pinv{\LocalMatrix{K}}$ is the so-called `hat-matrix' that is known to be idempotent.
 
 Note that since the \gls{PRESS} can be interpreted similar to the residuals, this forms a convenient metric to select models on.
-In particular, when there is a large difference between the residuals and the \gls{PRESS}, this indicates that a poor model has been selected.
+In particular, when there is a large difference between the level of the residuals and the \gls{PRESS}, this indicates that a poor model has been selected.
 
-\begin{figure}
-  \centering
-  \setlength{\figurewidth}{0.85\columnwidth}
-  \setlength{\figureheight}{0.62\figurewidth}
-  \TODOtikzfig[PRESS and noise for single simulation]
-  \caption[Output spectrum for local modeling, together the PRESS statistic]{It is convenient to compare the variance of the residuals and the \glsentrytext{PRESS} statistic to select a good local model.}
-  \label{fig:nparam:PRESS}
-\end{figure}
+% \begin{figure}
+%   \centering
+%   \setlength{\figurewidth}{0.85\columnwidth}
+%   \setlength{\figureheight}{0.62\figurewidth}
+%   \TODOtikzfig[PRESS and noise for single simulation]
+%   \caption[Output spectrum for local modeling, together the PRESS statistic]{It is convenient to compare the variance of the residuals and the \glsentrytext{PRESS} statistic to select a good local model.}
+%   \label{fig:nparam:PRESS}
+% \end{figure}
 
 \subsection{LPM with impulse response truncation}
 \input{\thisDir/truncation.tex}
