@@ -9,17 +9,17 @@
   Particularly, the proposed multisine signals employ a quasi-logarithmic frequency grid and a power spectrum in $1/f$ akin to pink noise to ensure a good quality of the \gls{FRF} over the whole excited frequency band.
   As such, they are more robust excitation signal than e.g. typical general-use signals such as linear grid multisines or white noise excitation with the same total signal power and duration.
   In this thesis it has been proven that when the user has prior knowledge about the expected minimal damping $\damping[\min]$ of the poles present in the system, this sets the required logarithmic frequency grid spacing to attain a guaranteed relative uncertainty of the identified \gls{FRF} near the resonance peaks.
-  Concretely, the grid spacing $\alpha \isdef \frac{f_{k+1}}{f_k}$ of the (quasi-)logarithmic grid should conform to
+  Concretely, the grid spacing $\alpha \isdef \frac{f_{k+1}}{f_k}$ of the (quasi-)logarithmic grid with frequency resolution $\Delta f$ should conform to
   \begin{equation}
     \alpha \leq 1 + \damping[\min]
   \end{equation}
   to attain a reliable estimate of the resonances present in the system.
-  The choice to use the equality $\alpha = 1+ \damping[\min]$ is the optimal choice within the framework presented in \chapref{sec:excitation}. 
+  The choice to use the equality $\alpha = 1+ \damping[\min]$ is the optimal choice within the framework presented in \chapref{sec:excitation} such that resonances with $\damping \geq \damping[\min]$ and $\wn \geq \omegaLinLog = \frac{2 \pi \Delta f}{\alpha-1} = \frac{2 \pi \Delta f}{\damping[\min]}$ are well-represented in the \gls{FRF}.
   Decreasing $ \alpha$ further comes at the cost of more excited frequency bins and consequently a lower power per bin, or, a reduced \gls{SNR} per bin if the overall signal power is limited.
 
-  In practical terms of a layman user, this means that the design of a quasi-logarithmic multisines discussed in this thesis, requires only limited prior knowledge from the user:
+  In practical terms of a layman user, this means that the design of a quasi-logarithmic multisines--- as discussed in this thesis--- requires only limited prior knowledge:
   \begin{itemize}
-    \item the allowable measurement time (or equivalently, the minimal relevant frequency),
+    \item the available measurement time (or equivalently, the minimal relevant frequency $\omegaLinLog$),
     \item the allowable total excitation power,
     \item a broad frequency band of interest that could span multiple decades, and,\
     \item the minimal expected relative damping $\damping[\min]$ in the system,
@@ -27,8 +27,13 @@
   \end{itemize}
 
   \subsection{Non-parametric estimation}
-  \subsection{Initialization of parametric estimation}
 
+  \subsection{Initialization of parametric estimation}
+  To obtain a parametric model estimate from measured data often requires solving a non-convex optimization problem.
+  However, for such optimization problems, often an initial parameter estimate is required to allow convergence to the global optimum, or a local optimum nearby.
+  In this thesis, it was investigated whether convergence to a good optimum can be attained more easily by means of \gls{FRF} smoothers, in particular for cases where a low \gls{SNR} is available yet a lot of measurements are available.
+  A few practical smoothers have been studied, i.e. the time-truncated \gls{LPM} and \gls{RFIR}.
+  It has been shown that especially the \gls{RFIR} provides smoothed \glspl{FRF} that aid in convergence to a good optimum than the existing state-of-the-art initializers (\gls{BTLS} and \gls{GTLS}).
 
 \section{Future perspectives}
   \subsection{Excitation design}
@@ -40,18 +45,16 @@
     \item Orthogonal multisines, which are computationally more involved to process, require multiple experiments but allow for finer frequency resolution.
   \end{itemize}
   Due to the intrinsic sparsity of quasi-logarithmic grids, however, zippered quasi-logarithmic multisines might offer an easy and elegant  approach to measure \gls{MIMO} systems with a moderate number of inputs.
-  %TODO: for ny x nu MIMO system, alpha_MIMO = 1 + alpha_SISO/nu to satisfy the density of frequency lines. This means: lowest guaranteed observable resonance is at higher frequencies than for SISO (obviously).
 
   Also, in the related chapter, it has been assumed that the system is an \gls{LTI} system.
   For weakly nonlinear systems, the proposed approach is likely to yield approximately valid results.
 
   \subsection{Non-parametric estimators}
-    \TODO{Order selection / BW selection}
-    \TODO{MIMO LRM}
     The \gls{LRM} has only been explored for \gls{SISO} systems in this thesis.
-    This technique can obviously be extended towards \gls{MIMO} systems, e.g. as the work by \citet{vanRietschoten2015MSc}.
+    This technique can obviously be extended towards \gls{MIMO} systems, e.g. as the work by \citet{vanRietschoten2015MSc} has shown.
     As explored there, the choice of parametrization remains an open question for the \gls{MIMO} case.
     Also, unlike the \gls{SISO} case, it becomes more important and tedious to select good local models since the dimensionality of the local estimation problem grows with the system dimensions.
+    Extension to the \gls{MIMO} case, moreover, may directly lead to an approach that is able to deal with concatenated data records similarly to what the \gls{LPM} is able to provide.
 
     As the non-parametric methods such as \gls{LPM} and \gls{LRM} were originally intended to serve the same purpose as windows in classical spectral analysis, this naturally leads to other applications of these methods where windows are otherwise used to reduce the effect of spectral leakage.
 
@@ -62,8 +65,26 @@
     Given these successes of \gls{LRM} to estimate a preliminary model of both parameter-varying and time-varying models in more complicated experimental settings.
     E.g. it could prove useful to extend the \gls{LRM} towards measurements of \gls{LPV} systems where the scheduling parameter is allowed to vary continuously during the experiment.
 
+    Another application where the \gls{LPM} is more developed is the handling of missing data~\citep{Ugryumova2015}.
+    In particular, the frequency domain relationship between the input $U$ and output $Y$ is augmented by a term $M_Y$ that accounts for the missing output data samples:
+    \begin{equation}
+      Y(\omega_k) = G(\omega_k) U(\omega_k) + T(\omega_k) + M_Y(\omega_k) + \mathrm{noise}\text{,}
+    \end{equation}
+    since $G(\omega_k)$ is captured by local polynomials, this allows to construct a design matrix as discussed in \chapref{sec:nonparametric} which only depends on $U$ and the time instances where the data is missing.
+    For the \gls{LRM}, on the other hand, the design matrix depends on the output $Y$ which is not known.
+    Consequently, extending the \gls{LRM} to handle missing data is non-trivial.
+
+    Finally, a comparison between different approaches for non-parametric modeling~\citep{Hagg2012,Stenman2001ASFRF,Gevers2011lpm} could be made.
+    This could be done from a theoretical point of view to find correspondences between different approaches (e.g. \citep{Hagg2012} reduces to \gls{ETFE} as does the \gls{LRM} for specific settings) and from a qualitative point of view to find the best operating regions of each approach.
+    Eventually, this could even lead to hybrid methods that either select the best method for a specific setting or use results from different methods to overcome weaknesses of individual methods such as high computational complexity, high bias, high variance, \ldots
+    Especially in the view of \gls{LRM} as a form of local regression~\citep{Loader1999}, it could be worthwhile to also investigate suitable (frequency-domain) kernels instead of the uniform kernel that is implicitly used in the \gls{LRM}.
+
   \subsection{Non-parametric estimation and interpolation}
-  \TODO{Link between local models and weighting function design}
+  As with the regular \gls{LRM}, a major objective for future research is to extend the estimation approach of the $\Hinf{}$ gain towards the \gls{MIMO} case.
+  In that context, the design of weighting filter also becomes even more important~\citep{Boeren2013}.
+  Hence, the link between local models and the design of weighting filters and parametric overbounds needs to be made more explicit and verified experimentally.
+
+  Another possibility for future research is approach the problem of $\Hinf$ gain estimation purely form the aspect of local regression such that combining multiple models is no longer necessary.
 
   \subsection{Parametric initialization}
   In \chapref{sec:initvals} it was already illustrated that smoother can provide improved initial estimates of a system. 
