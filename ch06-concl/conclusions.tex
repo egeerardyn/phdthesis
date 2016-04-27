@@ -32,6 +32,16 @@
   For resonant systems, the \gls{LRM} is superior to the \gls{LPM} in terms of both bias and \gls{RMS} error in almost all cases.
   The \gls{LPM} is slightly superior for very noisy datasets ($\SNR < 20 \unit{dB}$) that have a very limited frequency resolution.
 
+  In addition, an approach has been developed that allows to reduce the variance of the estimated \gls{FRF} when it is captured in a long data record.
+  This method works by examining the estimated impulse response, i.e. the inverse \gls{DFT} of the \gls{FRF}, and estimating a truncation time $\truncTime$ beyond which the impulse response is overwhelmed by the noise.
+  By truncating past this point and transforming the result back into the frequency domain, an \gls{FRF} is obtained that has a reduced \gls{RMS} error by reducing the variance due to the noise.
+  Two complementary approaches to determine $\truncTime$ have been developed.
+  Both methods estimate the noise level on the impulse response by assuming the last $10\%$ of the samples are only noise.
+  The first method exploits the fact that many physical systems exhibit an exponential decay.
+  This exponential decay is estimated roughly, such that the truncation point is determined as the instant where decay is below the noise level.
+  The second method divides the impulse response into segments.
+  Starting from the last segment, it is tested statistically whether the preceding segment is significantly different from the noise, such that $\truncTime$ is estimated.
+
   It has also been illustrated that the use of such local models allows to extract the resonance peak and thereby the $\Hinf$ gain of a system.
   In that setting, the \gls{LPM} is not reliable due to its limited model flexibility.
   The \gls{LRM}, on the other hand, has been shown to be yield estimates of the $\Hinf$ gain that improved greatly compared to pure \gls{FRF} measurements.
