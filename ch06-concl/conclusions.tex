@@ -2,8 +2,6 @@
 \myEpigraph{Life can only be understood backwards; but it must be lived forwards.}{Søren Kierkegaard}{}
 \tikzsetfigurename{ch06fig}
 
-\section{Conclusions of this research}
-
   \subsection{Excitation design}
   In this thesis, multisine signals are proposed to measure \gls{SISO} systems within an \gls{LTI} framework.
   Particularly, the proposed multisine signals employ a quasi-logarithmic frequency grid and a power spectrum in $1/f$ akin to pink noise to ensure a good quality of the \gls{FRF} over the whole excited frequency band.
@@ -35,8 +33,8 @@
   A few practical smoothers have been studied, i.e. the time-truncated \gls{LPM} and \gls{RFIR}.
   It has been shown that especially the \gls{RFIR} provides smoothed \glspl{FRF} that aid in convergence to a good optimum than the existing state-of-the-art initializers (\gls{BTLS} and \gls{GTLS}).
 
-\section{Future perspectives}
-  \subsection{Excitation design}
+\section{Future Perspectives}
+  \subsection{Excitation Design}
   In this thesis, quasi-logarithmic multisines were proposed as a robust excitation signal that provide efficient estimation of sharp resonance peaks in the \gls{SISO} case.
   Obviously, a first important extension of this research is towards the \gls{MIMO} case which is more involved.
   To measure \gls{MIMO} systems using multisines, one of two typical approaches is often followed when measuring all channels at the same time~\citep[Section 2.7]{Pintelon2012}:
@@ -49,12 +47,33 @@
   Also, in the related chapter, it has been assumed that the system is an \gls{LTI} system.
   For weakly nonlinear systems, the proposed approach is likely to yield approximately valid results.
 
-  \subsection{Non-parametric estimators}
+  \subsection{Non-parametric Estimators}
     The \gls{LRM} has only been explored for \gls{SISO} systems in this thesis.
     This technique can obviously be extended towards \gls{MIMO} systems, e.g. as the work by \citet{vanRietschoten2015MSc} has shown.
     As explored there, the choice of parametrization remains an open question for the \gls{MIMO} case.
     Also, unlike the \gls{SISO} case, it becomes more important and tedious to select good local models since the dimensionality of the local estimation problem grows with the system dimensions.
     Extension to the \gls{MIMO} case, moreover, may directly lead to an approach that is able to deal with concatenated data records similarly to what the \gls{LPM} is able to provide.
+
+    As has been seen in \chapref{sec:nonparametric}, the \gls{LRIC} is affected by a high variance.
+    This is due to pole-zero cancellations that arise when the local bandwidth does not contain data that is informative enough to estimate models of the required complexity.
+    As such, future research needs to be undertaken to overcome such hurdles, by means of model order selection or reduction of those local models.
+    If these hurdles can be overcome, the bias of local modeling can be reduced significantly.
+    This is important for short datasets with very noisy data.
+
+    Specifically for the \gls{LRM}, currently a model structure that is equivalent to rational forms in continuous time, i.e. the (local) transfer function model is isomorphic with
+    \begin{equation}
+      \LocalModel[\CT]{G}(\dW) 
+      = \frac{\LocalModel{B}(\dW)}{\LocalModel{A}(\dW)}
+      = \frac{\Sum_i  b_i \dW^{i}}{\Sum_i  a_i \dW^{i}}
+    \end{equation}
+    There have already been some experiments with other model structures such as local discrete time models where
+    \begin{equation}
+      \LocalModel[\DT]{G}(\dW) 
+      = \frac{\LocalModel{B}(\dW)}{\LocalModel{A}(\dW)}
+      = \frac{\Sum_i  b_i \exp ji\dW\Ts)}{\Sum_i  a_i \exp ji\dW\Ts }
+    \end{equation}
+    but these have proven more difficult to estimate numerically and hence unreliable.
+    A possible approach for this would be to use orthogonal polynomials~\citep{Forsythe1957,Bultheel2005} for complex coefficients.
 
     As the non-parametric methods such as \gls{LPM} and \gls{LRM} were originally intended to serve the same purpose as windows in classical spectral analysis, this naturally leads to other applications of these methods where windows are otherwise used to reduce the effect of spectral leakage.
 
@@ -70,23 +89,23 @@
     \begin{equation}
       Y(\omega_k) = G(\omega_k) U(\omega_k) + T(\omega_k) + M_Y(\omega_k) + \mathrm{noise}\text{,}
     \end{equation}
-    since $G(\omega_k)$ is captured by local polynomials, this allows to construct a design matrix as discussed in \chapref{sec:nonparametric} which only depends on $U$ and the time instances where the data is missing.
+    since $G(\omega_k)$ is captured by local polynomials, this allows to construct a design matrix as discussed in \chapref{sec:nonparametric} which only depends on $U$ and the time instances where the data $y(t)$ is missing.
     For the \gls{LRM}, on the other hand, the design matrix depends on the output $Y$ which is not known.
-    Consequently, extending the \gls{LRM} to handle missing data is non-trivial.
+    Consequently, extending the \gls{LRM} to handle missing data is non-trivial and could be an interesting topic for further research.
 
     Finally, a comparison between different approaches for non-parametric modeling~\citep{Hagg2012,Stenman2001ASFRF,Gevers2011lpm} could be made.
     This could be done from a theoretical point of view to find correspondences between different approaches (e.g. \citep{Hagg2012} reduces to \gls{ETFE} as does the \gls{LRM} for specific settings) and from a qualitative point of view to find the best operating regions of each approach.
     Eventually, this could even lead to hybrid methods that either select the best method for a specific setting or use results from different methods to overcome weaknesses of individual methods such as high computational complexity, high bias, high variance, \ldots
     Especially in the view of \gls{LRM} as a form of local regression~\citep{Loader1999}, it could be worthwhile to also investigate suitable (frequency-domain) kernels instead of the uniform kernel that is implicitly used in the \gls{LRM}.
 
-  \subsection{Non-parametric estimation and interpolation}
+  \subsection{Non-parametric Estimation and Interpolation}
   As with the regular \gls{LRM}, a major objective for future research is to extend the estimation approach of the $\Hinf{}$ gain towards the \gls{MIMO} case.
   In that context, the design of weighting filter also becomes even more important~\citep{Boeren2013}.
   Hence, the link between local models and the design of weighting filters and parametric overbounds needs to be made more explicit and verified experimentally.
 
   Another possibility for future research is approach the problem of $\Hinf$ gain estimation purely form the aspect of local regression such that combining multiple models is no longer necessary.
 
-  \subsection{Parametric initialization}
+  \subsection{Construction of Initial Values}
   In \chapref{sec:initvals} it was already illustrated that smoother can provide improved initial estimates of a system. 
   Intrinsically, this stems from the fact that the effective \gls{SNR} of the transfer function is improved by means of the smoothness assumption and, on the other hand by the reduction in the the dimensionality in the parameter space.
   By no means were the  smoothers studied in \chapref{sec:initvals} chosen in an optimal way, such that it remains an open topic to determine which smoother has the best chance to produce good initial values in practical settings.

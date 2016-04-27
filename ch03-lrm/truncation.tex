@@ -178,7 +178,6 @@ The estimation of $\hat{G}_{\LPM}(\omega_k)$ at a single frequency $\omega_k = 0
    \centering
    \setlength{\figurewidth}{0.8\columnwidth}
    \setlength{\figureheight}{0.68\figurewidth}
-
    \input{\thisDir/figs/LPMfig.tikz}
    \caption[Illustration of the LPM.]{Illustration of the \gls{LPM}. Top figures: input spectrum (left) and output spectrum (right). 
    A small band is selected (gray area), in which $\hat G_{\LPM}(\omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_{\LPM}(\omega_k)$ (white circle) is retained. This procedure is repeated for all frequencies $\omega_k$.}
@@ -340,16 +339,15 @@ The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,
   To start this refinement, the last $\segm{\hat{g}}{\starred{i}}$ should be used to compare the RMS with the $F$-test, since the last subsegment of $\segm{\hat{g}}{\starred{i}-1}$ cannot be asserted to be dominated by noise.
 
 \end{enumerate}
-This procedure is illustrated in \figref{fig:nparam:trunc:nonparametric:truncation:Ftest} for the system described by the following simulation equations, which are relevant to the LPM outlined in Section \ref{sec:nparam:trunc:LPMFRFest}:
+This procedure is illustrated in \figref{fig:nparam:trunc:nonparametric:truncation:Ftest} for the system described by the following equations, which are relevant to the \gls{LPM} outlined in \secref{sec:nparam:trunc:LPMFRFest}:
 \begin{subequations}
-\label{eq:systemSimulations}
+\label{eq:trunc:systemODEs}
 \begin{align}
 y_0(t)  &= 1.5371y_0(t-1)    -0.9025y_0(t-2) + u(t)\\
 y(t)       &= y_0(t) + e(t),
 \end{align}
 \end{subequations}
-where $e(t)$ is a white noise sequence, such that the SNR of the output signal is 78.2~dB.
-% \eqref{eq:systemSimulations}. 
+where $e(t)$ is a white noise sequence, such that the SNR of the output signal is $78.2\unit{dB}$.
 The figure shows segments of the estimated impulse response. The last two segments are dominated by the noise, while all samples at $t<80$ have large system contributions. The algorithm outlined above selects $\truncTime = 80$, beyond which all samples are set to zero, resulting in a smoothed \gls{FRF} estimate. 
 
 \begin{figure}[tbh]
@@ -457,16 +455,7 @@ If the latter is to be estimated with a high accuracy, a value $\gamma \ll 1$ mu
 
 \figref{fig:nparam:trunc:LPMvsTRunc} and \figref{fig:nparam:trunc:pdfAndRMSeVStruncTime} compare the \gls{LPM} with and without truncation of the impulse response.
 Here, the truncation instant $\truncTime$ is determined using the exponential fitting method.
-They were obtained from simulations on  the system described by the following simulation equations, which are relevant to the \gls{LPM} outlined in \secref{sec:nparam:trunc:LPMFRFest}:
-\begin{subequations}
-\label{eq:systemSimulations}
-\begin{align}
-y_0(t)  &= 1.5371y_0(t-1)    -0.9025y_0(t-2) + u(t)
-\\
-y(t) &= y_0(t) + e(t),
-\end{align}
-\end{subequations}
-where $e(t)$ is a white noise sequence, such that the \gls{SNR} of the output signal is $18.3\unit{dB}$.
+They were obtained from simulations on the system in \eqref{eq:trunc:systemODEs} where the noise variance was set such that the \gls{SNR} of the output signal is $18.3\unit{dB}$.
 
 \begin{figure}
     \centering
