@@ -25,6 +25,20 @@
   \end{itemize}
 
   \subsection{Non-parametric estimation}
+  Different non-parametric estimators, specifically from the family of local estimators, i. e. \gls{LRIC}, \gls{LRM} and \gls{LPM} are compared in this work.
+  It has been shown that the most general \gls{LRIC} is very sensitive to the use of the `correct' local model order.
+  The pre-existing \gls{LRM} and \gls{LPM}, however, are not as sensitive.
+  It has been shown that the inherent bias of the \gls{LRM} becomes the dominant source of errors, in contrast to the variance, when an \gls{SNR} of less than $20\unit{dB}$ is available in the frequency bands of interest.
+  For resonant systems, the \gls{LRM} is superior to the \gls{LPM} in terms of both bias and \gls{RMS} error in almost all cases.
+  The \gls{LPM} is slightly superior for very noisy datasets ($\SNR < 20 \unit{dB}$) that have a very limited frequency resolution.
+
+  It has also been illustrated that the use of such local models allows to extract the resonance peak and thereby the $\Hinf$ gain of a system.
+  In that setting, the \gls{LPM} is not reliable due to its limited model flexibility.
+  The \gls{LRM}, on the other hand, has been shown to be yield estimates of the $\Hinf$ gain that improved greatly compared to pure \gls{FRF} measurements.
+  For systems that consist of complex dynamic behavior, this allows one to extract reasonable peak values without the hassle of building a global parametric model.
+  The use of such local models, in practice, has been validated and can provide good estimates using a dataset that is four times smaller than what would be required for other \gls{FRF}-based methods.
+  As such, the measurement time (and hence cost) can also be reduced by the same amount.
+
 
   \subsection{Initialization of parametric estimation}
   To obtain a parametric model estimate from measured data often requires solving a non-convex optimization problem.
@@ -32,6 +46,9 @@
   In this thesis, it was investigated whether convergence to a good optimum can be attained more easily by means of \gls{FRF} smoothers, in particular for cases where a low \gls{SNR} is available yet a lot of measurements are available.
   A few practical smoothers have been studied, i.e. the time-truncated \gls{LPM} and \gls{RFIR}.
   It has been shown that especially the \gls{RFIR} provides smoothed \glspl{FRF} that aid in convergence to a good optimum than the existing state-of-the-art initializers (\gls{BTLS} and \gls{GTLS}).
+  These smoothers allow one to obtain good models from noisier data than what existing techniques.
+  The improvement of the initial values has been verified both on simulations, measurements and a simulation stress test consisting of different filters.
+  While overall the \gls{RFIR} provides the best starting values from the different smoothers, combining multiple initial values remains a very valuable approach to make a system identification toolbox robust for the measurement data.
 
 \section{Future Perspectives}
   \subsection{Excitation Design}
@@ -73,7 +90,7 @@
       = \frac{\Sum_i  b_i \exp ji\dW\Ts)}{\Sum_i  a_i \exp ji\dW\Ts }
     \end{equation}
     but these have proven more difficult to estimate numerically and hence unreliable.
-    A possible approach for this would be to use orthogonal polynomials~\citep{Forsythe1957,Bultheel2005} for complex coefficients.
+    A possible approach for this would be to use orthogonal polynomials~\citep{Forsythe1957,Bultheel2005} with complex coefficients.
 
     As the non-parametric methods such as \gls{LPM} and \gls{LRM} were originally intended to serve the same purpose as windows in classical spectral analysis, this naturally leads to other applications of these methods where windows are otherwise used to reduce the effect of spectral leakage.
 
