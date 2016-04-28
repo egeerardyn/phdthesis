@@ -36,13 +36,21 @@ legend cell align=left,
 domain=2:256,
 ]
 
-\draw[opacity=0.5, fill=TangoAluminium1] (axis cs:2,-120) rectangle (axis cs:256,-60);
+%TODO: see if we can place this on another layer below everything else
+\draw[opacity=0.5, fill=noisefill] (axis cs:2,-120) rectangle (axis cs:256,-60);
 
 \pgfplotsinvokeforeach{1,2,...,9} {
 	\addplot[slopegrid,
 	         text mark={\footnotesize \color{gray} {$\hphantom{---}\nBW^{-#1}$}}] 
 	         expression {-20*#1*log10(x)};
 }
+
+\node[trace=none,lrm7222] at (axis cs:128,-105) {$\lrm{7,2,2,2}$};
+\node[trace,etfe,rotate=-5] at (axis cs:180,-25) {$\ETFE$};
+\node[trace,lpm744,rotate=-25] at (axis cs:8,-37) {$\lpm{7,4,4}$};
+\node[trace=none,lrm7111,rotate=-32] at (axis cs:3,-75) {$\lrm{7,1,1,1}$};
+\node[trace=none,lrm6222] at (axis cs:25,-95) {$\lrm{6,2,2,2}$};
+\node[trace=none,lric7222] at (axis cs:128,-85) {$\lric{7,2,2,2}$};
 
 \node[annotation, anchor=north east] at (rel axis cs: 1,1) {$\SNR = \SNRval \unit{dB}$};
 

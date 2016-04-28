@@ -36,16 +36,16 @@ Finally, conclusions are presented in \secref{sec:conclusion}.
 Consider a discrete-time generalized output-error \gls{LTI} set-up, excited by the input signal $u[n]$.
 For an infinite data length, such a system can be described in the time domain by
 \begin{equation}
-  y[n] = \ezbrace{\true{G}(z) u[n]}{\true{y}[n]} + \ezbrace{\true{H}(z) \true{e}[n]}{v[n]} \text{ with } n \in \IntegerNumbers
+  y[n] = \ezbrace{\true{G}(q) u[n]}{\true{y}[n]} + \ezbrace{\true{H}(q) \true{e}[n]}{v[n]} \text{ with } n \in \IntegerNumbers
   \label{eq:output-error-TD-infinite}
 \end{equation}
-where $v[n]$ is filtered white noise, $v[n] = \true{H}(z) \true{e}[n]$ where $z^{-1}$ is the backward shift operator, i.e. $z^ {-1}x[n] = x[n-1]$.
-The transfer functions $\true{G}$ and $\true{H}$ are rational functions that are stable and causal.
+where $v[n]$ is filtered white noise, $v[n] = \true{H}(q) \true{e}[n]$ where $q^{-1}$ is the backward shift operator, i.e. $q^ {-1}x[n] = x[n-1]$.
+The transfer functions $\true{G}$ and $\true{H}$ are rational functions that are causal and stable.
 
 During typical measurements, however, $y[n]$ and $u[n]$ are only measured over a limited time span, i.e. $n \in \set{0,1,\ldots,N-1}$.
 This introduces transient terms $t_{\bullet}$ in this relationship~\citep{Pintelon1997ARB}:
 \begin{equation}
-y[n] = \true{G}(z) u[n] + \true{H}(z) \true{e}[n] + \ezbrace{t_G[n] + t_H[n]}{t[n]}
+y[n] = \true{G}(q) u[n] + \true{H}(q) \true{e}[n] + \ezbrace{t_G[n] + t_H[n]}{t[n]}
 \label{eq:output-error-TD-finite}
 \end{equation}
 where $t_G[n]$ and $t_H[n]$ are due to the different conditions of respectively $\true{G}$ and $\true{H}$ at the beginning and end of the measurement record~\citep{Pintelon1997ARB}.
@@ -80,7 +80,7 @@ Here, we focus on using local modeling to separate the different terms, i.e.
   \item the leakage term $T$, and
   \item the noise term $V$.
 \end{itemize}
-The main term of interest, however, is the transfer function $\true{G}$ and a secondary concern is estimating the noise variance $\Var{V}$.
+The main term of interest, however, is the transfer function $\true{G}$ and a secondary concern is estimating the noise variance $\sigma_{V}$.
 
 \subsection{Local modeling}
 Local modeling methods  exploit the `smoothness' (or conversely `roughness') of the different terms of \eqref{eq:output-error-FD} over the frequency $\omega$.
@@ -114,14 +114,14 @@ In these expressions, we denote $\LocalModel[k]{G}$ and $\LocalModel[k]{T}$ for 
 Note that such local quantities (which depend on the frequency bin $k$) are denoted in bold.
 To alleviate the notations, the subscript $k$ is omitted unless 
 
-The local parameters $\theta$  
+To estimate the local parameters $\theta$  
 \begin{equation}
 \theta \isdef 
-\begin{bmatrix}
-\theta_A\\ 
-\theta_B\\
-\theta_C
-\end{bmatrix}
+  \begin{bmatrix}
+  \theta_A\\ 
+  \theta_B\\
+  \theta_C
+  \end{bmatrix}
 \qquad \text{ with }
 \theta_A \isdef
 \begin{bmatrix}
@@ -149,7 +149,7 @@ in \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}, we consider a local window
   }
 \end{equation}
 with $\LocalShifts{k} \isdef \Set{-\numel{W}, -\numel{W}+1, \ldots, 0, \ldots, \numel{W}}$
-such that the local window around $\omega_k$ consists of $\numel{\LocalWindow} = 2 \numel{W} + 1$ bins. 
+such that the local window around $\omega_k$ consists of $\nWind = 2 \numel{W} + 1$ bins. 
 If one denotes the input/output spectra in such a local frequency window $\LocalWindow[k]$ as
 \begin{equation}
   \LocalVector{U}_k \isdef 
@@ -205,7 +205,7 @@ To effectively compute the local model parameters, the equation error in \eqref{
    \text{.}
 \end{equation}
 Due to the presence of the denominator of $\LocalModel{G} = \frac{\LocalModel{B}}{\LocalModel{A}}$, the equation error is not linear in the parameters $a_i$ and hence \eqref{eq:costfunc:LRIC} requires starting values and time-consuming iterative optimization schemes to obtain a parameter estimate.
-We denote such a method as $\lric{\numel{W},\order{B},\order{A},\order{C}}$.
+We hence call this method the \gls{LRIC} and denote specific configurations of this method as $\lric{\numel{W},\order{B},\order{A},\order{C}}$.
 
 Note that the estimated \gls{FRF} is given by evaluating the local model $\LocalModel{G}$:
 \begin{equation}
@@ -241,6 +241,7 @@ where $\LocalMatrix{K}$ is the so-called design matrix (or observation matrix):
   \label{eq:nparam:designMatrix}
   \LocalMatrix{K} 
     & \isdef 
+    \phantom{+}
   \mat{
      \LocalMatrix{K}_A &
      \LocalMatrix{K}_B & 
@@ -248,6 +249,7 @@ where $\LocalMatrix{K}$ is the so-called design matrix (or observation matrix):
   }\\
   \LocalMatrix{K}_A 
     &\isdef
+    \phantom{+}
     \mat{
       \LocalVector{Y} \hadamard \LocalVector{d}^1 &
       \cdots &
@@ -255,14 +257,14 @@ where $\LocalMatrix{K}$ is the so-called design matrix (or observation matrix):
     }\\
   \LocalMatrix{K}_B 
     &\isdef
-    \mat{
+    - \mat{
       \LocalVector{U} \hadamard \LocalVector{d}^0 &
       \cdots &
       \LocalVector{U} \hadamard \LocalVector{d}^{\order{B}}
     }\\
   \LocalMatrix{K}_C
     &\isdef
-    \mat{
+    - \mat{
       \LocalVector{d}^0 &
       \cdots &
       \LocalVector{d}^{\order{C}}
@@ -349,14 +351,14 @@ where
 such that $\abs{\dw{r}{k}} \leq 1$ when $r \in \LocalShifts{k}$.
 \end{remark}
 
-We denote a method that solves \eqref{eq:nparam:LRM:costFunc} for given bandwidth and local orders as $\lrm{\numel{W}, \order{B},\order{A},\order{C}}$.
+We denote a method that solves \eqref{eq:nparam:LRM:costFunc} as $\lrm{\numel{W}, \order{B},\order{A},\order{C}}$ where $\numel{W}$ is the half-bandwidth, and $\order{B}$, $\order{A}$ and $\order{C}$ are the local model orders.
 
 \subsection{The Local Polynomial Method}
 The \gls{LPM} is method that predates the \gls{LRM} and has been devised by~\citet{Schoukens2006LPM}.
 The \gls{LPM} approximates both the \gls{FRF} and transient contribution by means of complex-valued local polynomials in the frequency domain.
 
 The \gls{LPM} can be understood as a specific case of the \gls{LRM}: for  $\order{A} = 0$, the \gls{LRM} reduces to the \gls{LPM}.
-As such, we can use the notation $\lpm{\numel{W}, \order{B}, \order{C}}$ as a synonym for $\lrm{\nWind, 0, \order{C}}$.
+As such, we use the notation $\lpm{\numel{W}, \order{B}, \order{C}}$ as a synonym for $\lrm{\nWind, \order{B}, 0, \order{C}}$.
 
 \begin{remark}
 The trivial setting for local `modeling' where a window with a total width of $1\unit{bin}$ and no transient estimation ($\order{C} = -1$), actually corresponds to the simple \gls{ETFE}~\citep{Broersen1995,Stenman2000ASETFE,Stenman2001ASFRF} when no further smoothing or windowing is applied:
@@ -413,6 +415,13 @@ Note that this function is a quadratic function of $\LocalVector{\theta}$ and he
    \left( \theta - \true\theta \right)
    \text{.}
 \end{multline}
+We use the notation
+\begin{equation}
+  \PartialDerivative{\ELSCost{\true\theta}}{\true\theta}
+  \isdef
+  \evaluate{\PartialDerivative{\ELSCost(\theta)}{\theta}}{\theta = \true\theta}
+\end{equation}
+for the derivative of $\ELSCost{\theta}$ with respect to $\theta$, evaluated in $\true\theta$.
 The minimizer $\estimated\theta$ of this function can be obtained by equating the derivative
 \begin{equation}
   \PartialDerivative{\ELSCost{\estimated\theta}}
@@ -478,12 +487,12 @@ since $\conj{ \LocalModel{A}(\dW,\theta)} =  \LocalModel{A}(\conj{\dW},\conj{\th
 \paragraph{Contributions to the first order derivative}
 The last term in \eqref{eq:nparam:bias-basic}, i.e. the first order derivative,  is given by
 \begin{equation}
-  \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta}
+  \PartialDerivative{\ELSCost[n]{\true\theta, \conj{\true\theta}}}{\theta}
   = 
   \begin{bmatrix}
-  \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta_A} &
-  \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta_B} &
-  \PartialDerivative{\ELSCost[0]{\true\theta, \conj{\true\theta}}}{\theta_C}
+  \PartialDerivative{\ELSCost[n]{\true\theta, \conj{\true\theta}}}{\theta_A} &
+  \PartialDerivative{\ELSCost[n]{\true\theta, \conj{\true\theta}}}{\theta_B} &
+  \PartialDerivative{\ELSCost[n]{\true\theta, \conj{\true\theta}}}{\theta_C}
   \end{bmatrix}
 \end{equation}
 and split into the parts pertaining to respectively $\LocalModel{A}$, $\LocalModel{B}$ and, $\LocalModel{C}$.
@@ -751,31 +760,16 @@ For $\nMC=\num{2000}$, this means that we can detect the bias only when it is at
   % \subsection{Implications of the noise level}
   % \subsection{Implications of the noise coloring}
 
-\begin{figure}
-  \centering
+\begin{figure}[p]
+  \centering 
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR40-NBW64and8.tikz}
-  \caption[Bias, variance for $\nBW \in \set{8,64}$ at $\SNR=40\unit{dB}$]{The bias, variance and \gls{RMS} error of the different estimators is shown for $\SNR= 40 \unit{dB}$ and $\nBW \in \set{8,64}$ samples in the $3 \unit{dB}$ bandwidth of the system (as highlighted).}
+  \caption[Bias, variance for $\nBW \in \set{8,64}$ at $\SNR=40\unit{dB}$]{The bias, variance and \gls{RMS} error of the \gls{FRF} using the different estimators is shown for $\SNR= 40 \unit{dB}$ and $\nBW \in \set{8,64}$ samples in the $3 \unit{dB}$ bandwidth of the system (as highlighted). See \tabref{tbl:nparam:methods} for the color legend.}
   \label{fig:nparam:mc:singleTuple}
 \end{figure}
 
-As the Monte Carlo simulations yield the estimated \gls{FRF}, the bias and variance for the different methods as a function of frequency, a huge amount of data is generated.
-In \figref{fig:nparam:mc:singleTuple}, two such sets of data are shown as an example.
-It can be seen that the \gls{RMSE} of \gls{LRIC} behaves erratically and exhibits spikes over the whole frequency band.
-For a short data length ($\nBW=8$), the \gls{LPM} and \gls{ETFE} shows a significant bias, whereas the \gls{LRM}-based methods have a very small bias and variance that lies below the noise floor of each experiment.
-However, the variance of the \gls{LRM} is still elevated by a few decibels near the resonance frequency.
-For long data lengths ($\nBW=64$), both \gls{LPM} and \gls{LRM} perform comparably.
-
-To interpret the data from the whole Monte Carlo simulation, we aggregate the observed values over the frequencies to obtain:
-\begin{align}
-  \sampleVariance{\bullet} &= \frac{1}{\nBW} \sum_{\omega_k \in \BW} \abs{\sampleVariance{\bullet}(\omega_k)} \\
-  \sampleBias{\bullet} &= \frac{1}{\nBW} \sum_{\omega_k \in \BW} \abs{\sampleBias{\bullet}(\omega_k)}
-\end{align}
-which can be visualized for the different values of the $\SNR$, $\nBW$ and for each method.
-Note that this aggregation is limited to the $3\unit{dB}$ bandwidth of the system, which is where the worst-case behavior is typically encountered.
-
-\begin{table}
+\begin{table}[p]
 \centering
 \caption{Local modeling methods used in the Monte Carlo analysis.}
 \label{tbl:nparam:methods}
@@ -793,6 +787,22 @@ Note that this aggregation is limited to the $3\unit{dB}$ bandwidth of the syste
 \end{tabular}
 \end{table}
 
+As the Monte Carlo simulations yield the estimated \gls{FRF}, the bias and variance for the different methods as a function of frequency, a huge amount of data is generated.
+In \figref{fig:nparam:mc:singleTuple}, two such sets of data are shown as an example.
+It can be seen that the \gls{RMSE} of \gls{LRIC} behaves erratically and exhibits spikes over the whole frequency band.
+For a short data length ($\nBW=8$), the \gls{LPM} and \gls{ETFE} shows a significant bias, whereas the \gls{LRM}-based methods have a very small bias and variance that lies below the noise floor of each experiment.
+However, the variance of the \gls{LRM} is still elevated by a few decibels near the resonance frequency.
+For long data lengths ($\nBW=64$), both \gls{LPM} and \gls{LRM} perform comparably.
+
+To interpret the data from the whole Monte Carlo simulation, we combine the observed values over the frequencies to obtain the \term{aggregated error}, respectively:
+\begin{align}
+  \sampleVariance{\bullet} &= \frac{1}{\nBW} \sum_{\omega_k \in \BW} \abs{\sampleVariance{\bullet}(\omega_k)} \\
+  \sampleBias{\bullet} &= \frac{1}{\nBW} \sum_{\omega_k \in \BW} \abs{\sampleBias{\bullet}(\omega_k)}\\
+  \RMSE_{\bullet} &= \sqrt{\sampleBias{\bullet}^2 + \sampleVariance{\bullet}}
+\end{align}
+which can be visualized for the different values of the $\SNR$, $\nBW$ and for each method.
+Note that this aggregation is limited to the $3\unit{dB}$ bandwidth of the system, which is where the worst-case behavior is typically encountered.
+
 \paragraph{Noiseless case}
 In the noiseless case, one can observe the approximation error that is made by using the \gls{LRM}, \gls{LPM}, \gls{LRIC} and \gls{ETFE} as shown in \figref{fig:nparam:comparison:noiseless}.
 For the \gls{ETFE}, it can be seen that the error is very high.
@@ -800,7 +810,8 @@ This can be expected since the \gls{ETFE} does not separate transient/leakage co
 Consequently, the leakage contributions (which change over the different Monte Carlo runs), lead to a large variance error for the \gls{ETFE}.
 The approximation error of the \gls{LPM} for short datasets ($\nBW \leq 8$) is dominated by the bias error.
 The is to be expected since the resonance in the band of interest is modeled using only polynomials instead of the full rational form.
-For longer datasets, 
+For longer datasets, the error decays approximately as $\bigO{\nBW^{-6}}$.
+This is in line with the theoretical derivation from \citet{Schoukens2013LPMerror} that state that the approximation error decays as $\bigO{ \nBW^{-(\order{B}+2)}}$.
 For the \gls{LRM} and \gls{LRIC}, the \gls{RMS} error is already very low for small datasets ($-64 \unit{dB}$ for the first-order method, $-114\unit{dB}$ for second-order methods).
 For short datasets ($\nBW \leq 16$), the $\lrm{7,1,1,1}$ error has a bias contribution that is slightly larger ($1$ to $4\unit{dB}$) than the variance contribution.
 For larger datasets ($\nBW \geq 16$), this bias contribution starts to diminish significantly as $\bigO{\nBW^{-2}}$.
@@ -812,7 +823,7 @@ Practically, this approximation error is very likely to be negligible in measure
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR-Inf.tikz}
-  \caption[Comparison of local models for $\SNR = \infty$]{Local modeling of a discrete-time system results in an approximation error that is low enough for many practical uses. See \tabref{tbl:nparam:methods} for the color legend.}
+  \caption[Comparison of local models for $\SNR = \infty$]{Local modeling of a discrete-time system results in an approximation error that is low enough for many practical uses. }
   \label{fig:nparam:comparison:noiseless}
 \end{figure}
 
@@ -841,7 +852,7 @@ For the more noisy situation where $\SNR = 40 \unit{dB}$ (\figref{fig:nparam:com
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR-60.tikz}
-  \caption[Comparison of local models for $\SNR = 60 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=60\unit{dB}$. See \tabref{tbl:nparam:methods} for the color legend.}
+  \caption[Comparison of local models for $\SNR = 60 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=60\unit{dB}$. The shaded area denotes the noise floor.}
   \label{fig:nparam:comparison:hiSNR}
 \end{figure}
 
@@ -850,7 +861,7 @@ For the more noisy situation where $\SNR = 40 \unit{dB}$ (\figref{fig:nparam:com
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR-40.tikz}
-  \caption[Comparison of local models for $\SNR = 40 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=40\unit{dB}$. See \tabref{tbl:nparam:methods} for the color legend.}
+  \caption[Comparison of local models for $\SNR = 40 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=40\unit{dB}$. The shaded area denotes the noise floor.}
   \label{fig:nparam:comparison:midSNR}
 \end{figure}
 
@@ -870,7 +881,8 @@ It can be seen that the bias error of the \gls{LPM} drops off more quickly ($\bi
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR-20.tikz}
-  \caption[Comparison of local models for $\SNR = 20 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=20\unit{dB}$. See \tabref{tbl:nparam:methods} for the color legend.}
+  \caption[Comparison of local models for $\SNR = 20 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=20\unit{dB}$.
+  The shaded area denotes the noise floor.}
   \label{fig:nparam:comparison:lowSNR}
 \end{figure}
 
@@ -879,7 +891,7 @@ It can be seen that the bias error of the \gls{LPM} drops off more quickly ($\bi
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR-10.tikz}
- \caption[Comparison of local models for $\SNR = 10 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=10\unit{dB}$. See \tabref{tbl:nparam:methods} for the color legend.}
+ \caption[Comparison of local models for $\SNR = 10 \unit{dB}$]{Comparison of bias and variance of local modeling for $\SNR=10\unit{dB}$. The shaded area denotes the noise floor.}
   \label{fig:nparam:comparison:terribleSNR}
 \end{figure}
 
@@ -925,17 +937,17 @@ Within the system identification community a few simple approaches have been wid
 In the following, a short overview is given of different approaches.
 
 \paragraph{Plug-in methods}
-In plug-in methods, a goodness-of-fit criterion (e.g. the log-likelihood function $\LogLikelihood$ of the estimated model $M$ given the estimation dataset $Z$), is penalized with a term accounting for the complexity of the model~\citep{Burnham2002}.
+In plug-in methods, a goodness-of-fit criterion (e.g. the log-likelihood function $\LogLikelihood$ of the estimated local model $\LocalModel{M}$ given the estimation dataset $\LocalVector{Z}$), is penalized with a term accounting for the complexity of the model~\citep{Burnham2002}.
 E.g. a common choice is the \gls{AIC}~\citep{Akaike1974} or the \gls{AICc}~\citep{Hurvich1989}, which are defined as
 \begin{align}
 L_{\mathrm{\AIC}} &=
- - 2  \loglikelihood{M | Z} 
+ - 2  \loglikelihood{\LocalModel{M} | \LocalVector{Z}} 
  + 2 \nth\\
 L_{\mathrm{\AICc}} &= 
-- 2  \loglikelihood{M | Z} 
+- 2  \loglikelihood{\LocalModel{M} | \LocalVector{Z}} 
 +   \frac{2 \nth\nWind}{\nWind - \nth - 1}
 \end{align}
-where $\nth$ is the number of  estimated parameters in the model $M(\theta)$.
+where $\nth$ is the number of  estimated parameters in the model $\LocalModel{M}(\theta)$.
 In the context of local modeling, the \gls{AIC} is a poor choice since it relies on asymptotic arguments of the data set, i.e. $\nWind \to \infty$, which is obviously an unwarranted choice in this context.
 The best model among a set of $q$ possible models $\Set{M_1, \ldots, M_q}$ is then
 \begin{equation}
@@ -949,9 +961,9 @@ The best model among a set of $q$ possible models $\Set{M_1, \ldots, M_q}$ is th
 which is the only model that is hence retained.
 
 \begin{remark}
-It should be noted that due to $\loglikelihood{M | Z}$ , the value of $L_{\mathrm{AIC(c)}}(M,Z)$ is inherently coupled with the particular dataset $Z$.
+It should be noted that due to $\loglikelihood{\LocalModel{M} | \LocalVector{Z}}$ , the value of $L_{\mathrm{AIC(c)}}(\LocalModel{M},\LocalVector{Z})$ is inherently coupled with the particular dataset $\LocalVector{Z}$.
 Practically, this means that such criteria can only be used to compare local models that are estimated from the same local dataset (i.e. they have the same $\nWind$ and center frequency).
-Consequently, the \gls{AICc} criterion cannot be used to select a proper $\nWind$.
+Consequently, the \gls{AICc} criterion cannot be used to select $\nWind$, but only $\order{A},\order{B},\order{C}$ when $\nWind$ is fixed.
 \end{remark}
 
 \paragraph{Holdout method}
@@ -1008,7 +1020,6 @@ Since the \gls{LRM} is an inherently biased estimator while the \gls{LPM} is asy
 Hence, expressions for the bias of the \gls{LRM} were derived.
 For good \glspl{SNR} in resonant systems, it was seen that the \gls{LRM} is always superior to the \gls{LRM}.
 For extremely poor \gls{SNR}, i.e. $\SNR \approx 10\unit{dB}$, the \gls{LPM} may perform slightly better than the \gls{LRM} when short measurement records are available.
-For
 In this chapter, the \gls{LRIC} was introduced.
 This is an extension of the \gls{LRM} which solves the non-linear optimization problem and should thus be able to avoid a bias altogether.
 However, it is seen that this estimator is extremely noisy but seems to provide a smaller bias than the \gls{LRM}.

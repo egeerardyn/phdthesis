@@ -42,6 +42,13 @@ domain=2:256,
 	         expression {-20*#1*log10(x)};
 }
 
+\node[trace,lrm7222,rotate=-17.5] at (axis cs:6,-150) {$\lrm{7,2,2,2}$};
+\node[trace,etfe,rotate=-5] at (axis cs:180,-40) {$\ETFE$};
+\node[trace,lpm744,rotate=-25] at (axis cs:128,-120) {$\lpm{7,4,4}$};
+\node[trace,lrm7111,rotate=-13] at (axis cs:5,-80) {$\lrm{7,1,1,1}$};
+\node[trace,lrm6222,rotate=-17.5] at (axis cs:16,-215) {$\lrm{6,2,2,2}$};
+\node[trace,lric7222,rotate=-17.5] at (axis cs:64,-225) {$\lric{7,2,2,2}$};
+
 \node[annotation, anchor=north east] at (rel axis cs: 1,1) {$\SNR = \SNRval \unit{dB}$};
 
 \addplot [lrm7222,mcrmse,forget plot] table[]{\dataDir/LRM7222-rmse.tsv};
@@ -50,7 +57,7 @@ domain=2:256,
 \addplot [lpm744,mcrmse,forget plot] table[]{\dataDir/LPM744-rmse.tsv};
 \addplot [lpm744,forget plot] table[]{\dataDir/LPM744-bias.tsv};
 \addplot [lpm744,mcvar,forget plot] table[]{\dataDir/LPM744-std.tsv};
-\addplot [etfe,mcrmse,forget plot] table[]{\dataDir/ETFE-rmse.tsv};
+\addplot [etfe,mcrmse,forget plot] table      []{\dataDir/ETFE-rmse.tsv};
 \addplot [etfe,forget plot] table[]{\dataDir/ETFE-bias.tsv};
 \addplot [etfe,mcvar,forget plot] table[]{\dataDir/ETFE-std.tsv};
 \addplot [lrm7111,mcrmse,forget plot] table[]{\dataDir/LRM7111-rmse.tsv};
@@ -62,6 +69,8 @@ domain=2:256,
 \addplot [lric7222,mcrmse,forget plot] table[]{\dataDir/LRIC7222-rmse.tsv};
 \addplot [lric7222,forget plot] table[]{\dataDir/LRIC7222-bias.tsv};
 \addplot [lric7222,mcvar,forget plot] table[]{\dataDir/LRIC7222-std.tsv};
+
+
 
 \addlegendimage{mcrmse}
 \addlegendentry{\RMSE}

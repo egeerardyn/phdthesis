@@ -141,11 +141,14 @@
   \colorlet{bwfill}{TangoAluminium1}
   \colorlet{bwline}{TangoAluminium5}
 
+  \colorlet{noisefill}{TangoAluminium1}
+  \colorlet{noiseline}{TangoAluminium5}
+
 \colorlet{etfe}{TangoButter3}
-\colorlet{lrm7111}{TangoPlum3}
+\colorlet{lrm7111}{TangoPlum2}
 \colorlet{lric7222}{TangoChameleon3}
 \colorlet{lrm7222}{TangoSkyBlue3}
-\colorlet{lrm6222}{TangoOrange3}
+\colorlet{lrm6222}{TangoSkyBlue1}
 \colorlet{lpm744}{TangoScarletRed3}
 
 %% Marker sizes
@@ -171,6 +174,7 @@
 
 \pgfplotsset{frf/.style={color=black,solid,line width=1pt}}
 \pgfplotsset{bw/.style={fill=bwfill,draw=bwline,opacity=0.75,area legend}}
+\pgfplotsset{noiselevel/.style={fill=noisefill,draw=noiseline,opacity=0.75,area legend}}
 \pgfplotsset{signal/.style={ycomb,color=signal,solid,line width=1pt}}
 \pgfplotsset{signalhighlight/.style={ycomb,color=signal,solid,line width=1pt,mark=o,mark size=2pt}}
 
@@ -362,6 +366,8 @@
 \pgfplotsset{percentileLines/.style={black,dashed}}
 %NOTE: we need tikzset here, these styles are used on NODE (\in TikZ) instead of Pgfplots stuff
 \tikzset{annotation/.style={align=left,draw=black!0.2,font=\scriptsize,fill=white,fill opacity=0.8}}
+\tikzset{trace/.style={align=left,font=\scriptsize,fill opacity=0.8,fill=#1}}
+\tikzset{trace/.default=white}
 
 \tikzset{numSlope/.style={anchor=center,align=center,font=\scriptsize}}
 

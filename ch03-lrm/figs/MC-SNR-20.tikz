@@ -46,6 +46,17 @@ domain=2:256,
 	         expression {-20*#1*log10(x)};
 }
 
+\node[trace=none,lrm7222] (LRM7222label) at (axis cs:8,-45) {$\lrm{7,2,2,2}$};
+\node[trace=none,etfe,rotate=-25] at (axis cs:25,-35) {$\ETFE$};
+\node[trace=none,lpm744] at (axis cs:40,-53) {$\lpm{7,4,4}$};
+\node[trace=none,lrm7111] (LRM7111label)  at (axis cs:3,-32) {$\lrm{7,1,1,1}$};
+\node[trace=none,lrm6222,rotate=-20] at (axis cs:22,-45) {$\lrm{6,2,2,2}$};
+\node[trace=none,lric7222] at (axis cs:5,-53) {$\lric{7,2,2,2}$};
+
+\draw[-{Circle[]},opacity=0.5] (LRM7222label) -- (axis cs:8,-33.5);
+\draw[-{Circle[]},opacity=0.5] (LRM7111label) -- (axis cs:9.2,-32);
+
+
 \node[annotation, anchor=north east] at (rel axis cs: 1,1) {$\SNR = \SNRval \unit{dB}$};
 
 \addplot [lrm7222,mcrmse,forget plot] table[]{\dataDir/LRM7222-rmse.tsv};
