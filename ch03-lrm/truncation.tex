@@ -278,7 +278,7 @@ One can then gradually determine whether these segments are noise or the actual 
 %    H0: s²(1) =  s²(2)
 %    H1: s²(1) >  s²(2)
 %    alpha >> ==> beta <<
-% 4) if H1 and RMS(signal)/RMS(noise) > f
+% 4) if H1 and RMS(signal)/RMS(noise) < f
 %    robustness, SNR
 %    select segment i
 % 5) refine until wanted resolution is obtained
@@ -311,9 +311,9 @@ The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,
   As segment $\segm{\hat{g}}{i}$ has been tested and been classified as noise (or assumed to be noise if $i=N_S$), the null hypothesis effectively states that the segment $\segm{\hat{g}}{i-1}$ is also noise.
   The alternative case occurs when $\segm{\hat{g}}{i-1}$ has a significant change, which indicates the presence of the signal.
   Using the $F$-test on the \gls{RMS} values of the two segments with a high confidence level of $\alpha=0.999$ and the aforementioned hypotheses, we can determine whether $\segm{\hat{g}}{i-1}$ is likely to be part of the actual impulse response.
-  In particular, the null hypothesis is rejected when the empirical $F$ statistic is small, i.e.
+  In particular, the null hypothesis is rejected when the empirical $F$ statistic is high, i.e.
   \begin{equation}
-    F \isdef \frac{s^2(i-1)}{s^2(i)} \leq \ICDF{\FDistribution} \left( \alpha; n_{i-1}, n_{i} \right)
+    F \isdef \frac{s^2(i-1)}{s^2(i)} \geq \ICDF{\FDistribution} \left( \alpha; n_{i-1}, n_{i} \right)
   \end{equation}
   where $ \ICDF{\FDistribution}$ is the inverse \gls{CDF} of the \mbox{$F$-distribution} with $n_{i-1}$ and $n_{i}$ degrees of freedom~\citep{EncyclopediaOfMathematics}.
   In this case $n_{i-1}$ and $n_{i}$ are the respective number of samples in the $(i-1)^{\text{th}}$ and $i^{\text{th}}$ segment of the impulse response.
@@ -400,7 +400,6 @@ t < t' < N \land t'\in\mathbb{T}_\mathrm{HSNR}
 
 \item Fit an exponential function $Ae^{at}$ approximating $\hat g(t)$, in $t_\mathrm{max}\in\mathbb{T}_\mathrm{max}$. 
 This is done by solving the following expression
-
 \begin{align}\label{eq:expFit}
 \ln \left|\hat g(t)\right|\approx \ln A+at,\ \mathrm{with}\ t\in\mathbb{T}_\mathrm{max},
 \end{align}
@@ -471,12 +470,20 @@ They were obtained from simulations on the system in \eqref{eq:trunc:systemODEs}
 In \figref{fig:nparam:trunc:LPMvsTRunc} one observes the following:
 \begin{itemize}
 \item a decrease of the variance on the truncated estimate of about $10 \unit{dB}$ compared to the non-truncated \gls{LPM}, is observed.
-
-\item the error on the truncated \gls{LPM} estimate is strongly correlated over the frequency. This must be taken into account when formulating a maximum likelihood parametric estimator of the system.
+Note also that the improvement in variance is proportional to the measurement time, i.e.
+\begin{equation}
+  \frac{\sampleStd{\trunc}}{\sampleStd{\LPM}} \approx \sqrt{\frac{\truncTime}{\Tm}}
+\end{equation}
+where $\Tm$ is the total measurement time.
+Equivalently, this means that for \glspl{FRF} estimated with a finer frequency resolution, are improved more by truncation than coarsely spaced \glspl{FRF}.
 
 \item an increase of the bias of the truncated estimate, especially in the vicinity of the resonance frequency. Still, this bias lies below the variance of the non-truncated estimate. As such, for a single experiment, the increase in bias still yields a better estimate when truncation is invoked.
 
 This bias depends on the time instant at which the truncation is performed, as discussed below.
+
+\item the error on the truncated \gls{LPM} estimate is strongly correlated over the frequency. This must be taken into account when formulating a maximum likelihood parametric estimator of the system.
+It is, however, advised to use the raw data instead of such smoothed \glspl{FRF} to estimate a parametric model such that no bias is introduced into the parametric estimate.
+In \chapref{sec:initvals}, however, it will be shown that smoothed \glspl{FRF} can lead to improved starting values.
 
 \end{itemize}
 

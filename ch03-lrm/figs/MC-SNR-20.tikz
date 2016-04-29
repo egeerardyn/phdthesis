@@ -50,7 +50,7 @@ domain=2:256,
 \node[trace=none,etfe,rotate=-25] at (axis cs:25,-35) {$\ETFE$};
 \node[trace=none,lpm744] at (axis cs:40,-53) {$\lpm{7,4,4}$};
 \node[trace=none,lrm7111] (LRM7111label)  at (axis cs:3,-32) {$\lrm{7,1,1,1}$};
-\node[trace=none,lrm6222,rotate=-20] at (axis cs:22,-45) {$\lrm{6,2,2,2}$};
+\node[trace=none,lrm6222,rotate=-15] at (axis cs:22,-45) {$\lrm{6,2,2,2}$};
 \node[trace=none,lric7222] at (axis cs:5,-53) {$\lric{7,2,2,2}$};
 
 \draw[-{Circle[]},opacity=0.5] (LRM7222label) -- (axis cs:8,-33.5);
@@ -79,7 +79,7 @@ domain=2:256,
 \addplot [lric7222,mcvar,forget plot] table[]{\dataDir/LRIC7222-std.tsv};
 
 \addlegendimage{mcrmse}
-\addlegendentry{\RMSE}
+\addlegendentry{$\RMSE_{\bullet}$}
 
 \addlegendimage{mcvar}
 \addlegendentry{$\sampleStd{\bullet}$}

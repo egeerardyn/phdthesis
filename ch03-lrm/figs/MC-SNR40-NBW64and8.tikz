@@ -15,6 +15,7 @@ group style={
   y descriptions at=edge left,
   x descriptions at=edge bottom
 },
+cell picture=true, % http://tex.stackexchange.com/questions/207450/fillbetween-from-pgfplots-does-not-work-inside-groupplots
 width=0.5\figurewidth,
 height=\figureheight,
 ylabel={$\abs{G} \axisunit{dB}$},
@@ -24,6 +25,7 @@ ymin=-90,
 ymax=5,
 xmajorgrids,
 ymajorgrids,
+xtick={0.1575585,0.15915,0.1607415},
 %http://tex.stackexchange.com/questions/75531/is-it-possible-to-multiply-the-x-coordinates-of-a-plot-by-a-certain-factor-using
 scaled x ticks={real:0.15915}, %Hz -> rad/s
 xtick scale label code/.code={},
@@ -163,7 +165,7 @@ xtick scale label code/.code={},
   table[]{\thisDir/data/MC-SNR40-NBW64/LRIC7222-std.tsv};
 
 \addlegendimage{mcrmse}
-\addlegendentry{$\RMSE(\omega_k)$}
+\addlegendentry{$\RMSE_{\bullet}(\omega_k)$}
 
 \addlegendimage{mcvar}
 \addlegendentry{$\sampleStd{\bullet}(\omega_k)$}

@@ -74,7 +74,7 @@ domain=2:256
 \addplot [lric7222,mcvar,forget plot] table[]{\dataDir/LRIC7222-std.tsv};
 
 \addlegendimage{mcrmse}
-\addlegendentry{\RMSE}
+\addlegendentry{$\RMSE_{\bullet}$}
 
 \addlegendimage{mcvar}
 \addlegendentry{$\sampleStd{\bullet}$}

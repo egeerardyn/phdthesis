@@ -6,9 +6,9 @@
 \TODO{general introduction, claim the title, reaffirm the structure of the book}
 
   \subsection{Excitation Design}
-  In this thesis, multisine signals are proposed to measure \gls{SISO} systems within an \gls{LTI} framework.
+  In this thesis, multisine signals are proposed to measure \gls{SISO} systems within a \gls{LTI} framework.
   Particularly, the proposed multisine signals employ a quasi-logarithmic frequency grid and a power spectrum in $1/f$ akin to pink noise to ensure a good quality of the \gls{FRF} over the whole excited frequency band.
-  As such, they are more robust excitation signal than e.g. typical general-use signals such as linear grid multisines or white noise excitation with the same total signal power and duration.
+  As such, they are a more robust excitation signal than e.g. typical general-use signals such as linear grid multisines or white noise excitation with the same total signal power and duration.
   In this thesis it has been proven that when the user has prior knowledge about the expected minimal damping $\damping[\min]$ of the poles present in the system, this sets the required logarithmic frequency grid spacing to attain a guaranteed (relative) uncertainty of the identified \gls{FRF} near the resonance peaks as caused by the measurement noise.
   Concretely, the grid spacing $\alpha \isdef \frac{f_{k+1}}{f_k}$ of the (quasi-)logarithmic grid with frequency resolution $\Delta f$ should conform to
   \begin{equation}
@@ -28,6 +28,8 @@
   \end{itemize}
 
   \subsection{Non-parametric Estimation}
+  
+  \paragraph{Leakage reduction}
   Different non-parametric estimators, specifically from the family of local estimators, i. e. \gls{LRIC}, \gls{LRM} and \gls{LPM} are compared in this work.
   It has been shown that the most general \gls{LRIC} is very sensitive to the use of the `correct' local model order.
   The pre-existing \gls{LRM} and \gls{LPM}, however, are not as sensitive.
@@ -35,6 +37,7 @@
   For resonant systems, the \gls{LRM} is superior to the \gls{LPM} in terms of both bias and \gls{RMS} error in almost all cases.
   The \gls{LPM} is slightly superior for very noisy datasets ($\SNR < 20 \unit{dB}$) that have a very limited frequency resolution.
 
+  \paragraph{Smoothing (noise reduction)}
   In addition, an approach has been developed that allows to reduce the variance of the estimated \gls{FRF} when it is captured in a long data record.
   This method works by examining the estimated impulse response, i.e. the inverse \gls{DFT} of the \gls{FRF}, and estimating a truncation time $\truncTime$ beyond which the impulse response is overwhelmed by the noise.
   By truncating past this point and transforming the result back into the frequency domain, an \gls{FRF} is obtained that has a reduced \gls{RMS} error by reducing the variance due to the noise.
@@ -45,6 +48,7 @@
   The second method divides the impulse response into segments.
   Starting from the last segment, it is tested statistically whether the preceding segment is significantly different from the noise, such that $\truncTime$ is estimated.
 
+  \paragraph{Peak value estimation}
   It has also been illustrated that the use of such local models allows to extract the resonance peak and thereby the $\Hinf$ gain of a system.
   In that setting, the \gls{LPM} is not reliable due to its limited model flexibility.
   The \gls{LRM}, on the other hand, has been shown to be yield estimates of the $\Hinf$ gain that improved greatly compared to pure \gls{FRF} measurements.
@@ -137,8 +141,8 @@
   Another possibility for future research is to approach the problem of $\Hinf$ gain estimation purely from the aspect of local regression such that combining multiple local models is no longer necessary.
 
   \subsection{Construction of Initial Values}
-  In \chapref{sec:initvals} it was already illustrated that smoother can provide improved initial estimates of a system. 
-  Intrinsically, this stems from the fact that the effective \gls{SNR} of the transfer function is improved by means of the smoothness assumption and, on the other hand by the reduction in the the dimensionality in the parameter space.
+  In \chapref{sec:initvals} it was already illustrated that smoothers can provide improved initial estimates of a system. 
+  Intrinsically, this stems from the fact that the effective \gls{SNR} of the transfer function is improved by means of the smoothness assumption and, on the other hand by the reduction in the dimensionality in the parameter space.
   By no means were the  smoothers studied in \chapref{sec:initvals} chosen in an optimal way, such that it remains an open topic to determine which smoother has the best chance to produce good initial values in practical settings.
 
   On the other hand, the \gls{LRM} and its variants discussed in \chapref{sec:nonparametric} provide some local information regarding the shape of the \gls{FRF} and hence also the transfer function.
@@ -149,8 +153,8 @@
   Techniques in model order reduction are likely to provide a good starting point to simplify the local pole/zero estimates to a global parametric model which could then be used to serve as initial estimate for the non-convex optimization steps.
 
 As noted in \remref{rem:initvals:orders:RFIR}, the selection of the model order used in \gls{RFIR} is still an open topic.
-There are a few approaches that we think are worthwhile to investigate.
-On the one hand, the truncation methods explained in \secref{sec:nonparametric:truncation} could lead to a initial estimate of the impulse response length and hence the required model complexity for \gls{RFIR}.
+There are a few approaches that are worthwhile to investigate.
+On the one hand, the truncation methods explained in \secref{sec:nonparametric:truncation} could lead to an initial estimate of the impulse response length and hence the required model complexity for \gls{RFIR}.
 On the other hand, one could devise crude model order selection procedures, e.g.  estimating \gls{RFIR} models with increasing complexity until increasing the model order offers no improvement in the non-parametric model.
 Alternatively, more flexible model structures (e.g. \gls{RARX}) could be tried.
 This does not do away with the model order selection of the initial model, but it will improve the computational efficiency since less parameters are needed to approximate a particular system.

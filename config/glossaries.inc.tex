@@ -38,15 +38,19 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 \newsymbolglos{A-SetRneg}{\NegativeRealNumbers}{Set of negative real numbers}
 
 \newsymbolglos{B-imagunit}{j}{The imaginary unit, $j = \sqrt{-1}$}
+\newsymbolglos{B-w}{\omega}{Frequency ($\unit{Hz}$) or angular frequency ($\unit{rad/s}$)}
 % \newsymbolglos{B-epsilon}{\eps}{The numerical precision of a floating point number (\code{eps}), e.g. $\eps \approx 2.2 \cdot 10^{-16}$ for \code{double} precision}
 
 \newsymbolglos{count-mc}{n_{\mathrm{MC}}}{Number of Monte Carlo runs}
 \newsymbolglos{count-theta}{n_{\theta}}{Number of parameters}
+\newsymbolglos{count-window}{\nWind}{Bandwidth of local window}
+\newsymbolglos{count-order}{\order{A},\order{B},\order{C}}{Order of local models $\LocalModel{A}, \LocalModel{B},\LocalModel{C}$}
 
 \newsymbolglos{E-approx}{\approx}{is approximately equal to \ldots}
-\newsymbolglos{E-bydef}{\isdef}{is defined as \ldots}
-\newsymbolglos{E-propto}{\propto}{is proportional to \ldots}
+\newsymbolglos{E-def}{\isdef}{is defined as \ldots}
 \newsymbolglos{E-distributed}{\distributedAs}{is distributed as \ldots}
+\newsymbolglos{E-equiv}{\equiv}{is equivalent with \ldots}
+\newsymbolglos{E-propto}{\propto}{is proportional to \ldots}
 \newsymbolglos{E-ll}{\ll}{is much smaller than \ldots}
 \newsymbolglos{E-gg}{\gg}{is much greater than \ldots}
 
@@ -59,6 +63,7 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 \newsymbolglos{norm-hinf}{\norm[\infty]{\placeholder}}{\Hinf norm of the system $\placeholder$}
 \newsymbolglos{norm-two}{\norm[2]{\placeholder}}{$\Hardy_{2}$ norm of the system $\placeholder$}
 \newsymbolglos{norm}{\norm[p]{\placeholder}}{$p$-norm of a signal or system $\placeholder$}
+
 
 \newsymbolglos{operator-bias}{\bias{\placeholder}}{Bias of \placeholder}
 \newsymbolglos{operator-cardinality}{\numberOf \placeholder}{Number of elements (cardinality) in the set \placeholder}
@@ -81,7 +86,6 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 \newsymbolglos{sys-resonance}{\wn}{Natural (resonance) frequency of a pole or system}
 \newsymbolglos{sys-timeconst}{\timeconst}{Time constant of a pole or system ($\timeconst \isdef (\damping \wn)^{-1}$)}
 
-\newsymbolglos{w}{\omega}{Angular frequency (pulsation)}
 
 %% ACRONYMS
 \setulcolor{gray}
@@ -98,7 +102,7 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 \newacronym{BNC}{BNC}{Bayonet Neill-Concelman (connector)}
 \newacronym{BTLS}{BTLS}{\abbrev{b}ootstrapped \abbrev{t}otal \abbrev{l}east \abbrev{s}quares}
 
-\newacronym{CDF}{CDF}{cumulative distribution function}
+\newacronym{CDF}{CDF}{cumulative density function}
 \newacronym{CPU}{CPU}{central processing unit}
 \newacronym{CRLB}{CRLB}{Cramér-Rao lower bound}
 \newacronym{CZT}{CZT}{chirp $Z$-transform}
@@ -153,7 +157,7 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 
 \newacronym{OE}{OE}{output-error}
 
-\newacronym{PDF}{PDF}{probability distribution function}
+\newacronym{PDF}{PDF}{probability density function}
 \newacronym{PI}{PI}{proportional-integral}
 \newacronym{PRESS}{PRESS}{prediction residual error sum of squares}
 \newacronym{PSD}{PSD}{power spectral density}

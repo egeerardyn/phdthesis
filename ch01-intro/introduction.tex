@@ -3,6 +3,8 @@
 \tikzsetfigurename{ch01fig}
 \myEpigraph{It's a dangerous business, Frodo, going out your door. You step onto the road, and if you don't keep your feet, there's no knowing where you might be swept off to.}{John Ronald Reuel Tolkien}{The Fellowship of the Ring}
 
+In this chapter, we first discuss some basic aspects of system identification, some typical choices and how those relate to user-friendly system identification and this dissertation.
+
 \section{System idenfication}
 \subsection{Linear System theory}
 \subsection{System Identification Approaches}
@@ -13,6 +15,15 @@
 \subsubsection{Time invariant or non?}
 
 \section{User-friendly System Identification}
+In this dissertation, we focus on developing system identification techniques that are `user-friendly'.
+User-friendly should be understood as having a good user experience for two groups of users:
+\begin{itemize}
+  \item novice users, without formal training in system identification, optimization, \ldots and,
+  \item well-seasoned identification practitioners that are already able to build good models.
+\end{itemize}
+Concretely, for novice users it is important to have straightforward techniques that require little interaction.
+In practice, this boils down to methods that work well for a wide class of systems.
+As such, only very generic assumptions of the system under test should be made and these should be easy to interpret.
 
 \begin{figure}
   \centering
@@ -21,10 +32,10 @@
   \label{fig:intro:identification-cycle}
 \end{figure}
 
-   \section{Publications}
-   The lion's share of this thesis has been published either in peer-reviewed scientific journals and conferences or has been submitted to such venues at the time of writing.
+\section{Publications}
+   The lion's share of this thesis has been published in either peer-reviewed  journals or conferences.
    This section links my different publications to the different sections in this thesis.
-   For an overview of publications grouped by type, please refer to \pageref{publicationList}.
+   For an overview of publications grouped by type, please refer to page~\pageref{publicationList}.
 
 \begin{refsection}
 % http://tex.stackexchange.com/questions/38580/displaying-selected-bibliographic-items-in-the-body-of-the-text
@@ -98,7 +109,7 @@ Preliminary results have been presented at local (non-refereed) conferences:
   \item \fullcite{Geerardyn2014DYSCO}, and
   \item \fullcite{Geerardyn2014ERNSI}.
 \end{itemize}
-The experimental work related to \chapref{sec:hinf} has also been presented at the 2015 \gls{IFAC} Symposium on System Identification (\textsc{SYSID}) and :
+The experimental work related to \chapref{sec:hinf} has also been presented at the 2015 \gls{IFAC} Symposium on System Identification (\textsc{sysid}) and :
 \begin{itemize}
   \item \fullcite{Voorhoeve2015SYSID}
   \item \fullcite{Voorhoeve2015ERNSI}

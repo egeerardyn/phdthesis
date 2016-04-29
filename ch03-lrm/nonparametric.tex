@@ -90,8 +90,8 @@ As such, these smooth contributions can be approximated well around each frequen
 \begin{align}
   \true{G}(\omega_{k}+d) 
   &\approx
-  \frac{\Sum_{i=0}^{\order{B}} b_i d^i}
-            {1 + \Sum_{i=1}^{\order{A}} a_i d^i}
+  \frac{\Sum_{i=0}^{\order{B}} b_i(k) d^i}
+            {1 + \Sum_{i=1}^{\order{A}} a_i(k) d^i}
     &\isdef
     \frac{\LocalModel[k]{B}(d)}%
            {\LocalModel[k]{A}(d)} 
@@ -100,8 +100,8 @@ As such, these smooth contributions can be approximated well around each frequen
   \label{eq:LRM:model:G}
   \\
   \true{T}(\omega_k + d) &\approx
-  \frac{\Sum_{i=0}^{\order{C}} c_i d^i}
-            {1 + \Sum_{i=1}^{\order{A}} a_i d^i}
+  \frac{\Sum_{i=0}^{\order{C}} c_i(k) d^i}
+            {1 + \Sum_{i=1}^{\order{A}} a_i(k) d^i}
     &\isdef 
       \frac{\LocalModel[k]{C}(d)}%
            {\LocalModel[k]{A}(d)}
@@ -212,6 +212,12 @@ Note that the estimated \gls{FRF} is given by evaluating the local model $\Local
   \hat{G}_{\LRIC}(\omega_k) \isdef \LocalModel[k]{G}(d=0)
   \text{.}
 \end{equation}
+
+\begin{remark}
+It should be noted that \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T} are essentially isomorphic to a continuous-time transfer function model with complex coefficients.
+The discrete-time counterparts (i.e. substituting $d^i \to \exp (ji d \Ts)$ in the expressions), have been tried as well.
+However, these preliminary experiments did not yield estimates that were numerically reliable.
+\end{remark}
 
 \subsection{The Local Rational Method}
 \label{sec:nparam:LRM}
@@ -379,7 +385,7 @@ See e.g. \citet{Loader1999} for more information regarding these `local regressi
 
 \section{Derivation of the Bias of the \glsentrytext{LRM}}
 \label{sec:biascalc}
-Since the local design matrix \eqref{eq:nparam:designMatrix} of the \gls{LRM} contains the noisy output spectrum $\LocalVector{Y}$ when $\order{A} > 0$, the \gls{LRM} is expected to be a biased estimator.
+Since the local design matrix $\LocalMatrix{K}$, see \eqref{eq:nparam:designMatrix}, of the \gls{LRM} contains the noisy output spectrum $\LocalVector{Y}$ when $\order{A} > 0$, the \gls{LRM} is expected to be a biased estimator.
 In this section, we will derive expressions for the bias such that it can be quantified how important this bias is in different situations.
 
 To determine the bias, an approach similar to \citep[Appendix A]{Guillaume1995} is followed.
@@ -458,7 +464,7 @@ As such, the bias on the parameters can be simplified to
   \label{eq:nparam:bias-basic}
 \end{equation}
 
-Do note that the estimated parameters $\theta \in \ComplexMatrix{\nth \times 1}$ but that $\ELSCost{\theta}$ is a real-valued function.
+Note that the estimated parameters $\theta \in \ComplexMatrix{\nth \times 1}$ but that $\ELSCost{\theta}$ is a real-valued function.
 In contrast to a complex-valued function, this requires additional attention when the derivatives are calculated~\citep{Messerschmitt2006} and~\citep[Section 15.9]{Pintelon2012} since $\ELSCost{\theta}$ is not an analytic function.
 Particularly, the function $\ELSCost{\theta}$ is regarded as a two-dimensional function $\ELSCost{\theta,\conj{\theta}}$ where $\conj{\theta}$ and $\theta$ are considered as independent variables~\citep{Hjorungnes2007,Hjorungnes2011}.
 The derivatives are then computed with respect to these variables.
@@ -823,7 +829,7 @@ Practically, this approximation error is very likely to be negligible in measure
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
   \input{\thisDir/figs/MC-SNR-Inf.tikz}
-  \caption[Comparison of local models for $\SNR = \infty$]{Local modeling of a discrete-time system results in an approximation error that is low enough for many practical uses. }
+  \caption[Comparison of local models for $\SNR = \infty$]{Local modeling of a discrete-time system results in an approximation error that is small enough for many practical uses. }
   \label{fig:nparam:comparison:noiseless}
 \end{figure}
 
@@ -841,13 +847,14 @@ For all methods (except the \gls{ETFE} and \gls{LRIC}), the simulations show tha
 \end{equation}
 where
 \begin{equation}
-  \Delta\SNR = \sqrt{\frac{\nth}{\nWind}}
+  \Delta\SNR \isdef \sqrt{\frac{\nth}{\nWind}}
+  \label{eq:nparam:deltaSNR}
 \end{equation}
 accounts for the smoothing action of local modeling (see \tabref{tbl:nparam:methods} for numerical values of $\Delta \SNR$).
 
 For the more noisy situation where $\SNR = 40 \unit{dB}$ (\figref{fig:nparam:comparison:midSNR}), the situation is qualitatively equal except the bias incurred by the \gls{LRM} is similar to the noise level.
 
-\begin{figure}[phtb]
+\begin{figure}[p]
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
@@ -856,7 +863,7 @@ For the more noisy situation where $\SNR = 40 \unit{dB}$ (\figref{fig:nparam:com
   \label{fig:nparam:comparison:hiSNR}
 \end{figure}
 
-\begin{figure}[phbt]
+\begin{figure}[p]
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
@@ -868,6 +875,7 @@ For the more noisy situation where $\SNR = 40 \unit{dB}$ (\figref{fig:nparam:com
 \paragraph{Poor signal-to-noise ratios}
 In \figref{fig:nparam:comparison:lowSNR} and \figref{fig:nparam:comparison:terribleSNR}, the results are shown for $\SNR=20\unit{dB}$ and $\SNR=10\unit{dB}$ respectively.
 Again, it can be seen that \gls{LRIC} is plagued by high variance and is hence not directly usable.
+However
 At $\SNR=20\unit{dB}$ the \gls{LPM} and the \gls{LRM} is significantly biased for small datasets ($\nBW < 6$), however, the \gls{LRM} still perform better than the \gls{LPM}.
 For larger datasets ($\nBW \geq 16$), all methods perform similarly and at a nearly constant level of (variance) error.
 The \gls{LRM}, in contrast to the \gls{LPM}, still contains an observable bias in the simulations.
@@ -875,8 +883,7 @@ At even lower $\SNR=10\unit{dB}$,  most methods perform quite poorly for short d
 However, here it can be seen that the $\lpm{7,4,4}$ outperforms both the $\lrm{7,1,1,1}$ and $\lrm{7,2,2,2}$ and slightly worse than $\lrm{6,2,2,2}$.
 It can be seen that the bias error of the \gls{LPM} drops off more quickly ($\bigO{\nBW^{-3}}$) than the \gls{LRM} bias which drops in approximately $\bigO{\nBW^{-1}}$.
 
- 
-\begin{figure}[phtb]
+\begin{figure}[p]
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
@@ -886,7 +893,7 @@ It can be seen that the bias error of the \gls{LPM} drops off more quickly ($\bi
   \label{fig:nparam:comparison:lowSNR}
 \end{figure}
 
-\begin{figure}[phbt]
+\begin{figure}[p]
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.62\figurewidth}
@@ -895,9 +902,13 @@ It can be seen that the bias error of the \gls{LPM} drops off more quickly ($\bi
   \label{fig:nparam:comparison:terribleSNR}
 \end{figure}
 
+\subsection{Summary}
+\TODO{discussie}
+
 \begin{guideline}[Use the LRM for resonant systems when $\SNR > 10 \unit{dB}$]
 For resonant systems, the \gls{LRM} offers better performance than \gls{LPM} when a good \gls{SNR} is obtained in the frequency domain.
 When the \gls{SNR} is poor ($\leq 10\unit{dB}$), the \gls{LPM} may perform a bit better than \gls{LRM}.
+The \gls{LRIC} is unsuitable due to a high variance, but has a much smaller bias error than the non-iterative solutions.
 \end{guideline}
 
 \begin{guideline}[For long measurements, LPM and LRM are similar]
@@ -910,6 +921,8 @@ For very long measurements, the difference between \gls{LPM} and \gls{LRM} becom
    % \subsection{F16}
 
 \section{Trading off the bias and variance}
+
+\TODO{introduction}
 
 \subsection{Order selection}
 \label{sec:nparam:orderSelection}
