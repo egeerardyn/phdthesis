@@ -44,6 +44,12 @@
 \input{config/styles.inc.tex}
 \ifDoc{\input{config/glossaries.inc.tex}}
 
+%% Version control
+% http://tex.stackexchange.com/questions/127822/how-do-i-combine-the-vc-bundle-arara-and-sublime-text-2s-build-methods
+\input{vc.tex}
+
+\ifDoc{\input{config/page.inc.tex}}
+
 \usepackage{epigraph}
 \usepackage{ifthen}
 \usepackage{etoolbox}
@@ -51,9 +57,3 @@
 \newcommand{\myEpigraph}[3]{\epigraph{#1}{\textsc{#2}\ifthenelse{\equal{#3}{}}{}{\\\textit{`#3'}}}}
 \renewcommand{\myEpigraph}[3]{\epigraph{#1}{\textsc{#2}\ifstrempty{#3}{}{\\\textit{`#3'}}}}
 \addtolength{\epigraphwidth}{0.05\epigraphwidth}
-
-%% Version control
-% http://tex.stackexchange.com/questions/127822/how-do-i-combine-the-vc-bundle-arara-and-sublime-text-2s-build-methods
-\input{vc.tex}
-
-\ifDoc{\input{config/page.inc.tex}}
