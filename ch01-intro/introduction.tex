@@ -5,12 +5,16 @@
 
 In this chapter, we first discuss some basic aspects of system identification, some typical choices and how those relate to user-friendly system identification and this dissertation.
 
-\section{System idenfication}
+\section{System Idenfication}
+
+System identification is the scientific approach of converting observations of a system into mathematical models that describe the behavior of the system under test.
+In \figref{fig:intro:identification-cycle}, a high-level flow diagram containing some key steps that are performed when identifying a system.
+Note that this is a simplified view, different authors 
 
 \begin{figure}
   \centering
   \includegraphics[width=0.9\columnwidth]{\thisDir/figs/id-cycle.pdf}
-  \caption[Identification loop]{Typical system identification loop. Figure based on \citep[Figure 1.10]{Ljung1999}.}
+  \caption[System identification loop]{System identification loop. \disclaimer{Adapted from \citep[Figure 1.10]{Ljung1999} and \citep{Mehra1981}.}}
   \label{fig:intro:identification-cycle}
 \end{figure}
 
@@ -40,11 +44,28 @@ For more advanced users, user-friendly methods can hence allow to deal with more
 
 In this dissertation, the focus lies on \gls{LTI} systems.
 While this might seem as a very restrictive choice, this is one of the fundamental settings for system identification.
-In particular, \gls{LTI} systems are a first step for many people to build a system model.
+In particular, \gls{LTI} systems are a first step to build a system model.
 In many cases, such a linear model is accurate enough, e.g. to build a nominal controller, to design electrical filters and obtain a reasonable intuition of the system under test.
-When such a linear model is not adequate, a more flexible model, e.g. a time-varying model, a nonlinear model or parameter-varying model needs to be constructed.
-However, many of those advanced modeling approaches build upon \gls{LTI} models.
-As such, improvements in estimating \gls{LTI} models also indirectly benefit more advanced models.
+Also, most engineers and scientists have a good understanding of linear systems such that \gls{LTI} models align well with their prior knowledge and experience.
+Nevertheless, when a linear model is not adequate, a more flexible model needs to be constructed.
+Such a model could be more flexible, e.g. by relinquishing the time-invariance and/or its linearity.
+However, many of those advanced modeling approaches employ \gls{LTI} models as starting values or intermediate result in building the actual non-linear~\citep{Giri2010} or time-varying model~\citep{Lataire2012,Louarroudi2014}.
+As such, improvements in estimating \gls{LTI} models also indirectly improve more advanced methods.
+
+\subsection{Contributions}
+In this dissertation, we look into a few aspects of the identification workflow with the goal to make the whole process more user-friendly.
+
+\paragraph{How should a good experiment be designed?}
+Can we design a `good experiment' to identify a \gls{LTI} model?
+Particularly, this means a robust input signal needs to be constructed without relying on extensive prior knowledge of the system.
+Such a signal should cover a wide frequency band to excite all dynamics of the system during the experiment.
+However, the signal should ensure that systems in different frequency bands can be identified with a specified level of accuracy.
+
+\paragraph{Can we process the input/output data in a non-parametric way that offers more insight than a standard frequency response function?}
+
+
+\paragraph{Can we }
+
 
 \section{Outline and Publications}
    The lion's share of this thesis has been published in either peer-reviewed  journals or conferences.
