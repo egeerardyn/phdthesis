@@ -5,20 +5,22 @@
 \cleardoublepage
 \addcontentsline{toc}{chapter}{Contents}
 \tableofcontents
-\clearpage
+% \clearpage
 
 \KOMAoption{listof}{leveldown,totoc}
 
-\listoffigures
-\listoftables
 
 %http://tex.stackexchange.com/questions/74857/toc-like-list-of-definitions-using-theorem-environments
 \renewcommand{\listtheoremname}{List of Guidelines}
 \listoftheorems[ignoreall,show=guideline]
 
+\listoftables
+
+\listoffigures
+
+\newpage
 \printglossary[type=\acronymtype,style=longheader,toctitle={List of Abbreviations}, title={List of Abbreviations}]
 
 \glsaddall[types=symbols]
 \printglossary[type=symbols,style=longheader,title={List of Symbols},toctitle={List of Symbols}]
 
-\newpage
