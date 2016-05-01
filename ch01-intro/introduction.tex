@@ -11,13 +11,14 @@ System identification is the science that deals with converting observations of 
 Successfully identifying a system often hinges on a plethora of choices that are to be made by the user.
 As a result, system identification can also be seen as an art for which the practitioner needs to learn the tricks of the trade.
 In \figref{fig:intro:identification-cycle}, a high-level flow diagram containing some key steps that are performed when identifying a system.
-These are the following steps:
+For the technical details, we refer to the many textbooks on system identification~\citep{Soderstrom1989,Ljung1999,Pintelon2012}.
+Here, we give the high-level overview of the different steps and choice.
 
 \paragraph{Experiment design}
 In the first step, an experiment is constructed to gain insight into the behavior of a system.
 For system identification, experiment design is a question of designing input signals that will be applied to the system under test.
 Typically, the design consists of constructing a signal such that the obtained model  has a small uncertainty in some sense~\citep{Goodwin1977,Goodwin2006GBO}.
-On the one hand, if one has very precise prior information, one could even construct optimal signals~\citep{Narasimhan2011}.
+On the one hand, if one has very precise prior information, one could even construct optimal signals~\citep{Gevers2011ExpDesign}.
 Typically, the design is very sensitive to the prior knowledge of the system.
 This is necessary to focus all the energy in the signal towards exciting the system dynamics as to reduce the uncertainty in the model.
 However, when the prior knowledge is incomplete, uncertain or even incorrect, optimal signals can lead to very poor models as they might not excite other dynamics.
@@ -67,17 +68,43 @@ In case the model is not validated, this provides the user with new knowledge: t
 
 \subsection{System Identification Approaches}
 In this section, some different approaches for system identification are discussed and related to the work in this dissertation.
-\subsubsection{White Box, Black Box or Grey Box}
+We cover some typical traits of different methods and describe why a particular approach is favored in this thesis.
+
+\subsubsection{White Box, Black Box or Grey Box?}
+Modeling can be divided into two diametrical groups depending on the starting point of modeling~\citep{Ljung2010}.
+One the one hand, there is so-called \term{`white box'} modeling, or first-principles modeling.
+The model is constructed by writing down the equations that govern the system, e.g. Newton's laws of motion for mechanical systems, Kirchoff's laws for electrical circuits, \ldots
+This is the typical kind of modeling practices in school.
+Unfortunately, white box modeling quickly becomes unwieldy once more complicated systems are to be studied or many parts of the system are uncertain.
+In general, lot of man-hours are required to build a white box model, such that this is often prohibitively expensive for engineering applications.
+
+On the other hand, the diametrically opposed approach is called \term{`black box'} modeling.
+Here, the model structure is chosen such that a wide variety of phenomena can be described.
+Regardless of the nature of the underlying system, be it mechanical, chemical, electrical, structural, \ldots, most dynamic phenomena can be described using differential equations (or difference equations).
+In particular, for black-box models, the structure of the model is chosen such that the data is well-approximated.
+The downside of this is that giving physical interpretations of the model is not always possible, but for many applications (e.g. controller design) that is not the main goal of the model.
+
+Obviously, in practice nothing is ever as black and white and neither is modeling.
+In many cases, one can or even has to incorporate knowledge about the physics of the system in the modeling process.
+In particular when one has black box models where some parameters are related to physical phenomena, the resulting model is called \term{`gray box'}.
+
+In this dissertation, we use mainly black box models (or very dark gray ones) as those are independent from the actual application.
+Hence, the proposed techniques should be applicable for different areas of engineering: electrochemical, electronics, mechatronics, structural engineering, \ldots
+
+\subsubsection{Parametric or non-parametric}
+
+
+\subsubsection{Linear or nonlinear?}
+\subsubsection{Time invariant or not?}
 
 
 \subsubsection{Time or Frequency Domain}
-\subsubsection{Linear or nonlinear?}
-\subsubsection{Time invariant or not?}
-\subsubsection{Parametric or non-parametric}
+
 
 \section{User-friendly System Identification}
 In this dissertation, we focus on developing system identification techniques that are `user-friendly'.
-User-friendly should be understood as having a good user experience for two groups of users:
+The availability of easy to use and fast methods has been underlined by \citet{Gevers2011Challenges}.
+In this context, `user-friendly' should be understood as having a good user experience for two groups of users:
 \begin{itemize}
   \item novice users, without formal training in system identification, optimization, \ldots and,
   \item well-seasoned identification practitioners that are already able to build good models.
