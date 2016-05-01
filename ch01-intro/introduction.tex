@@ -5,11 +5,58 @@
 
 In this chapter, we first discuss some basic aspects of system identification, some typical choices and how those relate to user-friendly system identification and this dissertation.
 
-\section{System Idenfication}
+\section{System Identification}
 
-System identification is the science---and often art---to deals with converting observations of a system into mathematical models to describe the behavior of the system under test.
+System identification is the science that deals with converting observations of a system into mathematical models to describe the behavior of the system under test.
+Successfully identifying a system often hinges on a plethora of choices that are to be made by the user.
+As a result, system identification can also be seen as an art for which the practitioner needs to learn the tricks of the trade.
 In \figref{fig:intro:identification-cycle}, a high-level flow diagram containing some key steps that are performed when identifying a system.
-Note that this is a simplified view, different authors 
+These are the following steps:
+
+\paragraph{Experiment design}
+In the first step, an experiment is constructed to gain insight into the behavior of a system.
+For system identification, experiment design is a question of designing input signals that will be applied to the system under test.
+Typically, the design consists of constructing a signal such that the obtained model  has a small uncertainty in some sense~\citep{Goodwin1977,Goodwin2006GBO}.
+On the one hand, if one has very precise prior information, one could even construct optimal signals~\citep{Narasimhan2011}.
+Typically, the design is very sensitive to the prior knowledge of the system.
+This is necessary to focus all the energy in the signal towards exciting the system dynamics as to reduce the uncertainty in the model.
+However, when the prior knowledge is incomplete, uncertain or even incorrect, optimal signals can lead to very poor models as they might not excite other dynamics.
+An alternative approach is to incorporate the uncertainty of the prior knowledge into the signal design.
+This leads to so-called robust optimal experiment design~\citep{Rojas2012,Goodwin2006} that construct signals that optimize the worst-case model uncertainty.
+Paradoxically, this means that for robust optimal designs, more prior knowledge, rather than less is required.
+
+The design of good experiments hence already forces the user to make a choice that can have far-reaching consequences for the model quality.
+
+\paragraph{Select a model structure}
+Once an experiment has been performed, the obtained input-output data is to be processed.
+In many cases, the eventual goal of identification is to obtain a parametric model, so the user has to select a model structure and/or complexity based on both his prior knowledge and on the data.
+A useful tool to help choose the model structure and/or model orders, is to inspect a nonparametric model of the system.
+One such tool is the frequency response function.
+For instance, by inspecting a frequency response function, a control engineer can have a rough idea of the system behavior in term of  approximate resonance frequencies, asymptotic slopes, \ldots
+This gives a qualitative view of the minimally required complexity of the model and is hence a useful diagnostic tool.
+However, since most parametric estimators enforce very little prior knowledge about the system, noise in the measurements can sometimes be a problem to distinguish the actual system features.
+
+\paragraph{Estimate the model}
+Once the model structure has been chosen, its parameters are to be estimated.
+This is done by formulating an optimization problem which serves to minimize a particular cost function.
+The cost function is in essence a measure of the differences between the measured data and the model evaluated for particular parameter values.
+By minimizing the cost function, the optimization procedure yields parameter values that try to minimize the misfit between the data and the model.
+Unfortunately, for many identification settings, these optimization problems are non-convex~\citep{Boyd2004}.
+This means that initial values need to be available to start the optimization process.
+Moreover, for poor starting values, optimization algorithms may get stuck in local minima of the cost function.
+Consequently, without reasonable starting values, the `optimized' model may also be of poor quality. 
+
+\paragraph{Validate the model}
+Finally, the estimated model is validated.
+Essentially, one checks whether the obtained model meets the predefined requirements, e.g. with respect to allowable uncertainty, compexity, \ldots
+This can happen in a few different ways.
+On the one hand, in-sample measures such as statistical tests on the value of the cost function, correlation tests on the residuals, \ldots allow to verify that the model performs well on the measured dataset.
+Such approaches help to detect underfitting, where the model is not flexible enough to describe the measurements.
+On the other hand, the ultimate test is to validate the model against new measurements that have not been used during the estimation.
+This prevents overfitting of the model, where the model not only captures the behavior of the system but also describes the particular realization of the noise in the measurements.
+The latter leads to models that are overly tuned to the measurements such that their results cannot be replicated for new measurements.
+In case the model is not validated, this provides the user with new knowledge: that particular model is not good enough and at least one of the previous steps (or the prior knowledge) has to be altered.
+
 
 \begin{figure}
   \centering
@@ -18,13 +65,15 @@ Note that this is a simplified view, different authors
   \label{fig:intro:identification-cycle}
 \end{figure}
 
-\subsection{Linear System theory}
 \subsection{System Identification Approaches}
-
+In this section, some different approaches for system identification are discussed and related to the work in this dissertation.
 \subsubsection{White Box, Black Box or Grey Box}
+
+
 \subsubsection{Time or Frequency Domain}
 \subsubsection{Linear or nonlinear?}
-\subsubsection{Time invariant or non?}
+\subsubsection{Time invariant or not?}
+\subsubsection{Parametric or non-parametric}
 
 \section{User-friendly System Identification}
 In this dissertation, we focus on developing system identification techniques that are `user-friendly'.
@@ -62,9 +111,14 @@ Such a signal should cover a wide frequency band to excite all dynamics of the s
 However, the signal should ensure that systems in different frequency bands can be identified with a specified level of accuracy.
 
 \paragraph{Can we process the input/output data in a non-parametric way that offers more insight than a standard frequency response function?}
-
+Developing a full parametric model for complicated systems requires considerable effort.
+Instead, could we leverage non-parametric or locally parametric approaches to obtain insight in the behavior of the system?
+In particular, can local modeling methods be used to characterize the resonances of a system, or even work around the typical frequency resolution limitations of a discrete frequency grid?
 
 \paragraph{Can we avoid local minima by using smoothers?}
+When a parametric model is required, this often involves solving a nonlinear optimization problem.
+Such optimization problems require good initial parameter estimates to allow iterative methods to converge to a good local optimum, or, preferably even the global optimum.
+Can non-parametric smoothers be used to help avoid such local optima?
 
 
 \section{Outline and Publications}

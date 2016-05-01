@@ -11,8 +11,8 @@ a0     = 0.01;
 b0     = pi;
 theta0 = a0 + b0*1j;
 thetaInit = a0 + 2.3j;
-model0 = model0;
 model  = @(theta,t) real(exp(-theta.*t));
+model0 = model;
 cost   = @(theta) sum(abs(model(theta,t) - model0(theta0,t)).^2)/N;
 
 %% 
