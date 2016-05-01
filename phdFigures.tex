@@ -13,6 +13,11 @@
 \usenavigationsymbolstemplate{}
 %FIXME: maybe some other styles for in the presentations?
 
+%% XKCD style
+% http://tex.stackexchange.com/questions/74878/create-xkcd-style-diagram-in-tex
+% []
+% \tikzset{every picture/.append style={decoration={random steps,segment length=1mm,amplitude=0.2pt}}}
+
 % http://tex.stackexchange.com/questions/3169/making-a-new-environment-combining-equation-and-split
 \NewEnviron{fig}{%
   \begin{frame}
@@ -110,6 +115,61 @@
 \def\thisDir{ch03-lrm}
 \tikzsetfigurename{ch03pres}
 
+\begin{fig}
+ \input{\thisDir/figs/generalized-output-error.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/MC-SNR40-NBW64and8.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/MC-SNR-Inf.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/MC-SNR-60.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/MC-SNR-40.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/MC-SNR-20.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/MC-SNR-10.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/LPMfig.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/truncRMS.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/expfit.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/figLPMvsTRunc.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/pdfs.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/expFitBoxAverager.tikz}
+\end{fig}
+
+\begin{fig}
+\input{\thisDir/figs/pdfs-rmse-boxcar.tikz}
+\end{fig}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Chapter 4}
