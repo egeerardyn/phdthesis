@@ -15,25 +15,25 @@ ymax=30,
 ylabel={Amplitude $\abs{G(\omega)}$ \axisunit{dB}},
 legend style={legend cell align=left}
 ]
-	\addplot [truesys] table[]{\thisDir/figs/figLPMvsTrunc-3.tsv};
+	\addplot [truesys] table[]{\thisDir/data/LPMvsTrunc/truesys.tsv};
 	\addlegendentry{$\true{G}$};
 
-	\addplot [FRFLPM] table[]{\thisDir/figs/figLPMvsTrunc-1.tsv};
+	\addplot [FRFLPM] table[]{\thisDir/data/LPMvsTrunc/LPM-frf.tsv};
 	\addlegendentry{$\hat{G}_{\LPM}$};
 
-	\addplot [FRFtrunc] table[]{\thisDir/figs/figLPMvsTrunc-2.tsv};
+	\addplot [FRFtrunc] table[]{\thisDir/data/LPMvsTrunc/trunc-frf.tsv};
 	\addlegendentry{$\hat{G}_{\LPM,\trunc}$};
 
-	\addplot [sigmaLPM] table[]{\thisDir/figs/figLPMvsTrunc-6.tsv};
+	\addplot [sigmaLPM] table[]{\thisDir/data/LPMvsTrunc/LPM-std.tsv};
 	\addlegendentry{$\sampleStd{\LPM}$};
 
-	\addplot [sigmaTrunc] table[]{\thisDir/figs/figLPMvsTrunc-7.tsv};
+	\addplot [sigmaTrunc] table[]{\thisDir/data/LPMvsTrunc/trunc-std.tsv};
 	\addlegendentry{$\sampleStd{\LPM,\trunc}$};
 
-	\addplot [biasLPM] table[]{\thisDir/figs/figLPMvsTrunc-4.tsv};
+	\addplot [biasLPM] table[]{\thisDir/data/LPMvsTrunc/LPM-bias.tsv};
 	\addlegendentry{$\sampleBias{\LPM}$};
 
-	\addplot [biasTrunc] table[]{\thisDir/figs/figLPMvsTrunc-5.tsv};
+	\addplot [biasTrunc] table[]{\thisDir/data/LPMvsTrunc/trunc-bias.tsv};
 	\addlegendentry{$\sampleBias{\LPM,\trunc}$};
 
 \end{axis}
