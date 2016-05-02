@@ -8,8 +8,8 @@
   \subsection{Excitation Design}
   In this thesis, multisine signals are proposed to measure \gls{SISO} systems within a \gls{LTI} framework.
   Particularly, the proposed multisine signals employ a quasi-logarithmic frequency grid and a power spectrum in $1/f$ akin to pink noise to ensure a good quality of the \gls{FRF} over the whole excited frequency band.
-  As such, they are a more robust excitation signal than e.g. typical general-use signals such as linear grid multisines or white noise excitation with the same total signal power and duration.
-  In this thesis it has been proven that when the user has prior knowledge about the expected minimal damping $\damping[\min]$ of the poles present in the system, this sets the required logarithmic frequency grid spacing to attain a guaranteed (relative) uncertainty of the identified \gls{FRF} near the resonance peaks as caused by the measurement noise.
+  As such, for a constant total signal power and duration, they are a more robust excitation signal than e.g. typical general-use signals such as linear grid multisines or white noise excitation.
+  In this thesis it has been proven that when the user knows the minimal damping $\damping[\min]$ of the poles of the system, this sets the required logarithmic frequency grid spacing to attain a guaranteed (relative) uncertainty of the identified \gls{FRF} near the resonance peaks.
   Concretely, the grid spacing $\alpha \isdef \frac{f_{k+1}}{f_k}$ of the (quasi-)logarithmic grid with frequency resolution $\Delta f$ should conform to
   \begin{equation}
     \alpha \leq 1 + \damping[\min]
@@ -39,19 +39,20 @@
 
   \paragraph{Smoothing (noise reduction)}
   In addition, an approach has been developed that allows to reduce the variance of the estimated \gls{FRF} when it is captured in a long data record.
-  This method works by examining the estimated impulse response, i.e. the inverse \gls{DFT} of the \gls{FRF}, and estimating a truncation time $\truncTime$ beyond which the impulse response is overwhelmed by the noise.
-  By truncating past this point and transforming the result back into the frequency domain, an \gls{FRF} is obtained that has a reduced \gls{RMS} error by reducing the variance due to the noise.
+  This method works by examining the estimated impulse response, i.e. the inverse \gls{DFT} of the \gls{FRF}, and estimating a truncation time $\truncTime$ beyond which the impulse response measurement is dominated by the noise.
+  By truncating past this point, and transforming the result back into the frequency domain, an \gls{FRF} is obtained that has a reduced \gls{RMS} error by reducing the variance due to the noise.
   Two complementary approaches to determine $\truncTime$ have been developed.
   Both methods estimate the noise level on the impulse response by assuming the last $10\%$ of the samples are only noise.
   The first method exploits the fact that many physical systems exhibit an exponential decay.
   This exponential decay is estimated roughly, such that the truncation point is determined as the instant where decay is below the noise level.
   The second method divides the impulse response into segments.
   Starting from the last segment, it is tested statistically whether the preceding segment is significantly different from the noise, such that $\truncTime$ is estimated.
+  For physical systems that exhibit an exponentially decaying impulse response, the exponential fitting method is to be preferred.
 
   \paragraph{Peak value estimation}
   It has also been illustrated that the use of such local models allows to extract the resonance peak and thereby the $\Hinf$ gain of a system.
   In that setting, the \gls{LPM} is not reliable due to its limited model flexibility.
-  The \gls{LRM}, on the other hand, has been shown to be yield estimates of the $\Hinf$ gain that improved greatly compared to pure \gls{FRF} measurements.
+  The \gls{LRM}, on the other hand, has been shown to yield estimates of the $\Hinf$ gain that improved greatly compared to pure \gls{FRF} measurements.
   For systems that consist of complex dynamic behavior, this allows one to extract reasonable peak values without the hassle of building a global parametric model.
   The use of such local models, in practice, has been validated and can provide good estimates using a dataset that is four times smaller than what would be required for other \gls{FRF}-based methods.
   As such, the measurement time (and hence cost) can also be reduced by the same amount.
@@ -60,11 +61,11 @@
   \subsection{Initialization of Parametric Estimation}
   To obtain a parametric model estimate from measured data often requires solving a non-convex optimization problem.
   However, for such optimization problems, often an initial parameter estimate is required to allow convergence to the global optimum, or a local optimum nearby.
-  In this thesis, it was investigated whether convergence to a good optimum can be attained more easily by means of \gls{FRF} smoothers, in particular for cases where a low \gls{SNR} is available yet a lot of measurements are available.
-  A few practical smoothers have been studied, i.e. the time-truncated \gls{LPM} and \gls{RFIR}.
+  In this thesis, it was investigated whether convergence to a good optimum can be attained more easily by means of \gls{FRF} smoothers; in particular when many data points are only a poor \gls{SNR} is attained.
+  A few practical smoothers have been studied, i.e. the time-truncated \gls{LPM}, and the \gls{RFIR}.
   It has been shown that especially the \gls{RFIR} provides smoothed \glspl{FRF} that aid in convergence to a good optimum than the existing state-of-the-art initializers (\gls{BTLS} and \gls{GTLS}).
   These smoothers allow one to obtain good models from noisier data than what existing techniques.
-  The improvement of the initial values has been verified both on simulations, measurements and a simulation stress test consisting of different filters.
+  The improvement of the initial values has been verified both on simulations, measurements, and a simulation stress test consisting of different filters.
   While overall the \gls{RFIR} provides the best starting values from the different smoothers, combining multiple initial values remains a very valuable approach to make a system identification toolbox robust for the measurement data.
 
 \section{Future Perspectives}
@@ -107,7 +108,7 @@
       = \frac{\LocalModel{B}(\dW)}{\LocalModel{A}(\dW)}
       = \frac{\Sum_i  b_i \exp (ji\dW\Ts)}{\Sum_i  a_i \exp (ji\dW\Ts) }
     \end{equation}
-    but these have proven more difficult to estimate numerically and hence unreliable.
+    but these have proven more difficult to estimate numerically and hence unreliable~\citep[Section 2.4]{Pintelon2006BJ1}.
     A possible approach for this would be to use orthogonal polynomials~\citep{Forsythe1957,Bultheel2005} with complex coefficients.
 
     As the non-parametric methods such as \gls{LPM} and \gls{LRM} were originally intended to serve the same purpose as windows in classical spectral analysis, this naturally leads to other applications of these methods where windows are otherwise used to reduce the effect of spectral leakage.
@@ -116,10 +117,10 @@
     In this context, the \gls{LPM} has already been used~\citep{Lataire2012}.
     Preliminary tests using the \gls{LRM} in lieu of the \gls{LPM} have proven fruitful.
     Similarly, for \gls{LPV} systems, the \gls{LRM} allows to extract non-parametric models from \gls{LPV} systems where the scheduling parameter is fixed during the experiment~\citep{vanderMaas2015CDC}.
-    Given these successes of \gls{LRM} to estimate a preliminary model of both parameter-varying and time-varying models in more complicated experimental settings.
+    Given the successful application of \gls{LRM} in a frozen parameter-varying system, it seems worthwhile to investigate if the\gls{LRM} can be extended to work in more challenging experimental settings.
     E.g. it could prove useful to extend the \gls{LRM} towards measurements of \gls{LPV} systems where the scheduling parameter is allowed to vary continuously during the experiment.
 
-    Another application where the \gls{LPM} is more developed is the handling of missing data~\citep{Ugryumova2015}.
+    Another application where the \gls{LPM} is developed further, is the handling of missing data~\citep{Ugryumova2015}.
     In particular, the frequency domain relationship between the input $U$ and output $Y$ is augmented by a term $M_Y$ that accounts for the missing output data samples:
     \begin{equation}
       Y(\omega_k) = G(\omega_k) U(\omega_k) + T(\omega_k) + M_Y(\omega_k) + \mathrm{noise}\text{,}
@@ -129,9 +130,13 @@
     Consequently, extending the \gls{LRM} to handle missing data is non-trivial and could be an interesting topic for further research.
 
     Finally, a comparison between different approaches for non-parametric modeling~\citep{Hagg2012,Stenman2001ASFRF,Gevers2011lpm} could be made.
-    This could be done from a theoretical point of view to find correspondences between different approaches (e.g. \citep{Hagg2012} reduces to \gls{ETFE} as does the \gls{LRM} for specific settings) and from a qualitative point of view to find the best operating regions of each approach.
+    This could be done from a theoretical point of view to find correspondences between different approaches (e.g. both \gls{TRIMM}~\citep{Hagg2012} and \gls{LRM} are generalizations of the \gls{ETFE} for specific settings).
+    A comparison from a qualitative point of view would be of more practical use, as this would allow to find the best operating regions of each approach.
     Eventually, this could even lead to hybrid methods that either select the best method for a specific setting or use results from different methods to overcome weaknesses of individual methods such as high computational complexity, high bias, high variance, \ldots
-    Especially in the view of \gls{LRM} as a form of local regression~\citep{Loader1999}, it could be worthwhile to also investigate suitable (frequency-domain) kernels instead of the uniform kernel that is implicitly used in the \gls{LRM}.
+    When regarding the \gls{LRM} as a specific form of local regression~\citep{Loader1999}, this allows to reuse the ideas from that community.
+    In particular, local regression often uses a so-called kernel that weights the least-squares fit (where the \gls{LRM} implicitly uses a uniform kernel).
+    In view of \gls{FRF} estimation, a worthwhile endeavor could be to study the influence of these kernels on both the \gls{FRF} estimate and the estimated noise level.
+    Moreover, this could even lead to the design of new kernels.
 
   \subsection{Non-parametric Estimation and Interpolation}
   As with the regular \gls{LRM}, ongoing research focusses on the estimation approach of the $\Hinf{}$ gain towards the \gls{MIMO} case.
@@ -142,7 +147,7 @@
 
   \subsection{Construction of Initial Values}
   In \chapref{sec:initvals} it was already illustrated that smoothers can provide improved initial estimates of a system. 
-  Intrinsically, this stems from the fact that the effective \gls{SNR} of the transfer function is improved by means of the smoothness assumption and, on the other hand by the reduction in the dimensionality in the parameter space.
+  Intrinsically, this stems from the fact that the effective \gls{SNR} of the transfer function is improved by means of the smoothness assumption, and on the other hand by the reduction in the dimensionality in the parameter space.
   By no means were the  smoothers studied in \chapref{sec:initvals} chosen in an optimal way, such that it remains an open topic to determine which smoother has the best chance to produce good initial values in practical settings.
 
   On the other hand, the \gls{LRM} and its variants discussed in \chapref{sec:nonparametric} provide some local information regarding the shape of the \gls{FRF} and hence also the transfer function.
