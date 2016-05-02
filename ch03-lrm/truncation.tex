@@ -236,8 +236,11 @@ Note that \assref{ass:imprespdecay} and \assref{ass:decay90perctime} exclude the
 
 The estimated impulse response function  $\hat g_{{\LPM}\setminus \mathrm{DC}}(t)$ is obtained explicitly via the \gls{IDFT} of the \gls{LPM}-estimate $\hat G_{\LPM}(\omega_k)$ of the \gls{FRF} in accordance with equation \eqref{eq:defDFT}, \emph{viz}:
 \begin{align}\label{eq:impRespiDFT}
-\hat g_{{\LPM}\setminus \mathrm{DC
-}}(t) &= \frac{1}{\sqrt{N}}\sum_{k=1}^{N-1}\hat G_{\LPM}(\omega_k)e^{\frac{j2\pi kt}{N}}
+\hat g_{{\LPM}\setminus \mathrm{DC}}(t) 
+&= 
+\frac{1}{\sqrt{N}}
+\sum_{k=1}^{N-1}
+\hat G_{\LPM}(\omega_k)e^{\frac{j2\pi kt}{N}}
 \end{align}
 where the estimated \gls{FRF} in the frequency band between  the Nyquist and the sample frequencies is obtained as follows:
 \begin{align}
@@ -348,7 +351,7 @@ The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,
   To start this refinement, the last $\segm{\hat{g}}{\starred{i}}$ should be used to compare the RMS with the $F$-test, since the last subsegment of $\segm{\hat{g}}{\starred{i}-1}$ cannot be asserted to be dominated by noise.
 
 \end{enumerate}
-This procedure is illustrated in \figref{fig:nparam:trunc:nonparametric:truncation:Ftest} for the system described by the following equations, which are relevant to the \gls{LPM} outlined in \secref{sec:nparam:trunc:LPMFRFest}:
+This procedure is illustrated in \figref{fig:nparam:trunc:nonparametric:truncation:Ftest} for the system described by the following equations:
 \begin{subequations}
 \label{eq:trunc:systemODEs}
 \begin{align}
@@ -356,7 +359,7 @@ y_0(t)  &= 1.5371y_0(t-1)    -0.9025y_0(t-2) + u(t)\\
 y(t)       &= y_0(t) + e(t),
 \end{align}
 \end{subequations}
-where $e(t)$ is a white noise sequence, such that the SNR of the output signal is $78.2\unit{dB}$.
+where $e(t)$ is a white noise sequence, such that the \gls{SNR} of the output signal is $78.2\unit{dB}$.
 The figure shows segments of the estimated impulse response. The last two segments are dominated by the noise, while all samples at $t<80$ have large system contributions. The algorithm outlined above selects $\truncTime = 80$, beyond which all samples are set to zero, resulting in a smoothed \gls{FRF} estimate. 
 
 \begin{figure}[tbh]

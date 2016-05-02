@@ -8,14 +8,14 @@
 \section{Introduction}
 \label{sec:nonparametric:introduction}
 
-Whereas many areas of system identification focus on parametric identification and/or parameter estimation, non-parametric techniques have recently received renewed interest from the community.
+Whereas many areas of system identification focus on parametric identification and/or parameter estimation, non-parametric techniques have received renewed interest from the community over the last decade.
 One of the reasons for this is that non-parametric techniques typically require less assumptions and knowledge of the system than building parametric models.
-As a consequence, non-parametric methods are often more robust to wrong assumptions than fully parametric methods.
+As a consequence, non-parametric methods are often more robust than fully parametric methods.
 Besides, \glspl{FRF} have been shown to provide a quick insight into the basic dynamic properties of \gls{LTI} systems.
-This capability is very useful for system design, controller design, model validation and model selection for parametric models~\citep{Pintelon2012}.
+This capability is very useful for system design, manual controller tuning, model validation and model selection for parametric models~\citep{Pintelon2012}.
 
 The measurement of \glspl{FRF} of dynamic systems is an important step in many technical applications, often used as a simple visualization of the system dynamics.
-However, obtaining a good non-parametric \gls{FRF} from a measured input-output data set can prove difficult due to the presence of noise, leakage and measurement time limitations to observe lightly-damped dynamics well.
+However, obtaining a good non-parametric \gls{FRF} from a measured input-output data set can be challenging due to the presence of noise, leakage and measurement time limitations to observe lightly-damped dynamics well.
 \gls{FRF} measurement techniques are discussed, for instance, in
 \citep{Schoukens1998,Schoukens2006LPM,Guillaume1996,Broersen1995,Pintelon2010LPM1,Antoni2007FRF,Pintelon2012}, and applied to practical devices and systems~\citep{Lim2010,Robinson1990,Behjat2010}, among others.
 
@@ -173,7 +173,7 @@ If one denotes the input/output spectra in such a local frequency window $\Local
 \end{equation}
 and similarly for the other quantities, equation \eqref{eq:output-error-FD} limited to $\LocalWindow[k]$ can be written as
 \begin{equation}
-  \LocalVector{Y}_k  = {\true{\LocalVector{G}}}_k \hadamard \LocalVector{U}_k + \LocalVector{T}_k + \LocalVector{V}_k
+  \LocalVector{Y}_k  = {\LocalVector{G}}_k \hadamard \LocalVector{U}_k + \LocalVector{T}_k + \LocalVector{V}_k
 \text{,}
 \end{equation} 
 where $\hadamard$ denotes the element-wise product (also, Hadamard product).
@@ -673,7 +673,7 @@ Equivalently, the relative bias of the \gls{FRF} can be written as
 \begin{bmatrix}
     \dw{\omega}{}^1 & \deemph{\cdots} & \dw{\omega}{}^{\order{A}}
   \end{bmatrix}
-  \evaluate{\left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}}{A}
+  \left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}_{A}
   \PartialDerivative{\ELSCost[n]{\true\theta}}{\theta_A}^{\TT}
   \\
   &=
@@ -681,7 +681,7 @@ Equivalently, the relative bias of the \gls{FRF} can be written as
 \begin{bmatrix}
     \dw{\omega}{}^1 & \deemph{\cdots} & \dw{\omega}{}^{\order{A}}
   \end{bmatrix}
-  \evaluate{\left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}}{A}
+  \left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}_{A}
   \begin{bmatrix}
      \Sum_{\dW} \dW^1 
      \frac{\LocalModel{A}(\conj{\dW},\conj{\LocalVector{\theta}})}
@@ -692,7 +692,7 @@ Equivalently, the relative bias of the \gls{FRF} can be written as
                {\LocalModel{A}(\dw{\omega}{}, \theta)}\\
   \end{bmatrix}
 \end{align}
-where $\evaluate{\left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}}{A}$ denotes the upper left $\order{A}\times\order{A}$ subblock of $\left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}$ which pertains to the parameters of $\LocalModel{A}$.
+where $\left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}_{A}$ denotes the upper left $\order{A}\times\order{A}$ subblock of $\left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}$ which pertains to the parameters of $\LocalModel{A}$.
 From the leading factor, it can be seen that the bias on the \gls{FRF} is $\bigO{\sigma_V^2}$.
 Consequently, one can expect that the bias is inherently linked to the \gls{SNR} of the output signal in the frequency domain.
 
