@@ -112,7 +112,7 @@ As such, these smooth contributions can be approximated well around each frequen
 
 In these expressions, we denote $\LocalModel[k]{G}$ and $\LocalModel[k]{T}$ for the local model for respectively transfer function and the transient.
 Note that such local quantities (which depend on the frequency bin $k$) are denoted in bold.
-To alleviate the notations, the subscript $k$ is omitted unless 
+To alleviate the notations, the subscript $k$ is omitted whenever this does not cause ambiguity. 
 
 To estimate the local parameters $\theta$  
 \begin{equation}
@@ -212,16 +212,28 @@ Note that the estimated \gls{FRF} is given by evaluating the local model $\Local
   \hat{G}_{\LRIC}(\omega_k) \isdef \LocalModel[k]{G}(d=0)
   \text{.}
 \end{equation}
+In \figref{fig:nparam:illustration}, the local window $\LocalWindow[k]$, the local input-output spectra ($\LocalVector[k]{U}$ and $\LocalVector[k]{U}$) are illustrated.
+
+\begin{figure}[htb] %  figure placement: here, top, bottom, or page
+   \centering
+   \setlength{\figurewidth}{0.8\columnwidth}
+   \setlength{\figureheight}{0.68\figurewidth}
+   \input{\thisDir/figs/LPMfig.tikz}
+   \caption[Illustration of local modeling.]{Illustration of local modeling. Top figures: input spectrum (left) and output spectrum (right). 
+   A small frequency window $\LocalWindow[k]$ is selected, in which the local model $\LocalModel[k]{G}$ is estimated. Its central value $\hat{G}(\omega_k)$ is an estimate of the \gls{FRF}. This procedure is repeated for all frequencies $\omega_k$. \disclaimer{Figure based on \citep[Fig.~2]{Lumori2014TIM}.}}
+   \label{fig:nparam:illustration}
+\end{figure}
 
 \begin{remark}
 It should be noted that \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T} are essentially isomorphic to a continuous-time transfer function model with complex coefficients.
 The discrete-time counterparts (i.e. substituting $d^i \to \exp (ji d \Ts)$ in the expressions), have been tried as well.
 However, these preliminary experiments did not yield estimates that were numerically reliable.
+This is in correspondence with the remark from \citet{Pintelon2006BJ1}.
 \end{remark}
 
 \subsection{The Local Rational Method}
 \label{sec:nparam:LRM}
-The \gls{LRM} as first introduced in \citet{McKelvey2012LRM}, overcomes the computational burden of an iterative procedure by weighting the equation error by the denominator polynomial $\LocalModel{A}$  akin to the procedure in \citep{Levy1959}.
+The \gls{LRM} as first introduced by \citet{McKelvey2012LRM}, overcomes the computational burden of an iterative procedure by weighting the equation error by the denominator polynomial $\LocalModel{A}$  akin to the procedure in \citep{Levy1959}.
 I.e. the \gls{LRM} procedure tries to minimize the equation error in
 \begin{equation}
   \LocalModel{A} \hadamard \LocalVector{Y} = \LocalModel{B} \hadamard \LocalVector{U}  + \LocalVector{C} + \LocalVector{V}

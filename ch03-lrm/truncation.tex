@@ -174,19 +174,6 @@ In this section, the $\lpm{3,2,2}$ is used.
 % \hat{G}_{\LPM}(\omega_k) = \hat\theta_1(k)
 % \end{equation}
 
-
-The estimation of $\hat{G}_{\LPM}(\omega_k)$ at a single frequency $\omega_k = 0.586\unit{Hz}$ is illustrated in \figref{LPM_Schematic_EG}.% centered at $k$, where $r = 0$.
-\begin{figure}[htb] %  figure placement: here, top, bottom, or page
-   \centering
-   \setlength{\figurewidth}{0.8\columnwidth}
-   \setlength{\figureheight}{0.68\figurewidth}
-   \input{\thisDir/figs/LPMfig.tikz}
-   \caption[Illustration of local modeling.]{Illustration of local modeling. Top figures: input spectrum (left) and output spectrum (right). 
-   A small band is selected (gray area), in which $\hat G_{\LPM}(\omega_{k+r})$ is estimated (black thick line, bottom figure) as a local polynomial. Only its central value $\hat G_{\LPM}(\omega_k)$ (white circle) is retained. This procedure is repeated for all frequencies $\omega_k$. \disclaimer{Figure based on \citep[Fig.~2]{Lumori2014TIM}.}}
-   \label{LPM_Schematic_EG}
-\end{figure}
-This procedure is repeated at each central frequency $\omega_k$ for  $k\in \Set{1,\dots,N/2}$ (i.e. the entire frequency band, including Nyquist, but excluding \gls{DC}, and regularizing at the boundaries). This completes the \gls{LPM}, yielding an intrinsic averaging of the spectra of the estimated \gls{FRF}, $\hat{G}_{\LPM}(\omega_k)$.
-
 \subsubsection{Smoothing the \gls{FRF} estimate}
 \label{sec:nparam:trunc:smoothingFRFestimate}
 The method for smoothing (improving) the \gls{LPM} estimate of the frequency response function  is presented in this section together with pertinent assumptions. 

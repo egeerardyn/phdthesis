@@ -5,7 +5,7 @@
 \pgfplotsset{xlimits/.append style={%
 xmin=0.4,
 xmax=0.7718,
-xtick={0.5,0.7},
+xtick={\empty},
 extra x ticks={0.5859375},
 extra x tick labels={$\omega_k$}}}
 \pgfplotsset{ylimits/.append style={ymin=0,ymax=42}}
@@ -30,15 +30,22 @@ ylabel={FRF $\abs{G}$ \axisunit{dB}}
 0.60546875	-50\\
 };
 
-\addplot [color=black,solid,line width=3.0pt,forget plot] table[]{\thisDir/data/LPMfig/LPMfig-2.tsv};
+\addplot [color=black,solid,line width=3.0pt,forget plot] table[]{\thisDir/data/LPMfig/LocalModel.tsv};
 
 
-\addplot [color=black,line width=1.0pt,mark size=2.5pt,only marks,mark=*,mark options={solid,fill=white},forget plot] table[]{\thisDir/data/LPMfig/LPMfig-3.tsv};
+\addplot [color=black,line width=1.0pt,mark size=2.5pt,only marks,mark=*,mark options={solid,fill=white},forget plot] table[]{\thisDir/data/LPMfig/centralPoint.tsv};
 
-\addplot [FRFMean] table[]{\thisDir/data/LPMfig/LPMfig-1.tsv};
+\addplot [FRFMean] table[]{\thisDir/data/LPMfig/FRF.tsv};
 
+\node at (axis cs: 0.5859375,-21) {$\LocalWindow[k]$};
+\draw[|-|,line width=1pt] (axis cs:0.56640625,-23) -- (axis cs:0.60546875,-23);
 
-\end{axis}
+\node[FRFMean] (labelCentralPoint) at (axis cs:0.65,-5) {$\hat{G}(\omega_k)$};
+\draw[<-,line width=1pt,FRFMean] (axis cs:0.59,-12) -- (labelCentralPoint);
+
+\node at (axis cs:0.576,-9) {$\LocalModel[k]{G}$};
+
+\end{axis} 
 
 \begin{axis}[%
 width=0.45\figurewidth,
@@ -57,7 +64,9 @@ ylabel={$\abs{U}$ \axisunit{dB}},
 0.60546875	60\\
 0.60546875	-10\\
 };
-\addplot [FRFMean,forget plot] table[]{\thisDir/data/LPMfig/spectU-2.tsv};
+\addplot [FRFMean,forget plot] table[]{\thisDir/data/LPMfig/U.tsv};
+
+\node at (axis cs: 0.5859375,10) {$\LocalVector{U}_{k}$};
 \end{axis}
 
 \begin{axis}[%
@@ -79,7 +88,9 @@ yticklabel pos=right,
 0.60546875	50\\
 0.60546875	-10\\
 };
-\addplot [FRFMean, forget plot] table[]{\thisDir/data/LPMfig/spectY-2.tsv};
+
+\node at (axis cs: 0.5859375,35) {$\LocalVector{Y}_{k}$};
+\addplot [FRFMean, forget plot] table[]{\thisDir/data/LPMfig/Y.tsv};
 \end{axis}
 
 \end{tikzpicture}%
