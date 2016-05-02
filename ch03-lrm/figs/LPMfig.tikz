@@ -30,12 +30,12 @@ ylabel={FRF $\abs{G}$ \axisunit{dB}}
 0.60546875	-50\\
 };
 
-\addplot [color=black,solid,line width=3.0pt,forget plot] table[]{\thisDir/figs/LPMfig-2.tsv};
+\addplot [color=black,solid,line width=3.0pt,forget plot] table[]{\thisDir/data/LPMfig/LPMfig-2.tsv};
 
 
-\addplot [color=black,line width=1.0pt,mark size=2.5pt,only marks,mark=*,mark options={solid,fill=white},forget plot] table[]{\thisDir/figs/LPMfig-3.tsv};
+\addplot [color=black,line width=1.0pt,mark size=2.5pt,only marks,mark=*,mark options={solid,fill=white},forget plot] table[]{\thisDir/data/LPMfig/LPMfig-3.tsv};
 
-\addplot [FRFMean] table[]{\thisDir/figs/LPMfig-1.tsv};
+\addplot [FRFMean] table[]{\thisDir/data/LPMfig/LPMfig-1.tsv};
 
 
 \end{axis}
@@ -57,7 +57,7 @@ ylabel={$\abs{U}$ \axisunit{dB}},
 0.60546875	60\\
 0.60546875	-10\\
 };
-\addplot [FRFMean,forget plot] table[]{\thisDir/figs/spectU-2.tsv};
+\addplot [FRFMean,forget plot] table[]{\thisDir/data/LPMfig/spectU-2.tsv};
 \end{axis}
 
 \begin{axis}[%
@@ -79,7 +79,7 @@ yticklabel pos=right,
 0.60546875	50\\
 0.60546875	-10\\
 };
-\addplot [FRFMean, forget plot] table[]{\thisDir/figs/spectY-2.tsv};
+\addplot [FRFMean, forget plot] table[]{\thisDir/data/LPMfig/spectY-2.tsv};
 \end{axis}
 
 \end{tikzpicture}%
