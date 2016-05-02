@@ -36,7 +36,6 @@ legend cell align=left,
 domain=2:256,
 ]
 
-%TODO: see if we can place this on another layer below everything else
 \draw[opacity=0.5, fill=noisefill] (axis cs:2,-120) rectangle (axis cs:256,-60);
 
 \pgfplotsinvokeforeach{1,2,...,9} {

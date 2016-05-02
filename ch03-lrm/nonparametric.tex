@@ -80,7 +80,7 @@ Here, we focus on using local modeling to separate the different terms, i.e.
   \item the leakage term $T$, and
   \item the noise term $V$.
 \end{itemize}
-The main term of interest, however, is the transfer function $\true{G}$ and a secondary concern is estimating the noise variance $\sigma_{V}$.
+The main term of interest, however, is the transfer function $\true{G}$ and the noise variance $\sigma^2_{V}$.
 
 \subsection{Local modeling}
 Local modeling methods  exploit the `smoothness' (or conversely `roughness') of the different terms of \eqref{eq:output-error-FD} over the frequency $\omega$.
@@ -365,6 +365,7 @@ The \gls{LPM} approximates both the \gls{FRF} and transient contribution by mean
 
 The \gls{LPM} can be understood as a specific case of the \gls{LRM}: for  $\order{A} = 0$, the \gls{LRM} reduces to the \gls{LPM}.
 As such, we use the notation $\lpm{\numel{W}, \order{B}, \order{C}}$ as a synonym for $\lrm{\nWind, \order{B}, 0, \order{C}}$.
+In the remainder of this text, we refer to \gls{LRM} as a group of methods which have $\order{A} \neq 0$ to make the distinction with \gls{LPM} more obvious.
 
 \begin{remark}
 The trivial setting for local `modeling' where a window with a total width of $1\unit{bin}$ and no transient estimation ($\order{C} = -1$), actually corresponds to the simple \gls{ETFE}~\citep{Broersen1995,Stenman2000ASETFE,Stenman2001ASFRF} when no further smoothing or windowing is applied:
@@ -617,36 +618,36 @@ As a first order approximation, the bias on the \gls{FRF} can be written as
   =
   \Delta \LocalModel{G}(\dw{0}{k}) 
      \approx 
-        \PartialDerivative{\LocalModel{G}(\theta, \dw{0}{k})}
+        \PartialDerivative{\LocalModel{G}(\dw{0}{k},\theta)}
                                           {\theta} 
       \Delta \theta
       \text{.}
 \end{equation}
 The derivative in that expression can be evaluated easily
 \begin{align}
-    \PartialDerivative{\LocalModel{G}(\theta, \dW)}{\theta} 
+    \PartialDerivative{\LocalModel{G}(\dW, \theta)}{\theta} 
      &=
      \begin{bmatrix}
-       \PartialDerivative{\LocalModel{G}(\theta,\dW)}{\theta_A} &
-       \PartialDerivative{\LocalModel{G}(\theta,\dW)}{\theta_B} &
-       \PartialDerivative{\LocalModel{G}(\theta,\dW)}{\theta_C} 
+       \PartialDerivative{\LocalModel{G}(\dW,\theta)}{\theta_A} &
+       \PartialDerivative{\LocalModel{G}(\dW,\theta)}{\theta_B} &
+       \PartialDerivative{\LocalModel{G}(\dW,\theta)}{\theta_C} 
      \end{bmatrix}
      \\
-     \PartialDerivative{\LocalModel{G}(\theta, \dW)}{\theta_A} 
+     \PartialDerivative{\LocalModel{G}(\dW, \theta)}{\theta_A} 
      &=
-     - \frac{\LocalModel{B}(\theta, r)}{\LocalModel{A}^2(\theta, r)}
+     - \frac{\LocalModel{B}(\dW, \theta)}{\LocalModel{A}^2(\dW, \theta)}
      \begin{bmatrix}
          \dW^1 & \dW^2 & \deemph{\cdots} & \dW^{\order{A}}
      \end{bmatrix}
      \\
-     \PartialDerivative{\LocalModel{G}(\theta, \dW)}{\theta_B} 
+     \PartialDerivative{\LocalModel{G}(\dW, \theta)}{\theta_B} 
      &=
-     \frac{1}{\LocalModel{A}(\theta, \dW)}
+     \frac{1}{\LocalModel{A}(\dW, \theta)}
      \begin{bmatrix}
          1 & \dW^1 & \dW^2 & \deemph{\cdots} & \dW^{\order{B}}
      \end{bmatrix}
      \\
-     \PartialDerivative{\LocalModel{G}(\theta, \dW)}{\theta_C} 
+     \PartialDerivative{\LocalModel{G}(\dW, \theta)}{\theta_C} 
      &=
      \Zero{1 \times \order{C}+1}
      \text{.}
@@ -654,10 +655,10 @@ The derivative in that expression can be evaluated easily
 
 However, the sparsity of $\Delta\theta$, see \eqref{eq:nparam:lrm:bias:sparse}, can be exploited such that the bias on the \gls{FRF} can be expressed as:
 \begin{equation}
-  \Delta \LocalModel{G}(\theta,\dW)
+  \Delta \LocalModel{G}(\dW,\theta)
   \approx
-  \frac{\LocalModel{G}(\theta, \dW)}
-           {\LocalModel{A}(\theta, \dW)}
+  \frac{\LocalModel{G}(\dW, \theta)}
+           {\LocalModel{A}(\dW, \theta)}
   \begin{bmatrix}
     \dW^1 & \deemph{\cdots} & \dW^{\order{A}}
   \end{bmatrix}
@@ -665,22 +666,35 @@ However, the sparsity of $\Delta\theta$, see \eqref{eq:nparam:lrm:bias:sparse}, 
   \text{.}
 \end{equation}
 Equivalently, the relative bias of the \gls{FRF} can be written as
-\begin{equation}
-\frac{\Delta \LocalModel{G}(\theta,\dW)}{\LocalModel{G}(\theta,\dW)}
-\approx
-\LocalModel{A}(\theta,\dW)^{-1}
+\begin{align}
+\frac{\Delta \LocalModel{G}(\dw{\omega}{}, \theta)}{\LocalModel{G}(\dw{\omega}{}, \theta)}
+&\approx
+\LocalModel{A}(\dw{\omega}{}, \theta)^{-1}
 \begin{bmatrix}
-    \dW^1 & \deemph{\cdots} & \dW^{\order{A}}
+    \dw{\omega}{}^1 & \deemph{\cdots} & \dw{\omega}{}^{\order{A}}
   \end{bmatrix}
-  \left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}
+  \evaluate{\left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}}{A}
+  \PartialDerivative{\ELSCost[n]{\true\theta}}{\theta_A}^{\TT}
+  \\
+  &=
+  \frac{\sigma_V^2}{\nWind}
+\begin{bmatrix}
+    \dw{\omega}{}^1 & \deemph{\cdots} & \dw{\omega}{}^{\order{A}}
+  \end{bmatrix}
+  \evaluate{\left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}}{A}
   \begin{bmatrix}
-  \Delta\theta_A\\
-  0\\
-  0\\
+     \Sum_{\dW} \dW^1 
+     \frac{\LocalModel{A}(\conj{\dW},\conj{\LocalVector{\theta}})}
+               {\LocalModel{A}(\dw{\omega}{}, \theta)}\\
+  \deemph{\vdots}\\
+     \Sum_{\dW} \dW^{\order{A}} 
+     \frac{\LocalModel{A}(\conj{\dW},\conj{\LocalVector{\theta}})}
+               {\LocalModel{A}(\dw{\omega}{}, \theta)}\\
   \end{bmatrix}
-  \text{.}
-\end{equation}
-
+\end{align}
+where $\evaluate{\left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}}{A}$ denotes the upper left $\order{A}\times\order{A}$ subblock of $\left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}$ which pertains to the parameters of $\LocalModel{A}$.
+From the leading factor, it can be seen that the bias on the \gls{FRF} is $\bigO{\sigma_V^2}$.
+Consequently, one can expect that the bias is inherently linked to the \gls{SNR} of the output signal in the frequency domain.
 
 \section{Simulations}
 \label{sec:simulations}
@@ -722,6 +736,13 @@ The use of $\nBW$ makes that the experiment length is normalized to take the ban
 This means that the obtained results generalize to systems with a different relative damping.
 
 The \gls{FRF} is estimated using the local modeling approaches indicated in \tabref{tbl:nparam:methods}.
+This table also indicate $\Delta\SNR$ which indicates the expected gain in \gls{SNR} if the error is mainly determined by the variance.
+Concretely,
+\begin{equation}
+  \Delta\SNR \isdef \sqrt{\frac{\nth}{\nWind}}
+  \label{eq:nparam:deltaSNR}
+\end{equation}
+accounts for the smoothing action of local modeling.
 
 % \begin{figure}
 %   \centering
@@ -838,19 +859,10 @@ The next situation we consider is when $\SNR=60\unit{dB}$ as shown in \figref{fi
 Here, the \gls{LPM} remains severly biased for small datasets ($\nBW < 12$).
 However, for sufficiently long experiments ($\nBW > 32$), the bias becomes negligible.
 For the \gls{LRM} and \gls{LRIC}, the bias is always much smaller than the variance.
-In contrast to \gls{LPM}, the \gls{LPM} already reaches a constant variance level when $\nBW > 10$.
+In contrast to \gls{LPM}, the \gls{LRM} already reaches a constant variance level when $\nBW > 10$.
 It should also be noted that for the \gls{LRIC}, the variance is almost $10\unit{dB}$ more than the corresponding \gls{LPM} method.
 It is hence not advantageous to use the \gls{LRIC} as-is.
-For all methods (except the \gls{ETFE} and \gls{LRIC}), the simulations show that the \gls{RMSE} reaches
-\begin{equation}
-  \lim_{\nBW \to \infty} \RMSE \approx \frac{\SNR}{\Delta \SNR}
-\end{equation}
-where
-\begin{equation}
-  \Delta\SNR \isdef \sqrt{\frac{\nth}{\nWind}}
-  \label{eq:nparam:deltaSNR}
-\end{equation}
-accounts for the smoothing action of local modeling (see \tabref{tbl:nparam:methods} for numerical values of $\Delta \SNR$).
+For all methods (except the \gls{ETFE} and \gls{LRIC}), the simulations show that the \gls{RMSE} reaches the noise floor minus $\Delta \SNR$.
 
 For the more noisy situation where $\SNR = 40 \unit{dB}$ (\figref{fig:nparam:comparison:midSNR}), the situation is qualitatively equal except the bias incurred by the \gls{LRM} is similar to the noise level.
 
@@ -875,7 +887,7 @@ For the more noisy situation where $\SNR = 40 \unit{dB}$ (\figref{fig:nparam:com
 \paragraph{Poor signal-to-noise ratios}
 In \figref{fig:nparam:comparison:lowSNR} and \figref{fig:nparam:comparison:terribleSNR}, the results are shown for $\SNR=20\unit{dB}$ and $\SNR=10\unit{dB}$ respectively.
 Again, it can be seen that \gls{LRIC} is plagued by high variance and is hence not directly usable.
-However
+However, its bias for small datasets is much lower than for the other methods.
 At $\SNR=20\unit{dB}$ the \gls{LPM} and the \gls{LRM} is significantly biased for small datasets ($\nBW < 6$), however, the \gls{LRM} still perform better than the \gls{LPM}.
 For larger datasets ($\nBW \geq 16$), all methods perform similarly and at a nearly constant level of (variance) error.
 The \gls{LRM}, in contrast to the \gls{LPM}, still contains an observable bias in the simulations.
@@ -922,7 +934,7 @@ For very long measurements, the difference between \gls{LPM} and \gls{LRM} becom
 
 \section{Trading off the bias and variance}
 
-\TODO{introduction}
+\TODO{introduction, probleem, oplossingen die besproken worden}
 
 \subsection{Order selection}
 \label{sec:nparam:orderSelection}
@@ -955,10 +967,12 @@ E.g. a common choice is the \gls{AIC}~\citep{Akaike1974} or the \gls{AICc}~\cite
 \begin{align}
 L_{\mathrm{\AIC}} &=
  - 2  \loglikelihood{\LocalModel{M} | \LocalVector{Z}} 
- + 2 \nth\\
+ + 2 \nth
+\label{eq:nparam:AIC}\\
 L_{\mathrm{\AICc}} &= 
 - 2  \loglikelihood{\LocalModel{M} | \LocalVector{Z}} 
 +   \frac{2 \nth\nWind}{\nWind - \nth - 1}
+\label{eq:nparam:AICc}
 \end{align}
 where $\nth$ is the number of  estimated parameters in the model $\LocalModel{M}(\theta)$.
 In the context of local modeling, the \gls{AIC} is a poor choice since it relies on asymptotic arguments of the data set, i.e. $\nWind \to \infty$, which is obviously an unwarranted choice in this context.
@@ -972,6 +986,12 @@ The best model among a set of $q$ possible models $\Set{M_1, \ldots, M_q}$ is th
   \text{,}
 \end{equation}
 which is the only model that is hence retained.
+
+\begin{remark}
+From a theoretical point of view, equations \eqref{eq:nparam:AIC} and \eqref{eq:nparam:AICc}, require full knowledge of the likelihood function.
+This means specifically that the noise variance $\sigma^{2}_{V}$ needs to be known beforehand.
+When the variance is unknown, however, it is more robust to incorporate the \gls{AIC} as a penalty factor on the cost function as indicated in \citet[Section 7.4]{Ljung1999} and \citet[Section  11.3 and 19.7]{Pintelon2012}.
+\end{remark}
 
 \begin{remark}
 It should be noted that due to $\loglikelihood{\LocalModel{M} | \LocalVector{Z}}$ , the value of $L_{\mathrm{AIC(c)}}(\LocalModel{M},\LocalVector{Z})$ is inherently coupled with the particular dataset $\LocalVector{Z}$.
@@ -1014,6 +1034,12 @@ $\LocalVector{H} = \LocalMatrix{K} \pinv{\LocalMatrix{K}}$ is the so-called `hat
 Note that since the \gls{PRESS} can be interpreted similar to the residuals, this forms a convenient metric to select models on.
 In particular, when there is a large difference between the level of the residuals and the \gls{PRESS}, this indicates that a poor model has been selected.
 
+\subsection{Results}
+
+%TODO: discussie: 1 globale modelorder of verschillende
+% voor parametrische schatting: vensterbreedte constant houden, DOF constant houden over alle geselecteerde modellen
+% voor niet-parametrisch: orde kan per frequentielijn verschillen, geeft betere smoothing \citep{Thummala2012LPMBW,Fan1996}
+
 % \begin{figure}
 %   \centering
 %   \setlength{\figurewidth}{0.85\columnwidth}
@@ -1023,7 +1049,7 @@ In particular, when there is a large difference between the level of the residua
 %   \label{fig:nparam:PRESS}
 % \end{figure}
 
-\subsection{LPM with impulse response truncation}
+\section{LPM with impulse response truncation}
 \input{\thisDir/truncation.tex}
 
 \section{Conclusion}
@@ -1031,7 +1057,8 @@ In particular, when there is a large difference between the level of the residua
 In this chapter, the performance of non-parametric \gls{LPM} and \gls{LRM} estimators were compared to observe the \gls{FRF} of resonant systems.
 Since the \gls{LRM} is an inherently biased estimator while the \gls{LPM} is asymptotically unbiased, it is important to compare their behavior.
 Hence, expressions for the bias of the \gls{LRM} were derived.
-For good \glspl{SNR} in resonant systems, it was seen that the \gls{LRM} is always superior to the \gls{LRM}.
+%TODO: tom: "inherently biased": verrgaande uitspraak in relatie met Levy: is normaal ook biased, maar voor ARX niet. Hoe zit dat hier?
+For good \glspl{SNR} in resonant systems, it was seen that the \gls{LRM} is always superior to the \gls{LPM}.
 For extremely poor \gls{SNR}, i.e. $\SNR \approx 10\unit{dB}$, the \gls{LPM} may perform slightly better than the \gls{LRM} when short measurement records are available.
 In this chapter, the \gls{LRIC} was introduced.
 This is an extension of the \gls{LRM} which solves the non-linear optimization problem and should thus be able to avoid a bias altogether.
