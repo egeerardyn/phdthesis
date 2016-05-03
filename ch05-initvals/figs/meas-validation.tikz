@@ -54,62 +54,62 @@ axis y line*=left
 \label{leg:validationMeasurements:H2Norm}
 
 \addplot[area legend,solid,fill=G0HatFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-1.tsv};
+table {\thisDir/data/meas-validation/meas-validation-1.tsv};
 
 \addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-2.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-2.tsv};
 \addplot [G0Hat,G0Hatmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-3.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-3.tsv};
 
 \addplot[area legend,solid,fill=existingFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-4.tsv};
+table {\thisDir/data/meas-validation/meas-validation-4.tsv};
 
 \addplot [color=existing,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-5.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-5.tsv};
 \addplot [existing,existingmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-6.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-6.tsv};
 
 \addplot[area legend,opacity=0.15,fill=LPMTruncInit,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-7.tsv};
+table {\thisDir/data/meas-validation/meas-validation-7.tsv};
 
 \addplot [LPMTruncInit,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-8.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-8.tsv};
 \addplot [LPMTruncInitmark,color=LPMTruncInit,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-9.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-9.tsv};
 
 \addplot[area legend,solid,fill=LPMTruncFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-10.tsv};
+table {\thisDir/data/meas-validation/meas-validation-10.tsv};
 
 \addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-11.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-11.tsv};
 \addplot [LPMTrunc,LPMTruncmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-12.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-12.tsv};
 
 \addplot[area legend,opacity=0.15,fill=RFIRInit,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-13.tsv};
+table {\thisDir/data/meas-validation/meas-validation-13.tsv};
 
 \addplot [RFIRInit,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-14.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-14.tsv};
 \addplot [RFIRInit,RFIRInitmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-15.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-15.tsv};
 
 \addplot[area legend,solid,fill=RFIRFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-16.tsv};
+table {\thisDir/data/meas-validation/meas-validation-16.tsv};
 
 \addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-17.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-17.tsv};
 \addplot [RFIR,RFIRmark,tinymarkers,only marks,opacity=0.7,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-18.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-18.tsv};
 
 \addplot[area legend,solid,fill=bestFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-19.tsv};
+table {\thisDir/data/meas-validation/meas-validation-19.tsv};
 \label{leg:validationMeasurements:best:iqr}
 
 \addplot [color=best,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-20.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-20.tsv};
 \label{leg:validationMeasurements:best:median}
 \addplot [best,bestmark,tinymarkers,only marks,opacity=0.7,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-21.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-21.tsv};
 \label{leg:validationMeasurements:best:data}
 \end{axis}
 
@@ -143,59 +143,59 @@ axis y line*=left
 ]
 
 \addplot[area legend,solid,fill=G0HatFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-1.tsv};
+table {\thisDir/data/meas-validation/meas-validation-1.tsv};
 
 \addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-2.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-2.tsv};
 \addplot [G0Hat,G0Hatmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-3.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-3.tsv};
 
 \addplot[area legend,solid,fill=existingFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-4.tsv};
+table {\thisDir/data/meas-validation/meas-validation-4.tsv};
 
 \addplot [color=existing,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-5.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-5.tsv};
 \addplot [existing,existingmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-6.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-6.tsv};
 
 \addplot[area legend,opacity=0.15,fill=LPMTruncInit,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-7.tsv};
+table {\thisDir/data/meas-validation/meas-validation-7.tsv};
 
 \addplot [LPMTruncInit,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-8.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-8.tsv};
 \addplot [LPMTruncInitmark,color=LPMTruncInit,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-9.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-9.tsv};
 
 \addplot[area legend,solid,fill=LPMTruncFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-10.tsv};
+table {\thisDir/data/meas-validation/meas-validation-10.tsv};
 
 \addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-11.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-11.tsv};
 \addplot [LPMTrunc,LPMTruncmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-12.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-12.tsv};
 
 \addplot[area legend,opacity=0.15,fill=RFIRInit,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-13.tsv};
+table {\thisDir/data/meas-validation/meas-validation-13.tsv};
 
 \addplot [RFIRInit,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-14.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-14.tsv};
 \addplot [RFIRInit,RFIRInitmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-15.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-15.tsv};
 
 \addplot[area legend,solid,fill=RFIRFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-16.tsv};
+table {\thisDir/data/meas-validation/meas-validation-16.tsv};
 
 \addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-17.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-17.tsv};
 \addplot [RFIR,RFIRmark,tinymarkers,only marks,opacity=0.7,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-18.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-18.tsv};
 
 \addplot[area legend,solid,fill=bestFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-validation/meas-validation-19.tsv};
+table {\thisDir/data/meas-validation/meas-validation-19.tsv};
 
 \addplot [color=best,solid,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-20.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-20.tsv};
 \addplot [best,bestmark,tinymarkers,only marks,opacity=0.7,forget plot]
-  table{\thisDir/fig/data/meas-validation/meas-validation-21.tsv};
+  table{\thisDir/data/meas-validation/meas-validation-21.tsv};
 \end{axis}
 \end{tikzpicture}%

@@ -27,11 +27,11 @@ xmin=0.5,
 xmax=5.5,
 name=global,
 xtick={0.5,1.5,2.5,3.5,4.5,5.5},
-xticklabels={{$\hat{G}_{\mathrm{VXI}}$},
-             {$\hat{G}_{\mathrm{exist}}$},
-             {$\hat{G}_{\mathrm{trunc}}$},
-             {$\hat{G}_{\mathrm{RFIR}}$},
-             {$\hat{G}_{\mathrm{best}}$}},
+xticklabels={{$\model{VXI}$},
+             {$\model{exist}$},
+             {$\model{trunc}$},
+             {$\model{RFIR}$},
+             {$\model{best}$}},
 % extra x ticks={5.5},
 % extra x tick labels={},
 x tick label as interval,
@@ -51,45 +51,45 @@ axis y line*=left
 
 
 \addplot[area legend,solid,fill=G0HatFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-1.tsv};
+table {\thisDir/data/meas-cost/CostFunctionsMLE-measurement-1.tsv};
 
 \addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-2.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-2.tsv};
 \addplot [G0Hat,G0Hatmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-3.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-3.tsv};
 
 \addplot[area legend,solid,fill=existingFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-4.tsv};
+table {\thisDir/data/meas-cost/CostFunctionsMLE-measurement-4.tsv};
 
 \addplot [color=existing,solid,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-5.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-5.tsv};
 \addplot [existing,existingmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-6.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-6.tsv};
 
 \addplot[area legend,solid,fill=LPMTruncFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-7.tsv};
+table {\thisDir/data/meas-cost/CostFunctionsMLE-measurement-7.tsv};
 
 \addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-8.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-8.tsv};
 \addplot [LPMTrunc,LPMTruncmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-9.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-9.tsv};
 
 \addplot[area legend,solid,fill=RFIRFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-10.tsv};
+table {\thisDir/data/meas-cost/CostFunctionsMLE-measurement-10.tsv};
 
 \addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-11.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-11.tsv};
 
 \addplot [RFIR,RFIRmark,tinymarkers,only marks,opacity=0.7,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-12.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-12.tsv};
 
 \addplot[area legend,solid,fill=bestFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-13.tsv};
+table {\thisDir/data/meas-cost/CostFunctionsMLE-measurement-13.tsv};
 
 \addplot [color=best,solid,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-14.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-14.tsv};
 \addplot [best,bestmark,tinymarkers,only marks,opacity=0.7,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-15.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-15.tsv};
 \end{axis}
 
 \begin{axis}[%
@@ -102,11 +102,11 @@ scale only axis,
 xmin=0.5,
 xmax=5.5,
 xtick={0.5,1.5,2.5,3.5,4.5,5.5},
-xticklabels={{$\hat{G}_{\mathrm{VXI}}$},
-             {$\hat{G}_{\mathrm{exist}}$},
-             {$\hat{G}_{\mathrm{trunc}}$},
-             {$\hat{G}_{\mathrm{RFIR}}$},
-             {$\hat{G}_{\mathrm{best}}$}},
+xticklabels={{$\model{VXI}$},
+             {$\model{exist}$},
+             {$\model{trunc}$},
+             {$\model{RFIR}$},
+             {$\model{best}$}},
 extra y ticks={9000},
 extra y tick labels={},
 scaled y ticks=false,
@@ -125,49 +125,49 @@ axis y line*=left
 
 
 \addplot[area legend,solid,fill=G0HatFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-1.tsv};
+table {\thisDir/data/meas-cost/CostFunctionsMLE-measurement-1.tsv};
 
 \addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-2.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-2.tsv};
 \addplot [G0Hat,G0Hatmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-3.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-3.tsv};
 
 \addplot[area legend,solid,fill=existingFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-4.tsv};
+table {\thisDir/data/meas-cost/CostFunctionsMLE-measurement-4.tsv};
 
 \addplot [color=existing,solid,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-5.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-5.tsv};
 \addplot [existing,existingmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-6.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-6.tsv};
 
 \addplot[area legend,solid,fill=LPMTruncFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-7.tsv};
+table {\thisDir/data/meas-cost/CostFunctionsMLE-measurement-7.tsv};
 
 \addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-8.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-8.tsv};
 
 \addplot [LPMTrunc,LPMTruncmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-9.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-9.tsv};
 
 
 \addplot[area legend,solid,fill=RFIRFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-10.tsv};
+table {\thisDir/data/meas-cost/CostFunctionsMLE-measurement-10.tsv};
 
 \addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-11.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-11.tsv};
 \addplot [RFIR,RFIRmark,tinymarkers,only marks,opacity=0.7,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-12.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-12.tsv};
 
 \addplot[area legend,solid,fill=bestFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-13.tsv};
+table {\thisDir/data/meas-cost/CostFunctionsMLE-measurement-13.tsv};
 \label{leg:costMeasurements:best:iqr}
 
 \addplot [color=best,solid,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-14.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-14.tsv};
 \label{leg:costMeasurements:best:median}
 
 \addplot [best,bestmark,tinymarkers,only marks,opacity=0.7,forget plot]
-  table{\thisDir/fig/data/meas-cost/CostFunctionsMLE-measurement-15.tsv};
+  table{\thisDir/data/meas-cost/CostFunctionsMLE-measurement-15.tsv};
 \label{leg:costMeasurements:best:data}
 
 \end{axis}

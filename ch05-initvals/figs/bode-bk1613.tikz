@@ -64,8 +64,8 @@
 width=\figurewidth,
 height=\figureheight,
 unbounded coords=jump,
-xlabel={Frequency \axisunit{Hz}},
-ylabel={Amplitude $\left| G \right|$ \axisunit{dB}},
+xlabel={Frequency $\omega$ \axisunit{Hz}},
+ylabel={Amplitude $\abs{G}$ \axisunit{dB}},
 scale only axis,
 xmode=log,
 grid=both,
@@ -84,17 +84,17 @@ axis x line*=bottom,
 axis y line*=left]
 
 \addplot [FRFSingle,forget plot]
-  table[]{\thisDir/fig/data/bk1613/bode-bk1613-ETFE-single.tsv};
+  table[]{\thisDir/data/bk1613/bode-bk1613-ETFE-single.tsv};
 %\addlegendentry{Y/U};
 \label{leg:bk1613:ETFE}
 
 \addplot [FRFMean,forget plot]
-  table[]{\thisDir/fig/data/bk1613/bode-bk1613-ETFE-mean.tsv};
+  table[]{\thisDir/data/bk1613/bode-bk1613-ETFE-mean.tsv};
 % %\addlegendentry{mean Y/U};
 \label{leg:bk1613:meanETFE}
 
 \addplot [GVXI]
-  table[]{\thisDir/fig/data/bk1613/bode-bk1613-GVXI.tsv};
+  table[]{\thisDir/data/bk1613/bode-bk1613-GVXI.tsv};
 %\addlegendentry{$\text{G}_{\text{VXI}}$};
 \label{leg:bk1613:vxi}
 

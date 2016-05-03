@@ -58,7 +58,7 @@ However, the generalization to continuous time is straightforward~\citep[Chapter
 
 \begin{figure}[tbh]
 \centering
-\input{\thisDir/fig/oesetup.tikz}
+\input{\thisDir/figs/oesetup.tikz}
 \caption[Output-error set-up.]{SISO LTI discrete-time system in an output error setup.}
 \label{fig:oesetup}
 \end{figure}
@@ -186,7 +186,7 @@ In this section, the considered methods for obtaining the initial estimates of $
 \subsection{Initial Estimates Procedure}\label{sec:init:procedures}
 \begin{figure}[p]
   \centering
-  \includegraphics[width=\columnwidth]{\thisDir/fig/flowgraph}
+  \includegraphics[width=\columnwidth]{\thisDir/figs/flowgraph}
   \caption[Flow chart of different initialization procedures.]{Flow chart depicting the different estimation procedures, from left to right: \circledNum{1} an approach using the true model as initial estimate; \circledNum{2} an existing approach using \gls{BTLS} and \gls{GTLS} starting values, and the novel initialization strategies outlined in this chapter (\circledNum{3}, \circledNum{4}) that make use of smoothers to generate improved starting values for the non-convex optimization problem.
   The flow of non-parametric data is depicted by full arrows, with the \gls{FRF} data marked by asterisks. Parametric models are indicated by dashed, unfilled arrows.} 
   \label{fig:flowgraph}
@@ -494,7 +494,7 @@ On the other hand, the `failed' estimates are inaccurate descriptions of the tru
   \centering
   \setlength{\figurewidth}{0.8\columnwidth}
   \setlength{\figureheight}{0.6\figurewidth}
-  \input{\thisDir/fig/exampleSystems.tikz}
+  \input{\thisDir/figs/exampleSystems.tikz}
  % \caption{Results of an example of Monte Carlo simulation.}
  \caption[Bodeplot of successful ad failed estimates.]{Illustrative Bode plots of a few successful~\legref{leg:example-good-estimate} and `failed'~\legref{leg:example-bad-estimate} estimates $\model{\bullet}$ for both systems $\true{G}$~\legref{leg:example-exact} under test.
  The `failed' estimates are caused by local minima in the cost function.
@@ -565,7 +565,7 @@ This indicates $\frac{147}{200} \approx 74\%$ success for the existing methods, 
   \centering
   \setlength{\figurewidth}{0.8\columnwidth}
   \setlength{\figureheight}{0.6\figurewidth}
-  \input{\thisDir/fig/MC-RFIR-1.11111dBSNR36pts3dB-ripple6dB.tikz}
+  \input{\thisDir/figs/MC-SNR1.1dB-NBW36-Q6dB.tikz}
  \caption[Model error for different initialization schemes on simulations.]{The distance $\|\model{\bullet} - \hat{G}_0 \|_2$  between the different estimates ($\model{exist}$~\legref{leg:dist-G-exist}, $\model{trunc}$~\legref{leg:dist-G-trunc} and $\model{RFIR}$~\legref{leg:dist-G-RFIR} ) and the `best theoretical' estimates ($\model{0}$) shows that the smoothers help the estimate to converge to $\model{0}$.
  The same measure is shown for the initial values $\model[init]{RFIR}$ \legref{leg:dist-G-RFIR-init} and $\model[init]{trunc}$ \legref{leg:dist-G-trunc-init}.
  $\|{G}_{0} - \hat{G}_0\|_2$\legref{leg:dist-G0} shows how far the true model and `best theoretical' estimates are apart to put the other distances into perspective. }
@@ -638,7 +638,7 @@ This result is very useful for a user working with noisy data.
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
-  \input{\thisDir/fig/successRates.tikz}
+  \input{\thisDir/figs/successRates.tikz}
  \caption[Simulated success rate of the different initialization schemes for varying SNR.]{The success rate $\successRate$  obtained using the smoothers, i.e. $\model{RFIR}$~\legref{leg:success-RFIR} and $\model{trunc}$~\legref{leg:success-LPMTrunc}, are significantly higher than for the existing methods $\model{exist}$~\legref{leg:success-existing} in most of the studied range of \glspl{SNR}, number of samples and for both test systems. The $95\%$ confidence intervals~\eqref{eq:initvals:Binomial:CI} are indicated by bars.}
   \label{fig:successRateVS_SNR36N3dB}
 \end{figure}
@@ -647,7 +647,7 @@ This result is very useful for a user working with noisy data.
   \centering
   \setlength{\figurewidth}{0.66\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
-  \input{\thisDir/fig/RMSEvs_SNR36N3dB-ripple6.tikz}
+  \input{\thisDir/figs/RMSEvs_SNR36N3dB-ripple6.tikz}
  \caption[Simulated model RMSE compared to rule-of-thumb.]{The accordance between the observed \gls{RMSE} of $\hat{G}_0$~\legref{leg:RMSE:delta:observed}(with $\pm2\sigma$ interval) and the rule-of-thumb~\eqref{eq:heur-RMSE}\legref{leg:RMSE:rule-of-thumb} shows how well $\model{\trueSymbol}$ approximates the true system $\true{G}$.
  In the bottom plot, the difference between both is shown.
  Consequently, it makes sense to examine the behavior of the models in terms of $\model{\trueSymbol}$ as long as this RMSE meets the user's requirements.}
@@ -677,7 +677,7 @@ The \BK{} 1613 Octave Filter Set consists of sixth-order Chebyshev band-pass fil
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.6\columnwidth]{\thisDir/fig/measurement.pdf}
+  \includegraphics[width=0.6\columnwidth]{\thisDir/figs/measurement.pdf}
   \caption[Measurement schematic of \BK\ 1613 filter.]{Schematic representation of the measurement set-up for the \BK\ 1613 filter. The AWG (Arbitrary Waveform Generator) and DAQ (Data Acquisition) hardware share the same clock and are thus synchronized. 
   Blue arrows indicate coax cables. 
   At the output of the bandpass filter, a noise generator is added that buffers the incoming signal using a TL071 opamp and adds white noise before passing the signal to the DAQ.} 
@@ -700,7 +700,7 @@ As such, the output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\t
   \centering
   \setlength{\figurewidth}{0.75\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
-  \input{\thisDir/fig/bode-bk1613.tikz}
+  \input{\thisDir/figs/bode-bk1613.tikz}
   \caption[\BK{} 1613 filter transfer function]{Transfer function of the considered \BK{} 1613 filter.
   The empirical transfer function estimates $Y^{[r]}(\omega)/U^{[r]}(\omega)$~\legref{leg:bk1613:ETFE} and its average $\tilde{Y}(\omega)/\tilde{U}(\omega)$~\legref{leg:bk1613:meanETFE} obtained from the Elvis measurements are shown together with the estimated reference model $G_{\mathrm{VXI}}$~\legref{leg:bk1613:vxi}.} 
   \label{fig:bk1613}
@@ -736,7 +736,7 @@ Note that the SNR at the output $\mathrm{SNR}_{y} \approx 14 \unit{dB}$ is much 
   \centering
   \setlength{\figurewidth}{0.75\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
-  \input{\thisDir/fig/elvis-spectra.tikz}
+  \input{\thisDir/figs/elvis-spectra.tikz}
   \caption[Measured input/output spectra of \BK{} filter.]{Average input $\tilde{U}(\omega)$ and output $\tilde{Y}(\omega)$ spectra \legref[2]{leg:SpectraMeasurement:U:mean} measured using the Elvis and the noise levels $\hat\sigma_U$ and $\hat\sigma_Y$  \legref[2]{leg:SpectraMeasurement:U:noise}.}
   \label{fig:SpectraMeasurement}
 \end{figure}
@@ -819,7 +819,7 @@ This yielded the model $G_\mathrm{VXI}$ (shown in \figref{fig:bk1613}) with a re
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \setlength{\figurewidth}{0.75\columnwidth}
-  \input{\thisDir/fig/CostFunctionsMLE-measurement.tikz}
+  \input{\thisDir/figs/CostFunctionsMLE-measurement.tikz}
   \caption[Cost function values over the different measurements.]{Cost function values $V(\theta)$ obtained during the different realizations of the measurement.
   The bottom plot shows a linear zoom of the top plot.
   For each method, the inter-quartile range~\legref{leg:costMeasurements:best:iqr}, median~\legref{leg:costMeasurements:best:median} and individual values~\legref{leg:costMeasurements:best:data} are shown.
@@ -876,7 +876,7 @@ E.g. note in \tabref{tbl:validationMeasurements} that this step reduces the wors
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \setlength{\figurewidth}{0.75\columnwidth}
-  \input{\thisDir/fig/meas-validation.tikz}
+  \input{\thisDir/figs/meas-validation.tikz}
   \caption[Validation cost of the different measurements.]{Validation of the measured models. 
   For each method, the distance \eqref{eq:measurementCriterion} between the estimates and $\model{VXI}$ is shown~\legref{leg:validationMeasurements:best:data} together with the median~\legref{leg:validationMeasurements:best:median} and inter-quartile range~\legref{leg:validationMeasurements:best:iqr}.
   $\norm{G_{\mathrm{VXI}}}$\legref{leg:validationMeasurements:H2Norm} is shown as a reference.
@@ -913,7 +913,7 @@ The situation is already less severe for $\model{trunc}$ (in $75\%$ of the cases
   \centering
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
-  \input{\thisDir/fig/overview-cost-val.tikz}
+  \input{\thisDir/figs/overview-cost-val.tikz}
   \caption[$\costFunc{\bullet}$ and $\validationDistance{\bullet}$ for each repeated measurement.]{Cost function $V(\model{\bullet})$ and validation distance of the model estimated in each repetition of the measurement.
   Based on the cost function, $\model{RFIR}$~\legref{leg:RFIR} is not always the best estimate $\model{best}$~\legref{leg:best}.
   Especially in the validation plot (bottom), $\model{RFIR}$ performs (almost) as well or even better than $\model{exist}$~\legref{leg:exist} and $\model{trunc}$~\legref{leg:trunc}.
@@ -927,7 +927,7 @@ The situation is already less severe for $\model{trunc}$ (in $75\%$ of the cases
   % \ref{leg:init:secondBest}
   \setlength{\figurewidth}{0.75\columnwidth}
   \setlength{\figureheight}{0.60\figurewidth}
-  \input{\thisDir/fig/special-histogram.tikz}
+  \input{\thisDir/figs/special-histogram.tikz}
   \caption[Performance degradation/enhancement for selecting the second best model.]{
   Performance degradation/enhancement ($X_{\bullet}-X_{\mathrm{best}}$) for choosing a given method $\bullet$ instead of the `best' method for the measurement example in this chapter.
   The markers show individual observations and the boxes show the \gls{IQR}.
@@ -988,7 +988,7 @@ This is equivalent to the relative criterion of success since $\norm[2]{\true{G}
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \centering
-  \input{\thisDir/fig/bodeplots.tikz}
+  \input{\thisDir/figs/bodeplots.tikz}
   \caption[Bode plots of the stress test filters.]{Bode plots of the tested filters~\legref{leg:bode:true} in the stress test. 
   For each filter, two (randomly selected) instances of the parametric estimates $\model{\bullet}$ are shown per method.
   }
@@ -999,7 +999,7 @@ This is equivalent to the relative criterion of success since $\norm[2]{\true{G}
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \centering
-  \input{\thisDir/fig/distances.tikz}
+  \input{\thisDir/figs/distances.tikz}
   \caption[Empirical \glsentrytext{CDF} of $\validationDistance{\bullet}$ in the stress test.]{Empirical cumulative distribution function of the validation distance $D_{\bullet} = \norm{\model{\bullet} - \true{G}}$ for the different tested systems (different numbered plots) and the different initial values (colors).
   Note that since $\norm{\true{G}}=1$ is chosen, $D_{\bullet}$ immediately indicates the relative RMS error of the estimates.
   }
