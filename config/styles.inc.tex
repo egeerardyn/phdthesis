@@ -48,11 +48,6 @@
 \pgfset{number format/1000 sep={\,}}
 
 %% Colors
-  \colorlet{tangored}{TangoScarletRed1}
-  \colorlet{tangoblue}{TangoSkyBlue2}
-  \colorlet{tangogreen}{TangoChameleon2}
-  \colorlet{tangogrey}{TangoAluminium5}
-
   \colorlet{meas}{TangoPlum2}
 
   \colorlet{goallight}{TangoChameleon1}
@@ -63,13 +58,12 @@
   \colorlet{obtained}{TangoScarletRed2}
   \colorlet{obtaineddark}{TangoScarletRed3}
 
-  \colorlet{model}{tangogrey}
+  \colorlet{model}{TangoAluminium5}
   \colorlet{bg}{TangoAluminium2}
 
 \colorlet{model}{black}
 \colorlet{truesys}{TangoAluminium5}
 \colorlet{frf}{truesys}
-% \colorlet{truesys}{TangoAluminium4} % from LRMHinf paper
 
 \colorlet{linms}{TangoSkyBlue3}
 \colorlet{logms}{TangoChameleon2}
@@ -179,7 +173,7 @@
 \pgfplotsset{signalhighlight/.style={ycomb,color=signal,solid,line width=1pt,mark=o,mark size=2pt}}
 
 \pgfplotsset{compen/.style={fill,fill opacity=0.65,color=compen,smooth,forget plot}}
-\pgfplotsset{truesys/.style={color=tangogrey,line width=1pt}}
+\pgfplotsset{truesys/.style={color=truesys,line width=1pt}}
 \pgfplotsset{mainsys/.style={color=black,line width=1pt}}
 \pgfplotsset{model/.style={color=model,dashed,line width=1.0pt}}
 
@@ -373,8 +367,8 @@
 
 %% LRM chapters
 
-%TODO: redefine this thingie for LRM chapters
-% \pgfplotsset{truesys/.style={color=truesys,densely dotted,line width=1.5pt}}
+% \pgfplotsset{truesys/.style={color=truesys,densely dotted,line width=1.5pt}} %TODO: redefine this thingie for LRM chapters
+\pgfplotsset{frf/.style={color=frf,solid,mark options={solid},mark size=0.2pt}} %TODO: replace
 
 \pgfplotsset{hinfnorm/.style={dashed}}
 \pgfplotsset{interpol/.style={sharp plot,solid,mark options={solid}}}
@@ -384,7 +378,6 @@
 \pgfplotsset{SAgrid/.style={color=SA,densely dotted,solid,mark=triangle*,mark size=1.5pt,mark options={solid}}}
 
 
-\pgfplotsset{frf/.style={color=frf,solid,mark options={solid},mark size=0.2pt}} %TODO: replace
 
 \pgfplotsset{paramPhat/.style={color=param,solid,line width=1.2pt}}
 
