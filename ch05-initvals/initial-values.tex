@@ -17,8 +17,9 @@ This often involves an iterative algorithm to produce the optimal model.
  The resulting model, however, depends on which initial estimates are used to start up the optimization process: typically one can end up in local minima, leading to models of sub-optimal quality.
  Hence, good initial estimates are essential to obtain a high quality model estimate.
  In this chapter, the \gls{MLE} is used as a proxy for any parametric transfer function estimator, since the \gls{MLE} is commonly used and has desirable properties such as efficiency and consistency.
+ Numerous other parametric identification techniques are devoted to the development of parametric plants $G(q^{-1},\theta)$ and parametric noise models  $H(q^{-1},\theta)$, where  $\theta$ is the model parameters vector  \citep{Ljung1999,Soderstrom1989,Pintelon2012}.
  Since the initial value generation method are not specifically tailored towards the \gls{MLE}, other parametric identification frameworks are likely to benefit from these improved starting values as well.
- Hence, the presented approach is orthogonal to initialization schemes such as the work of~\citet{vanHerpen2014}.
+ Hence, the presented approach is orthogonal to initialization schemes such as the work of~\citet{vanHerpen2014} that focuses on improving the optimization algorithm, rather than the starting values.
 
  In the perspective of developing identification tools that require minimal user interaction, it is important that good initial estimates are produced for a wide variety of systems and experimental settings; i.e. to increase the probability of the optimization algorithm to produce good estimates, or preferably even the global optimum.
  However, when noisy input-output measurements are to be processed, the presence of noise obstructs a clear view of the actual system behavior, especially for poor \glspl{SNR}.
@@ -39,12 +40,12 @@ In \secref{sec:initial-values:Generality} the generality of the results is inves
 The computational effort and recommendations for practical implementations are given in \secref{sec:initvals:computation}.
 Ultimately, concluding remarks are presented in \secref{sec:initial-values:Conclusion}.
 
-\section{Problem formulation}\label{sec:initial-values:ProbForm}
+\section{Problem formulation}
+\label{sec:initial-values:ProbForm}
 
 In this section, the assumptions on the system and the noise are presented, together with the associated MLE (formulated in the frequency domain), which turns out to be a non-convex function in the parameters, requiring initial estimates. The procedure for obtaining the initial estimates is elaborated in the subsequent sections.
 
-\subsection{System Setup Framework and Model}
-\TODO{ hele subsectie verplaatsen na het param. sys. model?}
+\subsection{System Framework and Model}
 \figref{fig:oesetup} depicts a schematic of the output error framework for  a generalized (single- or multiple-order) resonating, dynamic \gls{LTI} discrete-time \gls{SISO} system, subjected to a known white random noise input. 
 The full model of the system is
 \begin{equation}
@@ -63,14 +64,9 @@ However, the generalization to continuous time is straightforward~\citep[Chapter
 \label{fig:oesetup}
 \end{figure}
 
-\TODO{paragraaf naar intro verplaatsen}
-Numerous parametric identification techniques are devoted to the development of parametric plants $G(q^{-1},\theta)$ and parametric noise models  $H(q^{-1},\theta)$, where  $\theta$ is the model parameters vector  \citep{Ljung1999,Soderstrom1989}.
-
 In this chapter we assume that the output signal is disturbed by random noise, resulting in noisy error-prone data.
 For the simulations, white noise is used ($\true{H} = 1$ and $e(t) = v(t)$).
 It is also possible to apply the estimation procedure in this chapter to a system that is disturbed by colored noise, as will be demonstrated in \secref{sec:initial-values:ExpMeas}. 
-
-\subsection{Parametric System Model}
 
 With reference to equation \eqref{eq:initial-values:OE:TD}, the relation between the noiseless input and the output signals ($v(t)= 0$) is assumed to be of the form
 \begin{equation}
@@ -220,15 +216,15 @@ The smooth characteristics of both the exact \gls{FRF} $\true{G}$ and the transi
 \begin{align}
 \true{G}(\omega_{k+r})&\approx \hat G_k + g_{1,k} r + g_{2,k}r^2
 \\
-T(\omega_{k+r})&\approx T(\omega_k)+t_{1,k}r + t_{2,k}r^2\label{lpmImplQuadT}
+T(\omega_{k+r})&\approx T(\omega_k)+t_{1,k}r + t_{2,k}r^2
+\label{lpmImplQuadT}
 \end{align}
 \end{subequations}
-where, in general,$\ r\in \LocalShifts[]$ with $\LocalShifts[] = \{-N_W,-N_W+1,\dots,B_W\}$ and $N_W$ is a tunable parameter. 
-%TODO notation LPM uniform maken met CH03/CH04
+where, in general,$r \in \LocalShifts[]$ with $\LocalShifts[] = \{-N_W,-N_W+1,\dots,N_W\}$ and $N_W$ is a tunable parameter. 
 
   The \gls{LPM} estimate of the \gls{FRF} at frequency index $k$ is the first estimated local parameter, \emph{viz}:
 \begin{equation}
-\hat{G}_\text{LPM}(\omega_k) = \hat{G}_k
+\hat{G}_{\LPM}(\omega_k) = \hat{G}_k
 \text{.}
 \end{equation}
 This procedure is repeated for all $k$ in the frequency band of interest.
@@ -260,7 +256,6 @@ This can lead to a significant improvement over the classical LPM~\citep{Lumori2
 \item \emph{\Glsfirst{RFIR}}
 
 The \gls{RFIR} method is a special case of the \gls{RARX} method. 
-%This is a well known method which is included in this paper for comparison purposes with the smooth LPM and with other existing estimators.
 
 The \gls{RFIR} estimator is formulated in the time domain. 
 It estimates the impulse response of a discrete time system as the minimizer of the following regularized least squares objective function:
