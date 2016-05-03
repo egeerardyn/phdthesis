@@ -1073,14 +1073,19 @@ Also for the design of robust excitation signals, this is worthwhile observation
     \omegaLinLog \isdef \frac{2\pi \Delta f}{\alpha - 1}
     \label{eq:excitation:linearLogTransitionFrequency}
   \end{equation}
-  indicates the lowest frequency where the quasi-logarithmic grid can effectively reproduce the logarithmic spacing.
-  In particular for lightly-damped sub-systems, $\wdB \approx \ClosedInterval{(1-\damping)\wn, (1+\damping)\wn}$, such that the resonance peak is in the bulk of the frequency grid when
+  indicates the lowest frequency where the quasi-logarithmic grid could effectively reproduce the logarithmic spacing.
+  In particular for lightly-damped sub-systems, 
+  \begin{equation}
+  \wdB \approx \ClosedInterval{(1-\damping)\wn, (1+\damping)\wn}
+  \text{,}
+  \end{equation}
+  such that the resonance peak is in the bulk of the frequency grid when
   \begin{equation} 
     \omegaLinLog =\frac{2 \pi \Delta f}{\alpha -1} \leq \left( 1 - \damping \right) \wn
     \text{.}
     \label{eq:excitation:systemInBulk:generic}
   \end{equation}
-  %TODO: turn this into a guideline?
+
   For more reliable results, however, it is advisable to also have a few logarithmically spaced frequency lines, outside of the resonance peak of the actual system for a more robust result.
   In practice, this means that systems with their resonance peak at the lowest and the very highest edge of the frequency band may not be observed with identical quality as systems at intermediate frequencies.
 
