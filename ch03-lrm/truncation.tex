@@ -9,11 +9,11 @@
 % Note that a more general discussion on the \gls{LPM}, applied to noisy, real-valued data is found in \citep{Fan1996} with a specific focus on parametric tuning.
 
 The main contribution of this section is to come up with an improved \gls{FRF} by developing a method for smoothing the \gls{FRF} estimated via the \gls{LPM}. 
-This is done by truncating the associated impulse response, as in~\citet{Schoukens1998}, but with the following additional extension: the determination of the optimal truncation time, without any user interaction, in conjunction with the use of the \gls{LPM} for leakage reduction. 
+The smoothing of the \gls{FRF} happens by truncating the associated impulse response, as in~\citet{Schoukens1998}, but with the following additional extension: the determination of the optimal truncation time, without any user interaction, in conjunction with the use of the \gls{LPM} for leakage reduction. 
 The truncation point (cut-off index) is determined by one of two statistically inspired methods.
 It is then shown that a smooth \gls{LPM} estimate of the \gls{FRF} lowers the variance, thus improving the assessment level of the dynamic properties of a given \gls{LTI} system.
 It should be noted, however, that such smoothing is merely of importance when inspecting the \gls{FRF} visually.
-In particular, a slight bias is incurred when smoothing the \gls{FRF}.
+In particular, a slight bias might be incurred when smoothing the \gls{FRF}.
 If one is to fit a parametric model to the smoothed \gls{FRF}, one essentially ends up with a biased model (which is often undesirable).
 
 Based on \citet{Schoukens2009LPM}, the nonparametric method developed in this work is formulated in an \gls{OE} framework. 
@@ -151,6 +151,7 @@ Discussion of the simulation results is then followed by a conclusion in \secref
 
 % The values $R = 2$, and $n=R+1=3$ will be used in the \gls{LPM}.
 In this section, the $\lpm{3,2,2}$ is used.
+However, since the techniques discussed in this section are not specifically geared towards the \gls{LPM}, one can just as well use the concepts with other non-parametric \gls{FRF} estimators such as the \gls{LRM}.
 
 % When substituted into equations \eqref{lpmGTaylorS} and \eqref{lpmGTMatrix},  these yield the following quadratic local polynomials of $G_0$ and $T$ around a central frequency $\omega_{k}$:
 % \begin{align}
@@ -175,20 +176,30 @@ In this section, the $\lpm{3,2,2}$ is used.
 
 \subsection{Smoothing the \glsentryshort{FRF} estimate}
 \label{sec:nparam:trunc:smoothingFRFestimate}
-The method for smoothing (improving) the \gls{LPM} estimate of the frequency response function  is presented in this section together with pertinent assumptions. 
-After obtaining the \gls{LPM} estimate of the \gls{FRF} (denoted as $\hat{G}_{{\LPM}}(\omega_k)$) from \secref{sec:nparam:LPM}, the smoothing method is decomposed into the following procedures, which will be elaborated on later:
+The method for smoothing (improving) the \gls{LPM} estimate of the frequency response function  is presented in this section together with pertinent assumptions.
+After obtaining the \gls{LPM} estimate of the \gls{FRF} (denoted as $\hat{G}_{{\LPM}}(\omega_k)$) from \secref{sec:nparam:LPM}, the smoothing method is decomposed into the following procedures (see \figref{fig:nparam:truncation:workflow}), which will be elaborated on later:
 \begin{enumerate}
 \item The impulse response $\hat g_{\LPM}(t)$  is computed from the \gls{IDFT} of $\hat{G}_{{\LPM}}(\omega_k)$.
+
+\item An accurate estimate of the \gls{DC} value of the \gls{FRF} is computed by inspecting the average value of the tail of the estimated impulse response and this is subtracted from the impulse response.
+
+\item From the estimated impulse response $\hat{g}(t)$, the noise floor is estimated.
 
 \item Assuming that the impulse response decays with the passing of time, the noise is bound to predominate after a certain time interval. 
 In particular, when $t > \truncTime$, the impulse response has decayed below the noise floor.
 In \secref{sec:nonparametric:truncation:ftest} and \secref{sec:nonparametric:truncation:exponentialfit}, two approaches are introduced to estimate $\truncTime$.
 
-\item An accurate estimate of the \gls{DC} value of the \gls{FRF} is computed by inspecting the average value of the tail of the estimated impulse response.
-
-\item A truncation is effected at the point beyond which the data record (impulse response) is buried in noise.
-This action results in smoothing the \gls{LPM} estimate of the \gls{FRF}.
+\item A truncation is effected at the point beyond which the estimated impulse response is buried in noise.
+This action results in smoothing of the \gls{FRF} when the truncated impulse response is transformed to the frequency domain using the \gls{DFT}.
 \end{enumerate}
+
+\begin{figure}
+   \centering
+   \setlength{\figurewidth}{0.75\columnwidth}
+   \includegraphics[width=\figurewidth]{\thisDir/figs/workflow-truncation.pdf}
+   \caption{Workflow for impulse response truncation.}
+   \label{fig:nparam:truncation:workflow}
+ \end{figure} 
 
 These procedures require that the following assumptions are satisfied.
 
