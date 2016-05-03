@@ -795,9 +795,7 @@ are computed and are the sample estimates of respectively the expected value $\E
 Remark, that the standard deviation on the $\sampleBias{\bullet} \approx \sqrt{\sampleVariance{\bullet} / \nMC}$ which limits the precision with which we can hence observe $\sampleBias{\bullet}$. 
 For $\nMC=\num{2000}$, this means that we can detect the bias only when it is at most $20 \log \sqrt{\num{2000}} \unit{dB} \approx 33 \unit{dB}$ smaller than $\sampleStd{\bullet}$ and smaller biasses cannot be detected by the simulations.
 
-
   % \subsection{Implications of the model structure}
-  % \subsection{Implications of the noise level}
   % \subsection{Implications of the noise coloring}
 
 \begin{figure}[p]
@@ -928,7 +926,28 @@ It can be seen that the bias error of the \gls{LPM} drops off more quickly ($\bi
 \end{figure}
 
 \subsection{Summary}
-\TODO{discussie}
+In general, it can be seen that the \gls{LRM} performs better than \gls{LPM} unless the \gls{SNR} near the resonance is very low ($10\unit{dB}$).
+For the \gls{LPM}, it should be noted that near resonances,it more advantageous to use even model orders~\citep{Schoukens2013LPMerror}.
+The results for the $\lpm{7,4,4}$ in the previous section are representative of the best-case performance of an $\lpm{7,\order{B},\order{A}}$ technique.
+Concretely, for small $\nBW$, the dominant error in the \gls{LPM} is due to the bias.
+Reducing the model order of the \gls{LPM} further will only increase the \gls{RMS} error.
+Increasing the model order of the \gls{LPM} (e.g. to $\lpm{7,6,6}$) would result in an estimation where the residuals have very few degrees of freedom ($\DOF=1$ for $\lpm{7,6,6}$) such that estimated noise level is less reliable~\citep{Pintelon2010LPM1}.
+
+For the \gls{LRM}, it can be seen that its model order as a significant influence on the approximation error.
+In small datasets with high \gls{SNR} ($\SNR=60\unit{dB},\nBW<3$), and in datasets with low \gls{SNR} ($\SNR < 40 \unit{dB}$), selecting a better local model can reduce the bias significantly.
+Nevertheless, the bias of the \gls{LRM} is only a significant contributor to the \gls{RMS} error for short datasets with low \gls{SNR}.
+As such, selection of a better local model is only reduces the \gls{RMS} error for those settings.
+Practically, this means that in most other settings of \gls{SNR} and frequency resolution, either a first-order or second-order \gls{LRM} ($\order{A},\order{B} \in \set{1,2}$) will perform almost equally well.
+From an intuitive point of view: this works well when each local bandwidth $\LocalWindow$ is affected by at most two resonances.
+
+The \gls{LRIC} is not practically viable due to the high variability.
+However, since its bias is much lower than for the other methods, \gls{LRIC} offers perspectives for improving the overall performance significantly.
+
+\begin{guideline}[Use the LRM for resonant systems when $\SNR > 10 \unit{dB}$]
+For resonant systems, the \gls{LRM} offers better performance than \gls{LPM} when a good \gls{SNR} is obtained in the frequency domain.
+When the \gls{SNR} is poor ($\leq 10\unit{dB}$), the \gls{LPM} may perform a bit better than \gls{LRM}.
+The \gls{LRIC} is unsuitable due to a high variance, but has a much smaller bias error than the non-iterative solutions.
+\end{guideline}
 
 \begin{guideline}[Use the LRM for resonant systems when $\SNR > 10 \unit{dB}$]
 For resonant systems, the \gls{LRM} offers better performance than \gls{LPM} when a good \gls{SNR} is obtained in the frequency domain.
@@ -940,14 +959,14 @@ The \gls{LRIC} is unsuitable due to a high variance, but has a much smaller bias
 For very long measurements, the difference between \gls{LPM} and \gls{LRM} becomes negligible if the different resonances are well-separated.
 \end{guideline}
 
-  % \section{Measurements}
-  % \label{sec:measurements}
-  %  \subsection{AVIS}
-   % \subsection{F16}
-
 \section{Trading off the bias and variance}
+In the last section, it was illustrated that the model order of the local \gls{LRM} models, can significantly affect the obtained \gls{RMS} error.
+This is specifically the case for small and noisy datasets.
+Moreover, it was observed that the \gls{LRIC} has a high variance which might be due to pole-zero cancellations in the \gls{LRIC}.
+As such, it makes sense to ask ourselves the question: ``can we determine a good local model order''?
+That is the question we will investigate in this section.
+First, some classical approaches are compared in the context of local modeling, i.e. relatively small (local) datasets.
 
-\TODO{introduction, probleem, oplossingen die besproken worden}
 
 \subsection{Order selection}
 \label{sec:nparam:orderSelection}
