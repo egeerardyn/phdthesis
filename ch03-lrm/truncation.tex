@@ -41,7 +41,6 @@ Denote the $k^{\text{th}}$ discretized frequency as $\omega_k$ = $e^{-j2{\pi}k\f
 \end{itemize}
 
 The rest of the section is structured as follows. 
-\secref{sec:nparam:trunc:theoryLPMandWindowing} covers the theory on the \gls{LPM} and windowing for an \gls{OE} setup.
 \secref{sec:nparam:trunc:smoothingFRFestimate} discusses the novel smoothing method.
 Ultimately, in \secref{sec:nparam:trunc:simResults}, simulation results of the following \gls{FRF} estimates and their corresponding variances are compared: (i) the smooth \gls{LPM} estimate $\hat{G}_{\trunc}(\omega_k)$, (ii) the \gls{LPM} estimate $\hat{G}_{\LPM}(\omega_k)$.
 
@@ -101,13 +100,13 @@ Discussion of the simulation results is then followed by a conclusion in \secref
 % \citet[Section 7.2.2]{Pintelon2012} gives the general formulation of the \gls{LPM} for \gls{MIMO} systems.
 % The formulation in this section is a summary for a \gls{SISO} system.
 
-% The \gls{DFT} spectra at the output of the \gls{SISO} system in \figref{fig:nparam:blockH0} are derived from equations \eqref{eq:nparam:trunc:LPM:TD} and \eqref{eq:nparam:trunc:LPM:leakage}, \emph{viz}:
+% The \gls{DFT} spectra at the output of the \gls{SISO} system in \figref{fig:nparam:blockH0} are derived from equations \eqref{eq:nparam:trunc:LPM:TD} and \eqref{eq:nparam:trunc:LPM:leakage}, \latin{viz}:
 % \begin{equation}\label{lpm1spectra}
 % Y(k)=G_0(\omega_k)U_0(k)+T(\omega_k)+V_0(k)
 % \end{equation}
 % where $V_0(k) = H_0(\omega_k)E(k)$ is a noise term, and $T(\omega_k)$ is the leakage term. The latter is the sum of the system and the noise leakage terms, i.e. $T(\omega_k) = T_G(\omega_k) + T_H(\omega_k)$.
 
-% The smooth characteristics of $G_0(\omega_k)$ and $T(\omega_k)$ allow for the use of the Taylor series representations at the frequency lines $k+r$ in a frequency domain window of width $2n+1$, with a remainder $\bigO{\left(\frac{r}{N}\right)^{R+1}}$ of the first order Taylor series expansion \citep{Schoukens2009LPM}, \emph{viz}:
+% The smooth characteristics of $G_0(\omega_k)$ and $T(\omega_k)$ allow for the use of the Taylor series representations at the frequency lines $k+r$ in a frequency domain window of width $2n+1$, with a remainder $\bigO{\left(\frac{r}{N}\right)^{R+1}}$ of the first order Taylor series expansion \citep{Schoukens2009LPM}, \latin{viz}:
 % \begin{align}\label{lpmGTaylorS}
 % G_0(\omega_{k+r})&=G_0(\omega_k)+\sum_{p=1}^{R}g_p(k)r^p+
 % \bigO{\left(\frac{r}{N}\right)^{R+1}},
@@ -122,7 +121,7 @@ Discussion of the simulation results is then followed by a conclusion in \secref
 
 % The choice of the tunable parameters $n$ and $R$ is discussed later on.
 
-% Neglecting the remainder, the Taylor series approximation of \eqref{lpm1spectra} can be written in a matrix vector form, \emph{viz}:
+% Neglecting the remainder, the Taylor series approximation of \eqref{lpm1spectra} can be written in a matrix vector form, \latin{viz}:
 % \begin{equation}\label{lpmGTMatrix}
 % Y(k+r)\approx{K(k, r)\theta(k)+V_0(k+r)}
 % \end{equation}
@@ -143,7 +142,7 @@ Discussion of the simulation results is then followed by a conclusion in \secref
 % Y_n(k)\approx K_n(k)\theta(k)+V_n(k)
 % \end{equation}
 % where $Y_n(k), V_n(k)\in\mathbb{C}^{2n+1}$, and $K_n(k)\in\mathbb{C}^{(2n+1)\times(2R+2)}$ are the stacked values of $Y(k+r)$, $K(k,r)$, and $V_0(k+r)$, respectively, for $r\in\mathbb{W}_n$.
-% The estimates of the parameters $\theta(k)$ are obtained as the minimizers of the least squares problem, \emph{viz}:
+% The estimates of the parameters $\theta(k)$ are obtained as the minimizers of the least squares problem, \latin{viz}:
 % \begin{align}\label{eq:LSsolutionLPM}
 % \hat\theta(k) = \argmin_{\theta(k)} \left\|Y_n(k) - K_n(k)\theta(k)\right\|_2^2
 % \end{align}
@@ -169,15 +168,15 @@ In this section, the $\lpm{3,2,2}$ is used.
 % \begin{equation}\label{lpmThetaEst}
 % \theta^{\TT}(k)=\left[G_0(\omega_k) \ g_1 \ g_2\  T_G(k)\  t_1 \ t_2\right]
 % \end{equation}
-% The \gls{LPM} estimate of the \gls{FRF} is the first element of the estimate $\hat\theta(k)$, obtained from \eqref{eq:LSsolutionLPM}, \emph{viz}:
+% The \gls{LPM} estimate of the \gls{FRF} is the first element of the estimate $\hat\theta(k)$, obtained from \eqref{eq:LSsolutionLPM}, \latin{viz}:
 % \begin{equation}
 % \hat{G}_{\LPM}(\omega_k) = \hat\theta_1(k)
 % \end{equation}
 
-\subsubsection{Smoothing the \gls{FRF} estimate}
+\subsection{Smoothing the \gls{FRF} estimate}
 \label{sec:nparam:trunc:smoothingFRFestimate}
 The method for smoothing (improving) the \gls{LPM} estimate of the frequency response function  is presented in this section together with pertinent assumptions. 
-After obtaining the \gls{LPM} estimate of the \gls{FRF} (denoted as $\hat{G}_{{\LPM}}(\omega_k)$) from \secref{sec:nparam:trunc:LPMFRFest}, the smoothing method is decomposed into the following procedures, which will be elaborated on later:
+After obtaining the \gls{LPM} estimate of the \gls{FRF} (denoted as $\hat{G}_{{\LPM}}(\omega_k)$) from \secref{sec:nparam:LPM}, the smoothing method is decomposed into the following procedures, which will be elaborated on later:
 \begin{enumerate}
 \item The impulse response $\hat g_{\LPM}(t)$  is computed from the \gls{IDFT} of $\hat{G}_{{\LPM}}(\omega_k)$.
 
@@ -188,7 +187,6 @@ In \secref{sec:nonparametric:truncation:ftest} and \secref{sec:nonparametric:tru
 \item An accurate estimate of the \gls{DC} value of the \gls{FRF} is computed by inspecting the average value of the tail of the estimated impulse response.
 
 \item A truncation is effected at the point beyond which the data record (impulse response) is buried in noise.
-
 This action results in smoothing the \gls{LPM} estimate of the \gls{FRF}.
 \end{enumerate}
 
@@ -219,9 +217,9 @@ Within $90\%$ of the measurement window, the impulse response decays
 
 Note that \assref{ass:imprespdecay} and \assref{ass:decay90perctime} exclude the possibility of considering a system that is a pure integrator.
 
-\subsubsection{Obtaining the Impulse Response Function}
+\subsection{Obtaining the Impulse Response Function}
 
-The estimated impulse response function  $\hat g_{{\LPM}\setminus \mathrm{DC}}(t)$ is obtained explicitly via the \gls{IDFT} of the \gls{LPM}-estimate $\hat G_{\LPM}(\omega_k)$ of the \gls{FRF} in accordance with equation \eqref{eq:defDFT}, \emph{viz}:
+The estimated impulse response function  $\hat g_{{\LPM}\setminus \mathrm{DC}}(t)$ is obtained explicitly via the \gls{IDFT} of the \gls{LPM}-estimate $\hat G_{\LPM}(\omega_k)$ of the \gls{FRF}, \latin{viz}:
 \begin{align}\label{eq:impRespiDFT}
 \hat g_{{\LPM}\setminus \mathrm{DC}}(t) 
 &= 
@@ -240,7 +238,7 @@ Unfortunately, the \gls{LPM} presented in \secref{sec:nparam:LRM} and in \citep{
 Consequently, the mean value of the corresponding estimated impulse response given in equation \eqref{eq:impRespiDFT} is not correct. 
 This limitation is lifted by developing a simple estimator of the mean value, presented below.
 
-\subsubsection{Estimating the \glsentrytext{DC} Value of the \glsentrytext{FRF}}\label{sec:nparam:trunc:DCvalueEst}
+\subsection{Estimating the \glsentrytext{DC} Value of the \glsentrytext{FRF}}\label{sec:nparam:trunc:DCvalueEst}
 The correct mean value of the impulse response accounts for (i.e. estimates) the \gls{DC} value of the \gls{FRF}. A time-domain method is proposed for estimating the mean value of the impulse response in equation \eqref{eq:impRespiDFT}. %The first is a frequency-domain technique and the second is a time-domain technique.
 
 According to \assref{ass:imprespdecay}, the true impulse response tends to zero asymptotically; and by \assref{ass:decay90perctime}, the last $10\%$ of the estimated impulse response is noise, plus a constant value due to an inaccuracy in the    average value of the impulse response. The correct estimate of the mean value is obtained by shifting the whole signal such that the last $10\%$ of the impulse response is centered around 0.
@@ -259,11 +257,16 @@ To this end, the following procedure is executed:
 \end{align}
 
 \item Next, subtract the computed mean value $m_{g10}$ from $\hat g_{{\LPM}\setminus \mathrm{DC
-}}(t)$ to obtain the improved impulse response $\hat g_{\LPM}(t)$, \emph{viz}:
+}}(t)$ to obtain the improved impulse response $\hat g_{\LPM}(t)$, \latin{viz}:
 \begin{align}
 \hat g_{\LPM}(t) = \hat g_{{\LPM}\setminus \mathrm{DC}}(t) - m_{g10},\ \text{for}\ t=0,1,\dots,N-1
 \end{align}
 \end{enumerate}
+
+\subsection{Determining the Truncation Time}
+In this section, two methods will be discussed to determine the truncation time, i.e. the time beyond which the measured impulse response cannot be separated from the noise level.
+Specifically, the first method uses an $F$-test to distinguish between signal and noise.
+The second method fits an exponential through a well-chosen subset of the data to obtain $\truncTime$. 
 
 \subsubsection{Truncation Via the $F$-Test}
 \label{sec:nonparametric:truncation:ftest}
@@ -294,7 +297,7 @@ The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,
   The $F$-test is suited to compare the variances of different segments $\segm{\hat{g}}{i}$ and $\segm{\hat{g}}{i-1}$ \citep{Parsons1974}, while accounting for the degrees of freedom in each segment.
   For zero-mean noise, these variances are the \gls{RMS} value of each noise segment.
   This has the advantage that a segment in which the impulse response still has a significant amplitude is likely to have a large \gls{RMS} value, which is more likely to be detected.
-  Let $s^2(i)$ denote the mean square value of segment $\segm{\hat{g}}{i}$, \emph{viz}:
+  Let $s^2(i)$ denote the mean square value of segment $\segm{\hat{g}}{i}$, \latin{viz}:
   \begin{equation}
     s^2(i) 
     \isdef \frac{1}{L_S} \sum_{j=1}^{L_S} \left(\segm{\hat{g}}{i}(j)\right)^2
@@ -370,7 +373,7 @@ This is done via the fit of an exponential function on the maxima of the impulse
 \item Obtain the estimate of the impulse response $\hat g_{\LPM}(t)$ from the \gls{LPM}, corrected for its \gls{DC} value as discussed in \secref{sec:nparam:trunc:DCvalueEst}. 
 Henceforth, $\hat g_{\LPM}(t)$ will simply be denoted as $\hat g(t)$.
 
-\item Obtain an estimate $\hat \sigma_\mathrm{n}$ of the standard deviation of the noise from the last 10\% of the data, \emph{viz}:
+\item Obtain an estimate $\hat \sigma_\mathrm{n}$ of the standard deviation of the noise from the last 10\% of the data, \latin{viz}:
 \begin{align}
 \hat \sigma^2_\mathrm{n}=\frac{1}{\lceil0.1N - 1\rceil}\sum_{t=\lfloor0.9N\rfloor}^{N-1}\hat g^2(t).
 \end{align}
@@ -407,7 +410,7 @@ This is a quadratic problem in the parameters and, thus, amount to a convex opti
 Since  $\ln \left|\hat g(t)\right|$ decreases for an increasing $t$ in $\mathbb{T}_\mathrm{max}$ (by construction in equation \eqref{eq:TmaxDef}), the estimated $a$ from equation \eqref{eq:expFit} is always negative.
 
 \item
-Determine the first time-instant $\truncTime$ at which the estimated exponential gets significantly below the noise floor, \emph{viz}:
+Determine the first time-instant $\truncTime$ at which the estimated exponential gets significantly below the noise floor, \latin{viz}:
 \begin{align}\label{eq:truncTimeExpFit}
 \truncTime = \min \left\{t:Ae^{at} < \gamma\hat\sigma_\mathrm{n}\right\}
 \end{align}
@@ -448,7 +451,7 @@ If the latter is to be estimated with a high accuracy, a value $\gamma \ll 1$ mu
 \item If one is interested in obtaining a smooth initial estimate of the \gls{FRF}, a (small) bias error is acceptable, and choosing $\gamma \approx 1$ was found to be a good rule of thumb.
 \end{itemize}
 
-\subsubsection{Simulation Results}
+\subsection{Simulation Results}
 \label{sec:nparam:trunc:simResults}
 
 \figref{fig:nparam:trunc:LPMvsTRunc} and \figref{fig:nparam:trunc:pdfAndRMSeVStruncTime} compare the \gls{LPM} with and without truncation of the impulse response.
@@ -579,7 +582,7 @@ As illustrated by the presented smoothing operation, it pays off to check typica
 For the truncation approaches, even if the assumptions do not hold, the methods are constructed such that the unavoidable model error is unlikely to increase.
 \end{guideline}
 
-\subsubsection{Conclusion}
+\subsection{Conclusion}
 \label{sec:nparam:trunc:conclusion}
 
 This section introduced a time domain method to smooth the \gls{LPM}-estimate of an \gls{FRF}. 

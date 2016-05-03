@@ -372,6 +372,7 @@ such that $\abs{\dw{r}{k}} \leq 1$ when $r \in \LocalShifts{k}$.
 We denote a method that solves \eqref{eq:nparam:LRM:costFunc} as $\lrm{\numel{W}, \order{B},\order{A},\order{C}}$ where $\numel{W}$ is the half-bandwidth, and $\order{B}$, $\order{A}$ and $\order{C}$ are the local model orders.
 
 \subsection{The Local Polynomial Method}
+\label{sec:nparam:LPM}
 The \gls{LPM} is method that predates the \gls{LRM} and has been devised by~\citet{Schoukens2006LPM}.
 The \gls{LPM} approximates both the \gls{FRF} and transient contribution by means of complex-valued local polynomials in the frequency domain.
 
@@ -1064,12 +1065,12 @@ In particular, when there is a large difference between the level of the residua
 \section{LPM with impulse response truncation}
 \input{\thisDir/truncation.tex}
 
-\section{Conclusion}
+\section{Conclusions}
 \label{sec:conclusion}
 In this chapter, the performance of non-parametric \gls{LPM} and \gls{LRM} estimators were compared to observe the \gls{FRF} of resonant systems.
-Since the \gls{LRM} is an inherently biased estimator while the \gls{LPM} is asymptotically unbiased, it is important to compare their behavior.
+Since the \gls{LRM} is a biased estimator while the \gls{LPM} is asymptotically unbiased, it is important to compare their behavior.
 Hence, expressions for the bias of the \gls{LRM} were derived.
-%TODO: tom: "inherently biased": verrgaande uitspraak in relatie met Levy: is normaal ook biased, maar voor ARX niet. Hoe zit dat hier?
+%TODO: tom: "inherently biased": verregaande uitspraak in relatie met Levy: is normaal ook biased, maar voor ARX niet. Hoe zit dat hier?
 For good \glspl{SNR} in resonant systems, it was seen that the \gls{LRM} is always superior to the \gls{LPM}.
 For extremely poor \gls{SNR}, i.e. $\SNR \approx 10\unit{dB}$, the \gls{LPM} may perform slightly better than the \gls{LRM} when short measurement records are available.
 In this chapter, the \gls{LRIC} was introduced.
