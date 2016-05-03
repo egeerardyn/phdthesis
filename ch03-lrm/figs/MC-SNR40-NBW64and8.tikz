@@ -18,8 +18,8 @@ group style={
 cell picture=true, % http://tex.stackexchange.com/questions/207450/fillbetween-from-pgfplots-does-not-work-inside-groupplots
 width=0.5\figurewidth,
 height=\figureheight,
-ylabel={$\abs{G} \axisunit{dB}$},
-xlabel={$\omega \axisunit{rad/s}$},
+ylabel={$\abs{G}$ \axisunit{dB}},
+xlabel={$\omega$ \axisunit{rad/s}},
 scale only axis,
 ymin=-90,
 ymax=5,
@@ -104,12 +104,14 @@ xtick scale label code/.code={},
 \addplot [lric7222,mcvar,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/LRIC7222-std.tsv};
 
-\node at (axis cs:0.1635,-3) {$\true{G}$};
-\node at (axis cs:0.1635,-35) {$\true{H}$};
+\node at (axis cs:0.1549,-2.5) {$\true{G}$};
+\node at (axis cs:0.1549,-34) {$\true{H}$};
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\nextgroupplot[title={$\nBW = 64$},xmax=0.16120327803318,xmin=0.157055766540076,legend style={at={(0.5,0.95)},anchor=north,legend cell align=left,align=left}]
+\nextgroupplot[title={$\nBW = 64$},xmax=0.16120327803318,
+xmin=0.157055766540076,
+legend style={at={(0.5,0.95)},anchor=north,legend cell align=left,align=left}]
 
 % \node[annotation] at (rel axis cs:1,1) {$\nBW = 8$};
 \addplot [black,dashdotted,line width=1.5pt,forget plot]
@@ -174,41 +176,5 @@ xtick scale label code/.code={},
 \addlegendentry{$\sampleBias{\bullet}(\omega_k)$}
 
 \end{groupplot}
-
-
-% \begin{axis}[%
-% width=0.5\figurewidth,
-% height=\figureheight,
-% name={NB64},
-% scale only axis,
-% xmin=0.157055766540076,
-% xmax=0.16120327803318,
-% xlabel={$\omega$ \axisunit{Hz}},
-% ymin=-90,
-% ymax=22,
-% ylabel={$\abs{G}$ \axisunit{dB}},
-
-% ]
-
-% \end{axis}
-
-% \begin{axis}[%
-% width=0.951\figurewidth,
-% height=\figureheight,
-% at={(0\figurewidth,0\figureheight)},
-% scale only axis,
-% xmin=0.15390625,
-% xmax=0.164453125,
-% xlabel={Frequency [Hz]},
-% ymin=-81,
-% ymax=ETFE-std,
-% ylabel={$|$G$|$ [dB]},
-% axis background/.style={fill=white},
-% xmajorgrids,
-% ymajorgrids,
-% legend style={at={(0.97,0.03)},anchor=south east,legend cell align=left,align=left,draw=white!15!black}
-% ]
-
-% \end{axis}
 
 \end{tikzpicture}%
