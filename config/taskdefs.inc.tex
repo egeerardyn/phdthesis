@@ -1,0 +1,4 @@
+\newcommand{\FIXME}[1]{{\color{green} #1}}
+\newcommand{\TODO}[1]{{\color{red} #1}}
+\newcommand{\TODOfig}[1][figure]{\parbox[h][\figureheight][c]{\figurewidth}{\centering \vfill \TODO{#1} \vfill}}
+\newcommand{\TODOtikzfig}[1][TikZ figure]{\begin{tikzpicture}\node[rectangle, draw=red,minimum width=\figurewidth,minimum height=\figureheight] {\TODO{#1}};\end{tikzpicture}}
