@@ -10,7 +10,7 @@ System identification is the science that deals with converting observations of 
 Successfully identifying a system often hinges on a plethora of choices that are to be made by the user.
 As a result, system identification can also be seen as an art for which the practitioner needs to learn the tricks of the trade.
 In \figref{fig:intro:identification-cycle}, a high-level flow diagram containing some key steps that are performed when identifying a system.
-For the technical details, we refer to the many textbooks on system identification~\citep{Soderstrom1989,Ljung1999,Pintelon2012}.
+For the technical details, we refer to the many textbooks on system identification~\citep{Keesman2011,Norton1986,Soderstrom1989,Ljung1999,Pintelon2012}.
 Here, we give the high-level overview of the different steps.
 
 \paragraph{Experiment design}
@@ -32,11 +32,12 @@ Once an experiment has been performed, the obtained input-output data is to be p
 In many cases, the eventual goal of identification is to obtain a parametric model, so the user has to select a model structure and/or complexity based on both his prior knowledge and on the data.
 A useful tool to help choose the model structure and/or model orders, is to inspect a nonparametric model of the system.
 One such tool is the frequency response function.
-For instance, by inspecting a frequency response function, a control engineer can have a rough idea of the system behavior in term of  approximate resonance frequencies, asymptotic slopes, \ldots
+For instance, by inspecting a frequency response function, a control engineer can have a rough idea of the system behavior in term of  approximate resonance frequencies, asymptotic slopes, \latin{etc.}
 This gives a qualitative view of the minimally required complexity of the model and is hence a useful diagnostic tool.
 However, since most parametric estimators enforce very little prior knowledge about the system, noise in the measurements can sometimes be a problem to distinguish the actual system features.
+%TODO: peter: also discuss model selection for nonparametric here
 
-\paragraph{Estimate the model}
+\paragraph{Estimate the model parameters}
 Once the model structure has been chosen, its parameters are to be estimated.
 This is done by formulating an optimization problem which serves to minimize a particular cost function.
 The cost function is in essence a measure of the differences between the measured data and the model evaluated for particular parameter values.
@@ -46,11 +47,12 @@ This means that initial values need to be available to start the optimization pr
 Moreover, for poor starting values, optimization algorithms may get stuck in local minima of the cost function.
 Consequently, without reasonable starting values, the `optimized' model may also be of poor quality. 
 
+
 \paragraph{Validate the model}
 Finally, the estimated model is validated.
 Essentially, one checks whether the obtained model meets the predefined requirements, e.g. with respect to allowable uncertainty, compexity, \ldots
 This can happen in a few different ways.
-On the one hand, in-sample measures such as statistical tests on the value of the cost function, correlation tests on the residuals, \ldots allow to verify that the model performs well on the measured dataset.
+On the one hand, in-sample measures such as statistical tests on the value of the cost function, correlation tests on the residuals, \latin{etc.} allow to verify that the model performs well on the measured dataset.
 Such approaches help to detect underfitting, where the model is not flexible enough to describe the measurements.
 On the other hand, the ultimate test is to validate the model against new measurements that have not been used during the estimation.
 This prevents overfitting of the model, where the model not only captures the behavior of the system but also describes the particular realization of the noise in the measurements.
@@ -72,14 +74,14 @@ We cover some typical traits of different methods and describe why a particular 
 \subsubsection{White Box, Black Box or Grey Box?}
 Modeling can be divided into two diametrical groups depending on the starting point of modeling~\citep{Ljung2010}.
 One the one hand, there is so-called \term{`white box'} modeling, or first-principles modeling.
-The model is constructed by writing down the equations that govern the system, e.g. Newton's laws of motion for mechanical systems, Kirchoff's laws for electrical circuits, \ldots
-This is the typical kind of modeling practices in school.
+The model is constructed by writing down the equations that govern the system, e.g. Newton's laws of motion for mechanical systems, Kirchoff's laws for electrical circuits, \latin{etc.}
+This is the typical kind of modeling practiced in school.
 Unfortunately, white box modeling quickly becomes unwieldy once more complicated systems are to be studied or many parts of the system are uncertain.
 In general, lot of man-hours are required to build a white box model, such that this is often prohibitively expensive for engineering applications.
 
 On the other hand, the diametrically opposed approach is called \term{`black box'} modeling.
 Here, the model structure is chosen such that a wide variety of phenomena can be described.
-Regardless of the nature of the underlying system, be it mechanical, chemical, electrical, structural, \ldots, most dynamic phenomena can be described using differential equations (or difference equations).
+Regardless of the nature of the underlying system, be it mechanical, chemical, electrical, structural, \ldots; most dynamic phenomena can be described using differential equations (or difference equations).
 In particular, for black-box models, the structure of the model is chosen such that the data is well-approximated.
 The downside of this is that giving physical interpretations of the model is not always possible, but for many applications (e.g. controller design) that is not the main goal of the model.
 
@@ -88,7 +90,7 @@ In many cases, one can or even has to incorporate knowledge about the physics of
 In particular when one has black box models where some parameters are related to physical phenomena, the resulting model is called \term{`gray box'}.
 
 In this dissertation, we use mainly black box models (or very dark gray ones) as those are independent from the actual application.
-Hence, the proposed techniques should be applicable for different areas of engineering: electrochemical, electronics, mechatronics, structural engineering, \ldots
+Hence, the proposed techniques should be applicable for different areas of engineering: electrochemical, electronics, mechatronics, structural engineering, \latin{etc.}
 
 \subsubsection{Linear or nonlinear?}
 A preliminary choice that is often made, is to first try linear models.
@@ -122,7 +124,7 @@ In practice, this boils down to methods that work well for a wide class of syste
 As such, only very generic assumptions of the system under test should be made and these should be easy to interpret.
 
 For seasoned identification practitioners, methods that require little interaction are an opportunity for automation.
-This is especially important for complex systems: systems that have high-order dynamics, \gls{MIMO} systems with a high dimensionality, \ldots
+This is especially important for complex systems: systems that have high-order dynamics, \gls{MIMO} systems with a high dimensionality, and networked systems amongst others.
 For such complex systems, building a model can be time-consuming and laborious if one has to supervise every step of the process.
 For more advanced users, user-friendly methods can hence allow to deal with more complex systems in a shorter amount of time such that the economical cost of building a model is reduced.
 
