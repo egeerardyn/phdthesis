@@ -57,7 +57,7 @@ axis y line*=left]
 \node[plotnum] at (rel axis cs:0,1) {1};
 \addplot [color=G0Hat,solid]
   table{\thisDir/data/stress-distances/distances-1.tsv};
-\addlegendentry{\model{0}};
+\addlegendentry{\model{\trueSymbol}};
 \label{leg:dist:model0}
 
 \addplot [color=existing,solid]
