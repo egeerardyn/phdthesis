@@ -1,0 +1,14 @@
+% Thumb index
+
+% http://latex-community.org/forum/viewtopic.php?f=47&t=24273
+% http://tex.stackexchange.com/questions/62241/how-to-get-the-current-chapter-name-section-name-subsection-name-etc
+\usepackage[%
+  thumblink=none,
+  distance=1em,
+  eventxtindent=2em,
+  oddtxtexdent=1em]{thumbs}
+
+\newcommand{\AddThumb}[2][\thechapter]{
+    \addthumb{\hspace{1em}\Large\bfseries\textsf{#2}}{\huge\bfseries\textsf{#1}}{white}{lightgray}
+}
+\newcommand{\NoThumbs}{\stopthumb}

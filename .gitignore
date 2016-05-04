@@ -36,3 +36,5 @@ phdthesis.makefile
 *.nav
 phdFigures.pdf
 phdFigures.makefile
+*.mw
+*.tmb
