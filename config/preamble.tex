@@ -1,5 +1,4 @@
 \usepackage{silence}
-\usepackage{morewrites}
 
 % http://tex.stackexchange.com/questions/16199/test-if-a-package-or-package-option-is-loaded
 \makeatletter
@@ -8,7 +7,6 @@
 \makeatother
 
 %\usepackage[utf8]{inputenc}
-\usepackage{atveryend} % needed to avoid clashes with
 \usepackage{scrhack} % http://tex.stackexchange.com/questions/51867/koma-warning-about-toc
 \ifDoc{\usepackage{vubtitlepage}}
 \usepackage[english]{babel}
@@ -22,6 +20,7 @@
 \usepackage{appendix}
 \usepackage[english=american]{csquotes}
 \usepackage[l2tabu]{nag}
+
 
 % Make sure subsubsection are numbered
 % http://www.latex-community.org/forum/viewtopic.php?f=5&t=2351
@@ -38,11 +37,8 @@
 \usepackage{xspace}
 \usepackage{iftex}
 
-
-
 \input{config/font.inc.tex}
 \input{config/bib.inc.tex}
-\input{config/thumbs.inc.tex}
 \input{config/graphics.inc.tex}
 \input{config/tables.inc.tex}
 \ifDoc{\input{config/code.inc.tex}}
@@ -71,7 +67,3 @@
 \newcommand{\myEpigraph}[3]{\epigraph{#1}{\textsc{#2}\ifthenelse{\equal{#3}{}}{}{\\\textit{`#3'}}}}
 \renewcommand{\myEpigraph}[3]{\epigraph{#1}{\textsc{#2}\ifstrempty{#3}{}{\\\textit{`#3'}}}}
 \addtolength{\epigraphwidth}{0.05\epigraphwidth}
-
-
-% Thumb index
-\usepackage[thumblink=none]{thumbs}
