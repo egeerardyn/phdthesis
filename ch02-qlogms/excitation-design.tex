@@ -1281,15 +1281,14 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   
   The obtained FRF is then fitted to the transfer function model \eqref{eq:excitation:secondOrderSystemDTidentifiable} using the \texttt{elis} function of the \FDIDENT~\citep{FDIDENT} for \MATLAB.
   This is a maximum likelihood estimator that fits a parametric model to the measured data in the frequency domain.
-  %TODO: add formulas with cost function etc.
-  To improve convergence and avoid local minima, the initial values for the model are chosen equal to the parameters of the true system $G_0(z)$, so that we can focus completely on the variance of the estimations.
+  To improve convergence and avoid local minima, the initial values for the model are chosen equal to the parameters of the true system $\true{G}(z)$, so that we can focus completely on the variance of the estimations.
 
   Such an experiment is repeated $R=1000$ times with a different random phase  spectrum $\phi_k$ and a different noise realization $e[n]$ for each experiment.
 
   \begin{remark}
   All simulations  have been repeated as well by fitting with the \MATLAB System Identification Toolbox by means of the \mcode{oe} function~\citep{TDIDENT}.
   The observed results were similar and hence are not elaborated further in this text.
-  For more information, please refer to~\citep{Larsson2012SYSID}.
+  For more information, please refer to~\citet{Larsson2012SYSID}.
   \end{remark}
 
   \subsection{Systems with a `high' damping}

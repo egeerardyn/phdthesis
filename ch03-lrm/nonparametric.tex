@@ -757,14 +757,6 @@ Concretely,
 \end{equation}
 accounts for the smoothing action of local modeling.
 
-% \begin{figure}
-%   \centering
-%   \setlength{\figurewidth}{0.85\columnwidth}
-%   \setlength{\figureheight}{0.62\figurewidth}
-%   \TODOtikzfig[figure with G and errors for 1 simulation]
-%   \caption[Estimated FRF using local modeling]{The figure shows the \gls{FRF} of a single simulation for $\SNR= 40 \unit{dB}$ and $\nBW =  64$, together the the error ($\model{\bullet} - \true{G}$) for the different methods. The $3\unit{dB}$ bandwidth of the system is highlighted.}
-% \end{figure}
-
 We then compute basic statistics of the estimated \glspl{FRF} $\model[\atSimulation{i}]{\bullet}$ over $\nMC=\num{2000}$ Monte Carlo runs of the simulations above.
 Specifically, the following values
 \begin{align}
@@ -997,23 +989,25 @@ In the following, a short overview is given of different approaches.
 In plug-in methods, a goodness-of-fit criterion (e.g. the log-likelihood function $\LogLikelihood$ of the estimated local model $\LocalModel{M}$ given the estimation dataset $\LocalVector{Z}$), is penalized with a term accounting for the complexity of the model~\citep{Burnham2002}.
 E.g. a common choice is the \gls{AIC}~\citep{Akaike1974} or the \gls{AICc}~\citep{Hurvich1989}, which are defined as
 \begin{align}
-L_{\mathrm{\AIC}} &=
+\LocalVector{L}_{\AIC} &=
  - 2  \loglikelihood{\LocalModel{M} | \LocalVector{Z}} 
  + 2 \nth
 \label{eq:nparam:AIC}\\
-L_{\mathrm{\AICc}} &= 
+\LocalVector{L}_{\AICc} &= 
 - 2  \loglikelihood{\LocalModel{M} | \LocalVector{Z}} 
 +   \frac{2 \nth\nWind}{\nWind - \nth - 1}
 \label{eq:nparam:AICc}
 \end{align}
 where $\nth$ is the number of  estimated parameters in the model $\LocalModel{M}(\theta)$.
 In the context of local modeling, the \gls{AIC} is a poor choice since it relies on asymptotic arguments of the data set, i.e. $\nWind \to \infty$, which is obviously an unwarranted choice in this context.
-The best model among a set of $q$ possible models $\Set{M_1, \ldots, M_q}$ is then
+The best model among a set of $q$ possible models $\Set{\LocalModel{M}^1, \ldots, \LocalModel{M}^q}$ is then
 \begin{equation}
-  M_{\star} \isdef 
-  \arg_{M} \min 
+  \LocalModel{M}^{\star} \isdef 
+  \arg\limits_{\LocalModel{M}} \min 
   \Set{
-    L_{\mathrm{AIC(c)}}(M)
+    \LocalVector{L}_{\mathrm{AIC(c)}}( \LocalModel{M}^i  )
+    |
+    i = 1,\ldots,q
   }
   \text{,}
 \end{equation}
@@ -1022,7 +1016,11 @@ which is the only model that is hence retained.
 \begin{remark}
 From a theoretical point of view, equations \eqref{eq:nparam:AIC} and \eqref{eq:nparam:AICc}, require full knowledge of the likelihood function.
 This means specifically that the noise variance $\sigma^{2}_{V}$ needs to be known beforehand.
-When the variance is unknown, however, it is more robust to incorporate the \gls{AIC} as a penalty factor on the cost function as indicated in \citet[Section 7.4]{Ljung1999} and \citet[Section  11.3 and 19.7]{Pintelon2012}.
+When the variance is unknown, however, it is more robust to incorporate the \gls{AIC} as a penalty factor on the cost function as indicated in \citet[Section 7.4]{Ljung1999} and \citet[Section  11.3 and 19.7]{Pintelon2012} such that the \gls{AIC} criterion becomes
+\begin{equation}
+  \LocalVector{L}_{\mathrm{AIC,cost}} = \LocalVector{L} \cdot \left( 1 + \frac{\nth}{\nWind} \right)
+\end{equation}
+with $\LocalVector{L}$ the original local cost function.
 \end{remark}
 
 \begin{remark}
@@ -1066,11 +1064,40 @@ $\LocalVector{H} = \LocalMatrix{K} \pinv{\LocalMatrix{K}}$ is the so-called `hat
 Note that since the \gls{PRESS} can be interpreted similar to the residuals, this forms a convenient metric to select models on.
 In particular, when there is a large difference between the level of the residuals and the \gls{PRESS}, this indicates that a poor model has been selected.
 
-\subsection{Results}
+\subsubsection{Combining different local model orders}
+In the previous section, different methods were introduced to select the local model order.
+This begs the question whether it is advantageous to use the same local model complexity over all frequencies or the model order should be kept globally.
+The answer to this, depends on the ultimate purpose of the \gls{FRF}.
 
-%TODO: discussie: 1 globale modelorder of verschillende
-% voor parametrische schatting: vensterbreedte constant houden, DOF constant houden over alle geselecteerde modellen
-% voor niet-parametrisch: orde kan per frequentielijn verschillen, geeft betere smoothing \citep{Thummala2012LPMBW,Fan1996}
+When the goal is to inspect the \gls{FRF} visually or to obtain a smooth representation of the transfer function, one can use different model orders per frequency bin.
+\Citet{Stenman2001ASFRF,Fan1996,Thummala2012LPMBW} show that a varying model order can reduce both bias and variance depending on the characteristic of the system.
+Near resonances one might need a higher local model order than in regions with constant slopes (e.g. $20\cdot n \unit{dB/decade}$).
+For non-parametric purposes, this means that one can select the optimal local model for each frequency bin and combine those local models to obtain the optimal \gls{FRF}.
+
+For estimating a global parametric model using the \gls{FRF} obtained from local modeling, one has to take extra care.
+\Citet{Pintelon2010LPM2} prove asymptotic properties of the sample \gls{MLE} in conjunction with an \gls{FRF} obtained from local modeling.
+Assuming $\DOF > 4$ and a constant model order, \citet{Pintelon2010LPM2} gives expressions for the expected value and variance of the (global) cost function and the asymptotic loss in efficiency for using the sample \gls{MLE} instead of the actual \gls{MLE} based on the work of \citet{Mahata2006}.
+For varying local model complexity, deriving these asymptotic properties analytically becomes intractable.
+As such, for estimating a (global) parametric model, a fixed local model order complexity should be used over the whole frequency axis.
+
+When an optimal model order is to be selected for the whole frequency range, the local optimality criteria need to be reformulated in the global context of all local models over the frequency.
+In practice, the formulas of the previous section extend quite ``naturally'' to this global context.
+Particularly for the \gls{PRESS}:
+\begin{equation}
+  \PRESS_{\mathrm{global}} = \sum_k \PRESS_k
+\end{equation}
+where $\PRESS_k$ denotes the \gls{PRESS} for the $k^{\text{th}}$ local model.
+One should realize that for all local models together ($M =  \cup_k \LocalModel[k]{M}$) and the global dataset $Z$, the global log-likelihood, cost function and number of parameters can be related to their local counterparts:
+\begin{align}
+  \loglikelihood{M | Z}   &= \sum_k \loglikelihood{\LocalModel[k]{M} | \LocalVector{Z}_{k}} \\
+  L_{\mathrm{global}} &= \sum_k \LocalVector{L}_k\\
+  \nth^{\mathrm{global}} &= \sum_k \nth(k)
+  \text{.}
+\end{align}
+These global quantities can be substituted in the expressions of the local \gls{AIC} and \gls{AICc} of the previous section. 
+Note that one should also $\nWind$ as the total number of data points (and not the number of points in each window).
+
+\subsection{Discussion}
 
 % \begin{figure}
 %   \centering
