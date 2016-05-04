@@ -47,32 +47,6 @@ Ultimately, in \secref{sec:nparam:trunc:simResults}, simulation results of the f
 These \gls{FRF} estimates are also compared with the true \gls{LTI} system ${G}_0(\omega_k)$.
 Discussion of the simulation results is then followed by a conclusion in \secref{sec:nparam:trunc:conclusion}.
 
-% \subsection*{Theory on the LPM and Windowing}
-% \label{sec:nparam:trunc:theoryLPMandWindowing}
-
-% Details of the theory pertaining to this section may be found in \citet{Schoukens2009LPM}, basic aspects of which are presented below.
-
-
-% \subsubsection{Spectral Nonparametric Model and Assumptions}
-
-% Using convolution, the noiseless output signal in \figref{fig:nparam:blockH0} is $y_0(t) = g_0(t)*u_0(t)$, where the signals are sampled at $t = 0, 1, 2,...,N-1$ and the excitation signal $u_0(t)$ is random noise. 
-% As shown in \citet{Pintelon2012} and \citet{Pintelon1997ARB} the \gls{DFT} spectra of the sampled signals at the frequency $\omega_k$ are related as follows:
-% \begin{equation}\label{eq:nparam:trunc:LPM:leakage}
-% Y_0(k)=G_0(\omega_k)U_0(k)+T_G(\omega_k)
-% \end{equation}
-% where $U_0(k)$ is the \gls{DFT} spectrum of the random noise excitation,  $G_0(\omega_k)$ is the transfer function and $T_G(\omega_k)$ is the transients leakage term.
-% In this section, the \gls{DFT} of a signal $x(t)$ is defined explicitly as~\citep{Oppenheim1983}
-
-% \begin{equation}\label{eq:defDFT}
-% X(\omega_k) = \frac{1}{\sqrt{N}}\sum_{t=0}^{N-1}x(t)e^{-\frac{j2\pi kt}{N}}
-% \end{equation}
-
-
-% The following assumptions are consistent with \citep{Schoukens2009LPM} for an \gls{OE} setup (\figref{fig:nparam:blockH0}):
-% \begin{assumption}
-% The \gls{SISO} system $G_0$ and  the transients leakage spectrum $T_G$ are both smooth functions of the frequency.
-% \end{assumption}
-
 % \begin{assumption}
 % The spectrum of the  input signal $U_0$ is not a smooth function of the frequency, but a rough function, i.e. $U_0(k+1) - U_0(k)$ should not vanish to zero~\citep{Schoukens2009LPM}.
 % \end{assumption}
@@ -106,73 +80,8 @@ Discussion of the simulation results is then followed by a conclusion in \secref
 % \end{equation}
 % where $V_0(k) = H_0(\omega_k)E(k)$ is a noise term, and $T(\omega_k)$ is the leakage term. The latter is the sum of the system and the noise leakage terms, i.e. $T(\omega_k) = T_G(\omega_k) + T_H(\omega_k)$.
 
-% The smooth characteristics of $G_0(\omega_k)$ and $T(\omega_k)$ allow for the use of the Taylor series representations at the frequency lines $k+r$ in a frequency domain window of width $2n+1$, with a remainder $\bigO{\left(\frac{r}{N}\right)^{R+1}}$ of the first order Taylor series expansion \citep{Schoukens2009LPM}, \latin{viz}:
-% \begin{align}\label{lpmGTaylorS}
-% G_0(\omega_{k+r})&=G_0(\omega_k)+\sum_{p=1}^{R}g_p(k)r^p+
-% \bigO{\left(\frac{r}{N}\right)^{R+1}},
-% \\
-% \label{lpmTTaylorS}
-% T(\omega_{k+r})&=T(\omega_k)+\sum_{p=1}^{R}t_p(k)r^p+N^{-1/2}
-% \bigO{  \left(\frac{r}{N}\right)^{R+1}  }
-% ,
-% \\
-% \text{where}&\ r\in\mathbb{W}_n,\quad \mathbb{W}_n = \{-n,-n+1,\dots,n\}
-% \end{align}
-
-% The choice of the tunable parameters $n$ and $R$ is discussed later on.
-
-% Neglecting the remainder, the Taylor series approximation of \eqref{lpm1spectra} can be written in a matrix vector form, \latin{viz}:
-% \begin{equation}\label{lpmGTMatrix}
-% Y(k+r)\approx{K(k, r)\theta(k)+V_0(k+r)}
-% \end{equation}
-% where $\theta(k)\in\mathbb{C}^{2R+2}$ is the column vector of the  parameters ($G_0(\omega_k)$, $T(\omega_k)$, $g_p$, $t_p$, and $p = 1, 2, ...., R$) and $K(k, r)$ is the row vector of their respective coefficients:
-% \begin{align}
-% K(k,r) = &\left[
-% \begin{matrix}
-% U_0(k+r) & U_0(k+r)r & \dots
-% \end{matrix}
-% \right.
-% \\
-% &\quad\left.\begin{matrix}U_0(k+r)r^R & 1& r&\dots&r^R\end{matrix}\right]\nonumber
-% \end{align}
-
-
-% Equation \eqref{lpmGTMatrix} can be written in the more compact (stacked vectors) form:
-% \begin{equation}\label{lpmGTMatrixStack}
-% Y_n(k)\approx K_n(k)\theta(k)+V_n(k)
-% \end{equation}
-% where $Y_n(k), V_n(k)\in\mathbb{C}^{2n+1}$, and $K_n(k)\in\mathbb{C}^{(2n+1)\times(2R+2)}$ are the stacked values of $Y(k+r)$, $K(k,r)$, and $V_0(k+r)$, respectively, for $r\in\mathbb{W}_n$.
-% The estimates of the parameters $\theta(k)$ are obtained as the minimizers of the least squares problem, \latin{viz}:
-% \begin{align}\label{eq:LSsolutionLPM}
-% \hat\theta(k) = \argmin_{\theta(k)} \left\|Y_n(k) - K_n(k)\theta(k)\right\|_2^2
-% \end{align}
-
-% The formulation of equation \eqref{eq:LSsolutionLPM} must take into account the fact that  a full rank of $K_n$ requires $n \geq R + 1$. The choice $n = R + 1$ results in the highest variance on the estimate, but with the smallest interpolation error \citep{Schoukens2009LPM}.
-
-% The values $R = 2$, and $n=R+1=3$ will be used in the \gls{LPM}.
 In this section, the $\lpm{3,2,2}$ is used.
 However, since the techniques discussed in this section are not specifically geared towards the \gls{LPM}, one can just as well use the concepts with other non-parametric \gls{FRF} estimators such as the \gls{LRM}.
-
-% When substituted into equations \eqref{lpmGTaylorS} and \eqref{lpmGTMatrix},  these yield the following quadratic local polynomials of $G_0$ and $T$ around a central frequency $\omega_{k}$:
-% \begin{align}
-% G_0(\omega_{k+r})
-%   &\approx 
-%   G_0(\omega_k)+g_1r+g_2r^2
-%   \label{eq:lpm:expansionG:quadratic}
-% \\
-%   T(\omega_{k+r})
-%     &\approx 
-%     T(\omega_k)+t_1r+t_2r^2
-%     \label{eq:lpm:expansionT:quadratic}
-% \end{align}
-% with ($r\in\mathbb{W}_3$) and the vector of parameters:
-% \begin{equation}\label{lpmThetaEst}
-% \theta^{\TT}(k)=\left[G_0(\omega_k) \ g_1 \ g_2\  T_G(k)\  t_1 \ t_2\right]
-% \end{equation}
-% The \gls{LPM} estimate of the \gls{FRF} is the first element of the estimate $\hat\theta(k)$, obtained from \eqref{eq:LSsolutionLPM}, \latin{viz}:
-% \begin{equation}
-% \hat{G}_{\LPM}(\omega_k) = \hat\theta_1(k)
-% \end{equation}
 
 \subsection{Smoothing the \glsentryshort{FRF} estimate}
 \label{sec:nparam:trunc:smoothingFRFestimate}

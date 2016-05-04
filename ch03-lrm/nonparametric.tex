@@ -379,6 +379,7 @@ The \gls{LPM} approximates both the \gls{FRF} and transient contribution by mean
 The \gls{LPM} can be understood as a specific case of the \gls{LRM}: for  $\order{A} = 0$, the \gls{LRM} reduces to the \gls{LPM}.
 As such, we use the notation $\lpm{\numel{W}, \order{B}, \order{C}}$ as a synonym for $\lrm{\nWind, \order{B}, 0, \order{C}}$.
 In the remainder of this text, we refer to \gls{LRM} as a group of methods which have $\order{A} \neq 0$ to make the distinction with \gls{LPM} more obvious.
+For more information regarding \gls{LPM}, we refer to e.g. \citet{Schoukens2009LPM,Pintelon2010LPM1,Pintelon2010LPM2,Gevers2011lpm}.
 
 \begin{remark}
 The trivial setting for local `modeling' where a window with a total width of $1\unit{bin}$ and no transient estimation ($\order{C} = -1$), actually corresponds to the simple \gls{ETFE}~\citep{Broersen1995,Stenman2000ASETFE,Stenman2001ASFRF} when no further smoothing or windowing is applied:
@@ -391,7 +392,7 @@ As such, $\ETFE \equiv \lrm{0,0,0,-1} \equiv \lpm{0,0,-1}$.
 
 \begin{remark}
 The methods proposed by \citet{Stenman2001ASFRF,Stenman2000ASETFE} also refer to `local polynomial regression' to smoothen the \gls{FRF}.
-It should be noted, however, that such methods differ significantly from the \gls{LPM}.
+It should be noted, however, that such methods differ in a few aspects from the \gls{LPM}.
 Specifically, those methods operate directly on the raw \gls{ETFE}, in contrast to the \gls{LPM} which uses the input-output spectra and can hence estimate both an \gls{FRF} and a transient contribution.
 Moreover, the methods proposed by \citet{Stenman2001ASFRF} build upon `local regression` approaches such as \gls{LOWESS}.
 See e.g. \citet{Loader1999} for more information regarding these `local regression' approaches.
