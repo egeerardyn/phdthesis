@@ -3,13 +3,67 @@
 \tikzsetfigurename{ch01fig}
 \myEpigraph{It's a dangerous business, Frodo, going out your door. You step onto the road, and if you don't keep your feet, there's no knowing where you might be swept off to.}{John Ronald Reuel Tolkien}{The Fellowship of the Ring}
 
-\section{System Identification}
-System identification is the science that deals with converting observations of a system into mathematical models to describe the behavior of the system under test.
-Successfully identifying a system often hinges on a plethora of choices that are to be made by the user.
-As a result, system identification can also be seen as an art for which the practitioner needs to learn the tricks of the trade.
+\section{Modeling}
+Models play an important role in today's world, even though we often are not always aware of them.
+In particular, models enable us to predict the future (within a certain bound of uncertainty):
+\begin{itemize}
+  \item supermarkets try to predict how many produce their patrons will buy such that they can order a large enough supply,
+  \item traders on the stock market aim to predict whether companies such as Tesla or Apple will continue to prosper over the next quarter such that they can decide if it's time to buy more stock or rather sell,
+  \item weather forecasters hope to predict what weather it might become tomorrow,
+  \item how much electricity will the whole country use next week (do we need to start up a new power plant or not),
+\end{itemize}
+and so on.
+
+Models help us to keep an oversight of complicated matters.
+Once we understand the behavior of a few systems, this offers great opportunities to understand how those systems work together or even how we can control the world around us.
+For engineers, models enable us to design larger and more complicated things than ever before.
+E.g. consider a \gls{CPU} in a computer: with a few billion transistors, it is no longer possible for a sole human being to understand what every single transistor does in the grand scheme.
+Instead, models of larger parts of the circuit allow us to retain insight (`this part of the \gls{CPU} caches some variables', `these transistors multiply two numbers', and so on).
+
+\subsection{How to Obtain a Model?}
+
+To successfully model a system, one has to delimit what part of the world one actually wants to model, i.e. the \term{system}.
+Since a system is mostly useful if it interacts with the world around it, one often also has to define \term{inputs} through which one can influence the system, and \term{outputs} which are influenced by the system.
+
+
+Modeling can be divided into two diametrical groups depending on what one uses as a starting point.
+\paragraph{White box}
+One the one hand, there is so-called \term{`white box'} modeling, or first-principles modeling.
+The model is constructed by writing down the equations that govern the system, e.g. Newton's laws of motion for mechanical systems, Kirchoff's laws for electrical circuits, \latin{etc.}
+This is the typical kind of modeling practiced in school.
+Unfortunately, white box modeling quickly becomes unwieldy once more complicated systems are to be studied or many parts of the system are uncertain.
+In general, lot of man-hours are required to build a white box model, such that this is often prohibitively expensive for engineering applications.
+
+\paragraph{Black box}
+On the other hand, the diametrically opposed approach is called \term{`black box'} modeling.
+Here, the model structure is chosen such that a wide variety of phenomena can be described.
+Regardless of the nature of the underlying system, be it mechanical, chemical, electrical, structural, \ldots; most dynamic phenomena can be described using differential equations (or difference equations).
+In particular, for black-box models, the structure of the model is chosen such that the data is well-approximated.
+The downside of this is that interpreting the model physically is not always possible.
+Fortunately, the goal of a model is often not to interpret the physical reality but to approximate it well enough to allow engineering
+
+\paragraph{Gray box}
+Obviously, in practice nothing is ever as black and white, and neither is modeling.
+In many cases, one can or even has to incorporate knowledge about the physics of the system in the modeling process.
+In particular when one has black box models where some parameters are related to physical phenomena, the resulting model is called \term{`gray box'}.
+
+
+\section{Elements of System Identification}
+System identification is the science (and often art) that deals with converting observations of a system into mathematical models to describe the behavior of the system under test.
+As such, system identification rather fits in the category of black box modeling (or at least dark gray).
+Successfully identifying a system hinges on a plethora of choices that are to be made by the user.
+To make these choices well, a practitioner needs a considerable amount of experience. 
 In \figref{fig:intro:identification-cycle}, a high-level flow diagram containing some key steps that are performed when identifying a system.
 For the technical details, we refer to the many textbooks on system identification~\citep{Keesman2011,Norton1986,Soderstrom1989,Ljung1999,Pintelon2012}.
 Here, we give the high-level overview of the different steps.
+For a more complete overview, we also refer to \citet{Ljung2010}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.9\columnwidth]{\thisDir/figs/id-cycle.pdf}
+  \caption[System identification loop]{System identification loop. \disclaimer{Adapted from \citep[Figure 1.10]{Ljung1999} and \citep{Mehra1981}.}}
+  \label{fig:intro:identification-cycle}
+\end{figure}
 
 \paragraph{Experiment design}
 In the first step, an experiment is constructed to gain insight into the behavior of a system.
@@ -41,6 +95,7 @@ This is done by formulating an optimization problem which serves to minimize a p
 The cost function is in essence a measure of the differences between the measured data and the model evaluated for particular parameter values.
 By minimizing the cost function, the optimization procedure yields parameter values that try to minimize the misfit between the data and the model.
 Unfortunately, for many identification settings, these optimization problems are non-convex~\citep{Boyd2004}.
+Practically, this means that 
 This means that initial values need to be available to start the optimization process.
 Moreover, for poor starting values, optimization algorithms may get stuck in local minima of the cost function.
 Consequently, without reasonable starting values, the `optimized' model may also be of poor quality. 
@@ -57,64 +112,14 @@ This prevents overfitting of the model, where the model not only captures the be
 The latter leads to models that are overly tuned to the measurements such that their results cannot be replicated for new measurements.
 In case the model is not validated, this provides the user with new knowledge: that particular model is not good enough and at least one of the previous steps (or the prior knowledge) has to be altered.
 
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.9\columnwidth]{\thisDir/figs/id-cycle.pdf}
-  \caption[System identification loop]{System identification loop. \disclaimer{Adapted from \citep[Figure 1.10]{Ljung1999} and \citep{Mehra1981}.}}
-  \label{fig:intro:identification-cycle}
-\end{figure}
-
-\subsection{System Identification Choices}
-In this section, some different approaches for system identification are discussed and related to the work in this dissertation.
-We cover some typical traits of different methods and describe why a particular approach is favored in this thesis.
-
-\subsubsection{White Box, Black Box or Grey Box?}
-Modeling can be divided into two diametrical groups depending on the starting point of modeling~\citep{Ljung2010}.
-One the one hand, there is so-called \term{`white box'} modeling, or first-principles modeling.
-The model is constructed by writing down the equations that govern the system, e.g. Newton's laws of motion for mechanical systems, Kirchoff's laws for electrical circuits, \latin{etc.}
-This is the typical kind of modeling practiced in school.
-Unfortunately, white box modeling quickly becomes unwieldy once more complicated systems are to be studied or many parts of the system are uncertain.
-In general, lot of man-hours are required to build a white box model, such that this is often prohibitively expensive for engineering applications.
-
-On the other hand, the diametrically opposed approach is called \term{`black box'} modeling.
-Here, the model structure is chosen such that a wide variety of phenomena can be described.
-Regardless of the nature of the underlying system, be it mechanical, chemical, electrical, structural, \ldots; most dynamic phenomena can be described using differential equations (or difference equations).
-In particular, for black-box models, the structure of the model is chosen such that the data is well-approximated.
-The downside of this is that giving physical interpretations of the model is not always possible, but for many applications (e.g. controller design) that is not the main goal of the model.
-
-Obviously, in practice nothing is ever as black and white and neither is modeling.
-In many cases, one can or even has to incorporate knowledge about the physics of the system in the modeling process.
-In particular when one has black box models where some parameters are related to physical phenomena, the resulting model is called \term{`gray box'}.
-
-In this dissertation, we use mainly black box models (or very dark gray ones) as those are independent from the actual application.
-Hence, the proposed techniques should be applicable for different areas of engineering: electrochemical, electronics, mechatronics, structural engineering, \latin{etc.}
-
-\subsubsection{Linear or nonlinear?}
-A preliminary choice that is often made, is to first try linear models.
-Linear models guarantee that superposition of input-signals results in the superposition of the corresponding output signals.
-Specifically, if a linear system maps the output $u_i$ to the output signal $y_i$ (for any value of $i$), then an input $\sum_i u_i$ is mapped to the output $\sum_i y_i$.
-As such, the output of a system is (linearly) proportional to its input.
-This is a very powerful property that allows to simplify reasoning about such systems.
-The implications of this powerful property can be verified textbooks covering signals and systems~\citep{Oppenheim1996,Mandal2007,Kailath1980}.
-For non-linear systems, the superposition property is no longer guaranteed.
-
-In practice, all systems behave in a nonlinear way to some degree.
-Just imagine riding a bike: when you are cruising at a constant speed, pedaling at a faster pace will make the bike go proportionally faster.
-However, once you come to a full stop at a traffic light and want to start riding again, you need to apply a disproportionate amount of force to put the bike to motion again (due to friction).
-
-In this dissertation, we assume the system behaves in a dominantly linear way.
-No specific care is taken of nonlinearities.
-However, even with dominantly linear models~\citep{Schoukens2004}, nonlinear systems can often be well-described.
-Nevertheless, building a model to characterize the nonlinearities in a structured way requires a lot more effort~\citep{Ljung2010,Giri2010,Sjoberg1995}.
-However, e.g. for block-oriented nonlinear models~\citep{Giri2010}, some of the intermediate steps require identification of linear blocks.
-
 \section{User-friendly System Identification}
+In the previous section, it has been seen that some of the system identification steps require a significant amount of prior knowledge and/or craftsmanship of the user to make good choices.
+
 In this dissertation, we focus on developing system identification techniques that are `user-friendly'.
 The availability of easy to use and fast methods has been underlined by \citet{Gevers2011Challenges}.
 In this context, `user-friendly' should be understood as having a good user experience for two groups of users:
 \begin{itemize}
-  \item novice users, without formal training in system identification, optimization, \ldots and,
+  \item novices, without formal training in system identification, optimization, \ldots and,
   \item well-seasoned identification practitioners that are already able to build good models.
 \end{itemize}
 Concretely, for novice users it is important to have straightforward techniques that require little interaction.
@@ -122,41 +127,48 @@ In practice, this boils down to methods that work well for a wide class of syste
 As such, only very generic assumptions of the system under test should be made and these should be easy to interpret.
 
 For seasoned identification practitioners, methods that require little interaction are an opportunity for automation.
-This is especially important for complex systems: systems that have high-order dynamics, \gls{MIMO} systems with a high dimensionality, and networked systems amongst others.
+This is especially important for complicated systems: systems that have high-order dynamics, \gls{MIMO} systems with a high dimensionality, and networked systems amongst others.
 For such complex systems, building a model can be time-consuming and laborious if one has to supervise every step of the process.
 For more advanced users, user-friendly methods can hence allow to deal with more complex systems in a shorter amount of time such that the economical cost of building a model is reduced.
 
 In this dissertation, the focus lies on \gls{LTI} systems.
 While this might seem as a very restrictive choice, this is one of the fundamental settings for system identification.
 In particular, \gls{LTI} systems are a first step to build a system model.
-In many cases, such a linear model is accurate enough, e.g. to build a nominal controller, to design electrical filters and obtain a reasonable intuition of the system under test.
-Also, most engineers and scientists have a good understanding of linear systems such that \gls{LTI} models align well with their prior knowledge and experience.
+In many cases, such a linear model is accurate enough~\citep{Schoukens2004}, e.g. to build a nominal controller, to design electrical filters and obtain a reasonable intuition of the system under test.
+Also, most engineers and scientists have a good understanding of linear systems~\citep{Oppenheim1996,Mandal2007,Kailath1980} such that \gls{LTI} models align well with their prior knowledge and experience.
 Nevertheless, when a linear model is not adequate, a more flexible model needs to be constructed.
 Such a model could be more flexible, e.g. by relinquishing the time-invariance and/or its linearity.
 However, many of those advanced modeling approaches employ \gls{LTI} models as starting values or intermediate result in building the actual non-linear~\citep{Giri2010} or time-varying model~\citep{Lataire2012,Louarroudi2014}.
 As such, improvements in estimating \gls{LTI} models also indirectly improve more advanced methods.
 
+
 \subsection{Contributions}
 In this dissertation, we look into a few aspects of the identification workflow with the goal to make the whole process more user-friendly.
+Each of these aspects will be dealt with in its own chapter.
 
-\paragraph{How should a good experiment be designed?}
+\subsubsection{How should a good experiment be designed?}
 Can we design a `good experiment' to identify a \gls{LTI} model?
 Particularly, this means a robust input signal needs to be constructed without relying on extensive prior knowledge of the system.
 Such a signal should cover a wide frequency band to excite all dynamics of the system during the experiment.
 However, the signal should ensure that systems in different frequency bands can be identified with a specified level of accuracy.
 
-\paragraph{Can we process the input/output data in a non-parametric way that offers more insight than a standard frequency response function?}
+\subsubsection{Can we process the input/output data in a non-parametric way that offers more insight than a standard frequency response function?}
 Developing a full parametric model for complicated systems requires considerable effort.
 Instead, could we leverage non-parametric or locally parametric approaches to obtain insight in the behavior of the system?
-In particular, can local modeling methods be used to characterize the resonances of a system, or even work around the typical frequency resolution limitations of a discrete frequency grid?
 
-\paragraph{Can we avoid local minima by using smoothers?}
+\subsubsection{Can we estimate the peak gain of a system in a non-parametric way?}
+To robustly control complicated systems, it can be overly cumbersome and even unwanted to construct high-order parametric models.
+As a result, some lightly damped resonances can dominate the model uncertainty.
+For robust control, this poses serious problems as such very sharp resonances are hard to observe in an \gls{FRF} measurement.
+Instead, can we capture the peak gain of resonances using non-parametric models (i.e. without resorting to a global parametric model)?
+
+\subsubsection{Can we avoid local minima by using smoothers?}
 When a parametric model is required, this often involves solving a nonlinear optimization problem.
 Such optimization problems require good initial parameter estimates to allow iterative methods to converge to a good local optimum, or, preferably even the global optimum.
 Can non-parametric smoothers be used to help avoid such local optima?
 
 
-\section{Outline and Publications}
+\subsection{Outline and Publications}
    The lion's share of this thesis has been published in either peer-reviewed  journals or conferences.
    This section links my different publications to the different sections in this thesis.
    For an overview of publications grouped by type, please refer to page~\pageref{publicationList}.
@@ -195,8 +207,8 @@ Can non-parametric smoothers be used to help avoid such local optima?
     {\addcomma\space}
     {}}
 
-
-The quasi-logarithmic multisines presented in \chapref{sec:excitation} are based on a journal article published in \gls{IEEE} Transactions on Instrumentation \& Measurement:
+In \chapref{sec:excitation}, quasi-logarithmic multisines are proposed as a good (robust) excitation signal. 
+That chapter is based on a journal article published in \gls{IEEE} Transactions on Instrumentation \& Measurement:
 \begin{itemize}
   \item \fullcite{Geerardyn2013TIM}, 
 \end{itemize}
@@ -211,8 +223,8 @@ This work has also been presented at the following local (non-refereed) conferen
   \item \fullcite{Geerardyn2012ERNSI}.
 \end{itemize}
 
-The non-parametric estimation methods in \chapref{sec:nonparametric} are based on a yet-unpublished manuscript.
- The so-called time-truncated \gls{LPM} that is presented in the same chapter is based on a journal published in \gls{IEEE} Transactions on Instrumentation \& Measurement:
+The non-parametric \gls{FRF} estimation methods in \chapref{sec:nonparametric} are based on a yet-unpublished manuscript.
+The so-called time-truncated \gls{LPM} that is presented in the same chapter is based on a journal published in \gls{IEEE} Transactions on Instrumentation \& Measurement:
 \begin{itemize}
   \item \fullcite{Lumori2014TIM}.
 \end{itemize}
