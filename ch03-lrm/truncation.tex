@@ -1,12 +1,6 @@
 \label{sec:nonparametric:truncation}
 \researchBasedOn[This section]{Lumori2014TIM}
-%TODO: {labels into standardized form}
-
-% This section uses nonparametric models in conjunction with the \gls{LPM}~\citep{Pintelon2010LPM1} to estimate the complex-valued \gls{FRF} in a linear \gls{LS} fashion.
-% The advantage of using the nonparametric models is basically that the `models` often are very simple and hence require little user interaction to construct.
-% Among the current nonparametric methods, the \gls{LPM} method is chosen due to its superiority over the classical nonparametric methods (windowing) in suppressing leakage errors~\citep{Bendat1993,Oppenheim1983,Schoukens2006LPM}. 
-% Consequently, the \gls{LPM} estimate of the \gls{FRF} is not hampered by leakage errors \citep{Pintelon2010LPM1,Schoukens2009LPM}. 
-% Note that a more general discussion on the \gls{LPM}, applied to noisy, real-valued data is found in \citep{Fan1996} with a specific focus on parametric tuning.
+%FIXME: {labels into standardized form}
 
 The main contribution of this section is to come up with an improved \gls{FRF} by developing a method for smoothing the \gls{FRF} estimated via the \gls{LPM}. 
 The smoothing of the \gls{FRF} happens by truncating the associated impulse response, as in~\citet{Schoukens1998}, but with the following additional extension: the determination of the optimal truncation time, without any user interaction, in conjunction with the use of the \gls{LPM} for leakage reduction. 
@@ -139,9 +133,9 @@ Note that \assref{ass:imprespdecay} and \assref{ass:decay90perctime} exclude the
 
 \subsection{Obtaining the Impulse Response Function}
 
-The estimated impulse response function  $\hat g_{{\LPM}\setminus \mathrm{DC}}(t)$ is obtained explicitly via the \gls{IDFT} of the \gls{LPM}-estimate $\hat G_{\LPM}(\omega_k)$ of the \gls{FRF}, \latin{viz}:
+The estimated impulse response function  $\hat g_{{\LPM}\without \DC}(t)$ is obtained explicitly via the \gls{IDFT} of the \gls{LPM}-estimate $\hat G_{\LPM}(\omega_k)$ of the \gls{FRF}, \latin{viz}:
 \begin{align}\label{eq:impRespiDFT}
-\hat g_{{\LPM}\setminus \mathrm{DC}}(t) 
+\hat g_{{\LPM}\without \DC}(t) 
 &= 
 \frac{1}{\sqrt{N}}
 \sum_{k=1}^{N-1}
@@ -154,7 +148,7 @@ where the estimated \gls{FRF} in the frequency band between  the Nyquist and the
 (with $\conj{\hat G_{\LPM}}$ the complex conjugate of $\hat G_{\LPM}$) to ensure $\hat g_{\LPM}(t)$ to be real.
 
 Smoothing of the estimated \gls{FRF} requires the correct estimate of the impulse response. 
-Unfortunately, the \gls{LPM} presented in \secref{sec:nparam:LRM} and in \citep{Schoukens2009LPM} does not estimate the \gls{DC} value of the \gls{FRF}, hence the subscript ``$\setminus\mathrm{DC}$'' in equation \eqref{eq:impRespiDFT}. 
+Unfortunately, the \gls{LPM} presented in \secref{sec:nparam:LRM} and in \citep{Schoukens2009LPM} does not estimate the \gls{DC} value of the \gls{FRF}, hence the subscript ``$\without\DC$'' in equation \eqref{eq:impRespiDFT}. 
 Consequently, the mean value of the corresponding estimated impulse response given in equation \eqref{eq:impRespiDFT} is not correct. 
 This limitation is lifted by developing a simple estimator of the mean value, presented below.
 
@@ -166,24 +160,22 @@ To this end, the following procedure is executed:
 
 
 \begin{enumerate}
-\item Compute the mean value $m_{g10}$ of the last 10\% of the impulse response $\hat g_{{\LPM}\setminus \mathrm{DC
-}}(t)$, estimated by the \gls{LPM}, as %$\hat g_{\LPM}(t)$ as
+\item Compute the mean value $m_{g10}$ of the last 10\% of the impulse response $\hat g_{{\LPM}\without \DC}(t)$, estimated by the \gls{LPM}, as %$\hat g_{\LPM}(t)$ as
 \begin{align}
    m_{g10} 
    = 
    \frac{1}{\lceil0.1N - 1\rceil}
    \sum_{t=\lfloor0.9N\rfloor}^{N-1}
-      \hat g_{{\LPM}\setminus \mathrm{DC}}(t)
+      \hat g_{{\LPM}\without \DC}(t)
 \end{align}
 
-\item Next, subtract the computed mean value $m_{g10}$ from $\hat g_{{\LPM}\setminus \mathrm{DC
-}}(t)$ to obtain the improved impulse response $\hat g_{\LPM}(t)$, \latin{viz}:
+\item Next, subtract the computed mean value $m_{g10}$ from $\hat g_{{\LPM}\without \DC}(t)$ to obtain the improved impulse response $\hat g_{\LPM}(t)$, \latin{viz}:
 \begin{align}
-\hat g_{\LPM}(t) = \hat g_{{\LPM}\setminus \mathrm{DC}}(t) - m_{g10},\ \text{for}\ t=0,1,\dots,N-1
+\hat g_{\LPM}(t) = \hat g_{{\LPM}\without \DC}(t) - m_{g10},\ \text{for}\ t=0,1,\dots,N-1
 \end{align}
 \end{enumerate}
 
-\subsection{Determining the Truncation Time}
+\subsection{Determining the Truncation Time of the Impulse Response}
 In this section, two methods will be discussed to determine the truncation time, i.e. the time beyond which the measured impulse response cannot be separated from the noise level.
 Specifically, the first method uses an $F$-test to distinguish between signal and noise.
 The second method fits an exponential through a well-chosen subset of the data to obtain $\truncTime$. 
@@ -281,7 +273,7 @@ The figure shows segments of the estimated impulse response. The last two segmen
 \label{fig:nparam:trunc:nonparametric:truncation:Ftest}
 \end{figure}
 
-\subsubsection{Truncation of the Impulse Response Via Exponential Fitting}
+\subsubsection{Truncation Via Exponential Fitting}
 \label{sec:nonparametric:truncation:exponentialfit}
 
 The \gls{FRF} estimate is smoothed by truncating the estimated impulse response function. 
