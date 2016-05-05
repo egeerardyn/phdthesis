@@ -158,7 +158,7 @@ Such an underestimate of $\gamma$ leads to overly optimistic controller designs 
 The main contribution of this chapter is to  estimate the inter-grid term $\gammaIntergrid$ without the need for a (global) parametric model or imposing worst-case prior knowledge that leads to conservatism.
 Instead, a  realistic value of $\gamma$ is obtained using parametric models that are valid over a finite frequency range.
 
-\subsection{Set-up}
+\subsection{Set-Up}
 Consider an output error \gls{LTI} discrete-time \gls{SISO} system $\Delta(q)$ excited by an input signal $u_{\Delta}(n)$.
 For an infinitely long data record, this can be described in the time-domain as
 \begin{equation}
@@ -420,7 +420,7 @@ This is done by considering only the dominant resonance -- \emph{viz.} the one t
 By normalizing the conclusions for the time constant $\timeconst$ (or the $3\unit{dB}$ bandwidth), the results are generally valid for different values of the damping $\damping$.
 Specifically, the time constant $\timeconst \isdef (\damping \wn)^{-1}$ of the dominant pole dictates the required measurement time~\citep{Schoukens2013LPMerror}, where $\damping$ is the relative damping and $\wn$ the natural frequency of the dominant pole.
 
-\subsection{A concrete simulation}
+\subsection{A Concrete Simulation}
 Consider a discrete time system $\Delta$ (see \figref{fig:lrmhinf:exampleIntergrid}) as unmodeled dynamics in an output-error setting:
 \begin{equation}
   \Delta(z) 
@@ -494,7 +494,7 @@ It can be observed for $\gammaIntergrid$ in \figref{fig:lrmhinf:exampleIntergrid
 Intuitively, the \gls{LRM} locally approximates the resonant pole which allows for a reliable inter-grid estimate.
 The \gls{LPM}, on the other hand, does not provide a reliable estimate.
 
-\subsection{Study of the experiment length}
+\subsection{Study of the Experiment Length}
 The frequency resolution, and hence the experiment length, is key to obtain a reliable \Hinf{} norm estimate.
 In this section, we determine the minimal experiment length needed for the proposed approach by means of simulations.
 
@@ -614,7 +614,7 @@ To facilitate the presentation, only the vertical translative velocity ($v_z$), 
   \label{fig:lrmhinf:avis:details}
 \end{figure}
 
-\subsection{Measurement \& control framework}
+\subsection{Measurement \& Control Framework}
 \label{sec:lrmhinf:control}
 The experiments on the \gls{AVIS} are carried out in closed-loop (\figref{fig:lrmhinf:tpc}) with $r_2 = 0$.
 The controller $\Controller=\experimental\Controller$ is a diagonal \gls{PI} regulator which stabilizes the \gls{AVIS} but yields only moderate vibration isolation.

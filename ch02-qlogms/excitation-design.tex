@@ -26,7 +26,7 @@ E.g. the approach followed by~\citet{Rojas2007} relies on both nominal parameter
 As such, this requires more advanced prior knowledge of the system to cope with the uncertainty of the prior knowledge.
 \end{enumerate}
 
-\subsection{General purpose robust excitation signals}
+\subsection{General Purpose Robust Excitation Signals}
 \label{sec:excitation:intro:approach}
 In this chapter, the goal is to construct excitation signals that bridge the properties of general purpose and robust excitation signals to alleviate the chicken-and-the-egg problem that optimal strategies typically incur.
 In particular, a generic excitation signal will be used, but its properties are tuned in such a way that it attains some properties of robust excitation signals without requiring extensive prior information.
@@ -65,7 +65,7 @@ Such problem settings occur in many diverse fields of experimentation, such as t
   The usefulness of the proposed signals is illustrated on simulations in \secref{sec:excitation:simulation} and validated on the measurement of a set of band-pass filters in \secref{sec:excitation:measurement}.
   Conclusions are formulated in \secref{sec:excitation:conclusion}.
 
-\section{Input design}
+\section{Input Design}
 \label{sec:excitation:inputDesign}
 For the theoretical analysis, we consider \gls{SISO} \gls{OE} systems, i.e.
 \begin{align}
@@ -128,12 +128,12 @@ From \eqref{eq:excitation:IF} and \eqref{eq:excitation:varG} we see that scaling
 \end{align}
 This is a small loss while the increase in robustness can be significant if the added signal is robust. Such a robust signal is studied in the following parts of the chapter.
 
-\section{Logarithmic power distributions}
+\section{Logarithmic Power Distributions}
 \label{sec:excitation:logarithmic}
 When no information about the system is known, it is desirable that the excitation signal is such that regardless of the true system characteristics, the resulting estimates have equally good statistical properties.
 This can be ensured by a suitable choice of the input power spectrum.
 
- \subsection{A second order system}
+ \subsection{A Second Order System}
 Consider the second order system
 \begin{align}
 y(t) 
@@ -235,7 +235,7 @@ Such signals are elaborated in \secref{sec:excitation:multisine}.
 The result of these two choices of input power spectrum is that for a given damping, $\var{\hat{G}}$ is approximately the same independent of $\wn$. 
 This is illustrated in \secref{sec:excitation:simulation}.
 
-\subsection{Sums of second order systems}
+\subsection{Sums of Second Order Systems}
 This section extends the previous section to more general systems than second order.
 Consider a system
 \begin{align}
@@ -275,12 +275,13 @@ The effect is that the variance of the estimated transfer function approximately
 To illustrate this we look at a system with $K=2$, i.e. the sum of two second order systems.
 The conclusions from the example are easily extended to systems consisting of more than two sub-systems.
 
-\subsubsection{Example: Sum of two second-order systems}
+\subsubsection{Example: Sum of Two Second-Order Systems}
 \label{sec:excitation:ex:sumOfSecondOrderSipmle}
 Consider the system
 \begin{align}
-G(s,\theta) &= G_1(s,\theta_1) + G_2(s,\theta_2)%\\
-%&=\frac{1}{\frac{s^2}{\wn[1]^2} + 2\frac{\damping[1]}{\wn[1]}s + 1} + \frac{1}{\frac{s^2}{\wn[2]^2} + 2\frac{\\damping[2]}{\wn[2]}s + 1},
+G(s,\theta) &= G_1(s,\theta_1) + G_2(s,\theta_2)\\
+&=\frac{1}{\frac{s^2}{\wn[1]^2} + 2\frac{\damping[1]}{\wn[1]}s + 1} 
+   + \frac{1}{\frac{s^2}{\wn[2]^2} + 2\frac{\damping[2]}{\wn[2]}s + 1},
 \end{align}
 with $\theta_1=[\wn[1]\;\damping[1]]^{\T}$ and $\theta_2=[\wn[2]\;\damping[2]]^{\T}$.
 The information matrix for this system is
@@ -289,10 +290,13 @@ The information matrix for this system is
        \begin{bmatrix}
          \partial G_{1,1}  & \partial G_{1,2}\\
          \partial G_{2,1}  & \partial G_{2,2}
-       \end{bmatrix}.
+       \end{bmatrix}
+       \text{.}
 \label{eq:excitation:infoEx}
 \end{align}
 To investigate the decoupling, we study the $(1,1)$ elements of blocks $\partial G_{1,1}$ and $\partial G_{1,2}$ of the information matrix \eqref{eq:excitation:infoEx}, when the input spectrum \eqref{eq:excitation:pink} is used; similar arguments can be made for the other elements of the two matrix blocks.
+
+%FIXME: clean up latex math here, e.g. \frac{\partial ...}{\partial} -> \partialDerivative{...}{...}; use \abs{}; ...
 
 The $(1,1)$ element of the $\partial G_{1,1}$ entry of the information matrix is
 \begin{align}
@@ -408,7 +412,7 @@ This results extends \latin{mutatis mutandis} to systems consisting of more sub-
 \label{fig:excitation:coupling}
 \end{figure}
 
-\section{System parametrization} 
+\section{System Parametrization} 
 \label{sec:excitation:parametrization}
 
   We consider the transfer function models of proper \gls{LTI} systems of arbitrary but finite orders $\order{B} / \order{A}$:
@@ -854,7 +858,7 @@ with
 
   Note that instead of the geometric mean, the arithmetic mean can be used in \eqref{eq:excitation:fRange} to calculate almost identical boundaries.
 
-  \subsection{Comparison of the frequency grids}
+  \subsection{Comparison of the Frequency Grids}
   To gain some insight into these different grids, \figref{fig:excitation:freqGrids} depicts the amplitude spectrum for a linear, log, compensated quasi-log and pink quasi-log grid multisine that all carry the same total power.
   For this example, a frequency spacing $\Delta f = 1\unit{Hz}$ and frequency ratio $\alpha = 1.05$ are used.
   
@@ -923,9 +927,9 @@ with
   We can expect a very similar behavior from properly designed compensated quasi-log multisines and from the `pink' quasi-log multisine, since their amplitude spectra are almost identical.
   As such, it is advised to use `pink' quasi-log multisines as those can be constructed using more straightforward code (equation \eqref{eq:excitation:pink}) than the compensated quasi-log multisines (equations \eqref{eq:excitation:nfk}, \eqref{eq:excitation:nearestLines} , and \eqref{eq:excitation:compensationAk}).
 
-\section{Optimization of the frequency spacing} 
+\section{Optimization of the Frequency Spacing} 
 \label{sec:excitation:optimAlpha}
-  \subsection{Calculation of the model uncertainty}
+  \subsection{Calculation of the Model Uncertainty}
   In the previous section logarithmically spaced multisines were introduced, but up to now their major parameter, the frequency spacing $\alpha$, has not been designed.
 
   In this section we show a possible approach to compare the performance of different excitation signals with respect to the theoretically minimal attainable uncertainty of the transfer function as expressed by the \gls{CRLB}.
@@ -1003,7 +1007,7 @@ Naturally this will only be true for sensibly chosen criteria.
 Also for the design of robust excitation signals, this is worthwhile observation.
 \end{remark}
 
-  \subsection{Relation between the frequency grid and the system resonance} 
+  \subsection{Relation Between the Frequency Grid and the System Resonance} 
   \label{sec:excitation:relationLogGridSystem}
   To determine an appropriate frequency ratio $\alpha$ for a logarithmically spaced signal, we study the estimated \glspl{FRF} of a set of prototype second-order systems excited by logarithmically spaced excitation signals.
 
@@ -1091,7 +1095,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
 
   The validity of this approximation can be understood intuitively by inspecting the derivatives that constitute the Fisher information matrix (see \figref{fig:excitation:derivatives}): those derivatives are significantly larger near the resonance frequency than at other frequencies.
 
-  \subsection{Exploiting the shape of the derivatives}
+  \subsection{Exploiting the Shape of the Derivatives}
    In particular, from \figref{fig:excitation:derivatives}, it can be seen that the derivatives with respect to $(\wn, \damping)$ exhibit a sharper resonance and hence $(\wn, \damping)$ will prove the hardest to identify.
    This means that if one would design a signal to identify just $(\wn, \damping)$, such a signal would also be well-suited to identify the other parameters since their corresponding weight in the Fisher information matrix is very similar (especially in the vicinity of the resonance, where their amplitude is most significant).
 
@@ -1106,7 +1110,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
   Instead of choosing the damping directly, we choose the peak gain $\left| G\left( \wM \right) \right| \in \set{5 \unit{dB}, 10 \unit{dB}, 20 \unit{dB}, 40 \unit{dB} }$ of the transfer function \eqref{eq:excitation:peakAmplitude} to study the effect of differently damped systems.
   However, do remember that $\abs{G(\wM)} = (2\damping\sqrt{1-\damping^2})^{-1}$ for the simplifications introduced above as in \eqref{eq:excitation:peakAmplitude}.
 
-  \subsection{Selection of the frequency grid spacing $\alpha$}
+  \subsection{Selection of the Frequency Grid Spacing $\Alpha$}
   Since the damping influences the $3\unit{dB}$ bandwidths, this will become important when one has to determine the grid spacing $\alpha$.
   To deal with this, we introduce the normalized frequency ratio
   \begin{equation}
@@ -1291,7 +1295,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   For more information, please refer to~\citet{Larsson2012SYSID}.
   \end{remark}
 
-  \subsection{Systems with a `high' damping}
+  \subsection{Systems With a `High' Damping}
   To test the signals for systems with a high damping with respect to the frequency ratio in the excitation signal, systems with a damping $\damping = 0.2$ are used.
   White Gaussian noise $e[n]$ with a standard deviation $\sigma_e \approx 0.0678$ added to the output.
 
@@ -1335,7 +1339,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   At the studied system with the lowest resonance frequency, the compensation fails to completely compensate the effects of the reduced number of lines in the $3\unit{dB}$ bandwidth of that system.
   Nevertheless an improvement of about $5\unit{dB}$ is obtained with respect to the regular quasi-log multisine.
 
-  \subsection{Systems with a lower damping}
+  \subsection{Systems With a Lower Damping}
   Given the optimal frequency ratio \eqref{eq:excitation:optimAlpha}, one expects that quasi-logarithmic grids with a frequency ratio $\alpha = 1.05$ will allow to identify second order systems with damping $\damping = 0.05$ with a constant uncertainty.
   In this set of simulations, we check this by repeating the previous set for such systems.
   In this case, the output noise is chosen $\sigma_e \approx 0.1123$ to keep the \gls{SNR} of $20\unit{dB}$.
@@ -1386,7 +1390,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
 
   We do see, however, that the variance in the vicinity of the resonance of every system is lower than in the case of a linearly spaced excitation.
 
-  \subsection{Simulation example on higher order systems}
+  \subsection{Simulation Example on Higher Order Systems}
 To show that the suggested method also works on more general systems, we considered a system that consists of two second order systems \eqref{eq:excitation:secondOrderSystemDTidentifiable} in parallel. This is equivalent to adding their respective transfer functions, therefore, the resulting transfer function is of the form:
 \begin{equation}
   G \left( z \right) 
