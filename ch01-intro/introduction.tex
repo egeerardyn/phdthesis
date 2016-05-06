@@ -112,7 +112,7 @@ This prevents overfitting of the model, where the model not only captures the be
 The latter leads to models that are overly tuned to the measurements such that their results cannot be replicated for new measurements.
 In case the model is not validated, this provides the user with new knowledge: that particular model is not good enough and at least one of the previous steps (or the prior knowledge) has to be altered.
 
-\section{User-friendly System Identification}
+\section{User-Friendly System Identification}
 In the previous section, it has been seen that some of the system identification steps require a significant amount of prior knowledge and/or craftsmanship of the user to make good choices.
 
 In this dissertation, we focus on developing system identification techniques that are `user-friendly'.
@@ -146,27 +146,33 @@ As such, improvements in estimating \gls{LTI} models also indirectly improve mor
 In this dissertation, we look into a few aspects of the identification workflow with the goal to make the whole process more user-friendly.
 Each of these aspects will be dealt with in its own chapter.
 
-\subsubsection{How should a good experiment be designed?}
+\begin{question}[How should a good experiment be designed?]
 Can we design a `good experiment' to identify a \gls{LTI} model?
 Particularly, this means a robust input signal needs to be constructed without relying on extensive prior knowledge of the system.
 Such a signal should cover a wide frequency band to excite all dynamics of the system during the experiment.
 However, the signal should ensure that systems in different frequency bands can be identified with a specified level of accuracy.
+\end{question}
 
-\subsubsection{Can we process the input/output data in a non-parametric way that offers more insight than a standard frequency response function?}
+\begin{question}[Which non-parametric method should be used for an \gls{FRF}?]
 Developing a full parametric model for complicated systems requires considerable effort.
 Instead, could we leverage non-parametric or locally parametric approaches to obtain insight in the behavior of the system?
+Methods such as the \gls{LPM} and \gls{LRM} can offer good results.
+However, it is not clear how these should be tuned for different circumstances (near sharp resonance peaks, in low noise circumstances, \ldots).
+Can we devise simple rules that allow one to obtain good \glspl{FRF}?
+\end{question}
 
-\subsubsection{Can we estimate the peak gain of a system in a non-parametric way?}
+\begin{question}[Can we estimate the peak gain of a system in a non-parametric way?]
 To robustly control complicated systems, it can be overly cumbersome and even unwanted to construct high-order parametric models.
 As a result, some lightly damped resonances can dominate the model uncertainty.
 For robust control, this poses serious problems as such very sharp resonances are hard to observe in an \gls{FRF} measurement.
 Instead, can we capture the peak gain of resonances using non-parametric models (i.e. without resorting to a global parametric model)?
+\end{question}
 
-\subsubsection{Can we avoid local minima by using smoothers?}
+\begin{question}[Can we avoid local minima by using smoothers?]
 When a parametric model is required, this often involves solving a nonlinear optimization problem.
 Such optimization problems require good initial parameter estimates to allow iterative methods to converge to a good local optimum, or, preferably even the global optimum.
 Can non-parametric smoothers be used to help avoid such local optima?
-
+\end{question}
 
 \subsection{Outline and Publications}
    The lion's share of this thesis has been published in either peer-reviewed  journals or conferences.

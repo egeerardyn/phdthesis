@@ -1,3 +1,10 @@
+%% 
+\newtheoremstyle{question}%
+{}{}%
+{}{}%
+{\sffamily\bfseries}{}%
+{\newline }%
+{\thmname{#1}\thmnumber{ #2}:\thmnote{ #3}}
 
 
 %% Theorem styling
@@ -24,6 +31,9 @@
 
 \theoremstyle{definition}
 \newtheorem{lemma}{Lemma}[chapter]
+
+\theoremstyle{question}
+\newtheorem{question}{Research Question}
 
 %%
 \usepackage[nobreak]{mdframed}
