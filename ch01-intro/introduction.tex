@@ -75,7 +75,6 @@ This is necessary to focus all the energy in the signal towards exciting the sys
 However, when the prior knowledge is incomplete, uncertain or even incorrect, optimal signals can lead to very poor models as they might not excite other dynamics.
 An alternative approach is to incorporate the uncertainty of the prior knowledge into the signal design.
 This leads to so-called robust optimal experiment design~\citep{Rojas2012,Goodwin2006} that construct signals that optimize the worst-case model uncertainty.
-Paradoxically, this means that for robust optimal designs, more prior knowledge, rather than less is required.
 
 The design of good experiments hence already forces the user to make a choice that can have far-reaching consequences for the model quality.
 
@@ -87,7 +86,6 @@ One such tool is the frequency response function.
 For instance, by inspecting a frequency response function, a control engineer can have a rough idea of the system behavior in term of  approximate resonance frequencies, asymptotic slopes, \latin{etc.}
 This gives a qualitative view of the minimally required complexity of the model and is hence a useful diagnostic tool.
 However, since most parametric estimators enforce very little prior knowledge about the system, noise in the measurements can sometimes be a problem to distinguish the actual system features.
-%TODO: peter: also discuss model selection for nonparametric here
 
 \paragraph{Estimate the model parameters}
 Once the model structure has been chosen, its parameters are to be estimated.
