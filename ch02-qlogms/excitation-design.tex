@@ -85,18 +85,19 @@ In open loop experiments, the scaled average information matrix is given by
 \Fi{\theta} & = \lim_{N\rightarrow\infty}
           \frac{1}{N}
             \sum_{t=1}^{N}
-              {\left(\frac{\partial\hat{y}(t)}{\partial\theta}\right)
-               \left(\frac{\partial\hat{y}(t)}{\partial\theta}\right)^{\T}},\\
-\frac{\partial\hat{y}(t)}{\partial\theta}
-    & =\frac{\partial G(s,\theta)}{\partial \theta}u(t).
+              {\left(\PartialDerivative{\hat{y}(t)}{\theta}\right)
+               \left(\PartialDerivative{\hat{y}(t)}{\theta}\right)^{\T}},\\
+\PartialDerivative{\hat{y}(t)}{\theta}
+    & =\PartialDerivative{G(s,\theta)}{\theta}u(t).
 \end{align}
 By Parseval's theorem, $\Fi{\theta}$ can be expressed as
 \begin{align}
 \Fi{\theta} &= \frac{1}{\pi}
-         \int\limits_0^\infty \RealPart
-           \left\{      \frac{\partial G(j\omega)}{\partial \theta}
-                  \left[\frac{\partial G(j\omega)}{\partial \theta}\right]^{\HT}
-           \right\}
+         \int\limits_0^\infty
+        \real{
+                  \PartialDerivative{G(j\omega)}{\theta}
+                  \left(\PartialDerivative{G(j\omega)}{\theta}\right)^{\HT}
+         }
            \powerspec{u}(j\omega)
            \dd{\omega} \text{.}
 \label{eq:excitation:IF}
@@ -112,8 +113,13 @@ Moreover, the D-optimal input design is independent of the parametrization of th
 The information matrix tells us how good the individual parameter estimates are. However, if we are interested in estimating a transfer function $G(s,\theta)$ the quality of this estimate is of more importance. 
 It is possible to find an expression for the variance of $\hat{G}(j\omega,\theta)$ using the Gauss approximation formula \citep{Ljung1999, Pintelon2012}. This gives
 \begin{align}
-\var{\hat{G}(j\omega)} &\approx \frac{\partial G^H(j\omega)}{\partial \theta}\Fi{\theta}^{-1}\frac{\partial G(j\omega)}{\partial \theta}.
+\var{\hat{G}(j\omega)} &
+  \approx 
+  \left(\PartialDerivative{G(j\omega)}{\theta}\right)^{\HT}
+  \Fi{\theta}^{-1}
+  \PartialDerivative{G(j\omega)}{\theta}
 \label{eq:excitation:varG}
+\text{.}
 \end{align}
 
 Typically, the input design formulation depends on the true system parameters. This means that the optimal input depends on the \emph{unknown} system that one wants to identify. 
@@ -149,8 +155,10 @@ The resonance frequency of the system is $\wR \isdef \sqrt{1-\damping^2}\wn$.
   
 When $\damping < \frac{1}{\sqrt{2}}$, such a second order system exhibits a peak in the amplitude of the transfer function~\citep{Oppenheim1983}:
   \begin{align}
-   \left| G\left(\wM \right) \right| & \isdef
-          \max_{\omega} \left| G\left( \omega \right)  \right|
+   \abs{G\left(\wM \right) }
+   & \isdef
+          \max_{\omega} 
+            \abs{G\left( \omega \right)}  
         = \frac{1}
                {2 \damping \sqrt{1-\damping^2}}
                \label{eq:excitation:peakAmplitude}\\
@@ -163,16 +171,11 @@ When $\damping < \frac{1}{\sqrt{2}}$, such a second order system exhibits a peak
 
 Since information is local in the frequency domain, the input signal power inside $\wdB$, contributes significantly to the information matrix while input power outside $\wdB$ has a smaller contribution. This can be seen by considering the optimal design for a second order system. From \citep[Example 6.4.5]{Goodwin1977} we have that the D-optimal design for \eqref{eq:excitation:2ndOrderSys} is a single sinusoid at frequency
 \begin{align}
-\omega^\star =\frac%
-{\wn
-  \sqrt{
-    \left(1-2\damping^2\right)
-    +
-    \sqrt{\left(1-2\damping^2\right)^2+15}
-    }
-  }
-{\sqrt{5}}.
+\omega^\star =
+\frac{\wn   \sqrt{     \left(1-2\damping^2\right)      +     \sqrt{\left(1-2\damping^2\right)^2+15}    }}
+{\sqrt{5}}
 \label{eq:excitation:optFreq}
+\text{.}
 \end{align}
 For lightly-damped systems, i.e $\damping \ll 1$ , $\omega^\star\approx \wn$, which is inside the bandwidth of the system. 
 From \eqref{eq:excitation:optFreq} it is clear that the optimal design depends on the resonance of the system to be identified. 
@@ -262,10 +265,10 @@ The information matrix for systems of the type \eqref{eq:excitation:sumSys} will
 \end{bmatrix},\\
 \partial G_{i,j} &= \int_0^\infty
                       \RealPart\left\{
-                          \frac{\partial G_i}
-                               {\partial \theta_i}
-                          \frac{\partial G_j^{\HT}}
-                               {\partial \theta_j}
+                          \PartialDerivative{G_i}
+                               {\theta_i}
+                          \PartialDerivative{G_j^{\HT}}
+                               {\theta_j}
                                 \right\}
                       \phi_u(\omega)\dd\omega.
 \end{align}
@@ -296,11 +299,16 @@ The information matrix for this system is
 \end{align}
 To investigate the decoupling, we study the $(1,1)$ elements of blocks $\partial G_{1,1}$ and $\partial G_{1,2}$ of the information matrix \eqref{eq:excitation:infoEx}, when the input spectrum \eqref{eq:excitation:pink} is used; similar arguments can be made for the other elements of the two matrix blocks.
 
-%FIXME: clean up latex math here, e.g. \frac{\partial ...}{\partial} -> \partialDerivative{...}{...}; use \abs{}; ...
-
 The $(1,1)$ element of the $\partial G_{1,1}$ entry of the information matrix is
 \begin{align}
-  \int_0^\infty\RealPart\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_1^{\HT}}{\partial \wn[1]}\right\}\frac{1}{\omega}\dd\omega
+  \int_0^\infty
+    \real{
+         \PartialDerivative{G_1}{\wn[1]}
+         \cdot
+         \PartialDerivative{G_1^{\HT}}{\wn[1]}
+    }
+      \frac{1}{\omega}
+      \dd\omega
 \end{align}
 which evaluates to
 \begin{equation}
@@ -322,7 +330,14 @@ after lengthy calculations.
 For $\damping \ll 1$ this can be simplified to
 \begin{equation}
 \label{eq:excitation:auto}
-\int_0^\infty\RealPart\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_1^{\HT}}{\partial \wn[1]}\right\}\frac{1}{\omega}\dd\omega
+\int_0^\infty
+\real{
+   \PartialDerivative{G_1}{\wn[1]}
+   \cdot
+   \PartialDerivative{G_1^{\HT}}{\wn[1]}
+   }
+\frac{1}{\omega}
+\dd\omega
  = 
  \frac{\pi}
           {8\wn[1]^2}\damping^{-3} 
@@ -331,25 +346,51 @@ For $\damping \ll 1$ this can be simplified to
 since the $\arctan$ in \eqref{eq:excitation:auto:full} tends to $\frac{\pi}{2}$ for $\damping \to 0$.
 For the corresponding element in $\partial G_{1,2}$ we start by bounding the absolute value of the integral by
 \begin{gather}
-\left|\int_0^\infty\RealPart\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right\}\frac{1}{\omega}\dd\omega\right|
+\abs{
+    \int_0^\infty
+    \real{
+       \PartialDerivative{G_1}{\wn[1]}
+       \cdot
+       \PartialDerivative{G_2^{\HT}}{\wn[2]}
+    }
+    \frac{1}{\omega}
+    \dd\omega
+}
 \qquad \qquad \qquad \qquad \qquad
 \label{eq:excitation:cross1} \\
 \leq
-\int_0^\infty\left|\RealPart\left\{\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right\}\right|\frac{1}{\omega}\dd\omega
+\int_0^\infty
+\abs{
+  \real{
+    \PartialDerivative{G_1}{\wn[1]}
+    \cdot
+    \PartialDerivative{G_2^{\HT}}{\wn[2]}
+  }
+}
+\frac{1}{\omega}
+\dd\omega
 \leq \\
 \qquad \qquad \qquad \qquad \qquad
-\int_0^\infty\left|\frac{\partial G_1}{\partial \wn[1]}\frac{\partial G_2^{\HT}}{\partial \wn[2]}\right|\frac{1}{\omega}\dd\omega \text{.}\label{eq:excitation:cross}
+\int_0^\infty
+\abs{
+  \PartialDerivative{G_1}{\wn[1]}\PartialDerivative{G_2^{\HT}}{\wn[2]}
+}
+\frac{1}{\omega}
+\dd\omega
+\label{eq:excitation:cross}
+\text{.}
 \end{gather}
 To proceed, consider
 \begin{align}
-\frac{\partial G_1}{\partial \wn[1]} 
-  &= \frac{2\damping j\omega\left[1+\frac{j\omega}{\wn[1]\damping}\right]}
-  {\wn[1]^2\left[1+2\frac{\damping j\omega}{\wn[1]} + \left(\frac{j\omega}{\wn[1]}\right)^2\right]^2},
+\PartialDerivative{G_1}{\wn[1]} 
+  &= 
+     \frac{2\damping j\omega\left[1+\frac{j\omega}{\wn[1]\damping}\right]}
+               {\wn[1]^2\left[1+2\frac{\damping j\omega}{\wn[1]} + \left(\frac{j\omega}{\wn[1]}\right)^2\right]^2},
 \end{align}
-which has zeros in $j\omega=\left\{0, \damping\wn[1]\right\}$. 
-Hence $\left|\frac{\partial G_1}{\partial \wn[1]} \right|$ has asymptotic slope 20\unit{dB/\decade} for low frequencies, at $j\omega=\damping\wn[1]$ the slope increases to 40\unit{dB/\decade}. 
+which has zeros in $j\omega=\Set{0, \damping\wn[1]}$. 
+Hence $\abs{\PartialDerivative{G_1}{\wn[1]} }$ has asymptotic slope 20\unit{dB/\decade} for low frequencies, at $j\omega=\damping\wn[1]$ the slope increases to 40\unit{dB/\decade}. 
 There are four poles which give a $-40$\unit{dB/\decade} roll-off after the peak. 
-The shape of $\frac{\partial G_1}{\partial \wn[1]} $ is illustrated in \figref{fig:excitation:derivatives}.
+The shape of $\PartialDerivative{G_1}{\wn[1]} $ is illustrated in \figref{fig:excitation:derivatives}.
 
 A crude, albeit useful, bound on the integrand in \eqref{eq:excitation:cross} is
 \begin{align}
@@ -369,12 +410,12 @@ A crude, albeit useful, bound on the integrand in \eqref{eq:excitation:cross} is
                                        & \text{if $\omega \geq \wn[2]$,}
   \end{cases}
 \end{align}
-where $\partial G_1^\infty = \left\|\frac{\partial G_1}{\partial \wn[1]}\right\|_\infty$. 
+where $\partial G_1^\infty = \left\|\PartialDerivative{G_1}{\wn[1]}\right\|_\infty$. 
 Again, direct calculations give
 \begin{align}
-\int_0^\infty f\left(\omega,\theta_1,\theta_2\right)\dd\omega = \frac{\wn[1]\left(2-\ln{\frac{\wn[1]^2}{\wn[2]^2}}\right)}{\wn[2]^2}\damping^{-2} + \mathcal{O}(1).
+\int_0^\infty f\left(\omega,\theta_1,\theta_2\right)\dd\omega = \frac{\wn[1]\left(2-\ln{\frac{\wn[1]^2}{\wn[2]^2}}\right)}{\wn[2]^2}\damping^{-2} + \bigO{1}.
 \end{align}
-Hence \eqref{eq:excitation:cross1} cannot grow faster than $\mathcal{O}(\damping^{-2})$ as $\damping\rightarrow0$. From this analysis we conclude that:
+Hence \eqref{eq:excitation:cross1} cannot grow faster than $\bigO{\damping^{-2}}$ as $\damping\rightarrow0$. From this analysis we conclude that:
 \begin{itemize}
 \item the integral \eqref{eq:excitation:cross1} decreases as $\wn[2]-\wn[1]$ increases, and
 \item lower damping further decreases the integral \eqref{eq:excitation:cross1} in comparison to \eqref{eq:excitation:auto}.
@@ -394,9 +435,18 @@ Based on the above arguments, we approximate the information matrix for lightly-
 \end{align}
 Hence the variance of the estimate $\hat{G}(s,\theta)$ becomes
 \begin{align}
-\var{\hat{G}(\omega)} &\approx \frac{\partial G^{\HT}(e^{j\omega})}{\partial \theta}\begin{bmatrix}\partial G_{1,1} &\deemph{0}\\
-                        \deemph{0}&\partial G_{2,2}\end{bmatrix}^{-1}\frac{\partial G(e^{j\omega})}{\partial \theta}\\
-&=\var{\hat{G}_1(\omega)} + \var{\hat{G}_2(\omega)}.
+\var{\hat{G}(\omega)} &
+\approx 
+   \PartialDerivative{G^{\HT}(e^{j\omega})}{ \theta}
+\begin{bmatrix}
+    \partial G_{1,1} &\deemph{0}\\
+    \deemph{0}&\partial G_{2,2}
+ \end{bmatrix}^{-1}
+\PartialDerivative{G(e^{j\omega})}{\theta}\\
+&=
+     \var{\hat{G}_1(\omega)} 
+  + \var{\hat{G}_2(\omega)}
+  \text{.}
 \end{align}
 
 This results extends \latin{mutatis mutandis} to systems consisting of more sub-systems.
@@ -1107,7 +1157,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
   % So we only need to perform the analysis for a fixed value of $\dc$, which was chosen equal to $1$ in our test case.
 
   The choice of the damping is more important.
-  Instead of choosing the damping directly, we choose the peak gain $\left| G\left( \wM \right) \right| \in \set{5 \unit{dB}, 10 \unit{dB}, 20 \unit{dB}, 40 \unit{dB} }$ of the transfer function \eqref{eq:excitation:peakAmplitude} to study the effect of differently damped systems.
+  Instead of choosing the damping directly, we choose the peak gain $\abs{ G\left( \wM \right) } \in \set{5 \unit{dB}, 10 \unit{dB}, 20 \unit{dB}, 40 \unit{dB} }$ of the transfer function \eqref{eq:excitation:peakAmplitude} to study the effect of differently damped systems.
   However, do remember that $\abs{G(\wM)} = (2\damping\sqrt{1-\damping^2})^{-1}$ for the simplifications introduced above as in \eqref{eq:excitation:peakAmplitude}.
 
   \subsection{Selection of the Frequency Grid Spacing $\alpha$}
@@ -1163,7 +1213,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
   %              SNR = Psignal / Pnoise = 1/(sE^2 * F)
   %          ==> SNR decreases as F increases
   
-  We then calculate the theoretical variance on the magnitude of the peak in the \gls{FRF} ($\left| G\left( \wM \right) \right|$) as shown in \eqref{eq:excitation:varPeak} for a coarse grid.
+  We then calculate the theoretical variance on the magnitude of the peak in the \gls{FRF} ($\abs{ G\left( \wM \right) }$) as shown in \eqref{eq:excitation:varPeak} for a coarse grid.
   A coarse grid was chosen with $\tilde{\alpha} = 10$; this means that the spacing between the excited lines around the resonance are much larger than the system bandwidth.
   It is obvious that such an excitation signal will not perform well in most cases, as the resonance peak is very likely to be overlooked in such an \gls{FRF}.
   
