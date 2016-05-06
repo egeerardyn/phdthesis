@@ -655,7 +655,7 @@ As such, the output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\t
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/bode-bk1613.tikz}
   \caption[\BK{} 1613 filter transfer function]{Transfer function of the considered \BK{} 1613 filter.
-  The empirical transfer function estimates $Y^{[r]}(\omega)/U^{[r]}(\omega)$~\legref{leg:bk1613:ETFE} and its average $\tilde{Y}(\omega)/\tilde{U}(\omega)$~\legref{leg:bk1613:meanETFE} obtained from the Elvis measurements are shown together with the estimated reference model $G_{\mathrm{VXI}}$~\legref{leg:bk1613:vxi}.} 
+  The empirical transfer function estimates $Y^{[r]}(\omega)/U^{[r]}(\omega)$~\legref{leg:bk1613:ETFE} and its average $\tilde{Y}(\omega)/\tilde{U}(\omega)$~\legref{leg:bk1613:meanETFE} obtained from the Elvis measurements are shown together with the estimated reference model $G_{\VXI}$~\legref{leg:bk1613:vxi}.} 
   \label{fig:bk1613}
 \end{figure}
 
@@ -737,7 +737,7 @@ where $\model{best} \neq \model{2nd}$.
 %\JL{
 Since the true model $\true{G}$ is not known for real-life systems, a practically viable reference model is needed.
 Additional measurements were performed using a \gls{VXI} measurement setup, which allowed for a signal-to-noise ratio of more than $60\unit{dB}$. 
-Virtually noiseless, these measurements provided a very high quality model of the system, denoted as $G_\mathrm{VXI}$, and used as a reference model. 
+Virtually noiseless, these measurements provided a very high quality model of the system, denoted as $G_\VXI$, and used as a reference model. 
 The \gls{VXI} measurement setup is summarized as follows.
 \begin{itemize}
   \item Signal Generator card: \gls{VXI} HP E1445A.
@@ -746,10 +746,10 @@ The \gls{VXI} measurement setup is summarized as follows.
   \item A total of $558$ frequency bins were used for the estimation, in the excited frequency band $[0.1,20] \unit{kHz}$, with a frequency resolution of $35.7\unit{Hz}$, giving a measurement time of $28\unit{ms}$. The excitation signal was band-limited periodic noise with an \gls{RMS} of $100\unit{mV}$.
   \item The input and output signals were buffered and anti-alias filtered.
 \end{itemize}
-This yielded the model $G_\mathrm{VXI}$ (shown in \figref{fig:bk1613}) with a relative error  of less than $0.3\%$ in the pass-band.  Denote $\model{VXI}$ to be the parametric estimate obtained using $G_{\mathrm{VXI}}$ as an initial estimate. Furthermore, $G_\mathrm{VXI}$ was used to play the role of $\true{G}$ from the previous section.
+This yielded the model $G_\VXI$ (shown in \figref{fig:bk1613}) with a relative error  of less than $0.3\%$ in the pass-band.  Denote $\model{VXI}$ to be the parametric estimate obtained using $G_{\VXI}$ as an initial estimate. Furthermore, $G_\VXI$ was used to play the role of $\true{G}$ from the previous section.
 
 \subsection{Model Estimation}
-  The measurements on the NI Elvis II indicate that the high-quality starting value $G_{\mathrm{VXI}}$ led to low cost function values as shown in \figref{fig:costMeasurements} and \tabref{tbl:costMeasurements}.
+  The measurements on the NI Elvis II indicate that the high-quality starting value $G_{\VXI}$ led to low cost function values as shown in \figref{fig:costMeasurements} and \tabref{tbl:costMeasurements}.
   The existing methods exhibit a high spread and a high median cost function, showing that a good estimate is obtained only in about $25\%$ of the cases.
   The truncation method provides better estimates in many cases, but still suffers from a high variability.
   On the other hand, the \gls{RFIR}-based initial values have both a low median cost function and spread, and thus provide better fits in almost all cases.
@@ -802,7 +802,7 @@ To this end, the model is validated using the 2-norm (or distance) on the model 
 \begin{equation}
   \validationDistance{\bullet} 
   \isdef 
-  \norm[2]{\model{\bullet} - G_{\mathrm{VXI}}}
+  \norm[2]{\model{\bullet} - G_{\VXI}}
   \text{.}
   \label{eq:measurementCriterion}
 \end{equation} 
@@ -832,7 +832,7 @@ E.g. note in \tabref{tbl:validationMeasurements} that this step reduces the wors
   \input{\thisDir/figs/meas-validation.tikz}
   \caption[Validation cost of the different measurements.]{Validation of the measured models. 
   For each method, the distance \eqref{eq:measurementCriterion} between the estimates and $\model{VXI}$ is shown~\legref{leg:validationMeasurements:best:data} together with the median~\legref{leg:validationMeasurements:best:median} and inter-quartile range~\legref{leg:validationMeasurements:best:iqr}.
-  $\norm{G_{\mathrm{VXI}}}$\legref{leg:validationMeasurements:H2Norm} is shown as a reference.
+  $\norm{G_{\VXI}}$\legref{leg:validationMeasurements:H2Norm} is shown as a reference.
   The bottom plot shows a linear zoom of the top plot.
   The proposed methods yield models that are closer to $\model{VXI}$ than the existing $\model{exist}$.
   The results are in line with the values of the cost function in \figref{fig:costMeasurements}.}
@@ -840,12 +840,12 @@ E.g. note in \tabref{tbl:validationMeasurements} that this step reduces the wors
 \end{figure}
 \begin{table}[p]
   \centering
-  \caption{Observed percentiles of the validation distance $\norm[2]{\model{\bullet}-G_{\mathrm{VXI}}}$.}
+  \caption{Observed percentiles of the validation distance $\norm[2]{\model{\bullet}-G_{\VXI}}$.}
   \input{\thisDir/tables/meas-validation-quantiles.tbl.tex}
 \label{tbl:validationMeasurements}
 \end{table}
 
-\section{Consequences of Selecting the `Best` Model}
+\section{Consequences of Selecting the `Best' Model}
 To determine how important it is to retain the `best' model based on the cost function values, we shall inspect how much worse (or better) the second best model $\model{2nd}$ performs when $\model{best}$ is \emph{not} selected.
 To do so, we inspect the performance by means of the cost function (used during estimation) and by means of the validation distance.
 The datasets used in this analysis are those from the measurements, but similar results can be obtained from the other data sets.
@@ -870,7 +870,7 @@ The situation is already less severe for $\model{trunc}$ (in $75\%$ of the cases
   \caption[$\costFunc{\bullet}$ and $\validationDistance{\bullet}$ for each repeated measurement.]{Cost function $V(\model{\bullet})$ and validation distance of the model estimated in each repetition of the measurement.
   Based on the cost function, $\model{RFIR}$~\legref{leg:RFIR} is not always the best estimate $\model{best}$~\legref{leg:best}.
   Especially in the validation plot (bottom), $\model{RFIR}$ performs (almost) as well or even better than $\model{exist}$~\legref{leg:exist} and $\model{trunc}$~\legref{leg:trunc}.
-  Both latter methods often produce models that perform poorly compared to $\norm[2]{G_{\mathrm{VXI}} }$~\legref{leg:reference} and $\model{VXI}$~\legref{leg:VXI}.
+  Both latter methods often produce models that perform poorly compared to $\norm[2]{G_{\VXI} }$~\legref{leg:reference} and $\model{VXI}$~\legref{leg:VXI}.
   This means that in our limited experimental study, the performance degradation of choosing RFIR to produce initial values over the studied alternatives is small.}
   \label{fig:overview}
 \end{figure}
@@ -1075,7 +1075,8 @@ Trying different initial values is quite inexpensive, but the quality of the fin
 As such, using multiple initial values, especially ones that have been derived with good judgment, pays off.
 \end{guideline}
 
-\section{Conclusion}\label{sec:initial-values:Conclusion}
+\section{Conclusion}
+\label{sec:initial-values:Conclusion}
 The simulations have demonstrated that use of a smoothed non-parametric estimate of the \gls{FRF} can improve the success rate of minimizing the \gls{ML} cost function for the estimation of the transfer functions of \gls{LTI} systems, subjected to noisy signals. Specifically, two smoothing methods were used and compared: 1) the truncated \gls{LPM} method, and 2) the \gls{RFIR} method. The simulation results clearly show that the \gls{RFIR} method is superior to the truncated \gls{LPM} method and the existing \gls{BTLS} and \gls{GTLS} methods.
 
 The usefulness of the initial values obtained via the proposed smoothing techniques was confirmed on a measurement of a band-pass filter in a noisy environment.
