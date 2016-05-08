@@ -1,0 +1,136 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+%
+\begin{tikzpicture}
+
+\begin{groupplot}[%
+group style={
+  group name=PRESSandNoise,
+  group size=2 by 2,
+  horizontal sep=1em,
+  vertical sep=1em,
+  y descriptions at=edge left,
+  x descriptions at=edge bottom
+},
+cell picture=true, % http://tex.stackexchange.com/questions/207450/fillbetween-from-pgfplots-does-not-work-inside-groupplots
+width=0.5\figurewidth,
+height=0.5\figureheight,
+ylabel={$\abs{Y}$ \axisunit{dB}},
+xlabel={Frequency $\omega$ \axisunit{rad/s}},
+scale only axis,
+ymin=-20,
+xtick=1,
+ymax=45,
+xmin=0.5,
+xmax=1.5,
+xmajorgrids,
+ymajorgrids,
+]
+
+\pgfplotsset{snrTen/.append style={ymin=10,ymax=45}}
+\pgfplotsset{snrFourty/.append style={ymin=-20,ymax=40}}
+
+\nextgroupplot[title={$\PRESS$},snrTen]
+\node[annotation,anchor=north east] (lab1) at (rel axis cs:1,1) {$\SNR\approx10\unit{dB}$};
+
+\addplot [black,line width=2.0pt,name path=G01] table[]{\thisDir/data/tune-SNR10dB-NBW3/G0.tsv};
+
+\addplot [name path=H01,draw=none] table[]{\thisDir/data/tune-SNR10dB-NBW3/H0.tsv};
+
+\path[name path=bottom1] (rel axis cs:0,0) -- (rel axis cs:1,0);
+
+\addplot[noiselevel] fill between[of=H01 and bottom1];
+
+
+\addplot [mcpress,lrm7222,forget plot] table[]{\thisDir/data/tune-SNR10dB-NBW3/LRM7222-PRESS.tsv};
+\addplot [lpm744,mcpress,forget plot]
+  table[]{\thisDir/data/tune-SNR10dB-NBW3/LPM744-PRESS.tsv};
+\addplot [lrm7111,mcpress,forget plot]
+  table[]{\thisDir/data/tune-SNR10dB-NBW3/LRM7111-PRESS.tsv};
+\addplot [lrm6222,mcpress,forget plot]
+  table[]{\thisDir/data/tune-SNR10dB-NBW3/LRM6222-PRESS.tsv};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nextgroupplot[title={Noise Level $\sampleStd{V}$},snrTen]
+\node[annotation,anchor=north east] (lab2) at (rel axis cs:1,1) {$\SNR\approx10\unit{dB}$};
+\addplot [black,line width=2.0pt,name path=G01] table[]{\thisDir/data/tune-SNR10dB-NBW3/G0.tsv};
+
+
+\addplot [name path=H02,draw=none] table[]{\thisDir/data/tune-SNR10dB-NBW3/H0.tsv};
+
+\path[name path=bottom2] (rel axis cs:0,0) -- (rel axis cs:1,0);
+
+\addplot[noiselevel] fill between[of=H02 and bottom2];
+
+\addplot [mcnoise,lrm7222,forget plot]
+  table[]{\thisDir/data/tune-SNR10dB-NBW3/LRM7222-noise.tsv};
+\addplot [lpm744,mcnoise,forget plot]
+  table[]{\thisDir/data/tune-SNR10dB-NBW3/LPM744-noise.tsv};
+\addplot [lrm7111,mcnoise,forget plot]
+  table[]{\thisDir/data/tune-SNR10dB-NBW3/LRM7111-noise.tsv};
+\addplot [lrm6222,mcnoise,forget plot]
+  table[]{\thisDir/data/tune-SNR10dB-NBW3/LRM6222-noise.tsv};
+
+
+\node (labelG0) at (axis cs:1.1,32) {$\true{G}$};
+
+\node[lpm744,anchor=west] (labelLPM744) at (rel axis cs: 0.025,0.875) {$\lpm{7,4,4}$};
+\node[lrm7222,anchor=west] (labelLRM7222) at (rel axis cs: 0.025,0.8125) {$\lrm{7,2,2,2}$};
+\node[lrm6222,anchor=west] (labelLRM6222) at (rel axis cs: 0.025,0.75) {$\lrm{6,2,2,2}$};
+\node[lrm7111,anchor=west] (labelLRM7111) at (rel axis cs: 0.025,0.6875) {$\lrm{7,1,1,1}$};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nextgroupplot[snrFourty]
+
+\node[annotation,anchor=north east] (lab2) at (rel axis cs:1,1) {$\SNR\approx40\unit{dB}$};
+
+\addplot [black,line width=2.0pt,forget plot,name path=G02]
+  table[]{\thisDir/data/tune-SNR40dB-NBW3/G0.tsv};
+
+\addplot [name path=H03,draw=none] table[]{\thisDir/data/tune-SNR40dB-NBW3/H0.tsv};
+
+\path[name path=bottom3] (rel axis cs:0,0) -- (rel axis cs:1,0);
+
+\addplot[noiselevel] fill between[of=H03 and bottom3];
+
+\addplot [lrm7222,mcpress,forget plot]
+  table[]{\thisDir/data/tune-SNR40dB-NBW3/LRM7222-PRESS.tsv};
+\addplot [lpm744,mcpress,forget plot]
+  table[]{\thisDir/data/tune-SNR40dB-NBW3/LPM744-PRESS.tsv};
+
+\addplot [lrm7111,mcpress,forget plot]
+  table[]{\thisDir/data/tune-SNR40dB-NBW3/LRM7111-PRESS.tsv};
+
+\addplot [lrm6222,mcpress,forget plot]
+  table[]{\thisDir/data/tune-SNR40dB-NBW3/LRM6222-PRESS.tsv};
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nextgroupplot[snrFourty]
+
+\node[annotation,anchor=north east] (lab2) at (rel axis cs:1,1) {$\SNR\approx40\unit{dB}$};
+
+\addplot [black,line width=2.0pt,forget plot,name path=G02]
+  table[]{\thisDir/data/tune-SNR40dB-NBW3/G0.tsv};
+
+\addplot [name path=H04,draw=none] table[]{\thisDir/data/tune-SNR40dB-NBW3/H0.tsv};
+
+\path[name path=bottom4] (rel axis cs:0,0) -- (rel axis cs:1,0);
+
+\addplot[noiselevel] fill between[of=H04 and bottom4];
+
+
+
+\addplot [lrm7222,mcnoise,forget plot] table[]{\thisDir/data/tune-SNR40dB-NBW3/LRM7222-noise.tsv};
+\addplot [lpm744,mcnoise,forget plot] table[]{\thisDir/data/tune-SNR40dB-NBW3/LPM744-noise.tsv};
+\addplot [lrm7111,mcnoise,forget plot] table[]{\thisDir/data/tune-SNR40dB-NBW3/LRM7111-noise.tsv};
+\addplot [lrm6222,mcnoise,forget plot] table[]{\thisDir/data/tune-SNR40dB-NBW3/LRM6222-noise.tsv};
+
+\end{groupplot}
+
+
+\end{tikzpicture}%

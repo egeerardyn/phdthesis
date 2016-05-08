@@ -1,0 +1,52 @@
+% This file was created by matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.36078,0.20784,0.40000}%
+\definecolor{mycolor2}{rgb}{0.12549,0.29020,0.52941}%
+\definecolor{mycolor3}{rgb}{0.44706,0.62353,0.81176}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.668\figurewidth,
+height=\figureheight,
+at={(0\figurewidth,0\figureheight)},
+scale only axis,
+xmin=0.949945860005904,
+xmax=1.04971216643684,
+xlabel={Frequency [rad/s]},
+xmajorgrids,
+ymin=-11.4197712308519,
+ymax=39.7486814700349,
+ylabel={$|$Y$|$ [dB]},
+ymajorgrids,
+axis background/.style={fill=white},
+axis x line*=bottom,
+axis y line*=left,
+legend style={legend cell align=left,align=left,draw=white!15!black}
+]
+\addplot [color=black,dotted,line width=2.0pt,mark size=2.0pt,mark=*,mark options={solid}]
+  table[]{\thisDir/figs/tune-SNR10-NBW3-PRESS-1.tsv};
+\addlegendentry{$\text{G}_\text{0}\text{ N}^{\text{1/2}}$};
+
+\addplot [color=black,dashdotted,line width=2.0pt]
+  table[]{\thisDir/figs/tune-SNR10-NBW3-PRESS-2.tsv};
+\addlegendentry{$\text{H}_\text{0}\text{ N}^{\text{1/2}}$};
+
+\addplot [color=mycolor1,solid]
+  table[]{\thisDir/figs/tune-SNR10-NBW3-PRESS-3.tsv};
+\addlegendentry{$\text{E}_{\text{CV}}\text{ Factory:LRM(7,1,1,1)}$};
+
+\addplot [color=mycolor2,solid]
+  table[]{\thisDir/figs/tune-SNR10-NBW3-PRESS-4.tsv};
+\addlegendentry{$\text{E}_{\text{CV}}\text{ Factory:LRM(7,2,2,2)}$};
+
+\addplot [color=mycolor3,solid]
+  table[]{\thisDir/figs/tune-SNR10-NBW3-PRESS-5.tsv};
+\addlegendentry{$\text{E}_{\text{CV}}\text{ Factory:LRM(6,2,2,2)}$};
+
+\addplot [color=black!20!red,solid]
+  table[]{\thisDir/figs/tune-SNR10-NBW3-PRESS-6.tsv};
+\addlegendentry{$\text{E}_{\text{CV}}\text{ Factory:LPM(7,4,4)}$};
+
+\end{axis}
+\end{tikzpicture}%
