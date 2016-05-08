@@ -717,7 +717,8 @@ In the simulations, we consider a discrete-time second order system with transfe
 \begin{equation}
 \true{G}(z) = \frac{0.64587 z + 0.64143}
                                       {47.9426 z^2 - 51.2955 z + 46.9933}
-                                      \text{,}
+    \label{eq:nparam:mc:system}
+      \text{,}
 \end{equation}
 this is a resonant system with a resonance near $\omega=1\unit{rad/sample}$, $\damping=0.05$.
 The system is scaled such that its peak amplitude is $3\unit{dB}$ and hence its $3\unit{dB}$ bandwidth can be read easily from bode plots.
@@ -920,50 +921,49 @@ It can be seen that the bias error of the \gls{LPM} drops off more quickly ($\bi
 
 \subsection{Summary}
 In general, it can be seen that the \gls{LRM} performs better than \gls{LPM} unless the \gls{SNR} near the resonance is very low ($10\unit{dB}$).
-For the \gls{LPM}, it should be noted that near resonances,it more advantageous to use even model orders~\citep{Schoukens2013LPMerror}.
+For the \gls{LPM}, it should be noted that near resonances, it is more advantageous to use even model orders~\citep{Schoukens2013LPMerror}.
 The results for the $\lpm{7,4,4}$ in the previous section are representative of the best-case performance of an $\lpm{7,\order{B},\order{A}}$ technique.
 Concretely, for small $\nBW$, the dominant error in the \gls{LPM} is due to the bias.
 Reducing the model order of the \gls{LPM} further will only increase the \gls{RMS} error.
 Increasing the model order of the \gls{LPM} (e.g. to $\lpm{7,6,6}$) would result in an estimation where the residuals have very few degrees of freedom ($\DOF=1$ for $\lpm{7,6,6}$) such that estimated noise level is less reliable~\citep{Pintelon2010LPM1}.
 
-For the \gls{LRM}, it can be seen that its model order as a significant influence on the approximation error.
+For the \gls{LRM}, it can be seen that its model order has a significant influence on the approximation error.
 In small datasets with high \gls{SNR} ($\SNR=60\unit{dB},\nBW<3$), and in datasets with low \gls{SNR} ($\SNR < 40 \unit{dB}$), selecting a better local model can reduce the bias significantly.
 Nevertheless, the bias of the \gls{LRM} is only a significant contributor to the \gls{RMS} error for short datasets with low \gls{SNR}.
 As such, selection of a better local model is only reduces the \gls{RMS} error for those settings.
 Practically, this means that in most other settings of \gls{SNR} and frequency resolution, either a first-order or second-order \gls{LRM} ($\order{A},\order{B} \in \set{1,2}$) will perform almost equally well.
 From an intuitive point of view: this works well when each local bandwidth $\LocalWindow$ is affected by at most two resonances.
 
-The \gls{LRIC} is not practically viable due to the high variability.
+The \gls{LRIC} is not practically viable due to its high variability.
 However, since its bias is much lower than for the other methods, \gls{LRIC} offers perspectives for improving the overall performance significantly.
 
-\begin{guideline}[Use the LRM for resonant systems when $\SNR > 10 \unit{dB}$]
+\begin{guideline}[Use the \glsentryshort{LRM} for resonant systems when $\SNR > 10 \unit{dB}$]
 For resonant systems, the \gls{LRM} offers better performance than \gls{LPM} when a good \gls{SNR} is obtained in the frequency domain.
-When the \gls{SNR} is poor ($\leq 10\unit{dB}$), the \gls{LPM} may perform a bit better than \gls{LRM}.
+When the \gls{SNR} is poor ($\leq 10\unit{dB}$), the \gls{LPM} may perform a slightly better than \gls{LRM}.
 The \gls{LRIC} is unsuitable due to a high variance, but has a much smaller bias error than the non-iterative solutions.
 \end{guideline}
 
-\begin{guideline}[Use the LRM for resonant systems when $\SNR > 10 \unit{dB}$]
+\begin{guideline}[Use a second-order \glsentryshort{LRM} for resonant systems]
 For resonant systems, the \gls{LRM} offers better performance than \gls{LPM} when a good \gls{SNR} is obtained in the frequency domain.
-When the \gls{SNR} is poor ($\leq 10\unit{dB}$), the \gls{LPM} may perform a bit better than \gls{LRM}.
-The \gls{LRIC} is unsuitable due to a high variance, but has a much smaller bias error than the non-iterative solutions.
+In the assumption that difference resonances are well-separated in the frequency, a second-order \gls{LRM} (e.g. $\lrm{7,2,2,2}$) is a reliable method to estimate the \gls{FRF}.
 \end{guideline}
 
-\begin{guideline}[For long measurements, LPM and LRM are similar]
+\begin{guideline}[For long measurements, \glsentryshort{LPM} and \glsentryshort{LRM} are similar]
 For very long measurements, the difference between \gls{LPM} and \gls{LRM} becomes negligible if the different resonances are well-separated.
 \end{guideline}
 
 \section{Trading Off the Bias and Variance}
-In the last section, it was illustrated that the model order of the local \gls{LRM} models, can significantly affect the obtained \gls{RMS} error.
+In the last section, it was illustrated that the model order of the local \gls{LRM} models, can affect the obtained \gls{RMS} error.
 This is specifically the case for small and noisy datasets.
-Moreover, it was observed that the \gls{LRIC} has a high variance which might be due to pole-zero cancellations in the \gls{LRIC}.
-As such, it makes sense to ask ourselves the question: ``can we determine a good local model order''?
+For larger datasets (or when $\SNR>20\unit{dB}$), the order of the \gls{LRM} plays a less significant role.
+Moreover, it was observed that the \gls{LRIC} has a high variance which might be due to pole-zero cancellations in the \gls{LRIC}, i.e. a model order that is too high.
+As such, it makes sense to ask ourselves the question: ``can we determine a good local model order'' from the data?
 That is the question we will investigate in this section.
 First, some classical approaches are compared in the context of local modeling, i.e. relatively small (local) datasets.
 
-
 \subsection{Local Model Order Selection}
 \label{sec:nparam:orderSelection}
-Selecting suitable values of $\nWind$, $\order{B}$, $\order{A}$ and $\order{C}$ obviously affects the quality of the obtained local models.
+Selecting suitable values of $\nWind$, $\order{B}$, $\order{A}$ and $\order{C}$  affects the quality of the obtained local models.
 For local rational models, there are a few insights from parametric system identification that can be retained to make these choices easier.
 In particular~\citep{Pintelon2010LPM1}:
 \begin{equation}
@@ -985,6 +985,7 @@ The latter is often done using `cross-validation'.
 In statistical learning, many relevant cross-validation approaches exist.
 Within the system identification community a few simple approaches have been widely adopted~\citep[Chapter 11]{Pintelon2012} to ensure that one does not overmodel the data.
 In the following, a short overview is given of different approaches.
+For a more complete overview, we refer to \citet{Arlot2010}.
 
 \subsubsection{Plug-in methods}
 In plug-in methods, a goodness-of-fit criterion (e.g. the log-likelihood function $\LogLikelihood$ of the estimated local model $\LocalModel{M}$ given the estimation dataset $\LocalVector{Z}$), is penalized with a term accounting for the complexity of the model~\citep{Burnham2002}.
@@ -1086,7 +1087,7 @@ When an optimal model order is to be selected for the whole frequency range, the
 In practice, the formulas of the previous section extend quite ``naturally'' to this global context.
 Particularly for the \gls{PRESS}:
 \begin{equation}
-  \PRESS_{\mathrm{global}} = \sum_k \PRESS_k
+  \PRESS_{\mathrm{global}} \propto \sum_k \PRESS_k
 \end{equation}
 where $\PRESS_k$ denotes the \gls{PRESS} for the $k^{\text{th}}$ local model.
 One should realize that for all local models together ($M =  \cup_k \LocalModel[k]{M}$) and the global dataset $Z$, the global log-likelihood, cost function and number of parameters can be related to their local counterparts:
@@ -1099,16 +1100,32 @@ One should realize that for all local models together ($M =  \cup_k \LocalModel[
 These global quantities can be substituted in the expressions of the local \gls{AIC} and \gls{AICc} of the previous section. 
 Note that one should also $\nWind$ as the total number of data points (and not the number of points in each window).
 
-\subsection{Discussion}
+\subsection{Example}
+The system as in \eqref{eq:nparam:mc:system} has been simulated for $1\,200$ samples such that $\nBW=3$.
+Two different noise levels have been tried: one with poor $\SNR\approx10\unit{dB}$ and a better $\SNR=40\unit{dB}$.
+The resulting \gls{FRF} has been estimated with the different \gls{LRM} and \gls{LPM} estimators as in the Monte Carlo simulations.
+In \figref{fig:nparam:PRESS} the hence estimated noise variance $\sampleStd{V}$ and $\PRESS$  are shown as a function of the frequency.
 
-% \begin{figure}
-%   \centering
-%   \setlength{\figurewidth}{0.85\columnwidth}
-%   \setlength{\figureheight}{0.62\figurewidth}
-%   \TODOtikzfig[PRESS and noise for single simulation]
-%   \caption[Output spectrum for local modeling, together the PRESS statistic]{It is convenient to compare the variance of the residuals and the \glsentrytext{PRESS} statistic to select a good local model.}
-%   \label{fig:nparam:PRESS}
-% \end{figure}
+\begin{figure}
+  \centering
+  \setlength{\figurewidth}{0.85\columnwidth}
+  \setlength{\figureheight}{1.24\figurewidth}
+  \input{ch03-lrm/figs/tune-NBW3-pressAndNoise.tikz}
+  \caption[Output spectrum for local modeling, together the PRESS statistic]{It is convenient to compare the \glsentryshort{PRESS} (left plots) and the noise variance (right plots). The theoretical noise level is shaded and the transfer function is shown in bold.}
+  \label{fig:nparam:PRESS}
+\end{figure}
+
+For the high \gls{SNR} case, it can be seen in \figref{fig:nparam:PRESS} that the \gls{LPM} is heavily biased and hence results in a large overestimate of the noise variance near the resonance peak.
+As a result, the \gls{PRESS} in the same region is also elevated for the \gls{LPM}.
+Outside the resonance peak, the \gls{LPM} and \gls{LRM} estimate very similar noise variances.
+The \gls{PRESS} the different methods are in agreement with the observations regarding the \gls{RMS} error from the Monte Carlo simulations in \figref{fig:nparam:comparison:midSNR}: all tested \gls{LRM} perform similarly (with a slight advantage for the first-order method), the \gls{LPM} produces much larger errors near the resonance.
+Nevertheless, this figure illustrates that for the \gls{LRM}, the error is quite flat over the frequency.
+Note also that the \gls{PRESS} suffers from a quite high variance over the frequency, which is a well-known drawback~\citep{Seber2003,Arlot2010}.
+
+For the low \gls{SNR} case (top plots in  \figref{fig:nparam:PRESS} ), it can be seen that both \gls{LPM} and \gls{LRM} result in a very similar estimate of the noise level.
+The values of the \gls{PRESS} are again quite noisy.
+\TODO{PRESS is eigenlijk niet bruikbaar bij lage SNR}
+
 
 \section{Smoothing the \glsentryshort{FRF} by Impulse Response Truncation}
 \input{\thisDir/truncation.tex}
