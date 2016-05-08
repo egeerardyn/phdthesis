@@ -961,7 +961,7 @@ That is the question we will investigate in this section.
 First, some classical approaches are compared in the context of local modeling, i.e. relatively small (local) datasets.
 
 
-\subsection{Order Selection}
+\subsection{Local Model Order Selection}
 \label{sec:nparam:orderSelection}
 Selecting suitable values of $\nWind$, $\order{B}$, $\order{A}$ and $\order{C}$ obviously affects the quality of the obtained local models.
 For local rational models, there are a few insights from parametric system identification that can be retained to make these choices easier.
@@ -986,7 +986,7 @@ In statistical learning, many relevant cross-validation approaches exist.
 Within the system identification community a few simple approaches have been widely adopted~\citep[Chapter 11]{Pintelon2012} to ensure that one does not overmodel the data.
 In the following, a short overview is given of different approaches.
 
-\paragraph{Plug-in methods}
+\subsubsection{Plug-in methods}
 In plug-in methods, a goodness-of-fit criterion (e.g. the log-likelihood function $\LogLikelihood$ of the estimated local model $\LocalModel{M}$ given the estimation dataset $\LocalVector{Z}$), is penalized with a term accounting for the complexity of the model~\citep{Burnham2002}.
 E.g. a common choice is the \gls{AIC}~\citep{Akaike1974} or the \gls{AICc}~\citep{Hurvich1989}, which are defined as
 \begin{align}
@@ -1030,7 +1030,7 @@ Practically, this means that such criteria can only be used to compare local mod
 Consequently, the \gls{AICc} criterion cannot be used to select $\nWind$, but only $\order{A},\order{B},\order{C}$ when $\nWind$ is fixed.
 \end{remark}
 
-\paragraph{Holdout method}
+\subsubsection{Holdout method}
 The so-called `holdout' cross-validation method ensures a good model by first splitting the dataset into two smaller disjoint datasets: e.g. $70\%$ of the data  is used to estimate the model and a goodness-of-fit criterion (e.g. cost function) is used on the remaining data to determine which model has the best out-of-sample performance.
 By using independent datasets and assessing the performance of the model on (unseen) validation data, overfitted models can be rejected.
 
@@ -1039,15 +1039,16 @@ The typical approaches, such as the holdout and plug-in methods, either assume t
 As such, these methods are not ideal for local modeling where the (local) dataset is rather small by design and could change by means of the local bandwidth $\nWind$ over the frequency.
 \end{remark}
 
-\paragraph{Leave-out cross-validation}
-Instead, we use a better-suited cross-validation approach known as \gls{LOOCV} that is related to the \gls{AIC}~\citep{Stone1977}.
+\subsubsection{Leave-out cross-validation}
+Instead, we use a better-suited cross-validation approach known as \gls{LOOCV}.
+ that is related to the \gls{AIC}~\citep{Stone1977}.
 Plainly, \gls{LOOCV} cross-validates the model by in turn leaving out each data point, estimating the local model parameters and observing the difference between the omitted data point and the estimate.
 In effect, such an approach calculates the \gls{PRESS} for each local model:
 \begin{equation}
  \PRESS = 
  \frac{1}{\nWind} 
   \sum_{r \in \LocalShifts{}}
-    \abs{\ignoring{r}{\LocalVector{E}}}^2
+  \abs{\ignoring{r}{\LocalVector{E}}}^2
     \text{,}
 \label{eq:PRESS-general}
 \end{equation}
@@ -1065,7 +1066,7 @@ $\LocalVector{H} = \LocalMatrix{K} \pinv{\LocalMatrix{K}}$ is the so-called `hat
 Note that since the \gls{PRESS} can be interpreted similar to the residuals, this forms a convenient metric to select models on.
 In particular, when there is a large difference between the level of the residuals and the \gls{PRESS}, this indicates that a poor model has been selected.
 
-\subsubsection{Combining Different Local Model Orders}
+\subsection{Combining Different Local Model Orders}
 In the previous section, different methods were introduced to select the local model order.
 This begs the question whether it is advantageous to use the same local model complexity over all frequencies or the model order should be kept globally.
 The answer to this, depends on the ultimate purpose of the \gls{FRF}.

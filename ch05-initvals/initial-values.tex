@@ -211,8 +211,8 @@ Here, we repeat the main points briefly.
 The \gls{LPM} is first applied to estimate the \gls{FRF} from a full input/output data record of the \gls{SISO} system.
 The smooth characteristics of both the exact \gls{FRF} $\true{G}$ and the transient term $T$ allow for application of the \gls{LPM}, leading to a smooth \gls{FRF} estimate with the transient and noise suppressed.
 
-  With reference to a detailed exposition in~\citep{Lumori2014TIM} and \chapref{sec:nonparametric}, the \gls{LPM} utilizes local polynomials to approximate the transfer function and transient contribution (in least squares sense) and, thus, smooth $\true{G}$ and $T$ around a central frequency $\omega_{k}$ in a local frequency band $r\in\mathbb{W}_n$.
-  In this chapter, we limit the notations to quadratic polynomials in a window with half-width $N_W=3$, such that
+  With reference to a detailed exposition in~\citep{Lumori2014TIM} and \chapref{sec:nonparametric}, the \gls{LPM} utilizes local polynomials to approximate the transfer function and transient contribution (in least squares sense) and, thus, smooth $\true{G}$ and $T$ around a central frequency $\omega_{k}$ in a local frequency band $\omega_{k+r}\in\LocalWindow$.
+  In this chapter, we limit the notations to quadratic polynomials in a window with half-width $\numel{W}=3$, such that
 \begin{subequations}\label{lpmImplQuadG}
 \begin{align}
 \true{G}(\omega_{k+r})&\approx \hat G_k + g_{1,k} r + g_{2,k}r^2
@@ -221,7 +221,7 @@ T(\omega_{k+r})&\approx T(\omega_k)+t_{1,k}r + t_{2,k}r^2
 \label{lpmImplQuadT}
 \end{align}
 \end{subequations}
-where, in general,$r \in \LocalShifts[]$ with $\LocalShifts[] = \{-N_W,-N_W+1,\dots,N_W\}$ and $N_W$ is a tunable parameter. 
+where $r \in \LocalShifts{k}$ with $\LocalShifts{k} = \{-\numel{W},-\numel{W}+1,\dots,\numel{W}\}$ and $\numel{W}$ is a tunable parameter. 
 
   The \gls{LPM} estimate of the \gls{FRF} at frequency index $k$ is the first estimated local parameter, \emph{viz}:
 \begin{equation}
@@ -261,10 +261,10 @@ The \gls{RFIR} method is a special case of the \gls{RARX} method.
 The \gls{RFIR} estimator is formulated in the time domain. 
 It estimates the impulse response of a discrete time system as the minimizer of the following regularized least squares objective function:
 \begin{align}\label{eq:hRFIRdef}
-\hat g_{\mathrm{RFIR}} &= \argmin_{g} \norm{y - g \ast u }^2 + \sigma^2 g^{\TT}P^{-1}g
+\hat g_{\mathrm{RFIR}} &= \argmin_{g} \norm{y - g \conv u }^2 + \sigma^2 g^{\TT}P^{-1}g
 \end{align}
 where $g$ is the vectorized impulse response $g(t)$, with $t = 0,1,\cdots,n_h - 1$, assuming that the impulse response is $n_g$ samples long. 
-Furthermore, $g\ast u$ is the convolution of $g$ with the input signal $u$, and $P\in \mathbb{R}^{n_g\times n_g}$ is the kernel matrix~\citep{Chen2012}. 
+Furthermore, $g\conv u$ is the convolution of $g$ with the input signal $u$, and $P\in \mathbb{R}^{n_g\times n_g}$ is the kernel matrix~\citep{Chen2012}. 
 Note that \eqref{eq:hRFIRdef} is quadratic in $g$, such that $\hat g_{\mathrm{RFIR}}$ can be computed analytically in a single step.
 The kernel matrix $P$ embodies prior knowledge on the system to be estimated. 
 Here, the \gls{DCkernel}~\citep{Chen2012,Pillonetto2010} is used. 
@@ -954,8 +954,8 @@ This is equivalent to the relative criterion of success since $\norm[2]{\true{G}
   \setlength{\figureheight}{0.68\figurewidth}
   \centering
   \input{\thisDir/figs/distances.tikz}
-  \caption[Empirical \glsentrytext{CDF} of $\validationDistance{\bullet}$ in the stress test.]{Empirical cumulative distribution function of the validation distance $D_{\bullet} = \norm{\model{\bullet} - \true{G}}$ for the different tested systems (different numbered plots) and the different initial values (colors).
-  Note that since $\norm{\true{G}}=1$ is chosen, $D_{\bullet}$ immediately indicates the relative RMS error of the estimates.
+  \caption[Empirical \glsentrytext{CDF} of $\validationDistance{\bullet}$ in the stress test.]{Empirical cumulative distribution function of the validation distance $D_{\bullet} = \norm[2]{\model{\bullet} - \true{G}}$ for the different tested systems (different numbered plots) and the different initial values (colors).
+  Note that since $\norm[2]{\true{G}}=1$ is chosen, $D_{\bullet}$ immediately indicates the relative RMS error of the estimates.
   }
   \label{fig:distancesStress}
 \end{figure}
@@ -1046,15 +1046,15 @@ For the asymptotic runtime, we are mainly interested in how the runtime of the s
 % See http://math.stackexchange.com/questions/84495/computational-complexity-of-least-square-regression-operation
 
 Overall, the time-truncated \gls{LPM} operates in $\bigO{N n_{\theta}^{3}}$.
-First, the \gls{LPM} solves $\bigO{N}$ linear regression problems of small dimensions ($2N_W + 1$ data points and a few degrees of freedom, i.e. $n_{\theta} \leq 2 N_W + 1$ or $\bigO{N_W} = \bigO{n_{\theta}}$), hence the runtime will be $\bigO{N n_{\theta}^3}$ since solving a linear regression problem with $C$ parameters and $D$ data points requires $\bigO{C^3  + D C^2}$ operations\footnote{See \url{http://math.stackexchange.com/questions/84495}}.
+First, the \gls{LPM} solves $\bigO{N}$ linear regression problems of small dimensions ($2\numel{W} + 1$ data points and a few degrees of freedom, i.e. $n_{\theta} \leq 2 \numel{W} + 1$ or $\bigO{\numel{W}} = \bigO{n_{\theta}}$), hence the runtime will be $\bigO{N n_{\theta}^3}$ since solving a linear regression problem with $C$ parameters and $D$ data points requires $\bigO{C^3  + D C^2}$ operations\footnote{See \url{http://math.stackexchange.com/questions/84495}}.
 The truncation of the impulse response relies on linear regression which takes $\bigO{N}$ operations since only $3$ parameters are estimated during this step.
-As such, carrying out the first $\bigO{N n_{\theta}^3}$ step and then the $\bigO{N}$ step, the whole procedure remains a $\bigO{N n_{\theta}^3}$ or, equivalently, $\bigO{N N_W^3}$.
+As such, carrying out the first $\bigO{N n_{\theta}^3}$ step and then the $\bigO{N}$ step, the whole procedure remains a $\bigO{N n_{\theta}^3}$ or, equivalently, $\bigO{N \numel{W}^3}$.
 
 The \gls{RFIR} relies on fitting a \gls{FIR} filter with $n_{\theta} = n_g$ taps to $N$ datapoints.
 Using the same logic as above, this requires $\bigO{N n_{g}^2 + n_g^3}$ operations.
 
 The computational complexity  of both methods scales linearly in the length of the dataset.
-However, since the required length $n_g$ of a \gls{FIR} filter is typically a lot more (e.g. $200$ in this chapter) than the number of local parameters (or bandwidth) of the \gls{LPM} (e.g. $N_W = 3$), it can be seen that eventually the \gls{RFIR} method will scale less favorably for the model complexity of the smoother.
+However, since the required length $n_g$ of a \gls{FIR} filter is typically a lot more (e.g. $200$ in this chapter) than the number of local parameters (or bandwidth) of the \gls{LPM} (e.g. $\numel{W} = 3$), it can be seen that eventually the \gls{RFIR} method will scale less favorably for the model complexity of the smoother.
 Intuitively, the local modeling methods benefit from their locality since that enables them to be flexible without a huge amount of parameters.
 
 \subsection{Implementation Aspects}

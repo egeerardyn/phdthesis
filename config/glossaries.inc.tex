@@ -17,6 +17,8 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 #1}}
 
 
+%TODO: clean up notations
+
 \newglossary[slg]{symbols}{sls}{slo}{\glssymbolsgroupname}
 %\newglossary{symbols}{sym}{sbl}{List of Symbols}
 \newcommand{\newsymbolglos}[3]{\newglossaryentry{#1}{type=symbols,%
@@ -68,6 +70,7 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 \newsymbolglos{operator-bias}{\bias{\placeholder}}{Bias of \placeholder}
 \newsymbolglos{operator-cardinality}{\numberOf \placeholder}{Number of elements (cardinality) in the set \placeholder}
 \newsymbolglos{operator-conj}{\conj \placeholder}{Complex conjugate of \placeholder}
+
 \newsymbolglos{operator-exp}{\E{\placeholder}}{Expected value of \placeholder}
 \newsymbolglos{operator-ln}{\ln}{Natural logarithm}
 \newsymbolglos{operator-log}{\log_{B}}{Logarithm in base $B$ (when $B$ is omitted, $B=10$ is implied)}
