@@ -139,12 +139,12 @@ where $\Omega \isdef \OpenInterval{0,\frac{2\pi}{\Ts}}$ is the measured frequenc
 Direct inspection of the \gls{FRF} data only allows access to $\gammaAtGrid$.
 Two cases can be distinguished:
 \begin{enumerate}
-  \item $\omega_{\star} \in \DFTGrid$ such that $\svdMax{\Delta(\omega_{\star})} = \gamma =\gamma_{\mathrm{FRF}}$ is observed directly on the discrete frequency grid,
+  \item $\omega_{\star} \in \DFTGrid$ such that $\svdMax{\Delta(\omega_{\star})} = \gamma =\gamma_{\FRF}$ is observed directly on the discrete frequency grid,
   \item $\omega_{\star} \not\in \DFTGrid$, i.e. the extremal value $\svdMax{\Delta(\omega_{\star})}  = \gamma = \gammaIntergrid$ is determined by the inter-grid behavior.
 \end{enumerate}
 
-The use of $\gamma_{\mathrm{FRF}}$ is standard in \gls{FRF}-based approaches, e.g.~\citet{vandeWal2002}.
-However, when the measurement time is finite, the expected value of  $\gamma_{\mathrm{FRF}}$  for different realizations of the input signal and noise, may underestimate the actual peak gain $\gamma$, i.e. $\expectedValue{\gammaAtGrid} \leq \gamma$.
+The use of $\gamma_{\FRF}$ is standard in \gls{FRF}-based approaches, e.g.~\citet{vandeWal2002}.
+However, when the measurement time is finite, the expected value of  $\gamma_{\FRF}$  for different realizations of the input signal and noise, may underestimate the actual peak gain $\gamma$, i.e. $\expectedValue{\gammaAtGrid} \leq \gamma$.
 This is due to the limited frequency resolution imposed by the measurement time: the frequency where the actual peak gain occurs might not coincide with the excited frequency grid.
 Such an underestimate of $\gamma$ leads to overly optimistic controller designs which in turn can cause unstable behavior of the plant.
 
@@ -465,7 +465,7 @@ By dividing the resulting auto- and cross-spectra, the \gls{FRF} of $\Delta$ can
 In this chapter a Hann window ($w_{N/\nSegments}(n) = \sin^2 (\frac{\pi n}{N/\nSegments -1})$) and $\nSegments=1$ are used.
 Note that $\nSegments>1$  increases the measurement time by a factor $\nSegments$ to attain the same frequency resolution (but would improve transient and noise rejection).
 
-\figref{fig:lrmhinf:exampleIntergrid} illustrates for $N=97$ that $\gamma_{\mathrm{FRF}}$ for the \gls{SA}, $\lpm{5,4,4}$ and $\lrm{5,2,2,2}$ approaches yield unreliable estimates of $\infnorm{\Delta}$, since the frequency resolution is too coarse.
+\figref{fig:lrmhinf:exampleIntergrid} illustrates for $N=97$ that $\gamma_{\FRF}$ for the \gls{SA}, $\lpm{5,4,4}$ and $\lrm{5,2,2,2}$ approaches yield unreliable estimates of $\infnorm{\Delta}$, since the frequency resolution is too coarse.
 The specific orders of  \gls{LRM}/\gls{LPM} have been chosen to  keep $N_W$ small while not restricting ourselves to local linear models ($\order{B}=1$). 
 Slightly different orders (e.g. $\lrm{4,1,1,1}$) yield comparable results.
 
@@ -474,8 +474,8 @@ Slightly different orders (e.g. $\lrm{4,1,1,1}$) yield comparable results.
   \setlength{\figurewidth}{0.75\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/example-both.tikz}
-  \caption[Example: \glsentryshort{FRF} underestimates $\E{\gamma}$]{Simulation example revealing that $\gamma_{\mathrm{FRF}}$ (left) for both the \glsfirst{SA}~\legref{leg:example-SA} and \gls{LRM}~\legref{leg:example-LRM} underestimate the true $\gamma = \infnorm{\Delta} = 24$~\legref{leg:example-true-Hinf} due to limited frequency resolution.
-  Using the proposed \gls{LRM}-based approach, both the at-grid~($\gamma_{\mathrm{FRF}}$) and intergrid~($\gammaIntergrid$) estimate are improved.
+  \caption[Example: \glsentryshort{FRF} underestimates $\E{\gamma}$]{Simulation example revealing that $\gamma_{\FRF}$ (left) for both the \glsfirst{SA}~\legref{leg:example-SA} and \gls{LRM}~\legref{leg:example-LRM} underestimate the true $\gamma = \infnorm{\Delta} = 24$~\legref{leg:example-true-Hinf} due to limited frequency resolution.
+  Using the proposed \gls{LRM}-based approach, both the at-grid~($\gamma_{\FRF}$) and intergrid~($\gammaIntergrid$) estimate are improved.
   The interpolated \gls{LRM}~\legref{leg:example-LRM-interpol} and true $\Delta$~\legref{leg:example-true} almost coincide.
   Hence, $\widehat{\infnorm{\Delta_{\LRM}}}_{\infty}$~\legref{leg:example-LRM-interpol-Hinf} approaches the theoretical $\gamma=24$.}
   \label{fig:lrmhinf:exampleIntergrid}
@@ -491,7 +491,7 @@ In this section, we determine the minimal experiment length needed for the propo
 
 We simulate the system \eqref{eq:lrmhinf:O2sysDT} for $16\,100$ samples and discard the first $2\tau=100$ samples to randomize the initial conditions.
 To mimic the effect of progressively measuring longer data records, the first remaining $N$ samples are used to estimate $\infnorm{\Delta}$ as in \secref{sec:lrmhinf:LPMHinf}.
-The values of $N \in \ClosedInterval{35,16\,000}$ are chosen such that $\expectedValue{\gamma_{\mathrm{FRF}}(N)}$ is a non-decreasing function of $N$.
+The values of $N \in \ClosedInterval{35,16\,000}$ are chosen such that $\expectedValue{\gamma_{\FRF}(N)}$ is a non-decreasing function of $N$.
 This ensures that grid misalignment between the actual resonance frequency and the observed frequency grid is accounted for such that the worst-case estimate of the resonance is obtained.
 These simulations are then repeated in a Monte Carlo simulation of $n_{\mathrm{MC}}=200$ runs where each run has a different realization of  $u_{\Delta}(n)$ and $v(n)$.
 The resulting sample average and standard deviation $\sigma$ are shown in \figref{fig:lrmhinf:MC-run-length}.
@@ -720,7 +720,7 @@ In the frequency range shown in \figref{fig:lrmhinf:avisMeasZoom}, the relative 
 Near $296\unit{Hz}$, a modest improvement of the peak estimate from $-15.3 \unit{dB}$ (at-grid) to $-14.0 \unit{dB}$ is obtained by the interpolation.
 The estimate near $\omega_{\star} \approx 328\unit{Hz}$ is improved more substantially.
 The proposed method \eqref{eq:lrmhinf:gammaInterpolOptim} yields $\gammaIntergrid=-2.5\unit{dB}$.
-$\gamma_{\mathrm{FRF}}\approx -9.9\unit{dB}$ for the estimation data, which means that a $7.4\unit{dB}$ improvement is achieved by the proposed method.
+$\gamma_{\FRF}\approx -9.9\unit{dB}$ for the estimation data, which means that a $7.4\unit{dB}$ improvement is achieved by the proposed method.
 This peak agrees well with the validation data, where the nearest (at-grid) value has an amplitude of $-3.2\unit{dB}$ (i.e. $8\%$ difference).
 
 This suggests that the local rational models with interpolation enable accurate estimation of  $\abs{\Delta}$ and hence also $\infnorm{\Delta}$ even if the actual peak does not coincide with the discrete frequency grid.
