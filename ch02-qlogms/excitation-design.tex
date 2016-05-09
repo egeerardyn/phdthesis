@@ -8,7 +8,7 @@
 
 \section{Introduction}
 \label{sec:excitation:intro}
-Input design deals with the task of choosing an excitation signal in a way so that the information obtained from the experiment is maximized. 
+Input design deals with the task of choosing an excitation signal in a way so that the information obtained from the experiment is maximized.  
 This is a problem which has a long history in statistics. 
 In system identification, the focus has mostly been on input design for dynamic systems.
 A common approach is to design the input spectrum and thereby maximizing the information matrix of the estimates, see e.g. \citep{Fedorov1972,Goodwin1977}.
@@ -22,7 +22,7 @@ The disadvantage of this approach is that multiple experiments are required to c
 Moreover, since the signal is optimized for a specific system model, it is likely that changes in the dynamics are hard to observe using such a signal.
 
 \item Robust (optimal) input design makes the input design robust to uncertainty in the prior knowledge of the parameter values, see e.g.~\citep{Rojas2007,Goodwin2006GBO,Rojas2012} and references therein. 
-While the signal is more robust towards uncertainty in the prior knowledge, it requires more forethought than (nominal) optimal designs.
+Although the signal is more robust towards uncertainty in the prior knowledge, it requires more forethought than (nominal) optimal designs.
 E.g. the approach followed by~\citet{Rojas2007} relies on both nominal parameter values and  knowledge of the distribution function of these parameters to design a robust (optimal) excitation signal.
 As such, this requires more advanced prior knowledge of the system to cope with the uncertainty of the prior knowledge.
 \end{enumerate}
@@ -32,7 +32,7 @@ As such, this requires more advanced prior knowledge of the system to cope with 
 In this chapter, the goal is to construct excitation signals that bridge the properties of general purpose and robust excitation signals to alleviate the chicken-and-the-egg problem that optimal strategies typically incur.
 In particular, a generic excitation signal will be used, but its properties are tuned in such a way that it attains some properties of robust excitation signals without requiring extensive prior information.
 We will consider input design when it is known that the system has resonances, possibly spanning a frequency band that may cover several decades. 
-It is however not necessary to know how many resonances are in the system and at what precise frequencies those may occur.
+It is, however, not necessary to know how many resonances are in the system and at what precise frequencies those may occur.
 
 Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances \citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy \citep{Niedostatkiewicz2009,VanGheem2004,Breugelmans2010}, electronics \citep{Munir2011}, mechatronics \citep{Steinbuch1998,Oomen2016}, vibration analysis~\citep{Karnopp1995,Voorhoeve2015SYSID} and acoustic testing \citep{GarciaLopez2014,DAmico2014} amongst others. 
 
