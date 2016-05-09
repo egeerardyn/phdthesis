@@ -3,7 +3,7 @@
 \tikzsetfigurename{ch03fig}
 \label{sec:nonparametric}
 \myEpigraph{I love deadlines. I like the whooshing sound they make as they fly by.}{Douglas Adams}{}
-\glsresetall
+\glsresetall{}
 
 \section{Introduction}
 \label{sec:nonparametric:introduction}
@@ -1111,7 +1111,7 @@ In \figref{fig:nparam:PRESS} the hence estimated noise variance $\sampleStd{V}$ 
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{1.24\figurewidth}
   \input{ch03-lrm/figs/tune-NBW3-pressAndNoise.tikz}
-  \caption[Output spectrum for local modeling, together the PRESS statistic]{It is convenient to compare the \glsentryshort{PRESS} (left plots) and the noise variance (right plots). The theoretical noise level is shaded and the transfer function is shown in bold.}
+  \caption[Example: \glsentryshort{PRESS} and noise spectrum]{It is convenient to compare the \glsentryshort{PRESS} (left plots) and the noise variance (right plots) when good \gls{SNR} is available. The theoretical noise level is shaded and the transfer function is shown in bold.}
   \label{fig:nparam:PRESS}
 \end{figure}
 
@@ -1120,10 +1120,10 @@ As a result, the \gls{PRESS} in the same region is also elevated for the \gls{LP
 Outside the resonance peak, the \gls{LPM} and \gls{LRM} estimate very similar noise variances.
 The \gls{PRESS} the different methods are in agreement with the observations regarding the \gls{RMS} error from the Monte Carlo simulations in \figref{fig:nparam:comparison:midSNR}: all tested \gls{LRM} perform similarly (with a slight advantage for the first-order method), the \gls{LPM} produces much larger errors near the resonance.
 Nevertheless, this figure illustrates that for the \gls{LRM}, the error is quite flat over the frequency.
-Note also that the \gls{PRESS} suffers from a quite high variance over the frequency, which is a well-known drawback~\citep{Seber2003,Arlot2010}.
+Note also that the \gls{PRESS} suffers from a quite high variance over the frequency, which is a well-known drawback~\citep{Arlot2010}.
 
 For the low \gls{SNR} case (top plots in  \figref{fig:nparam:PRESS} ), it can be seen that both \gls{LPM} and \gls{LRM} result in a very similar estimate of the noise level.
-The values of the \gls{PRESS} are again quite noisy.
+The values of the \gls{PRESS} are again very noisy.
 \TODO{PRESS is eigenlijk niet bruikbaar bij lage SNR}
 
 
@@ -1135,7 +1135,6 @@ The values of the \gls{PRESS} are again quite noisy.
 In this chapter, the performance of non-parametric \gls{LPM} and \gls{LRM} estimators were compared to observe the \gls{FRF} of resonant systems.
 Since the \gls{LRM} is a biased estimator while the \gls{LPM} is asymptotically unbiased, it is important to compare their behavior.
 Hence, expressions for the bias of the \gls{LRM} were derived.
-%TODO: tom: "inherently biased": verregaande uitspraak in relatie met Levy: is normaal ook biased, maar voor ARX niet. Hoe zit dat hier?
 For good \glspl{SNR} in resonant systems, it was seen that the \gls{LRM} is always superior to the \gls{LPM}.
 For extremely poor \gls{SNR}, i.e. $\SNR \approx 10\unit{dB}$, the \gls{LPM} may perform slightly better than the \gls{LRM} when short measurement records are available.
 In this chapter, the \gls{LRIC} was introduced.

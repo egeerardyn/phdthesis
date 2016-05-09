@@ -261,18 +261,18 @@ The \gls{RFIR} method is a special case of the \gls{RARX} method.
 The \gls{RFIR} estimator is formulated in the time domain. 
 It estimates the impulse response of a discrete time system as the minimizer of the following regularized least squares objective function:
 \begin{align}\label{eq:hRFIRdef}
-\hat g_{\mathrm{RFIR}} &= \argmin_{g} \norm{y - g \conv u }^2 + \sigma^2 g^{\TT}P^{-1}g
+\hat g_{\RFIR} &= \argmin_{g} \norm[2]{y - g \conv u }^2 + \sigma^2 g^{\TT}P^{-1}g
 \end{align}
 where $g$ is the vectorized impulse response $g(t)$, with $t = 0,1,\cdots,n_h - 1$, assuming that the impulse response is $n_g$ samples long. 
 Furthermore, $g\conv u$ is the convolution of $g$ with the input signal $u$, and $P\in \mathbb{R}^{n_g\times n_g}$ is the kernel matrix~\citep{Chen2012}. 
-Note that \eqref{eq:hRFIRdef} is quadratic in $g$, such that $\hat g_{\mathrm{RFIR}}$ can be computed analytically in a single step.
+Note that \eqref{eq:hRFIRdef} is quadratic in $g$, such that $\hat g_{\RFIR}$ can be computed analytically in a single step.
 The kernel matrix $P$ embodies prior knowledge on the system to be estimated. 
 Here, the \gls{DCkernel}~\citep{Chen2012,Pillonetto2010} is used. 
 Specifically, the element at $t_1,t_2$ of $P$ is given by
 \begin{equation}
 P(\alpha,\beta)_{t_1,t_2} = e^{-\alpha|t_1 - t_2|}e^{-\beta(t_1 + t_2)/2}
 \end{equation}
- for $t_1,t_2 \in \left\{0,1,\cdots,n_h - 1\right\}$ which makes the estimated impulse response to be an exponentially decaying function of $t$ with decay rate $\beta^{-1}$, and correlation length $\alpha^{-1}$. 
+ for $t_1,t_2 \in \set{0,1,\cdots,n_h - 1}$ which makes the estimated impulse response to be an exponentially decaying function of $t$ with decay rate $\beta^{-1}$, and correlation length $\alpha^{-1}$. 
  The latter \emph{hyperparameters} $\alpha$, $\beta$ and $\sigma$ are determined using Empirical Bayes~\citep{Carlin2000,Gelman2014}, i.e. as the maximizers of the \gls{LML} of the measured output signal~\citep{Chen2012}:
 \begin{align}
 \mathrm{LML}(y) = -y^{\TT}\Sigma(\alpha,\beta,\sigma)^{-1}y - \log |\Sigma(\alpha,\beta,\sigma)| \text{,}
@@ -284,7 +284,7 @@ An implementation of the \gls{RFIR} estimator is available as the \mcode{arx} fu
 The hyperparameters can be determined via \mcode{arxRegul}.
 More information about the \gls{RFIR} estimator can be found in
 ~\citep{Pillonetto2010,Chen2012}. 
-The \gls{DFT} of the obtained regularized estimate of the impulse response $\hat g_{\mathrm{RFIR}}$ of the system yields a smoothed estimate of the \gls{FRF}.
+The \gls{DFT} of the obtained regularized estimate of the impulse response $\hat g_{\RFIR}$ of the system yields a smoothed estimate of the \gls{FRF}.
 \end{enumerate}
 
 \begin{remark} \label{rem:initvals:orders:RFIR}
@@ -307,9 +307,9 @@ Note that methods 3) and 4) result in a non-parametric estimate of the transfer 
 A corresponding parametric estimate is obtained as follows. 
 A parametric estimator (\gls{GTLS}, \gls{BTLS}, and \gls{MLE}) is invoked, where the input spectrum is considered to be $1$ at all frequencies (Dirac in the time domain), and the output spectrum is set equal to the estimated \gls{FRF} $G_{\bullet}(\omega_k)$, with the transient term $I$ set to zero:
 \begin{equation}
-  U_{\mathrm{FRF}}(\omega_k) \isdef 1 
+  U_{\FRF}(\omega_k) \isdef 1 
   \qquad \text{and} \qquad
-  Y_{\mathrm{FRF}}(\omega_k)  \isdef G_{\bullet}(\omega_k)
+  Y_{\FRF}(\omega_k)  \isdef G_{\bullet}(\omega_k)
   \text{.}
 \end{equation}
 It is important to note that invoking the \gls{GTLS}, \gls{BTLS} and \gls{MLE} on the \glspl{FRF} from methods 3) and 4) will yield a different result from applying the \gls{GTLS}, \gls{BTLS} and \gls{MLE} on the raw data. 
@@ -614,13 +614,13 @@ A straightforward tool to analyze the error associated with $\hat{G}_0$ is to ex
 In~\citep{Ljung1999}, a rule-of-thumb is given that describes the relationship between the SNR of the signals and the quality of the estimated parametric model.
 In this context this heuristic boils down to: 
 \begin{equation}
-    \RMSE(\model{\trueSymbol}) \approx \sqrt{\frac{n_\theta}{N}} \frac{\norm{\true{G}}}{\SNR} 
+    \RMSE(\model{\trueSymbol}) \approx \sqrt{\frac{n_\theta}{N}} \frac{\norm[2]{\true{G}}}{\SNR} 
     \label{eq:heur-RMSE}
 \end{equation}
 where $n_{\theta}=5$ is the number of estimated parameters in this case.
 In \figref{fig:RMSE}, the empirical $\RMSE(\model{\trueSymbol})$ over the different Monte Carlo runs is displayed against this rule-of-thumb.
 It can be seen that these runs align almost perfectly, which shows that this rule-of-thumb can be used to approximate the RMSE of the parametric estimate.
-When the RMSE is then divided by $\norm{\true{G}}$, this graph essentially shows the anticipated relative error on the transfer function and, hence, gives an indication on its usability.
+When the RMSE is then divided by $\norm[2]{\true{G}}$, this graph essentially shows the anticipated relative error on the transfer function and, hence, gives an indication on its usability.
 
 \section{Experimental Results}
 \label{sec:initial-values:ExpMeas}
@@ -656,7 +656,7 @@ As such, the output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\t
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/bode-bk1613.tikz}
   \caption[\BK{} 1613 filter transfer function]{Transfer function of the considered \BK{} 1613 filter.
-  The empirical transfer function estimates $Y^{[r]}(\omega)/U^{[r]}(\omega)$~\legref{leg:bk1613:ETFE} and its average $\tilde{Y}(\omega)/\tilde{U}(\omega)$~\legref{leg:bk1613:meanETFE} obtained from the Elvis measurements are shown together with the estimated reference model $G_{\VXI}$~\legref{leg:bk1613:vxi}.} 
+  The empirical transfer function estimates $Y^{[r]}(\omega)/U^{[r]}(\omega)$~\legref{leg:bk1613:ETFE} and their average $\tilde{Y}(\omega)/\tilde{U}(\omega)$~\legref{leg:bk1613:meanETFE} obtained from the Elvis measurements are shown together with the estimated reference model $G_{\VXI}$~\legref{leg:bk1613:vxi}.} 
   \label{fig:bk1613}
 \end{figure}
 
@@ -833,7 +833,7 @@ E.g. note in \tabref{tbl:validationMeasurements} that this step reduces the wors
   \input{\thisDir/figs/meas-validation.tikz}
   \caption[Validation cost of the different measurements.]{Validation of the measured models. 
   For each method, the distance \eqref{eq:measurementCriterion} between the estimates and $\model{VXI}$ is shown~\legref{leg:validationMeasurements:best:data} together with the median~\legref{leg:validationMeasurements:best:median} and inter-quartile range~\legref{leg:validationMeasurements:best:iqr}.
-  $\norm{G_{\VXI}}$\legref{leg:validationMeasurements:H2Norm} is shown as a reference.
+  $\norm[2]{G_{\VXI}}$\legref{leg:validationMeasurements:H2Norm} is shown as a reference.
   The bottom plot shows a linear zoom of the top plot.
   The proposed methods yield models that are closer to $\model{VXI}$ than the existing $\model{exist}$.
   The results are in line with the values of the cost function in \figref{fig:costMeasurements}.}

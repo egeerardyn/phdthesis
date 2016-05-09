@@ -30,9 +30,9 @@ x tick label as interval,
 xtick={0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5},
 xticklabels={{$\model{VXI}$},
              {$\model{exist}$},
-             {$\model{trunc}^{\mathrm{init}}$},
+             {$\model[init]{trunc}$},
              {$\model{trunc}$},
-             {$\model{RFIR}^{\mathrm{init}}$},
+             {$\model[init]{RFIR}$},
              {$\model{RFIR}$},
              {$\model{best}$}},
 xticklabels={},
@@ -47,69 +47,42 @@ ylabel={$\norm[2]{\model{\bullet} - G_{\mathrm{VXI}} }$},
 axis x line*=bottom,
 axis y line*=left
 ]
-\addplot[dashed, black, forget plot] table[row sep=crcr]{%
+\addplot [dashed, black, forget plot] table[row sep=crcr]{%
 0   81.555\\
 10  81.555\\
 };
 \label{leg:validationMeasurements:H2Norm}
 
-\addplot[area legend,solid,fill=G0HatFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-1.tsv};
+\addplot [boxplotBox,fill=G0HatFill,forget plot] table {\thisDir/data/meas-validation/meas-validation-1.tsv};
+\addplot [boxplotQuantiles,color=G0Hat,forget plot] table{\thisDir/data/meas-validation/meas-validation-2.tsv};
+\addplot [individualSamples,G0Hat,G0Hatmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-3.tsv};
 
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-2.tsv};
-\addplot [G0Hat,G0Hatmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-3.tsv};
+\addplot [boxplotBox,fill=existingFill,forget plot] table {\thisDir/data/meas-validation/meas-validation-4.tsv};
+\addplot [boxplotQuantiles,color=existing,forget plot] table{\thisDir/data/meas-validation/meas-validation-5.tsv};
+\addplot [individualSamples,existing,existingmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-6.tsv};
 
-\addplot[area legend,solid,fill=existingFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-4.tsv};
+\addplot [boxplotBoxInit,fill=LPMTruncInit,forget plot] table {\thisDir/data/meas-validation/meas-validation-7.tsv};
+\addplot [boxplotQuantiles,LPMTruncInit,forget plot] table{\thisDir/data/meas-validation/meas-validation-8.tsv};
+\addplot [individualSamples,LPMTruncInit,LPMTruncInitmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-9.tsv};
 
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-5.tsv};
-\addplot [existing,existingmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-6.tsv};
+\addplot [boxplotBox,fill=LPMTruncFill,forget plot] table {\thisDir/data/meas-validation/meas-validation-10.tsv};
+\addplot [boxplotQuantiles,color=LPMTrunc,forget plot] table{\thisDir/data/meas-validation/meas-validation-11.tsv};
+\addplot [individualSamples,LPMTrunc,LPMTruncmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-12.tsv};
 
-\addplot[area legend,opacity=0.15,fill=LPMTruncInit,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-7.tsv};
+\addplot [boxplotBoxInit,fill=RFIRInit,forget plot] table {\thisDir/data/meas-validation/meas-validation-13.tsv};
+\addplot [boxplotQuantiles,RFIRInit,forget plot] table{\thisDir/data/meas-validation/meas-validation-14.tsv};
+\addplot [individualSamples,RFIRInit,RFIRInitmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-15.tsv};
 
-\addplot [LPMTruncInit,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-8.tsv};
-\addplot [LPMTruncInitmark,color=LPMTruncInit,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-9.tsv};
+\addplot [boxplotBox,fill=RFIRFill,forget plot] table {\thisDir/data/meas-validation/meas-validation-16.tsv};
+\addplot [boxplotQuantiles,color=RFIR,forget plot] table{\thisDir/data/meas-validation/meas-validation-17.tsv};
+\addplot [individualSamples,RFIR,RFIRmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-18.tsv};
 
-\addplot[area legend,solid,fill=LPMTruncFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-10.tsv};
-
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-11.tsv};
-\addplot [LPMTrunc,LPMTruncmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-12.tsv};
-
-\addplot[area legend,opacity=0.15,fill=RFIRInit,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-13.tsv};
-
-\addplot [RFIRInit,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-14.tsv};
-\addplot [RFIRInit,RFIRInitmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-15.tsv};
-
-\addplot[area legend,solid,fill=RFIRFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-16.tsv};
-
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-17.tsv};
-\addplot [RFIR,RFIRmark,tinymarkers,only marks,opacity=0.7,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-18.tsv};
-
-\addplot[area legend,solid,fill=bestFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-19.tsv};
+\addplot [boxplotBox,fill=bestFill,forget plot] table {\thisDir/data/meas-validation/meas-validation-19.tsv};
 \label{leg:validationMeasurements:best:iqr}
 
-\addplot [color=best,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-20.tsv};
+\addplot [boxplotQuantiles,color=best,forget plot] table{\thisDir/data/meas-validation/meas-validation-20.tsv};
 \label{leg:validationMeasurements:best:median}
-\addplot [best,bestmark,tinymarkers,only marks,opacity=0.7,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-21.tsv};
+\addplot [individualSamples,best,bestmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-21.tsv};
 \label{leg:validationMeasurements:best:data}
 \end{axis}
 
@@ -137,65 +110,37 @@ yminorticks=true,
 grid=major,
 %extra y ticks={30},
 %extra y tick labels={},
-ylabel={$\norm[2]{\model{\bullet} - G_{\mathrm{VXI}} }$},
+ylabel={$\norm[2]{\model{\bullet} - G_{\VXI} }$},
 axis x line*=bottom,
 axis y line*=left
 ]
 
-\addplot[area legend,solid,fill=G0HatFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-1.tsv};
+\addplot [boxplotBox,fill=G0HatFill,forget plot] table {\thisDir/data/meas-validation/meas-validation-1.tsv};
+\addplot [boxplotQuantiles,color=G0Hat,forget plot] table{\thisDir/data/meas-validation/meas-validation-2.tsv};
+\addplot [individualSamples,G0Hat,G0Hatmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-3.tsv};
 
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-2.tsv};
-\addplot [G0Hat,G0Hatmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-3.tsv};
+\addplot [boxplotBox,fill=existingFill,forget plot] table {\thisDir/data/meas-validation/meas-validation-4.tsv};
+\addplot [boxplotQuantiles,color=existing,forget plot] table{\thisDir/data/meas-validation/meas-validation-5.tsv};
+\addplot [individualSamples,existing,existingmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-6.tsv};
 
-\addplot[area legend,solid,fill=existingFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-4.tsv};
+\addplot [boxplotBoxInit,fill=LPMTruncInit,forget plot] table {\thisDir/data/meas-validation/meas-validation-7.tsv};
+\addplot [boxplotQuantiles,LPMTruncInit,forget plot] table{\thisDir/data/meas-validation/meas-validation-8.tsv};
+\addplot [individualSamples,LPMTruncInit,LPMTruncInitmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-9.tsv};
 
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-5.tsv};
-\addplot [existing,existingmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-6.tsv};
+\addplot [boxplotBox,fill=LPMTruncFill,forget plot] table {\thisDir/data/meas-validation/meas-validation-10.tsv};
+\addplot [boxplotQuantiles,color=LPMTrunc,forget plot] table{\thisDir/data/meas-validation/meas-validation-11.tsv};
+\addplot [individualSamples,LPMTrunc,LPMTruncmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-12.tsv};
 
-\addplot[area legend,opacity=0.15,fill=LPMTruncInit,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-7.tsv};
+\addplot [boxplotBoxInit,fill=RFIRInit,forget plot] table {\thisDir/data/meas-validation/meas-validation-13.tsv};
+\addplot [boxplotQuantiles,RFIRInit,forget plot] table{\thisDir/data/meas-validation/meas-validation-14.tsv};
+\addplot [individualSamples,RFIRInit,RFIRInitmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-15.tsv};
 
-\addplot [LPMTruncInit,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-8.tsv};
-\addplot [LPMTruncInitmark,color=LPMTruncInit,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-9.tsv};
+\addplot [boxplotBox,fill=RFIRFill,forget plot] table {\thisDir/data/meas-validation/meas-validation-16.tsv};
+\addplot [boxplotQuantiles,color=RFIR,forget plot] table{\thisDir/data/meas-validation/meas-validation-17.tsv};
+\addplot [individualSamples,RFIR,RFIRmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-18.tsv};
 
-\addplot[area legend,solid,fill=LPMTruncFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-10.tsv};
-
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-11.tsv};
-\addplot [LPMTrunc,LPMTruncmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-12.tsv};
-
-\addplot[area legend,opacity=0.15,fill=RFIRInit,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-13.tsv};
-
-\addplot [RFIRInit,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-14.tsv};
-\addplot [RFIRInit,RFIRInitmark,tinymarkers,opacity=0.7,only marks,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-15.tsv};
-
-\addplot[area legend,solid,fill=RFIRFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-16.tsv};
-
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-17.tsv};
-\addplot [RFIR,RFIRmark,tinymarkers,only marks,opacity=0.7,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-18.tsv};
-
-\addplot[area legend,solid,fill=bestFill,opacity=0.7,draw=none,forget plot]
-table {\thisDir/data/meas-validation/meas-validation-19.tsv};
-
-\addplot [color=best,solid,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-20.tsv};
-\addplot [best,bestmark,tinymarkers,only marks,opacity=0.7,forget plot]
-  table{\thisDir/data/meas-validation/meas-validation-21.tsv};
+\addplot [boxplotBox,fill=bestFill,forget plot] table {\thisDir/data/meas-validation/meas-validation-19.tsv};
+\addplot [boxplotQuantiles,color=best,forget plot] table{\thisDir/data/meas-validation/meas-validation-20.tsv};
+\addplot [individualSamples,best,bestmark,forget plot] table{\thisDir/data/meas-validation/meas-validation-21.tsv};
 \end{axis}
 \end{tikzpicture}%
