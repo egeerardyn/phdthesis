@@ -8,30 +8,33 @@
 Models play an important role in today's world, even though we often are not always aware of them.
 In particular, models enable us to predict the future (within a certain bound of uncertainty):
 \begin{itemize}
-  \item supermarkets try to predict how many produce their patrons will buy such that they can order a large enough supply,
+  \item supermarkets try to predict how much fruit and vegetables their regular customers buy such that they can order a large enough supply,
   \item traders on the stock market aim to predict whether companies such as Tesla or Apple will continue to prosper over the next quarter such that they can decide if it's time to buy more stock or rather sell,
   \item weather forecasters hope to predict what weather it might become tomorrow,
   \item how much electricity will the whole country use next week (do we need to start up a new power plant or not),
+  \item how much noise the bodywork of a car will produce when it is driving over a bumpy road,
+  \item what the exhaust of nitrogen oxides of a car will be for a certain operating point of a diesel engine, 
+  \item are the vibrations in a robot are small enough for it to perform very precise tasks such as positioning electronic components with sub-millimeter precision,
 \end{itemize}
 and so on.
 
 Models help us to keep an oversight of complicated matters.
 Once we understand the behavior of a few systems, this offers great opportunities to understand how those systems work together or even how we can control the world around us.
-For engineers, models enable us to design larger and more complicated things than ever before.
+For engineers, models enable us to design larger and more complicated devices and constructions than ever before.
 E.g. consider a \gls{CPU} in a computer: with a few billion transistors, it is no longer possible for a sole human being to understand what every single transistor does in the grand scheme.
 Instead, models of larger parts of the circuit allow us to retain insight (`this part of the \gls{CPU} caches some variables', `these transistors multiply two numbers', and so on).
 
 \subsection{How to Obtain a Model?}
 
-To successfully model a system, one has to delimit what part of the world one actually wants to model, i.e. the \term{system}.
-Since a system is mostly useful if it interacts with the world around it, one often also has to define \term{inputs} through which one can influence the system, and \term{outputs} which are influenced by the system.
+To successfully model a system, one has to delimit what part of the world should be captured in the model, i.e. the \term{system}.
+Since a system is mostly useful if it interacts with the world around it, one often also has to define \term{inputs} that influence the system, and \term{outputs} which are influenced by the system.
 
+Modeling can be divided into two diametrical groups depending on the starting point that is assumed.
 
-Modeling can be divided into two diametrical groups depending on what one uses as a starting point.
 \paragraph{White box}
-One the one hand, there is so-called \term{`white box'} modeling, or first-principles modeling.
+On the one hand, there is so-called \term{`white box'} modeling, or first-principles modeling.
 The model is constructed by writing down the equations that govern the system, e.g. Newton's laws of motion for mechanical systems, Kirchoff's laws for electrical circuits, \latin{etc.}
-This is the typical kind of modeling practiced in school.
+This is the kind of modeling that is practiced in school, which explains why it is also popular in industry.
 Unfortunately, white box modeling quickly becomes unwieldy once more complicated systems are to be studied or many parts of the system are uncertain.
 In general, lot of man-hours are required to build a white box model, such that this is often prohibitively expensive for engineering applications.
 
@@ -46,7 +49,7 @@ Fortunately, the goal of a model is often not to interpret the physical reality 
 \paragraph{Gray box}
 Obviously, in practice nothing is ever as black and white, and neither is modeling.
 In many cases, one can or even has to incorporate knowledge about the physics of the system in the modeling process.
-In particular when one has black box models where some parameters are related to physical phenomena, the resulting model is called \term{`gray box'}.
+In particular black box models where some parameters are related to physical phenomena, the resulting model is called a \term{`gray box'} model.
 
 
 \section{Elements of System Identification}
@@ -90,11 +93,10 @@ However, since most parametric estimators enforce very little prior knowledge ab
 
 \paragraph{Estimate the model parameters}
 Once the model structure has been chosen, its parameters are to be estimated.
-This is done by formulating an optimization problem which serves to minimize a particular cost function.
+This is often done by formulating an optimization problem which serves to minimize a particular cost function.
 The cost function is in essence a measure of the differences between the measured data and the model evaluated for particular parameter values.
-By minimizing the cost function, the optimization procedure yields parameter values that try to minimize the misfit between the data and the model.
+By minimizing the cost function, the optimization procedure yields parameter values that minimize the misfit between the data and the model.
 Unfortunately, for many identification settings, these optimization problems are non-convex~\citep{Boyd2004}.
-Practically, this means that 
 This means that initial values need to be available to start the optimization process.
 Moreover, for poor starting values, optimization algorithms may get stuck in local minima of the cost function.
 Consequently, without reasonable starting values, the `optimized' model may also be of poor quality. 
@@ -147,8 +149,8 @@ Each of these aspects will be dealt with in its own chapter.
 
 \begin{question}[How should a good experiment be designed?]
 Can we design a `good experiment' to identify a \gls{LTI} model?
-Particularly, this means a robust input signal needs to be constructed without relying on extensive prior knowledge of the system.
-Such a signal should cover a wide frequency band to excite all dynamics of the system during the experiment.
+Particularly, this means that a robust input signal needs to be constructed without relying on extensive prior knowledge of the system.
+Such a signal should cover a wide frequency band to excite all dynamics of interest in the system during the experiment.
 However, the signal should ensure that systems in different frequency bands can be identified with a specified level of accuracy.
 \end{question}
 
