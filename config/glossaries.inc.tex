@@ -16,9 +16,6 @@ plural={#3\glspluralsuffix},
 firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 #1}}
 
-
-%TODO: clean up notations
-
 \newglossary[slg]{symbols}{sls}{slo}{\glssymbolsgroupname}
 %\newglossary{symbols}{sym}{sbl}{List of Symbols}
 \newcommand{\newsymbolglos}[3]{\newglossaryentry{#1}{type=symbols,%
@@ -29,19 +26,24 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 %% SYMBOLS
 % \newsymbolglos{0-placeholder}{\placeholder}{Placeholder symbol}
 
-\newsymbolglos{A-SetN}{\NaturalNumbers}{Set of the natural numbers}
-\newsymbolglos{A-SetZ}{\IntegerNumbers}{Set of integer numbers}
-\newsymbolglos{A-SetQ}{\RationalNumbers}{Set of the rational numbers}
-\newsymbolglos{A-SetR}{\RealNumbers}{Set of the real numbers}
-\newsymbolglos{A-SetC}{\ComplexNumbers}{Set of the complex numbers}
-\newsymbolglos{A-SetNnozero}{\NaturalNumbersWithoutZero}{Set of the natural numbers without the number $0$}
-\newsymbolglos{A-SetRnozero}{\RealNumbersWithoutZero}{Set of the positive real numbers without the number $0$, i.e. $\RealNumbers \without \set{0}$}
-\newsymbolglos{A-SetRpos}{\PositiveRealNumbers}{Set of the positive real numbers}
-\newsymbolglos{A-SetRneg}{\NegativeRealNumbers}{Set of negative real numbers}
+\newsymbolglos{A1-SetN}{\NaturalNumbers}{Set of the natural numbers}
+\newsymbolglos{A2-SetZ}{\IntegerNumbers}{Set of integer numbers}
+\newsymbolglos{A3-SetQ}{\RationalNumbers}{Set of the rational numbers}
+\newsymbolglos{A4-SetR}{\RealNumbers}{Set of the real numbers}
+\newsymbolglos{A5-SetC}{\ComplexNumbers}{Set of the complex numbers}
+\newsymbolglos{A6-SetNnozero}{\NaturalNumbersWithoutZero}{Set of the natural numbers without the number $0$}
+\newsymbolglos{A7-SetRnozero}{\RealNumbersWithoutZero}{Set of the positive real numbers without the number $0$, i.e. $\RealNumbers \without \set{0}$}
+\newsymbolglos{A8-SetRpos}{\PositiveRealNumbers}{Set of the positive real numbers}
+\newsymbolglos{A9-SetRneg}{\NegativeRealNumbers}{Set of negative real numbers}
 
 \newsymbolglos{B-imagunit}{j}{The imaginary unit, $j = \sqrt{-1}$}
 \newsymbolglos{B-w}{\omega}{Frequency ($\unit{Hz}$) or angular frequency ($\unit{rad/s}$)}
 % \newsymbolglos{B-epsilon}{\eps}{The numerical precision of a floating point number (\code{eps}), e.g. $\eps \approx 2.2 \cdot 10^{-16}$ for \code{double} precision}
+\newsymbolglos{B-sys-damping}{\damping}{Relative damping of a pole or system}
+\newsymbolglos{B-sys-resonance}{\wn}{Natural (resonance) frequency of a pole or system}
+\newsymbolglos{B-sys-timeconst}{\timeconst}{Time constant of a pole or system ($\timeconst \isdef (\damping \wn)^{-1}$)}
+\newsymbolglos{B-sys-shiftoperator}{q}{Forward shift operator ($qu(t) = u(t+1)$)}
+\newsymbolglos{B-sys-laplaceoperator}{s}{Laplace variable}
 
 \newsymbolglos{count-mc}{n_{\mathrm{MC}}}{Number of Monte Carlo runs}
 \newsymbolglos{count-theta}{n_{\theta}}{Number of parameters}
@@ -56,54 +58,47 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 \newsymbolglos{E-ll}{\ll}{is much smaller than \ldots}
 \newsymbolglos{E-gg}{\gg}{is much greater than \ldots}
 
-\newsymbolglos{lcm}{\lcm}{Least common multiple}
+\newsymbolglos{F-lcm}{\lcm}{Least common multiple}
+\newsymbolglos{F-ln}{\ln}{Natural logarithm}
+\newsymbolglos{F-log}{\log_{B}}{Logarithm in base $B$ (when $B$ is omitted, $B=10$ is implied)}
 
-\newsymbolglos{matrix-eye-square}{\Identity{n}}{$n \times n$ identity matrix}
-\newsymbolglos{matrix-eye}{\Identity{n \times m}}{$n \times m$ identity matrix}
-\newsymbolglos{matrix-zero}{\Zero{n\times m}}{ $n \times m$ matrix containing only zeros}
+\newsymbolglos{G-statOperator-bias}{\bias{\placeholder}}{Bias of \placeholder}
+\newsymbolglos{G-statOperator-var}{\var{\placeholder}}{Variance of \placeholder}
+\newsymbolglos{G-statOperator-exp}{\E{\placeholder}}{Expected value of \placeholder}
 
-\newsymbolglos{norm-hinf}{\norm[\infty]{\placeholder}}{\Hinf norm of the system $\placeholder$}
-\newsymbolglos{norm-two}{\norm[2]{\placeholder}}{$\Hardy_{2}$ norm of the system $\placeholder$}
-\newsymbolglos{norm}{\norm[p]{\placeholder}}{$p$-norm of a signal or system $\placeholder$}
+\newsymbolglos{M-matrix-eye-square}{\Identity{n}}{$n \times n$ identity matrix}
+\newsymbolglos{M-matrix-eye}{\Identity{n \times m}}{$n \times m$ identity matrix}
+\newsymbolglos{M-matrix-zero}{\Zero{n\times m}}{ $n \times m$ matrix containing only zeros}
 
+\newsymbolglos{O-matrix-operator-conj}{\conj \placeholder}{Complex conjugate of \placeholder}
+\newsymbolglos{O-matrix-operator-ht}{\placeholder^{\HT}}{Hermitian (complex conjugated) transpose of the matrix \placeholder}
+\newsymbolglos{O-matrix-operator-pinv}{\pinv{\placeholder}}{Moore-Penrose pseudo-inverse of the matrix \placeholder}
+\newsymbolglos{O-matrix-operator-tran}{\placeholder^{\TT}}{Transpose of the matrix \placeholder}
+\newsymbolglos{O-operator-cardinality}{\numberOf \placeholder}{Number of elements (cardinality) in the set \placeholder}
+\newsymbolglos{O-operator-round-ceil}{\ceil{\placeholder}}{\placeholder{} rounded upwards (\code{ceil})}
+\newsymbolglos{O-operator-round-floor}{\floor{\placeholder}}{\placeholder{} rounded downwards (\code{floor})}
+\newsymbolglos{O-operator-round-round}{\round{\placeholder}}{\placeholder{} rounded towards the nearest integer, as in \glsentrytext{IEEE} 754-2008 (\code{round})}
+\newsymbolglos{O-operator-bigO}{\bigO{\placeholder}}{Bachmann-Landau ``big oh'' notation for the order of a function}
 
-\newsymbolglos{operator-bias}{\bias{\placeholder}}{Bias of \placeholder}
-\newsymbolglos{operator-cardinality}{\numberOf \placeholder}{Number of elements (cardinality) in the set \placeholder}
-\newsymbolglos{operator-conj}{\conj \placeholder}{Complex conjugate of \placeholder}
+\newsymbolglos{P-product-kron}{\kron}{Kronecker product of matrices (\code{kron})}
+\newsymbolglos{P-product-conv}{\conv}{Convolution}
+\newsymbolglos{P-product-hadamard}{\hadamard}{Hadamard (element-wise) product of matrices (\code{.*})}
 
-\newsymbolglos{operator-exp}{\E{\placeholder}}{Expected value of \placeholder}
-\newsymbolglos{operator-ln}{\ln}{Natural logarithm}
-\newsymbolglos{operator-log}{\log_{B}}{Logarithm in base $B$ (when $B$ is omitted, $B=10$ is implied)}
-\newsymbolglos{operator-matrix-conv}{\conv}{Convolution}
-\newsymbolglos{operator-matrix-hadamard}{\hadamard}{Hadamard (element-wise) product of matrices (\code{.*})}
-\newsymbolglos{operator-matrix-ht}{\placeholder^{\HT}}{Hermitian (complex conjugated) transpose of the matrix \placeholder}
-\newsymbolglos{operator-matrix-kron}{\kron}{Kronecker product of matrices (\code{kron})}
-\newsymbolglos{operator-matrix-pinv}{\pinv{\placeholder}}{Moore-Penrose pseudo-inverse of the matrix \placeholder}
-\newsymbolglos{operator-matrix-tran}{\placeholder^{\TT}}{Transpose of the matrix \placeholder}
-\newsymbolglos{operator-round-ceil}{\ceil{\placeholder}}{\placeholder{} rounded upwards (\code{ceil})}
-\newsymbolglos{operator-round-floor}{\floor{\placeholder}}{\placeholder{} rounded downwards (\code{floor})}
-\newsymbolglos{operator-round-round}{\round{\placeholder}}{\placeholder{} rounded towards the nearest integer, as in \glsentrytext{IEEE} 754-2008 (\code{round})}
-\newsymbolglos{operator-var}{\var{\placeholder}}{Variance of \placeholder}
-
-\newsymbolglos{sys-damping}{\damping}{Relative damping of a pole or system}
-\newsymbolglos{sys-resonance}{\wn}{Natural (resonance) frequency of a pole or system}
-\newsymbolglos{sys-timeconst}{\timeconst}{Time constant of a pole or system ($\timeconst \isdef (\damping \wn)^{-1}$)}
+\newsymbolglos{N-norm}{\norm[p]{\placeholder}}{$p$-norm of a signal or system $\placeholder$}
+\newsymbolglos{N-norm-hinf}{\norm[\infty]{\placeholder}}{\Hinf norm of the system $\placeholder$}
+\newsymbolglos{N-norm-two}{\norm[2]{\placeholder}}{$\Hardy_{2}$ norm of the system $\placeholder$}
 
 
 %% ACRONYMS
-\setulcolor{gray}
-%\newcommand{\abbrev}[1]{\ul{#1}}
-\newcommand{\abbrev}[1]{#1}
-
 \newacronym{ADC}{ADC}{analog-to-digital converter}
 \newacronym{AICc}{AICc}{Akaike's information criterion corrected for small sample sizes}
 \newacronym{AIC}{AIC}{Akaike's information criterion}
 \newacronym{AVIS}{AVIS}{active vibration isolation system}
 
-\newacronym{BLA}{BLA}{\abbrev{b}est \abbrev{l}inear \abbrev{a}pproximation}
+\newacronym{BLA}{BLA}{best linear approximation}
 \newacronym{BK}{B\&K}{\bruelkjaer}
 \newacronym{BNC}{BNC}{Bayonet Neill-Concelman (connector)}
-\newacronym{BTLS}{BTLS}{\abbrev{b}ootstrapped \abbrev{t}otal \abbrev{l}east \abbrev{s}quares}
+\newacronym{BTLS}{BTLS}{bootstrapped total least squares}
 
 \newacronym{CDF}{CDF}{cumulative density function}
 \newacronym{CPU}{CPU}{central processing unit}
@@ -112,7 +107,7 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 
 \newacronym{DAC}{DAC}{digital-to-analog converter}
 \newacronym{DAQ}{DAQ}{data acquisition}
-\newacronym{DC}{DC}{direct current (also: mean value)}
+\newacronym{DC}{DC}{static}
 \newacronym{DCkernel}{DC kernel}{diagonal correlated kernel}
 \newacronym{DFT}{DFT}{discrete Fourier transform}
 \newacronym{DSA}{DSA}{dynamic signal analyzer}
@@ -166,11 +161,11 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 \newacronym{PSD}{PSD}{power spectral density}
 
 \newacronym{RAM}{RAM}{random-access memory}
-\newacronym{RARX}{RARX}{\abbrev{r}egularized \abbrev{a}uto-\abbrev{r}egressive e\abbrev{x}ogenous}
+\newacronym{RARX}{RARX}{regularized auto-regressive exogenous}
 \newacronym{RCF}{RCF}{right co-prime factorization}
-\newacronym{RFIR}{RFIR}{\abbrev{r}egularized \abbrev{f}inite \abbrev{i}mpulse \abbrev{r}esponse}
-\newacronym{RMS}{RMS}{\abbrev{r}oot-\abbrev{m}ean-\abbrev{s}quare}
-\newacronym{RMSE}{RMSE}{\abbrev{r}oot \abbrev{m}ean \abbrev{s}quared \abbrev{e}rror}
+\newacronym{RFIR}{RFIR}{regularized finite impulse response}
+\newacronym{RMS}{RMS}{root-mean-square}
+\newacronym{RMSE}{RMSE}{root mean squared error}
 
 \newacronym{SA}{SA}{spectral analysis}
 \newacronym{SIMO}{SIMO}{single-input multiple-output}
@@ -184,6 +179,6 @@ firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
 
 \newacronym{VME}{VME}{Versa Module Eurocard (\glsentrytext{IEEE} 1014)}
 \newacronym{VUB}{VUB}{Vrije Universiteit Brussel}
-\newacronym{VXI}{VXI}{\abbrev{V}ME e\abbrev{x}tensions for \abbrev{i}nstrumentation}
+\newacronym{VXI}{VXI}{VME extensions for instrumentation}
 
 \makeglossaries

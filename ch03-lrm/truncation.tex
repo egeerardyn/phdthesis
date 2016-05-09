@@ -13,9 +13,9 @@ Based on \citet{Schoukens2009LPM}, the nonparametric method developed in this wo
 A \gls{SISO} \gls{LTI} system is considered.
 The input signal is a known random noise signal and the output signal is corrupted by measurement noise. This is depicted in \figref{fig:nparam:blockH0} as a linear dynamic discrete-time \gls{SISO} system, whose full mathematical model is of the form:
 \begin{equation}\label{eq:nparam:trunc:LPM:TD}
-y(t)=G_0(q)u_0(t)+H_0(q)e(t)=G_0(q)u_0(t)+v(t)
+y(t)=\true{G}(q)u_0(t)+\true{H}(q)e(t)=\true{G}(q)u_0(t)+v(t)
 \end{equation}
-where $G_0(q)$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= H_0(q)e(t)$ is the noise source at the output, $H_0(q)$ is the noise dynamics, $e(t)$ is white noise, and $q^{-m}$ is the backwards shift operator ($q^{-m}x(t)$ = $x(t-m)$  with $m$ a positive integer).
+where $\true{G}(q)$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= \true{H}(q)e(t)$ is the noise source at the output, $\true{H}(q)$ is the noise dynamics, $e(t)$ is white noise, and $q^{-m}$ is the backwards shift operator ($q^{-m}x(t)$ = $x(t-m)$  with $m$ a positive integer).
 
 Numerous parametric identification techniques are devoted to the development of parametric plant $G(q,\theta)$ and noise models  $H(q,\theta)$, where  $\theta$ is the model parameters vector~\citep{Ljung1999,Soderstrom1989}. 
 In this section, however, a nonparametric technique is developed, and formulated in the frequency domain, consistent with \citep{Pintelon2012,Mahata2006}. 
@@ -48,7 +48,7 @@ Discussion of the simulation results is then followed by a conclusion in \secref
 
 % \begin{assumption}
 % The measured output signal is $y(t) = y_0(t) + v(t)$ with the exact input signal $u_0(t)$ known. 
-% The filtered white noise $v(t) = H_0(q)e(t)$ is the disturbing noise source at the output.
+% The filtered white noise $v(t) = \true{H}(q)e(t)$ is the disturbing noise source at the output.
 % \end{assumption}
 
 
@@ -69,9 +69,9 @@ Discussion of the simulation results is then followed by a conclusion in \secref
 
 % The \gls{DFT} spectra at the output of the \gls{SISO} system in \figref{fig:nparam:blockH0} are derived from equations \eqref{eq:nparam:trunc:LPM:TD} and \eqref{eq:nparam:trunc:LPM:leakage}, \latin{viz}:
 % \begin{equation}\label{lpm1spectra}
-% Y(k)=G_0(\omega_k)U_0(k)+T(\omega_k)+V_0(k)
+% Y(k)=\true{G}(\omega_k)U_0(k)+T(\omega_k)+V_0(k)
 % \end{equation}
-% where $V_0(k) = H_0(\omega_k)E(k)$ is a noise term, and $T(\omega_k)$ is the leakage term. The latter is the sum of the system and the noise leakage terms, i.e. $T(\omega_k) = T_G(\omega_k) + T_H(\omega_k)$.
+% where $V_0(k) = \true{H}(\omega_k)E(k)$ is a noise term, and $T(\omega_k)$ is the leakage term. The latter is the sum of the system and the noise leakage terms, i.e. $T(\omega_k) = T_G(\omega_k) + T_H(\omega_k)$.
 
 In this section, the $\lpm{3,2,2}$ is used.
 However, since the techniques discussed in this section are not specifically geared towards the \gls{LPM}, one can just as well use the concepts with other non-parametric \gls{FRF} estimators such as the \gls{LRM}.

@@ -79,7 +79,7 @@
 \DeclareMathOperator{\ExpectedValue}{\mathrm{E}}
 \DeclareMathOperator{\Variance}{\mathrm{Var}}
 \DeclareMathOperator{\Covariance}{\mathrm{Cov}}
-\DeclareMathOperator{\BiasValue}{\mathrm{bias}}
+\DeclareMathOperator{\BiasValue}{\mathrm{Bias}}
 
 \newcommand{\Prob}[1]{\ensuremath{\mathrm{P}}\!\left( #1 \right)}
 \newcommand{\E}[2][]{\ExpectedValue_{#1} \left[ #2 \right]}
@@ -88,8 +88,8 @@
 \newcommand{\Cov}[3][]{\Covariance_{#1} \left[ #2 , #3 \right]}
 
 \newcommand{\expectedValue}[2][]{\ensuremath{\E[#1]{#2}}}
-\newcommand{\bias}[1]{\ensuremath{\Bias \left( #1 \right)}}
-\newcommand{\mse}[1]{\ensuremath{\MSE \left( #1 \right)}}
+\newcommand{\bias}[1]{\ensuremath{\Bias \left[ #1 \right]}}
+\newcommand{\mse}[1]{\ensuremath{\MSE \left[ #1 \right]}}
 \newcommand{\rms}[1]{\ensuremath{\RootMeanSquare \left( #1 \right)}}
 
 \newcommand{\statisticalHypothesis}[1]{\ensuremath{\mathrm{H}_{\mathrm{#1}}}}
@@ -114,7 +114,7 @@
 \newcommand{\nWind}{\ensuremath{\numel{\Window}}}
 \newcommand{\nBW}{\ensuremath{\numel{\BW}}}
 \newcommand{\nth}[1][]{\ensuremath{\numel{\theta}}}
-\newcommand{\nMC}{\ensuremath{\numel{\mathrm{MC}}}}
+\newcommand{\nMC}{\ensuremath{\numel{\MC}}}
 \newcommand{\nSegments}{\ensuremath{\numel{\mathrm{S}}}}
 \newcommand{\Nbc}{\ensuremath{\order{\mathrm{bc}}}}
 
@@ -266,7 +266,6 @@
 \newcommand{\Hardy}{\ensuremath{\mathcal{H}}}
 \newcommand{\Hinf}{\ensuremath{\Hardy_{\infty}}}
 
-\newcommand{\MC}{\ensuremath{\mathrm{MC}}}
 
 % http://tex.stackexchange.com/questions/183955/sum-within-a-fraction
 \newcommand{\Sum}{\sum\limits}
@@ -291,6 +290,7 @@
 \newcommand{\LPM}{\ensuremath{\mathrm{LPM}}}
 \newcommand{\LRIC}{\ensuremath{\mathrm{LRIC}}}
 \newcommand{\LRM}{\ensuremath{\mathrm{LRM}}}
+\newcommand{\MC}{\ensuremath{\mathrm{MC}}}
 \newcommand{\PRESS}{\ensuremath{\mathrm{PRESS}}}
 \newcommand{\RFIR}{\ensuremath{\mathrm{RFIR}}}
 \newcommand{\RMSE}{\ensuremath{\mathrm{RMSE}}}
