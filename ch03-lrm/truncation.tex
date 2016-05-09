@@ -1,6 +1,5 @@
 \label{sec:nonparametric:truncation}
 \researchBasedOn[This section]{Lumori2014TIM}
-%FIXME: {labels into standardized form}
 
 The main contribution of this section is to come up with an improved \gls{FRF} by developing a method for smoothing the \gls{FRF} estimated via the \gls{LPM}. 
 The smoothing of the \gls{FRF} happens by truncating the associated impulse response, as in~\citet{Schoukens1998}, but with the following additional extension: the determination of the optimal truncation time, without any user interaction, in conjunction with the use of the \gls{LPM} for leakage reduction. 
@@ -113,7 +112,7 @@ The estimate $\hat G_{\LPM}(\omega_k)$ is available at all frequencies $\omega_k
 This assumption ensures that the impulse response corresponding to the \gls{FRF} can be computed (up to its mean value). It requires that the input signal excites the whole unit circle. This is satisfied, for instance, by using white noise as an excitation signal.
 
 
-\begin{assumption}\label{ass:imprespdecay}
+\begin{assumption}\label{ass:trunc:impulseReponse:decay}
 The impulse response $g(t)$ decays exponentially over time, i.e. 
 \[
   \exists A \in \PositiveRealNumbers, 
@@ -124,12 +123,11 @@ The impulse response $g(t)$ decays exponentially over time, i.e.
 \]
 \end{assumption}
 
-\begin{assumption}\label{ass:decay90perctime}
-Within $90\%$ of the measurement window, the impulse response decays
- to a level that is indistinguishable from the noise.
+\begin{assumption}\label{ass:trunc:impulseResponse:lastSegmentNoise}
+Within $90\%$ of the measurement window, the impulse response decays to a level that is indistinguishable from the noise.
 \end{assumption}
 
-Note that \assref{ass:imprespdecay} and \assref{ass:decay90perctime} exclude the possibility of considering a system that is a pure integrator.
+Note that \assref{ass:trunc:impulseReponse:decay} and \assref{ass:trunc:impulseResponse:lastSegmentNoise} exclude the possibility of considering a system that is a pure integrator.
 
 \subsection{Obtaining the Impulse Response Function}
 
@@ -155,9 +153,8 @@ This limitation is lifted by developing a simple estimator of the mean value, pr
 \subsection{Estimating the \glsentrytext{DC} Value of the \glsentrytext{FRF}}\label{sec:nparam:trunc:DCvalueEst}
 The correct mean value of the impulse response accounts for (i.e. estimates) the \gls{DC} value of the \gls{FRF}. A time-domain method is proposed for estimating the mean value of the impulse response in equation \eqref{eq:impRespiDFT}. %The first is a frequency-domain technique and the second is a time-domain technique.
 
-According to \assref{ass:imprespdecay}, the true impulse response tends to zero asymptotically; and by \assref{ass:decay90perctime}, the last $10\%$ of the estimated impulse response is noise, plus a constant value due to an inaccuracy in the    average value of the impulse response. The correct estimate of the mean value is obtained by shifting the whole signal such that the last $10\%$ of the impulse response is centered around 0.
+According to \assref{ass:trunc:impulseReponse:decay}, the true impulse response tends to zero asymptotically; and by \assref{ass:trunc:impulseResponse:lastSegmentNoise}, the last $10\%$ of the estimated impulse response is noise, plus a constant value due to an inaccuracy in the    average value of the impulse response. The correct estimate of the mean value is obtained by shifting the whole signal such that the last $10\%$ of the impulse response is centered around 0.
 To this end, the following procedure is executed:
-
 
 \begin{enumerate}
 \item Compute the mean value $m_{g10}$ of the last 10\% of the impulse response $\hat g_{{\LPM}\without \DC}(t)$, estimated by the \gls{LPM}, as %$\hat g_{\LPM}(t)$ as
@@ -202,7 +199,7 @@ One can then gradually determine if in each of these segments, the observed impu
 $L_S = \floor{\frac{N}{N_S}}$. 
 If necessary, the length of the first segment is reduced to allow for the others to have equal lengths.
 The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,\ldots,N_S\right\}$.
-  By \assref{ass:decay90perctime}, the last segment, $\segm{\hat{g}}{N_S}$, is noise when $L_S \leqslant 0.1N$.
+  By \assref{ass:trunc:impulseResponse:lastSegmentNoise}, the last segment, $\segm{\hat{g}}{N_S}$, is noise when $L_S \leqslant 0.1N$.
   
   \item Iteration is then carried out from the last segment ($i = N_S$) towards the beginning of the impulse response. To determine whether the preceding segment $\segm{\hat{g}}{i-1}$ is completely dominated by noise,  both an $F$-test and an absolute criterion on the RMS are used.
 
@@ -289,7 +286,7 @@ Henceforth, $\hat g_{\LPM}(t)$ will simply be denoted as $\hat g(t)$.
 \begin{align}
 \hat \sigma^2_\mathrm{n}=\frac{1}{\lceil0.1N - 1\rceil}\sum_{t=\lfloor0.9N\rfloor}^{N-1}\hat g^2(t).
 \end{align}
-This is valid, as per \assref{ass:decay90perctime}.
+This is valid, as per \assref{ass:trunc:impulseResponse:lastSegmentNoise}.
 
 %This assumes that the impulse response of the system is not longer than 90\% of the length of the measured time interval.
 
@@ -496,7 +493,6 @@ For the truncation approaches, even if the assumptions do not hold, the methods 
 
 \subsection{Conclusion}
 \label{sec:nparam:trunc:conclusion}
-
 This section introduced a time domain method to smooth the \gls{LPM}-estimate of an \gls{FRF}. 
 It consisted of, after obtaining the \gls{FRF} from the \gls{LPM}, computing the associated estimated impulse response via the \gls{IDFT}.
 Then, it was determined statistically at which time index the impulse response had decayed below the noise floor, yielding a point beyond which the response may be set to zero.
