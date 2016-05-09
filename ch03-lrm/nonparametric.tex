@@ -25,7 +25,7 @@ In particular, a comparison between the \gls{LPM} and \gls{LRM} will be made suc
 \paragraph*{Outline}
 \secref{sec:theory} introduces theory of estimating \glspl{FRF} using local modeling techniques.
 In \secref{sec:biascalc}, the bias of the \gls{LRM} is derived.
-In \secref{sec:simulations} the performance of the different modeling methods are compared by means of simulations.
+In \secref{sec:nparam:simulations} the performance of the different modeling methods are compared by means of simulations.
 In \secref{sec:nparam:orderSelection}, some options for model order selection are discussed.
 In \secref{sec:nonparametric:truncation}, an approach is developed to further reduce the variance of the \gls{LPM} estimate by truncation of the impulse response.
 Finally, conclusions are presented in \secref{sec:conclusion}.
@@ -711,7 +711,7 @@ From the leading factor, it can be seen that the bias on the \gls{FRF} is $\bigO
 Consequently, one can expect that the bias is inherently linked to the \gls{SNR} of the output signal in the frequency domain.
 
 \section{Simulations}
-\label{sec:simulations}
+\label{sec:nparam:simulations}
 
 In the simulations, we consider a discrete-time second order system with transfer function
 \begin{equation}

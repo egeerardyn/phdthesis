@@ -6,8 +6,6 @@
 \researchBasedOn{Geerardyn2014IFAC,Geerardyn2014ISMA}
 \glsresetall{}
 
-%TODO: The quality of the estimate of the H-infinity norm of Delta is completely unknown. In other words, there is no theoretical guarantee about the error. --> Tom: addresseren. Feitelijk hangt dit samen met de kwaliteit van standaard lpm/lrm, toch?
-
 \newcommand{\wnValue}{\ensuremath{0.95 \unit{rad/s}}}
 \newcommand{\dampingValue}{\ensuremath{0.025}}
 \newcommand{\TsValue}{\ensuremath{1 \unit{s}}}
@@ -383,6 +381,11 @@ By doing so, the local linear-least-squares cost function
 
 We denote $\lrm{N_W,\order{B},\order{A},\order{T}}$ to be the \gls{LRM} with the orders $\order{B}$, $\order{A}$, $\order{T}$ and bandwidth $N_W$ defined above.
 For $\order{A}=0$ the \gls{LRM} simplifies to the \gls{LPM} which we shall denote as $\lpm{N_W,\order{B},\order{T}}$.
+
+\begin{remark}
+Since the \gls{LRM} is used to locally estimate the \gls{FRF} based on measurements, this sets a limit on the accuracy of the ensuing estimate of the peak value.
+This was treated in \secref{sec:nparam:simulations}.
+\end{remark}
 
 \section{Simulation}
 \label{sec:lrmhinf:simulation}
