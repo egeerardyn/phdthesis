@@ -1123,9 +1123,10 @@ Nevertheless, this figure illustrates that for the \gls{LRM}, the error is quite
 Note also that the \gls{PRESS} suffers from a quite high variance over the frequency, which is a well-known drawback~\citep{Arlot2010}.
 
 For the low \gls{SNR} case (top plots in  \figref{fig:nparam:PRESS} ), it can be seen that both \gls{LPM} and \gls{LRM} result in a very similar estimate of the noise level.
-The values of the \gls{PRESS} are again very noisy.
-\TODO{PRESS is eigenlijk niet bruikbaar bij lage SNR}
-
+The values of the \gls{PRESS} are again very noisy, especially for the \gls{LPM} estimates.
+Near the resonance, the $\lrm{7,1,1,1}$ results in the smalles \gls{PRESS} value.
+This is in correspondence with the observations of the variance for similar noise levels in \figref{fig:nparam:comparison:terribleSNR}.
+Note however that the results do not carry over to the \gls{RMS} error: since the \gls{LRM} is severely biased, the \gls{PRESS} becomes unreliable to detect model errors.
 
 \section{Smoothing the \glsentryshort{FRF} by Impulse Response Truncation}
 \label{sec:nonparametric:truncation}
