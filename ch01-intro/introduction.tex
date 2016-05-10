@@ -14,7 +14,7 @@ In particular, models enable us to predict the future (within a certain bound of
   \item how much electricity will the whole country use next week (do we need to start up a new power plant or not),
   \item how much noise the bodywork of a car will produce when it is driving over a bumpy road,
   \item what the exhaust of nitrogen oxides of a car will be for a certain operating point of a diesel engine, 
-  \item are the vibrations in a robot are small enough for it to perform very precise tasks such as positioning electronic components with sub-millimeter precision,
+  \item are the vibrations in a robot are small enough for it to carry out very precise tasks such as positioning electronic components with sub-millimeter precision,
 \end{itemize}
 and so on.
 
@@ -75,7 +75,7 @@ For system identification, experiment design is a question of designing input si
 Typically, the design consists of constructing a signal such that the obtained model  has a small uncertainty in some sense~\citep{Goodwin1977,Mehra1974,Goodwin2006GBO,Levadi1966}.
 On the one hand, if one has very precise prior information, one could even construct optimal signals~\citep{Gagliardi1967,Karlin1966,Gevers2011ExpDesign,Zarrop1979}.
 Typically, the design is very sensitive to the prior knowledge of the system.
-This is necessary to focus all the energy in the signal towards exciting the system dynamics as to reduce the uncertainty in the model.
+This is necessary to focus all the energy in the signal towards exciting the system dynamics to the end of reducing the model uncertainty.
 However, when the prior knowledge is incomplete, uncertain or even incorrect, optimal signals can lead to very poor models as they might not excite other dynamics.
 An alternative approach is to incorporate the uncertainty of the prior knowledge into the signal design.
 This leads to so-called robust optimal experiment design~\citep{Rojas2012,Goodwin2006} that construct signals that optimize the worst-case model uncertainty.
@@ -83,8 +83,8 @@ This leads to so-called robust optimal experiment design~\citep{Rojas2012,Goodwi
 The design of good experiments hence already forces the user to make a choice that can have far-reaching consequences for the model quality.
 
 \paragraph{Select a model structure}
-Once an experiment has been performed, the obtained input-output data is to be processed.
-In many cases, the eventual goal of identification is to obtain a parametric model, so the user has to select a model structure and/or complexity based on both his prior knowledge and on the data.
+Once an experiment has been performed, the obtained input-output data are to be processed.
+In many cases, the eventual goal of identification is to obtain a parametric model, so the user has to select a model structure and complexity based on both his prior knowledge and on the data.
 A useful tool to help choose the model structure and/or model orders, is to inspect a nonparametric model of the system.
 One such tool is the frequency response function.
 For instance, by inspecting a frequency response function, a control engineer can have a rough idea of the system behavior in term of  approximate resonance frequencies, asymptotic slopes, \latin{etc.}
@@ -98,8 +98,8 @@ The cost function is in essence a measure of the differences between the measure
 By minimizing the cost function, the optimization procedure yields parameter values that minimize the misfit between the data and the model.
 Unfortunately, for many identification settings, these optimization problems are non-convex~\citep{Boyd2004}.
 This means that initial values need to be available to start the optimization process.
-Moreover, for poor starting values, optimization algorithms may get stuck in local minima of the cost function.
-Consequently, without reasonable starting values, the `optimized' model may also be of poor quality. 
+Moreover, for poor starting values, optimization algorithms can get stuck in local minima of the cost function.
+Consequently, without reasonable starting values, the `optimized' model can also be of poor quality. 
 
 
 \paragraph{Validate the model}
@@ -114,7 +114,7 @@ The latter leads to models that are overly tuned to the measurements such that t
 In case the model is not validated, this provides the user with new knowledge: that particular model is not good enough and at least one of the previous steps (or the prior knowledge) has to be altered.
 
 \section{User-Friendly System Identification}
-In the previous section, it has been seen that some of the system identification steps require a significant amount of prior knowledge and/or craftsmanship of the user to make good choices.
+In the previous section, it has been seen that some of the system identification steps require a significant amount of prior knowledge and craftsmanship of the user to make good choices.
 
 In this dissertation, we focus on developing system identification techniques that are `user-friendly'.
 The availability of easy to use and fast methods has been underlined by \citet{Gevers2011Challenges}.

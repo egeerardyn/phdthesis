@@ -1,0 +1,204 @@
+(stdin):175: Since information is local in the frequency domain, the input signal power inside , contributes significantly to the information matrix **while -> (if used as substitute for "and, but" then replace by semicolon, do not use as substitute for "although" as it leads to ambiguity or absurdity, best use it only in the sense of "during the time that")** input power outside has a smaller contribution.
+
+
+(stdin):185: Input design can be based on a guess of , **however -> Means "in whatever way, to whatever extent" inside a sentence and "nevertheless" at the beginning of a sentence.** if this guess is wrong, the resulting estimates **may -> = Do not confuse with "can".** be unacceptable Rojas2007.
+
+
+(stdin):245: Sums of Second Order Systems This section extends the previous section to more general systems **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** second order.
+
+
+(stdin):444: Using different dampings in the sub-systems **would -> (use "should" if used as conditional statement in the first person or for "shall" in indirect quotation after a verb in past tense.  Consider omitting it for repeated actions)**, **however -> Means "in whatever way, to whatever extent" inside a sentence and "nevertheless" at the beginning of a sentence.**, not change the argument, the systems with the lowest damping will limit the separation.
+
+(stdin):529: For non-proper systems, **one -> When used as a pronoun, it  must be used consistently: One must manage one's money carefully.** can write the transfer function where is a polynomial and a proper rational function.
+
+(stdin):587: Derivatives of a second-order sub- towards each of **its -> = "it is" or "its"?** parameters.**Bode plots of the elements of for small 
+
+(stdin):590: **It can be seen that -> thus, so                     ** the derivatives are dominated by the resonance peak, an **effect -> "Affect" means "have an influence on", "produce an effect on", "concern", "effect a change in"; compare with "effect": "bring about", "cause", "produce, "result in."** that is even more prominent when is large.
+
+(stdin):660: However, a common multiple of those periods cannot be found since there exist no positive integers , , and that **ensure -> (use "assure" with people, "ensure" with things, and "insure" when talking about money)** that 
+
+(stdin):667: Equidistant (Linear) Grid Multisine In many applications, an equidistant frequency grid is **used for -> (used for **...** purposes: used for **...**)** because this fits best with the classical DFT analysis OppenheimDT,Mandal2007.
+
+(stdin):669: It allows to analyze periodic signals on an equidistant frequency grid **very -> (use sparingly; try to use words that are strong in themselves for emphasis)** efficiently.
+
+(stdin):699: For a constant amplitude spectrum, this means that a model of the low-frequency dynamics is typically plagued by a higher uncertainty **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** for models of high-frequency dynamics.
+
+(stdin):700: This is caused by the fact that the lower frequency bands receive **less -> Use "less" for quantities and "fewer" for numbers.** signal power **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** the high frequency bands.
+
+(stdin):716: When designing an excitation signal, it is common **only -> Put "only" right before the word it modifies.** to specify a (large) frequency band by **its -> = "it is" or "its"?** boundary frequencies and 
+
+(stdin):758: As most of the information of such systems is obtained from the measurements at frequencies inside the bandwidth, **one -> When used as a pronoun, it  must be used consistently: One must manage one's money carefully.** expects an equal variance for each , as will be shown in sec:excitation:bestFrequencyResolution.
+
+(stdin):855: As this signal approximates a logarithmically spaced signal, we **expect -> Use "expect" for simple predictions and "anticipate" for more complex actions in advance of an event.** that it will exhibit comparable properties.
+
+
+(stdin):861: This is **due to -> Synonym for "attributable to", often confused with "through, because of, owing to."** the limited available frequency resolution if **one -> When used as a pronoun, it  must be used consistently: One must manage one's money carefully.** sticks to the DFT frequency grid.
+
+(stdin):867: For each frequency in the quasi-log grid, we define as the number of frequencies in the logarithmic grid that are nearer to **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** to any other grid line in the quasi-log grid:
+
+
+(stdin):895: The power spectrum of this compensated signal approximates the **one -> When used as a pronoun, it  must be used consistently: One must manage one's money carefully.** of the log grid multisine better **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** an uncompensated quasi-log grid.
+
+(stdin):922: To reduce the complexity of the expressions for and , we extend the frequency grid by **one -> When used as a pronoun, it  must be used consistently: One must manage one's money carefully.** component to the left and to the right **by means of -> by, with** the grid relation (equations eq:excitation:qlogGrid and eq:excitation:constraintLinGrid) to obtain the grid 
+
+(stdin):924: Using this extension, the frequency range covered by can then be calculated as align k &= f_k-1f_k **k -> Double word.** &= f_k+1f_k eq:excitation:fRange 
+
+
+(stdin):933: Consequently, both signals can be expected to behave in approximately the same way.
+
+
+(stdin):1007: The amplitudes of the compensated and pink quasi-log lines show that the compensation **only -> Put "only" right before the word it modifies.** has **effect -> "Affect" means "have an influence on", "produce an effect on", "concern", "effect a change in"; compare with "effect": "bring about", "cause", "produce, "result in."** at the lower frequencies since the uncompensated counterpart has an amplitude spectrum close to 
+
+(stdin):1010: We can **expect -> Use "expect" for simple predictions and "anticipate" for more complex actions in advance of an event.** a **very -> (use sparingly; try to use words that are strong in themselves for emphasis)** similar behavior from properly designed compensated quasi-log multisines and from the `pink' quasi-log multisine, since their amplitude spectra are almost identical.
+
+(stdin):1011: As such, it is advised to use `pink' quasi-log multisines as those can be constructed using more straightforward code (equation eq:excitation:pink) **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** the compensated quasi-log multisines (equations eq:excitation:nfk, eq:excitation:nearestLines , and eq:excitation:compensationAk).
+
+(stdin):1018: In this section we show a possible approach to **compare -> "Compare" to points out resemblances, "compare with" points out differences.** the performance of different excitation signals with respect to the theoretically minimal attainable uncertainty of the transfer function as expressed by the CRLB.
+
+(stdin):1092: Also for the design of robust excitation signals, this is **worthwhile -> (only apply to actions and consider using a stronger word instead)** observation.
+
+(stdin):1095: Relation **Between -> (choose "between" 2 options and "among" 3 or more)** the Frequency Grid and the System Resonance sec:excitation:relationLogGridSystem To determine an appropriate frequency ratio for a logarithmically spaced signal, we study the estimated FRF of a set of prototype second-order systems excited by logarithmically spaced excitation signals.
+
+(stdin):1103: Similarly, where is a second order sub- that shares the same parameters, except **its -> = "it is" or "its"?** natural frequency **which -> (use "that" if clause is restrictive)** is situated at 
+
+(stdin):1105: If **one -> When used as a pronoun, it  must be used consistently: One must manage one's money carefully.** calculates their FRF by evaluating eq:excitation:secondOrderSubsystem, **one -> When used as a pronoun, it  must be used consistently: One must manage one's money carefully.** sees that and yield the same numerical values for any value of the pulsation 
+
+(stdin):1108: Denote to be a logarithmic frequency grid with an infinite number of grid lines equation ^k _0 **k -> Double word.** eq:excitation:freqGridLog equation and consequently an infinite span.
+
+(stdin):1144: Second-order systems with equal damping and DC gain but resonance frequencies that differ by a factor with , share an identical `shape` of their FRF at the lines of a logarithmically spaced frequency grid with infinite span and a frequency ratio 
+
+(stdin):1151: Taking this into account allows to limit the study of second order systems to a small set of systems that should be **considered -> Not followed by "as" when it means "believe to be".** in the search for a suitable grid spacing 
+
+(stdin):1163: LogTransitionFrequency equation indicates the lowest frequency where the quasi-logarithmic grid **could -> (do not confuse with "may")** effectively reproduce the logarithmic spacing.
+
+(stdin):1166: In particular for lightly-damped sub-systems, equation (1-), (1+) , **equation -> Double word.** such that the resonance peak is in the bulk of the frequency grid when equation =2 f-1 ( 1 - ) 
+
+(stdin):1175: InBulk:generic equation For more reliable results, **however -> Means "in whatever way, to whatever extent" inside a sentence and "nevertheless" at the beginning of a sentence.**, it is advisable to also have a few logarithmically spaced frequency lines, outside of the resonance peak of the actual  for a more robust result.
+
+(stdin):1179: In practice, this means that systems with their resonance peak at the lowest and the **very -> (use sparingly; try to use words that are strong in themselves for emphasis)** highest edge of the frequency band **may -> = Do not confuse with "can".** not be observed with identical quality as systems at intermediate frequencies.
+
+(stdin):1181: The validity of this approximation can be understood intuitively by inspecting the derivatives that constitute the Fisher information matrix (see fig:excitation:derivatives):
+
+(stdin):1183: Exploiting the Shape of the Derivatives In particular, from fig:excitation:derivatives, **it can be seen that -> thus, so                     ** the derivatives with respect to exhibit a sharper resonance and hence will prove the hardest to identify.
+
+(stdin):1185: This means that if **one -> When used as a pronoun, it  must be used consistently: One must manage one's money carefully.** **would -> (use "should" if used as conditional statement in the first person or for "shall" in indirect quotation after a verb in past tense.  Consider omitting it for repeated actions)** design a signal to identify just , such a signal **would -> (use "should" if used as conditional statement in the first person or for "shall" in indirect quotation after a verb in past tense.  Consider omitting it for repeated actions)** also be well-suited to identify the other parameters since their corresponding weight in the Fisher information matrix is **very -> (use sparingly; try to use words that are strong in themselves for emphasis)** similar (especially **in the vicinity of -> about,approximately,near** the resonance, where their amplitude is most significant).
+
+(stdin):1187: As such, the free parameters of the sub- are reduced to **only -> Put "only" right before the word it modifies.** and the others are fixed during our experiments:
+
+(stdin):1195: Instead of choosing the damping directly, we choose the peak gain of the transfer function eq:excitation:peakAmplitude to study the **effect -> "Affect" means "have an influence on", "produce an effect on", "concern", "effect a change in"; compare with "effect": "bring about", "cause", "produce, "result in."** of differently damped systems.
+
+(stdin):1196: However, do remember that for the simplifications introduced above as in eq:excitation:peakAmplitude.
+
+(stdin):1198: Selection of the Frequency Grid Spacing Since the damping influences the bandwidths, this will become important when **one -> When used as a pronoun, it  must be used consistently: One must manage one's money carefully.** has to determine the grid spacing 
+
+(stdin):1200: To deal with this, we introduce the normalized frequency ratio equation = - 1 _k+1 - _**k -> Double word.** _**k -> Double word.** 
+
+(stdin):1209: Alpha equation This normalized frequency ratio can be interpreted as a measure of the grid resolution, **relative to -> about** the bandwidth of the second order .
+
+(stdin):1212: The grid resolution in a (quasi-) log grid is **while -> (if used as substitute for "and, but" then replace by semicolon, do not use as substitute for "although" as it leads to ambiguity or absurdity, best use it only in the sense of "during the time that")** the  bandwidth is approximately 
+
+(stdin):1213: Around the resonance, , such that the last fraction in eq:excitation:normAlpha can safely be neglected.
+
+(stdin):1216: In the previous section we saw that systems with equal damping and DC gain, will behave **very -> (use sparingly; try to use words that are strong in themselves for emphasis)** similarly when excited by a log signal with spacing 
+
+(stdin):1238: This means that and that has the same role as factor in eq:excitation:theoreticalBestVariationOmega.
+
+(stdin):1239: If we take a look at the special **case -> Avoid if used to describe the instance of a situation.** when (or ) in this expression, we see that this **situation -> (rewrite)** occurs when the peak value of the FRF at coincides with the grid line or respectively.
+
+(stdin):1240: Intuitively, we study second order systems whose peak frequency is shifted between two neighboring excited frequency lines.
+
+(stdin):1241: From the previous section, we know that the exact frequency matters little **as long as -> when, if** it remains within the bulk of the frequency grid.
+
+(stdin):1245: The noise level is kept constant, **which -> (use "that" if clause is restrictive)** causes the SNR per excited line to drop for more finely spaced excitation signals.
+
+(stdin):1251: We then calculate the theoretical variance on the magnitude of the peak in the FRF () **as shown in -> shows that** eq:excitation:varPeak for a coarse grid.
+
+(stdin):1252: A coarse grid was chosen with ; this means that the spacing between the excited lines around the resonance are much larger **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** the  bandwidth.
+
+(stdin):1253: It is obvious that such an excitation signal will not **perform -> do** well in most cases, as the resonance peak is **very -> (use sparingly; try to use words that are strong in themselves for emphasis)** likely to be overlooked in such an FRF.
+
+(stdin):1259: Discussion sec:excitation:bestFrequencyResolution As **stated -> (if used as a verb, restrict to the meaning of "express fully or clearly")** above, we start by evaluating the variance for a coarse frequency spacing for each of the prototype systems.
+
+(stdin):1263: **One -> When used as a pronoun, it  must be used consistently: One must manage one's money carefully.** immediately notices that the variance depends strongly on the misalignment of the  and the frequency grid.
+
+(stdin):1273: CaseBeta figure Such signals are clearly undesirable, as a misalignment smaller **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** the grid spacing of the excitation grid and the  will **lead -> The past tense of the verb "lead" is "led".** to a large increase in the uncertainty of estimate.
+
+(stdin):1278: For a large peak amplitude of the FRF (low damping), the worst **case -> Avoid if used to describe the instance of a situation.** increase (marked with a cross) is approximately centered around (i.e.
+
+(stdin):1280: This can be explained intuitively as the bandwidth is **less -> Use "less" for quantities and "fewer" for numbers.** symmetric for highly damped systems **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** in lightly damped systems with a **very -> (use sparingly; try to use words that are strong in themselves for emphasis)** narrow resonance peak.
+
+(stdin):1282: This is in accordance with the **claim -> Do not use as substitute for "declare", "maintain" or "charge."** that in the bulk of the grid, a shift over an integer number of lines will **only -> Put "only" right before the word it modifies.** marginally influence the uncertainty.
+
+(stdin):1284: We explore the systems **which -> (use "that" if clause is restrictive)** have the worst uncertainty (as marked by a cross in fig:excitation:worstCaseBeta).
+
+(stdin):1285: For the corresponding values of the misalignment , we evaluate the uncertainty when the frequency ratio of the signal is decreased, **while -> (if used as substitute for "and, but" then replace by semicolon, do not use as substitute for "although" as it leads to ambiguity or absurdity, best use it only in the sense of "during the time that")** the total signal power is kept identical.
+
+(stdin):1293: Worst-**case -> Avoid if used to describe the instance of a situation.** variance as a function of the frequency ratio .**Worst **case -> Avoid if used to describe the instance of a situation.** variance of the peak in the transfer function for logarithmic grid multisines and systems with different peak amplitudes.
+
+(stdin):1317: If we determine the **effect -> "Affect" means "have an influence on", "produce an effect on", "concern", "effect a change in"; compare with "effect": "bring about", "cause", "produce, "result in."** of the misalignment factor for a grid with frequency ratio , we see that misalignment has a negligible **effect -> "Affect" means "have an influence on", "produce an effect on", "concern", "effect a change in"; compare with "effect": "bring about", "cause", "produce, "result in."** on the uncertainty as shown by the dashed lines in fig:excitation:worstCaseBeta for each of the prototype systems.
+
+(stdin):1326: This **effect -> "Affect" means "have an influence on", "produce an effect on", "concern", "effect a change in"; compare with "effect": "bring about", "cause", "produce, "result in."** is more important for lightly-damped systems, as their bandwidth is **very -> (use sparingly; try to use words that are strong in themselves for emphasis)** narrow and hence their main response is easier to `miss'.
+
+(stdin):1343: Practically, four frequency lines in the bandwidth of each second order subsystem suffice to suppress the **effect -> "Affect" means "have an influence on", "produce an effect on", "concern", "effect a change in"; compare with "effect": "bring about", "cause", "produce, "result in."** of misalignment of such a subsystem and the frequency grid of the excitation signal.
+
+
+(stdin):1364: According to eq:excitation:optimAlpha, this frequency ratio is suited for second-order systems with a damping , or a peak amplitude of the FRF **less -> Use "less" for quantities and "fewer" for numbers.** **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** approximately 
+
+
+(stdin):1378: All simulations have been repeated as well by fitting with the System Identification Toolbox **by means of -> by, with** the oe function TDIDENT.
+
+(stdin):1379: The observed results were similar and hence are not elaborated further in this text.
+
+(stdin):1380: For more information, please **refer -> (an allusion is an indirect reference, while a reference is a direct reference)** to Larsson2012SYSID.
+
+(stdin):1383: Systems With a `High' Damping To test the signals for systems with a high damping with respect to the frequency ratio in the excitation signal, systems with a damping are used.
+
+(stdin):1387: The resulting frequency response function for **one -> When used as a pronoun, it  must be used consistently: One must manage one's money carefully.** such  is shown in fig:excitation:FRF1 together with the standard deviation of the estimated parametric model for each of the different excitation signals.
+
+(stdin):1388: The bias is at least smaller **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** the standard deviation.
+
+(stdin):1396: Simulated FRF of a single  using different excitation signals.**FRF leg:excitation:sim:FRF of a second order  with and along with the corresponding variance and bias of the parametric models obtained using three different kinds of multisine excitations.
+
+(stdin):1397: FRF1 figure fig:excitation:damping02 displays the estimated transfer functions and their uncertainty **in the vicinity of -> about,approximately,near** their corresponding resonances for the whole set of **considered -> Not followed by "as" when it means "believe to be".** systems.
+
+(stdin):1401: Using this condensed representation and the displayed envelopes of the uncertainty, we can deduce the frequency-dependent behavior of the model variance obtained by the different excitation signals.
+
+(stdin):1415: The uncertainty is generally higher **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** the uncertainty obtained with logarithmically spaced multisines, as the power has been divided over more excited lines.
+
+(stdin):1418: Yet at the lowest frequencies, the dependence can be observed again.
+
+(stdin):1419: This is caused by the linear distribution of excited frequencies in this range, **as shown in -> shows that** fig:excitation:freqGrids.
+
+(stdin):1422: As more power is placed at low frequencies, **less -> Use "less" for quantities and "fewer" for numbers.** power can be placed at the higher ones.
+
+(stdin):1423: This causes a slightly increased variance **compared -> "Compare" to points out resemblances, "compare with" points out differences.** to the regular quasi-log multisine.
+
+(stdin):1424: At the studied  with the lowest resonance frequency, the compensation fails to completely compensate the effects of the reduced number of lines in the bandwidth of that .
+
+(stdin):1425: Nevertheless an improvement of about is obtained with respect to the regular quasi-log multisine.
+
+(stdin):1427: Systems With a Lower Damping Given the optimal frequency ratio eq:excitation:optimAlpha, **one -> When used as a pronoun, it  must be used consistently: One must manage one's money carefully.** expects that quasi-logarithmic grids with a frequency ratio will allow to identify second order systems with damping with a constant uncertainty.
+
+(stdin):1430: In this **case -> Avoid if used to describe the instance of a situation.**, the output noise is chosen to keep the SNR of 
+
+(stdin):1444: At lower frequencies, **however -> Means "in whatever way, to whatever extent" inside a sentence and "nevertheless" at the beginning of a sentence.**, the logarithmically spaced signals **perform -> do** **only -> Put "only" right before the word it modifies.** slightly better **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** the linearly spaced excitation signal.
+
+(stdin):1445: This is **due to -> Synonym for "attributable to", often confused with "through, because of, owing to."** the fact that as the damping decreases, the bandwidth of the resonance decreases and therefore **less -> Use "less" for quantities and "fewer" for numbers.** points can be fitted in this bandwidth at the lower frequencies.
+
+(stdin):1446: In our **case -> Avoid if used to describe the instance of a situation.**, **only -> Put "only" right before the word it modifies.** line was excited in the bandwidth (respectively and wide) of the systems with the lowest resonance frequencies.
+
+(stdin):1474: In that particular **case -> Avoid if used to describe the instance of a situation.**, the frequency grid and the resonance peak are well-aligned (), **which -> (use "that" if clause is restrictive)** leads to a reduced variance (see also fig:excitation:worstCaseBeta).
+
+(stdin):1476: We do see, **however -> Means "in whatever way, to whatever extent" inside a sentence and "nevertheless" at the beginning of a sentence.**, that the variance **in the vicinity of -> about,approximately,near** the resonance of every  is lower **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** in the **case -> Avoid if used to describe the instance of a situation.** of a linearly spaced excitation.
+
+(stdin):1478: Simulation Example on Higher Order Systems To show that the suggested method also works on more general systems, we **considered -> Not followed by "as" when it means "believe to be".** a  that consists of two second order systems eq:excitation:secondOrderSystemDTidentifiable in parallel.
+
+(stdin):1500: The standard deviation on the FRF lies respectively and lower **than -> (examine sentences containing "than" to insure that they are not missing words: I love my father more than my mother. I love my father more than my mother loves my father. I love my father more than I love my mother)** the FRF at these frequencies.
+
+(stdin):1514: According to **its -> = "it is" or "its"?** manual datasheet_bk1613, a ripple with three resonances is present in the pass-band and the break frequencies are located at and 
+
+(stdin):1531: The `shape' of the transfer function of the different filters is nominally identical, **which -> (use "that" if clause is restrictive)** allows for an easy visual comparison between the model uncertainty of the different filters.
+
+(stdin):1591: This can be explained by the fact that in this experiment, was chosen low enough to **ensure -> (use "assure" with people, "ensure" with things, and "insure" when talking about money)** that all the second-order subsystems had their bandwidth within the bulk of logarithmic part of the excited grid.
+
+(stdin):1598: When **only -> Put "only" right before the word it modifies.** the limited prior knowledge that the  resonances lie in a certain (possibly **very -> (use sparingly; try to use words that are strong in themselves for emphasis)** wide) frequency band, a suitable class of excitation signals can be constructed such that the relative uncertainty of the estimated resonance is independent of the resonance frequency.

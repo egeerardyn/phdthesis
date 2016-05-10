@@ -9,7 +9,7 @@
 \label{sec:nonparametric:introduction}
 
 Whereas many areas of system identification focus on parametric identification and/or parameter estimation, non-parametric techniques have received renewed interest from the community over the last decade.
-One of the reasons for this is that non-parametric techniques typically require less assumptions and knowledge of the system than building parametric models.
+One of the reasons for this is that non-parametric techniques typically require fewer assumptions and knowledge of the system than building parametric models.
 As a consequence, non-parametric methods are often more robust than fully parametric methods.
 Besides, \glspl{FRF} have been shown to provide a quick insight into the basic dynamic properties of \gls{LTI} systems.
 This capability is very useful for system design, manual controller tuning, model validation and model selection for parametric models~\citep{Pintelon2012}.
@@ -346,7 +346,7 @@ as elaborated in~\citep[Appendix B]{Pintelon2010LPM1}.
 Note that $\DOF$ indicates the degrees of freedom of the residuals as in \eqref{eq:nparam:DOF} and could also be computed as either the rank or the trace of the idempotent matrix $(\I - \LocalMatrix{H})$.
 
 \begin{remark}
-This system can only be solved reliably if the columns in \eqref{eq:nparam:designMatrix} are linearly independent.
+This system can be solved reliably only if the columns in \eqref{eq:nparam:designMatrix} are linearly independent.
 In practice, this corresponds to the requirements on the input spectrum as stated in \citet{Schoukens2009LPM}: the input spectrum should be sufficiently `rough' to separate the transient contribution from the contribution $\LocalModel{G} \LocalModel{U}$.
 This can be obtained e.g. using random phase multisines or random input signals.
 \end{remark}
@@ -861,7 +861,7 @@ Practically, this approximation error is very likely to be negligible in measure
 
 \paragraph{Good signal-to-noise ratios}
 The next situation we consider is when $\SNR=60\unit{dB}$ as shown in \figref{fig:nparam:comparison:hiSNR}.
-Here, the \gls{LPM} remains severly biased for small datasets ($\nBW < 12$).
+Here, the \gls{LPM} remains severely biased for small datasets ($\nBW < 12$).
 However, for sufficiently long experiments ($\nBW > 32$), the bias becomes negligible.
 For the \gls{LRM} and \gls{LRIC}, the bias is always much smaller than the variance.
 In contrast to \gls{LPM}, the \gls{LRM} already reaches a constant variance level when $\nBW > 10$.
@@ -1640,7 +1640,7 @@ A bias-variance trade-off is possible by tuning the time beyond which the impuls
 \section{Conclusions}
 \label{sec:conclusion}
 In this chapter, the performance of non-parametric \gls{LPM} and \gls{LRM} estimators were compared to observe the \gls{FRF} of resonant systems.
-Since the \gls{LRM} is a biased estimator while the \gls{LPM} is asymptotically unbiased, it is important to compare their behavior.
+Since the \gls{LRM} is a biased estimator and the \gls{LPM} is asymptotically unbiased, it is important to compare their behavior.
 Hence, expressions for the bias of the \gls{LRM} were derived.
 For good \glspl{SNR} in resonant systems, it was seen that the \gls{LRM} is always superior to the \gls{LPM}.
 For extremely poor \gls{SNR}, i.e. $\SNR \approx 10\unit{dB}$, the \gls{LPM} may perform slightly better than the \gls{LRM} when short measurement records are available.
