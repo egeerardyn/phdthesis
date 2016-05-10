@@ -2,19 +2,22 @@
 \tikzstyle{sum}       = [draw,circle,inner sep=0mm,minimum size=2mm]
 \tikzstyle{input} = []
 \tikzstyle{output} = []
-\tikzstyle{pinstyle} = [pin edge={<-,black}]
+\tikzstyle{pinstyle} = [pin edge={<-,black},color=black]
 
 \begin{tikzpicture}[auto, node distance=2cm,>=latex]
 
-    \node [near start] (input) {$u_0(t)$};
-    \node [block, right of=input] (system) {$G_0(q^{-1})$};
+    \node [near start] (input) {$\true{u}(t)$};
+    \node [block, right of=input] (system) {$\true{G}(q^{-1})$};
     \node [sum, right of=system,
-           pin={[pinstyle]above:$v(t)$},
            node distance=2.2cm] (sum) {\footnotesize$+$};
     \node [right of=sum, node distance=1.3cm] (output) {$y(t)$};
 
+    \node [above of=sum, node distance=1.3cm] (noise) {$v(t)$};
+
     \draw [->] (input)  --   (system);
-    \draw [->] (system) -- node[name=y0] {$y_0(t)$} (sum);
+    \draw [->] (system) -- node[name=y0] {$\true{y}(t)$} (sum);
     \draw [->] (sum)    --    (output);
+
+    \draw [->] (noise) -- (sum);
 
 \end{tikzpicture}

@@ -29,7 +29,12 @@ This often involves an iterative algorithm to produce the optimal model.
 The main aim and contribution of this chapter is to demonstrate that smoothing a measured \gls{FRF} non-parametrically, helps to avoid local optima during the parametric estimation of the \gls{MLE} of a transfer function, using classical (deterministic) optimization algorithms.
 Hence, such techniques make it possible to increase the ``success rate'' (i.e. the probability that a good model, or even the global optimum, is obtained) of such a system identification step considerably.
 
-In particular, two different smoothing techniques --- the time-truncated \gls{LPM}~\citep{Lumori2014TIM} and the \gls{RFIR}~\citep{Pillonetto2010,Chen2012} --- are tested for different \glspl{SNR} and different measurement record lengths of the input/output data of a few \gls{SISO} \gls{LTI} systems.
+In particular, two different smoothing techniques:
+\begin{itemize}
+ \item the time-truncated \gls{LPM}~\citep{Lumori2014TIM}, and
+ \item the \gls{RFIR}~\citep{Pillonetto2010,Chen2012}
+\end{itemize}
+are tested for different \glspl{SNR} and different measurement record lengths of the input/output data of a few \gls{SISO} \gls{LTI} systems.
 These are compared with the existing initialization schemes, namely: (i) the \gls{GTLS}, and (ii) the \gls{BTLS}.
 
 \paragraph{Outline}
@@ -50,10 +55,10 @@ In this section, the assumptions on the system and the noise are presented, toge
 \figref{fig:oesetup} depicts a schematic of the output error framework for  a generalized (single- or multiple-order) resonating, dynamic \gls{LTI} discrete-time \gls{SISO} system, subjected to a known white random noise input. 
 The full model of the system is
 \begin{equation}
-y(t)=\true{G}(q^{-1})u_0(t)+H_0(q^{-1})e(t)
+y(t)=\true{G}(q^{-1})\true{u}(t)+\true{H}(q^{-1})e(t)
 \label{eq:initial-values:OE:TD}
 \end{equation}
-where $\true{G}(q^{-1})$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= H_0(q^{-1})e(t)$ is the noise source at the output, $H_0(q^{-1})$ is the noise dynamics, 
+where $\true{G}(q^{-1})$ represents the dynamics of the system to be estimated, $\true{u}(t)$ is the input signal, $v(t)= \true{H}(q^{-1})e(t)$ is the noise source at the output, $\true{H}(q^{-1})$ is the noise dynamics, 
 $e(t)$ is white Gaussian noise, and $q^{-m}$ is the backwards shift operator ($q^{-m}x(t)$ = $x(t-mT_{\mathrm{s}})$  with $m$ a positive integer and $T_{\mathrm{s}}$ the sampling time).
 We only treat the discrete-time case (i.e. $t = n \cdot T_{\mathrm{s}}$ for integer values of $n$) theoretically in this chapter.
 However, the generalization to continuous time is straightforward~\citep[Chapter 6]{Pintelon2012} and has been demonstrated in Section~\ref{sec:initial-values:ExpMeas}.
@@ -71,7 +76,7 @@ It is also possible to apply the estimation procedure in this chapter to a syste
 
 With reference to equation \eqref{eq:initial-values:OE:TD}, the relation between the noiseless input and the output signals ($v(t)= 0$) is assumed to be of the form
 \begin{equation}
-    A(q^{-1}) y_0(t) = B(q^{-1}) u_0(t) \quad \forall t \in n \Ts{}  \text{ with }  n \in \IntegerNumbers
+    A(q^{-1}) \true{y}(t) = B(q^{-1}) \true{u}(t) \quad \forall t \in n \Ts{}  \text{ with }  n \in \IntegerNumbers
 \label{ABpolys}
 \end{equation}
 where $A$ and $B$ are polynomials in $q^{-1}$. 
@@ -420,9 +425,9 @@ Their inputs are excited by zero mean white Gaussian noise with unit variance, a
 \begin{equation}
   \mathrm{SNR} 
     = \frac{\sigma_v}
-           {\rms{y_0}}
+           {\rms{\true{y}}}
     \approx \frac{\sigma_{v}}
-                 {\left\| \true{G} \right\|_2 \rms{u_0}}
+                 {\left\| \true{G} \right\|_2 \rms{\true{u}}}
     =  \frac{\sigma_{v}}
             {\left\| \true{G} \right\|_2}
   \label{eq:SNR-definition}
