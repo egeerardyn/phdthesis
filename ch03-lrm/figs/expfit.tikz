@@ -31,7 +31,7 @@ legend style={legend cell align=left},
 \addplot [imprespAbs] table{\thisDir/data/expfit/abs.tsv};
 \addlegendentry{$\abs{g(t)}$}
 
-\addplot [imprespExpFit] table{\thisDir/data/expfit/exp.tsv};
+\addplot [imprespExpFit] table{\thisDir/data/expfit/expfit.tsv};
 \addlegendentry{Exponential fit}
 
 \addplot [imprespPeaks] table{\thisDir/data/expfit/peaks.tsv};
@@ -40,19 +40,10 @@ legend style={legend cell align=left},
 \addplot [imprespTrunc] table{\thisDir/data/expfit/result.tsv};
 \addlegendentry{$g_{\trunc}(t)$}
 
-\addplot [truncationline] table[row sep=crcr]{%
-704	-28.3097809794082\\
-704	40.7143028069402\\
-};
+\addplot [truncationline] table{\thisDir/data/expfit/truncationTime.tsv};
 \addlegendentry{$\truncTime$}
 
-\addplot [imprespDetectLevel, forget plot] table[row sep=crcr]{%
-0	9.37\\
-1033.23	9.37\\
-};
-\addplot [imprespNoiseLevel, forget plot] table[row sep=crcr]{%
-0	1.87\\
-1033.23	1.87\\
-};
+\addplot [imprespDetectLevel, forget plot] table{\thisDir/data/expfit/detectionLevel.tsv};
+\addplot [imprespNoiseLevel, forget plot] table{\thisDir/data/expfit/noiseLevel.tsv};
 \end{axis}
 \end{tikzpicture}%

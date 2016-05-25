@@ -23,31 +23,29 @@ grid=major,
 legend style={legend cell align=left},
 ]
 \addplot [imprespFull]
-  table[]{\thisDir/figs/expFitBoxAverager-1.tsv};
+  table[]{\thisDir/data/expfit-boxcar/full.tsv};
 
 \addlegendentry{$g(t)$};
 
-% \addplot [color=black,solid,forget plot]
-%   table[]{\thisDir/figs/expFitBoxAverager-2.tsv};
 \addplot [imprespAbs]
-  table[]{\thisDir/figs/expFitBoxAverager-3.tsv};
+  table[]{\thisDir/data/expfit-boxcar/abs.tsv};
 
 \addlegendentry{$\abs{g(t)}$};
 
 \addplot [imprespExpFit]
-  table[]{\thisDir/figs/expFitBoxAverager-4.tsv};
+  table[]{\thisDir/data/expfit-boxcar/expfit.tsv};
 
 \addlegendentry{Exponential fit};
 
 \addplot [imprespPeaks]
-  table[]{\thisDir/figs/expFitBoxAverager-5.tsv};
+  table[]{\thisDir/data/expfit-boxcar/peaks.tsv};
 \addlegendentry{Peaks};
 
 \addplot [truncationline, forget plot]
-  table[]{\thisDir/figs/expFitBoxAverager-6.tsv};
+  table[]{\thisDir/data/expfit-boxcar/truncationTime.tsv};
 \addplot [imprespNoiseLevel,forget plot]
-  table[]{\thisDir/figs/expFitBoxAverager-7.tsv};
+  table[]{\thisDir/data/expfit-boxcar/noiseLevel.tsv};
 \addplot [imprespDetectLevel,forget plot]
-  table[]{\thisDir/figs/expFitBoxAverager-8.tsv};
+  table[]{\thisDir/data/expfit-boxcar/detectionLevel.tsv};
 \end{axis}
 \end{tikzpicture}%
