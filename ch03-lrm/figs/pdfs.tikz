@@ -20,11 +20,9 @@ ylabel={Number of realizations},
 axis x line*=bottom,
 axis y line*=right
 ]
-\addplot[histogramSmootherFTest] plot table[] {\thisDir/figs/pdfs-3.tsv};
-% \addplot[forget plot,color=white!15!black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-4.tsv};
+\addplot[histogramSmootherFTest] plot table[] {\thisDir/data/rmse-resonant/histogram-F-test.tsv};
 
-\addplot[histogramSmootherExpFit] plot table[] {\thisDir/figs/pdfs-5.tsv};
-% \addplot[forget plot,color=white!15!black,solid,line width=2.0pt] table[] {\thisDir/figs/pdfs-6.tsv};
+\addplot[histogramSmootherExpFit] plot table[] {\thisDir/data/rmse-resonant/histogram-expFit.tsv};
 
 \end{axis}
 
@@ -45,14 +43,11 @@ ytick={  0, 0.5,   1, 1.5,   2, 2.5},
 ylabel={RMS Error \noaxisunit},
 legend style={legend cell align=left,align=left,draw=black}
 ]
-\addplot [mainCurve] table[]{\thisDir/figs/pdfs-1.tsv};
+\addplot [mainCurve] table[]{\thisDir/data/rmse-resonant/rmse.tsv};
 \addlegendentry{RMS Error};
 
-\addplot [pointOfInterest] table[]{\thisDir/figs/pdfs-2.tsv};
+\addplot [pointOfInterest] table[]{\thisDir/data/rmse-resonant/optimum.tsv};
 \addlegendentry{Theoretical optimum};
-
-% \addlegendimage{empty legend}
-% \addlegendentry{\textbf{Histograms using:}};
 
 \addlegendimage{histogramSmootherFTest}
 \addlegendentry{$F$-test};
