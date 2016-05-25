@@ -22,7 +22,7 @@ function [ str ] = processTikzFile( filename , isInteractive)
     function str = dataFile(idx, prevPart)
         if isInteractive
             fprintf(2,'%s\n',prevPart);
-            basename = input('What filename do you want for this data?','s');
+            basename = input('What filename do you want for this data? ','s');
         else
             basename = sprintf('dat%03d.tsv',idx);
         end
