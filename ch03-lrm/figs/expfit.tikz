@@ -25,19 +25,19 @@ ylabel={Impulse response $g(t)$ \noaxisunit},
 ymajorgrids,
 legend style={legend cell align=left},
 ]
-\addplot [imprespFull] table{\thisDir/figs/expfit-full.tsv};
+\addplot [imprespFull] table{\thisDir/data/expfit/full.tsv};
 \addlegendentry{$g(t)$}
 
-\addplot [imprespAbs] table{\thisDir/figs/expfit-abs.tsv};
+\addplot [imprespAbs] table{\thisDir/data/expfit/abs.tsv};
 \addlegendentry{$\abs{g(t)}$}
 
-\addplot [imprespExpFit] table{\thisDir/figs/expfit-exp.tsv};
+\addplot [imprespExpFit] table{\thisDir/data/expfit/exp.tsv};
 \addlegendentry{Exponential fit}
 
-\addplot [imprespPeaks] table{\thisDir/figs/expfit-peaks.tsv};
+\addplot [imprespPeaks] table{\thisDir/data/expfit/peaks.tsv};
 \addlegendentry{Peaks}
 
-\addplot [imprespTrunc] table{\thisDir/figs/expfit-result.tsv};
+\addplot [imprespTrunc] table{\thisDir/data/expfit/result.tsv};
 \addlegendentry{$g_{\trunc}(t)$}
 
 \addplot [truncationline] table[row sep=crcr]{%
