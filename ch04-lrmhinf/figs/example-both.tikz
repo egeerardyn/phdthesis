@@ -46,34 +46,34 @@ ylabel={Amplitude $\abs{\Delta(\omega)}$}
 ]
 
 \addplot [truesys,hinfnorm,forget plot]
-  table[]{\thisDir/figs/example-true-hinf.tsv};
+  table[]{\thisDir/data/example/true-hinf.tsv};
 \label{leg:example-true-Hinf}
 
 \addplot [truesys]
-  table[]{\thisDir/figs/example-true.tsv};
+  table[]{\thisDir/data/example/true.tsv};
 \label{leg:example-true}
 
 \addplot [SA,hinfnorm]
-  table[]{\thisDir/figs/example-sa-hinf.tsv};
+  table[]{\thisDir/data/example/sa-hinf.tsv};
 \label{leg:example-SA-hinfnorm}
 \addplot [SAgrid]
-  table[]{\thisDir/figs/example-sa-frf.tsv};
+  table[]{\thisDir/data/example/sa-frf.tsv};
 \label{leg:example-SA}
 
 \addplot [LRM, hinfnorm, dash phase=2pt]
-  table[]{\thisDir/figs/example-lrm-gammafrf.tsv};
+  table[]{\thisDir/data/example/lrm-gammafrf.tsv};
 \label{leg:example-LRM-hinfnorm}
 
 \addplot [LRMgrid]
-  table[]{\thisDir/figs/example-lrm-frf.tsv};
+  table[]{\thisDir/data/example/lrm-frf.tsv};
 \label{leg:example-LRM}
 
 \addplot [LPM, hinfnorm]
-  table[]{\thisDir/figs/example-lpm-gammafrf.tsv};
+  table[]{\thisDir/data/example/lpm-gammafrf.tsv};
 \label{leg:example-LPM-hinfnorm}
 
 \addplot [LPMgrid]
-  table[]{\thisDir/figs/example-lpm-frf.tsv};
+  table[]{\thisDir/data/example/lpm-frf.tsv};
 \label{leg:example-LPM}
 
 \node at (axis cs:0.75,15.5) [color=SA] {SA};
@@ -107,25 +107,25 @@ name=gammaIG,
 ]
 
 \addplot [truesys,hinfnorm]
-  table[]{\thisDir/figs/example-true-hinf.tsv};
+  table[]{\thisDir/data/example/true-hinf.tsv};
 
 \addplot [truesys,forget plot]
-  table[]{\thisDir/figs/example-true.tsv};
+  table[]{\thisDir/data/example/true.tsv};
 
 
 \addplot [SA,hinfnorm,forget plot]
-  table[]{\thisDir/figs/example-sa-hinf.tsv};
+  table[]{\thisDir/data/example/sa-hinf.tsv};
 \addplot [SAgrid,forget plot]
-  table[]{\thisDir/figs/example-sa-frf.tsv};
+  table[]{\thisDir/data/example/sa-frf.tsv};
 
 \addplot [LRM,hinfnorm,forget plot,dash phase=2pt]
-  table[]{\thisDir/figs/example-lrm-gammaig.tsv};
+  table[]{\thisDir/data/example/lrm-gammaig.tsv};
 \label{leg:example-LRM-interpol-Hinf}
 
 \addplot [LRM,interpol,forget plot]
-  table[]{\thisDir/figs/example-lrm-interpol.tsv};
+  table[]{\thisDir/data/example/lrm-interpol.tsv};
 \addplot [LRMgrid,forget plot]
-  table[]{\thisDir/figs/example-lrm-frf.tsv};
+  table[]{\thisDir/data/example/lrm-frf.tsv};
 
 %placeholder
 \addplot [LRMgrid,interpol,forget plot]
@@ -136,11 +136,11 @@ name=gammaIG,
 \label{leg:example-LRM-interpol}
 
 \addplot [LPM,hinfnorm,forget plot]
-  table[]{\thisDir/figs/example-lpm-gammaig.tsv};
+  table[]{\thisDir/data/example/lpm-gammaig.tsv};
 \addplot [LPM,interpol,forget plot]
-  table[]{\thisDir/figs/example-lpm-interpol.tsv};
+  table[]{\thisDir/data/example/lpm-interpol.tsv};
 \addplot [LPMgrid,forget plot]
-  table[]{\thisDir/figs/example-lpm-frf.tsv};
+  table[]{\thisDir/data/example/lpm-frf.tsv};
 
 %placeholder
 \addplot [LPMgrid,interpol,forget plot]
