@@ -1,0 +1,48 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}
+
+\def\dataDir{\thisDir/data/MC-SNR-40}
+\def\SNRval{40}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+unbounded coords=jump,
+xmode=log,
+xmin=2,
+xmax=256,
+ymin=-80,
+ymax=0,
+axis x line=none,
+axis y line=none,
+domain=2:256,
+]
+
+\addplot [thick,lrm7222,mcrmse,forget plot] table[]{\dataDir/LRM7222-rmse.tsv};
+\addplot [thick,lrm7222,forget plot] table[]{\dataDir/LRM7222-bias.tsv};
+\addplot [thick,lrm7222,mcvar,forget plot] table[]{\dataDir/LRM7222-std.tsv};
+\addplot [thick,lpm744,mcrmse,forget plot] table[]{\dataDir/LPM744-rmse.tsv};
+\addplot [thick,lpm744,forget plot] table[]{\dataDir/LPM744-bias.tsv};
+\addplot [thick,lpm744,mcvar,forget plot] table[]{\dataDir/LPM744-std.tsv};
+\addplot [thick,etfe,mcrmse,forget plot] table[]{\dataDir/ETFE-rmse.tsv};
+\addplot [thick,etfe,forget plot] table[]{\dataDir/ETFE-bias.tsv};
+\addplot [thick,etfe,mcvar,forget plot] table[]{\dataDir/ETFE-std.tsv};
+\addplot [thick,lrm7111,mcrmse,forget plot] table[]{\dataDir/LRM7111-rmse.tsv};
+\addplot [thick,lrm7111,forget plot] table[]{\dataDir/LRM7111-bias.tsv};
+\addplot [thick,lrm7111,mcvar,forget plot] table[]{\dataDir/LRM7111-std.tsv};
+\addplot [thick,lrm6222,mcrmse,forget plot] table[]{\dataDir/LRM6222-rmse.tsv};
+\addplot [thick,lrm6222,forget plot] table[]{\dataDir/LRM6222-bias.tsv};
+\addplot [thick,lrm6222,mcvar,forget plot] table[]{\dataDir/LRM6222-std.tsv};
+\addplot [thick,lric7222,mcrmse,forget plot] table[]{\dataDir/LRIC7222-rmse.tsv};
+\addplot [thick,lric7222,forget plot] table[]{\dataDir/LRIC7222-bias.tsv};
+\addplot [thick,lric7222,mcvar,forget plot] table[]{\dataDir/LRIC7222-std.tsv};
+
+
+\end{axis}
+\end{tikzpicture}%

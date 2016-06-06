@@ -1,0 +1,33 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}
+
+\def\dataDir{\thisDir/data/MC-SNR-40}
+\def\SNRval{40}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+unbounded coords=jump,
+xmode=log,
+xmin=2,
+xmax=256,
+ymin=-80,
+ymax=0,
+axis x line=none,
+axis y line=none,
+domain=2:256,
+]
+
+
+\addplot [thick,lpm744,mcrmse,forget plot] table[]{\dataDir/LPM744-rmse.tsv};
+\addplot [thick,lpm744,forget plot] table[]{\dataDir/LPM744-bias.tsv};
+\addplot [thick,lpm744,mcvar,forget plot] table[]{\dataDir/LPM744-std.tsv};
+
+\end{axis}
+\end{tikzpicture}%

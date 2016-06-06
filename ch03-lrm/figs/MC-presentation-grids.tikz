@@ -1,0 +1,46 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}
+
+\def\dataDir{\thisDir/data/MC-SNR-40}
+\def\SNRval{40}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+unbounded coords=jump,
+xmode=log,
+xmin=2,
+xmax=256,
+xtick={2,4,8,16,32,64,128,256},
+log basis x=2,
+extra x ticks={3,5,6,7,9,10,11,12,14,40,80,92},
+extra x tick labels={},
+xminorticks=true,
+xlabel={$\nBW \propto$ data length},
+ymin=-80,
+ymax=0,
+ylabel={Error \axisunit{dB}},
+axis x line*=bottom,
+axis y line*=left,
+xmajorgrids,
+xminorgrids,
+ymajorgrids,
+domain=2:256
+]
+
+\draw[opacity=0.5, fill=TangoAluminium1] (axis cs:2,-90) rectangle (axis cs:256,-40);
+
+\pgfplotsinvokeforeach{1,2,...,9} {
+	\addplot[slopegrid,
+	         text mark={\footnotesize \color{gray} {$\hphantom{---}\nBW^{-#1}$}}] 
+	         expression {-20*#1*log10(x)};
+}
+
+\end{axis}
+\end{tikzpicture}%
