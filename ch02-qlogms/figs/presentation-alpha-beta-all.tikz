@@ -1,0 +1,143 @@
+% This file was created by matlab2tikz v0.1.3.
+% Copyright (c) 2008--2011, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+% 
+\begin{tikzpicture}
+
+
+\begin{groupplot}[
+group style={
+	group name=alphaBeta,
+	group size=2 by 1,
+	horizontal sep=1em,
+	y descriptions at=edge left,
+	x descriptions at=edge bottom 
+},
+scale only axis,
+height=\figureheight,
+ylabel={Variance $\sigma^2_G(\wM)$ \axisunit{dB}},
+ytick={40,30,20,10,5,0,-10},
+ymin=-15, ymax=30,
+xmajorgrids,
+xminorgrids,
+ymajorgrids,
+legend style={font=\tiny},
+ylabel near ticks,
+]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nextgroupplot[xmin=0,xmax=1,xtick={0,0.25,0.5,0.75,1},xlabel={Misalignment $\beta$},width=0.66\figurewidth]
+
+\addplot [dbavar, forget plot] table {\thisDir/data/betaWC/dbavar.tsv};
+\addplot [dbamin, forget plot] table {\thisDir/data/betaWC/dbamin.tsv};
+\addplot [dbamax] table[row sep=crcr] {
+ 0.495	27.6453\\
+};
+% \addlegendentry{$\abs{G(\omega_{\mathrm{M}})} = 40 \unit{dB}$}
+
+
+\addplot [dbbvar, forget plot] table{\thisDir/data/betaWC/dbbvar.tsv};
+\addplot [dbbmin, forget plot] table{\thisDir/data/betaWC/dbbmin.tsv};
+\addplot [dbbmax] table[row sep=crcr] {
+ 0.45	15.8559\\
+};
+% \addlegendentry{$\abs{G(\omega_{\mathrm{M}})} = 20 \unit{dB}$}
+
+
+\addplot [dbcvar, forget plot] table{\thisDir/data/betaWC/dbcvar.tsv};
+\addplot [dbcmin, forget plot] table{\thisDir/data/betaWC/dbcmin.tsv};
+\addplot [dbcmax] table[row sep=crcr]{
+ 0.365	7.78034\\
+};
+% \addlegendentry{$|G(\omega_{\mathrm{M}})| = 10 \unit{dB}$}
+
+
+\addplot [dbdvar, forget plot] table{\thisDir/data/betaWC/dbdvar.tsv};
+\addplot [dbdmin, forget plot] table{\thisDir/data/betaWC/dbdmin.tsv};
+
+\addplot [dbdmax] table[row sep=crcr] {
+ 0.265	2.91389\\
+};
+% \addlegendentry{$|G(\omega_{\mathrm{M}})| = \phantom{0}5 \unit{dB}$}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nextgroupplot[xmode=log,xmin=0.1,xmax=10,xlabel={Grid spacing $\frac{\alpha -1}{\damping}$},legend pos=north west,width=0.33\figurewidth]
+
+\addplot [dbavar, forget plot] table{\thisDir/data/alphaWC/dbavar.tsv};
+\addplot [dbamax] table[row sep=crcr]{
+	10	27.6453\\
+};
+% \addlegendentry{$\abs{G(\wM)} = 40 \unit{dB}$};
+
+
+\addplot [dbbvar, forget plot] table{\thisDir/data/alphaWC/dbbvar.tsv};
+\addplot[dbbmax] table[row sep=crcr] {
+	10	15.8559\\
+ };
+% \addlegendentry{$\abs{G(\wM)} = 20 \unit{dB}$};
+
+
+\addplot [dbcvar, forget plot] table{\thisDir/data/alphaWC/dbcvar.tsv};
+\addplot [dbcmax] table[row sep=crcr] {
+	10	7.78034\\
+};
+% \addlegendentry{$\abs{G(\wM)} = 10 \unit{dB}$};
+
+
+\addplot [dbdvar, forget plot] table{\thisDir/data/alphaWC/dbdvar.tsv};
+\addplot[dbdmax] table[row sep=crcr] {
+	10	2.91389\\
+};
+% \addlegendentry{$\abs{G(\wM)} = \phantom{0}5 \unit{dB}$};
+
+% \addplot [color=black,dashed,line width=1pt]
+% table[row sep=crcr]{
+%  	1	-15\\
+% 	1	 45\\
+% };
+% \addlegendentry{$\alpha = \alpha^{\star}$}
+
+
+\end{groupplot}
+
+
+% \begin{semilogxaxis}[%
+% xmin=0.01, xmax=10,
+% ymin=-10, ymax=30,
+% xlabel={Normalized frequency ratio $\frac{\alpha - 1}{\damping}$},
+% xmajorgrids,
+% xminorgrids,
+% ymajorgrids,
+% legend style={at={(0.05,0.95)},anchor=north west,nodes=right}]
+
+
+% \end{semilogxaxis}
+
+% \begin{axis}[%
+% scale only axis,
+% name=alpha,
+% anchor=north west,
+% at={($(beta.north east) + (1em,0pt)$)},
+% width=0.5\figurewidth,
+% height=\figureheight,
+% xmin=0, xmax=1,
+% ymin=-15, ymax=30,
+% xlabel={Misalignment coefficient $\beta$},
+% ylabel={Variance $\sigma^2_{G}(\omega_M)$ \axisunit{dB}},
+% ytick={40,30,20,10,5,0,-10},
+% xmajorgrids,
+% ymajorgrids,
+% zmajorgrids]
+
+
+
+
+% \end{axis}
+
+
+\end{tikzpicture}
