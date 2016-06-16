@@ -7,6 +7,7 @@
 
 \section{Introduction}
 \label{sec:nonparametric:introduction}
+%TODO: go back further in time for refs
 
 Whereas many areas of system identification focus on parametric identification and/or parameter estimation, non-parametric techniques have received renewed interest from the community over the last decade.
 One of the reasons for this is that non-parametric techniques typically require fewer assumptions and knowledge of the system than building parametric models.
@@ -236,7 +237,7 @@ This is in correspondence with the remark from \citet{Pintelon2006BJ1}.
 The \gls{LRM} as first introduced by \citet{McKelvey2012LRM}, overcomes the computational burden of an iterative procedure by weighting the equation error by the denominator polynomial $\LocalModel{A}$  akin to the procedure in \citep{Levy1959}.
 I.e. the \gls{LRM} procedure tries to minimize the equation error in
 \begin{equation}
-  \LocalModel{A} \hadamard \LocalVector{Y} = \LocalModel{B} \hadamard \LocalVector{U}  + \LocalVector{C} + \LocalVector{V}
+  \LocalModel{A} \hadamard \LocalVector{Y} = \LocalModel{B} \hadamard \LocalVector{U}  + \LocalModel{C} + \LocalVector{V}
   \text{,}
 \end{equation}
 for which the corresponding cost function is
