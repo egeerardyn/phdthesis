@@ -1,0 +1,10 @@
+% unbiasedness assumption in input design
+% assymptotic assumption in input design
+
+% formule (2.6) niet duidelijk genoeg (variance na robustification)
+% sum van systemen: K inbrengen; bespreken wat er gebeurt bij andere amplitudes
+% figure bias FRF input (2.12): markers op ganse lijnen
+% waar optimaal signaal faalt: connectie ==> LANGER METEN
+
+% remark 3.5 -> section 3.2.1Local Modeling
+% 3.40 typo

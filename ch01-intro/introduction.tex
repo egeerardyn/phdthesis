@@ -89,7 +89,7 @@ A useful tool to help choose the model structure and/or model orders, is to insp
 One such tool is the frequency response function.
 For instance, by inspecting a frequency response function, a control engineer can have a rough idea of the system behavior in term of  approximate resonance frequencies, asymptotic slopes, \latin{etc.}
 This gives a qualitative view of the minimally required complexity of the model and is hence a useful diagnostic tool.
-However, since most parametric estimators enforce very little prior knowledge about the system, noise in the measurements can sometimes be a problem to distinguish the actual system features.
+However, since most nonparametric estimators enforce very little prior knowledge about the system, noise in the measurements can sometimes be a problem to distinguish the actual system features.
 
 \paragraph{Estimate the model parameters}
 Once the model structure has been chosen, its parameters are to be estimated.
@@ -119,6 +119,7 @@ In the previous section, it has been seen that some of the system identification
 In this dissertation, we focus on developing system identification techniques that are `user-friendly'.
 The availability of easy to use and fast methods has been underlined by \citet{Gevers2011Challenges}.
 In this context, `user-friendly' should be understood as having a good user experience for two groups of users:
+%TODO: more groups ("two groups")
 \begin{itemize}
   \item novices, without formal training in system identification, optimization, \ldots and,
   \item well-seasoned identification practitioners that are already able to build good models.
