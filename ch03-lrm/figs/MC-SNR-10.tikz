@@ -54,24 +54,24 @@ domain=2:256,
 
 \node[annotation, anchor=north east] at (rel axis cs: 1,1) {$\SNR = \SNRval \unit{dB}$};
 
-\addplot [lrm7222,mcrmse,forget plot] table[]{\dataDir/LRM7222-rmse.tsv};
-\addplot [lrm7222,forget plot] table[]{\dataDir/LRM7222-bias.tsv};
-\addplot [lrm7222,mcvar,forget plot] table[]{\dataDir/LRM7222-std.tsv};
-\addplot [lpm744,mcrmse,forget plot] table[]{\dataDir/LPM744-rmse.tsv};
-\addplot [lpm744,forget plot] table[]{\dataDir/LPM744-bias.tsv};
-\addplot [lpm744,mcvar,forget plot] table[]{\dataDir/LPM744-std.tsv};
-\addplot [etfe,mcrmse,forget plot] table[]{\dataDir/ETFE-rmse.tsv};
-\addplot [etfe,forget plot] table[]{\dataDir/ETFE-bias.tsv};
-\addplot [etfe,mcvar,forget plot] table[]{\dataDir/ETFE-std.tsv};
-\addplot [lrm7111,mcrmse,forget plot] table[]{\dataDir/LRM7111-rmse.tsv};
-\addplot [lrm7111,forget plot] table[]{\dataDir/LRM7111-bias.tsv};
-\addplot [lrm7111,mcvar,forget plot] table[]{\dataDir/LRM7111-std.tsv};
-\addplot [lrm6222,mcrmse,forget plot] table[]{\dataDir/LRM6222-rmse.tsv};
-\addplot [lrm6222,forget plot] table[]{\dataDir/LRM6222-bias.tsv};
-\addplot [lrm6222,mcvar,forget plot] table[]{\dataDir/LRM6222-std.tsv};
-\addplot [lric7222,mcrmse,forget plot] table[]{\dataDir/LRIC7222-rmse.tsv};
-\addplot [lric7222,forget plot] table[]{\dataDir/LRIC7222-bias.tsv};
-\addplot [lric7222,mcvar,forget plot] table[]{\dataDir/LRIC7222-std.tsv};
+\addplot [lrm7222  , mcrmse , forget plot] table[]{\dataDir/LRM7222-rmse.tsv};
+\addplot [lrm7222  , mcbias , forget plot] table[]{\dataDir/LRM7222-bias.tsv};
+\addplot [lrm7222  , mcvar  , forget plot] table[]{\dataDir/LRM7222-std.tsv};
+\addplot [lpm744   , mcrmse , forget plot] table[]{\dataDir/LPM744-rmse.tsv};
+\addplot [lpm744   , mcbias , forget plot] table[]{\dataDir/LPM744-bias.tsv};
+\addplot [lpm744   , mcvar  , forget plot] table[]{\dataDir/LPM744-std.tsv};
+\addplot [etfe     , mcrmse , forget plot] table[]{\dataDir/ETFE-rmse.tsv};
+\addplot [etfe     , mcbias , forget plot] table[]{\dataDir/ETFE-bias.tsv};
+\addplot [etfe     , mcvar  , forget plot] table[]{\dataDir/ETFE-std.tsv};
+\addplot [lrm7111  , mcrmse , forget plot] table[]{\dataDir/LRM7111-rmse.tsv};
+\addplot [lrm7111  , mcbias , forget plot] table[]{\dataDir/LRM7111-bias.tsv};
+\addplot [lrm7111  , mcvar  , forget plot] table[]{\dataDir/LRM7111-std.tsv};
+\addplot [lrm6222  , mcrmse , forget plot] table[]{\dataDir/LRM6222-rmse.tsv};
+\addplot [lrm6222  , mcbias , forget plot] table[]{\dataDir/LRM6222-bias.tsv};
+\addplot [lrm6222  , mcvar  , forget plot] table[]{\dataDir/LRM6222-std.tsv};
+\addplot [lric7222 , mcrmse , forget plot] table[]{\dataDir/LRIC7222-rmse.tsv};
+\addplot [lric7222 , mcbias , forget plot] table[]{\dataDir/LRIC7222-bias.tsv};
+\addplot [lric7222 , mcvar  , forget plot] table[]{\dataDir/LRIC7222-std.tsv};
 
 \addlegendimage{mcrmse}
 \addlegendentry{$\RMSE_{\bullet}$}

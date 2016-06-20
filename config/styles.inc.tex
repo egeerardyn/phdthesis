@@ -258,11 +258,12 @@
 \pgfplotsset{clogms/.style={color=clogms,solid,line width=0.5pt}}
 
 %% MC LRM
-\pgfplotsset{mcrmse/.style={dotted}}
-\pgfplotsset{mcbias/.style={solid}}
-\pgfplotsset{mcvar/.style={dashed}}
-\pgfplotsset{mcnoise/.style={solid}}
-\pgfplotsset{mcpress/.style={solid}}
+\pgfplotsset{mcline/.append style={line width=0.75pt}}
+\pgfplotsset{mcrmse/.append style={mcline, dotted}}
+\pgfplotsset{mcbias/.append style={mcline, solid}}
+\pgfplotsset{mcvar/.append style={mcline, dashed}}
+\pgfplotsset{mcnoise/.append style={mcline, solid}}
+\pgfplotsset{mcpress/.append style={mcline, solid}}
 
 
 %% Truncation
