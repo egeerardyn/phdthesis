@@ -16,6 +16,16 @@
 			[
 				"arara",
 				"-v",
+				"response.tex"
+			],
+			"name": "Arara (response)",
+			"working_dir": "${project_path}"
+		},
+		{
+			"cmd":
+			[
+				"arara",
+				"-v",
 				"phdFigures.tex"
 			],
 			"name": "Arara (figures)",
