@@ -1,232 +1,69 @@
-% arara: xelatex
-\documentclass{article}
+% !arara: clean: { files: [response.aux, response.log, response.bbl, response.blg] }
+% arara: xelatex: {synctex : yes}
+% !arara: biber
+% arara: xelatex: {synctex : yes}
+\documentclass{responseletter}
+\date{\today}
 
-\usepackage{a4wide}
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{mathtools}
-\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
-
-\usepackage{dsfont}
-
-\usepackage[parfill]{parskip}
-
-\usepackage{xcolor}
-
-\newenvironment{answer}{\noindent\ignorespaces\color{blue}}{\noindent\ignorespacesafterend}
-\newcommand{\ans}[1]{\begin{answer}#1\end{answer}}
-
-\newcommand{\action}[1]{\textbf{Action:} #1}
-
-\newcommand{\oldnewpage}[2]{\marginpar{{\color{black}#1} / {\color{red}#2}}}
-
+\setkomavar{fromname}{Egon Geerardyn}
+\setkomavar{fromemail}[]{egon.geerardyn@vub.ac.be} 
 
 \begin{document}
+\begin{letter}{%
+Tomas McKelvey\\
+Jérôme Antoni\\
+Bart Peeters\\
+Johan Deconinck\\
+Patrick Guillaume\\
+Koen Tiels}
 
-\sloppy
+\opening{Dear jury members,}
 
-\section*{Response to the jury and changes to the text}
+First of all, I would like to thank you for your feedback on my PhD thesis and the ensuing discussions.
+This has greatly improved the text.
 
-Dear jury members,
+Attached, you can find an extensive summary of the changes I have carried out in the text.
+\oldnewpage{old}{new}
+The numbers in the margin indicate the pages in the old revision (\href{https://github.com/egeerardyn/phdthesis/releases/tag/private-submit}{\texttt{946aebc}} as for the private defense) and in the new revision.
 
-Thank you for your feedback on my PhD thesis. This helped me improve the text.
-Below, I have attempted to address your questions, and I have indicated the changes made in the text.
-\oldnewpage{pages old text}{pages new text}The page numbers in the margin indicate the page numbers in the previous text (black) and in the new text (red).
+I have also made the \LaTeX{} source code of my text (and data files) available on GitHub.
+There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare/b6b273e...master}{full set of changes} at the source code level, or \href{https://github.com/egeerardyn/phdthesis/commits/master}{inspect individual changes}.
 
-\subsection*{Requested actions}
+\closing{Sincerely,}
+\encl{list of changes\\
+          old manuscript (\texttt{old.pdf})\\
+          revised manuscript (\texttt{new.pdf})}
+\end{letter}
 
-\begin{enumerate}
-	\item \label{item: infinite memory}
-		p.~15: ``Wiener systems are defined as systems that do not have infinite memory and are not explosive''. What do you mean with infinite order systems?\\
-		\action{Clarify this part.}\\
-\ans{With ``do not have infinite memory'', I mean that the system's Volterra kernels (see (2.4)) \mbox{$k_d(\tilde{\tau}_1, \ldots, \tilde{\tau}_d)$} should tend to zero as $\tilde{\tau}_i$ tends to infinity for \mbox{$i=1, \ldots, d$}. This means that the influence of the input infinitely far back in time on the present output should decay to zero. To avoid confusion with finite impulse response (FIR) dynamics, the wording ``do not have infinite memory'' is removed.\\
-			\oldnewpage{15}{17}The first paragraph in Section~2.2 now includes ``Wiener systems are roughly all time-invariant systems that are not explosive and that can be arbitrarily well (the convergence criterion will be specified later) approximated by a fading memory system. The fading memory system will be modeled by a convergent Volterra series. In a proper setting, Wiener systems can also deal with discontinuous nonlinearities. The technical details will be specified in this section''.\\
-			\oldnewpage{17}{19}The sentence ``A necessary condition for a system to belong to the class of Wiener systems is that its Volterra kernels \mbox{$k_d(\tilde{\tau}_1, \ldots, \tilde{\tau}_d)$} should tend to zero as $\tilde{\tau}_i$ tends to infinity for \mbox{$i=1, \ldots, d$}'' is added at the end of Subsection~2.2.2.\\
-			\oldnewpage{17}{19}The first sentence of Subsection~2.2.3 is replaced by ``Most of the systems that are considered in this thesis are assumed to belong to the class of Wiener systems, which means that they have a convergent (in mean-square sense) and uniformly bounded Volterra series representation [Schetzen, 2006]''.\\
-			\oldnewpage{5}{5}The sentences ``Instead, systems belonging to the class of Wiener systems are roughly all time-invariant systems that do not have infinite memory, and that are not explosive, meaning that their output has finite variance for a Gaussian noise excitation [Schetzen, 2006]. A subset of these systems are the fading memory systems [Boyd and Chua, 1985]'' in the third paragraph of Subsection~1.1.3 are replaced by ``Instead, systems belonging to the class of Wiener systems are roughly all time-invariant, non-explosive systems (meaning that their output has finite variance for a Gaussian noise excitation), where the influence of the input infinitely far back in time on the present output decays to zero [Schetzen, 2006]. A subset of these systems are the fading memory systems considered in Boyd and Chua [1985]. In a proper setting, to be specified later, Wiener systems can also deal with discontinuous nonlinearities''.}
+\section{Requested Changes}
+
+\subsection{Figures}
+\question{Increase the line width used in the figures like Figure 3.4}
+\action{All figures have been inspected and improved. At most places, the minimum line width has been increased to $0.75\mathrm{pt}$.}
+
+\subsection{Assumptions}
+\question{Make a list of assumptions, especially in Chapter 2, under which the work is valid}
+
+\subsection{References}
+\question{Update the (historical) references.}
+
+\subsection{Define robustness}
+\question{Define robustness.}
+
+\section{Small Corrections}
+\question{A list of small corrections will be provided directly by the members of the jury.}
+
+\subsection{Tomas McKelvey}
+\subsection{Jérôme Antoni}
+\subsection{Tom Oomen}
 
 
-	\item p.~18: ``For systems satisfying Assumption~2.5, it 'holds' that if the system is excited by a periodic signal, the steady-state output is also periodic with the same period``. Here, 'holds' means that it is a proven fact. In general, there are some sufficient conditions (incrementally $L_2$ stable systems) for this fact to hold.\\
-		\action{Give a reference where it is proven that a periodic excitation leads to a periodic response for Volterra series.}\\
-		\ans{\oldnewpage{18}{20}This fact is proven in Theorem~4.1.2 of the paper ``Analytical Foundations of Volterra Series'' by Boyd et al. [1984]. A reference to this paper is now provided in the paragraph below Assumption~2.5.}
+\section{Small Other Corrections}
 
-	\item \label{item: filtered output noise}
-		p.~33: In Assumption~3.7, ``$v(t)$ is a sequence of independent random variables'' is incompatible with ``are filtered by a stable monic filter''.\\
-		\action{Clarify this assumption.}\\
-		\ans{The intended meaning is that $v(t)$ is obtained by filtering a sequence of independent random variables by a stable monic filter.\\
-			\oldnewpage{33}{37}The assumption is changed into: ``The measurement noise $v(t)$ is obtained by filtering a sequence of independent random variables, that are independent of the excitation signal $u(t)$ and that have a zero mean and a bounded variance, by a stable monic filter''.}
 
-	\item \action{Make a better connection between Chapter~4 and~5.}\\
-		\ans{\oldnewpage{94--95}{99}The sentences ``Note also that a Wiener system (the setting of Section~4.1) and a Hammerstein system (the setting of Section~4.2) fit in the general model structure in Figure~5.3. If there are no output dynamics (Wiener) or no input dynamics (Hammerstein), then the model in Figure~5.3 reduces to a model that is linear-in-the-parameters'' are added at the end of the paragraph ``A model bilinear in its parameters'' in Subsection~5.2.3.}
+\bibliographystyle{plain}
+% \bibliographystyle{plainnatit} %it: with et~al. in italics
+\bibliography{../biblio/ownWork,../biblio/references}
 
-	\item p.~4: ``A system is linear if the superposition principle holds''. What is the impact of initial conditions when speaking about dynamic systems? How to check this in practice?\\
-		\action{Be more specific about the excitation/transients.}\\
-		\ans{The superposition principle only holds for the steady-state behavior of linear dynamic systems. The superposition principle is not fulfilled if a transient term is present. The input signals are thus supposed to be defined from time $-\infty$. In practice, one can apply a periodic input and wait for the transients to die out.\\
-			\oldnewpage{4}{4}The concerned paragraph on p.~4 is changed into: ``A system is linear if its steady-state behavior fulfills the superposition principle. This means that if the steady-state response to an input $u_1$ is $y_1$, and the steady-state response to an input $u_2$ is $y_2$, then the steady-state response of a linear system to a linear combination of those inputs \mbox{$u=c_1 u_1 + c_2 u_2$} is the linear combination of the corresponding steady-state outputs \mbox{$y=c_1 y_1 +c_2 y_2$}, where $c_1$ and $c_2$ are arbitrary constants''.}
-
-	\item p.~22: The right-hand side of (2.11) is an approximation to the right-hand side of the equation above (2.11), while the left-hand side of both equations is the same.\\
-		\action{The notation in (2.11) should indicate that an approximation is made.}\\
-		\ans{\oldnewpage{22}{24}The left-hand sides of (2.11) and of the first equation in (2.12) are changed to $\hat{y}(t)$.
-			}
-
-	\item p.~23: (2.14): Are these basis functions? Is it proven that it is a complete basis?\\
-		\action{Use the wording ``set of functions'' instead of ``basis functions''.}\\
-		\ans{\oldnewpage{23}{25}The text is changed into: ``Hence, the transfer function representation in (2.13) can be written as an expansion \begin{equation*}y(t) = \sum_{i=0}^{n_b} b_i F_i^{\not\perp}(q) u(t) \tag*{(2.14)}\end{equation*} in terms of the set of functions \begin{equation*}F_i^{\not\perp}(q) = \frac{q^{-i}}{A(q)} \, ,\end{equation*} where the $b_i$s are the coefficients of the expansion. The representation in (2.14) is linear in its parameters $b_i$. These parameters can be determined from a linear regression, where the outputs of the set of functions $F_i^{\not\perp}$, i.e. \mbox{$x_i^{\not\perp}(t) = F_i^{\not\perp}(q) u(t)$}, are the regressors. Moreover, prior knowledge of the system dynamics can be incorporated in the choice of the poles $\xi_i$. Furthermore, the approximation of dynamic systems with a long memory is no problem, since the expansion representation is an IIR representation. Nevertheless, the set of functions $F_i^{\not\perp}$ are in general not orthogonal, which may lead to a numerically ill-conditioned estimation of the parameters $b_i$''.}
-
-	\item p.~24: ``A set of orthonormal transfer functions forms a basis if any rational transfer function can be written as a linear combination of the orthonormal transfer functions in the set''. Which rational transfer functions are you talking about? Are all linear combinations allowed?\\
-		\action{Add the fact that the transfer functions need to be stable, and that the linear combinations need to decay as well.}\\
-		\ans{\oldnewpage{32}{36}The considered transfer functions are proper, finite-dimensional, stable, rational transfer functions as indicated in Assumption~3.1 on p.~32.\\
-			\oldnewpage{24}{26}The text on p.~24 is changed into: ``A set of orthonormal transfer functions forms a basis if any proper, finite-dimensional, stable, rational transfer function can be written as a linear combination of the orthonormal transfer functions in the set, where the coefficients of the linear combination need to decay to zero''.}
-
-	\item Would it be possible to simplify the proof on p.~29?\\
-		\action{Be more precise when going from strictly proper to proper.}\\
-		\ans{By adding the extra basis function \mbox{$F_0(q) = 1$}, the function space is changed from strictly proper (without direct feed-through), finite-dimensional, stable, rational transfer functions to proper (with direct feed-through), finite-dimensional, stable, rational transfer functions. Since $F_0(q)$ is a pure direct feed-through term, $F_0(q)$ is orthogonal to the other basis functions.\\
-		\oldnewpage{26}{28}The last sentence in Subsection~2.4.5 on p.~26 is changed into: ``Since $F_0(q)$ is a pure direct feed-through term, which is not in the function space of strictly proper, finite-dimensional, stable, rational transfer functions, $F_0(q)$ is orthogonal with respect to the other basis functions (see also Appendix~2.C)''.}
-
-	\item The PhD text is very condense, but sometimes too condensed.\\
-		\action{Lighten-up a little bit the text. The candidate should read it more as an outsider.}\\
-		\ans{See the responses to the comments by Dr. Peter S. C. Heuberger.}
-
-	\item Is it possible to use the methods for continuous-time systems?\\
-		\action{Add in the introduction that it is possible to use the method in the continuous time. Also add that block-oriented models allow for an easy discretization.}\\
-		\ans{\oldnewpage{5}{5}The paragraph ``In this thesis, we will work with discrete-time linear dynamic blocks, although it is possible to handle continuous-time dynamics as well. Note that block-oriented models allow for an easy discretization, due to the separation between the dynamics and the nonlinearities'' is added after the first paragraph in Subsection~1.1.3.}
-\end{enumerate}
-
-\subsection*{Comments Prof. Dr. ir. Fouad Giri}
-
-\begin{enumerate}
-	\item Page~6, end of the first paragraph: Add a reference where it is shown that Hermite polynomials are an optimal choice for Gaussian inputs. \\
-		\ans{\oldnewpage{6}{6}A reference to Schetzen [2006] is added, where it is shown that Hermite polynomials are orthogonal for a zero-mean Gaussian input.}
-	\item Page~7, Table~1.1: Indicate that the number of parameters is equal to the number of combinations of $n$ (or $D$) elements out of a set of \mbox{$n+D$} elements.\\
-		\ans{{\vspace*{-1.2em}\oldnewpage{7 and~xii}{8 and~xii}\vspace*{1.2em}}The caption of Table~1.1 now includes ``\mbox{$n_\beta = \frac{(n+D)!}{n! D!} = \binom{n+D}{n} = \binom{n+D}{D}$}'' and the list of notational conventions and operators on page~xii has been updated.}
-	\item Page~22, sixth line: The numerical reliability of estimating the coefficients is because of the orthonormality of the basis functions (orthogonality alone is not sufficient).\\
-		\ans{{\vspace*{-1.2em}\oldnewpage{22}{24}\vspace*{1.2em}}``orthogonality'' has been replaced by ``orthonormality''.}
-	\item Page~25, line below the expression for $G(q)$: Indicate that $G(q)$ should be Hurwitz.\\
-		\ans{\oldnewpage{25}{27--28}The three lines above the expression for $G(q)$ indicate that $G(q)$ should be stable. To emphasize this, the line below the expression for $G(q)$ is changed into ``Provided furthermore that $G(q)$ is a finite-order rational transfer function \ldots''.}
-	\item \label{item: redundancy assumptions}
-		Pages~32 and~33: There is some redundancy when formulating the assumptions. Avoid exact repetition of the assumptions. Moreover, Assumption~3.5 is not really an assumption, because the excitation signal can be chosen.\\
-		\ans{\oldnewpage{32--33}{36--37}The paragraph above Assumption~3.1 is removed. Instead, the sentence ``Below, we list the assumptions made on the Wiener system'' is added.\\
-			The sentence ``The order of $G(q)$ will be denoted by $n_p$, while its poles will be denoted by $p_i$ \mbox{$(i = 1, \ldots, n_p)$}'' is added after Assumption~3.2.\\
-			The sentence above Assumption~3.3 is removed. Instead, the sentence ``Even nonlinearities are ruled out as the BLA of the Wiener system would otherwise be zero, making it impossible to use the result in Theorem~2.7 to initialize the dynamics of the Wiener-Schetzen model'' is added after Assumption~3.3.\\
-			\oldnewpage{33, 36--37, 56, 67--68}{37, 40--42, 62, 72--73}The first sentence of Subsection~3.2.2 is changed into ``For simplicity, in this chapter, the excitation signal $u(t)$ is chosen to be a random-phase multisine with finite power (see Definition~2.3)''. Assumption~3.5 is removed, as well as the references to this assumption in Assumption~3.8, Lemmas~3.9 and ~3.10, Theorem~3.11, Subsection~3.5.2, and Appendices~3.B and~3.D. Assumption~3.8 (now Assumption~3.7) is changed into ``\ldots if the system is excited by a random-phase multisine $u(t)$ with finite power (see Definition~2.3) \ldots''. Lemma~3.9 is changed into ``Consider a discrete-time Wiener system, with a static nonlinear system $f(x)$ and an LTI system $G(q)$, excited by a random-phase multisine $u(t)$ with finite power (see Definition~2.3). \ldots''. The sentence ``Since the input is assumed to be periodic (see Assumption~3.5), \ldots'' in Subsection~3.5.2 is replaced by ``Since the input is chosen to be periodic (see Subsection~3.2.2), \ldots''. The sentence ``Under Assumptions~2.5, 3.5, and 3.8, \ldots'' in Appendix~3.B is replaced by ``For a random-phase multisine excitation with finite power (see Definition~2.3), and under Assumptions~2.5 and~3.7 \ldots''. The reference to Assumption~3.5 in Appendix~3.D is replaced by a reference to Subsection~3.2.2.\\
-			\oldnewpage{33}{37}The sentence above Assumption~3.6 is removed. Instead the sentence ``The situation of Assumption 3.5, which is generally impossible to fulfill, is first considered'' is added below that assumption (now Assumption~3.5 due to the removal of the previous Assumption~3.5 + see also the response to comment~\ref{item: no noise} by Dr. Peter S. C. Heuberger).}
-	\item Page 36 (two lines below (3.2c)): Define $n_p$.\\
-		\ans{\oldnewpage{36}{40}The sentence ``Under Assumption~3.2, we put \mbox{$n_a = n_p$}'' is now expanded with ``\ldots, where $n_p$ is the known order of $G(q)$''.}
-	\item \label{item: infinity norm}
-		Page 39, Figure~3.4: What does the norm \mbox{$\lVert \hat{y}(t) - y(t) \rVert_\infty$} mean? The usual $L_\infty$ norm is maximum of \mbox{$\lvert \hat{y}(t) - y(t) \rvert$}.\\
-		\ans{\oldnewpage{39}{44}This norm indeed denotes \mbox{$\max\limits_t (\lvert \hat{y}(t) - y(t) \rvert)$}. I do agree that the notation is confusing, since both $\hat{y}(t)$ and $y(t)$ denote the signals $\hat{y}$ and $y$ instead of the instantaneous values. To avoid confusion, the notation is changed to \mbox{$\lVert \hat{y} - y \rVert_\infty$}.}
-	\item Page~51: What is the shape of the static nonlinear function \mbox{$f(x_1,x_2)$}?\\
-		\ans{{\vspace*{-1.4em}\oldnewpage{51}{56 and~59}\vspace*{1.4em}}A figure of \mbox{$f(x_1,x_2)$} has been added.}
-	\item Page~103, Assumption~5.7: Why $d \ge 3$?\\
-		\ans{\oldnewpage{103}{108, 111 and~114}The shifted BLAs are zero if Assumption~5.7 is not fulfilled. The sentence ``Note that \mbox{$E_u\left\{\frac{Y_d(\nu+is)}{U(\nu)}\right\}$} and \mbox{$E_u\left\{\frac{Y_d(-(\nu+is))}{U(-\nu)}\right\}$} are zero if Assumption~5.7 is not fulfilled'' is added after Theorem~5.13 (now Theorem~5.12). The second sentence in Subsection~5.3.6, i.e. ``Under Assumption~5.7, the result in Theorem~5.12 can be used to separate the input and the output dynamics'' refers to that.}
-	\item Page~103, Assumption~5.8: This is not an assumption, this makes part of the identification procedure.\\
-		\ans{\oldnewpage{103}{108 and~110}Assumption~5.8 is removed, as well as the reference to this assumption in Theorem~5.13 (now Theorem~5.12). Instead, it is now mentioned explicitly in the theorem that the Wiener-Hammerstein system operates in steady-state.}
-\end{enumerate}
-
-\subsection*{Comments Dr. Peter S. C. Heuberger}
-
-\begin{enumerate}
-	\item In the notation section, make a remark that---by abuse of notation---you will use often $u(t)$ to denote the signal $u$ instead of the instantaneous value.\\
-		\ans{\oldnewpage{xiii and~39}{xiii and~44}A remark is added at the end of the ``notational conventions and operators'' section that indicates this abuse of notation: ``We will often---by abuse of notation---use $u(t)$ to denote the signal $u$ instead of the instantaneous value''. On page~39, the notation is changed when using the $\infty$-norm from ``\mbox{$\lVert \hat{y}(t) - y(t) \rVert_\infty$}'' to ``\mbox{$\lVert \hat{y} - y \rVert_\infty$}'' (see also the response to comment~\ref{item: infinity norm} by Prof. Dr. ir. Fouad Giri).}
-	\item You write $\delta t$ to denote a delay. Why not just $\delta$ or $\delta_t$?\\
-		\ans{\oldnewpage{ix, 4, and~130}{ix, 4, and~134}The notation for a delay is changed to $\delta$ for the discrete-time case and to $\tilde{\delta}$ for the continuous-time case. The list of symbols is updated on page~ix, the use of $\delta\tilde{t}$ is changed to $\tilde{\delta}$ in Subsection~1.1.2, and the use of $\delta t$ is changed to $\delta$ in Appendix~5.A.}
-	\item Be more clear when you talk about infinite memory.\\
-		\ans{This has been clarified on page~15 (see also the response to requested action~\ref{item: infinite memory}).}
-	\item At several instances you should include a literature reference, for instance
-		\begin{itemize}
-			\item End of the first paragraph page~6
-			\item End of section~2.2.3
-			\item pg~39 end of paragraph~1
-		\end{itemize}
-		\ans{\oldnewpage{6}{6}At the end of the first paragraph on page~6, a reference is added to Schetzen [2006], where it is shown that Hermite polynomials are orthogonal for a zero-mean Gaussian input.\\
-			\oldnewpage{18}{20}At the end of Subsection~2.2.3, a reference to the paper ``Analytical Foundations of Volterra Series'' by Boyd et al. [1984] is added, where it is shown that the steady-state response of a Volterra series to a periodic input is again periodic with the same period.\\
-		\oldnewpage{36--37, 68--69}{41--42, 73--74}The claim that the results of Theorem~3.11 generalize to parallel Wiener systems is not proven, but follows from the fact that the BLA of a parallel Wiener system asymptotically has the same poles as the underlying linear dynamic blocks. The result of Lemma~3.9 can thus be applied to the poles of the LTI system in each individual branch. Similar to the result in Lemma~3.10, the intermediate signals in the parallel Wiener system can be approximated arbitrarily well by a linear combination of the intermediate signals in the Wiener-Schetzen model. The difference between the intermediate signals of the system and their approximations is again an $O_p(N^{-n_\mathrm{rep}/2})$. Similar to the proof of Theorem~3.11, the true output now is a multivariate polynomial in the the true intermediate signals. Since these intermediate signals can be approximated up to an $O_p(N^{-n_\mathrm{rep}/2})$, the output can again be written as the sum of a multivariate polynomial whose coefficients follow from the true expansions coefficients, and a term that is an $O_p(N^{-n_\mathrm{rep}/2})$. Following the proof of Theorem~3.11, similar results can thus be obtained for parallel Wiener systems (with a polynomial nonlinearity of known order, and dynamics that are proper, finite-dimensional, stable, rational transfer functions). \oldnewpage{39}{43} The sentence ``These results generalize to parallel Wiener systems as well'' is replaced by ``It can be shown that these results generalize to parallel Wiener systems as well''.}
-	\item In section~2.3.2 you start in (2.7) with no ``real'' noise, but at the end of the section you talk about noise variance?\\
-		\ans{\oldnewpage{20}{22}A term $V(k)$ is added to~(2.7), and the sentence below (2.7) is expanded with ``\ldots, and where $V(k)$ accounts for additive measurement noise on the output''.}
-	\item In Theorem~2.7 you should mention what $N$ is, or refer to the notation section.\\
-		\ans{\oldnewpage{21}{23}Theorem~2.7 is expanded with ``\ldots, and where $N$ is the number of samples in the excitation signal''.}
-	\item At the end of 2.4.5 you should mention that in general the procedure (2.15) will lead to complex valued functions, but that this can be easily overcome by a simple unitary transformation, if complex poles come in pairs.\\
-		\ans{\oldnewpage{26}{28}A sentence is added at the end of Subsection~2.4.5: ``In general, procedure (2.15) leads to complex valued functions, but this can be easily overcome by a simple unitary transformation if non-real poles come in conjugate pairs''.}
-	\item \label{item: no noise}
-		Assumption~3.6 deserves the remark that this is generally impossible.\\
-		\ans{\oldnewpage{33}{37}The sentence ``The situation of Assumption~3.5, which is generally impossible to fulfill, is first considered'' is added below the assumption (now Assumption~3.5 due to the removal of the previous Assumption~3.5, see also the response to comment~\ref{item: redundancy assumptions} by Prof. Dr. ir. Fouad Giri).}
-	\item Rephrase Assumption~3.7.\\
-		\ans{The assumption has been rephrased according to requested action~\ref{item: filtered output noise}.}
-	\item On page~35 the Kautz functions should be named 2-parameter Kautz functions.\\
-		\ans{\oldnewpage{35}{39}``Kautz OBFs'' is replaced by ``two-parameter Kautz OBFs''.}
-	\item In the beginning of 3.3.2 remark that the procedure to construct GOBFs from a set of poles is not unique as the order of the poles is not fixed. Mention the unitary transformation relation.\\
-		\ans{\oldnewpage{35}{39}A paragraph is added near the beginning of Subsection~3.3.2: ``Note that the procedure to construct GOBFs from a set of poles is not unique as the ordering of the poles is not fixed. Two sets of GOBFs constructed from the same set of poles, but with a different ordering of the poles, are related to each other via a unitary transformation''.}
-	\item On line~8 from below on page~35, shouldn't you use \mbox{$E\, Y(k)$} and \mbox{$E\, U(k)$}?\\
-		\ans{The results in Subsection~3.3.2 are derived in case the BLA is estimated from one phase realization. Only the number of samples in the excitation signal tends to infinity, but not the number of phase-realizations of the multisine. \\ The nonparametric estimate of the BLA is then indeed \mbox{$\hat{G}_\mathrm{BLA}(k) = \frac{Y(k)}{U(k)}$}.\\ \oldnewpage{35}{39--40}The sentences ``The parametric estimate, developed in (3.2), is shown to converge to \mbox{$G_\mathrm{BLA}(k) = E_u\left\{ \frac{Y(k)}{U(k)} \right\}$} for periodic excitations when the number of excited frequencies in the multisine grows to infinity [Schoukens et al., 1998]. Note that \mbox{$E_u\{Y(k)\} = 0$} and \mbox{$E_u\{U(k)\} = 0$}'' is added.}
-	\item Assumption~3.8 gives the impression that any multisine will do the job. Is that correct?\\
-		\ans{This assumption is mainly a persistence of excitation assumption, requiring that a sufficient number of frequencies should be excited, such that the correct parametric BLA can be estimated.
-			\oldnewpage{36}{40}The assumption (now Assumption~3.7) is extended with ``\ldots if the system is excited by a random-phase multisine $u(t)$ with finite power (see Definition 2.3) and with a sufficient number of excited frequencies''. A reference to Schoukens et al. [1998] is provided in the assumption.\\
-			The sentence ``This assumption requires that enough information is present in the data to be able to identify the parameter set of the parametric BLA'' and the remark ``To be able to show consistency of the estimation of the parametric model, it is assumed in Schoukens et al. [1998] that the number of excited frequencies grows to infinity when the number of data points $N$ tends to infinity'' are added after the assumption.}
-	\item Page 38, 39 example 1, 2. Why different system notation?\\
-		\ans{\oldnewpage{38--39}{43}The system notation in Hagenblad et al. [2008] was adopted in the second example, but to be consistent with the notation in the first example, the first equation of (3.6) has been replaced by ``\mbox{$G(q) = \frac{1 -0.3q^{-1} + 0.3 q^{-2}}{1 + 0.3 q^{-1} - 0.3 q^{-2}}$}''.}
-	\item The first sentence of 3.3.5 is meaning-less. You have to add ``well'' or so. At the end you make a remark that you can also approximate time-varying and parameter-varying systems. Is this really a conclusion of the section~3.3? Where was this shown.\\
-		\ans{\oldnewpage{42}{46}The first sentence is replaced by ``The input/output behavior of a Wiener system with finite-order IIR dynamics and a polynomial nonlinearity can be well approximated by a Wiener-Schetzen model''.\\
-			\oldnewpage{42 and~136}{46 and~140}It was not shown in Section~3.3 that time-varying and parameter-varying systems can be approximated by a Wiener-Schetzen model using simple tracking methods. This is rather an outlook to a broader application range than it is a conclusion of the section. Therefore, this part is removed from the conclusions in Subsection~3.3.5 as it already appears in the future work section in Chapter~6.}
-	\item Page~44, you now assume that you can leave out higher order terms that do not contain $x_\mathrm{BLA}$. Have you checked this? It must be easy to verify.\\
-		\ans{\oldnewpage{44 and~51}{48, 55 and~57}I checked this for the simulation examples in Subsection~3.4.4. I compared the magnitude of the parameters (i.e. the polynomial coefficients) when the regressors (i.e. the monomials) are normalized to have unit rms value. Since I'm working with orthogonal regressors, the magnitude of the parameters then indicates the contribution of the corresponding term to the rms value of the output.
-			A figure is included in Subsection~3.4.4 that shows the result of the comparison. The paragraph ``For the case \mbox{$(n+1)=7$}, Figure~3.13 compares the magnitude of the parameters, i.e. the polynomial coefficients, when all of the 120~possible monomials in \mbox{$x_0^{\perp} = x_\mathrm{BLA}^{\perp}$}, $x_1^\perp$, \ldots, $x_6^\perp$ up to third degree are considered and the magnitude of the parameters when only the a priori selected monomials in $\hat{f}_r$ are considered. In this comparison, the orthogonal regressors are normalized to have unit rms value, so that the magnitude of the parameters indicates the contribution of the corresponding term to the rms value of the output. It can be observed that the parameters corresponding to terms that include at least two correction terms can indeed be neglected'' is added.\\
-			A similar conclusion could be made for the TISO case.}
-	\item Fig~3.15--3.19. Here I suggest you add to the captions for which example the figure displays the results.\\
-		\ans{\oldnewpage{60--64}{66--69}``(Example~$x$)'' is now added at the start of the caption of these figures, where $x=1$ for Figures~3.15 and~3.16, $x=2$ for Figures~3.17 and~3.18, and $x=3$ for Figures~3.19 and~3.20.}
-	\item {Appendix~3A. $Q$-polynomials are orthogonal. In which sense?}\\
-		\ans{\oldnewpage{66}{71}The $Q$-polynomials in the variables $x_0, \ldots, x_n$ are shown to be orthogonal in Schetzen [2006] if the variables $x_0, \ldots, x_n$ are statistically independent, i.e. orthogonal, Gaussian random variables with zero mean. The last paragraph in Appendix~3.A is replaced by ``If the variables \mbox{$x_0, \ldots, x_n$} are statistically independent, i.e. orthogonal, Gaussian random variables with zero mean,
-which is for example the case if the variables \mbox{$x_0, \ldots, x_n$} are the outputs of OBFs with a white Gaussian input (see Subsection~2.4.3),
-then it is shown in Schetzen [2006] that the $Q$-polynomials are orthogonal.
-This means that
-\begin{equation*}
-	\lim_{T \rightarrow \infty} \frac{1}{2 T} \int_{-T}^{T} Q_{i_1 i_2 \ldots i_{d_1}}^{(d_1)}(x(t)) Q_{k_1 k_2 \ldots k_{d_2}}^{(d_2)}(x(t)) \, \mathrm{d}t
-\end{equation*}
-is zero whenever \mbox{$(i_1, i_2, \ldots, i_{d_1})$} is not a permutation of \mbox{$(k_1, k_2, \ldots, k_{d_2})$}.
-Since we use normalized Hermite polynomials (see Appendix~2.B), the $Q$-polynomials are not only orthogonal, but also orthonormal''.}
-	\item Page~91. If you say something about the QBLA, as used in Westwick and Schoukens [2012]. If you explain what it is, you might also explain the reasoning in two lines.\\
-		\ans{\oldnewpage{91}{95}The QBLA is the BLA with $u^2(t)$ considered as the input and \mbox{$y_S(t) = y(t) - G_\mathrm{BLA}(q) u(t)$} considered as the output. To avoid confusion on how to calculate the QBLA, the part ``\ldots, which is a higher-order BLA from the squared input $u^2(t)$ to the output residual \mbox{$y_S(t) = y(t) - G_\mathrm{BLA}(q) u(t)$}'' is replaced by ``\ldots, which is the BLA from the squared input $u^2(t)$ to the output residual \mbox{$y_S(t) = y(t) - G_\mathrm{BLA}(q) u(t)$}''.\\
-			The explanation on this method is extended to ``This QBLA is shown to be asymptotically proportional to the product of the output dynamics and the convolution of the input dynamics with itself, i.e. \mbox{$G_\mathrm{QBLA}(k) = c_\mathrm{QBLA} [R * R](k) S(k) + O(N^{-1})$}. The initialization approach in Westwick and Schoukens [2012] compares for each possible split a cost function that is equal to the sum over the excited frequencies of the weighted differences between the QBLA obtained from the data ($\hat{G}_\mathrm{QBLA}(k)$) and the QBLA obtained from splitting the BLA (\mbox{$\left[\hat{R}^{[i]} * \hat{R}^{[i]}\right](k) \hat{S}^{[i]}(k)$} for the $i$th split), where the inverse of the sample variance of $\hat{G}_\mathrm{QBLA}(k)$ is used as a weighting. A variance expression is derived for the difference between the cost functions of two different splits, so that splits that have a significantly worse cost function than the best split can be removed from consideration. It is shown that the number of possible splits can be greatly reduced in this way. Due to the high-order nature of the QBLA (the ratio of the number of systematic contributions to the number of stochastic contributions is much smaller in a QBLA than in a BLA), however, long measurement times may be needed to obtain an accurate estimate''.}
-	\item Assumption~5.5: rephrase.\\
-		\ans{\oldnewpage{93}{97}Just as the rephrasing of Assumption~3.7 (see also requested action~\ref{item: filtered output noise}), this assumption is rephrased as ``The measurement noise $v(t)$ is obtained by filtering a sequence of independent random variables, that are independent of the excitation signal $u(t)$ and that have a zero mean and a bounded variance, by a stable monic filter''.\\ The sentence ``The same noise assumption is made as in Assumption~3.6, which is repeated here for convenience of the reader'' is added before the assumption (the original Assumption~3.7 is now Assumption~3.6 due to the removal of Assumption~3.5 (see also the response to comment~\ref{item: redundancy assumptions} by Prof. Dr. ir. Fouad Giri)).}
-	\item Section~5.2.3. I find the use of 3 different types of $\alpha$ confusing. I would replace it in (5.4) with a different symbol.\\
-		\ans{\oldnewpage{94}{98--99}The coefficients $\alpha_i$ and $\alpha_{S,i}$ are the same. The reason for using $\alpha_{S,i}$ in (5.3) is to be consistent with the use of $\alpha_{R,i}$ in (5.1), while the reason for using $\alpha_i$ in (5.4) is to simplify the notation later on. The sentence ``\ldots, and where we have dropped the subscript $S$ from $\alpha_{S,i}$ to simplify the notation'' is added below (5.4).}
-	\item It would clarify on page~94 if you remark that $n_\beta$ can become quite large.\\
-		\ans{\oldnewpage{94}{99}The sentence ``Since $n_\beta$ corresponds to the number of polynomial coefficients in a multivariate polynomial, $n_\beta$ can become quite large (see also Table~1.1)'' is added below (5.4).}
-	\item In the paragraph below Fig~5.6 on pg~100 you could add that the deterioration is caused by the lower number of correction terms.\\
-		\ans{\oldnewpage{100}{104}The sentence ``Note that due to the scanning procedure, less correction terms are present, which causes the deterioration'' is added in the concerned paragraph.}
-\end{enumerate}
-
-\subsection*{Other changes}
-
-The changes mentioned in the errata list were made. For completeness, these changes are mentioned below as well.
-
-\renewcommand{\oldnewpage}[2]{\marginpar{{\color{black}\small#1} / {\color{red}\small#2}}}
-
-\begin{enumerate}
-	\item {\color{red}A copyright, ISBN number, etc. will be added later.}
-	\item \ans{The Acknowledgments section has been completed.}
-	\item \ans{Page iv: Two lines are added to the table of contents indicating the publication list and the bibliography.}
-	\item \ans{Page vi (in the description of $H_d(u(t))$) and page ix (in the description of $Y_d$): ``$d$th degree'' is replaced by ``$d$th-degree''.}
-	\item \ans{Page vii: In the descriptions of $\boldsymbol{\mathcal{M}}^\mathrm{cubic}$ and $\boldsymbol{\mathcal{M}}^\mathrm{quad}$, ``are'' is replaced by ``is''.}
-	\item \ans{Page viii: In the description of $p_i$, ``pole'' is replaced by ``Pole''.}
-	\item \ans{{\vspace*{-3em}\oldnewpage{viii, 106}{viii, 111}\vspace*{3em}}In the description of $\mathds{S}_l^d$, ``$\mid$'' is replaced by ``:''.}
-	\item \oldnewpage{10--12, 139--141, 143, 146, 150}{10--12, 144--145, 147, 150, 154}In many references to conference publications, a space appears between the conference dates and the period at the end of the reference.\\ \ans{These spaces are removed.}
-	\item Pages 12 and 139: The contribution Schoukens et al. [2014b] is now published.\\ \ans{\oldnewpage{12, 139}{12, 143}In the citations, ``2014b'' is replaced by ``2015a'' and ``Accepted for publication in \emph{Automatica}'' is replaced by ``\emph{Automatica}, 53:225--234''.}
-	\item Pages 12 and 140: The contribution Dreesen et al. [2015] is now accepted for presentation.\\ \ans{\oldnewpage{12, 140}{12--13, 143}In the citations, ``Submitted'' is replaced by ``Accepted'', the citation on page~140 is moved to the section ``Conference proceedings'', and the section ``Submitted conference papers'' is removed.}
-	\item \ans{\oldnewpage{17--18}{20}Page 17 (last two lines) and page 18 (fourth line of Assumption 2.5): ``mean-squares'' is replaced by ``mean-square''.}
-	\item \ans{\oldnewpage{21}{23}Page 21 (last equation in (2.10)): ``$z(t)$'' is replaced by ``$w(t)$''.}
-	\item Page 21 (third and fourth line below the proof of Theorem 2.7): Only the poles of a parallel Wiener-Hammerstein system can be obtained from the BLA.\\ \ans{\oldnewpage{21}{24}The sentence ``This generalizes to parallel Wiener-Hammerstein systems.'' is replaced by ``This generalizes to parallel Wiener-Hammerstein systems for its poles, but not for its zeros.''.}
-	\item \ans{\oldnewpage{28}{31}Page 28: The expression for the normalized Hermite polynomial is replaced by ``\mbox{$H_d(u(t)) = \frac{1}{\sqrt{d!}} \sum\limits_{i=0}^{\floor{d/2}} \frac{(-1)^i d!}{i! (d-2i)!} \left( \frac{1}{2} \right)^i \left( \frac{u(t)}{\sigma_{u_\mathrm{est}}} \right)^{d-2i}$}'' and in the next line, ``$\sigma_u^2$'' is replaced by ``$\sigma_{u_\mathrm{est}}^2$''.}
-	\item \ans{{\vspace*{-1.2em}\oldnewpage{31}{35}\vspace*{1.2em}}Page 31 (first line): ``chapters'' is replaced by ``chapter''.}
-	\item \ans{{\vspace*{-1.2em}\oldnewpage{36}{40}\vspace*{1.2em}}Page 36 (equation (3.2.b)): The upper limit of the sum is replaced by ``$N/2$''.}
-	\item \ans{\oldnewpage{47}{51}Page 47 (third line in the paragraph ``Construct the GOBFs''): ``$\{F_{1,0}, \ldots, F_{1,n_1}\}$'' is replaced by ``$\{F_{2,0}, \ldots, F_{2,n_2}\}$''.}
-	\item \ans{{\vspace*{-1em}\oldnewpage{48}{53}\vspace*{1em}}Page 48 (second line above (3.9)): ``proportional'' is replaced by ``proportionally''.}
-	\item \ans{\oldnewpage{50}{55}Page 50 (in the expression for the relative rms error): The sums ``$\sum_{t=1}^N$'' are replaced by ``$\sum_{t=0}^{N-1}$''.}
-	\item \ans{\oldnewpage{73}{77}Page 73 (in the expression for the relative rms error): The sums ``$\sum_{t=1}^{NP}$'' are replaced by ``$\sum_{t=0}^{NP-1}$''.}
-	\item \ans{{\vspace*{-1.3em}\oldnewpage{79, 80, 83--84, 87--88}{83--84, 87--88, 91--92}\vspace*{1.3em}}Page 79 (in (4.4) and three lines below (4.4)), page 80 (in Figure 4.5), page 83 (in Figure 4.7 and in equations (4.7) and (4.8)), page 84 (in Figure 4.8), page 87 (first line in the expression for $u(\tilde{t})$), and page 88 (in Figure 4.10): ``$a_{NL}$'' is replaced by ``$a_\mathrm{NL}$''.}
-	\item \ans{{\vspace*{-1em}\oldnewpage{83}{87}\vspace*{1em}}Page 83 (four lines above (4.8)): ``behind'' is replaced by ``after''.}
-	\item \ans{\oldnewpage{141}{145}Page 141: The contribution Marconato et al. [2012] is placed in the list of conference abstracts instead of in the list of poster presentations.}
-\end{enumerate}
 
 \end{document}
