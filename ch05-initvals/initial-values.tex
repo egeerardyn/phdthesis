@@ -599,7 +599,7 @@ This result is very useful for a user working with noisy data.
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/successRates.tikz}
- \caption[Simulated success rate of the different initialization schemes for varying SNR.]{The success rate $\successRate$  obtained using the smoothers, i.e. $\model{RFIR}$~\legref{leg:success-RFIR} and $\model{trunc}$~\legref{leg:success-LPMTrunc}, are significantly higher than for the existing methods $\model{exist}$~\legref{leg:success-existing} in most of the studied range of \glspl{SNR}, number of samples and for both test systems. The $95\%$ confidence intervals~\eqref{eq:initvals:Binomial:CI} are indicated by bars.}
+ \caption[Simulated success rate of the different initialization schemes for varying \glsentryshort{SNR}.]{The success rate $\successRate$  obtained using the smoothers, i.e. $\model{RFIR}$~\legref{leg:success-RFIR} and $\model{trunc}$~\legref{leg:success-LPMTrunc}, are significantly higher than for the existing methods $\model{exist}$~\legref{leg:success-existing} in most of the studied range of \glspl{SNR}, number of samples and for both test systems. The $95\%$ confidence intervals~\eqref{eq:initvals:Binomial:CI} are indicated by bars.}
   \label{fig:successRateVS_SNR36N3dB}
 \end{figure}
 
@@ -608,7 +608,7 @@ This result is very useful for a user working with noisy data.
   \setlength{\figurewidth}{0.66\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/RMSEvs_SNR36N3dB-ripple6.tikz}
- \caption[Simulated model RMSE compared to rule-of-thumb.]{The accordance between the observed \gls{RMSE} of $\hat{G}_0$~\legref{leg:RMSE:delta:observed}(with $\pm2\sigma$ interval) and the rule-of-thumb~\eqref{eq:heur-RMSE}\legref{leg:RMSE:rule-of-thumb} shows how well $\model{\trueSymbol}$ approximates the true system $\true{G}$.
+ \caption[Simulated model \glsentryshort{RMSE} compared to rule-of-thumb.]{The accordance between the observed \gls{RMSE} of $\hat{G}_0$~\legref{leg:RMSE:delta:observed}(with $\pm2\sigma$ interval) and the rule-of-thumb~\eqref{eq:heur-RMSE}\legref{leg:RMSE:rule-of-thumb} shows how well $\model{\trueSymbol}$ approximates the true system $\true{G}$.
  In the bottom plot, the difference between both is shown.
  Consequently, it makes sense to examine the behavior of the models in terms of $\model{\trueSymbol}$ as long as this RMSE meets the user's requirements.}
   \label{fig:RMSE}
@@ -616,8 +616,8 @@ This result is very useful for a user working with noisy data.
 
 \paragraph*{Remark about the model quality}
 In principle, convergence of the estimate $\model{\bullet}$ to the `best' estimate $\model{\trueSymbol}$ does not imply that $\model{\bullet}$ will be suitable for a specific purpose as the estimate $\model{\trueSymbol}$ itself might be ill-suited.
-A straightforward tool to analyze the error associated with $\hat{G}_0$ is to examine its relative RMS error over different realizations of the experiment.
-In~\citep{Ljung1999}, a rule-of-thumb is given that describes the relationship between the SNR of the signals and the quality of the estimated parametric model.
+A straightforward tool to analyze the error associated with $\model{\trueSymbol}$ is to examine its relative \gls{RMS} error, with respect to the true system $\true{G}$, over different realizations of the experiment.
+In~\citep{Ljung1999}, a rule-of-thumb is given that describes the relationship between the \gls{SNR} of the signals and the quality of the estimated parametric model.
 In this context this heuristic boils down to: 
 \begin{equation}
     \RMSE(\model{\trueSymbol}) \approx \sqrt{\frac{n_\theta}{N}} \frac{\norm[2]{\true{G}}}{\SNR} 
@@ -625,8 +625,8 @@ In this context this heuristic boils down to:
 \end{equation}
 where $n_{\theta}=5$ is the number of estimated parameters in this case.
 In \figref{fig:RMSE}, the empirical $\RMSE(\model{\trueSymbol})$ over the different Monte Carlo runs is displayed against this rule-of-thumb.
-It can be seen that these runs align almost perfectly, which shows that this rule-of-thumb can be used to approximate the RMSE of the parametric estimate.
-When the RMSE is then divided by $\norm[2]{\true{G}}$, this graph essentially shows the anticipated relative error on the transfer function and, hence, gives an indication on its usability.
+It can be seen that these runs align almost perfectly, which shows that this rule-of-thumb can be used to approximate the \gls{RMSE} of the parametric estimate.
+When the \gls{RMSE} is then divided by $\norm[2]{\true{G}}$, this graph essentially shows the anticipated relative error on the transfer function and, hence, gives an indication on its usability.
 
 \section{Experimental Results}
 \label{sec:initial-values:ExpMeas}
@@ -638,7 +638,7 @@ The \BK{} 1613 Octave Filter Set consists of sixth-order Chebyshev band-pass fil
 \begin{figure}
   \centering
   \includegraphics[width=0.6\columnwidth]{\thisDir/figs/measurement.pdf}
-  \caption[Measurement schematic of \BK\ 1613 filter.]{Schematic representation of the measurement set-up for the \BK\ 1613 filter. The AWG (Arbitrary Waveform Generator) and DAQ (Data Acquisition) hardware share the same clock and are thus synchronized. 
+  \caption[Measurement schematic of \BK\ 1613 filter.]{Schematic representation of the measurement set-up for the \BK\ 1613 filter. The \glsentryfirst{AWG} and \glsentryfirst{DAQ} hardware share the same clock and are thus synchronized. 
   Blue arrows indicate coax cables. 
   At the output of the bandpass filter, a noise generator is added that buffers the incoming signal using a TL071 opamp and adds white noise before passing the signal to the DAQ.} 
   \label{fig:measurementSetup}
@@ -651,7 +651,7 @@ The excitation signal $r(t)$ was white random noise with a standard deviation $\
 The same noise sequence was repeated $N_R = 100$ times in succession, such that a non-parametric estimate of the noise could be obtained and the performance of the methods could be gauged over these different repetitions.
 To distinguish the different repetitions, we denote the $r^{\text{th}}$ repetition of the $u$ signal as $u^{[r]}(t)$ (and similarly for $y(t)$).
 The signal generation and acquisition was by means of a \gls{NI} Elvis II, using the respective \code{AO} and \code{AI} pins on the breadboard, which were wired to BNC connectors.
-Although acquisition and generation were synchronized, there is a small delay $\tau_{\mathrm{MUX}} \approx 9\unit{\mu s}$ between the acquisition of the input $u(t)$ and the output $y(t)$ due to the hardware architecture of the \gls{NI} Elvis II.
+Although acquisition and generation were synchronized, there is a small delay $\tau_{\mathrm{MUX}} \approx 9\unit{\mu s}$ between the acquisition of the input $u(t)$ and the output $y(t)$ due to the hardware architecture of the \gls{NI} Elvis~II.
 Particularly, the involved channels are captured by means of a single \gls{ADC} which is preceded by a multiplexer to select the active channel.
 This obviously introduces a slight delay between the acquisition of a sample of input and output channels that is not part of system dynamics of the \BK{} filter, but rather of the experimental set-up.
 As such, the output spectrum $Y(\omega)$ was multiplied by $\exp\left(-j\omega\tau_{\mathrm{MUX}} \right)$ such that this inter-channel acquisition delay of the \gls{NI} Elvis is compensated; the time-domain counterpart $y(t)$ is obtained using the \gls{IDFT}.
