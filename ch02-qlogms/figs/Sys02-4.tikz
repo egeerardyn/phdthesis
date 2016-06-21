@@ -31,35 +31,28 @@ legend entries={%True System $G_0$,
                 $\mathrm{Bias}(\hat{G})$ (comp. quasi-log)},
 legend style={at={(1.05,1.05)}, anchor={north east},nodes=right,font=\footnotesize,legend columns=3,transpose legend=true}]
 
-\addplot [truesys,forget plot]
-table[]{\thisDir/data/Sys02-4/truesys.tsv};
+\addplot [truesys,forget plot] table[]{\thisDir/data/Sys02-4/truesys.tsv};
 \label{leg:excitation:sim:FRF}
+\node[color=truesys] (axis cs: 3,-10) {FRF};
+
 % 
 % \addplot [model]
 % table[]{\thisDir/data/Sys02-4/model.tsv};
-\addplot[linmsconnect] table[]{\thisDir/data/Sys02-4/linmsconnect.tsv};
+\addplot [linmsconnect] table[]{\thisDir/data/Sys02-4/linmsconnect.tsv};
 
-\addplot [sigmalinms, forget plot]
-table[]{\thisDir/data/Sys02-4/linms-sigma.tsv};
+\addplot [sigmalinms, forget plot] table[]{\thisDir/data/Sys02-4/linms-sigma.tsv};
 
-\addplot[qlogmsconnect] table[]{\thisDir/data/Sys02-4/qlogmsconnect.tsv};
+\addplot [qlogmsconnect] table[]{\thisDir/data/Sys02-4/qlogmsconnect.tsv};
 
-\addplot [sigmaqlogms, forget plot]
-table[]{\thisDir/data/Sys02-4/qlogms-sigma.tsv};
+\addplot [sigmaqlogms, forget plot] table[]{\thisDir/data/Sys02-4/qlogms-sigma.tsv};
 
-\addplot[clogmsconnect] table[]{\thisDir/data/Sys02-4/clogmsconnect.tsv};
+\addplot [clogmsconnect] table[]{\thisDir/data/Sys02-4/clogmsconnect.tsv};
 
-\addplot [sigmaclogms, forget plot]
-table[]{\thisDir/data/Sys02-4/clogms-sigma.tsv};
+\addplot [sigmaclogms, forget plot] table[]{\thisDir/data/Sys02-4/clogms-sigma.tsv};
 
-\addplot [biaslinms]
-table[]{\thisDir/data/Sys02-4/linms-bias.tsv};
-
-\addplot [biasqlogms]
- table[]{\thisDir/data/Sys02-4/qlogms-bias.tsv};
- 
-\addplot [biasclogms]
-table[]{\thisDir/data/Sys02-4/clogms-bias.tsv};
+\addplot [biaslinms] table[]{\thisDir/data/Sys02-4/linms-bias.tsv};
+\addplot [biasqlogms] table[]{\thisDir/data/Sys02-4/qlogms-bias.tsv};
+\addplot [biasclogms] table[]{\thisDir/data/Sys02-4/clogms-bias.tsv};
 
 
 \end{semilogxaxis}

@@ -345,14 +345,17 @@
 \pgfplotsset{bestmark/.append style={mark=diamond*,mark options={solid}}}
 \pgfplotsset{G0Hatmark/.append style={mark=asterisk,mark options={solid}}}
 
+\pgfplotsset{finalmodel/.append style={line width=0.75pt}}
+\pgfplotsset{initmodel/.append style={line width=0.75pt}}
+
 \pgfplotsset{GVXI/.style={color=GVXI,line width=1pt}}
 \pgfplotsset{G0Hat/.style={color=G0Hat,line width=1.5pt}}
-\pgfplotsset{existing/.style={color=existing}}
-\pgfplotsset{LPMTruncInit/.style={color=LPMTruncInit,densely dashed}}
-\pgfplotsset{LPMTrunc/.style={color=LPMTrunc}}
-\pgfplotsset{RFIRInit/.style={color=RFIRInit,densely dashed}}
-\pgfplotsset{RFIR/.style={color=RFIR}}
-\pgfplotsset{best/.style={color=best}}
+\pgfplotsset{existing/.style={finalmodel,color=existing}}
+\pgfplotsset{LPMTruncInit/.style={initmodel,color=LPMTruncInit,densely dashed}}
+\pgfplotsset{LPMTrunc/.style={finalmodel,color=LPMTrunc}}
+\pgfplotsset{RFIRInit/.style={initmodel,color=RFIRInit,densely dashed}}
+\pgfplotsset{RFIR/.style={finalmodel,color=RFIR}}
+\pgfplotsset{best/.style={finalmodel,color=best}}
 
 \pgfplotsset{myDerivs/.style={color=black,solid,line width=1.0pt}}
 

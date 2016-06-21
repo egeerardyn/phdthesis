@@ -17,11 +17,14 @@
 %
 %
 \usepgfplotslibrary{groupplots}
-\tikzset{plotnum/.style={color=black!30,align=left,font=\scriptsize,anchor=north west}}
+\tikzset{plotnum/.style={black!30,align=left,font=\scriptsize,anchor=north west}}
+\def\dataDir{\thisDir/data/stress-distances}
 
 \begin{tikzpicture}
 
 \pgfplotsset{every axis legend/.style={anchor=west}}
+
+
 
 \begin{groupplot}[%
 group style={%
@@ -52,247 +55,167 @@ axis x line*=bottom,
 axis y line*=left]
 
 % ================================================
-\nextgroupplot[legend columns=-1,
-  legend cell align=left, legend style={at={(rel axis cs:0.5,1.05)}, anchor=south west}]
+\nextgroupplot[legend columns=-1, legend cell align=left, legend style={at={(rel axis cs:0.5,1.05)}, anchor=south west}]
 \node[plotnum] at (rel axis cs:0,1) {1};
-\addplot [color=G0Hat,solid]
-  table{\thisDir/data/stress-distances/distances-1.tsv};
-\addlegendentry{\model{\trueSymbol}};
+
+\addplot [G0Hat    , solid] table{\dataDir/distances-1.tsv};
+\addlegendentry{\model{\trueSymbol}}
 \label{leg:dist:model0}
 
-\addplot [color=existing,solid]
-  table{\thisDir/data/stress-distances/distances-2.tsv};
-\addlegendentry{\model{exist}};
+\addplot [existing , solid] table{\dataDir/distances-2.tsv};
+\addlegendentry{\model{exist}}
 \label{leg:dist:modelExist}
 
-\addplot [color=LPMTrunc,solid]
-  table{\thisDir/data/stress-distances/distances-3.tsv};
+\addplot [LPMTrunc , solid] table{\dataDir/distances-3.tsv};
+\addlegendentry{\model{trunc}}
 \label{leg:dist:modelTrunc}
-\addlegendentry{\model{trunc}};
 
-\addplot [color=RFIR,solid]
-  table{\thisDir/data/stress-distances/distances-4.tsv};
+\addplot [RFIR     , solid] table{\dataDir/distances-4.tsv};
+\addlegendentry{\model{RFIR}}
 \label{leg:dist:modelRFIR}
-\addlegendentry{\model{RFIR}};
 
-\addplot [color=best,dashed]
-  table{\thisDir/data/stress-distances/distances-5.tsv};
-\label{leg:dist:modelBest}
-\addlegendentry{\model{best}};
+\addplot [best     , dashed] table{\dataDir/distances-5.tsv};
+\addlegendentry{\model{best}}
+\label{leg:dist:modelbest}
 
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {2};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-6.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-7.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-8.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-9.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-10.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-6.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-7.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-8.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-9.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-10.tsv};
 
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {3};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-11.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-12.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-13.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-14.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-15.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-11.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-12.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-13.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-14.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-15.tsv};
 
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {4};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-16.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-17.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-18.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-19.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-20.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-16.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-17.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-18.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-19.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-20.tsv};
 
 % ================================================
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {5};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-21.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-22.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-23.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-24.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-25.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-21.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-22.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-23.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-24.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-25.tsv};
 
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {6};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-26.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-27.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-28.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-29.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-30.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-26.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-27.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-28.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-29.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-30.tsv};
 
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {7};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-31.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-32.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-33.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-34.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-35.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-31.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-32.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-33.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-34.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-35.tsv};
 
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {8};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-36.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-37.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-38.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-39.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-40.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-36.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-37.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-38.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-39.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-40.tsv};
 
 % ================================================
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {9};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-41.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-42.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-43.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-44.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-45.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-41.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-42.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-43.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-44.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-45.tsv};
 
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {10};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-46.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-47.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-48.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-49.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-50.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-46.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-47.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-48.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-49.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-50.tsv};
 
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {11};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-51.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-52.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-53.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-54.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-55.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-51.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-52.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-53.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-54.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-55.tsv};
 
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {12};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-56.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-57.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-58.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-59.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-60.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-56.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-57.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-58.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-59.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-60.tsv};
 
 
 % ================================================
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {13};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-61.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-62.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-63.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-64.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-65.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-61.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-62.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-63.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-64.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-65.tsv};
 
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {14};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-66.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-67.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-68.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-69.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-70.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-66.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-67.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-68.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-69.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-70.tsv};
 
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {15};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-71.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-72.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-73.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-74.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-75.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-71.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-72.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-73.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-74.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-75.tsv};
 
 % ================================================
 \nextgroupplot
 \node[plotnum] at (rel axis cs:0,1) {16};
-\addplot [color=G0Hat,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-76.tsv};
-\addplot [color=existing,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-77.tsv};
-\addplot [color=LPMTrunc,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-78.tsv};
-\addplot [color=RFIR,solid,forget plot]
-  table{\thisDir/data/stress-distances/distances-79.tsv};
-\addplot [color=best,dashed,forget plot]
-  table{\thisDir/data/stress-distances/distances-80.tsv};
+\addplot [G0Hat    , solid  , forget plot] table{\dataDir/distances-76.tsv};
+\addplot [existing , solid  , forget plot] table{\dataDir/distances-77.tsv};
+\addplot [LPMTrunc , solid  , forget plot] table{\dataDir/distances-78.tsv};
+\addplot [RFIR     , solid  , forget plot] table{\dataDir/distances-79.tsv};
+\addplot [best     , dashed , forget plot] table{\dataDir/distances-80.tsv};
 
 \end{groupplot}
 
