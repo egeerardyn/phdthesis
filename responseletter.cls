@@ -24,33 +24,50 @@
 \makeatletter
 \Hy@AtBeginDocument{%
   \def\@pdfborder{0 0 1}% Overrides border definition set with colorlinks=true
-  \def\@pdfborderstyle{/S/U/W 1}% Overrides border style set with colorlinks=true
+  \def\@pdfborderstyle{/S/U}% Overrides border style set with colorlinks=true
                                 % Hyperlink border style will be underline of width 1pt
 }
 \makeatother
+
+\definecolor{quote}{named}{TangoAluminium4}
+\definecolor{light}{named}{TangoAluminium4}
+\definecolor{verylight}{named}{TangoAluminium3}
+\definecolor{old}{named}{TangoScarletRed3}
+\definecolor{new}{named}{TangoChameleon3}
+\definecolor{saying}{named}{TangoPlum3}
+\definecolor{action}{named}{TangoOrange3}
+
+\newcommand{\shortname}[1]{{\scshape\MakeLowercase{#1}}}
+\newcommand{\showinitial}[1]{{\color{verylight}(\shortname{#1})}}
+
+\addtokomafont{addressee}{\color{light}\sffamily}
+\addtokomafont{placeanddate}{\color{light}\sffamily}
+\addtokomafont{fromname}{\color{light}\sffamily}
+\addtokomafont{fromaddress}{\color{light}\sffamily}
+\addtokomafont{pagenumber}{\color{light}\sffamily}
+
+\newcommand{\TODO}[1]{{\color{red} \textbf{TODO:} #1}}
+
+\newcommand{\replace}[2]{#2} % from  Koen Tiels
 
 \newenvironment{answer}{\noindent\ignorespaces\color{blue}}{\noindent\ignorespacesafterend}
 
 \newcommand{\question}[1]{#1}
 \newcommand{\ans}[1]{\begin{answer}#1\end{answer}}
-\newcommand{\action}[1]{\par\textbf{Action:} #1}
+\newcommand{\action}[1]{\par{\color{action}\textbf{Action:} #1}}
 
-\newcommand{\oldnew}[3][]{\marginpar{\footnotesize\textsf{{\color{TangoAluminium3}#1 {\color{TangoScarletRed3}#2} | {\color{TangoChameleon3}#3}}}}}
+\newcommand{\oldnew}[3][]{\marginpar{\footnotesize\textsf{{\color{verylight}#1 {\color{old}#2} | {\color{new}#3}}}}}
 \newcommand{\oldnewpage}[2]{\oldnew[p.]{#1}{#2}}
 \newcommand{\oldnewsection}[2]{\oldnew[§]{#1}{#2}}
+
+\newcommand{\says}[2]{\par{\color{saying}{\shortname{{#1}}:} #2}\par}
 
 \newcommand{\section}[1]{\par{\sffamily\Large\textbf{#1}}\par}
 \newcommand{\subsection}[1]{\par{\sffamily\large\textbf{#1}}\par}
 
+\newenvironment{quoteold}{\begin{quote}\color{old}}{\normalcolor \end{environment}}
+\newenvironment{quotenew}{\begin{quote}\color{new}}{\normalcolor \end{environment}}
+
 \setkomavar{fromlogo}{\includegraphics[height=1.5cm]{VUB_logo}}
 \setkomavar{enclseparator}[Attached]{:\,}
 \setkomavar{firstfoot}{}
-
-\definecolor{quote}{named}{TangoAluminium4}
-\definecolor{light}{named}{TangoAluminium4}
-
-\addtokomafont{addressee}{\color{light}}
-\addtokomafont{placeanddate}{\color{light}}
-\addtokomafont{fromname}{\color{light}}
-\addtokomafont{fromaddress}{\color{light}}
-\addtokomafont{pagenumber}{\color{light}}
