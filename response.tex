@@ -5,17 +5,20 @@
 \documentclass{responseletter}
 \date{\today}
 
-\setkomavar{fromname}{Egon Geerardyn}
+\setkomavar{fromname}{Egon Geerardyn \showinitial{EG}}
 \setkomavar{fromemail}[]{egon.geerardyn@vub.ac.be} 
 
 \begin{document}
 \begin{letter}{%
-Tomas McKelvey\\
-Jérôme Antoni\\
-Bart Peeters\\
-Johan Deconinck\\
-Patrick Guillaume\\
-Koen Tiels}
+Bart Peeters \showinitial{BP}\\
+Johan Deconinck \showinitial{JD}\\
+Johan Schoukens \showinitial{JS}\\
+Jérôme Antoni \showinitial{JA}\\
+Koen Tiels \showinitial{KT}\\
+Patrick Guillaume \showinitial{PG}\\
+Tom Oomen \showinitial{TO}\\
+Tomas McKelvey \showinitial{TM}
+}
 
 \opening{Dear jury members,}
 
@@ -23,7 +26,7 @@ First of all, I would like to thank you for your feedback on my PhD thesis and t
 This has greatly improved the text.
 
 Attached, you can find an extensive summary of the changes I have carried out in the text.
-\oldnewpage{old}{new}
+\oldnew{old}{new}
 The numbers in the margin indicate the pages in the old revision (\href{https://github.com/egeerardyn/phdthesis/releases/tag/private-submit}{\texttt{946aebc}} as for the private defense) and in the new revision.
 
 I have also made the \LaTeX{} source code of my text (and data files) available on GitHub.
@@ -31,9 +34,10 @@ There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare
 
 \closing{Sincerely,}
 \encl{list of changes\\
-          old manuscript (\texttt{old.pdf})\\
-          revised manuscript (\texttt{new.pdf})}
+          \href{https://dl.dropboxusercontent.com/u/452005/VUB/phd/old.pdf}{\color{old}old manuscript}\\
+          \href{https://dl.dropboxusercontent.com/u/452005/VUB/phd/new.pdf}{\color{new}new manuscript}\\}
 \end{letter}
+%TODO: put new manuscript at right location in Dropbox
 
 \section{Requested Changes}
 
@@ -46,23 +50,53 @@ There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare
 
 \subsection{References}
 \question{Update the (historical) references.}
+\begin{itemize}
+\item \says{TM}{In Chapter~3: Did the problem of FRF modeling start in 1995? How long does the problem date back?  I would suggest to add a few historical references, older than 1995.}
+\item \TODO{References have been added to Chapter 3: \ldots}
+\item \says{TM}{The initialization of the parametric estimators is an interesting expos\'e. The references have a narrow flavor. There are more people that worked on this, other than Ljung.}
+\item \TODO{References have been added to Chapter 5: \ldots}
+
+\end{itemize}
+
 
 \subsection{Define robustness}
 \question{Define robustness.}
 
-\section{Small Corrections}
+\begin{itemize}
+  \item \says{JA}{The use of the word ``robustness'' can have different meanings. What is the meaning of ``robustness of input''?}
+  \item \says{JA}{I suggest that you define ``robustness'' in the thesis.}
+\end{itemize}
+
+\subsection{Small Corrections}
 \question{A list of small corrections will be provided directly by the members of the jury.}
 
-\subsection{Tomas McKelvey}
-\subsection{Jérôme Antoni}
-\subsection{Tom Oomen}
+\begin{itemize}
+ \item \says{TM}{In the thesis, the focus is on resonant systems. It would be good to add some comments in perspective of a general system identification.}
+ \item \says{TM}{In Section~3.2, you have a very brief overview of the terms that show up, but no mathematical derivation of how these terms look like. I suggest to add something there.}
+\item \says{TM}{When considering unstable LTI systems, which methods will make sense when doing truncation?}
+ \TODO{A remark considering instability has been added to the manuscript for the truncation}
 
+\item \says{JA}{In (2.12), you have a series of second-order systems that all have the same amplitude. Can this be made more general? But \replace{it}{choosing equal amplitudes} has consequences for the results.}
+\item \TODO{A remark has been added to clarify this}
+\end{itemize}
 
-\section{Small Other Corrections}
+\section{Other Changes}
 
+\begin{itemize}
+\item The bibliography has been made more uniform
+\end{itemize}
+
+\section{Future Changes}
+The following minor changes are not yet completed, but will be performed for the final version.
+
+\begin{itemize}
+  \item \TODO{Improve pagination, and check for widows and orphans.}
+  \item \TODO{Add the cover to the source.}
+  \item \TODO{Request an ISBN and add it to the source.}
+  \item \TODO{Add the DOI for the final PDF.}
+\end{itemize}
 
 \bibliographystyle{plain}
-% \bibliographystyle{plainnatit} %it: with et~al. in italics
 \bibliography{../biblio/ownWork,../biblio/references}
 
 
