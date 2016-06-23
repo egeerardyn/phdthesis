@@ -48,6 +48,13 @@ There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare
 \subsection{Assumptions}
 \question{Make a list of assumptions, especially in Chapter 2, under which the work is valid}
 
+\begin{itemize}
+  \item \says{TM}{For the robust excitation signals, you use the setup of Goodwin and coworkers. On slide 17, you focus on variance. Why not on bias?}
+               \says{TM}{Why can you guarantee \replace{that}{unbiasedness of your estimators}?}
+  \item \TODO{address this}\oldnewpage{x}{y}
+
+\end{itemize}
+
 \subsection{References}
 \question{Update the (historical) references.}
 \begin{itemize}
@@ -65,6 +72,7 @@ There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare
 \begin{itemize}
   \item \says{JA}{The use of the word ``robustness'' can have different meanings. What is the meaning of ``robustness of input''?}
   \item \says{JA}{I suggest that you define ``robustness'' in the thesis.}
+  \TODO{Robustness has been defined}\oldnewpage{x}{y}
 \end{itemize}
 
 \subsection{Small Corrections}
@@ -84,6 +92,65 @@ There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare
 
 \begin{itemize}
 \item The bibliography has been made more uniform
+\item \says{TM}{In the plots, you never show the analytical bias of the LRM in the plots. Is the analytical bias a good estimate for the bias of the LRM?}
+\item \says{TM}{When considering unstable LTI systems, which methods will make sense when doing truncation?}
+\item \says{JA}{In (2.12), you have a series of second-order systems that all have the same amplitude. Can this be made more general?}
+\item \says{JA}{On page 33, in (2.62), you have a covariance matrix. The PSD of the noise depends on the frequency. Afterwards, it is assumed constant?}\oldnewpage{33}{?}
+\action{}
+\item \says{JA}{With the logarithmic spacing of the multisine, you assume a specific type of damping (all $\xi$ are the same). So, the FRF shapes are the same on a logarithmic scale. What if you have other shapes?}
+\item \says{JA}{Here, the number of modes per frequency band decreases as the frequency increases. A decreasing modal density is typical for a beam, but for a plate, the number of modes is constant. For a volume, the number of modes increases. I suggest to recast the context in a set of assumptions. The modal density and the modal overlap factor are important in this respect.
+But this also opens perspectives. For a beam, you would get a logarithmic multisine, for a plate, you would get a linear multisine. In mechanics, you have an idea about the modal density and modal overlap factor, which can be a big prior knowledge.}
+\item \says{JA}{Below (3.17), $V$ is assumed to be i.i.d., but the noise is filtered by $A$. I suggest to change the assumption.}
+\item \says{JA}{On page 129, in (5.17), the probability is zero. You need some interpretation of the equality sign.}
+\oldnewpage{129}{?}
+\TODO{The equation has been removed and the text has been changed as follows:}
+\begin{newquote}
+\TODO{add quote}
+\end{newquote}
+
+\item \says{BP}{Guideline 2.3 seems to be dropped further in the text.}
+\TODO{This guideline has been placed into context in the book.}
+\begin{newquote}
+  \TODO{add quote}
+\end{newquote}
+
+\item \says{BP}{For the peak modeling, I suggest to take over some things of your slides in the text. For example, is there a physical interpretation of $\Delta$ (slide 20)? So it is out of scope, but how does the peak modeling help with control? That link is missing.}
+\TODO{address this}
+
+\item 
+\says{BP}{In Chapter 5, you use LPM and not LRM? Why? From Chapter 3, you concluded that LRM performs better.}
+\says{EG}{LPM is better at lower SNR. Also, chronologically, Chapter 5 is older that Chapter 3. I checked the results with LRM, but they are very similar to the LPM results, since I used low SNR settings. There is a remark in the text.}
+\says{TM}{The remark is a bit late in the thesis.}
+\oldnewpage{x}{y}
+\TODO{The remark has been moved to an earlier place in the text.}
+
+\item 
+\says{KT}{For the input design, in (2.1), you assume that the noise is white. What happens for colored noise? The reason I ask this is in case you want to estimate the best linear approximation of a nonlinear system. Then you can consider the stochastic nonlinear distortions as a noise source, but that is not necessarily white.}
+\TODO{Address iterative design in Chapter 2.}
+%\A I assumed white noise, as it is the most basic assumption you can make. If the noise is not white, then you can include the coloring of the noise in the amplitude spectrum, but then you need to know the noise (properties) beforehand. If you don't know the noise beforehand, you can use a parametric noise model and optimize.\\}
+
+\item
+\says{JD}{I work in electrochemistry. I use multisines to characterize Warburg impedances in $\sqrt{\omega}$ and other elements in $\sqrt[x]{\omega}$. Will LPM still work for this?}
+\TODO{Mention Warburg impedances (and Richards variables) in the book.}
+
+%\A I don't expect problems.\\
+
+ \item \says{JD}{In electrochemistry, I work in frequency ranges from 0.01 Hz until 100 kHz. In the 1970s I already used an arithmetic spacing of my excited frequencies. What is the relationship with logarithmic multisines? Was my intuition right back then? Or is it a reinvention of the wheel?}
+\TODO{A remark has been added}
+
+\end{itemize}
+
+\section{Small Changes}
+
+\begin{itemize}
+  \item \says{JA}{On page 56, in (3.16): what is $\mathbf{C}$?}
+  \oldnewpage{56}{?} 
+  \action{Local vector $\mathbf{C}$ has been replaced by  the local model $\mathbf{\tilde{C}}$.}
+  
+  \item \says{JA}{For (3.86), you cite Seber and Lee, 2003, but Golub was earlier. I suggest to change the reference.}
+  \oldnewpage{x}{y}
+  \TODO{A reference to Golub has been added. Seber and Lee, however, provide a more elaborate proof such that I think their work deserves to be mentioned.}
+
 \end{itemize}
 
 \section{Future Changes}

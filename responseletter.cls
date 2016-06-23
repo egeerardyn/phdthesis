@@ -54,19 +54,19 @@
 
 \newcommand{\question}[1]{#1}
 \newcommand{\ans}[1]{\begin{answer}#1\end{answer}}
-\newcommand{\action}[1]{\par{\color{action}\textbf{Action:} #1}}
+\newcommand{\action}[1]{{\color{action}\textbf{Action:} #1}}
 
 \newcommand{\oldnew}[3][]{\marginpar{\footnotesize\textsf{{\color{verylight}#1 {\color{old}#2} | {\color{new}#3}}}}}
 \newcommand{\oldnewpage}[2]{\oldnew[p.]{#1}{#2}}
 \newcommand{\oldnewsection}[2]{\oldnew[§]{#1}{#2}}
 
-\newcommand{\says}[2]{\par{\color{saying}{\shortname{{#1}}:} #2}\par}
+\newcommand{\says}[2]{{\color{saying}{\shortname{{#1}}:} #2}\newline}
 
 \newcommand{\section}[1]{\par{\sffamily\Large\textbf{#1}}\par}
 \newcommand{\subsection}[1]{\par{\sffamily\large\textbf{#1}}\par}
 
-\newenvironment{quoteold}{\begin{quote}\color{old}}{\normalcolor \end{environment}}
-\newenvironment{quotenew}{\begin{quote}\color{new}}{\normalcolor \end{environment}}
+\newenvironment{oldquote}{\begin{quote}\color{old}}{\normalcolor \end{quote}}
+\newenvironment{newquote}{\begin{quote}\color{new}}{\normalcolor \end{quote}}
 
 \setkomavar{fromlogo}{\includegraphics[height=1.5cm]{VUB_logo}}
 \setkomavar{enclseparator}[Attached]{:\,}
