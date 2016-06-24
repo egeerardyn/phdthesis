@@ -20,6 +20,10 @@
 % http://tex.stackexchange.com/questions/26071/how-can-i-have-colored-and-underlined-links-with-hyperref
 \RequirePackage[colorlinks=true,urlcolor=TangoSkyBlue2,breaklinks=true,urlbordercolor=TangoSkyBlue1]{hyperref}
 
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{mathtools}
+
 % http://tex.stackexchange.com/questions/26071/how-can-i-have-colored-and-underlined-links-with-hyperref
 \makeatletter
 \Hy@AtBeginDocument{%
@@ -29,10 +33,14 @@
 }
 \makeatother
 
+\input{config/definitions.tex}
+\input{config/bib.inc.tex}
+
 \definecolor{quote}{named}{TangoAluminium4}
 \definecolor{light}{named}{TangoAluminium4}
 \definecolor{verylight}{named}{TangoAluminium3}
 \definecolor{old}{named}{TangoScarletRed3}
+\definecolor{answer}{named}{TangoSkyBlue2}
 \definecolor{new}{named}{TangoChameleon3}
 \definecolor{saying}{named}{TangoPlum3}
 \definecolor{action}{named}{TangoOrange3}
@@ -46,24 +54,33 @@
 \addtokomafont{fromaddress}{\color{light}\sffamily}
 \addtokomafont{pagenumber}{\color{light}\sffamily}
 
-\newcommand{\TODO}[1]{{\color{red} \textbf{TODO:} #1}}
+\renewcommand{\TODO}[1]{{\color{red} \textbf{TODO:} #1}}
 
 \newcommand{\replace}[2]{#2} % from  Koen Tiels
 
-\newenvironment{answer}{\noindent\ignorespaces\color{blue}}{\noindent\ignorespacesafterend}
+\newenvironment{answer}{\color{answer}\shortname{EG:}}{\normalcolor}
 
 \newcommand{\question}[1]{#1}
 \newcommand{\ans}[1]{\begin{answer}#1\end{answer}}
 \newcommand{\action}[1]{{\color{action}\textbf{Action:} #1}}
 
-\newcommand{\oldnew}[3][]{\marginpar{\footnotesize\textsf{{\color{verylight}#1 {\color{old}#2} | {\color{new}#3}}}}}
+\newcommand{\old}[1]{{\color{old}#1}}
+\newcommand{\new}[1]{{\color{new}#1}}
+\newcommand{\replacedBy}{{\large\ensuremath{\;\to\;}}}
+
+% http://tex.stackexchange.com/questions/16141/align-marginpar-with-beginning-of-paragraph
+\newcommand{\oldnew}[3][]{\leavevmode\marginpar{\footnotesize\textsf{{\color{verylight}#1 {\color{old}#2} | {\color{new}#3}}}}}
 \newcommand{\oldnewpage}[2]{\oldnew[p.]{#1}{#2}}
 \newcommand{\oldnewsection}[2]{\oldnew[§]{#1}{#2}}
 
 \newcommand{\says}[2]{{\color{saying}{\shortname{{#1}}:} #2}\newline}
 
-\newcommand{\section}[1]{\par{\sffamily\Large\textbf{#1}}\par}
+\makeatletter
+% http://tex.stackexchange.com/questions/98740/if-i-redefine-a-command-that-has-a-starred-variant-will-that-always-disable-the
+\newcommand{\section}{\@ifstar\@ssection\@ssection}
+\newcommand{\@ssection}[1]{\par{\sffamily\Large\textbf{#1}}\par}
 \newcommand{\subsection}[1]{\par{\sffamily\large\textbf{#1}}\par}
+\makeatother
 
 \newenvironment{oldquote}{\begin{quote}\color{old}}{\normalcolor \end{quote}}
 \newenvironment{newquote}{\begin{quote}\color{new}}{\normalcolor \end{quote}}

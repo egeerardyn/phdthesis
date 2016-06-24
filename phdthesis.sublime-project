@@ -4,6 +4,14 @@
 		{
 			"cmd":
 			[
+				"./build.sh"
+			],
+			"name": "Arara (response && phdthesis)",
+			"working_dir": "${project_path}"
+		},
+		{
+			"cmd":
+			[
 				"arara",
 				"-v",
 				"phdthesis.tex"

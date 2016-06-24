@@ -1,12 +1,15 @@
 % !arara: clean: { files: [response.aux, response.log, response.bbl, response.blg] }
 % arara: xelatex: {synctex : yes}
-% !arara: biber
+% arara: biber
 % arara: xelatex: {synctex : yes}
 \documentclass{responseletter}
 \date{\today}
 
 \setkomavar{fromname}{Egon Geerardyn \showinitial{EG}}
 \setkomavar{fromemail}[]{egon.geerardyn@vub.ac.be} 
+
+\addbibresource{biblio/ownWork.bib}
+\addbibresource{biblio/references.bib} 
 
 \begin{document}
 \begin{letter}{%
@@ -37,7 +40,7 @@ There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare
           \href{https://dl.dropboxusercontent.com/u/452005/VUB/phd/old.pdf}{\color{old}old manuscript}\\
           \href{https://dl.dropboxusercontent.com/u/452005/VUB/phd/new.pdf}{\color{new}new manuscript}\\}
 \end{letter}
-%TODO: put new manuscript at right location in Dropbox
+%TODO: upload manuscript to dropbox
 
 \section{Requested Changes}
 
@@ -97,7 +100,12 @@ There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare
 \item \says{JA}{In (2.12), you have a series of second-order systems that all have the same amplitude. Can this be made more general?}
 \item \says{JA}{On page 33, in (2.62), you have a covariance matrix. The PSD of the noise depends on the frequency. Afterwards, it is assumed constant?}\oldnewpage{33}{?}
 \action{}
-\item \says{JA}{With the logarithmic spacing of the multisine, you assume a specific type of damping (all $\xi$ are the same). So, the FRF shapes are the same on a logarithmic scale. What if you have other shapes?}
+\item \says{JA}{With the logarithmic spacing of the multisine, you assume a specific type of damping (all $\xi$ are the same). 
+So, the FRF shapes are the same on a logarithmic scale. What if you have other shapes?}
+\answer{
+The assumption is not that $\xi$ is identical for all subsystems. 
+Rather, when $\xi \geq \xi_{\min}$ for all subsystems, their relative $3\unit{dB}$ bandwidth has a minimal width and is excited well when $\alpha \leq 1 + \xi_{\min}$ (see also Figure 2.8 in the manuscript: for all $\frac{\alpha -1}{\xi_{\min}} < 1$, misalignment is no longer an issue and hence the design works well).
+}
 \item \says{JA}{Here, the number of modes per frequency band decreases as the frequency increases. A decreasing modal density is typical for a beam, but for a plate, the number of modes is constant. For a volume, the number of modes increases. I suggest to recast the context in a set of assumptions. The modal density and the modal overlap factor are important in this respect.
 But this also opens perspectives. For a beam, you would get a logarithmic multisine, for a plate, you would get a linear multisine. In mechanics, you have an idea about the modal density and modal overlap factor, which can be a big prior knowledge.}
 \item \says{JA}{Below (3.17), $V$ is assumed to be i.i.d., but the noise is filtered by $A$. I suggest to change the assumption.}
@@ -127,6 +135,7 @@ But this also opens perspectives. For a beam, you would get a logarithmic multis
 \item 
 \says{KT}{For the input design, in (2.1), you assume that the noise is white. What happens for colored noise? The reason I ask this is in case you want to estimate the best linear approximation of a nonlinear system. Then you can consider the stochastic nonlinear distortions as a noise source, but that is not necessarily white.}
 \TODO{Address iterative design in Chapter 2.}
+\answer{}
 %\A I assumed white noise, as it is the most basic assumption you can make. If the noise is not white, then you can include the coloring of the noise in the amplitude spectrum, but then you need to know the noise (properties) beforehand. If you don't know the noise beforehand, you can use a parametric noise model and optimize.\\}
 
 \item
@@ -142,16 +151,44 @@ But this also opens perspectives. For a beam, you would get a logarithmic multis
 
 \section{Small Changes}
 
-\begin{itemize}
-  \item \says{JA}{On page 56, in (3.16): what is $\mathbf{C}$?}
-  \oldnewpage{56}{?} 
-  \action{Local vector $\mathbf{C}$ has been replaced by  the local model $\mathbf{\tilde{C}}$.}
+\begin{enumerate}
+  \item 
+  \oldnewpage{56}{?}
+  \says{JA}{On page 56, in (3.16): what is $\mathbf{C}$?}
+  \action{There is a tilde missing. This has been changed:
+  \old{$\LocalVector{C}$} \replacedBy \new{$\LocalModel{C}$}
+  }
   
-  \item \says{JA}{For (3.86), you cite Seber and Lee, 2003, but Golub was earlier. I suggest to change the reference.}
-  \oldnewpage{x}{y}
-  \TODO{A reference to Golub has been added. Seber and Lee, however, provide a more elaborate proof such that I think their work deserves to be mentioned.}
+  \item 
+  \oldnewpage{73}{?}
+  \says{JA}{For (3.86), you cite Seber and Lee, 2003, but Golub was earlier. I suggest to change the reference.}
+  \action{A reference to Golub has been added. Seber and Lee, however, provide a more elaborate proof such that I think their work still deserves to be mentioned.}
+  \begin{newquote}
+ 	For linear models (i.e. $\LocalVector{Y} = \LocalMatrix{K} \LocalVector{\theta}$, such as for the {LRM} and {LPM}), however, the {PRESS} can be calculated in a single step without estimating any additional models~\citep{Golub1979}:
+	\begin{equation}
+	\PRESS = \frac{\LocalVector{E}^{\HT} \LocalVector{W}^{-1} \LocalVector{E}}{2N_W + 1}
+	\end{equation}
+	where $\LocalVector{E}$ is the residual vector of the full estimation and $\LocalVector{W}$ is a diagonal weighting matrix with $\LocalVector{W}_{ii} = (1 - \LocalVector{H}_{ii})^{\HT} (1 - \LocalVector{H}_{ii})$ and
+	$\LocalVector{H} = \LocalMatrix{K} \pinv{\LocalMatrix{K}}$ is the so-called `hat-matrix' that is known to be idempotent.
+	The proof for this can also be found in \citet[Sec.~12.3.2]{Seber2003}.
+  \end{newquote}
 
-\end{itemize}
+  \item 
+   \oldnewpage{74}{?}
+   \old{Note that one should also $\nWind$ as the total number of data points (and not the number of points in each window).} 
+   \replacedBy 
+   \new{Note that one should interpret $\nWind$ as the total number of data points (and not the number of points in each window) for the global case.}
+
+   \item 
+   \old{smalles}    \replacedBy \new{smallest} \oldnewpage{76}{?}
+
+  \item
+  \oldnewpage{100}{?}
+  \old{In the structural engineering community(\textbf{\$}))}
+  \replacedBy
+  \new{In the structural engineering community~\citep[see e.g.][Section 2.2.2]{Gawronski2004}}
+
+\end{enumerate}
 
 \section{Future Changes}
 The following minor changes are not yet completed, but will be performed for the final version.
@@ -163,8 +200,5 @@ The following minor changes are not yet completed, but will be performed for the
   \item \TODO{Add the DOI for the final PDF.}
 \end{itemize}
 
-\bibliographystyle{plain}
-\bibliography{../biblio/ownWork,../biblio/references}
-
-
+\printbibliography[heading=bibintoc]
 \end{document}

@@ -1058,12 +1058,13 @@ where $\ignoring{r}{\LocalVector{E}} = \LocalVector{Y}_{r} - \ignoring{r}{\Local
 To select the best model from a set of candidate models, only the model with the lowest \gls{PRESS} value is retained.
 In general, this means that \gls{LOOCV} requires estimating $\nWind$ additional models (one for each omitted data point) and hence can be very time-consuming.
 
-For linear models (i.e. $\LocalVector{Y} = \LocalMatrix{K} \LocalVector{\theta}$, such as for the \gls{LRM} and \gls{LPM}), however, the \gls{PRESS} can be calculated in a single step without estimating any additional models~\citep[Sec.~12.3.2]{Seber2003}:
+For linear models (i.e. $\LocalVector{Y} = \LocalMatrix{K} \LocalVector{\theta}$, such as for the \gls{LRM} and \gls{LPM}), however, the \gls{PRESS} can be calculated in a single step without estimating any additional models~\citep{Golub1979}:
 \begin{equation}
 \PRESS = \frac{\LocalVector{E}^{\HT} \LocalVector{W}^{-1} \LocalVector{E}}{2N_W + 1}
 \end{equation}
 where $\LocalVector{E}$ is the residual vector of the full estimation and $\LocalVector{W}$ is a diagonal weighting matrix with $\LocalVector{W}_{ii} = (1 - \LocalVector{H}_{ii})^{\HT} (1 - \LocalVector{H}_{ii})$ and
 $\LocalVector{H} = \LocalMatrix{K} \pinv{\LocalMatrix{K}}$ is the so-called `hat-matrix' that is known to be idempotent.
+The proof for this can also be found in \citet[Sec.~12.3.2]{Seber2003}.
 
 Note that since the \gls{PRESS} can be interpreted similar to the residuals, this forms a convenient metric to select models on.
 In particular, when there is a large difference between the level of the residuals and the \gls{PRESS}, this indicates that a poor model has been selected.
@@ -1099,7 +1100,7 @@ One should realize that for all local models together ($M =  \cup_k \LocalModel[
   \text{.}
 \end{align}
 These global quantities can be substituted in the expressions of the local \gls{AIC} and \gls{AICc} of the previous section. 
-Note that one should also $\nWind$ as the total number of data points (and not the number of points in each window).
+Note that one should interpret $\nWind$ as the total number of data points (and not the number of points in each window) for the global case.
 
 \subsection{Example}
 The system as in \eqref{eq:nparam:mc:system} has been simulated for $1\,200$ samples such that $\nBW=3$.
@@ -1125,7 +1126,7 @@ Note also that the \gls{PRESS} suffers from a quite high variance over the frequ
 
 For the low \gls{SNR} case (top plots in  \figref{fig:nparam:PRESS} ), it can be seen that both \gls{LPM} and \gls{LRM} result in a very similar estimate of the noise level.
 The values of the \gls{PRESS} are again very noisy, especially for the \gls{LPM} estimates.
-Near the resonance, the $\lrm{7,1,1,1}$ results in the smalles \gls{PRESS} value.
+Near the resonance, the $\lrm{7,1,1,1}$ results in the smallest \gls{PRESS} value.
 This is in correspondence with the observations of the variance for similar noise levels in \figref{fig:nparam:comparison:terribleSNR}.
 Note however that the results do not carry over to the \gls{RMS} error: since the \gls{LRM} is severely biased, the \gls{PRESS} becomes unreliable to detect model errors.
 
