@@ -15,10 +15,10 @@ In system identification, the focus has mostly been on input design for dynamic 
 A common approach is to design the input spectrum and thereby maximizing the information matrix of the estimates, see e.g. \citep{Fedorov1972,Goodwin1977}.
 
 A complicating issue in identification of dynamic system is the fact that the information matrix often depends on the true parameter values. 
-Consequently, an optimal input design, based on the information matrix, will depend on quantities that are not know at the time of the design.
+Consequently, an optimal input design, based on the information matrix, will depend on quantities that are not known at the time of the design.
 There are two main solutions to this in the engineering literature~\citep{Goodwin2006GBO}:
 \begin{enumerate}
-\item Iterative input design where the design updated as more information about the system is available, see e.g.~\citep{Hjalmarsson2005,Gevers2005}.
+\item Iterative input design where the design is updated as more information about the system is available, see e.g.~\citep{Hjalmarsson2005,Gevers2005}.
 The disadvantage of this approach is that multiple experiments are required to converge to the optimal design.
 Moreover, since the signal is optimized for a specific system model, it is likely that changes in the dynamics are hard to observe using such a signal.
 
@@ -108,7 +108,7 @@ The information matrix is a function of the input power spectrum $\powerspec{u}$
 A common optimality criterion is D-optimality where $\det{\Fi{\theta}}$ is maximized~\citep{Goodwin1977}.
 
 \begin{remark}
-D-optimal input designs are quite popular since this criterion minimizes the volume of uncertainty ellipsoid of the parameters.
+D-optimal input designs are quite popular since this criterion minimizes the volume of the uncertainty ellipsoid of the parameters.
 Moreover, the D-optimal input design is independent of the parametrization of the system (as long as the different parametrizations can be related by a bijective function)~\citep[Chapter 6]{Goodwin1977}.
 \end{remark}
 
@@ -278,7 +278,7 @@ The information matrix for systems of the type \eqref{eq:excitation:sumSys} will
                       \phi_u(\omega)\dd\omega.
 \end{align}
 
-Furthermore, when the damping of the systems is low or the resonances of the sub-systems are well separated, the estimates decouple in the sense that the elements off-diagonal blocks become small.
+Furthermore, when the damping of the systems is low or the resonances of the sub-systems are well separated, the estimates decouple in the sense that the elements of the off-diagonal blocks become small.
 The effect is that the variance of the estimated transfer function approximately becomes the sum of the variances of the sub-systems.
 To illustrate this we look at a system with $K=2$, i.e. the sum of two second order systems.
 The conclusions from the example are easily extended to systems consisting of more than two sub-systems.
@@ -586,11 +586,11 @@ The sub-systems in \eqref{eq:excitation:PFE} all are either lightly damped ($\da
 \end{assumption}
 
 \begin{assumption}
-The resonance frequencies $\wn[i]$ and $\wn[j]$ of all the different sub-systems in \eqref{eq:excitation:PFE} are well-separated in the frequency domain.
+The resonance frequencies $\wn[i]$ and $\wn[j]$ of all the different sub-systems in \eqref{eq:excitation:PFE} are well-separated in the frequency domain. %TODO: how well-separated?
 \end{assumption}
 
 Under these assumptions, the Fisher information matrix will be approximately a diagonal block matrix, where the $i^{\text{th}}$ block corresponds to the parameters $\left[\wn[i], \wz[i], \damping[i], \dc[i,1], \ldots, \dc[i,M_{2,i}] \right]$ of a particular sub-system.
-Using the same logic as in \secref{sec:excitation:ex:sumOfSecondOrderSipmle}, this means that the variance of the complete system is approximately equal to the variance obtained for each sub-system, due to the decoupling of the Fisher information matrix.
+Using the same logic as in \secref{sec:excitation:ex:sumOfSecondOrderSipmle}, this means that the variance of the complete system is approximately equal to the sum of the variances obtained for each sub-system, due to the decoupling of the Fisher information matrix.
 
 \section{Multisine Excitations}
 \label{sec:excitation:multisine}
@@ -696,7 +696,7 @@ Such signals are presented in this section.
   Note that for $\alpha \in \NaturalNumbers$, such a frequency grid is a subset of a linear frequency grid and hence the multisine is periodic.
   However, when $\alpha \not\in \NaturalNumbers$, the signal is not guaranteed to be periodic (see \egref{eg:excitation:non-periodic}).
 
-  When designing an excitation signal, it is common only to specify a (large) frequency band by its boundary frequencies $f_{\min}$ and $f_{\max}$.
+  When designing an excitation signal, it is common to only specify a (large) frequency band by its boundary frequencies $f_{\min}$ and $f_{\max}$.
   For a given $\alpha$ it is easy to determine the number of excited lines within the frequency range of interest:
     \begin{equation}
       F = \floor{
@@ -731,6 +731,7 @@ Such signals are presented in this section.
   \end{example}
   \begin{example}
     The~\citet{HP3562A} has a logarithmic measurement mode that ensures that each decade is covered by $F_{\decade} = 80$ lines~ to measure an \gls{FRF}.
+    %TODO: make sure "\gls{FRF}" has already been used before this point
     This is equivalent to a grid spacing $\alpha = \sqrt[80]{10} \approx 1.029$.
   \end{example}
 
@@ -896,8 +897,9 @@ with
                 \sqrt{
                 \ln \frac{\;\fMax{k}\;}{\fMin{k}}
                 }
+    \label{eq:excitation:pinkMS:Ak}
   \end{equation}
-  where $\left[ \fMin{k}, \fMax{k} \right] $ denote the frequency range over which \gls{PSD} of the pink noise is to be approximated by the power at frequency line $f_k$.
+  where $\left[ \,\fMin{k}, \fMax{k}\, \right] $ denotes the frequency range over which the \gls{PSD} of pink noise is to be approximated by the power at frequency line $f_k$.
 
   To reduce the complexity of the expressions for $\fMin{k}$ and $\fMax{k}$, we extend the frequency grid by one component to the left and to the right by means of the grid relation (equations \eqref{eq:excitation:qlogGrid} and \eqref{eq:excitation:constraintLinGrid}) to obtain the grid $\set{f_0, f_1, \ldots, f_F, f_{F+1}}$.
 
@@ -922,8 +924,8 @@ with
       \setlength\figurewidth{0.8\columnwidth}
       \setlength\figureheight{0.5\figurewidth}
     \input{\thisDir/figs/freqGrid.tikz}
-    \caption[Amplitude spectrum for linear, logarithmic, quasi-logarithmic grids.]{Comparison of the amplitude spectrum of a linear grid multisine, a logarithmic grid multisine, the compensated quasi-logarithmic multisine and the `pink' quasi-log multisine.
-    $\omegaLinLog$ indicates the cross-over between the linear and logarithmic regions. }%
+    \caption[Amplitude spectrum for linear, logarithmic, quasi-logarithmic grids.]{Comparison of the amplitude spectrum of a linear grid multisine, a logarithmic grid multisine, the compensated quasi-logarithmic multisine and the `pink' quasi-log multisine covering the frequency band $\ClosedInterval{1\unit{Hz}, 1 \unit{kHz}}$.
+    $\omegaLinLog$ indicates the cross-over between the linear and logarithmic regions in the lower two decades of the excited frequency band.}%
     \label{fig:excitation:freqGrids}
   \end{figure}
 
@@ -980,7 +982,7 @@ with
   The properties of these frequency grids are summarized in \tabref{tbl:excitation:gridProperties} and \figref{fig:excitation:gridPropertyPlots}.
 
   We can expect a very similar behavior from properly designed compensated quasi-log multisines and from the `pink' quasi-log multisine, since their amplitude spectra are almost identical.
-  As such, it is advised to use `pink' quasi-log multisines as those can be constructed using more straightforward code (equation \eqref{eq:excitation:pink}) than the compensated quasi-log multisines (equations \eqref{eq:excitation:nfk}, \eqref{eq:excitation:nearestLines} , and \eqref{eq:excitation:compensationAk}).
+  As such, it is advised to use `pink' quasi-log multisines as those can be constructed using more straightforward code (equation \eqref{eq:excitation:pinkMS:Ak}) than the compensated quasi-log multisines (equations \eqref{eq:excitation:nfk}, \eqref{eq:excitation:nearestLines} , and \eqref{eq:excitation:compensationAk}).
 
 \section{Optimization of the Frequency Spacing} 
 \label{sec:excitation:optimAlpha}
@@ -1064,7 +1066,7 @@ with
 The choice of criteria is often not critical since it is usually the case that a good experiment according to one criterion will be deemed good by other criteria. 
 Naturally this will only be true for sensibly chosen criteria.
 \end{quote}
-Also for the design of robust excitation signals, this is worthwhile observation.
+Also for the design of robust excitation signals, this is a worthwhile observation.
 \end{remark}
 
   \subsection{Relation Between the Frequency Grid and the System Resonance} 
@@ -1224,6 +1226,7 @@ Also for the design of robust excitation signals, this is worthwhile observation
   %          ==> SNR decreases as F increases
   
   We then calculate the theoretical variance on the magnitude of the peak in the \gls{FRF} ($\abs{ G\left( \wM \right) }$) as shown in \eqref{eq:excitation:varPeak} for a coarse grid.
+  %TODO: clarify previous sentence
   A coarse grid was chosen with $\tilde{\alpha} = 10$; this means that the spacing between the excited lines around the resonance are much larger than the system bandwidth.
   It is obvious that such an excitation signal will not perform well in most cases, as the resonance peak is very likely to be overlooked in such an \gls{FRF}.
   
@@ -1448,10 +1451,11 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   The system with $\wR = 20 \unit{Hz} < 21 \unit{Hz}$ is still well-identified, even though `only' $3$ lines are excited in its bandwidth.
   In that particular case, the frequency grid and the resonance peak are well-aligned ($\beta \approx 0$), which leads to a reduced variance (see also \figref{fig:excitation:worstCaseBeta}).
 
-  We do see, however, that the variance in the vicinity of the resonance of every system is lower than in the case of a linearly spaced excitation.
+  We do see, however, that the variance in the vicinity of the resonance of most systems is lower than in the case of a linearly spaced excitation.
 
   \subsection{Simulation Example on Higher Order Systems}
-To show that the suggested method also works on more general systems, we considered a system that consists of two second order systems \eqref{eq:excitation:secondOrderSystemDTidentifiable} in parallel. This is equivalent to adding their respective transfer functions, therefore, the resulting transfer function is of the form:
+To show that the suggested method also works on more general systems, we considered a system that consists of two second order systems \eqref{eq:excitation:secondOrderSystemDTidentifiable} in parallel. 
+This is equivalent to adding their respective transfer functions, therefore, the resulting transfer function is of the form:
 \begin{equation}
   G \left( z \right) 
   = \frac{         b_4 z^{4} + b_3 z^{3} + b_2 z^{2} + b_1 z + b_0}%
@@ -1460,18 +1464,19 @@ To show that the suggested method also works on more general systems, we conside
 \label{eq:excitation:tfO4}
 \end{equation}
 
-For example, a system composed of two second order systems with $\damping = 0.2$ and $\fR = 400 \unit{Hz}$ for the first system and $\fR=4 \unit{kHz}$ for the second system was simulated similarly to the previous examples. The standard deviation of the noise $\sigma_e$ was put at $0.0678$. The corresponding results are  shown in \figref{fig:excitation:sumSys}.
+For example, a system composed of two second order systems with $\damping = 0.2$ and $\fR = 400 \unit{Hz}$ for the first system and $\fR=4 \unit{kHz}$ for the second system was simulated similarly to the previous examples. 
+The standard deviation of the noise $\sigma_e$ was put at $0.0678$. The corresponding results are  shown in \figref{fig:excitation:sumSys}.
 
 \begin{figure}%
   \centering
   \setlength\figurewidth{0.68\columnwidth}
   \setlength\figureheight{0.68\figurewidth}
   \input{\thisDir/figs/Sum02log0-2.tikz}
-  \caption[Simulated \glsentryshort{FRF} of sum of two sub-systems.]{\gls{FRF} for the sum of two second order systems with $\damping=0.2$ and            resonances at $ 400 \unit{Hz}$ and 4 \unit{kHz} as observed by a quasi-logarithmic multisine.}%
+  \caption[Simulated \glsentryshort{FRF} of sum of two sub-systems.]{\gls{FRF} for the sum of two second order systems with $\damping=0.2$ and resonances at $ 400 \unit{Hz}$ and 4 \unit{kHz} as observed by a quasi-logarithmic multisine.}%
   \label{fig:excitation:sumSys}
 \end{figure}
 
-We observe that the amplitude of the transfer function is $9.8\unit{dB}$ and $8.1\unit{dB}$ at the resonant frequencies.
+We observe that the amplitude of the transfer function is $9.8\unit{dB}$ and $8.1\unit{dB}$ at the resonance frequencies.
 The standard deviation on the \glspl{FRF} lies respectively $59.7 \unit{dB}$ and $59.6 \unit{dB}$ lower than the \gls{FRF} at these frequencies. 
 This shows that both resonances are captured with a practically identical relative error.
 
@@ -1569,7 +1574,7 @@ In this chapter, we recalled that the design of optimal excitation signals may r
 When only the limited prior knowledge that the system resonances lie in a certain (possibly very wide) frequency band, a suitable class of excitation signals can be constructed such that the relative uncertainty of the estimated resonance is independent of the resonance frequency.
 We showed that such a signal should have a power spectrum that is distributed in $1/f$.
 
-In this chapter we have illustrated that quasi-logarithmic multisine excitations are a well-suited to measure transfer functions over broad frequency ranges with a constant relative uncertainty of the present resonances.
+In this chapter we have illustrated that quasi-logarithmic multisine excitations are well-suited to measure transfer functions over broad frequency ranges with a constant relative uncertainty of the present resonances.
 The suggested amplitude compensation methods allow the user to measure a parametric \gls{LTI} model for systems in an even wider frequency band with a constant uncertainty.
 The variance of the estimates at lower frequencies is improved in comparison to the uncompensated case at the cost of a slightly increased (yet constant) variance at higher frequencies for excitation signals with an equal power content.
 In practice, this slight increase is likely to be negligible.

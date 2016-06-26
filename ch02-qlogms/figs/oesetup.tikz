@@ -19,3 +19,4 @@
     \draw [->] (sum)    -- node[name=y]  {$Y$}   (output);
     
 \end{tikzpicture}
+%TODO: make sure arrow is black!!
