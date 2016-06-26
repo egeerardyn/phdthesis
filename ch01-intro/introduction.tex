@@ -13,8 +13,8 @@ In particular, models enable us to predict the future (within a certain bound of
   \item weather forecasters hope to predict what weather it might become tomorrow,
   \item how much electricity will the whole country use next week (do we need to start up a new power plant or not),
   \item how much noise the bodywork of a car will produce when it is driving over a bumpy road,
-  \item what the exhaust of nitrogen oxides of a car will be for a certain operating point of a diesel engine, 
-  \item are the vibrations in a robot are small enough for it to carry out very precise tasks such as positioning electronic components with sub-millimeter precision,
+  \item how many nitrogen oxides will a car exhaust for a certain operating point of its diesel engine, 
+  \item the vibrations in a robot are small enough for it to carry out very precise tasks such as positioning electronic components with sub-millimeter precision,
 \end{itemize}
 and so on.
 
@@ -36,7 +36,7 @@ On the one hand, there is so-called \term{`white box'} modeling, or first-princi
 The model is constructed by writing down the equations that govern the system, e.g. Newton's laws of motion for mechanical systems, Kirchhoff's laws for electrical circuits, \latin{etc.}
 This is the kind of modeling that is practiced in school, which explains why it is also popular in industry.
 Unfortunately, white box modeling quickly becomes unwieldy once more complicated systems are to be studied or many parts of the system are uncertain.
-In general, lot of man-hours are required to build a white box model, such that this is often prohibitively expensive for engineering applications.
+In general, many man-hours are required to build a white box model, such that this is often prohibitively expensive for engineering applications.
 
 \paragraph{Black box}
 On the other hand, the diametrically opposed approach is called \term{`black box'} modeling.
@@ -44,7 +44,7 @@ Here, the model structure is chosen such that a wide variety of phenomena can be
 Regardless of the nature of the underlying system, be it mechanical, chemical, electrical, structural, \ldots; most dynamic phenomena can be described using differential equations (or difference equations).
 In particular, for black-box models, the structure of the model is chosen such that the data is well-approximated.
 The downside of this is that interpreting the model physically is not always possible.
-Fortunately, the goal of a model is often not to interpret the physical reality but to approximate it well enough to allow engineering
+Fortunately, the goal of a model is often not to interpret the physical reality but to approximate it well enough to allow engineering.
 
 \paragraph{Gray box}
 Obviously, in practice nothing is ever as black and white, and neither is modeling.
@@ -87,9 +87,9 @@ Once an experiment has been performed, the obtained input-output data are to be 
 In many cases, the eventual goal of identification is to obtain a parametric model, so the user has to select a model structure and complexity based on both his prior knowledge and on the data.
 A useful tool to help choose the model structure and/or model orders, is to inspect a nonparametric model of the system.
 One such tool is the frequency response function.
-For instance, by inspecting a frequency response function, a control engineer can have a rough idea of the system behavior in term of  approximate resonance frequencies, asymptotic slopes, \latin{etc.}
+For instance, by inspecting a frequency response function, a control engineer can have a rough idea of the system behavior in terms of  approximate resonance frequencies, asymptotic slopes, \latin{etc.}
 This gives a qualitative view of the minimally required complexity of the model and is hence a useful diagnostic tool.
-However, since most nonparametric estimators enforce very little prior knowledge about the system, noise in the measurements can sometimes be a problem to distinguish the actual system features.
+However, since most nonparametric estimators enforce very little prior knowledge about the system, it can sometimes be problematic to clearly distinguish noise in the measurements and the actual systematic behavior.
 
 \paragraph{Estimate the model parameters}
 Once the model structure has been chosen, its parameters are to be estimated.
@@ -104,7 +104,7 @@ Consequently, without reasonable starting values, the `optimized' model can also
 
 \paragraph{Validate the model}
 Finally, the estimated model is validated.
-Essentially, one checks whether the obtained model meets the predefined requirements, e.g. with respect to allowable uncertainty, compexity, \ldots
+Essentially, one checks whether the obtained model meets the predefined requirements, e.g. with respect to allowable uncertainty, complexity, \ldots
 This can happen in a few different ways.
 On the one hand, in-sample measures such as statistical tests on the value of the cost function, correlation tests on the residuals, \latin{etc.} allow to verify that the model performs well on the measured dataset.
 Such approaches help to detect underfitting, where the model is not flexible enough to describe the measurements.
@@ -232,7 +232,7 @@ This work has also been presented at the following local (non-refereed) conferen
 \end{itemize}
 
 The non-parametric \gls{FRF} estimation methods in \chapref{sec:nonparametric} are based on a yet-unpublished manuscript.
-The so-called time-truncated \gls{LPM} that is presented in the same chapter is based on a journal published in \gls{IEEE} Transactions on Instrumentation \& Measurement:
+The so-called time-truncated \gls{LPM} that is presented in the same chapter is based on a journal  article published in \gls{IEEE} Transactions on Instrumentation \& Measurement:
 \begin{itemize}
   \item \fullcite{Lumori2014TIM}.
 \end{itemize}
@@ -242,7 +242,7 @@ Relatedly, a preliminary study of the \gls{LPM} in the context of lightly-damped
     \item \fullcite{Verbeke2015Benelux}.
 \end{itemize}
 
-The use of the non-parametric \gls{FRF} estimation methods for \Hinf gain estimation (and in general the \gls{FRF} interpolation from \chapref{sec:hinf}) has been presented at the 2014 \gls{IFAC} World Conference in South Africa and the 2014 Leuven Conference on Noise and Vibration Engineering (ISMA) in Leuven:
+The use of the non-parametric \gls{FRF} estimation methods for \Hinf gain estimation (and in general the \gls{FRF} interpolation from \chapref{sec:hinf}) has been presented at the 2014 \gls{IFAC} World Congress in South Africa and the 2014 Leuven Conference on Noise and Vibration Engineering (ISMA) in Leuven:
 \begin{itemize}
   \item \fullcite{Geerardyn2014IFAC},
   \item \fullcite{Geerardyn2014ISMA}.
@@ -255,7 +255,7 @@ Preliminary results have been presented at local (non-refereed) conferences:
   \item \fullcite{Geerardyn2014DYSCO}, and
   \item \fullcite{Geerardyn2014ERNSI}.
 \end{itemize}
-Experimental work related to \chapref{sec:hinf} has also been presented at the 2015 \gls{IFAC} Symposium on System Identification (\textsc{sysid}) and :
+Experimental work related to \chapref{sec:hinf} has also been presented at the 2015 \gls{IFAC} Symposium on System Identification (SYSID) and at the 2015 workshop of the \gls{ERNSI}:
 \begin{itemize}
   \item \fullcite{Voorhoeve2015SYSID}
   \item \fullcite{Voorhoeve2015ERNSI}

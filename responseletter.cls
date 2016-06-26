@@ -23,6 +23,7 @@
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{mathtools}
+\RequirePackage{braket}
 
 % http://tex.stackexchange.com/questions/26071/how-can-i-have-colored-and-underlined-links-with-hyperref
 \makeatletter
@@ -43,7 +44,7 @@
 \definecolor{answer}{named}{TangoSkyBlue2}
 \definecolor{new}{named}{TangoChameleon3}
 \definecolor{saying}{named}{TangoPlum3}
-\definecolor{action}{named}{TangoOrange3}
+\definecolor{action}{named}{TangoSkyBlue3}
 
 \newcommand{\shortname}[1]{{\scshape\MakeLowercase{#1}}}
 \newcommand{\showinitial}[1]{{\color{verylight}(\shortname{#1})}}
@@ -84,6 +85,8 @@
 
 \newenvironment{oldquote}{\begin{quote}\color{old}}{\normalcolor \end{quote}}
 \newenvironment{newquote}{\begin{quote}\color{new}}{\normalcolor \end{quote}}
+
+\newcommand{\gls}[1]{#1}
 
 \setkomavar{fromlogo}{\includegraphics[height=1.5cm]{VUB_logo}}
 \setkomavar{enclseparator}[Attached]{:\,}

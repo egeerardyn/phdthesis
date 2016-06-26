@@ -151,7 +151,7 @@ Instead, a  realistic value of $\gamma$ is obtained using parametric models that
 
 \subsection{Set-Up}
 Consider an output error \gls{LTI} discrete-time \gls{SISO} system $\Delta(q)$ excited by an input signal $u_{\Delta}(n)$.
-For an infinitely long data record, this can be described in the time-domain as
+This can be described in the time-domain as
 \begin{equation}
   y_{\Delta}(n) 
     = 
@@ -163,7 +163,7 @@ For an infinitely long data record, this can be described in the time-domain as
   \label{eq:lrmhinf:sysDeltaInfData}
 \end{equation}
 where $q^{-1}$ is the lag operator, $e(n)$ is white Gaussian noise with unity variance such that $v(n) = H(q)e(n)$ can be colored noise, and both $\Delta(q)$ and $H(q)$ are stable causal real-rational functions.
-For a limited data record ($n \in \Set{0,\ldots,N-1}$), the transient contributions $t_{\Delta}(n)$ lead to:
+For a limited data record ($n \in \Set{0,\ldots,N-1}$ with $N$ the number of data points), the transient contributions $t_{\Delta}(n)$ lead to:
 \begin{equation}
     y_{\Delta}(n) 
       = 
