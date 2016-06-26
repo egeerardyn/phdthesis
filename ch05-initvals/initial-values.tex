@@ -13,13 +13,13 @@ The task of interpreting measurement data from dynamic systems often involves th
 Typical measurement techniques and identification strategies of  \glspl{TF} or \glspl{FRF} are presented in~\citep{Schoukens1998,Schoukens2006LPM,Guillaume1996,Broersen1995,Pintelon2010LPM1,Antoni2007FRF}.
 Application of these methods to real devices and systems is well-represented in the literature, e.g. \citep{Lim2010,Robinson1990,Behjat2010}.
 
-Parametric identification of \gls{LTI} systems from either input/output data or non-parametric frequency response data, has been well developed as evidenced by published literature~\citep{Pintelon2012,Ljung1999,Schoukens1999,Pintelon1998}.
+Parametric identification of \gls{LTI} systems from either input/output data or non-parametric frequency response data, has been well developed as evidenced by published literature~\citep{Pintelon2012,Ljung1999,Schoukens1999,Pintelon1998,Soderstrom1989,Goodwin1977,Brillinger1981,Sanathanan1963,McKelvey2002}.
 Many of such parametric identification algorithms, however, require solving non-linear or non-convex optimization problems.
 This often involves an iterative algorithm to produce the optimal model.
  The resulting model, however, depends on which initial estimates are used to start up the optimization process: typically one can end up in local minima, leading to models of sub-optimal quality.
  Hence, good initial estimates are essential to obtain a high quality model estimate.
  In this chapter, the \gls{MLE} is used as a proxy for any parametric transfer function estimator, since the \gls{MLE} is commonly used and has desirable properties such as efficiency and consistency.
- Numerous other parametric identification techniques are devoted to the development of parametric plants $G(q^{-1},\theta)$ and parametric noise models  $H(q^{-1},\theta)$, where  $\theta$ is the model parameters vector  \citep{Ljung1999,Soderstrom1989,Pintelon2012}.
+ Numerous other parametric identification techniques are devoted to the development of parametric plants $G(q^{-1},\theta)$ and parametric noise models  $H(q^{-1},\theta)$, where  $\theta$ is the model parameters vector \citep{Ljung1999,Soderstrom1989,Pintelon2012}.
  Since the initial value generation method are not specifically tailored towards the \gls{MLE}, other parametric identification frameworks are likely to benefit from these improved starting values as well.
  Hence, the presented approach is orthogonal to initialization schemes such as the work of~\citet{vanHerpen2014} that focuses on improving the optimization algorithm, rather than the starting values.
 
