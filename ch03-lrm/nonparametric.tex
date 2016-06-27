@@ -26,7 +26,7 @@ In particular, a comparison between the \gls{LPM} and \gls{LRM} will be made suc
 \paragraph*{Outline}
 \secref{sec:theory} introduces theory of estimating \glspl{FRF} using local modeling techniques.
 In \secref{sec:biascalc}, the bias of the \gls{LRM} is derived.
-In \secref{sec:nparam:simulations} the performance of the different modeling methods are compared by means of simulations.
+In \secref{sec:nparam:simulations} the performance of the different modeling methods is compared by means of simulations.
 In \secref{sec:nparam:orderSelection}, some options for model order selection are discussed.
 In \secref{sec:nonparametric:truncation}, an approach is developed to further reduce the variance of the \gls{LPM} estimate by truncation of the impulse response.
 Finally, conclusions are presented in \secref{sec:conclusion}.
@@ -41,7 +41,7 @@ For an infinite data length, such a system can be described in the time domain b
   \label{eq:output-error-TD-infinite}
 \end{equation}
 where $v[n]$ is filtered white noise, $v[n] = \true{H}(q) \true{e}[n]$ where $q^{-1}$ is the backward shift operator, i.e. $q^ {-1}x[n] = x[n-1]$.
-The transfer functions $\true{G}$ and $\true{H}$ are rational functions that are causal and stable.
+The transfer functions $\true{G}$ and $\true{H}$ are rational functions.
 
 During typical measurements, however, $y[n]$ and $u[n]$ are only measured over a limited time span, i.e. $n \in \set{0,1,\ldots,N-1}$.
 This introduces transient terms $t_{\bullet}$ in this relationship~\citep{Pintelon1997ARB}:
@@ -68,7 +68,7 @@ By applying the \gls{DFT}~\eqref{eq:DFT} to both sides of \eqref{eq:output-error
 \begin{align}
     Y \left( \omega_k \right) 
     & = \true{G} \left( \omega_k \right) U \left( \omega_k \right) 
-      + \true{H} \left( \omega_k \right) E \left( \omega_k \right)
+      + \true{H} \left( \omega_k \right) \true{E} \left( \omega_k \right)
       + T \left( \omega_k \right)\\
       &= \true{G} \left( \omega_k \right) U \left( \omega_k \right)  + V(\omega_k) + T(\omega_k)
       \text{.}
@@ -208,6 +208,10 @@ To effectively compute the local model parameters, the equation error in \eqref{
 Due to the presence of the denominator of $\LocalModel{G} = \frac{\LocalModel{B}}{\LocalModel{A}}$, the equation error is not linear in the parameters $a_i$ and hence \eqref{eq:costfunc:LRIC} requires starting values and time-consuming iterative optimization schemes to obtain a parameter estimate.
 We hence call this method the \gls{LRIC} and denote specific configurations of this method as $\lric{\numel{W},\order{B},\order{A},\order{C}}$.
 
+\begin{remark}
+The starting values for the \gls{LRIC} are obtained by means of the \gls{LRM}, the details of which are explained in \secref{sec:nparam:LRM}.
+\end{remark}
+
 Note that the estimated \gls{FRF} is given by evaluating the local model $\LocalModel{G}$:
 \begin{equation}
   \hat{G}_{\LRIC}(\omega_k) \isdef \LocalModel[k]{G}(d=0)
@@ -229,7 +233,7 @@ In \figref{fig:nparam:illustration}, the local window $\LocalWindow[k]$, the loc
 It should be noted that \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T} are essentially isomorphic to a continuous-time transfer function model with complex coefficients.
 The discrete-time counterparts (i.e. substituting $d^i \to \exp (ji d \Ts)$ in the expressions), have been tried as well.
 However, these preliminary experiments did not yield estimates that were numerically reliable.
-This is in correspondence with the remark from \citet{Pintelon2006BJ1}.
+This is in correspondence with the remark from \citet[Section 2.4]{Pintelon2006BJ1}.
 \end{remark}
 
 \subsection{The \glsentrydesc{LRM}}
@@ -353,7 +357,7 @@ This can be obtained e.g. using random phase multisines or random input signals.
 \end{remark}
 
 \begin{remark}
-Since it is well-known that the Vandemonde structure in the design matrix \eqref{eq:nparam:designMatrix} leads to numerical ill-conditioning for higher model complexities, additional measures are taken to improve numerical conditioning.
+Since it is well-known that the Vandermonde structure in the design matrix \eqref{eq:nparam:designMatrix} leads to numerical ill-conditioning for higher model complexities, additional measures are taken to improve numerical conditioning.
 To improve numerical conditioning~\citep{Pintelon2005} of the estimation problem, we substitute $d = \dw{r}{k}$ in equations \eqref{eq:LRM:model:G} and \eqref{eq:LRM:model:T}
 \begin{equation}
 \dw{r}{k} \isdef \frac{\omega_{k+r} - \omega_k}{\Delta \omega_k}
@@ -374,7 +378,7 @@ We denote a method that solves \eqref{eq:nparam:LRM:costFunc} as $\lrm{\numel{W}
 
 \subsection{The \glsentrydesc{LPM}}
 \label{sec:nparam:LPM}
-The \gls{LPM} is method that predates the \gls{LRM} and has been devised by~\citet{Schoukens2006LPM}.
+The \gls{LPM} is a method that predates the \gls{LRM} and has been devised by~\citet{Schoukens2006LPM}.
 The \gls{LPM} approximates both the \gls{FRF} and transient contribution by means of complex-valued local polynomials in the frequency domain.
 
 The \gls{LPM} can be understood as a specific case of the \gls{LRM}: for  $\order{A} = 0$, the \gls{LRM} reduces to the \gls{LPM}.
@@ -383,7 +387,7 @@ In the remainder of this text, we refer to \gls{LRM} as a group of methods which
 For more information regarding \gls{LPM}, we refer to e.g. \citet{Schoukens2009LPM,Pintelon2010LPM1,Pintelon2010LPM2,Gevers2011lpm}.
 
 \begin{remark}
-The trivial setting for local `modeling' where a window with a total width of $1\unit{bin}$ and no transient estimation ($\order{C} = -1$), actually corresponds to the simple \gls{ETFE}~\citep{Broersen1995,Stenman2000ASETFE,Stenman2001ASFRF} when no further smoothing or windowing is applied:
+The trivial setting for local `modeling' where a window with a total width of $1\unit{bin}$ and no transient estimation ($\order{C} = -1$) are used, corresponds to the simple \gls{ETFE}~\citep{Broersen1995,Stenman2000ASETFE,Stenman2001ASFRF} when no further smoothing or windowing is applied:
 \begin{equation}
   \estimated{G}_{\ETFE}(\omega_k) \isdef \frac{Y(\omega_k)}{U(\omega_k)}
   \label{eq:nparam:ETFE}
@@ -405,13 +409,14 @@ Since the local design matrix $\LocalMatrix{K}$, see \eqref{eq:nparam:designMatr
 In this section, we will derive expressions for the bias such that it can be quantified how important this bias is in different situations.
 
 To determine the bias, an approach similar to \citep[Appendix A]{Guillaume1995} is followed.
-Let us denote the expected value of the cost function over all measurements $\LocalVector{Z} = \mat{\LocalMatrix{Y}, \LocalMatrix{U}}$ as
+
+Let us denote the expected value of the cost function \eqref{eq:nparam:LRM:costFunc} over all measurements $\LocalVector{Z} = \mat{\LocalMatrix{Y}, \LocalMatrix{U}}$ as
 \begin{align}
   \ELSCost{\theta}
               & \isdef 
                    \E[\LocalVector{Z}]%
                          {    
-                                \LSCost{\LocalVector{\theta}, \LocalVector{Z}}} \\
+                                \LocalVector{L}_{\LRM} (\LocalVector{\theta}, \LocalVector{Z}}) \\
               & = \ELSCost[0]{\theta} + \ELSCost[n]{\theta} \\
     \ELSCost[0]{\theta} & \isdef 
             \frac{1}{\nWind} 
@@ -433,7 +438,7 @@ Note that this function is a quadratic function of $\LocalVector{\theta}$ and he
   \ELSCost{\theta} = \ELSCost{\true\theta} 
   + \PartialDerivative{\ELSCost{\true\theta}}{\true\theta}  \left( \theta - \true\theta \right) %\\
   + \frac{1}{2} \left( \theta - \true\theta \right)^{\T} 
-  \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} 
+  \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta^2} 
    \left( \theta - \true\theta \right)
    \text{.}
 \end{multline}
@@ -441,23 +446,23 @@ We use the notation
 \begin{equation}
   \PartialDerivative{\ELSCost{\true\theta}}{\true\theta}
   \isdef
-  \evaluate{\PartialDerivative{\ELSCost(\theta)}{\theta}}{\theta = \true\theta}
+  \evaluate{\PartialDerivative{\ELSCost{\theta}}{\theta}}{\theta = \true\theta}
 \end{equation}
 for the derivative of $\ELSCost{\theta}$ with respect to $\theta$, evaluated in $\true\theta$.
 The minimizer $\estimated\theta$ of this function can be obtained by equating the derivative
 \begin{equation}
-  \PartialDerivative{\ELSCost{\estimated\theta}}
-                                          {\estimated\theta} 
+  \left(\PartialDerivative{\ELSCost{\estimated\theta}}
+                                          {\estimated\theta} \right)^{\T}
   = 
   \left( \PartialDerivative{\ELSCost{\true\theta}}{\true\theta} \right)^{\T} 
-  + \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} \left( \estimated\theta - \true\theta \right)
+  + \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta^2} \left( \estimated\theta - \true\theta \right)
 \end{equation}
 to zero.
 This is equivalent to 
 \begin{equation}
   \left( \estimated\theta - \true\theta \right) 
   = 
-  - \left(   \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta} \right)^{-1}  
+  - \left( \PartialDerivative[2]{\ELSCost{\true\theta}}{\true\theta^2} \right)^{-1}  
      \left( \PartialDerivative{\ELSCost{\true\theta}}{\true\theta} \right)^{\T}
   \text{.}
 \end{equation}
@@ -537,7 +542,7 @@ The respective components are given by:
 \end{align}
 It can be seen that only the factors pertaining to $\theta_{A}$ are present.
 As this term occurs linearly in expression \eqref{eq:nparam:bias-basic}, only $\theta_A$ can incur a bias.
-Consequently, only the poles can shifted by the presence of noise.
+Consequently, only the poles can be shifted by the presence of output noise.
 As such, the bias term $\Delta \theta$ can be written in the following sparse form:
 \begin{equation}
   \Delta \theta = 
@@ -672,7 +677,8 @@ However, the sparsity of $\Delta\theta$, see \eqref{eq:nparam:lrm:bias:sparse}, 
 \begin{equation}
   \Delta \LocalModel{G}(\dW,\theta)
   \approx
-  \frac{\LocalModel{G}(\dW, \theta)}
+  - 
+ \frac{\LocalModel{G}(\dW, \theta)}
            {\LocalModel{A}(\dW, \theta)}
   \begin{bmatrix}
     \dW^1 & \deemph{\cdots} & \dW^{\order{A}}
@@ -682,32 +688,35 @@ However, the sparsity of $\Delta\theta$, see \eqref{eq:nparam:lrm:bias:sparse}, 
 \end{equation}
 Equivalently, the relative bias of the \gls{FRF} can be written as
 \begin{align}
-\frac{\Delta \LocalModel{G}(\dw{\omega}{}, \theta)}{\LocalModel{G}(\dw{\omega}{}, \theta)}
+\frac{\Delta \LocalModel{G}(\dw{\omega}{}, \theta)}
+          {\LocalModel{G}(\dw{\omega}{}, \theta)}
 &\approx
+-
 \LocalModel{A}(\dw{\omega}{}, \theta)^{-1}
 \begin{bmatrix}
     \dw{\omega}{}^1 & \deemph{\cdots} & \dw{\omega}{}^{\order{A}}
   \end{bmatrix}
-  \left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}_{A}
-  \PartialDerivative{\ELSCost[n]{\true\theta}}{\theta_A}^{\TT}
+  \left(  \PartialDerivative[2]{\ELSCost{\true\theta}}{ \theta^2 } \right)^{-1}_{A}
+  \PartialDerivative{\ELSCost[n]{\true\theta}}{\true{\theta_A}}^{\TT}
   \\
   &=
+  -
   \frac{\sigma_V^2}{\nWind}
 \begin{bmatrix}
     \dw{\omega}{}^1 & \deemph{\cdots} & \dw{\omega}{}^{\order{A}}
   \end{bmatrix}
-  \left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}_{A}
+  \left(  \PartialDerivative[2]{\ELSCost{\true\theta}}{ \true\theta^2 } \right)^{-1}_{A}
   \begin{bmatrix}
      \Sum_{\dW} \dW^1 
-     \frac{\LocalModel{A}(\conj{\dW},\conj{\LocalVector{\theta}})}
+     \frac{\LocalModel{A}(\conj{\dW},\conj{\true{\LocalVector{\theta}}})}
                {\LocalModel{A}(\dw{\omega}{}, \theta)}\\
   \deemph{\vdots}\\
      \Sum_{\dW} \dW^{\order{A}} 
-     \frac{\LocalModel{A}(\conj{\dW},\conj{\LocalVector{\theta}})}
+     \frac{\LocalModel{A}(\conj{\dW},\conj{\true{\LocalVector{\theta}}})}
                {\LocalModel{A}(\dw{\omega}{}, \theta)}\\
   \end{bmatrix}
 \end{align}
-where $\left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}_{A}$ denotes the upper left $\order{A}\times\order{A}$ subblock of $\left(  \PartialDerivative[2]{\ELSCost{\theta}}{ \theta^2 } \right)^{-1}$ which pertains to the parameters of $\LocalModel{A}$.
+where $\left(  \PartialDerivative[2]{\ELSCost{\true\theta}}{ \true\theta^2 } \right)^{-1}_{A}$ denotes the upper left $\order{A}\times\order{A}$ sub-block of $\left(  \PartialDerivative[2]{\ELSCost{\true\theta}}{ \true\theta^2 } \right)^{-1}$ which pertains to the parameters of $\LocalModel{A}$.
 From the leading factor, it can be seen that the bias on the \gls{FRF} is $\bigO{\sigma_V^2}$.
 Consequently, one can expect that the bias is inherently linked to the \gls{SNR} of the output signal in the frequency domain.
 
@@ -745,7 +754,7 @@ This ensures that the excited bins in the $3\unit{dB}$ bandwidth of the system e
 \end{figure}
 
 The input signal used is a random-phase multisine with a full linear grid.
-A number of samples of the input- and output are measured, in such a way that the \gls{DFT} grid excited $\nBW$ bins within the $3\unit{dB}$ bandwidth of the system.
+A number of samples of the input and output are measured, in such a way that the \gls{DFT} grid excited $\nBW$ bins within the $3\unit{dB}$ bandwidth of the system.
 The different values for 
 \[\nBW \in \set{2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 32, 40, 64, 80, 92, 128, 256}\] are tried. 
 The use of $\nBW$ makes that the experiment length is normalized to take the bandwidth of the resonance into account.
@@ -755,7 +764,7 @@ The \gls{FRF} is estimated using the local modeling approaches indicated in \tab
 This table also indicate $\Delta\SNR$ which indicates the expected gain in \gls{SNR} if the error is mainly determined by the variance.
 Concretely,
 \begin{equation}
-  \Delta\SNR \isdef \sqrt{\frac{\nth}{\nWind}}
+  \Delta\SNR \isdef \frac{\nth}{\nWind}
   \label{eq:nparam:deltaSNR}
 \end{equation}
 accounts for the smoothing action of local modeling.
@@ -866,11 +875,12 @@ Here, the \gls{LPM} remains severely biased for small datasets ($\nBW < 12$).
 However, for sufficiently long experiments ($\nBW > 32$), the bias becomes negligible.
 For the \gls{LRM} and \gls{LRIC}, the bias is always much smaller than the variance.
 In contrast to \gls{LPM}, the \gls{LRM} already reaches a constant variance level when $\nBW > 10$.
-It should also be noted that for the \gls{LRIC}, the variance is almost $10\unit{dB}$ more than the corresponding \gls{LPM} method.
+It should also be noted that for the \gls{LRIC}, the variance is almost $10\unit{dB}$ more than the corresponding \gls{LRM} method.
 It is hence not advantageous to use the \gls{LRIC} as-is.
 For all methods (except the \gls{ETFE} and \gls{LRIC}), the simulations show that the \gls{RMSE} reaches the noise floor minus $\Delta \SNR$.
 
-For the more noisy situation where $\SNR = 40 \unit{dB}$ (\figref{fig:nparam:comparison:midSNR}), the situation is qualitatively equal except the bias incurred by the \gls{LRM} is similar to the noise level.
+For the more noisy situation where $\SNR = 40 \unit{dB}$ (\figref{fig:nparam:comparison:midSNR}), the situation is qualitatively equal except the bias incurred by the \gls{LPM} reaches the level of the noise floor for a smaller data set ($\nBW = 12$).
+It can be seen that the bias of the \gls{LPM} behaves independently of the noise level ($40\unit{dB}$ versus $60\unit{dB}$), while the bias of the  \gls{LRM} clearly depends on the noise level.
 
 \begin{figure}[p]
   \centering
@@ -940,13 +950,13 @@ However, since its bias is much lower than for the other methods, \gls{LRIC} off
 
 \begin{guideline}[Use the \glsentryshort{LRM} for resonant systems when $\SNR > 10 \unit{dB}$]
 For resonant systems, the \gls{LRM} offers better performance than \gls{LPM} when a good \gls{SNR} is obtained in the frequency domain.
-When the \gls{SNR} is poor ($\leq 10\unit{dB}$), the \gls{LPM} may perform a slightly better than \gls{LRM}.
+When the \gls{SNR} is poor ($\leq 10\unit{dB}$), the \gls{LPM} may performs slightly better than \gls{LRM}.
 The \gls{LRIC} is unsuitable due to a high variance, but has a much smaller bias error than the non-iterative solutions.
 \end{guideline}
 
 \begin{guideline}[Use a second-order \glsentryshort{LRM} for resonant systems]
 For resonant systems, the \gls{LRM} offers better performance than \gls{LPM} when a good \gls{SNR} is obtained in the frequency domain.
-In the assumption that difference resonances are well-separated in the frequency, a second-order \gls{LRM} (e.g. $\lrm{7,2,2,2}$) is a reliable method to estimate the \gls{FRF}.
+In the assumption that different resonances are well-separated in the frequency, a second-order \gls{LRM} (e.g. $\lrm{7,2,2,2}$) is a reliable method to estimate the \gls{FRF}.
 \end{guideline}
 
 \begin{guideline}[For long measurements, \glsentryshort{LPM} and \glsentryshort{LRM} are similar]
@@ -1071,8 +1081,8 @@ In particular, when there is a large difference between the level of the residua
 
 \subsection{Combining Different Local Model Orders}
 In the previous section, different methods were introduced to select the local model order.
-This begs the question whether it is advantageous to use the same local model complexity over all frequencies or the model order should be kept globally.
-The answer to this, depends on the ultimate purpose of the \gls{FRF}.
+This begs the question whether it is advantageous to use the same local model complexity globally over all frequencies or whether the local model order can be allowed to vary for different frequency bands.
+In fact, both approaches have their merits and which of both is to be preferred, depends on the ultimate purpose of the \gls{FRF}.
 
 When the goal is to inspect the \gls{FRF} visually or to obtain a smooth representation of the transfer function, one can use different model orders per frequency bin.
 \Citet{Stenman2001ASFRF,Fan1996,Thummala2012LPMBW} show that a varying model order can reduce both bias and variance depending on the characteristic of the system.
@@ -1120,7 +1130,7 @@ In \figref{fig:nparam:PRESS} the hence estimated noise variance $\sampleStd{V}$ 
 For the high \gls{SNR} case, it can be seen in \figref{fig:nparam:PRESS} that the \gls{LPM} is heavily biased and hence results in a large overestimate of the noise variance near the resonance peak.
 As a result, the \gls{PRESS} in the same region is also elevated for the \gls{LPM}.
 Outside the resonance peak, the \gls{LPM} and \gls{LRM} estimate very similar noise variances.
-The \gls{PRESS} the different methods are in agreement with the observations regarding the \gls{RMS} error from the Monte Carlo simulations in \figref{fig:nparam:comparison:midSNR}: all tested \gls{LRM} perform similarly (with a slight advantage for the first-order method), the \gls{LPM} produces much larger errors near the resonance.
+The \gls{PRESS} of the different methods are in agreement with the observations regarding the \gls{RMS} error from the Monte Carlo simulations in \figref{fig:nparam:comparison:midSNR}: all tested \gls{LRM} perform similarly (with a slight advantage for the first-order method), the \gls{LPM} produces much larger errors near the resonance.
 Nevertheless, this figure illustrates that for the \gls{LRM}, the error is quite flat over the frequency.
 Note also that the \gls{PRESS} suffers from a quite high variance over the frequency, which is a well-known drawback~\citep{Arlot2010}.
 
@@ -1148,7 +1158,7 @@ The input signal is a known random noise signal and the output signal is corrupt
 \begin{equation}\label{eq:nparam:trunc:LPM:TD}
 y(t)=\true{G}(q)u_0(t)+\true{H}(q)e(t)=\true{G}(q)u_0(t)+v(t)
 \end{equation}
-where $\true{G}(q)$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= \true{H}(q)e(t)$ is the noise source at the output, $\true{H}(q)$ is the noise dynamics, $e(t)$ is white noise, and $q^{-m}$ is the backwards shift operator ($q^{-m}x(t)$ = $x(t-m)$  with $m$ a positive integer).
+where $\true{G}(q)$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= \true{H}(q)e(t)$ is the noise source at the output, $\true{H}(q)$ is the noise dynamics, $e(t)$ is white noise, and $q^{-m}$ is the backward shift operator ($q^{-m}x(t)$ = $x(t-m)$  with $m$ a positive integer).
 
 Numerous parametric identification techniques are devoted to the development of parametric plant $G(q,\theta)$ and noise models  $H(q,\theta)$, where  $\theta$ is the model parameters vector~\citep{Ljung1999,Soderstrom1989}. 
 In this section, however, a nonparametric technique is developed, and formulated in the frequency domain, consistent with \citep{Pintelon2012,Mahata2006}. 
@@ -1354,7 +1364,7 @@ The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,
   \end{align}
   As segment $\segm{\hat{g}}{i}$ has been tested and been classified as noise (or assumed to be noise if $i=N_S$), the null hypothesis effectively states that the segment $\segm{\hat{g}}{i-1}$ is also noise.
   The alternative case occurs when $\segm{\hat{g}}{i-1}$ has a significant change, which indicates the presence of the signal.
-  Using the $F$-test on the \gls{RMS} values of the two segments with a high confidence level of $\alpha=0.999$ and the aforementioned hypotheses, we can determine whether $\segm{\hat{g}}{i-1}$ is likely to be part of the actual impulse response.
+  Using the $F$-test on the \gls{RMS} values of the two segments with a high significance level of $\alpha=0.999$ and the aforementioned hypotheses, we can determine whether $\segm{\hat{g}}{i-1}$ is likely to be part of the actual impulse response.
   In particular, the null hypothesis is rejected when the empirical $F$ statistic is high, i.e.
   \begin{equation}
     F \isdef \frac{s^2(i-1)}{s^2(i)} \geq \ICDF{\FDistribution} \left( \alpha; n_{i-1}, n_{i} \right)
@@ -1362,15 +1372,13 @@ The $i^{\text{th}}$ segment is denoted $\segm{\hat{g}}{i}$, for $i \in \left\{1,
   where $ \ICDF{\FDistribution}$ is the inverse \gls{CDF} of the \mbox{$F$-distribution} with $n_{i-1}$ and $n_{i}$ degrees of freedom~\citep{EncyclopediaOfMathematics}.
   In this case $n_{i-1}$ and $n_{i}$ are the respective number of samples in the $(i-1)^{\text{th}}$ and $i^{\text{th}}$ segment of the impulse response.
 
-  The high level of confidence ($\alpha=0.999$) ensures that the probability of a Type~II error is smaller than $1-\alpha$~\citep{Parsons1974}.
+  The high level of significance ($\alpha=0.999$) ensures that the probability of a Type~II error is smaller than $1-\alpha$~\citep{Parsons1974}.
   In our case, such an error means that a part of the actual impulse response would be falsely classified as noise, which could significantly increase the bias as information of the system is discarded.
   A Type~I error is less detrimental since, in that case, noise is falsely classified as a signal component and kept in the impulse response, thereby causing a sub-optimal value of the variance of the estimate.
   As the \gls{LPM} samples are correlated over a short frequency span, the actual noise present in $\hat{g}$ may be slightly non-stationary.
   To cope with this, one can introduce other criteria which must be satisfied together with the outcome of the $F$-test.
   A criterion that shows good results is to check whether the segment $\segm{\hat{g}}{i-1}$ has an RMS value that is at least a factor $\kappa$ larger than the RMS of the noise.
   Even for a moderate $\kappa = 1.1$, a large improvement in the detection was observed. 
-%  \JL{Q: doesn't this increase the probability of a Type II error?}
-%  \EG{A: This slightly increases for small $\kappa$ and increases significantly for large values of $\kappa$. But it is needed to overcome nonstationarity of the noise.}
 
   \item This procedure is repeated until a segment $\segm{\hat{g}}{\starred{i}-1}$ is found that is dominated by the actual impulse response according to the outcome of the $F$-test and the absolute \gls{RMS} value of the segment.
   At that point, it is very likely that the transition from noise to the actual impulse response happens within the segment $\segm{\hat{g}}{\starred{i}-1}$.
@@ -1448,7 +1456,7 @@ This is done by solving the following expression
 \ln \left|\hat g(t)\right|\approx \ln A+at,\ \mathrm{with}\ t\in\mathbb{T}_\mathrm{max},
 \end{align}
 for $\ln A$ and $a$ in a least squares sense.
-This is a quadratic problem in the parameters and, thus, amount to a convex optimization problem that can be solved directly.
+This is a quadratic problem in the parameters and, thus, amounts to a convex optimization problem that can be solved directly.
 Since  $\ln \left|\hat g(t)\right|$ decreases for an increasing $t$ in $\mathbb{T}_\mathrm{max}$ (by construction in equation \eqref{eq:TmaxDef}), the estimated $a$ from equation \eqref{eq:expFit} is always negative.
 
 \item
@@ -1480,7 +1488,8 @@ y_0(t) = 2.583y_0(t - 1) -2.176y_0(t - 2)+0.592y_0(t-3) + u(t)
 
 The measured signal was disturbed by random white noise, $y(t) = y_0(t) + e(t)$, such that the \gls{SNR} was $14.2\unit{dB}$.
 The result is depicted in \figref{fig:nparam:trunc:nonparametric:trunc:impresp:expfit}. 
-An exponential function (black thick line) is fitted on the maxima (gray circles) of the absolute value of a noisy impulse response (dark gray line). The truncation time (black vertical line) $\truncTime$ was selected as the time instant at which the fitted exponential fell below $0.4\noiseStd$ (i.e. $\gamma = 0.4$ in equation \eqref{eq:truncTimeExpFit}).
+An exponential function (black thick line) is fitted on the peaks of the absolute value of a noisy impulse response. 
+The truncation time (vertical line) $\truncTime$ was selected as the time instant at which the fitted exponential fell below $0.4\noiseStd$ (i.e. $\gamma = 0.4$ in equation \eqref{eq:truncTimeExpFit}).
 
 \paragraph*{Considerations on the choice of $\gamma$}
 
@@ -1553,7 +1562,7 @@ A good practice would be to truncate the impulse response at the minimizer (blac
 However, this minimizer is unknown in practice, since it depends on the true underlying system.
 Nevertheless, the proposed approaches provide a reasonable way to approximate the optimal truncation length.
 
-The truncation time is determined from the data as described in \secref{sec:nonparametric:truncation:exponentialfit}. 
+The truncation time is determined from the data as described in \secref{sec:nonparametric:truncation:exponentialfit} and \secref{sec:nonparametric:truncation:ftest}. 
 This was done on $1000$ realizations of the noise, and depicted in \figref{fig:nparam:trunc:pdfAndRMSeVStruncTime} by the histogram.
 Clearly, both methods for selecting the truncation time $\truncTime$ have a good overall performance, based on the mode of their distribution (around the $90^{\text{th}}$ sample). 
 
