@@ -102,7 +102,7 @@ The $6$ velocity signals that are digitized by the Q8 \gls{DAQ} are each filtere
 which is shown in \figref{fig:avis:bodeplots:controllerAndSensor}.
 More information regarding this design is given in \citep[Appendix A.3]{Rademakers2005MSc}.
 This filter is discretized automatically by \Simulink for the actual implementation.
-These velocities are then linked by a linear transformation to the (angular) velocities
+These velocities are then linked by a linear static transformation ($K_{\mathrm{sens}}$) to the (angular) velocities.
 
 The output \code{y} is clipped to $\pm 20$ for easier detection of errors.
 However, during normal operation and all the measurements, the signal levels were well within the linear region of this saturation block.
