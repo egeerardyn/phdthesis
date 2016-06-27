@@ -103,7 +103,7 @@ axis y line*=left
 };
 \label{leg:success-RFIR}
 
-\node[annotation] at (axis cs:10,25) {$Q=6\unit{dB}$\\$N=3\,368$\\$N_{3\unit{dB}}=36$};
+\node[annotation] at (axis cs:10,25) {$Q=6\unit{dB}$\\$N=3\,368$\\$\nBW=36$};
 
 \end{axis}
 
@@ -190,7 +190,7 @@ axis y line*=left
 20  100 0   1.82753403551365\\
 };
 
-\node[annotation] at (axis cs:10,25) {$Q=20\unit{dB}$\\$N=20\,250$\\$N_{3\unit{dB}}=36$};
+\node[annotation] at (axis cs:10,25) {$Q=20\unit{dB}$\\$N=20\,250$\\$\nBW=36$};
 
 \end{axis}
 
@@ -277,7 +277,7 @@ axis y line*=right
 20  100 0   1.82753403551365\\
 };
 
-\node[annotation] at (axis cs:10,25) {$Q=20\unit{dB}$\\$N=26\,792$\\$N_{3\unit{dB}}=48$};
+\node[annotation] at (axis cs:10,25) {$Q=20\unit{dB}$\\$N=26\,792$\\$\nBW=48$};
 
 \end{axis}
 
@@ -366,7 +366,7 @@ axis y line*=right
 20  100 0   1.82753403551365\\
 };
 
-\node[annotation] at (axis cs:10,25) {$Q=6\unit{dB}$\\$N=4\,462$\\$N_{3\unit{dB}}=48$};
+\node[annotation] at (axis cs:10,25) {$Q=6\unit{dB}$\\$N=4\,462$\\$\nBW=48$};
 
 \end{axis}
 

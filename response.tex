@@ -121,9 +121,33 @@ But this also opens perspectives. For a beam, you would get a logarithmic multis
 \item \says{JA}{Below (3.17), $V$ is assumed to be i.i.d., but the noise is filtered by $A$. I suggest to change the assumption.}
 \item \says{JA}{On page 129, in (5.17), the probability is zero. You need some interpretation of the equality sign.}
 \oldnewpage{129}{?}
-\TODO{The equation has been removed and the text has been changed as follows:}
+\action{The equality sign has been replaced by an approximate equality.}
+\begin{oldquote}
+The success rate $\successRate_{\bullet}$ of an initialization scheme $\bullet$ is expressed mathematically as the probability function
+\begin{equation}
+\successRate_{\bullet} = 
+  \Prob{  \model{\bullet}=\model{\trueSymbol}  }
+\text{.}
+\end{equation}
+In practice, and since the iterative algorithm usually does not reach the local optimum precisely, the above definition is relaxed to the form
+\begin{equation}\label{eq:successrateTol}
+\successRate_{\bullet} \isdef \Prob{ \norm[2]{\model{\bullet} - \model{\trueSymbol}} < \absoluteTolerance}
+\end{equation}
+with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
+\end{oldquote}
+
 \begin{newquote}
-\TODO{add quote}
+The success rate $\successRate_{\bullet}$ of an initialization scheme $\bullet$ is defined as the probability that it reaches the \emph{best local optimum}, i.e.
+\begin{equation}
+\successRate_{\bullet} = 
+  \Prob{  \model{\bullet} \approx \model{\trueSymbol}  }
+\text{.}
+\end{equation}
+In practice, and since the iterative algorithm usually does not reach the local optimum precisely, the above definition is implemented practically as
+\begin{equation}\label{eq:successrateTol}
+\successRate_{\bullet} \isdef \Prob{ \norm[2]{\model{\bullet} - \model{\trueSymbol}} < \absoluteTolerance}
+\end{equation}
+with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
 \end{newquote}
 
 \item \says{BP}{Guideline 2.3 seems to be dropped further in the text.}

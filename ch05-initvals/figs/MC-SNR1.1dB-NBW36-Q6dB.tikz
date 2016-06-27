@@ -87,7 +87,7 @@ legend style={draw=black,fill=white,legend cell align=left}
 % \addlegendentry{$\hat{G}_{RFIR}$};
 \label{leg:dist-G-RFIR}
 
-\node[annotation,inner sep=1mm] at (axis cs:100,0.4) {\scriptsize $Q=6\unit{dB} \;\quad N=4\,462 \;\quad N_{3\unit{dB}}=48 \;\quad \SNR=-1.1\unit{dB}$};
+\node[annotation,inner sep=1mm] at (axis cs:100,0.4) {\scriptsize $Q=6\unit{dB} \;\quad N=4\,462 \;\quad \nBW=48 \;\quad \SNR=-1.1\unit{dB}$};
 
 %\node[annotation,inner sep=1mm] at (axis cs:50,0.001) {\scriptsize {$\begin{array}{cc} Q=6\unit{dB} & N=4\,462 \\ \SNR=-1.1\unit{dB} & N_{3\unit{dB}}=48 \end{array}$}};
 

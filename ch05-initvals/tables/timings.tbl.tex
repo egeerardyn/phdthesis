@@ -1,7 +1,7 @@
 \pgfplotstabletypeset[zerofill=true,string replace={nan}{},precision=0,relative*=0,empty cells with={\deemph{--}}, %round to 1 ms
     columns/method/.style={string type,column type=l,column name={\textsc{Method}}},
     columns/Q/.style={column type=c,column name={$Q\axisunit{dB}$},zerofill=false},
-    columns/NBW/.style={column type=c,column name={$N_{3\unit{dB}}$},zerofill=false},
+    columns/NBW/.style={column type=c,column name={$\nBW$},zerofill=false},
     columns/tsmooth/.style={column type=r,column name={$t_{\mathrm{smooth}} \axisunit{ms}$},multiply by=1000},
     columns/tinit/.style={column type=r,column name={$t_{\mathrm{init}} \axisunit{ms}$},multiply by=1000},
     columns/tfinal/.style={column type=r,column name={$t_{\mathrm{final}} \axisunit{ms}$},multiply by=1000},
