@@ -18,7 +18,9 @@
 \RequirePackage{tangocolors}
 \RequirePackage{xcolor}
 % http://tex.stackexchange.com/questions/26071/how-can-i-have-colored-and-underlined-links-with-hyperref
-\RequirePackage[colorlinks=true,urlcolor=TangoSkyBlue2,breaklinks=true,urlbordercolor=TangoSkyBlue1]{hyperref}
+
+\colorlet{linkcolor}{TangoAluminium4}
+\RequirePackage[colorlinks=false,allbordercolors=linkcolor,breaklinks=true]{hyperref}
 
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
@@ -43,7 +45,7 @@
 \definecolor{old}{named}{TangoScarletRed3}
 \definecolor{answer}{named}{TangoSkyBlue2}
 \definecolor{new}{named}{TangoChameleon3}
-\definecolor{saying}{named}{TangoPlum3}
+\definecolor{saying}{named}{TangoAluminium6}
 \definecolor{action}{named}{TangoSkyBlue3}
 
 \newcommand{\shortname}[1]{{\scshape\MakeLowercase{#1}}}
@@ -59,8 +61,8 @@
 
 \newcommand{\replace}[2]{#2} % from  Koen Tiels
 
-\newenvironment{answer}{\color{answer}\shortname{EG:}}{\normalcolor}
 
+\newcommand{\answer}[1]{{\color{answer}\shortname{EG:} #1}}
 \newcommand{\question}[1]{#1}
 \newcommand{\ans}[1]{\begin{answer}#1\end{answer}}
 \newcommand{\action}[1]{{\color{action}\textbf{Action:} #1}}
