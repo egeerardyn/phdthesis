@@ -4,7 +4,7 @@
 \glsresetall
 
 In this thesis, user-friendly system identification methods have been developed.
-These methods require little to no user interaction and are designed such that the method work for a broad range of systems.
+These methods require little to no user interaction and are designed such that the methods work for a broad range of systems.
 As such, many of the obtained improvements can be obtained without bothering the user for further information and tuning.
 Throughout this dissertation, so-called `Guidelines' have been scattered that offer a bird's eye view of the work from a practical point of view.
 In the following sections, the main results of this work are summarized and perspectives are sketched for further (and ongoing) research paths.
@@ -24,7 +24,7 @@ In the following sections, the main results of this work are summarized and pers
   The choice to use the equality $\alpha = 1+ \damping[\min]$ is the optimal choice within the framework presented in \chapref{sec:excitation} such that resonances with $\damping \geq \damping[\min]$ and $\wn \geq \omegaLinLog = \frac{2 \pi \Delta f}{\alpha-1} = \frac{2 \pi \Delta f}{\damping[\min]}$ are well-represented in the \gls{FRF}.
   Decreasing $ \alpha$ further comes at the cost of more excited frequency bins and consequently a lower power per bin, or, a reduced \gls{SNR} per bin if the overall signal power is limited.
 
-  In practical terms of a layman user, this means that the design of a quasi-logarithmic multisines--- as discussed in this thesis--- requires only limited prior knowledge:
+  In practical terms of a layman user, this means that the design of quasi-logarithmic multisines--- as discussed in this thesis--- requires only limited prior knowledge:
   \begin{itemize}
     \item the available measurement time (or equivalently, the minimal relevant frequency $\omegaLinLog$),
     \item the allowable total excitation power,
@@ -36,7 +36,7 @@ In the following sections, the main results of this work are summarized and pers
   \subsection{Non-Parametric Estimation}
   
   \paragraph{Leakage reduction}
-  Different non-parametric estimators, specifically from the family of local estimators, i. e. \gls{LRIC}, \gls{LRM} and \gls{LPM} are compared in this work.
+  Different non-parametric estimators, specifically from the family of local estimators, \latin{i.e.} \gls{LRIC}, \gls{LRM} and \gls{LPM} are compared in this work.
   It has been shown that the most general \gls{LRIC} is very sensitive to the use of the `correct' local model order.
   The pre-existing \gls{LRM} and \gls{LPM}, however, are not as sensitive.
   It has been shown that the inherent bias of the \gls{LRM} becomes the dominant source of errors, in contrast to the variance, when an \gls{SNR} of less than $20\unit{dB}$ is available in the frequency bands of interest.
@@ -50,7 +50,7 @@ In the following sections, the main results of this work are summarized and pers
   Two complementary approaches to determine $\truncTime$ have been developed.
   Both methods estimate the noise level on the impulse response by assuming the last $10\%$ of the samples are only noise.
   The first method exploits the fact that many physical systems exhibit an exponential decay.
-  This exponential decay is estimated roughly, such that the truncation point is determined as the instant where decay is below the noise level.
+  This exponential decay is estimated roughly, such that the truncation point is determined as the instant where the decay is below the noise level.
   The second method divides the impulse response into segments.
   Starting from the last segment, it is tested statistically whether the preceding segment is significantly different from the noise, such that $\truncTime$ is estimated.
   For physical systems that exhibit an exponentially decaying impulse response, the exponential fitting method is to be preferred.
@@ -67,10 +67,10 @@ In the following sections, the main results of this work are summarized and pers
   \subsection{Initialization of Parametric Estimation}
   To obtain a parametric model estimate from measured data often requires solving a non-convex optimization problem.
   However, for such optimization problems, often an initial parameter estimate is required to allow convergence to the global optimum, or a local optimum nearby.
-  In this thesis, it was investigated whether convergence to a good optimum can be attained more easily by means of \gls{FRF} smoothers; in particular when many data points are only a poor \gls{SNR} is attained.
+  In this thesis, it was investigated whether convergence to a good optimum can be attained more easily by means of \gls{FRF} smoothers; in particular when many noisy data points are available.
   A few practical smoothers have been studied, i.e. the time-truncated \gls{LPM}, and the \gls{RFIR}.
-  It has been shown that especially the \gls{RFIR} provides smoothed \glspl{FRF} that aid in convergence to a good optimum than the existing state-of-the-art initializers (\gls{BTLS} and \gls{GTLS}).
-  These smoothers allow one to obtain good models from noisier data than what existing techniques.
+  It has been shown that especially the \gls{RFIR} provides smoothed \glspl{FRF} which improves convergence to a good optimum compared to the existing state-of-the-art initializers (\gls{BTLS} and \gls{GTLS}).
+  These smoothers allow one to obtain good models from noisier data than what existing techniques can achieve.
   The improvement of the initial values has been verified both on simulations, measurements, and a simulation stress test consisting of different filters.
   While overall the \gls{RFIR} provides the best starting values from the different smoothers, combining multiple initial values remains a very valuable approach to make a system identification toolbox robust for the measurement data.
 
@@ -123,7 +123,7 @@ In the following sections, the main results of this work are summarized and pers
     In this context, the \gls{LPM} has already been used~\citep{Lataire2012}.
     Preliminary tests using the \gls{LRM} in lieu of the \gls{LPM} have proven fruitful.
     Similarly, for \gls{LPV} systems, the \gls{LRM} allows to extract non-parametric models from \gls{LPV} systems where the scheduling parameter is fixed during the experiment~\citep{vanderMaas2015CDC}.
-    Given the successful application of \gls{LRM} in a frozen parameter-varying system, it seems worthwhile to investigate if the\gls{LRM} can be extended to work in more challenging experimental settings.
+    Given the successful application of \gls{LRM} in a frozen parameter-varying system, it seems worthwhile to investigate if the \gls{LRM} can be extended to work in more challenging experimental settings.
     E.g. it could prove useful to extend the \gls{LRM} towards measurements of \gls{LPV} systems where the scheduling parameter is allowed to vary continuously during the experiment.
 
     Another application where the \gls{LPM} is developed further, is the handling of missing data~\citep{Ugryumova2015}.
@@ -146,7 +146,7 @@ In the following sections, the main results of this work are summarized and pers
 
   \subsection{Non-Parametric Estimation and Interpolation}
   As with the regular \gls{LRM}, ongoing research focuses on the estimation approach of the $\Hinf{}$ gain towards the \gls{MIMO} case.
-  In that context, the design of weighting filter also becomes even more important~\citep{Boeren2013}.
+  In that context, the design of weighting filters also becomes even more important~\citep{Boeren2013}.
   Hence, the link between local models and the design of weighting filters and parametric overbounds is essential and should be confirmed further in a detailed study.
 
   Another possibility for future research is to approach the problem of $\Hinf$ gain estimation purely from the aspect of local regression such that combining multiple local models is no longer necessary.
