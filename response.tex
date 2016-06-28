@@ -8,6 +8,8 @@
 \setkomavar{fromname}{Egon Geerardyn \showinitial{EG}}
 \setkomavar{fromemail}[]{egon.geerardyn@vub.ac.be} 
 
+\newcommand{\commit}[1]{\href{https://github.com/egeerardyn/phdthesis/commit/#1}{\texttt{#1}}}
+
 \addbibresource{biblio/ownWork.bib}
 \addbibresource{biblio/references.bib} 
 
@@ -186,6 +188,16 @@ with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
 \section{Small Changes}
 
 \begin{enumerate}
+\item A lot of typos and tiny corrections have been carried out.
+To keep this document short, you can consult commits
+  \commit{eed3f40}, 
+  \commit{b163710}, 
+  \commit{08d2bfb},  
+  \commit{dc1d99d}, 
+  \commit{06471dd}, 
+  \commit{d4771ea}, and
+  \commit{ca38442} where most of these small changes are contained.
+
 \item 
 \oldnewpage{xi}{?}
 \old{Set of the positive real numbers without the number $0$}
@@ -201,12 +213,6 @@ with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
 \old{However, since most parametric estimators enforce very little prior knowledge about the system, noise in the measurements can sometimes be a problem to distinguish the actual system features.}
 \replacedBy
 \new{However, since most nonparametric estimators enforce very little prior knowledge about the system, it can sometimes be problematic to clearly distinguish noise in the measurements and the actual systematic behavior.}
-
-\item
-\oldnewpage{5}{?}
-\old{compexity}
-\replacedBy
-\new{complexity}
 
 \item 
 \oldnewpage{54}{?}
@@ -249,9 +255,6 @@ In fact, both approaches have their merits and which of both is to be preferred,
    \old{Note that one should also $\nWind$ as the total number of data points (and not the number of points in each window).} 
    \replacedBy 
    \new{Note that one should interpret $\nWind$ as the total number of data points (and not the number of points in each window) for the global case.}
-
-   \item 
-   \old{smalles}    \replacedBy \new{smallest} \oldnewpage{76}{?}
 
    \item 
    \oldnewpage{96}{?}
