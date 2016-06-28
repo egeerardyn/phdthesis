@@ -37,7 +37,7 @@ It is, however, not necessary to know how many resonances are in the system and 
 
 Such problem settings occur in many diverse fields of experimentation, such as the measurement of biochemical impedances \citep{Bragos2001,Sanchez2011}, electrochemical impedance spectroscopy \citep{Niedostatkiewicz2009,VanGheem2004,Breugelmans2010}, electronics \citep{Munir2011}, mechatronics \citep{Steinbuch1998,Oomen2016}, vibration analysis~\citep{Karnopp1995,Voorhoeve2015SYSID} and acoustic testing \citep{GarciaLopez2014,DAmico2014} amongst others. 
 
-  Any \gls{LTI} system of finite order can be expanded into a finite sum of sub-systems of first and second order by means of a partial fraction expansion~\citep{Oppenheim1983}.
+  Any \gls{LTI} system of finite order can be expanded into a finite sum of sub-systems of first and second order by means of a partial fraction expansion~\citep{Oppenheim1996}.
   Therefore the performance of the proposed method is assessed on a prototype system of second order.
   This does not limit the generality of the approach as we can add several of such systems to construct a general \gls{LTI} system.
   
@@ -155,7 +155,7 @@ y(t)
 with parameters $\theta=[\wn\;\damping]^{\T}$. 
 The resonance frequency of the system is $\wR \isdef \sqrt{1-\damping^2}\wn$.
   
-When $\damping < \frac{1}{\sqrt{2}}$, such a second order system exhibits a peak in the amplitude of the transfer function~\citep{Oppenheim1983}:
+When $\damping < \frac{1}{\sqrt{2}}$, such a second order system exhibits a peak in the amplitude of the transfer function~\citep{Oppenheim1996}:
   \begin{align}
    \abs{G\left(\wM \right) }
    & \isdef
@@ -1334,7 +1334,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   \label{eq:excitation:secondOrderSystemDTidentifiable}
   \end{equation}
 
-  This form can also be obtained by applying Tustin's method or bilinear transform~\citep{Oppenheim1983} to the continuous time system \eqref{eq:excitation:secondOrderSubsystem}.
+  This form can also be obtained by applying Tustin's method or bilinear transform~\citep{Oppenheim1996} to the continuous time system \eqref{eq:excitation:secondOrderSubsystem}.
 
   The input signal has an equidistant frequency grid with a resolution $\Delta f = 1\unit{Hz}$ between $1 \unit{Hz}$ and $16\,384\unit{Hz}$.
   The sampling frequency $f_s$ is set to $65\,536\unit{Hz}$ to prevent aliasing.
