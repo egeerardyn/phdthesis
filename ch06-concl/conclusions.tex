@@ -116,6 +116,10 @@ In the following sections, the main results of this work are summarized and pers
     \end{equation}
     but these have proven more difficult to estimate numerically and hence unreliable~\citep[Section 2.4]{Pintelon2006BJ1}.
     A possible approach for this would be to use orthogonal polynomials~\citep{Forsythe1957,Bultheel2005} with complex coefficients.
+    The \gls{LRM} (and hence also \gls{LPM}) could be extended to other model structures that are fine-tuned for specific applications as is also sometimes done for fully parametric system identification in the frequency domain~\citep[p. 179]{Pintelon2012}.
+    E.g. in electrochemistry it is common~\citep{Wang1987} to describe diffusion phenomena using Warburg impedances which are proportional to $\sqrt{s}$ (with $s$ the Laplace variable).
+    On the other hand, in microwave engineering~\citep{Rizzi1988,Pozar2005}, commensurate filters are easily described using Richard's variable $R=\tanh (\tau s)$ with $\tau$ the delay of the considered transmission lines.
+    For these altered models, however, it should be verified whether numerical conditioning becomes a similar nuisance as for discrete-time models.
 
     As the non-parametric methods such as \gls{LPM} and \gls{LRM} were originally intended to serve the same purpose as windows in classical spectral analysis, this naturally leads to other applications of these methods where windows are otherwise used to reduce the effect of spectral leakage.
 
