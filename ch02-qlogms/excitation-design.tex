@@ -433,8 +433,7 @@ To further illustrate the decoupling of the two systems, we calculate \eqref{eq:
 In \figref{fig:excitation:coupling} the largest element in $\partial G_{1,2}$ is plotted for different dampings and separations. It is clear that highly resonant systems have a large degree of decoupling and that resonances that are well-separated increases the decoupling. 
 The diagonal blocks of the normalized $\Fi{\theta}$ in all cases have some elements close to $1$. 
 In this example, the $\damping$ is set to be the same in both sub-systems. 
-%TODO: !! (EG) Comment on that this is not a requirement
-Using different dampings in the sub-systems would, however, not change the argument, the systems with the lowest damping will limit the separation.
+Using different dampings in the sub-systems would, however, not change the argument, as the sub-systems with the lowest damping will be the limiting factor.
 
 Based on the above arguments, we approximate the information matrix for lightly-damped systems as a block-diagonal matrix:
 \begin{align}
@@ -1056,7 +1055,7 @@ with
   \begin{remark}
   To introduce only limited prior knowledge into the input design, we shall assume that the noise is white.
   Hence, $\sigma^2_E(\omega) = \sigma^2_E$ is constant over the whole frequency band of interest.
-  If the noise coloring is known beforehand (or measured in a previous experiment), the design can be adapted in a straightforward manner.
+  If the noise coloring is known beforehand (or measured in a previous experiment), the design can be adapted in a straightforward manner, e.g. by coloring the amplitude spectrum accordingly.
   \end{remark}
 
   In this chapter, we select a single frequency of interest $\omega_{\interest}$ to obtain a scalar performance criterion.

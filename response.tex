@@ -135,15 +135,28 @@ You can consult commits
    Afterwards, one could try to split up the \gls{IRF} in a part attributed to the stable poles and one caused by unstable poles and apply truncation on both parts separately and recombining the results.
 \end{newquote}
 
-\item \says{JA}{On page 33, in (2.62), you have a covariance matrix. The PSD of the noise depends on the frequency. Afterwards, it is assumed constant?}\oldnewpage{33}{?}
-\action{}
+\item \says{JA}{On page 33, in (2.62), you have a covariance matrix. The PSD of the noise depends on the frequency. Afterwards, it is assumed constant?}
+\oldnewpage{33}{?}
+\action{A remark has been added.}
+\begin{newquote}
+To introduce only limited prior knowledge into the input design, we shall assume that the noise is white.
+  Hence, $\sigma^2_E(\omega) = \sigma^2_E$ is constant over the whole frequency band of interest.
+  If the noise coloring is known beforehand (or measured in a previous experiment), the design can be adapted in a straightforward manner, e.g. by coloring the amplitude spectrum accordingly.
+\end{newquote}
+
 \item \says{JA}{With the logarithmic spacing of the multisine, you assume a specific type of damping (all $\xi$ are the same). 
 So, the FRF shapes are the same on a logarithmic scale. What if you have other shapes?}
 \answer{
 The assumption is not that $\xi$ is identical for all subsystems. 
 Rather, when $\xi \geq \xi_{\min}$ for all subsystems, their relative $3\unit{dB}$ bandwidth has a minimal width and is excited well when $\alpha \leq 1 + \xi_{\min}$ (see also Figure 2.8 in the manuscript: for all $\frac{\alpha -1}{\xi_{\min}} < 1$, misalignment is no longer an issue and hence the design works well).
 }
-\item \says{JA}{Below (3.17), $V$ is assumed to be i.i.d., but the noise is filtered by $A$. I suggest to change the assumption.}
+\action{A remark is added to underline this fact.}
+\oldnewpage{}{?}
+\begin{newquote}
+In this example, the $\damping$ is set to be the same in both sub-systems. 
+Using different dampings in the sub-systems would, however, not change the argument, as the sub-systems with the lowest damping will be the limiting factor.
+\end{newquote}
+
 \item \says{JA}{On page 129, in (5.17), the probability is zero. You need some interpretation of the equality sign.}
 \oldnewpage{129}{?}
 \action{The equality sign has been replaced by an approximate equality.}
@@ -306,7 +319,8 @@ The following minor changes are not yet completed, but will be performed for the
 \TODO{address this}
  \item \says{JD}{In electrochemistry, I work in frequency ranges from 0.01 Hz until 100 kHz. In the 1970s I already used an arithmetic spacing of my excited frequencies. What is the relationship with logarithmic multisines? Was my intuition right back then? Or is it a reinvention of the wheel?}
 \TODO{A remark has been added}
-
+\item \says{JA}{Below (3.17), $V$ is assumed to be i.i.d., but the noise is filtered by $A$. I suggest to change the assumption.}
+\TODO{address this}
 \end{enumerate}
 
 \newpage
