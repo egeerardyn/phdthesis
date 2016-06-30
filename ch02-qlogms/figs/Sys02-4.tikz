@@ -18,8 +18,8 @@ width=\figurewidth,
 height=\figureheight,
 xmin=1, xmax=16384,
 ymin=-120, ymax=10,
-xlabel={Frequency $f$ [$\mathrm{Hz}$]},
-ylabel={Frequency Response Function [$\mathrm{dB}$]},
+xlabel={Frequency $f$ \axisunit{Hz}},
+ylabel={Amplitude $\abs{G(\omega)}$ \axisunit{dB}},
 ymajorgrids, yminorgrids,
 legend entries={%True System $G_0$,
                 %Mean Model $\hat{G}$,
@@ -33,22 +33,22 @@ legend style={at={(1.05,1.05)}, anchor={north east},nodes=right,font=\footnotesi
 
 \addplot [truesys,forget plot] table[]{\thisDir/data/Sys02-4/truesys.tsv};
 \label{leg:excitation:sim:FRF}
-\node[color=truesys] (axis cs: 3,-10) {FRF};
+\node[color=truesys] at (axis cs: 3,-10) {FRF};
 
 % 
 % \addplot [model]
 % table[]{\thisDir/data/Sys02-4/model.tsv};
 \addplot [linmsconnect] table[]{\thisDir/data/Sys02-4/linmsconnect.tsv};
 
-\addplot [sigmalinms, forget plot] table[]{\thisDir/data/Sys02-4/linms-sigma.tsv};
+\addplot [sigmalinms, linmsconnect, mark repeat=10,forget plot] table[]{\thisDir/data/Sys02-4/linms-sigma.tsv};
 
 \addplot [qlogmsconnect] table[]{\thisDir/data/Sys02-4/qlogmsconnect.tsv};
 
-\addplot [sigmaqlogms, forget plot] table[]{\thisDir/data/Sys02-4/qlogms-sigma.tsv};
+\addplot [sigmaqlogms, qlogmsconnect, mark repeat=7, forget plot] table[]{\thisDir/data/Sys02-4/qlogms-sigma.tsv};
 
 \addplot [clogmsconnect] table[]{\thisDir/data/Sys02-4/clogmsconnect.tsv};
 
-\addplot [sigmaclogms, forget plot] table[]{\thisDir/data/Sys02-4/clogms-sigma.tsv};
+\addplot [sigmaclogms, clogmsconnect, mark repeat=5, forget plot] table[]{\thisDir/data/Sys02-4/clogms-sigma.tsv};
 
 \addplot [biaslinms] table[]{\thisDir/data/Sys02-4/linms-bias.tsv};
 \addplot [biasqlogms] table[]{\thisDir/data/Sys02-4/qlogms-bias.tsv};

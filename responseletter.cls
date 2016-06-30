@@ -62,7 +62,7 @@
 \newcommand{\replace}[2]{#2} % from  Koen Tiels
 
 
-\newcommand{\answer}[1]{{\color{answer}\shortname{EG:} #1}}
+\newcommand{\answer}[1]{{\color{answer}\shortname{EG:} #1\\}}
 \newcommand{\question}[1]{#1}
 \newcommand{\ans}[1]{\begin{answer}#1\end{answer}}
 \newcommand{\action}[1]{{\color{action}\textbf{Action:} #1}}
@@ -72,7 +72,9 @@
 \newcommand{\replacedBy}{{\large\ensuremath{\;\to\;}}}
 
 % http://tex.stackexchange.com/questions/16141/align-marginpar-with-beginning-of-paragraph
-\newcommand{\oldnew}[3][]{\leavevmode\marginpar{\footnotesize\textsf{{\color{verylight}#1 {\color{old}#2} | {\color{new}#3}}}}}
+\newcommand{\ifBothFilled}[3]{\notblank{#1}{\notblank{#2}{#3}{}}{}}
+
+\newcommand{\oldnew}[3][]{\leavevmode\marginpar{\footnotesize\textsf{{\color{verylight}#1 {\color{old}#2}\ifBothFilled{#2}{#3}{ | }{\color{new}#3}}}}}
 \newcommand{\oldnewpage}[2]{\oldnew[p.]{#1}{#2}}
 \newcommand{\oldnewsection}[2]{\oldnew[§]{#1}{#2}}
 

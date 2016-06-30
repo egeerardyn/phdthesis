@@ -74,7 +74,7 @@ For the theoretical analysis, we consider \gls{SISO} \gls{OE} systems, i.e.
 y(t) &=G(s,\theta)u(t)  + e(t),
 \end{align}
 where $u(t)$ is a known input sequence, $y(t)$ the output sequence, and $e(t)$ is zero mean Gaussian white noise with variance $\sigma_{e}^2$.
-$G$ is a rational, time invariant transfer function in continuous time.
+$G$ is a rational, time-invariant transfer function in continuous time.
 For notational simplicity, $s$ is used both as the complex Laplace variable and the differentiation operator; it should be clear from the context which is used. 
 The transfer function is parameterized by the vector $\theta$.
 These parameters are unknown and hence we are interested in estimating their values. 
@@ -130,11 +130,13 @@ This means that only a few frequencies are excited.
 A sparse spectrum is bad from a robustness point of view; there is very limited information about what happens at the unexcited frequencies. 
 Therefore, a signal design to be optimal for one system may result in very bad estimates if applied to another system.
 To increase the robustness of the design, one could take a small fraction $\delta$, from the optimal power and redistribute this power over the whole frequency band of interest.
-From \eqref{eq:excitation:IF} and \eqref{eq:excitation:varG} we see that scaling the input power by $1-\delta$, gives the transfer function variance
+From \eqref{eq:excitation:IF} and \eqref{eq:excitation:varG} we see that scaling the optimal input power by $1-\delta$, has the following effect on the variance of the estimate:
 \begin{align}
-\var{\hat{G}(j\omega)}\frac{1}{1-\delta}.
+\var{\hat{G}(j\omega)}_{{(1-\delta)\mathrm{optimal} + \delta \mathrm{robust}}} \approx \frac{1}{1-\delta} \var{\hat{G}(j\omega)}_{\mathrm{optimal}} 
+\text{.}
 \end{align}
-This is a small loss while the increase in robustness can be significant if the added signal is robust. Such a robust signal is studied in the following parts of the chapter.
+This is a small loss while the increase in robustness can be significant if the added signal is robust. 
+Such a robust signal is studied in the following parts of the chapter.
 
 \section{Logarithmic Power Distributions}
 \label{sec:excitation:logarithmic}
