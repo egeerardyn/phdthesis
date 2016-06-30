@@ -55,6 +55,8 @@ There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare
 
 \begin{enumerate}
 \item \says{TM}{In the thesis, the focus is on resonant systems. It would be good to add some comments in perspective of a general system identification.}
+\item \says{JA}{Here, the number of modes per frequency band decreases as the frequency increases. A decreasing modal density is typical for a beam, but for a plate, the number of modes is constant. For a volume, the number of modes increases. I suggest to recast the context in a set of assumptions. The modal density and the modal overlap factor are important in this respect.
+But this also opens perspectives. For a beam, you would get a logarithmic multisine, for a plate, you would get a linear multisine. In mechanics, you have an idea about the modal density and modal overlap factor, which can be a big prior knowledge.}
 \item \says{JA}{In (2.12), you have a series of second-order systems that all have the same amplitude. Can this be made more general?}
 \item \says{KT}{For the input design, in (2.1), you assume that the noise is white. What happens for colored noise? The reason I ask this is in case you want to estimate the best linear approximation of a nonlinear system. Then you can consider the stochastic nonlinear distortions as a noise source, but that is not necessarily white.}
 \TODO{Address iterative design in Chapter 2.}
@@ -98,8 +100,8 @@ Parametric identification of \gls{LTI} systems from either input/output data or 
 
 \begin{enumerate}
 
-\item A lot of typos and other tiny adjustments have been carried out.
-To keep this document short, you can consult commits
+\item \action{A lot of typos have been fixed and other tiny adjustments have been carried out.}
+You can consult commits
   \commit{eed3f40}, 
   \commit{b163710}, 
   \commit{08d2bfb},  
@@ -141,8 +143,6 @@ So, the FRF shapes are the same on a logarithmic scale. What if you have other s
 The assumption is not that $\xi$ is identical for all subsystems. 
 Rather, when $\xi \geq \xi_{\min}$ for all subsystems, their relative $3\unit{dB}$ bandwidth has a minimal width and is excited well when $\alpha \leq 1 + \xi_{\min}$ (see also Figure 2.8 in the manuscript: for all $\frac{\alpha -1}{\xi_{\min}} < 1$, misalignment is no longer an issue and hence the design works well).
 }
-\item \says{JA}{Here, the number of modes per frequency band decreases as the frequency increases. A decreasing modal density is typical for a beam, but for a plate, the number of modes is constant. For a volume, the number of modes increases. I suggest to recast the context in a set of assumptions. The modal density and the modal overlap factor are important in this respect.
-But this also opens perspectives. For a beam, you would get a logarithmic multisine, for a plate, you would get a linear multisine. In mechanics, you have an idea about the modal density and modal overlap factor, which can be a big prior knowledge.}
 \item \says{JA}{Below (3.17), $V$ is assumed to be i.i.d., but the noise is filtered by $A$. I suggest to change the assumption.}
 \item \says{JA}{On page 129, in (5.17), the probability is zero. You need some interpretation of the equality sign.}
 \oldnewpage{129}{?}
@@ -180,17 +180,8 @@ with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
 \end{newquote}
 
 \item \says{BP}{Guideline 2.3 seems to be dropped further in the text.}
-\TODO{This guideline has been placed into context in the book.}
-\begin{newquote}
-  \TODO{add quote}
-\end{newquote}
-
-\item 
-\says{BP}{In Chapter 5, you use LPM and not LRM? Why? From Chapter 3, you concluded that LRM performs better.}
-\answer{LPM is better at lower SNR. Also, chronologically, Chapter 5 is older that Chapter 3. I checked the results with LRM, but they are very similar to the LPM results, since I used low SNR settings. There is a remark in the text.}
-\says{TM}{The remark is a bit late in the thesis.}
-\oldnewpage{x}{y}
-\TODO{The remark has been moved to an earlier place in the text.}
+\action{This guideline has been move to conclusion of that chapter.}
+\oldnewpage{47}{?}
 
 \item
 \says{JD}{I work in electrochemistry. I use multisines to characterize Warburg impedances in $\sqrt{\omega}$ and other elements in $\sqrt[x]{\omega}$. Will LPM still work for this?}
@@ -202,9 +193,6 @@ E.g. in electrochemistry it is common~\citep{Wang1987} to describe diffusion phe
     On the other hand, in microwave engineering~\citep{Rizzi1988,Pozar2005}, commensurate filters are easily described using Richard's variable $R=\tanh (\tau s)$ with $\tau$ the delay of the considered transmission lines.
     For these altered models, however, it should be verified whether numerical conditioning becomes a similar nuisance as for discrete-time models.
 \end{newquote}
-
- \item \says{JD}{In electrochemistry, I work in frequency ranges from 0.01 Hz until 100 kHz. In the 1970s I already used an arithmetic spacing of my excited frequencies. What is the relationship with logarithmic multisines? Was my intuition right back then? Or is it a reinvention of the wheel?}
-\TODO{A remark has been added}
 
 \item \action{Equation (2.6) has been rewritten and clarified}
 \oldnewpage{15}{?}
@@ -316,6 +304,8 @@ The following minor changes are not yet completed, but will be performed for the
   \TODO{address this}  
 \item \says{TM}{In the plots, you never show the analytical bias of the LRM in the plots. Is the analytical bias a good estimate for the bias of the LRM?}
 \TODO{address this}
+ \item \says{JD}{In electrochemistry, I work in frequency ranges from 0.01 Hz until 100 kHz. In the 1970s I already used an arithmetic spacing of my excited frequencies. What is the relationship with logarithmic multisines? Was my intuition right back then? Or is it a reinvention of the wheel?}
+\TODO{A remark has been added}
 
 \end{enumerate}
 

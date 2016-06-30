@@ -1481,10 +1481,6 @@ The standard deviation of the noise $\sigma_e$ was put at $0.0678$. The correspo
 We observe that the amplitude of the transfer function is $9.8\unit{dB}$ and $8.1\unit{dB}$ at the resonance frequencies.
 The standard deviation on the \glspl{FRF} lies respectively $59.7 \unit{dB}$ and $59.6 \unit{dB}$ lower than the \gls{FRF} at these frequencies. 
 This shows that both resonances are captured with a practically identical relative error.
-
-\begin{guideline}[Use quasi-logarithmic multisines as initial excitation]
-  Quasi-logarithmic multisines with pink-colored amplitude spectrum facilitate the measurement of multiple sharp resonance peaks over a wide frequency band of interest with a constant quality.
-\end{guideline}
   
 \section{Measurements} 
 \label{sec:excitation:measurement}
@@ -1585,3 +1581,7 @@ The suggested compensation works well as long as the considered systems are suff
 We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equi-damped set of systems.
 The presented method allows to select a maximal value for the frequency ratio $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
 In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
+
+\begin{guideline}[Use quasi-logarithmic multisines as initial excitation]
+  Quasi-logarithmic multisines with pink-colored amplitude spectrum facilitate the measurement of multiple sharp resonance peaks over a wide frequency band of interest with a constant quality.
+\end{guideline}
