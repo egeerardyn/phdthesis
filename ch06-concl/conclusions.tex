@@ -144,6 +144,24 @@ In the following sections, the main results of this work are summarized and pers
     In view of \gls{FRF} estimation, a worthwhile endeavor could be to study the influence of these kernels on both the \gls{FRF} estimate and the estimated noise level.
     Moreover, this could even lead to the design of new kernels.
 
+    \subsubsection{Impulse Response Truncation}
+    With respect to the impulse response truncation approaches introduced in \secref{sec:nonparametric:truncation}, a few paths could be investigated further to broaden the class of systems where these methods are applicable and have a more subtle smoothing behavior of the transfer function.
+
+    The crude truncation approach that is discussed in this thesis, can be interpreted as equivalent to windowing the \gls{IRF} with a rectangular window.
+    In the frequency domain, this causes a very obvious correlation in the \gls{FRF}.
+    By choosing a different window function (e.g. an exponential window, Hann window, \ldots), one could try to reduce this adverse effect.
+
+   Another alternative for this crude rectangular windowing approach, which still uses a \gls{DFT} for the full size of the measurement record, could be to reduce the size of the \gls{DFT}.
+   The introduced algorithms that determine a truncation length $\truncTime$, could also give a good indication of what size of \gls{DFT} would be suitable to represent the system well for the given measurements.
+   However, further studies are required to compare the performance of these different alternatives.
+
+   Currently, the truncation approach works based on the assumption that the last fragment of the \gls{IRF} is dominated by noise influences.
+   The consequence of this is that the system is assumed to be stable and causal.
+   It would be a worthwhile extension to relax this assumption to deal with unstable systems as well.
+   For those systems, the last fragment of the \gls{IRF} will be dominated by the unstable (or anti-causal) part of the system. 
+   Hence, the problem will become much harder to deal with, since a segment in the middle of the \gls{IRF} needs to be found where the noise level can be estimated.
+   Afterwards, one could try to split up the \gls{IRF} in a part attributed to the stable poles and one caused by unstable poles and apply truncation on both parts separately and recombining the results.
+
   \subsection{Non-Parametric Estimation and Interpolation}
   As with the regular \gls{LRM}, ongoing research focuses on the estimation approach of the $\Hinf{}$ gain towards the \gls{MIMO} case.
   In that context, the design of weighting filters also becomes even more important~\citep{Boeren2013}.

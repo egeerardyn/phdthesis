@@ -47,17 +47,21 @@ There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare
 \section{Requested Changes}
 
 \subsection{Figures}
-\question{Increase the line width used in the figures like Figure 3.4\\}
-\action{All figures have been inspected and improved. At most places, the minimum line width has been increased to $0.75\mathrm{pt}$.}
+\question{Increase the line width used in the figures like Figure 3.4.\\}
+\action{All figures have been inspected and improved. At most places, the minimum line width has been increased to $0.75\mathrm{pt}$. At some places, markers and annotations have been added to easy identification of the different graphs.}
 
 \subsection{Assumptions}
 \question{Make a list of assumptions, especially in Chapter 2, under which the work is valid}
 
 \begin{enumerate}
+\item \says{TM}{In the thesis, the focus is on resonant systems. It would be good to add some comments in perspective of a general system identification.}
+\item \says{JA}{In (2.12), you have a series of second-order systems that all have the same amplitude. Can this be made more general?}
+\item \says{KT}{For the input design, in (2.1), you assume that the noise is white. What happens for colored noise? The reason I ask this is in case you want to estimate the best linear approximation of a nonlinear system. Then you can consider the stochastic nonlinear distortions as a noise source, but that is not necessarily white.}
+\TODO{Address iterative design in Chapter 2.}
+%\A I assumed white noise, as it is the most basic assumption you can make. If the noise is not white, then you can include the coloring of the noise in the amplitude spectrum, but then you need to know the noise (properties) beforehand. If you don't know the noise beforehand, you can use a parametric noise model and optimize.\\}
   \item \says{TM}{For the robust excitation signals, you use the setup of Goodwin and coworkers. On slide 17, you focus on variance. Why not on bias?}
                \says{TM}{Why can you guarantee \replace{that}{unbiasedness of your estimators}?}
                \TODO{address this}\oldnewpage{x}{y}
-
 \end{enumerate}
 
 \subsection{References}
@@ -77,7 +81,6 @@ Parametric identification of \gls{LTI} systems from either input/output data or 
 \begin{newquote}
 Parametric identification of \gls{LTI} systems from either input/output data or non-parametric frequency response data, has been well developed as evidenced by published literature~\citep{Pintelon2012,Ljung1999,Schoukens1999,Pintelon1998,Soderstrom1989,Goodwin1977,Brillinger1981,Sanathanan1963,McKelvey2002,}.
 \end{newquote}
-
 \end{enumerate}
 
 
@@ -86,30 +89,53 @@ Parametric identification of \gls{LTI} systems from either input/output data or 
 
 \begin{enumerate}
   \item \says{JA}{The use of the word ``robustness'' can have different meanings. What is the meaning of ``robustness of input''?}
-  \item \says{JA}{I suggest that you define ``robustness'' in the thesis.}
-  \TODO{Robustness has been defined}\oldnewpage{x}{y}
+  \says{JA}{I suggest that you define ``robustness'' in the thesis.}
+  \TODO{Robustness has been defined}\oldnewpage{}{y}
 \end{enumerate}
 
 \subsection{Small Corrections}
 \question{A list of small corrections will be provided directly by the members of the jury.}
 
 \begin{enumerate}
- \item \says{TM}{In the thesis, the focus is on resonant systems. It would be good to add some comments in perspective of a general system identification.}
- \item \says{TM}{In Section~3.2, you have a very brief overview of the terms that show up, but no mathematical derivation of how these terms look like. I suggest to add something there.}
+
+\item A lot of typos and other tiny adjustments have been carried out.
+To keep this document short, you can consult commits
+  \commit{eed3f40}, 
+  \commit{b163710}, 
+  \commit{08d2bfb},  
+  \commit{dc1d99d}, 
+  \commit{06471dd}, 
+  \commit{d4771ea}, and
+  \commit{ca38442} where most of these small changes are contained.
+
+\item \action{The bibliography has been made more uniform. Whenever possible, first names have been included.}
+
 \item \says{TM}{When considering unstable LTI systems, which methods will make sense when doing truncation?}
- \TODO{A remark considering instability has been added to the manuscript for the truncation}
+\answer{The truncation methods are not directly usable for that situation.}
+\action{A short discussion has been added to the future work section.}
+\oldnewsection{}{6.2.2}
+\begin{newquote}
+    With respect to the impulse response truncation approaches introduced in Section~3.6, a few paths could be investigated further to broaden the class of systems where these methods are applicable and have a more subtle smoothing behavior of the transfer function.
 
-\item \says{JA}{In (2.12), you have a series of second-order systems that all have the same amplitude. Can this be made more general? But \replace{it}{choosing equal amplitudes} has consequences for the results.}
-\item \TODO{A remark has been added to clarify this}
-\end{enumerate}
+    The crude truncation approach that is discussed in this thesis, can be interpreted as equivalent to windowing the \gls{IRF} with a rectangular window.
+    In the frequency domain, this causes a very obvious correlation in the \gls{FRF}.
+    By choosing a different window function (e.g. an exponential window, Hann window, \ldots), one could try to reduce this adverse effect.
 
-\section{Other Changes}
+   Another alternative for this crude rectangular windowing approach, which still uses a \gls{DFT} for the full size of the measurement record, could be to reduce the size of the \gls{DFT}.
+   The introduced algorithms that determine a truncation length $\truncTime$, could also give a good indication of what size of \gls{DFT} would be suitable to represent the system well for the given measurements.
+   However, further studies are required to compare the performance of these different alternatives.
 
-\begin{enumerate}
-\item The bibliography has been made more uniform
+   Currently, the truncation approach works based on the assumption that the last fragment of the \gls{IRF} is dominated by noise influences.
+   The consequence of this is that the system is assumed to be stable and causal.
+   It would be a worthwhile extension to relax this assumption to deal with unstable systems as well.
+   For those systems, the last fragment of the \gls{IRF} will be dominated by the unstable (or anti-causal) part of the system. 
+   Hence, the problem will become much harder to deal with, since a segment in the middle of the \gls{IRF} needs to be found where the noise level can be estimated.
+   Afterwards, one could try to split up the \gls{IRF} in a part attributed to the stable poles and one caused by unstable poles and apply truncation on both parts separately and recombining the results.
+\end{newquote}
+
 \item \says{TM}{In the plots, you never show the analytical bias of the LRM in the plots. Is the analytical bias a good estimate for the bias of the LRM?}
-\item \says{TM}{When considering unstable LTI systems, which methods will make sense when doing truncation?}
-\item \says{JA}{In (2.12), you have a series of second-order systems that all have the same amplitude. Can this be made more general?}
+
+
 \item \says{JA}{On page 33, in (2.62), you have a covariance matrix. The PSD of the noise depends on the frequency. Afterwards, it is assumed constant?}\oldnewpage{33}{?}
 \action{}
 \item \says{JA}{With the logarithmic spacing of the multisine, you assume a specific type of damping (all $\xi$ are the same). 
@@ -130,10 +156,12 @@ The success rate $\successRate_{\bullet}$ of an initialization scheme $\bullet$ 
 \successRate_{\bullet} = 
   \Prob{  \model{\bullet}=\model{\trueSymbol}  }
 \text{.}
+\tag{5.17}
 \end{equation}
 In practice, and since the iterative algorithm usually does not reach the local optimum precisely, the above definition is relaxed to the form
 \begin{equation}\label{eq:successrateTol}
 \successRate_{\bullet} \isdef \Prob{ \norm[2]{\model{\bullet} - \model{\trueSymbol}} < \absoluteTolerance}
+\tag{5.18}
 \end{equation}
 with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
 \end{oldquote}
@@ -144,10 +172,12 @@ The success rate $\successRate_{\bullet}$ of an initialization scheme $\bullet$ 
 \successRate_{\bullet} = 
   \Prob{  \model{\bullet} \approx \model{\trueSymbol}  }
 \text{.}
+\tag{5.17}
 \end{equation}
 In practice, and since the iterative algorithm usually does not reach the local optimum precisely, the above definition is implemented practically as
 \begin{equation}\label{eq:successrateTol}
 \successRate_{\bullet} \isdef \Prob{ \norm[2]{\model{\bullet} - \model{\trueSymbol}} < \absoluteTolerance}
+\tag{5.18}
 \end{equation}
 with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
 \end{newquote}
@@ -163,16 +193,10 @@ with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
 
 \item 
 \says{BP}{In Chapter 5, you use LPM and not LRM? Why? From Chapter 3, you concluded that LRM performs better.}
-\answer{LPM is better at lower SNR. Also, chronologically, Chapter 5 is older that Chapter 3. I checked the results with LRM, but they are very similar to the LPM results, since I used low SNR settings. There is a remark in the text.\\}
+\answer{LPM is better at lower SNR. Also, chronologically, Chapter 5 is older that Chapter 3. I checked the results with LRM, but they are very similar to the LPM results, since I used low SNR settings. There is a remark in the text.}
 \says{TM}{The remark is a bit late in the thesis.}
 \oldnewpage{x}{y}
 \TODO{The remark has been moved to an earlier place in the text.}
-
-\item 
-\says{KT}{For the input design, in (2.1), you assume that the noise is white. What happens for colored noise? The reason I ask this is in case you want to estimate the best linear approximation of a nonlinear system. Then you can consider the stochastic nonlinear distortions as a noise source, but that is not necessarily white.}
-\TODO{Address iterative design in Chapter 2.}
-\answer{}
-%\A I assumed white noise, as it is the most basic assumption you can make. If the noise is not white, then you can include the coloring of the noise in the amplitude spectrum, but then you need to know the noise (properties) beforehand. If you don't know the noise beforehand, you can use a parametric noise model and optimize.\\}
 
 \item
 \says{JD}{I work in electrochemistry. I use multisines to characterize Warburg impedances in $\sqrt{\omega}$ and other elements in $\sqrt[x]{\omega}$. Will LPM still work for this?}
@@ -183,20 +207,17 @@ with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
  \item \says{JD}{In electrochemistry, I work in frequency ranges from 0.01 Hz until 100 kHz. In the 1970s I already used an arithmetic spacing of my excited frequencies. What is the relationship with logarithmic multisines? Was my intuition right back then? Or is it a reinvention of the wheel?}
 \TODO{A remark has been added}
 
-\end{enumerate}
-
-\section{Small Changes}
-
-\begin{enumerate}
-\item A lot of typos and tiny corrections have been carried out.
-To keep this document short, you can consult commits
-  \commit{eed3f40}, 
-  \commit{b163710}, 
-  \commit{08d2bfb},  
-  \commit{dc1d99d}, 
-  \commit{06471dd}, 
-  \commit{d4771ea}, and
-  \commit{ca38442} where most of these small changes are contained.
+\item \action{Equation (2.6) has been rewritten and clarified}
+\oldnewpage{15}{?}
+\begin{newquote}
+From (2.4) and (2.5) we see that scaling the optimal input power by $1-\delta$, has the following effect on the variance of the estimate:
+\begin{align}
+\var{\hat{G}(j\omega)}_{{(1-\delta)\mathrm{optimal} + \delta \mathrm{robust}}} \approx \frac{1}{1-\delta} \var{\hat{G}(j\omega)}_{\mathrm{optimal}}
+\tag{2.6}
+\text{.}
+\end{align}
+This is a small loss while the increase in robustness can be significant if the added signal is robust. 
+\end{newquote}
 
 \item 
 \oldnewpage{xi}{?}
@@ -209,7 +230,7 @@ To keep this document short, you can consult commits
 \action{Added \new{\nBW: Number of excited lines in the 3 dB bandwidth of a resonance}}
 
 \item 
-\oldnewpage{4}{}
+\oldnewpage{4}{?}
 \old{However, since most parametric estimators enforce very little prior knowledge about the system, noise in the measurements can sometimes be a problem to distinguish the actual system features.}
 \replacedBy
 \new{However, since most nonparametric estimators enforce very little prior knowledge about the system, it can sometimes be problematic to clearly distinguish noise in the measurements and the actual systematic behavior.}
@@ -236,6 +257,7 @@ The starting values for the \gls{LRIC} are obtained by means of the \gls{LRM}, t
  	For linear models (i.e. $\LocalVector{Y} = \LocalMatrix{K} \LocalVector{\theta}$, such as for the {LRM} and {LPM}), however, the {PRESS} can be calculated in a single step without estimating any additional models~\citep{Golub1979}:
 	\begin{equation}
 	\PRESS = \frac{\LocalVector{E}^{\HT} \LocalVector{W}^{-1} \LocalVector{E}}{2N_W + 1}
+         \tag{3.86}
 	\end{equation}
 	where $\LocalVector{E}$ is the residual vector of the full estimation and $\LocalVector{W}$ is a diagonal weighting matrix with $\LocalVector{W}_{ii} = (1 - \LocalVector{H}_{ii})^{\HT} (1 - \LocalVector{H}_{ii})$ and
 	$\LocalVector{H} = \LocalMatrix{K} \pinv{\LocalMatrix{K}}$ is the so-called `hat-matrix' that is known to be idempotent.
@@ -244,6 +266,7 @@ The starting values for the \gls{LRIC} are obtained by means of the \gls{LRM}, t
 
 \item 
 \oldnewpage{73}{?}
+\action{Constant versus varying local model complexity has been clarified.}
 \begin{oldquote}
 In the previous section, different methods were introduced to select the local model order. 
 This begs the question whether it is advantageous to use the same local model complexity over all frequencies or the model order should be kept globally. 
