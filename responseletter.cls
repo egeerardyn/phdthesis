@@ -91,6 +91,7 @@
 \newenvironment{newquote}{\begin{quote}\color{new}}{\normalcolor \end{quote}}
 
 \newcommand{\gls}[1]{#1}
+\newcommand{\glspl}[1]{#1s}
 
 \setkomavar{fromlogo}{\includegraphics[height=1.5cm]{VUB_logo}}
 \setkomavar{enclseparator}[Attached]{:\,}
