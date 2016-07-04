@@ -40,9 +40,9 @@ There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare
 \closing{Sincerely,}
 \encl{list of changes\\
           \href{https://dl.dropboxusercontent.com/u/452005/VUB/phd/old.pdf}{\color{old}old manuscript}\\
-          \href{https://dl.dropboxusercontent.com/u/452005/VUB/phd/new.pdf}{\color{new}new manuscript}\\}
+          \href{https://dl.dropboxusercontent.com/u/452005/VUB/phd/new.pdf}{\color{new}new manuscript}\\}%FIXME: upload manuscript to dropbox
 \end{letter}
-%TODO: upload manuscript to dropbox
+
 
 \section{Requested Changes}
 
@@ -58,6 +58,14 @@ There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare
 \item \says{JA}{Here, the number of modes per frequency band decreases as the frequency increases. A decreasing modal density is typical for a beam, but for a plate, the number of modes is constant. For a volume, the number of modes increases. I suggest to recast the context in a set of assumptions. The modal density and the modal overlap factor are important in this respect.
 But this also opens perspectives. For a beam, you would get a logarithmic multisine, for a plate, you would get a linear multisine. In mechanics, you have an idea about the modal density and modal overlap factor, which can be a big prior knowledge.}
 \item \says{JA}{In (2.12), you have a series of second-order systems that all have the same amplitude. Can this be made more general?}
+\item \says{JA}{On page 33, in (2.62), you have a covariance matrix. The PSD of the noise depends on the frequency. Afterwards, it is assumed constant?}
+\oldnewpage{33}{?}
+\action{A remark has been added.}
+\begin{newquote}
+To introduce only limited prior knowledge into the input design, we shall assume that the noise is white.
+  Hence, $\sigma^2_E(\omega) = \sigma^2_E$ is constant over the whole frequency band of interest.
+  If the noise coloring is known beforehand (or measured in a previous experiment), the design can be adapted in a straightforward manner, e.g. by coloring the amplitude spectrum accordingly.
+\end{newquote}
 \item \says{KT}{For the input design, in (2.1), you assume that the noise is white. What happens for colored noise? The reason I ask this is in case you want to estimate the best linear approximation of a nonlinear system. Then you can consider the stochastic nonlinear distortions as a noise source, but that is not necessarily white.}
 \TODO{Address iterative design in Chapter 2.}
 %\A I assumed white noise, as it is the most basic assumption you can make. If the noise is not white, then you can include the coloring of the noise in the amplitude spectrum, but then you need to know the noise (properties) beforehand. If you don't know the noise beforehand, you can use a parametric noise model and optimize.\\}
@@ -138,15 +146,6 @@ You can consult commits
    For those systems, the last fragment of the \gls{IRF} will be dominated by the unstable (or anti-causal) part of the system. 
    Hence, the problem will become much harder to deal with, since a segment in the middle of the \gls{IRF} needs to be found where the noise level can be estimated.
    Afterwards, one could try to split up the \gls{IRF} in a part attributed to the stable poles and one caused by unstable poles and apply truncation on both parts separately and recombining the results.
-\end{newquote}
-
-\item \says{JA}{On page 33, in (2.62), you have a covariance matrix. The PSD of the noise depends on the frequency. Afterwards, it is assumed constant?}
-\oldnewpage{33}{?}
-\action{A remark has been added.}
-\begin{newquote}
-To introduce only limited prior knowledge into the input design, we shall assume that the noise is white.
-  Hence, $\sigma^2_E(\omega) = \sigma^2_E$ is constant over the whole frequency band of interest.
-  If the noise coloring is known beforehand (or measured in a previous experiment), the design can be adapted in a straightforward manner, e.g. by coloring the amplitude spectrum accordingly.
 \end{newquote}
 
 \item \says{JA}{With the logarithmic spacing of the multisine, you assume a specific type of damping (all $\xi$ are the same). 
