@@ -54,19 +54,52 @@ There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare
 \question{Make a list of assumptions, especially in Chapter 2, under which the work is valid}
 
 \begin{enumerate}
-\item \says{TM}{In the thesis, the focus is on resonant systems. It would be good to add some comments in perspective of a general system identification.}
-\item \says{JA}{Here, the number of modes per frequency band decreases as the frequency increases. A decreasing modal density is typical for a beam, but for a plate, the number of modes is constant. For a volume, the number of modes increases. I suggest to recast the context in a set of assumptions. The modal density and the modal overlap factor are important in this respect.
-But this also opens perspectives. For a beam, you would get a logarithmic multisine, for a plate, you would get a linear multisine. In mechanics, you have an idea about the modal density and modal overlap factor, which can be a big prior knowledge.}
-\item \says{JA}{In (2.12), you have a series of second-order systems that all have the same amplitude. Can this be made more general?}
-\item \says{JA}{On page 33, in (2.62), you have a covariance matrix. The PSD of the noise depends on the frequency. Afterwards, it is assumed constant?}
+
+\item
+\action{Assumptions have been added to chapter 2.}
+\begin{oldquote}
+For the theoretical analysis, we consider \gls{SISO} \gls{OE} systems, i.e.
+\begin{align}
+y(t) &=G(s,\theta)u(t)  + H(s,\vartheta)e(t),
+\end{align}
+where $u(t)$ is a known input sequence, $y(t)$ the output sequence, and $e(t)$ is zero mean Gaussian white noise with variance $\sigma_{e}^2$.
+$G$ is a rational, time-invariant transfer function in continuous time.
+\end{oldquote}
+\begin{newquote}
 \oldnewpage{33}{?}
-\action{A remark has been added.}
+For the theoretical analysis, we consider \gls{SISO} \gls{OE} systems, i.e.
+\begin{align}
+y(t) &=G(s,\theta)u(t)  + H(s,\vartheta)e(t),
+\end{align}
+where $u(t)$ is a known input sequence, $y(t)$ the output sequence, and $e(t)$ is zero mean Gaussian white noise with variance $\sigma_{e}^2$.
+$G$ and $H$ are rational, time-invariant transfer function in continuous time.
+\omission{}
+\begin{assumption}{2.1}
+The noise filter $H(s,\vartheta)$ is assumed to be independently parametrized from the plant $G(s,\theta)$, i.e. $\vartheta$ and $\theta$ are independent.
+\end{assumption}
+\begin{assumption}{2.2}
+For the derivations, $H(s,\vartheta) = 1$ is used as a working assumption such that the disturbing noise on the output is zero mean Gaussian white noise.
+When this assumption is violated, one has to first measure the noise coloring and use this knowledge to predistort the input to account for the noise coloring.
+\end{assumption}
+\end{newquote}
+\oldnewpage{33}{?}
 \begin{newquote}
 To introduce only limited prior knowledge into the input design, we shall assume that the noise is white.
   Hence, $\sigma^2_E(\omega) = \sigma^2_E$ is constant over the whole frequency band of interest.
   If the noise coloring is known beforehand (or measured in a previous experiment), the design can be adapted in a straightforward manner, e.g. by coloring the amplitude spectrum accordingly.
 \end{newquote}
-\item \says{KT}{For the input design, in (2.1), you assume that the noise is white. What happens for colored noise? The reason I ask this is in case you want to estimate the best linear approximation of a nonlinear system. Then you can consider the stochastic nonlinear distortions as a noise source, but that is not necessarily white.}
+
+\item \says{TM}{In the thesis, the focus is on resonant systems. It would be good to add some comments in perspective of a general system identification.}
+\item \says{JA}{Here, the number of modes per frequency band decreases as the frequency increases. A decreasing modal density is typical for a beam, but for a plate, the number of modes is constant. For a volume, the number of modes increases. I suggest to recast the context in a set of assumptions. The modal density and the modal overlap factor are important in this respect.
+But this also opens perspectives. For a beam, you would get a logarithmic multisine, for a plate, you would get a linear multisine. In mechanics, you have an idea about the modal density and modal overlap factor, which can be a big prior knowledge.}
+
+\item \says{JA}{In (2.12), you have a series of second-order systems that all have the same amplitude. Can this be made more general?}
+
+\item \says{JA}{On page 33, in (2.62), you have a covariance matrix. The PSD of the noise depends on the frequency. Afterwards, it is assumed constant?}
+\says{KT}{For the input design, in (2.1), you assume that the noise is white. What happens for colored noise? The reason I ask this is in case you want to estimate the best linear approximation of a nonlinear system. Then you can consider the stochastic nonlinear distortions as a noise source, but that is not necessarily white.}
+\action{This is addressed in Assumption 2.2 and in the following remark}
+
+
 \TODO{Address iterative design in Chapter 2.}
 %\A I assumed white noise, as it is the most basic assumption you can make. If the noise is not white, then you can include the coloring of the noise in the amplitude spectrum, but then you need to know the noise (properties) beforehand. If you don't know the noise beforehand, you can use a parametric noise model and optimize.\\}
   \item \says{TM}{For the robust excitation signals, you use the setup of Goodwin and coworkers. On slide 17, you focus on variance. Why not on bias?}

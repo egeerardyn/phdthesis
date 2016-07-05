@@ -87,6 +87,9 @@
 \newcommand{\subsection}[1]{\par{\sffamily\large\textbf{#1}}\par}
 \makeatother
 
+\newcommand{\omission}{{\color{light}[\ldots]}}
+
+\newenvironment{assumption}[1]{{\par\textbf{Assumption #1:}}}{}
 \newenvironment{oldquote}{\begin{quote}\color{old}}{\normalcolor \end{quote}}
 \newenvironment{newquote}{\begin{quote}\color{new}}{\normalcolor \end{quote}}
 
