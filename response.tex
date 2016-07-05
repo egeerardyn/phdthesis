@@ -82,6 +82,59 @@ For the derivations, $H(s,\vartheta) = 1$ is used as a working assumption such t
 When this assumption is violated, one has to first measure the noise coloring and use this knowledge to predistort the input to account for the noise coloring.
 \end{assumption}
 \end{newquote}
+
+\item \says{TM}{In the thesis, the focus is on resonant systems. It would be good to add some comments in perspective of a general system identification.}
+\TODO{discuss this}
+\item \says{JA}{Here, the number of modes per frequency band decreases as the frequency increases. A decreasing modal density is typical for a beam, but for a plate, the number of modes is constant. For a volume, the number of modes increases. I suggest to recast the context in a set of assumptions. The modal density and the modal overlap factor are important in this respect.
+But this also opens perspectives. For a beam, you would get a logarithmic multisine, for a plate, you would get a linear multisine. In mechanics, you have an idea about the modal density and modal overlap factor, which can be a big prior knowledge.}
+\action{The following remarks have been added}
+
+\begin{newquote}
+\oldnewpage{}{?}
+\begin{assumption} {2.3}
+The sub-systems in (2.33) all are either lightly damped ($\damping \ll \sqrt{1/2}$) or are not of interest.
+\end{assumption}
+
+\begin{assumption}{2.4}
+The resonance frequencies $\wn[i]$ of all the sub-systems in (2.33) are well-separated in the frequency domain such that there is little modal overlap, i.e. $\modalOverlap \ll 1$.
+\end{assumption}
+
+\begin{assumption}{2.5}
+It is assumed that the excitation signal contains many more frequency lines than parameters required to describe the system under test well.
+Hence, we can neglect the bias of the estimate and focus on its variance error by assuming that a proper model order can be chosen and fitted from the data.
+\end{assumption}
+
+\begin{remark}{2.3}
+The modal overlap $\modalOverlap$ is given~\citep{Ege2009} as the ratio of the average $3\unit{dB}$ bandwidth to the average difference in resonance frequencies for all resonances in the frequency band of interest.
+Often, the modal overlap is linked to the model density $\modalOverlap(\omega) = \wdB \modalDensity{\omega}$.
+In acoustic and structural engineering, expressions exist for the theoretical modal density $\modalDensity{f}$ in specific geometries such as beams, plates, square volumes~\citep{Hart1971,Bies2009}.
+Specifically, beams exhibit a modal density $\modalDensity{\omega} = \bigO{\omega^{-1/2}}$, for plates this becomes $\modalDensity{\omega} = \bigO{1}$, and for volumes $\modalDensity{\omega} = \bigO{\omega}$.
+As such, the previous assumption practically limits the use of the excitation signals to beams or the low-frequency region of plates and volumes~\citep{Ege2009}.
+\end{remark}
+\end{newquote}
+\begin{newquote}
+\oldnewpage{}{?}
+\begin{remark}{2.14}
+The proposed design can be adapted quite straightforwardly to also account for the high-frequency regions of e.g. plates by increasing the number of frequency lines where the modal overlap becomes more important.
+In practice, this will boil down to linearly spaced multisines.
+For measurement of the transfer characteristics of volumes (e.g. rooms), more specialized techniques are required to describe the high-frequency behavior such as the ones discussed by \citet{Ege2009}.
+\end{remark}
+\end{newquote}
+
+\item \says{JA}{In (2.12), you have a series of second-order systems that all have the same amplitude. Can this be made more general?}
+\action{The following remark has been added}
+\begin{newquote}
+ The free parameters $(\dc, \damping, \wn, \wz)$ of the sub-system are reduced to only $(\damping, \wn)$ and the others are fixed during our experiments: $\dc = 1$ and $\wz \to \infty$. 
+   \begin{remark}{2.10}
+   Implicitly, this considers a design where each of the sub-systems have an equal gain $\dc=1$ and residue $\wz \to\infty$.
+   In practice, this is often not a reasonable assumption, but the design can be adapted in a straightforward manner.
+   Concretely, using a first experiment with the proposed signal, one can estimate the different parameters of the sub-systems and optimize the amplitude spectrum of the signal to take those into account: for sub-systems where $\dc$ is lower than on average, the amplitude spectrum needs to be increased near the resonance frequency and \latin{vice versa}.
+   \end{remark}
+\end{newquote}
+
+\item \says{JA}{On page 33, in (2.62), you have a covariance matrix. The PSD of the noise depends on the frequency. Afterwards, it is assumed constant?}
+\says{KT}{For the input design, in (2.1), you assume that the noise is white. What happens for colored noise? The reason I ask this is in case you want to estimate the best linear approximation of a nonlinear system. Then you can consider the stochastic nonlinear distortions as a noise source, but that is not necessarily white.}
+\action{This is addressed in Assumption 2.2 and in the following remark that has been added to the manuscript}
 \oldnewpage{33}{?}
 \begin{newquote}
 To introduce only limited prior knowledge into the input design, we shall assume that the noise is white.
@@ -89,22 +142,9 @@ To introduce only limited prior knowledge into the input design, we shall assume
   If the noise coloring is known beforehand (or measured in a previous experiment), the design can be adapted in a straightforward manner, e.g. by coloring the amplitude spectrum accordingly.
 \end{newquote}
 
-\item \says{TM}{In the thesis, the focus is on resonant systems. It would be good to add some comments in perspective of a general system identification.}
-\item \says{JA}{Here, the number of modes per frequency band decreases as the frequency increases. A decreasing modal density is typical for a beam, but for a plate, the number of modes is constant. For a volume, the number of modes increases. I suggest to recast the context in a set of assumptions. The modal density and the modal overlap factor are important in this respect.
-But this also opens perspectives. For a beam, you would get a logarithmic multisine, for a plate, you would get a linear multisine. In mechanics, you have an idea about the modal density and modal overlap factor, which can be a big prior knowledge.}
-
-\item \says{JA}{In (2.12), you have a series of second-order systems that all have the same amplitude. Can this be made more general?}
-
-\item \says{JA}{On page 33, in (2.62), you have a covariance matrix. The PSD of the noise depends on the frequency. Afterwards, it is assumed constant?}
-\says{KT}{For the input design, in (2.1), you assume that the noise is white. What happens for colored noise? The reason I ask this is in case you want to estimate the best linear approximation of a nonlinear system. Then you can consider the stochastic nonlinear distortions as a noise source, but that is not necessarily white.}
-\action{This is addressed in Assumption 2.2 and in the following remark}
-
-
-\TODO{Address iterative design in Chapter 2.}
-%\A I assumed white noise, as it is the most basic assumption you can make. If the noise is not white, then you can include the coloring of the noise in the amplitude spectrum, but then you need to know the noise (properties) beforehand. If you don't know the noise beforehand, you can use a parametric noise model and optimize.\\}
   \item \says{TM}{For the robust excitation signals, you use the setup of Goodwin and coworkers. On slide 17, you focus on variance. Why not on bias?}
                \says{TM}{Why can you guarantee \replace{that}{unbiasedness of your estimators}?}
-               \TODO{address this}\oldnewpage{x}{y}
+               \action{This has been addressed in Assumption 2.5 (see above)}
 \end{enumerate}
 
 \subsection{References}
@@ -197,8 +237,8 @@ You can consult commits
 \item \says{JA}{With the logarithmic spacing of the multisine, you assume a specific type of damping (all $\xi$ are the same). 
 So, the FRF shapes are the same on a logarithmic scale. What if you have other shapes?}
 \answer{
-The assumption is not that $\xi$ is identical for all subsystems. 
-Rather, when $\xi \geq \xi_{\min}$ for all subsystems, their relative $3\unit{dB}$ bandwidth has a minimal width and is excited well when $\alpha \leq 1 + \xi_{\min}$ (see also Figure 2.8 in the manuscript: for all $\frac{\alpha -1}{\xi_{\min}} < 1$, misalignment is no longer an issue and hence the design works well).
+The assumption is not that $\xi$ is identical for all sub-systems. 
+Rather, when $\xi \geq \xi_{\min}$ for all sub-systems, their relative $3\unit{dB}$ bandwidth has a minimal width and is excited well when $\alpha \leq 1 + \xi_{\min}$ (see also Figure 2.8 in the manuscript: for all $\frac{\alpha -1}{\xi_{\min}} < 1$, misalignment is no longer an issue and hence the design works well).
 }
 \action{A remark is added to underline this fact.}
 \oldnewpage{}{?}

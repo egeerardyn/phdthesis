@@ -6,7 +6,6 @@
 \myEpigraph{A common mistake that people make when trying to design something completely foolproof is to underestimate the ingenuity of complete fools.}{Douglas Adams}{Mostly Harmless}
 \researchBasedOn{Larsson2012SYSID, Geerardyn2012IMTC, Geerardyn2013TIM}
 
-%TODO: define robustness upon first use
 \section{Introduction}
 \label{sec:excitation:intro}
 Input design deals with the task of choosing an excitation signal in a way so that the information obtained from the experiment is maximized.  
@@ -73,13 +72,20 @@ Such problem settings occur in many diverse fields of experimentation, such as t
 \label{sec:excitation:inputDesign}
 For the theoretical analysis, we consider \gls{SISO} \gls{OE} systems, i.e.
 \begin{align}
-y(t) &=G(s,\theta)u(t)  + e(t),
+y(t) &=G(s,\theta)u(t)  + H(s,\vartheta)e(t),
 \end{align}
 where $u(t)$ is a known input sequence, $y(t)$ the output sequence, and $e(t)$ is zero mean Gaussian white noise with variance $\sigma_{e}^2$.
-$G$ is a rational, time-invariant transfer function in continuous time.
+$G$ and $H$ are rational, time-invariant transfer function in continuous time.
 For notational simplicity, $s$ is used both as the complex Laplace variable and the differentiation operator; it should be clear from the context which is used. 
 The transfer function is parameterized by the vector $\theta$.
-These parameters are unknown and hence we are interested in estimating their values. 
+These parameters are unknown and hence we are interested in estimating their values.
+\begin{assumption}
+The noise filter $H(s,\vartheta)$ is assumed to be independently parametrized from the plant $G(s,\theta)$, i.e. $\vartheta$ and $\theta$ are independent.
+\end{assumption}
+\begin{assumption}
+For the derivations, $H(s,\vartheta) = 1$ is used as a working assumption such that the disturbing noise on the output is zero mean Gaussian white noise.
+When this assumption is violated, one has to first measure the noise coloring and use this knowledge to predistort the input to account for the noise coloring.
+\end{assumption}
 
 The goal of input design is to find an input that under the given experimental conditions, gives as much information as possible about the system.
 This can be done by optimizing the input power spectrum such that  a scalar criterion involving the Fisher information matrix is minimized.
@@ -208,7 +214,6 @@ With this input spectrum, the power inside $\wdB \approx \ClosedInterval{(1-\dam
 \end{align}
 which is independent of $\wn$. 
 The robustness of the $1/f$ input has been noted previously by e.g. \citet{Rojas2007,Rojas2012,Goodwin2006GBO}.
-%TODO: please define the meaning of "robustness"
 
 Alternatively, one could also construct a signal with power spectrum concentrated at discrete frequency lines.
 Such signals are elaborated in \secref{sec:excitation:multisine}.
@@ -260,7 +265,7 @@ G(s,\theta) &= \sum_{i=1}^{K} G_i(s,\theta_i)
 \end{align}
 The systems  $G_i$ will be called the \emph{sub-systems} of $G$. 
 Without loss of generality, we assume that $\wn[1] < \wn[2] < \cdots < \wn[K]$. 
-To properly identify the system $G$, excitation is required such that all subsystems are properly excited, regardless of their individual resonance frequencies.
+To properly identify the system $G$, excitation is required such that all sub-systems are properly excited, regardless of their individual resonance frequencies.
 %TODO: very limited model (K=1). Comment. 
 
 The information matrix for systems of the type \eqref{eq:excitation:sumSys} will have a block structure commensurate with the dimension of $\theta_i$ given by
@@ -513,17 +518,17 @@ Remember that the rational transfer function of any strictly proper \gls{LTI} sy
 where $I_1$ denotes the number of real-valued poles, $I_2$ denotes the number of complex conjugated pole pairs.
 $M_{1,i}$ and $M_{2,i}$ denotes the multiplicity of the corresponding poles, such that $\numel{A} = \sum_i^{I_1} M_{1,i} + 2 \sum_{i}^{I_2} M_{2,i}$.
 Each term in \eqref{eq:excitation:PFE} represents a \term{sub-system} of the system $G(s)$.
-  Within these sub-systems, we can distinguish first-order subsystems and second-order subsystems, the latter of which describe resonant phenomena.
+  Within these sub-systems, we can distinguish first-order sub-systems and second-order sub-systems, the latter of which describe resonant phenomena.
   Since such resonances are often a limiting factor, we first focus on these resonant sub-systems.
 \begin{remark}
   For non-proper systems, one can write the transfer function $G_{\mathrm{non-proper}}(s) = P(s) + G_{\mathrm{proper}}$ where $P(s)$ is a polynomial and $G_{\mathrm{proper}}(s)$ a proper rational function.
   As such, the polynomial $P(s)$ should be added to equation \eqref{eq:excitation:PFE} for non-proper systems.
 \end{remark}
 
-Consider the second-order subsystem with multiplicity $\multiplicity$:
+Consider the second-order sub-system with multiplicity $\multiplicity$:
 \begin{equation}
   G_2(s, \theta) = \frac{\dc \wn^{2 \multiplicity} \left( s + \wz \right)}{\wz \left(s^2 + 2 \damping \wn s + \wn^2 \right)^{\multiplicity}}
-\label{eq:excitation:secondOrderSubsystem}
+\label{eq:excitation:secondOrdersub-system}
 \end{equation}
 parametrized in $\theta =  \left[K, \wn, \wz, \damping \right]^{\T}$.
 To determine the Fisher Information matrix, the derivative $\PartialDerivative{G(s,\theta)}{\theta}$ is required; its components are given by:
@@ -572,7 +577,6 @@ As such, those parameters are the most important for the experiment design.
   \setlength\figureheight{\figurewidth}
   \input{\thisDir/figs/derivs.tikz}
   \caption[Derivatives of a second-order sub-system towards each of its parameters.]{Bode plots of the elements of $\PartialDerivative{G_2}{\theta}$ for small $\damping$. 
-  % The numbers indicate the (asymptotic) slope as a multiple of $20 \unit{dB/\decade}$.
   The roll-off near $\wn$ is significant and depends strongly on $\damping$.
   It can be seen that the derivatives are dominated by the resonance peak, an effect that is even more prominent when $\multiplicity$ is large.
   This means that for a good input signal, it is critical to have power near the resonance peak. 
@@ -584,13 +588,26 @@ As such, those parameters are the most important for the experiment design.
 
 Moreover, the results from \secref{sec:excitation:ex:sumOfSecondOrderSipmle} for the sum of simplified second order systems, i.e. equation \eqref{eq:excitation:sumSys}, extend directly to the generic \gls{LTI} system in \eqref{eq:excitation:PFE} for the second-order sub-systems under the assumptions given below.
 
-\begin{assumption}
-The sub-systems in \eqref{eq:excitation:PFE} all are either lightly damped ($\damping \ll \sqrt{1/2}$) or are not of interest to the user.
+\begin{assumption} 
+The sub-systems in \eqref{eq:excitation:PFE} all are either lightly damped ($\damping \ll \sqrt{1/2}$) or are not of interest.
 \end{assumption}
 
 \begin{assumption}
-The resonance frequencies $\wn[i]$ and $\wn[j]$ of all the different sub-systems in \eqref{eq:excitation:PFE} are well-separated in the frequency domain. %TODO: how well-separated?
+The resonance frequencies $\wn[i]$ of all the sub-systems in \eqref{eq:excitation:PFE} are well-separated in the frequency domain such that there is little modal overlap, i.e. $\modalOverlap \ll 1$.
 \end{assumption}
+
+\begin{assumption}
+It is assumed that the excitation signal contains many more frequency lines than parameters required to describe the system under test well.
+Hence, we can neglect the bias of the estimate and focus on its variance error by assuming that a proper model order can be chosen and fitted from the data.
+\end{assumption}
+
+\begin{remark}
+The modal overlap $\modalOverlap$ is given~\citep{Ege2009} as the ratio of the average $3\unit{dB}$ bandwidth to the average difference in resonance frequencies for all resonances in the frequency band of interest.
+Often, the modal overlap is linked to the model density $\modalOverlap(\omega) = \wdB \modalDensity{\omega}$.
+In acoustic and structural engineering, expressions exist for the theoretical modal density $\modalDensity{f}$ in specific geometries such as beams, plates, square volumes~\citep{Hart1971,Bies2009}.
+Specifically, beams exhibit a modal density $\modalDensity{\omega} = \bigO{\omega^{-1/2}}$, for plates this becomes $\modalDensity{\omega} = \bigO{1}$, and for volumes $\modalDensity{\omega} = \bigO{\omega}$.
+As such, the previous assumption practically limits the use of the excitation signals to beams or the low-frequency region of plates and volumes~\citep{Ege2009}.
+\end{remark}
 
 Under these assumptions, the Fisher information matrix will be approximately a diagonal block matrix, where the $i^{\text{th}}$ block corresponds to the parameters $\left[\wn[i], \wz[i], \damping[i], \dc[i,1], \ldots, \dc[i,M_{2,i}] \right]$ of a particular sub-system.
 Using the same logic as in \secref{sec:excitation:ex:sumOfSecondOrderSipmle}, this means that the variance of the complete system is approximately equal to the sum of the variances obtained for each sub-system, due to the decoupling of the Fisher information matrix.
@@ -600,7 +617,7 @@ Using the same logic as in \secref{sec:excitation:ex:sumOfSecondOrderSipmle}, th
 In contrast to signals with a continuous $1/f$ \gls{PSD} presented in \secref{sec:excitation:logarithmic}, similar results can be obtained by using signals that have a discrete frequency grid.
 Such signals are presented in this section.
 
-  To excite the system under test we consider a generalization of multisine excitations \citep{Pintelon2012}:
+  To excite the system under test we consider a generalization of multisine excitations~\citep{Pintelon2012}:
   \begin{definition}[Generalized multisine] \label{def:excitation:generalized-MS}
   A generalized multisine $u(t)$ is a signal consisting of $F$ sine waves with a different frequencies $f_k$, amplitudes $A_k$ and phase shifts $\phi_k$:
   \begin{equation}
@@ -1079,10 +1096,10 @@ Also for the design of robust excitation signals, this is a worthwhile observati
   Instead of studying the response of all possible second-order sub-systems for every possible logarithmically spaced multisine-- a six-dimensional problem with parameters $(\omega_0, \alpha)$ for the grid, and $(\wz, \wn, \damping, \dc)$ for the sub-system-- we argue to simplify the problem in such a way that the results are still valid for the more complicated setting.
 
   \subsubsection[Exploiting the grid misalignment]{Exploiting the grid misalignment between the system and the grid}
-  Denote $G(\omega; \wn)$ a second-order sub-system as in \eqref{eq:excitation:secondOrderSubsystem} with natural frequency $\wn$, damping ratio $\damping$ and static gain $\dc$, and zero at $\wz$.
+  Denote $G(\omega; \wn)$ a second-order sub-system as in \eqref{eq:excitation:secondOrdersub-system} with natural frequency $\wn$, damping ratio $\damping$ and static gain $\dc$, and zero at $\wz$.
   Similarly, $G(\omega; m\wn)$ where $m \in \RealNumbersWithoutZero$ is a second order sub-system that shares the same parameters, except its natural frequency which is situated at $m\wn$.
 
-  If one calculates their \glspl{FRF} by evaluating \eqref{eq:excitation:secondOrderSubsystem}, one sees that $G(\omega; \wn)$ and $G(m\omega; m\wn)$ yield the same numerical values for any value of the pulsation $\omega$.
+  If one calculates their \glspl{FRF} by evaluating \eqref{eq:excitation:secondOrdersub-system}, one sees that $G(\omega; \wn)$ and $G(m\omega; m\wn)$ yield the same numerical values for any value of the pulsation $\omega$.
   Both \glspl{FRF} share the same `shape', but are `located' at different frequencies.
 
   Denote $\infgrid{\omega}$ to be a logarithmic frequency grid with an infinite number of grid lines
@@ -1164,12 +1181,12 @@ Also for the design of robust excitation signals, this is a worthwhile observati
    In particular, from \figref{fig:excitation:derivatives}, it can be seen that the derivatives with respect to $(\wn, \damping)$ exhibit a sharper resonance and hence $(\wn, \damping)$ will prove the hardest to identify.
    This means that if one would design a signal to identify just $(\wn, \damping)$, such a signal would also be well-suited to identify the other parameters since their corresponding weight in the Fisher information matrix is very similar (especially in the vicinity of the resonance, where their amplitude is most significant).
 
-   As such, the free parameters $(\dc, \damping, \wn, \wz)$ of the sub-system are reduced to only $(\damping, \wn)$ and the others are fixed during our experiments: $\dc = 1$ and $\wz \to \infty$.
-
-  % When we now take a closer look at the general second order system \eqref{eq:excitation:secondOrderSubsystem}, we still are left with $\dc$ and $\damping$ as free parameters in the prototypes.
-  % Note that $\dc$ is a scaling factor for the FRF.
-  % Hence the results for different values of $\dc$ only differ by a scaling factor.
-  % So we only need to perform the analysis for a fixed value of $\dc$, which was chosen equal to $1$ in our test case.
+   The free parameters $(\dc, \damping, \wn, \wz)$ of the sub-system are reduced to only $(\damping, \wn)$ and the others are fixed during our experiments: $\dc = 1$ and $\wz \to \infty$. 
+   \begin{remark}
+   Implicitly, this considers a design where each of the sub-systems have an equal gain $\dc=1$ and residue $\wz \to\infty$.
+   In practice, this is often not a reasonable assumption, but the design can be adapted in a straightforward manner.
+   Concretely, using a first experiment with the proposed signal, one can estimate the different parameters of the sub-systems and optimize the amplitude spectrum of the signal to take those into account: for sub-systems where $\dc$ is lower than on average, the amplitude spectrum needs to be increased near the resonance frequency and \latin{vice versa}.
+   \end{remark}
 
   The choice of the damping is more important.
   Instead of choosing the damping directly, we choose the peak gain $\abs{ G\left( \wM \right) } \in \set{5 \unit{dB}, 10 \unit{dB}, 20 \unit{dB}, 40 \unit{dB} }$ of the transfer function \eqref{eq:excitation:peakAmplitude} to study the effect of differently damped systems.
@@ -1295,6 +1312,11 @@ Also for the design of robust excitation signals, this is a worthwhile observati
   On the other hand, a coarser grid will significantly decrease the quality of the measurement as it overlooks the resonance peak.
   Hence little information can be extracted from such a measurement (i.e. the variance on the estimate will be large).
 
+  \begin{remark}
+  From \figref{fig:excitation:worstCaseAlpha}, it can also be deduced that when a logarithmic multisine with $\alpha = 1 + \damping[\min]$ is used, that resonant  sub-systems with a damping $\damping[] \geq \damping[\min]$ can be well-identified using such a signal.
+  Hence, the signal is well-suited not only to observe sub-systems with a common damping, but also sub-systems that are more damped than $\damping[\min]$.   
+  \end{remark}
+
   If we determine the effect of the misalignment factor $\beta$ for a grid with frequency ratio $\alpha^{\star}$, we see that misalignment has a negligible effect on the uncertainty as shown by the dashed lines in \figref{fig:excitation:worstCaseBeta} for each of the prototype systems.
   Note that these values do indeed coincide with the limiting values found in \figref{fig:excitation:worstCaseAlpha}.
   
@@ -1321,7 +1343,7 @@ Also for the design of robust excitation signals, this is a worthwhile observati
   We see that to attain this, four frequency components are needed within this bandwidth in order to be almost completely independent of misalignment.
 
   In this section, we have shown that signals with a logarithmic frequency spacing allow to identify systems with equal damping equally well, when the frequency spacing is dense enough.
-  Practically, four frequency lines in the $3\unit{dB}$ bandwidth of each second order subsystem suffice to suppress the effect of misalignment of such a subsystem and the frequency grid of the excitation signal.
+  Practically, four frequency lines in the $3\unit{dB}$ bandwidth of each second order sub-system suffice to suppress the effect of misalignment of such a sub-system and the frequency grid of the excitation signal.
   
 \section{Simulations} \label{sec:excitation:simulation}
 In the following set of simulations, we will study how the \gls{FRF} of different second order systems with equal damping (and the corresponding uncertainty) are measured by the multisine excitation signals from \secref{sec:excitation:multisine}.
@@ -1337,7 +1359,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   \label{eq:excitation:secondOrderSystemDTidentifiable}
   \end{equation}
 
-  This form can also be obtained by applying Tustin's method or bilinear transform~\citep{Oppenheim1996} to the continuous time system \eqref{eq:excitation:secondOrderSubsystem}.
+  This form can also be obtained by applying Tustin's method or bilinear transform~\citep{Oppenheim1996} to the continuous time system \eqref{eq:excitation:secondOrdersub-system}.
 
   The input signal has an equidistant frequency grid with a resolution $\Delta f = 1\unit{Hz}$ between $1 \unit{Hz}$ and $16\,384\unit{Hz}$.
   The sampling frequency $f_s$ is set to $65\,536\unit{Hz}$ to prevent aliasing.
@@ -1563,7 +1585,7 @@ This shows that both resonances are captured with a practically identical relati
     The uncertainty $\sigma_G\left(\theta,\omega\right)$ on the parametric model in its pass-band is observed to be nearly constant for most of the filters when excited by the (pink) quasi-log multisine.
     For the linear grid multisine excitation, $\sigma_G\left(\theta,\omega\right)$ in the pass-band is clearly decreasing proportional to $1 / f$ for the different octave filters.
     One can see that the performance of both uncompensated quasi-log and pink quasi-log multisines is practically identical.
-    This can be explained by the fact that in this experiment, $f_0$ was chosen low enough to ensure that all the second-order subsystems had their $3\unit{dB}$ bandwidth within the bulk of logarithmic part of the excited grid.
+    This can be explained by the fact that in this experiment, $f_0$ was chosen low enough to ensure that all the second-order sub-systems had their $3\unit{dB}$ bandwidth within the bulk of logarithmic part of the excited grid.
     This observation also shows that in this practical application, the increase in uncertainty between the uncompensated and compensated quasi-log multisines is negligible, as was observed earlier in the simulations.
     However, if the system under test would have a lower resonance frequency, a quasi-log multisine with power compensation would perform better as was seen in the simulations.
 
@@ -1581,8 +1603,14 @@ The suggested compensation works well as long as the considered systems are suff
 
 We have also shown an effective way to choose the frequency spacing of a (quasi)-logarithmically spaced multisine for an equi-damped set of systems.
 The presented method allows to select a maximal value for the frequency ratio $\alpha = 1 + \damping$ for which the performance will not suffer from the unavoidable misalignment of the system with respect to the excited frequencies.
-In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order subsystem.
+In practice we advise to use an excitation signal with approximately four excited lines within the $3\unit{dB}$ bandwidth of each second-order sub-system.
+
+\begin{remark}
+The proposed design can be adapted quite straightforwardly to also account for the high-frequency regions of e.g. plates by increasing the number of frequency lines where the modal overlap becomes more important.
+In practice, this will boil down to linearly spaced multisines.
+For measurement of the transfer characteristics of volumes (e.g. rooms), more specialized techniques are required to describe the high-frequency behavior such as the ones discussed by \citet{Ege2009}.
+\end{remark}
 
 \begin{guideline}[Use quasi-logarithmic multisines as initial excitation]
-  Quasi-logarithmic multisines with pink-colored amplitude spectrum facilitate the measurement of multiple sharp resonance peaks over a wide frequency band of interest with a constant quality.
+  Quasi-logarithmic multisines with pink-colored amplitude spectrum facilitate the measurement of multiple sharp resonance peaks over a wide frequency band of interest with a constant quality when the modal overlap remains limited.
 \end{guideline}

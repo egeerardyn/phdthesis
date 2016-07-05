@@ -90,6 +90,8 @@
 \newcommand{\omission}{{\color{light}[\ldots]}}
 
 \newenvironment{assumption}[1]{{\par\textbf{Assumption #1:}}}{}
+\newenvironment{remark}[1]{{\par\textbf{Remark #1:}}}{}
+
 \newenvironment{oldquote}{\begin{quote}\color{old}}{\normalcolor \end{quote}}
 \newenvironment{newquote}{\begin{quote}\color{new}}{\normalcolor \end{quote}}
 
