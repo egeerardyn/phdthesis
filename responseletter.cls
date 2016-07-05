@@ -3,7 +3,7 @@
 
 % https://www.sharelatex.com/blog/2011/03/27/how-to-write-a-latex-class-file-and-design-your-own-cv.html
 % https://www.sharelatex.com/blog/2013/06/28/how-to-write-a-latex-class-file-and-design-your-own-cv.html
-\LoadClass[a4paper,
+\LoadClass[a4paper,11pt,
                backaddress=false,
                fromalign=right,
                fromemail,
@@ -38,6 +38,8 @@
 
 \input{config/definitions.tex}
 \input{config/bib.inc.tex}
+% http://tex.stackexchange.com/questions/203764/reduce-font-size-of-bibliography-overfull-bibliography
+\renewcommand*{\bibfont}{\footnotesize}
 
 \definecolor{quote}{named}{TangoAluminium4}
 \definecolor{light}{named}{TangoAluminium4}
