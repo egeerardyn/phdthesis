@@ -327,7 +327,7 @@ The initial estimates described above are then fed to the \gls{MLE} together wit
 
 Formally, let $\model{\bullet}$ be the final parametric estimate of the system, where the subscript $\bullet$ denotes the methods (from left to right in Fig.~\ref{fig:flowgraph}) when an initial estimate $\model[init]{\bullet}$ is used, \emph{viz}:
 \begin{itemize}
-    \item $\model{\trueSymbol}$ via the true model $\true{G}$ as an initial estimate,
+    \item $\model{\true{}}$ via the true model $\true{G}$ as an initial estimate,
     \item $\model{exist}$ is obtained via \gls{GTLS} and \gls{BTLS},
     \item $\model{trunc}$ by the use of the \gls{LPM} with truncation as an initial estimate,
     \item $\model{RFIR}$, initialized by means of the \gls{RFIR} method. 
@@ -336,7 +336,7 @@ Formally, let $\model{\bullet}$ be the final parametric estimate of the system, 
 A particular initial estimate is deemed \emph{successful} if the optimization of the \gls{MLE} cost with the raw input-output data inserted in equation~\eqref{eq:MLEcf}, approximately reaches the \emph{best local optimum} when iteration is initiated with the selected initial value/estimate.
 
 \begin{conjecture}\label{conj1}
-The true model $\true{G}$ as an initial estimate is the best possible initial estimate one can use for the nonlinear optimization algorithm (the leftmost path in \figref{fig:flowgraph}) and will allow the optimization to converge to the \emph{best local optimum}, i.e. $\model{\trueSymbol}$.
+The true model $\true{G}$ as an initial estimate is the best possible initial estimate one can use for the nonlinear optimization algorithm (the leftmost path in \figref{fig:flowgraph}) and will allow the optimization to converge to the \emph{best local optimum}, i.e. $\model{\true{}}$.
 \end{conjecture}
 \begin{remark}
 The use of $\true{G}$ as an initial estimation not necessarily entails in converging to the global optimum since it is not guaranteed that $\true{G}$ lies within the attraction region of the global optimum.
@@ -351,19 +351,19 @@ Note that probability in this context should be understood with respect to diffe
 The success rate $\successRate_{\bullet}$ of an initialization scheme $\bullet$ is defined as the probability that it reaches the \emph{best local optimum}, i.e.
 \begin{equation}
 \successRate_{\bullet} = 
-  \Prob{  \model{\bullet} \approx \model{\trueSymbol}  }
+  \Prob{  \model{\bullet} \approx \model{\true{}}  }
 \text{.}
 \end{equation}
 In practice, and since the iterative algorithm usually does not reach the local optimum precisely, the above definition is implemented practically as
 \begin{equation}\label{eq:successrateTol}
-\successRate_{\bullet} \isdef \Prob{ \norm[2]{\model{\bullet} - \model{\trueSymbol}} < \absoluteTolerance}
+\successRate_{\bullet} \isdef \Prob{ \norm[2]{\model{\bullet} - \model{\true{}}} < \absoluteTolerance}
 \end{equation}
 with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
 
 \begin{remark}
 For an automated approach, it is better to define the success rate in terms of relative errors on the transfer function, i.e.
 \begin{equation}
-\successRate_{\bullet} = \Prob{ \norm[2]{\model{\bullet}-\model{\trueSymbol}} < \relativeTolerance  \norm[2]{\true{G}}}
+\successRate_{\bullet} = \Prob{ \norm[2]{\model{\bullet}-\model{\true{}}} < \relativeTolerance  \norm[2]{\true{G}}}
 \text{.}
 \end{equation}
 \end{remark}
@@ -438,7 +438,7 @@ is attained.
 $\rms{x} = \sqrt{N^{-1} \sum_t x^2(t)}$ denotes the root-mean-squared value of $x$.
 
 \subsection{Comparison of Successful and Failed Estimates}
- \figref{fig:exampleFRF} depicts the Bode plot of the actual system $\true{G}$, in black and different estimates $\model{exist}$ that may or may not approximate $\model{\trueSymbol}$ well, according to the distance defined by equation \eqref{eq:successrateTol}.
+ \figref{fig:exampleFRF} depicts the Bode plot of the actual system $\true{G}$, in black and different estimates $\model{exist}$ that may or may not approximate $\model{\true{}}$ well, according to the distance defined by equation \eqref{eq:successrateTol}.
  The systems shown here are drawn randomly from the successes and failures observed in the Monte Carlo simulations, which are discussed later on in this chapter.
  
  It is clear from \figref{fig:exampleFRF} that the successful estimates virtually coincide with the true system. 
@@ -500,19 +500,19 @@ This allows to empirically estimate the success rate $\successRate$ in equation 
 %\ML{
 \subsubsection{Illustrative Example}
 In particular, the simulation for each pair $(\mathrm{SNR}, \nBW)$ yields 200 estimates per initial value strategy.
-This is illustrated graphically in \figref{fig:single-sim} for the value-pair $(-1.1\unit{dB},48)$ of the system with $Q = 6 \unit{dB}$, where the obtained distances $\norm[2]{\model{\bullet} - \model{\trueSymbol}}$ are shown for the different strategies, and sorted by an ascending norm.
-This effectively shows an empirical cumulative distribution function of the distance measure $\norm[2]{\model{\bullet} - \model{\trueSymbol}}$ as sampled by the Monte Carlo algorithm.%}
+This is illustrated graphically in \figref{fig:single-sim} for the value-pair $(-1.1\unit{dB},48)$ of the system with $Q = 6 \unit{dB}$, where the obtained distances $\norm[2]{\model{\bullet} - \model{\true{}}}$ are shown for the different strategies, and sorted by an ascending norm.
+This effectively shows an empirical cumulative distribution function of the distance measure $\norm[2]{\model{\bullet} - \model{\true{}}}$ as sampled by the Monte Carlo algorithm.%}
  
 %\JL{One observes:}
 \subsubsection{Pertinent Observations}
 With reference to \figref{fig:single-sim}, the following observations are worth noting: 
 %\EG{
 \begin{itemize}
-\item The actual parametric estimates, based on the different initial estimates, have distinct behaviors with respect to their distance from $\model{\trueSymbol}$.
+\item The actual parametric estimates, based on the different initial estimates, have distinct behaviors with respect to their distance from $\model{\true{}}$.
 Two major classifications can be made:
 \begin{enumerate}
-  \item `good' estimates which have $\norm[2]{\model{\bullet} - \model{\trueSymbol}} < \absoluteTolerance \approx 6 \cdot 10^{-5}$,
-  \item `poor' estimates which are much further from $\model{\trueSymbol}$.  This is caused by the local optima.
+  \item `good' estimates which have $\norm[2]{\model{\bullet} - \model{\true{}}} < \absoluteTolerance \approx 6 \cdot 10^{-5}$,
+  \item `poor' estimates which are much further from $\model{\true{}}$.  This is caused by the local optima.
 \end{enumerate}
 \item
 The obvious jump of the observed distances of the final parametric estimates shows that both classes can be separated reliably.
@@ -608,23 +608,23 @@ This result is very useful for a user working with noisy data.
   \setlength{\figurewidth}{0.66\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/RMSEvs_SNR36N3dB-ripple6.tikz}
- \caption[Simulated model \glsentryshort{RMSE} compared to rule-of-thumb.]{The accordance between the observed \gls{RMSE} of $\hat{G}_0$~\legref{leg:RMSE:delta:observed}(with $\pm2\sigma$ interval) and the rule-of-thumb~\eqref{eq:heur-RMSE}\legref{leg:RMSE:rule-of-thumb} shows how well $\model{\trueSymbol}$ approximates the true system $\true{G}$.
+ \caption[Simulated model \glsentryshort{RMSE} compared to rule-of-thumb.]{The accordance between the observed \gls{RMSE} of $\model{\true{}}$~\legref{leg:RMSE:delta:observed}(with $\pm2\sigma$ interval) and the rule-of-thumb~\eqref{eq:heur-RMSE}\legref{leg:RMSE:rule-of-thumb} shows how well $\model{\true{}}$ approximates the true system $\true{G}$.
  In the bottom plot, the difference between both is shown.
- Consequently, it makes sense to examine the behavior of the models in terms of $\model{\trueSymbol}$ as long as this RMSE meets the user's requirements.}
+ Consequently, it makes sense to examine the behavior of the models in terms of $\model{\true}$ as long as this RMSE meets the user's requirements.}
   \label{fig:RMSE}
 \end{figure}
 
 \paragraph*{Remark about the model quality}
-In principle, convergence of the estimate $\model{\bullet}$ to the `best' estimate $\model{\trueSymbol}$ does not imply that $\model{\bullet}$ will be suitable for a specific purpose as the estimate $\model{\trueSymbol}$ itself might be ill-suited.
-A straightforward tool to analyze the error associated with $\model{\trueSymbol}$ is to examine its relative \gls{RMS} error, with respect to the true system $\true{G}$, over different realizations of the experiment.
+In principle, convergence of the estimate $\model{\bullet}$ to the `best' estimate $\model{\true{}}$ does not imply that $\model{\bullet}$ will be suitable for a specific purpose as the estimate $\model{\true{}}$ itself might be ill-suited.
+A straightforward tool to analyze the error associated with $\model{\true{}}$ is to examine its relative \gls{RMS} error, with respect to the true system $\true{G}$, over different realizations of the experiment.
 In~\citep{Ljung1999}, a rule-of-thumb is given that describes the relationship between the \gls{SNR} of the signals and the quality of the estimated parametric model.
 In this context this heuristic boils down to: 
 \begin{equation}
-    \RMSE(\model{\trueSymbol}) \approx \sqrt{\frac{n_\theta}{N}} \frac{\norm[2]{\true{G}}}{\SNR} 
+    \RMSE(\model{\true{}}) \approx \sqrt{\frac{n_\theta}{N}} \frac{\norm[2]{\true{G}}}{\SNR} 
     \label{eq:heur-RMSE}
 \end{equation}
 where $n_{\theta}=5$ is the number of estimated parameters in this case.
-In \figref{fig:RMSE}, the empirical $\RMSE(\model{\trueSymbol})$ over the different Monte Carlo runs is displayed against this rule-of-thumb.
+In \figref{fig:RMSE}, the empirical $\RMSE(\model{\true{}})$ over the different Monte Carlo runs is displayed against this rule-of-thumb.
 It can be seen that these runs align almost perfectly, which shows that this rule-of-thumb can be used to approximate the \gls{RMSE} of the parametric estimate.
 When the \gls{RMSE} is then divided by $\norm[2]{\true{G}}$, this graph essentially shows the anticipated relative error on the transfer function and, hence, gives an indication on its usability.
 
@@ -879,7 +879,7 @@ The situation is already less severe for $\model{trunc}$ (in $75\%$ of the cases
   Based on the cost function, $\model{RFIR}$~\legref{leg:RFIR} is not always the best estimate $\model{best}$~\legref{leg:best}.
   Especially in the validation plot (bottom), $\model{RFIR}$ performs (almost) as well or even better than $\model{exist}$~\legref{leg:exist} and $\model{trunc}$~\legref{leg:trunc}.
   Both latter methods often produce models that perform poorly compared to $\norm[2]{G_{\VXI} }$~\legref{leg:reference} and $\model{VXI}$~\legref{leg:VXI}.
-  This means that in our limited experimental study, the performance degradation of choosing RFIR to produce initial values over the studied alternatives is small.}
+  This means that in our limited experimental study, the performance degradation of choosing \glsentryshort{RFIR} to produce initial values over the studied alternatives is small.}
   \label{fig:overview}
 \end{figure}
 
@@ -909,8 +909,8 @@ However, due to the intricate relationship between the attraction regions in the
 On the one hand, an obvious limitation to the presented initialization techniques is that they share the limitations of the smoothing techniques: if the non-parametric estimate is a worse representation than the raw data (e.g. heavily biased), it is very unlikely that the initial estimate will outperform the existing estimates.
 However, it is beyond the scope of this chapter to determine formally which particular smoother is optimal in some specific experimental circumstances.
 
-In particular for RFIR, a simulation study in~\citep{Chen2013} suggests that RFIR handles systems with model orders up to at least $30$, even for small datasets $N\leq 500$.
-For LPM (with or without time-truncation), no comparable studies are available to our knowledge, but the LPM itself has been used successfully in diverse practical applications.
+In particular for \gls{RFIR}, a simulation study in~\citep{Chen2013} suggests that RFIR handles systems with model orders up to at least $30$, even for small datasets $N\leq 500$.
+For \gls{LPM} (with or without time-truncation), no comparable studies are available to our knowledge, but the \gls{LPM} itself has been used successfully in diverse practical applications.
 
 \subsection{Stress Test of the Smoothers}
 To test the effectiveness of the initial estimates obtained from these particular smoothers, an extra set of $\nMC = 100$ Monte Carlo simulations were performed.
@@ -921,7 +921,7 @@ In particular, all combinations of
 \end{itemize}
 discrete-time filters~\citep{Zverev1967} of tenth degree generated by the \MATLAB code in \lstref{lst:initvals:stressSystems} are simulated.
 Each of these filters $\true{G}$ have been normalized such that $\norm[2]{\true{G}} = 1$.
-The low-pass and high-pass filtes have a cross-over frequency of $\frac{\pi}{2} \unit{rad/s}$. 
+The low-pass and high-pass filters have a cross-over frequency of $\frac{\pi}{2} \unit{rad/s}$. 
 The band-pass, respectively band-stop, filters have a passband, respectively stopband, in the frequency range$\left[ \frac{2\pi}{5}, \frac{3\pi}{5}\right] \unit{rad/s}$.
 Note also that both the band-pass and band-stop filters have a McMillan degree of 20 as per the \MATLAB conventions.
 See \tabref{tbl:init:stresstest} for an overview of the filters and  \figref{fig:bodeplots} for the corresponding bode plots.
@@ -972,19 +972,19 @@ A few remarks regarding these results are appropriate.
   \item In many of the tested situations (cases 1,3,13--16), all methods yield a good model quality.
   \item In some situations (cases 8, 10, 12), the model quality is generally poor. 
   The fact that for cases 8 and 12, the `ideal' starting value \model{0} also provides poor models means the data is not informative enough to reasonably fit a good model.
-  \item In all cases except 10 and 12, the RFIR performed as well or better than the existing methods.
-  \item In case 10, the model quality of the RFIR is slightly worse than the already poor existing techniques.
-  This is an underlying limitation of the RFIR used: $n_g=200$ taps was used, however the true impulse response has not decayed significantly in that interval.
-  Essentially, the particular RFIR used introduces a significant bias in the non-parametric description of the filter and hence the obtained initial value is unreliable.
-  \item The RFIR performs (significantly) better than the existing methods in various cases (4--7, 9, 11).
+  \item In all cases except 10 and 12, the \gls{RFIR} performed as well or better than the existing methods.
+  \item In case 10, the model quality of the \gls{RFIR} is slightly worse than the already poor existing techniques.
+  This is an underlying limitation of the \gls{RFIR} used: $n_g=200$ taps was used, however the true impulse response has not decayed significantly in that interval.
+  Essentially, the particular \gls{RFIR} used introduces a significant bias in the non-parametric description of the filter and hence the obtained initial value is unreliable.
+  \item The \gls{RFIR} performs (significantly) better than the existing methods in various cases (4--7, 9, 11).
   \item Since the `best' method \legref{leg:dist:modelBest} yields better models more often than a single method, e.g. in cases 2, 4 and 6, this illustrates that combining initialization schemes improves the model quality.
   Particularly, case 2 implies that \model{best} contains initial estimates of all different techniques.
-  \item For all of the tested systems (except possibly for case 2), the truncated LPM is not advisable over the existing methods.
+  \item For all of the tested systems (except possibly for case 2), the truncated \gls{LPM} is not advisable over the existing methods.
 \end{itemize}
 
 In general, one can see from these simulations that \gls{RFIR} either performs as well as (or even better than) the existing techniques when a good estimate is obtained.
 There are no cases where using the smoothing to obtain initial values worsens the obtained model quality when the candidate model with the lowest cost function value is used (as in \eqref{eq:selectBest}).
-On the contrary, significant improvements were often achieved by including the initial values from the smoothed FRF and by combining different strategies.
+On the contrary, significant improvements were often achieved by including the initial values from the smoothed \gls{FRF} and by combining different strategies.
 
 \section{Computational Effort}\label{sec:initvals:computation}
 While improved initial values yield better models of an improved quality, their generation does require some computational effort.

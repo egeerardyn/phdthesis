@@ -43,7 +43,7 @@ yminorticks=true,
 grid=both,
 % extra y ticks={120},
 % extra y tick labels={},
-ylabel={$\norm[2]{\model{\bullet} - G_{\mathrm{VXI}} }$},
+ylabel={$\norm[2]{\model{\bullet} - G_{\VXI} }$},
 axis x line*=bottom,
 axis y line*=left
 ]

@@ -43,7 +43,7 @@ yminorticks=true,
 ymajorgrids=true,
 yminorgrids=true,
 xmajorgrids=true,
-ylabel={Cost $V(\theta)$},
+ylabel={Cost $\costFunc{}(\theta)$},
 axis x line*=bottom,
 axis y line*=left
 ]
@@ -94,7 +94,7 @@ yminorticks=true,
 ymajorgrids=true,
 yminorgrids=true,
 xmajorgrids=true,
-ylabel={Cost $V(\theta)$},
+ylabel={Cost $\costFunc{}(\theta)$},
 axis x line*=bottom,
 axis y line*=left
 ]

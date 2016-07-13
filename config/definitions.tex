@@ -335,11 +335,8 @@
 \newcommand{\given}[1]{\left| #1 \right.}
 \newcommand{\setdiff}{\ensuremath{\backslash}}
 \newcommand{\without}{\setdiff}
-
 \newcommand{\ignoring}[2]{\ensuremath{ {#2}_{[#1]}}} 
-
 \newcommand{\decade}{\ensuremath{\mathrm{dec.}}}
-
 \newcommand{\eps }{\varepsilon}
 
 \newcommand{\wallclocktime}[1][]{\ensuremath{t_{\mathrm{wall-clock}}}}
@@ -347,7 +344,7 @@
 
 %%
 \newcommand{\trueSymbol}{\ensuremath{\circ}}
-\newcommand{\true}[1]{\ensuremath{{#1}_{\trueSymbol}}}
+\newcommand{\true}[1]{\ensuremath{\ifstrempty{#1}{\trueSymbol}{{#1}_{\trueSymbol}}}}
 \newcommand{\starred}[1]{\ensuremath{#1_{\star}}}
 
 %% Common symbols
