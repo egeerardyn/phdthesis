@@ -593,21 +593,26 @@ The sub-systems in \eqref{eq:excitation:PFE} all are either lightly damped ($\da
 \end{assumption}
 
 \begin{assumption}
-The resonance frequencies $\wn[i]$ of all the sub-systems in \eqref{eq:excitation:PFE} are well-separated in the frequency domain such that there is little modal overlap, i.e. $\modalOverlap \ll 1$.
-\end{assumption}
-
-\begin{assumption}
-It is assumed that the excitation signal contains many more frequency lines than parameters required to describe the system under test well.
-Hence, we can neglect the bias of the estimate and focus on its variance error by assuming that a proper model order can be chosen and fitted from the data.
+The resonance frequencies $\wn[i]$ of all the sub-systems in \eqref{eq:excitation:PFE} are well-separated in the frequency domain:
+\begin{equation}
+  \forall i,j \in \NaturalNumbers, i \neq j : \abs{\wn[i] - \wn[j]} >  \frac{\BW_i + \BW_j}{2},
+\end{equation}
+where $\BW_{i} \approx 2 \damping[i]\wn[i]$ denotes the $3\unit{dB}$ bandwidth of the $i^{\text{th}}$ resonant sub-system. 
 \end{assumption}
 
 \begin{remark}
+The aforementioned assumption practically implies that there is no overlap between different resonances and hence there is little so-called `modal overlap'.
 The modal overlap $\modalOverlap$ is given~\citep{Ege2009} as the ratio of the average $3\unit{dB}$ bandwidth to the average difference in resonance frequencies for all resonances in the frequency band of interest.
 Often, the modal overlap is linked to the model density $\modalOverlap(\omega) = \wdB \modalDensity{\omega}$.
 In acoustic and structural engineering, expressions exist for the theoretical modal density $\modalDensity{f}$ in specific geometries such as beams, plates, square volumes~\citep{Hart1971,Bies2009}.
 Specifically, beams exhibit a modal density $\modalDensity{\omega} = \bigO{\omega^{-1/2}}$, for plates this becomes $\modalDensity{\omega} = \bigO{1}$, and for volumes $\modalDensity{\omega} = \bigO{\omega}$.
 As such, the previous assumption practically limits the use of the excitation signals to beams or the low-frequency region of plates and volumes~\citep{Ege2009}.
 \end{remark}
+
+\begin{assumption}
+It is assumed that the excitation signal contains many more frequency lines than parameters required to describe the system under test well.
+Hence, we can neglect the bias of the estimate and focus on its variance error by assuming that a proper model order can be chosen and fitted from the data.
+\end{assumption}
 
 Under these assumptions, the Fisher information matrix will be approximately a diagonal block matrix, where the $i^{\text{th}}$ block corresponds to the parameters $\left[\wn[i], \wz[i], \damping[i], \dc[i,1], \ldots, \dc[i,M_{2,i}] \right]$ of a particular sub-system.
 Using the same logic as in \secref{sec:excitation:ex:sumOfSecondOrderSipmle}, this means that the variance of the complete system is approximately equal to the sum of the variances obtained for each sub-system, due to the decoupling of the Fisher information matrix.
@@ -751,7 +756,6 @@ Such signals are presented in this section.
   \end{example}
   \begin{example}
     The~\citet{HP3562A} has a logarithmic measurement mode that ensures that each decade is covered by $F_{\decade} = 80$ lines~ to measure an \gls{FRF}.
-    %TODO: make sure "\gls{FRF}" has already been used before this point
     This is equivalent to a grid spacing $\alpha = \sqrt[80]{10} \approx 1.029$.
   \end{example}
 
@@ -1185,7 +1189,7 @@ Also for the design of robust excitation signals, this is a worthwhile observati
    \begin{remark}
    Implicitly, this considers a design where each of the sub-systems have an equal gain $\dc=1$ and residue $\wz \to\infty$.
    In practice, this is often not a reasonable assumption, but the design can be adapted in a straightforward manner.
-   Concretely, using a first experiment with the proposed signal, one can estimate the different parameters of the sub-systems and optimize the amplitude spectrum of the signal to take those into account: for sub-systems where $\dc$ is lower than on average, the amplitude spectrum needs to be increased near the resonance frequency and \latin{vice versa}.
+   Concretely, using a first experiment with the proposed signal, one can estimate the different gains of the sub-systems and optimize the amplitude spectrum of the signal to take those into account: for sub-systems where $\dc$ is lower than on average, the amplitude spectrum needs to be increased near the resonance frequency and \latin{vice versa}.
    \end{remark}
 
   The choice of the damping is more important.
