@@ -1,9 +1,9 @@
 \chapter{Non-parametric Peak Modeling}
 \label{sec:hinf}
+\chapterBasedOn{Geerardyn2014IFAC,Geerardyn2014ISMA}
 \def\thisDir{ch04-lrmhinf}
 \tikzsetfigurename{ch04fig}
 \myEpigraph{Design is not just what it looks like and feels like. Design is how it works.}{Steve Jobs}{}
-\researchBasedOn{Geerardyn2014IFAC,Geerardyn2014ISMA}
 \glsresetall{}
 
 \newcommand{\wnValue}{\ensuremath{0.95 \unit{rad/s}}}
@@ -548,11 +548,14 @@ The broad aim of vibration isolation~\citep{Karnopp1995,Collette2011} is to supp
  \centering
   \setlength{\figurewidth}{0.45\columnwidth}
   \begin{subfigure}[b]{0.49\columnwidth}
+   \centering
     \input{\thisDir/figs/vibrationisolation-classical.tikz}
     \caption{Traditional set-up.}  
     \label{fig:lrmhinf:vibration-isolation:traditional}
   \end{subfigure}
+  \hfill
   \begin{subfigure}[b]{0.49\columnwidth}
+    \centering
     \input{\thisDir/figs/vibrationisolation-skyhook.tikz}
     \caption{Principle of sky-hook damping.}  
     \label{fig:lrmhinf:vibration-isolation:skyhook}

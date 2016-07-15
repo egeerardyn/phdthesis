@@ -1,13 +1,13 @@
 \chapter{Initialization of Parametric Estimators}
 \label{sec:initvals}
+\chapterBasedOn{Geerardyn2015TIM}
 \myEpigraph{Everything starts somewhere, though many physicists disagree. But people have always been dimly aware of the problem with the start of things. They wonder how the snowplough driver gets to work, or how the makers of dictionaries look up the spelling of words.}{Terry Pratchett}{Hogfather}
 \gdef\thisDir{ch05-initvals}
 \tikzsetfigurename{ch05fig}
-\glsresetall
-\researchBasedOn{Geerardyn2015TIM}
+\glsresetall{}
 
-\section{Introduction}
-\label{sec:initial-values:introd}
+% \section{Introduction}
+% \label{sec:initial-values:introd}
 The task of interpreting measurement data from dynamic systems often involves the estimation of a \gls{TF}. 
 Typical measurement techniques and identification strategies of  \glspl{TF} or \glspl{FRF} are presented in~\citep{Schoukens1998,Schoukens2006LPM,Guillaume1996,Broersen1995,Pintelon2010LPM1,Antoni2007FRF}.
 Application of these methods to real devices and systems is well-represented in the literature, e.g. \citep{Lim2010,Robinson1990,Behjat2010}.
@@ -926,12 +926,7 @@ The band-pass, respectively band-stop, filters have a passband, respectively sto
 Note also that both the band-pass and band-stop filters have a McMillan degree of 20 as per the \MATLAB conventions.
 See \tabref{tbl:init:stresstest} for an overview of the filters and  \figref{fig:bodeplots} for the corresponding bode plots.
 
-
 \lstinputlisting[float,style=matlab,mathescape,basicstyle=\ttfamily\scriptsize,caption={Code to generate the systems of the stress tests.},label={lst:initvals:stressSystems}]{\thisDir/code/systemsForStressTest.m}
-
-
-The input excitation and the disturbing output noise were $N=1\,024$ samples of white Gaussian noise such that an \gls{SNR} of $20 \unit{dB}$ was attained at the output.
-Note that due to $\norm[2]{\true{G}}=1$, the validation distance $\norm[2]{\model{\bullet} - \true{G}}$ is exactly the relative \gls{RMS} estimation error of the transfer function.
 
 \begin{table}
   \centering
@@ -939,6 +934,9 @@ Note that due to $\norm[2]{\true{G}}=1$, the validation distance $\norm[2]{\mode
   \input{\thisDir/tables/stresstest-cases.tbl.tex}
 \label{tbl:init:stresstest}
 \end{table}
+
+The input excitation and the disturbing output noise were $N=1\,024$ samples of white Gaussian noise such that an \gls{SNR} of $20 \unit{dB}$ was attained at the output.
+Note that due to $\norm[2]{\true{G}}=1$, the validation distance $\norm[2]{\model{\bullet} - \true{G}}$ is exactly the relative \gls{RMS} estimation error of the transfer function.
 
 \subsection{Observations}
 The transfer functions are shown in \figref{fig:bodeplots} while the empirical cumulative validation distance is shown in \figref{fig:distancesStress}.

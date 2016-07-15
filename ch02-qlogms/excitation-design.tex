@@ -1,10 +1,10 @@
 \chapter{Design of Excitation Signals}
 \label{sec:excitation}
+\chapterBasedOn{Larsson2012SYSID, Geerardyn2012IMTC, Geerardyn2013TIM}
 \def\thisDir{ch02-qlogms}
 \tikzsetfigurename{ch02fig}
-\glsresetall
+\glsresetall{}
 \myEpigraph{A common mistake that people make when trying to design something completely foolproof is to underestimate the ingenuity of complete fools.}{Douglas Adams}{Mostly Harmless}
-\researchBasedOn{Larsson2012SYSID, Geerardyn2012IMTC, Geerardyn2013TIM}
 
 \section{Introduction}
 \label{sec:excitation:intro}
@@ -1362,7 +1362,6 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   \text{.}
   \label{eq:excitation:secondOrderSystemDTidentifiable}
   \end{equation}
-
   This form can also be obtained by applying Tustin's method or bilinear transform~\citep{Oppenheim1996} to the continuous time system \eqref{eq:excitation:secondOrdersub-system}.
 
   The input signal has an equidistant frequency grid with a resolution $\Delta f = 1\unit{Hz}$ between $1 \unit{Hz}$ and $16\,384\unit{Hz}$.
