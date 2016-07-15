@@ -1,22 +1,18 @@
-\tikzstyle{block} = [draw, rectangle, 
-    minimum height=2em, minimum width=3em]
-\tikzstyle{sum} = [draw, circle, node distance=0.5cm, radius=0.75em]
-\tikzstyle{input} = [coordinate]
-\tikzstyle{output} = [coordinate]
-\tikzstyle{pinstyle} = [pin edge={<-,black},black]
-
 \begin{tikzpicture}[auto, node distance=2cm,>=latex]
 
     \node [input, near start] (input) {};
     \node [block, right of=input] (system) {$\true{G}(\Omega)$};
     \node [sum, right of=system,
-           pin={[pinstyle]above:$E$},
-           node distance=2.5cm] (sum) {$+$};
+           node distance=2.2cm] (sum) {\footnotesize$+$};
+    
+    \node [above of=sum, node distance=0.75cm] (noise) {$E$};
+
     \node [output, right of=sum, node distance=1.3cm] (output) {};
     
     \draw [->] (input)  -- node[name=u]  {$U$}   (system);
     \draw [->] (system) -- node[name=y0] {$\true{Y}$} (sum);
     \draw [->] (sum)    -- node[name=y]  {$Y$}   (output);
+
+    \draw [->] (noise) -- (sum);
     
 \end{tikzpicture}
-%TODO: make sure arrow is black!!

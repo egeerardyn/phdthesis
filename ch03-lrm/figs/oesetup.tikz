@@ -8,7 +8,7 @@
 \begin{tikzpicture}[auto, node distance=2cm,>=latex]
 
     \node [input, near start] (input) {};
-    \node [block, right of=input] (system) {$G_0(q)$};
+    \node [block, right of=input] (system) {$\true{G}(q)$};
     \node [sum, right of=system,
            pin={[pinstyle]above:$v(t)$},
            node distance=2.5cm] (sum) {$+$};
