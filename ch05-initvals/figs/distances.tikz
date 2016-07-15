@@ -76,7 +76,7 @@ axis y line*=left]
 
 \addplot [best     , dashed] table{\dataDir/distances-5.tsv};
 \addlegendentry{\model{best}}
-\label{leg:dist:modelbest}
+\label{leg:dist:modelBest}
 
 % ================================================
 \nextgroupplot

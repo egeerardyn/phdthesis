@@ -1349,7 +1349,8 @@ Also for the design of robust excitation signals, this is a worthwhile observati
   In this section, we have shown that signals with a logarithmic frequency spacing allow to identify systems with equal damping equally well, when the frequency spacing is dense enough.
   Practically, four frequency lines in the $3\unit{dB}$ bandwidth of each second order sub-system suffice to suppress the effect of misalignment of such a sub-system and the frequency grid of the excitation signal.
   
-\section{Simulations} \label{sec:excitation:simulation}
+\section{Simulations} 
+\label{sec:excitation:simulation}
 In the following set of simulations, we will study how the \gls{FRF} of different second order systems with equal damping (and the corresponding uncertainty) are measured by the multisine excitation signals from \secref{sec:excitation:multisine}.
   \subsection{Setup}
   We consider second-order systems with an equal damping and with resonance frequencies $4$, $8$, $20$, $40$, $80$, $200$, $400$, $800$, $2000$ and $4000 \unit{Hz}$.
@@ -1456,7 +1457,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
   This can also be understood from equation \eqref{eq:excitation:systemInBulk:generic}.
   In that equation, $\alpha = \alpha^{\star} = 1 + \damping$ (see \secref{sec:excitation:optimAlpha}) such that the following guideline is the necessary condition for the $3\unit{dB}$ bandwidth of the system to lie within the bulk of the frequency grid.
 
-\begin{guideline}[Use a sufficient grid resolution for each resonance: $2 \pi \Delta f \leq (\damping - \damping^2) \wn$]
+\begin{guideline}[Use a sufficient grid resolution for each resonance]
 \label{guide:excitation:systemInBulk:tuned}
  A quasi-logarithmic multisine with frequency resolution $\Delta f$ and tuned frequency spacing $\alpha=1+\damping$ is only guaranteed to properly excite resonance peaks with damping $\damping$ and resonance frequency $\wn$ when 
   \begin{equation}
