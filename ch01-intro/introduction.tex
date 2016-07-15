@@ -118,12 +118,8 @@ In the previous section, it has been seen that some of the system identification
 
 In this dissertation, we focus on developing system identification techniques that are `user-friendly'.
 The availability of easy to use and fast methods has been underlined by \citet{Gevers2011Challenges}.
-In this context, `user-friendly' should be understood as having a good user experience for two groups of users:
-%TODO: more groups ("two groups")
-\begin{itemize}
-  \item novices, without formal training in system identification, optimization, \ldots and,
-  \item well-seasoned identification practitioners that are already able to build good models.
-\end{itemize}
+In this context, `user-friendly' should be understood as being easy to use for users ranging from novices to well-seasoned identification specialists.
+
 Concretely, for novice users it is important to have straightforward techniques that require little interaction.
 In practice, this boils down to methods that work well for a wide class of systems.
 As such, only very generic assumptions of the system under test should be made and these should be easy to interpret.
@@ -142,7 +138,6 @@ Nevertheless, when a linear model is not adequate, a more flexible model needs t
 Such a model could be more flexible, e.g. by relinquishing the time-invariance and/or its linearity.
 However, many of those advanced modeling approaches employ \gls{LTI} models as starting values or intermediate result in building the actual non-linear~\citep{Giri2010} or time-varying model~\citep{Lataire2012,Louarroudi2014}.
 As such, improvements in estimating \gls{LTI} models also indirectly improve more advanced methods.
-
 
 \subsection{Contributions}
 In this dissertation, we look into a few aspects of the identification workflow with the goal to make the whole process more user-friendly.
