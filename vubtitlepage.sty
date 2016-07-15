@@ -45,35 +45,35 @@
 %% actual definition of the title page
 \def\maketitlepage{
 \begin{titlepage}
-\enlargethispage*{1000pt}
+\enlargethispage*{10em}
 
-\vspace*{-3cm}{
-  \hspace*{-1cm}{
-    \includegraphics[width=75.5mm,height=15.25mm]{VUB_logo}
+\vspace*{-1.5cm}{
+  \hspace*{-0.95cm}{
+    \includegraphics[height=0.075\textheight]{VUB_logo}
   }
 }
 
-\vspace*{-2.5mm}{
-  \hspace*{-3.5mm}{
-    \begin{tabular}{l|l}
-      & \parbox[t]{0.5\columnwidth}%
+
+\begin{tabular}{|l}
+      \parbox[t]{0.5\columnwidth}%
          {{\parbox[t]{0.75\columnwidth}{\vub@facultyfont\vub@faculty}}\\
           {\parbox[t]{0.75\columnwidth}{\vub@departmentfont\vub@department}}
          } \\
-        \rule{0pt}{85mm} % should be a vfill
-      & \rule{0.5em}{0mm}
+
+        \rule{0pt}{55mm} % should be a vfill
+      \rule{0.5em}{0mm}
           {\parbox[b]{\columnwidth}{\vub@titlefont\@title}}\\
           \rule{0pt}{5mm}\\
-      \cline{2-2}
+      \hline%{2-2}
       \rule{0pt}{14mm}
-      & \rule{0.5em}{0mm}%
+      \rule{0.5em}{0mm}%
         \begin{tabular}{l}
           {\parbox[t]{\columnwidth}{\vub@reasonfont\vub@reason}}\\
           \rule{0pt}{7mm}{\parbox[t]{\columnwidth}{\vub@authorfont\@author}}\\
           \\
         \end{tabular}\\
-      \cline{2-2}
-      & \rule{0.5em}{0mm}%
+      \hline%{2-2}
+      \rule{0.5em}{0mm}%
         \vub@promotorAndJuryFont
         \begin{tabular}{r@{ }l}
           \rule{0pt}{0.5em}\\
@@ -83,18 +83,17 @@
             \vub@jury\\
         \end{tabular}\\
       
-      \rule{0pt}{50mm} % should be a vfill
+      \rule{0pt}{35mm} % should be a vfill
 
         % Date
-      & \rule{0.5em}{0mm}%
+      \rule{0.5em}{0mm}%
         \begin{tabular*}{\textwidth}{lcr}
-          {\vub@datefont\@date} & 
-           \rule{160pt}{0mm}& % should be hfill and relative to page
-           \includegraphics[width=43mm,height=43mm]{VUB_schild}
+          {\vub@datefont\@date} &
+           \rule{0.5\textwidth}{0pt} &
+           \includegraphics[width=0.3\textwidth]{VUB_schild}
         \end{tabular*}
-    \end{tabular}
-  }
-}
+\end{tabular}
+
 \end{titlepage}
 }
 
