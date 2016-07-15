@@ -276,10 +276,9 @@ In view of obtaining the maximum singular value, these are `interpolated' to obt
     \label{eq:lrmhinf:DeltaLRMInterpolation}
 \end{equation}
 by retaining the largest of both.
-%TODO: remark that this notation is deceiving: there is no $\Delta_{\LMM}$, and hence, its Hinf norm does not exist. Both notations are just to indicate
 It follows that
 \begin{align}
-  \widehat{\infnorm{\Delta_{\LMM}}}
+  \widehat{\phantom{_\infty}\infnorm{\Delta_{\LMM}}}
     & \isdef
     \sup_{\omega\in\Omega}
     \svdMax{\Delta_{\LMM}(\omega)} \\
@@ -294,6 +293,11 @@ It follows that
 
 \begin{remark}
 The construction of $ \svdMax{\Delta_{\LMM}(\omega)}$  makes it more involved to implement the interpolation approach in an efficient and/or parallel fashion.
+\end{remark}
+
+\begin{remark}
+The notions $\svdMax{\Delta_{\LMM}(\omega)}$ and the ensuing  $\widehat{\phantom{_\infty}\infnorm{\Delta_{\LMM}}}$  should be regarded as notational convenience to denote that local models are used to estimate the maximal singular value and $\Hinf{}$ norm, respectively.
+In reality, there is no tangible `$\Delta_{\LMM}$' that is constructed: neighboring local models are stitched together using the `$\max$' operator.
 \end{remark}
 
 \begin{remark}
