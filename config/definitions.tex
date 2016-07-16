@@ -14,7 +14,8 @@
 \newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
 
 \newcommand{\researchBasedOn}[2][This chapter]{\disclaimer{#1 is based on~\citet{#2}.}}
-\newcommand{\chapterBasedOn}[1]{\vspace{-3em}\researchBasedOn{#1}\vspace{-2em}}
+\newcommand{\chapterBasedOn}[1]{\vspace{-1\baselineskip}\researchBasedOn{#1}}
+\newcommand{\sectionBasedOn}[1]{\vspace{-1\baselineskip}\researchBasedOn[This section]{#1}}
 
 %% Referencing
 \newcommand{\algoref}[1]{Algorithm~\ref{#1}}

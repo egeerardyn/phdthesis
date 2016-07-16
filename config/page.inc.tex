@@ -11,7 +11,7 @@
 \scalebox{3}{\color{gray}\thechapter\autodot}\enskip}}
 
 \usepackage{scrlayer-scrpage}
-\ifoot{\color{lightgray}\footnotesize\texttt{revision \VCRevision}}
+\ifoot{\color{lightgray}\footnotesize\texttt{revision \VCRevision}} %TODO: remove revision in footer in final version
 
 %% section formatting
 % could be made automatically, but manually is more precise and works just as well
@@ -22,3 +22,22 @@
 %TODO: improve pagination, check for widows and orphans
 % http://tex.stackexchange.com/questions/223508/adjusting-spacing-around-section-subsection-titles-with-koma-script
 %TODO: improve section and chapter afterskip value (see scrguien)
+\RedeclareSectionCommand[afterskip=0\baselineskip plus .115\baselineskip]{chapter}
+
+\RedeclareSectionCommand[afterskip=1ex plus 0.2ex,
+beforeskip=-3.5ex plus -1ex minus -0.2ex]{section}
+
+%TODO: check error with KOMA and overriding spacing for (sub)subsections
+% \RedeclareSectionCommands[afterskip=1ex plus .2ex,beforeskip=-3.25ex plus -1ex minus -0.2ex]{subsection,subsubsection}
+
+% \RedeclareSectionCommand[
+%   beforeskip=-.75\baselineskip,
+%   afterskip=.5\baselineskip]{subsection}
+% \RedeclareSectionCommand[
+%   beforeskip=-.5\baselineskip,
+%   afterskip=.25\baselineskip]{subsubsection}
+
+% \RedeclareSectionCommand[
+% afterskip=1ex plus 0.2ex,
+% beforeskip=-3.25ex plus -1ex minus -0.2ex]{subsubsection}
+

@@ -68,6 +68,7 @@
 \usepackage{epigraph}
 \usepackage{ifthen}
 \usepackage{etoolbox}
+\setlength{\beforeepigraphskip}{0pt}
 % http://www.latex-community.org/forum/viewtopic.php?f=5&t=5976
 \newcommand{\myEpigraph}[3]{\epigraph{#1}{\textsc{#2}\ifthenelse{\equal{#3}{}}{}{\\\textit{`#3'}}}}
 \renewcommand{\myEpigraph}[3]{\epigraph{#1}{\textsc{#2}\ifstrempty{#3}{}{\\\textit{`#3'}}}}
