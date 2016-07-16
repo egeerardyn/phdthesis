@@ -604,27 +604,27 @@ Computing the inverse of this Hessian cannot, to the knowledge of the author, be
 However, if the non-diagonal blocks can be neglected, this would lead to an inverse that is also block-diagonal:
 \begin{equation}
    \begin{bmatrix}
-    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_A \pd \theta_A } &
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_A \pd \theta_A } \!\!\!\!\!\!&
     \deemph{0} & 
     \deemph{0} \\
     \deemph{0} &
-    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_B \pd \theta_B } & 
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_B \pd \theta_B } \!\!\!\!\!\!& 
     \deemph{0} \\
     \deemph{0} &
     \deemph{0} & 
-    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_C \pd \theta_C }
-  \end{bmatrix}^{-1}
-  \!\!\!=
+    \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_C \pd \theta_C } 
+  \end{bmatrix}^{\!-1}
+  \!\!=
   \begin{bmatrix}
-    \left( \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_A \pd \theta_A }\right)^{-1} &
+    \left( \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_A \pd \theta_A }\right)^{\!-1} \!\!\!\!\!\!&
     \deemph{0} & 
     \deemph{0} \\
-    \deemph{0} &
-    \left( \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_B \pd \theta_B }\right)^{-1} & 
+    \deemph{0} & \!\!\!\!\!\!
+    \left( \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_B \pd \theta_B }\right)^{\!-1} \!\!\!\!\!\!& 
     \deemph{0} \\
     \deemph{0} &
-    \deemph{0} & 
-    \left( \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_C \pd \theta_C }\right)^{-1}
+    \deemph{0} & \!\!\!\!\!\!
+    \left( \PartialDerivative[2]{\ELSCost{\theta}}{ \conj{\theta}_C \pd \theta_C }\right)^{\!-1} \!
   \end{bmatrix}
   % \text{.}
 \end{equation}

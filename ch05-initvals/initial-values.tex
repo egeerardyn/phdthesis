@@ -284,7 +284,6 @@ P(\alpha,\beta)_{t_1,t_2} = e^{-\alpha|t_1 - t_2|}e^{-\beta(t_1 + t_2)/2}
 \end{align}
 where $\Sigma(\alpha,\beta, \sigma) = \sigma^2 \I + \phi^{\TT}P(\alpha,\beta)\phi$ and $\phi$ is a Toeplitz matrix constructed with $u$. 
 This problem is solved using \mcode{fmincon} in \MATLAB.
-%TODO: check convexity of this problem
 
 An implementation of the \gls{RFIR} estimator is available as the \mcode{arx} function in the System Identification Toolbox since \MATLAB~2013b with $\mathtt{na} = 0$, $\mathtt{nb} = n_g$, $\mathtt{nk}=0$ and regularization enabled in \mcode{arxOptions}. 
 The hyperparameters can be determined via \mcode{arxRegul}.
@@ -1069,8 +1068,6 @@ Whereas \gls{RFIR} is shown to provide reliable starting values, it remains advi
 This is also the approach that toolboxes such as~\citep{FDIDENT} and~\citep{TDIDENT} employ.
 Luckily, trying out multiple initialization strategies is \emph{embarrassingly parallellizable}, i.e. one can easily try out a different strategy in parallel without incurring a lot of overhead in terms of wall-clock time.
 As such, computing multiple starting values can happen without a significant increase in wall-clock time and consequently a sluggish user-experience.
-
-%TODO: TM: maybe look into power consumption aspects?
 
 \begin{guideline}[Try regularization to improve convergence]
 \label{guide:initvals:try-regularization}
