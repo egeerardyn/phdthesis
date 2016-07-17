@@ -12,7 +12,7 @@
 \coordinate (payloadD) at ($(payload.north west)!0.667!(payload.north east)$);
 \coordinate (gndD) at ($(gnd.north west)!0.9!(gnd.north east)$);
 \coordinate (help) at ($(payload.west)!-0.1!(payload.east)$);
-\coordinate (refVelocity) at ($(help)!0.5!(payload.west)$);
+\coordinate (refVelocity) at ($(help)!0.25!(payload.west)$);
 
 
 \draw[spring] (payload2) -- ($(gnd.north west)!(payload2)!(gnd.north east)$);

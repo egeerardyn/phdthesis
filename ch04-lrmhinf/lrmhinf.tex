@@ -621,7 +621,6 @@ To facilitate the presentation, only the vertical translative velocity ($v_z$), 
 \subsection{Measurement \& Control Framework}
 \label{sec:lrmhinf:control}
 The experiments on the \gls{AVIS} are carried out in closed-loop (\figref{fig:lrmhinf:tpc}) with $r_2 = 0$.
-%TODO: define T(P,C) formally
 The controller $\Controller=\experimental\Controller$ is a diagonal \gls{PI} regulator which stabilizes the \gls{AVIS} but yields only moderate vibration isolation.
 See \appref{app:avis-setup} for detailed information regarding both the experimental setup and the experimental controller.
 The $r_1$ input consists of five periods of a random phase multisine of $65\,536$ samples with excited bins such that $\omega_k \approx 1.001 \omega_{k-1}$  and $\Ts=1\unit{ms}$.
@@ -674,13 +673,28 @@ In view of the robust control criterion
   \text{,}
 \end{equation}
 the \glspl{RCF} are constructed such that
-$
+\begin{equation}
   \worstCase\Crit \left( \ModelSet[], \experimental\Controller \right)
   \leq
   \Crit \left( \estimated\Plant, \experimental\Controller \right)
   + \gamma
-$
+\end{equation}
 where $\worstCase\Crit(\ModelSet[],C) \isdef \sup_{P\in\ModelSet[]} \Crit(P,C)$~\citep{Oomen2012SIRP}.
+$\ClosedLoop{\Plant,\Controller}$ denotes the closed loop transfer function from the loop inputs $\mat{r_2 & r_1}^{\TT}$ to the output and input of the plant $\mat{y & u}^{\TT}$ as schematically in \figref{fig:lrmhinf:tpc}.
+This can be expressed symbolically, as in \citet{Oomen2012SIRP}, by
+\begin{equation}
+\ClosedLoop{\Plant, \Controller} \isdef
+\begin{bmatrix}
+  \Plant\\
+  \I
+\end{bmatrix}
+\left(\I + \Controller \Plant \right)^{-1}
+\begin{bmatrix}
+\Controller & \I
+\end{bmatrix}
+\label{eq:lrmhinf:closedLoop}
+\text{.}
+\end{equation}
 % Obviously, $\Crit( \true\Plant, \experimental\Controller) \leq \worstCase\Crit ( \ModelSet[], \experimental\Controller )$ is guaranteed when $\true\Plant \in \ModelSet[]$.
 I.e. even for a weighted control criterion \eqref{eq:lrmhinf:controlCrit}, there is no need to incorporate weights $W'$ and $V'$ into the estimation of the uncertainty bound as $\infnorm{W' \Delta V'}$.
 In this chapter, an eighth-order $\estimated\Plant$~(\figref{fig:lrmhinf:avis-frf}) is estimated.

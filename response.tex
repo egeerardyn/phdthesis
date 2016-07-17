@@ -444,19 +444,37 @@ In reality, there is no tangible `$\Delta_{\LMM}$' that is constructed: neighbor
 \end{remark}
   \end{newquote}
 
+  \item 
+  \oldnewpage{113}{}
+  \action{The notation $\ClosedLoop{\Plant, \Controller}$ has been explained further}
+  \begin{newquote}
+  $\ClosedLoop{\Plant,\Controller}$ denotes the closed loop transfer function from the loop inputs $\mat{r_2 & r_1}^{\TT}$ to the output and input of the plant $\mat{y & u}^{\TT}$ as schematically in \figref{fig:lrmhinf:tpc}.
+This can be expressed symbolically, as in \citet{Oomen2012SIRP}, by
+\begin{equation}
+\ClosedLoop{\Plant, \Controller} \isdef
+\begin{bmatrix}
+  \Plant\\
+  \I
+\end{bmatrix}
+\left(\I + \Controller \Plant \right)^{-1}
+\begin{bmatrix}
+\Controller & \I
+\end{bmatrix}
+\label{eq:lrmhinf:closedLoop}
+\text{.}
+\tag{4.36}
+\end{equation}
+  \end{newquote}
+
 \end{enumerate}
 
 \section{Future Changes}
 The following minor changes are not yet completed, but will be performed for the final version.
 
 \begin{enumerate}
-  \item \TODO{Request an ISBN and add it to the source.}
-  \item \TODO{Add the DOI for the final PDF.}
   \item \TODO{Write more extensively about leakage.}
   \item \says{BP}{For the peak modeling, I suggest to take over some things of your slides in the text. For example, is there a physical interpretation of $\Delta$ (slide 20)? So it is out of scope, but how does the peak modeling help with control? That link is missing.}
   \TODO{address this}  
-\item \says{TM}{In the plots, you never show the analytical bias of the LRM in the plots. Is the analytical bias a good estimate for the bias of the LRM?}
-\TODO{address this}
 \item \says{JA}{Below (3.17), $V$ is assumed to be i.i.d., but the noise is filtered by $A$. I suggest to change the assumption.}
 \TODO{address this}
 \end{enumerate}

@@ -45,7 +45,7 @@ domain=2:256
 	         expression {-20*#1*log10(x)};
 }
 
-\node[trace=none,lrm7222] at (axis cs:32,-80) {$\lrm{7,2,2,2}$};
+\node[trace=none,lrm7222] at (axis cs:32,-82) {$\lrm{7,2,2,2}$};
 \node[trace,etfe,rotate=-5] at (axis cs:180,-25) {$\ETFE$};
 \node[trace,lpm744,rotate=-35] at (axis cs:8,-22) {$\lpm{7,4,4}$};
 \node[trace=none,lrm7111,rotate=-30] at (axis cs:5,-55) {$\lrm{7,1,1,1}$};

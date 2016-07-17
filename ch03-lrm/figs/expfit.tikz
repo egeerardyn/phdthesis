@@ -9,7 +9,7 @@
 \begin{axis}[%
 width=\figurewidth,
 height=\figureheight,
-% scale only axis,
+scale only axis,
 xmin=0,
 xmax=1024,
 xtick={ 0, 1024},
