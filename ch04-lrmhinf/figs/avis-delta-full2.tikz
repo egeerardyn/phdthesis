@@ -3882,7 +3882,7 @@ table[row sep=crcr]{
 499.893188477839 -73.6531234028456\\
 499.984741212214 -73.6837613945906\\
 };
-\addlegendentry{LARX Full Resolution};
+\addlegendentry{LARX Full Resolution}
 
 \addplot [
 color=red!80!black,
@@ -4853,7 +4853,7 @@ table[row sep=crcr]{
 497.940063477834 -71.5612031822564\\
 499.893188477839 -73.9848974101769\\
 };
-\addlegendentry{LARX};
+\addlegendentry{LARX}
 
 \addplot [
 color=red!80!black,
@@ -9670,7 +9670,7 @@ table[row sep=crcr]{
 499.502563477838 -73.5597245028472\\
 499.893188477839 -73.9848974101769\\
 };
-\addlegendentry{LRM (int)};
+\addlegendentry{LRM (int)}
 
 \end{axis}
 \end{tikzpicture}%

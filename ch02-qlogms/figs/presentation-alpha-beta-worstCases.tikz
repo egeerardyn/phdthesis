@@ -40,16 +40,16 @@ axis y line=none]
 \nextgroupplot[xmode=log,xmin=0.1,xmax=10,xlabel={Grid spacing $\frac{\alpha -1}{\damping}$},legend pos=north west,width=0.33\figurewidth]
 
 \addplot [dbavar, forget plot] table{\thisDir/data/alphaWC/dbavar.tsv};
-% \addlegendentry{$\abs{G(\wM)} = 40 \unit{dB}$};
+% \addlegendentry{$\abs{G(\wM)} = 40 \unit{dB}$}
 
 
 \addplot [dbbvar, forget plot] table{\thisDir/data/alphaWC/dbbvar.tsv};
-% \addlegendentry{$\abs{G(\wM)} = 20 \unit{dB}$};
+% \addlegendentry{$\abs{G(\wM)} = 20 \unit{dB}$}
 
 
 \addplot [dbcvar, forget plot] table{\thisDir/data/alphaWC/dbcvar.tsv};
 
-% \addlegendentry{$\abs{G(\wM)} = 10 \unit{dB}$};
+% \addlegendentry{$\abs{G(\wM)} = 10 \unit{dB}$}
 
 
 \addplot [dbdvar, forget plot] table{\thisDir/data/alphaWC/dbdvar.tsv};

@@ -39,7 +39,7 @@ mark=*,
 mark options={solid}
 ]
 table[]{\thisDir/data/avis1/etfe.tsv};
-\addlegendentry{ETFE};
+\addlegendentry{ETFE}
 
 \addplot [
 color=mycolor1,
@@ -48,7 +48,7 @@ mark=*,
 mark options={solid}
 ]
 table[]{\thisDir/data/avis1/LPM.tsv};
-\addlegendentry{LPM};
+\addlegendentry{LPM}
 
 \addplot [
 color=mycolor2,
@@ -57,14 +57,14 @@ mark=*,
 mark options={solid}
 ]
 table[]{\thisDir/data/avis1/LRM.tsv};
-\addlegendentry{LARX};
+\addlegendentry{LARX}
 
 \addplot [
 color=mycolor2,
 solid
 ]
 table[]{\thisDir/data/avis1/LRM-interpol.tsv};
-\addlegendentry{LRM (int)};
+\addlegendentry{LRM (int)}
 
 \addplot [
 color=mycolor2,
@@ -74,7 +74,7 @@ mark=+,
 mark options={solid}
 ]
 table[]{\thisDir/data/avis1/LRM-interpol-peak};
-\addlegendentry{Max LRM (int)};
+\addlegendentry{Max LRM (int)}
 
 \end{axis}
 \end{tikzpicture}%

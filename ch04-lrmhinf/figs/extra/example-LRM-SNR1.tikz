@@ -463,7 +463,7 @@ legend style={at={(0.05,0.95)},anchor=north west,draw=black,fill=white,legend ce
 3.06479816650204	-39.6624878828695	\\
 3.07177948351002	-40.453527133994	\\
 };
-\addlegendentry{$\Delta$};
+\addlegendentry{$\Delta$}
 
 \addplot [LPMgrid, interpol]
 table[row sep=crcr]{
@@ -519,7 +519,7 @@ table[row sep=crcr]{
 3.00196631343025	-13.7936623179094	\\
 3.07177948351002	-6.05767325451575	\\
 };
-\addlegendentry{$\abs{\Delta_{\mathrm{LPM}}}$};
+\addlegendentry{$\abs{\Delta_{\mathrm{LPM}}}$}
 
 \addplot [LRMgrid, interpol]
 table[row sep=crcr]{
@@ -575,7 +575,7 @@ table[row sep=crcr]{
 3.00196631343025	-26.1980004824653	\\
 3.07177948351002	-24.7236524590019	\\
 };
-\addlegendentry{$\abs{\Delta_{\mathrm{LRM}}}$};
+\addlegendentry{$\abs{\Delta_{\mathrm{LRM}}}$}
 
 \addplot [SAgrid]
   table[row sep=crcr]{
@@ -625,7 +625,7 @@ table[row sep=crcr]{
 3.00196631343025	-11.4966858915958	\\
 3.07177948351002	-6.65373473940696	\\
 };
-\addlegendentry{$\abs{\Delta_{\mathrm{SA}}}$};
+\addlegendentry{$\abs{\Delta_{\mathrm{SA}}}$}
 
 \addplot [LPM, interpol, forget plot]
   table[row sep=crcr]{
@@ -1061,7 +1061,7 @@ table[row sep=crcr]{
 3.06479816650204	-6.74693368197524	\\
 3.07177948351002	-6.05767325451575	\\
 };
-%\addlegendentry{$\Delta_{\mathrm{LPM}}$ (int)};
+%\addlegendentry{$\Delta_{\mathrm{LPM}}$ (int)}
 
 \addplot [LRM, interpol, forget plot]
   table[row sep=crcr]{
@@ -1497,35 +1497,35 @@ table[row sep=crcr]{
 3.06479816650204	-24.9482663554269	\\
 3.07177948351002	-24.7236524590019	\\
 };
-%\addlegendentry{$\Delta_{\mathrm{LRM}}$ (int)};
+%\addlegendentry{$\Delta_{\mathrm{LRM}}$ (int)}
 
 \addplot [LPM, hinfnorm]
   table[row sep=crcr]{
 0.0698131700797732	18.7067656008809	\\
 3.07177948351002	18.7067656008809	\\
 };
-\addlegendentry{$\left\|\Delta_{\mathrm{LPM}}\right\|_{\infty}$};
+\addlegendentry{$\left\|\Delta_{\mathrm{LPM}}\right\|_{\infty}$}
 
 \addplot [LRM, hinfnorm]
   table[row sep=crcr]{
 0.0698131700797732	25.4710773379938	\\
 3.07177948351002	25.4710773379938	\\
 };
-\addlegendentry{$\left\|\Delta_{\mathrm{LRM}}\right\|_{\infty}$};
+\addlegendentry{$\left\|\Delta_{\mathrm{LRM}}\right\|_{\infty}$}
 
 \addplot [SA, hinfnorm]
   table[row sep=crcr]{
 0.0698131700797732	19.7359467917969	\\
 3.07177948351002	19.7359467917969	\\
 };
-\addlegendentry{$\left\|\Delta_{\mathrm{SA}}\right\|_{\infty}$};
+\addlegendentry{$\left\|\Delta_{\mathrm{SA}}\right\|_{\infty}$}
 
 \addplot [color=black,hinfnorm]
   table[row sep=crcr]{
 0.0698131700797732  25.694622637891 \\
 3.07177948351002    25.694622637891 \\
 };
-\addlegendentry{$\left\|\Delta\right\|_{\infty}$};
+\addlegendentry{$\left\|\Delta\right\|_{\infty}$}
 
 \end{axis}
 \end{tikzpicture}%

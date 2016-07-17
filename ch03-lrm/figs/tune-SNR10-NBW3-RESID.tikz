@@ -26,31 +26,31 @@ legend style={legend cell align=left,align=left,draw=white!15!black}
 ]
 \addplot [color=black,dotted,line width=2.0pt,mark size=2.0pt,mark=*,mark options={solid}]
   table[]{\thisDir/figs/tune-SNR10-NBW3-RESID-1.tsv};
-\addlegendentry{$\text{G}_\text{0}\text{ N}^{\text{1/2}}$};
+\addlegendentry{$\text{G}_\text{0}\text{ N}^{\text{1/2}}$}
 
 \addplot [color=black,dashdotted,line width=2.0pt]
   table[]{\thisDir/figs/tune-SNR10-NBW3-RESID-2.tsv};
-\addlegendentry{$\text{H}_\text{0}\text{ N}^{\text{1/2}}$};
+\addlegendentry{$\text{H}_\text{0}\text{ N}^{\text{1/2}}$}
 
 \addplot [color=lightgray,dashdotted,line width=2.0pt]
   table[]{\thisDir/figs/tune-SNR10-NBW3-RESID-3.tsv};
-\addlegendentry{E};
+\addlegendentry{E}
 
 \addplot [color=mycolor1,dashdotted]
   table[]{\thisDir/figs/tune-SNR10-NBW3-RESID-4.tsv};
-\addlegendentry{E Factory:LRM(7,1,1,1)};
+\addlegendentry{E Factory:LRM(7,1,1,1)}
 
 \addplot [color=mycolor2,dashdotted]
   table[]{\thisDir/figs/tune-SNR10-NBW3-RESID-5.tsv};
-\addlegendentry{E Factory:LRM(7,2,2,2)};
+\addlegendentry{E Factory:LRM(7,2,2,2)}
 
 \addplot [color=mycolor3,dashdotted]
   table[]{\thisDir/figs/tune-SNR10-NBW3-RESID-6.tsv};
-\addlegendentry{E Factory:LRM(6,2,2,2)};
+\addlegendentry{E Factory:LRM(6,2,2,2)}
 
 \addplot [color=black!20!red,dashdotted]
   table[]{\thisDir/figs/tune-SNR10-NBW3-RESID-7.tsv};
-\addlegendentry{E Factory:LPM(7,4,4)};
+\addlegendentry{E Factory:LPM(7,4,4)}
 
 \end{axis}
 \end{tikzpicture}%

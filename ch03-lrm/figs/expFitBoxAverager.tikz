@@ -25,21 +25,21 @@ legend style={legend cell align=left},
 \addplot [imprespFull]
   table[]{\thisDir/data/expfit-boxcar/full.tsv};
 
-\addlegendentry{$g(t)$};
+\addlegendentry{$g(t)$}
 
 \addplot [imprespAbs]
   table[]{\thisDir/data/expfit-boxcar/abs.tsv};
 
-\addlegendentry{$\abs{g(t)}$};
+\addlegendentry{$\abs{g(t)}$}
 
 \addplot [imprespExpFit]
   table[]{\thisDir/data/expfit-boxcar/expfit.tsv};
 
-\addlegendentry{Exponential fit};
+\addlegendentry{Exponential fit}
 
 \addplot [imprespPeaks]
   table[]{\thisDir/data/expfit-boxcar/peaks.tsv};
-\addlegendentry{Peaks};
+\addlegendentry{Peaks}
 
 \addplot [truncationline, forget plot]
   table[]{\thisDir/data/expfit-boxcar/truncationTime.tsv};

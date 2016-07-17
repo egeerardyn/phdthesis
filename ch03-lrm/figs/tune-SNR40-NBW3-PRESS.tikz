@@ -26,27 +26,27 @@ legend style={legend cell align=left,align=left,draw=white!15!black}
 ]
 \addplot [color=black,dotted,line width=2.0pt,mark size=2.0pt,mark=*,mark options={solid}]
   table[]{\thisDir/figs/tune-SNR40-NBW3-PRESS-1.tsv};
-\addlegendentry{$\text{G}_\text{0}\text{ N}^{\text{1/2}}$};
+\addlegendentry{$\text{G}_\text{0}\text{ N}^{\text{1/2}}$}
 
 \addplot [color=black,dashdotted,line width=2.0pt]
   table[]{\thisDir/figs/tune-SNR40-NBW3-PRESS-2.tsv};
-\addlegendentry{$\text{H}_\text{0}\text{ N}^{\text{1/2}}$};
+\addlegendentry{$\text{H}_\text{0}\text{ N}^{\text{1/2}}$}
 
 \addplot [color=mycolor1,solid]
   table[]{\thisDir/figs/tune-SNR40-NBW3-PRESS-3.tsv};
-\addlegendentry{$\text{E}_{\text{CV}}\text{ Factory:LRM(7,1,1,1)}$};
+\addlegendentry{$\text{E}_{\text{CV}}\text{ Factory:LRM(7,1,1,1)}$}
 
 \addplot [color=mycolor2,solid]
   table[]{\thisDir/figs/tune-SNR40-NBW3-PRESS-4.tsv};
-\addlegendentry{$\text{E}_{\text{CV}}\text{ Factory:LRM(7,2,2,2)}$};
+\addlegendentry{$\text{E}_{\text{CV}}\text{ Factory:LRM(7,2,2,2)}$}
 
 \addplot [color=mycolor3,solid]
   table[]{\thisDir/figs/tune-SNR40-NBW3-PRESS-5.tsv};
-\addlegendentry{$\text{E}_{\text{CV}}\text{ Factory:LRM(6,2,2,2)}$};
+\addlegendentry{$\text{E}_{\text{CV}}\text{ Factory:LRM(6,2,2,2)}$}
 
 \addplot [color=black!20!red,solid]
   table[]{\thisDir/figs/tune-SNR40-NBW3-PRESS-6.tsv};
-\addlegendentry{$\text{E}_{\text{CV}}\text{ Factory:LPM(7,4,4)}$};
+\addlegendentry{$\text{E}_{\text{CV}}\text{ Factory:LPM(7,4,4)}$}
 
 \end{axis}
 \end{tikzpicture}%

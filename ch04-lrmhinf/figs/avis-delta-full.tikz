@@ -32,16 +32,16 @@ legend style={fill=white,legend cell align=left,at={(0.02,0.2)},anchor=south wes
 ]
 
 \addplot [validation] table[] {\thisDir/data/avis-delta/lrm-validation.tsv};
-\addlegendentry{LRM (validation)};
+\addlegendentry{LRM (validation)}
 
 \addplot [LRMgrid, medsmallmarkers, forget plot] table[]{\thisDir/data/avis-delta/lrm-grid-estimation.tsv};
-%\addlegendentry{LRM (estimation)};
+%\addlegendentry{LRM (estimation)}
 
 % plot split among two traces
 \addplot [LRM,interpol, forget plot] table[]{\thisDir/data/avis-delta/lrm-interpol01.tsv};
 \addplot [LRM,interpol, forget plot] table[]{\thisDir/data/avis-delta/lrm-interpol02.tsv};
 
-%\addlegendentry{LRM (estimation) : interpolated};
+%\addlegendentry{LRM (estimation) : interpolated}
 
 % \addplot [LRMgrid,medsmallmarkers,interpol]
 % table[row sep=crcr]{
@@ -50,7 +50,7 @@ legend style={fill=white,legend cell align=left,at={(0.02,0.2)},anchor=south wes
 % };
 
 \addlegendimage{LRMgrid,medsmallmarkers,interpol};
-\addlegendentry{LRM (estimation)};
+\addlegendentry{LRM (estimation)}
 
 \draw (axis cs:280,0) rectangle (axis cs:350,-35);
 

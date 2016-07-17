@@ -20,23 +20,23 @@ ymajorgrids,
 legend style={nodes=right, anchor={west}, at={(0,0.6)},font=\footnotesize}]
 \addplot [truesys]
 table[]{\thisDir/data/Sum02log0-2/truesys.tsv};
-\addlegendentry{True System $\true{G}$};
+\addlegendentry{True System $\true{G}$}
 
 \addplot [color=black,dashed,line width=1.0pt]
 table[]{\thisDir/data/Sum02log0-2/model.tsv};
-\addlegendentry{Mean Model $\hat{G}$};
+\addlegendentry{Mean Model $\hat{G}$}
 
 \addplot [color=biasqlogms,dashed,line width=2pt]
 table[]{\thisDir/data/Sum02log0-2/qlogms-mse.tsv};
-\addlegendentry{$\mathrm{MSE}(\hat{G})$};
+\addlegendentry{$\mathrm{MSE}(\hat{G})$}
 
 \addplot [sigmaqlogms]
 table[]{\thisDir/data/Sum02log0-2/qlogms-sigma.tsv};
-\addlegendentry{$\sigma_{\hat{G}}$};
+\addlegendentry{$\sigma_{\hat{G}}$}
 
 \addplot [biasqlogms]
 table[]{\thisDir/data/Sum02log0-2/qlogms-bias.tsv};
-\addlegendentry{$\mathrm{Bias}(\hat{G})$};
+\addlegendentry{$\mathrm{Bias}(\hat{G})$}
 
 \end{semilogxaxis}
 \end{tikzpicture}

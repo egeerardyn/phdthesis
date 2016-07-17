@@ -56,7 +56,7 @@ ylabel={Amplitude $\svdMax{\Delta(\omega_{\star})}$}
 
 \addplot [gammafrf,mediummarkers] table[]{\thisDir/data/mc-runlength/E-gamma-frf.tsv};
 \label{leg:runlength-frf}
-%\addlegendentry{True Value (DFT)};
+%\addlegendentry{True Value (DFT)}
 
 \addplot [reference]
   table[row sep=crcr]{%
@@ -64,16 +64,16 @@ ylabel={Amplitude $\svdMax{\Delta(\omega_{\star})}$}
 97	50\\
 };
 \label{leg:runlength-special-case}
-%\addlegendentry{N = 97};
+%\addlegendentry{N = 97}
 
 %\input{\thisDir/data/mc-runlength/bagger1.tex}
 
 \addplot[LPMshade] table[] {\thisDir/data/mc-runlength/LPM-IG-uncertainty.tsv};
 \label{leg:runlength-LPM-uncertainty}
-%\addlegendentry{data6};
+%\addlegendentry{data6}
 
 \addplot [LPMgrid,interpol,medsmallmarkers] table[]{\thisDir/data/mc-runlength/LPM-IG.tsv};
-%\addlegendentry{Factory:LPM(5,2,2)};
+%\addlegendentry{Factory:LPM(5,2,2)}
 \label{leg:runlength-LPM}
 
 
@@ -81,7 +81,7 @@ ylabel={Amplitude $\svdMax{\Delta(\omega_{\star})}$}
 
 \addplot[LRMshade] table[] {\thisDir/data/mc-runlength/LRM-IG-uncertainty.tsv};
 \label{leg:runlength-LRM-uncertainty}
-%\addlegendentry{data10};
+%\addlegendentry{data10}
 
 \addplot [truesys,hinfnorm]
   table[row sep=crcr]{%
@@ -89,10 +89,10 @@ ylabel={Amplitude $\svdMax{\Delta(\omega_{\star})}$}
 16000	23.9713487917402\\
 };
 \label{leg:runlength-true}
-%\addlegendentry{True Value (theoretical)}; 
+%\addlegendentry{True Value (theoretical)} 
 
 \addplot [LRMgrid,interpol,medsmallmarkers] table[]{\thisDir/data/mc-runlength/LRM-IG.tsv};
-%\addlegendentry{Factory:LRM(6,2,2,2)};
+%\addlegendentry{Factory:LRM(6,2,2,2)}
 \label{leg:runlength-LRM}
 
 \node at (axis cs:200,26.5) [color=LRM] {LRM};

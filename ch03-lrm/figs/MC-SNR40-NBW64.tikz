@@ -33,13 +33,13 @@ legend style={at={(0.97,0.03)},anchor=south east,legend cell align=left,align=le
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-1.tsv};
 \addplot [color=black,line width=2.0pt]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-2.tsv};
-\addlegendentry{$\text{G}_\text{0}$};
+\addlegendentry{$\text{G}_\text{0}$}
 
 \addplot [color=mycolor1,dotted,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-3.tsv};
 \addplot [color=mycolor1]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-4.tsv};
-\addlegendentry{LRM(7,2,2,2)};
+\addlegendentry{LRM(7,2,2,2)}
 
 \addplot [color=mycolor1,dashed,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-5.tsv};
@@ -47,7 +47,7 @@ legend style={at={(0.97,0.03)},anchor=south east,legend cell align=left,align=le
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-6.tsv};
 \addplot [color=mycolor2]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-7.tsv};
-\addlegendentry{LPM(7,4,4)};
+\addlegendentry{LPM(7,4,4)}
 
 \addplot [color=mycolor2,dashed,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-8.tsv};
@@ -55,7 +55,7 @@ legend style={at={(0.97,0.03)},anchor=south east,legend cell align=left,align=le
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-9.tsv};
 \addplot [color=mycolor3]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-10.tsv};
-\addlegendentry{ETFE(0,0)};
+\addlegendentry{ETFE(0,0)}
 
 \addplot [color=mycolor3,dashed,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-11.tsv};
@@ -63,7 +63,7 @@ legend style={at={(0.97,0.03)},anchor=south east,legend cell align=left,align=le
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-12.tsv};
 \addplot [color=mycolor4]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-13.tsv};
-\addlegendentry{LRM(7,1,1,1)};
+\addlegendentry{LRM(7,1,1,1)}
 
 \addplot [color=mycolor4,dashed,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-14.tsv};
@@ -71,7 +71,7 @@ legend style={at={(0.97,0.03)},anchor=south east,legend cell align=left,align=le
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-15.tsv};
 \addplot [color=mycolor5]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-16.tsv};
-\addlegendentry{LRM(6,2,2,2)};
+\addlegendentry{LRM(6,2,2,2)}
 
 \addplot [color=mycolor5,dashed,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-17.tsv};
@@ -79,7 +79,7 @@ legend style={at={(0.97,0.03)},anchor=south east,legend cell align=left,align=le
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-18.tsv};
 \addplot [color=mycolor6]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-19.tsv};
-\addlegendentry{CT-Rik(7,2,2,2)};
+\addlegendentry{CT-Rik(7,2,2,2)}
 
 \addplot [color=mycolor6,dashed,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW64/MC-SNR40-NBW64-20.tsv};

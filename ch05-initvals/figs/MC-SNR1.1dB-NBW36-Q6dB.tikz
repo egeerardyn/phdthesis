@@ -47,7 +47,7 @@ legend style={draw=black,fill=white,legend cell align=left}
 ]
 \addplot [G0Hat]
   table[]{\thisDir/data/MC-SNR1.1dB-NBW36-Q6dB/G0hat.tsv};
-% \addlegendentry{$\hat{G}_0$};
+% \addlegendentry{$\hat{G}_0$}
 \label{leg:dist-G0}
 
 
@@ -55,14 +55,14 @@ legend style={draw=black,fill=white,legend cell align=left}
   table[]{\thisDir/data/MC-SNR1.1dB-NBW36-Q6dB/Gexist.tsv};
 \addplot [existing,existingmark]
   table[]{\thisDir/data/MC-SNR1.1dB-NBW36-Q6dB/Gexist-transition.tsv};
-% \addlegendentry{$\hat{G}_{existing}$};
+% \addlegendentry{$\hat{G}_{existing}$}
 \label{leg:dist-G-exist}
 
 \addplot [LPMTruncInit,forget plot]
   table[]{\thisDir/data/MC-SNR1.1dB-NBW36-Q6dB/Gtrunc-init.tsv};
 \addplot [LPMTruncInit,LPMTruncInitmark]
   table[]{\thisDir/data/MC-SNR1.1dB-NBW36-Q6dB/Gtrunc-init-marks.tsv};
-% \addlegendentry{$\hat{G}_{trunc}^{init}$};
+% \addlegendentry{$\hat{G}_{trunc}^{init}$}
 \label{leg:dist-G-trunc-init}
 
 
@@ -70,21 +70,21 @@ legend style={draw=black,fill=white,legend cell align=left}
   table[]{\thisDir/data/MC-SNR1.1dB-NBW36-Q6dB/Gtrunc.tsv};
 \addplot [LPMTrunc,LPMTruncmark]
   table[]{\thisDir/data/MC-SNR1.1dB-NBW36-Q6dB/Gtrunc-transition.tsv};
-% \addlegendentry{$\hat{G}_{trunc}$};
+% \addlegendentry{$\hat{G}_{trunc}$}
 \label{leg:dist-G-trunc}
 
 \addplot [RFIRInit,forget plot]
   table[]{\thisDir/data/MC-SNR1.1dB-NBW36-Q6dB/GRFIR-init.tsv};
 \addplot [RFIRInit,RFIRInitmark]
   table[]{\thisDir/data/MC-SNR1.1dB-NBW36-Q6dB/GRFIR-init-marks.tsv};
-% \addlegendentry{$\hat{G}_{RFIR}^{init}$};
+% \addlegendentry{$\hat{G}_{RFIR}^{init}$}
 \label{leg:dist-G-RFIR-init}
 
 \addplot [RFIR,forget plot]
   table[]{\thisDir/data/MC-SNR1.1dB-NBW36-Q6dB/GRFIR.tsv};
 \addplot [RFIR,RFIRmark]
   table[]{\thisDir/data/MC-SNR1.1dB-NBW36-Q6dB/GRFIR-transition.tsv};
-% \addlegendentry{$\hat{G}_{RFIR}$};
+% \addlegendentry{$\hat{G}_{RFIR}$}
 \label{leg:dist-G-RFIR}
 
 \node[annotation,inner sep=1mm] at (axis cs:100,0.4) {\scriptsize $Q=6\unit{dB} \;\quad N=4\,462 \;\quad \nBW=48 \;\quad \SNR=-1.1\unit{dB}$};

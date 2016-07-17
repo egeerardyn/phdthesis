@@ -37,30 +37,30 @@ ymajorgrids,
 
 % \addplot [SA]
 % table[]{\thisDir/data/avis4/SA.tsv};
-% \addlegendentry{ETFE};
+% \addlegendentry{ETFE}
 
 % \addplot [LPMgrid]
 % table[]{\thisDir/data/avis4/LPM-frf.tsv};
-% %\addlegendentry{LPM};
+% %\addlegendentry{LPM}
 % \label{leg:avis4-LPM}
 
 \addplot [LRMgrid]
 table[]{\thisDir/data/avis4/LRM-frf.tsv};
-%\addlegendentry{LRM};
+%\addlegendentry{LRM}
 \label{leg:avis4-LRM}
 
 \addplot [LRM,interpol]
 table[]{\thisDir/data/avis4/LRM-intergrid.tsv};
-%\addlegendentry{LRM (int)};
+%\addlegendentry{LRM (int)}
 
 \addplot [LRMgrid,interpol]
 table[]{\thisDir/data/avis4/LRM-intergrid-placeholder.tsv};
-%\addlegendentry{LRM (estimation)};
+%\addlegendentry{LRM (estimation)}
 \label{leg:avis4-LRMi}
 
 \addplot [validation]
 table[]{\thisDir/data/avis4/LRM-validation.tsv};
-%\addlegendentry{LRM (validation)};
+%\addlegendentry{LRM (validation)}
 \label{leg:avis4-validation}
 
 \addplot [LRM,hinfnorm]
@@ -75,7 +75,7 @@ table[]{\thisDir/data/avis4/LRM-validation-hinfnorm.tsv};
 % table[]{\thisDir/data/avis4/LPM-hinfnorm.tsv};
 % \label{leg:avis4-LPM-hinf}
 
-%\addlegendentry{LRM (estimation)};
+%\addlegendentry{LRM (estimation)}
 
 % \addplot3 [
 % color=white,

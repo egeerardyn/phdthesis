@@ -36,16 +36,16 @@
 
 \nextgroupplot[ylabel={$\Delta f_k$ \axisunit{Hz}},legendAboveGroupPlot,extra y ticks={1},extra y tick labels={$\Delta f$},ytick={0.1,1,10},yticklabels={{$10^{-1}$},$\Delta f$,$10^1$}]
 \addplot[linmsconnect] table[x index=0,y index=2]{\thisDir/data/gridProps/linms.tsv};
-\addlegendentry{Linear};
+\addlegendentry{Linear}
 
 \addplot[logmsconnect] table[x index=0,y index=2]{\thisDir/data/gridProps/logms.tsv};
-\addlegendentry{Logarithmic};
+\addlegendentry{Logarithmic}
 
 % \addplot[clogmsconnect] table[x index=0,y index=2]{\thisDir/data/gridProps/clogms.tsv};
-% \addlegendentry{Comp. quasi-log multisine};
+% \addlegendentry{Comp. quasi-log multisine}
 
 \addplot[plogmsconnect] table[x index=0,y index=2]{\thisDir/data/gridProps/plogms.tsv};
-\addlegendentry{Quasi-logarithmic};
+\addlegendentry{Quasi-logarithmic}
 
 % ================================================
 

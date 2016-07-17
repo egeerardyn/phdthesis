@@ -28,19 +28,19 @@ axis background/.style={fill=white},
 legend style={legend cell align=left,align=left,draw=black}
 ]
 \addplot [color=blue,solid] table[]{\thisDir/data/bk1613datasheet/dat001.tsv};
-\addlegendentry{Transfer Function (result)};
+\addlegendentry{Transfer Function (result)}
 
 \addplot [color=red,dotted,mark=*,mark options={solid}]
   table[]{\thisDir/data/bk1613datasheet/dat002.tsv};
-\addlegendentry{Datasheet (digitized)};
+\addlegendentry{Datasheet (digitized)}
 
 \addplot [color=red,mark size=3.5pt,only marks,mark=asterisk,mark options={solid}]
   table[]{\thisDir/data/bk1613datasheet/dat003.tsv};
-\addlegendentry{- 3 dB Frequency (spec.)};
+\addlegendentry{- 3 dB Frequency (spec.)}
 
 \addplot [color=red,mark size=3.5pt,only marks,mark=o,mark options={solid}]
   table[]{\thisDir/data/bk1613datasheet/dat004.tsv};
-\addlegendentry{- 40 dB Frequency (approx. spec.)};
+\addlegendentry{- 40 dB Frequency (approx. spec.)}
 
 \end{axis}
 \end{tikzpicture}%

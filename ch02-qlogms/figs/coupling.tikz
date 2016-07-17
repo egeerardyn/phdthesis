@@ -24,22 +24,22 @@ every axis plot post/.append style={mark repeat*=29,mediummarkers}
 ]
 
 \addlegendimage{empty legend};
-\addlegendentry{$\wn[2] - \wn[1]$};
+\addlegendentry{$\wn[2] - \wn[1]$}
 
 \addplot[first,mark=*] table {\thisDir/data/coupling/bw04.tsv};
-\addlegendentry{$4\wdB$};
+\addlegendentry{$4\wdB$}
 
 \addplot[second,mark=pentagon*] table {\thisDir/data/coupling/bw08.tsv};
-\addlegendentry{$8\wdB$};
+\addlegendentry{$8\wdB$}
 
 \addplot[third,mark=square*] table {\thisDir/data/coupling/bw16.tsv};
-\addlegendentry{$16\wdB$};
+\addlegendentry{$16\wdB$}
 
 \addplot[fourth,mark=diamond*] table {\thisDir/data/coupling/bw32.tsv};
-\addlegendentry{$32\wdB$};
+\addlegendentry{$32\wdB$}
 
 \addplot[fifth,mark=triangle*] table {\thisDir/data/coupling/bw64.tsv};
-\addlegendentry{$64\wdB$};
+\addlegendentry{$64\wdB$}
 
 \draw [->, line width=1pt] (axis cs:0.4,0.3) -- (axis cs:0.52,0.0006);
 

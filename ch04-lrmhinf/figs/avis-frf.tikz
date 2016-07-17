@@ -3905,7 +3905,7 @@ table[row sep=crcr] {
 499.893188476562 -63.9666083268071\\
 499.984741210938 -63.9670947665445\\
 };
-%\addlegendentry{Model $\hat{P}$};
+%\addlegendentry{Model $\hat{P}$}
 \label{m2t:plantModel}
 
 \addplot [frf, forget plot]
@@ -7504,7 +7504,7 @@ table[row sep=crcr]{
 499.893188476562 -61.5157188121727\\
 499.984741210938 -61.4375424585283\\
 };
-%\addlegendentry{FRF $P(\omega_k)$};
+%\addlegendentry{FRF $P(\omega_k)$}
 \label{m2t:plantFRF}
 
 % \addplot [

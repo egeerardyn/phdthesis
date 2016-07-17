@@ -55,16 +55,16 @@ legend style={legend cell align=left,align=left,draw=black},
 legend pos=south west
 ]
 \addplot [mainCurve] table[]{\thisDir/data/rmse-boxcar/rmse.tsv};
-\addlegendentry{RMS Error};
+\addlegendentry{RMS Error}
 
 \addplot [pointOfInterest] table[]{\thisDir/data/rmse-boxcar/optimum.tsv};
-\addlegendentry{Optimum};
+\addlegendentry{Optimum}
 
 \addlegendimage{histogramSmootherFTest}
-\addlegendentry{$F$-test};
+\addlegendentry{$F$-test}
 
 \addlegendimage{histogramSmootherExpFit}
-\addlegendentry{Exponential fitting};
+\addlegendentry{Exponential fitting}
 
 
 \end{axis}

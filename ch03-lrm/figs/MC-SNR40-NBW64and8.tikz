@@ -35,7 +35,7 @@ xtick scale label code/.code={},
 
 
 \addplot [black,line width=2.0pt,name path=G01] table[]{\thisDir/data/MC-SNR40-NBW8/G0.tsv};
-% \addlegendentry{$\true{G}$};
+% \addlegendentry{$\true{G}$}
 \label{leg:nparam:trueG}
 
 \path[name path=bottom1] (rel axis cs:0,0) -- (rel axis cs:1,0);
@@ -43,7 +43,7 @@ xtick scale label code/.code={},
 \addplot[bw,forget plot] fill between[of=G01 and bottom1,soft clip={domain=0.157555466719968:0.160703577853288}];
 
 \addplot [black,dashdotted,line width=1.5pt] table[]{\thisDir/data/MC-SNR40-NBW8/H0.tsv};
-% \addlegendentry{$\true{H}$};
+% \addlegendentry{$\true{H}$}
 \label{leg:nparam:trueH}
 
 
@@ -55,7 +55,7 @@ xtick scale label code/.code={},
 \label{leg:nparam:lrm7222}
 \addplot [mcvar,lrm7222,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/LRM7222-std.tsv};
-% \addlegendentry{$\lrm{7,2,2,2}$};
+% \addlegendentry{$\lrm{7,2,2,2}$}
 
 
 \addplot [lpm744,mcrmse,forget plot]
@@ -65,7 +65,7 @@ xtick scale label code/.code={},
 \label{leg:nparam:lpm744}
 \addplot [lpm744,mcvar,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/LPM744-std.tsv};
-% \addlegendentry{$\lpm{7,4,4}$};
+% \addlegendentry{$\lpm{7,4,4}$}
 
 \addplot [etfe,mcrmse,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/ETFE-rmse.tsv};
@@ -74,7 +74,7 @@ xtick scale label code/.code={},
 \label{leg:nparam:etfe}
 \addplot [etfe,mcvar,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/ETFE-std.tsv};
-% \addlegendentry{$\ETFE$};
+% \addlegendentry{$\ETFE$}
 
 \addplot [lrm7111,mcrmse,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/LRM7111-rmse.tsv};
@@ -83,14 +83,14 @@ xtick scale label code/.code={},
 \label{leg:nparam:lrm7111}
 \addplot [lrm7111,mcvar,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/LRM7111-std.tsv};
-% \addlegendentry{LRM(7,1,1,1)};
+% \addlegendentry{LRM(7,1,1,1)}
 
 
 \addplot [lrm6222,mcrmse,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/LRM6222-rmse.tsv};
 \addplot [lrm6222,mcbias,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/LRM6222-bias.tsv};
-% \addlegendentry{LRM(6,2,2,2)};
+% \addlegendentry{LRM(6,2,2,2)}
 \label{leg:nparam:lrm6222}
 \addplot [lrm6222,mcvar,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/LRM6222-std.tsv};
@@ -99,7 +99,7 @@ xtick scale label code/.code={},
   table[]{\thisDir/data/MC-SNR40-NBW8/LRIC7222-rmse.tsv};
 \addplot [lric7222,mcbias,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/LRIC7222-bias.tsv};
-% \addlegendentry{CT-Rik(7,2,2,2)};
+% \addlegendentry{CT-Rik(7,2,2,2)}
 \label{leg:nparam:lric7222}
 \addplot [lric7222,mcvar,forget plot]
   table[]{\thisDir/data/MC-SNR40-NBW8/LRIC7222-std.tsv};

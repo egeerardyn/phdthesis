@@ -36,22 +36,22 @@ axis y line*=left,
 ]
 \addplot [best,line width=1pt] table[]{\thisDir/data/overview-cost-val/cost-best.tsv};
 \label{leg:best}
-% \addlegendentry{$\hat{G}_{best}$};
+% \addlegendentry{$\hat{G}_{best}$}
 
 \addplot [RFIR,RFIRmark,only marks] table[]{\thisDir/data/overview-cost-val/cost-rfir.tsv};
 \label{leg:RFIR}
-% \addlegendentry{$\hat{G}_{RFIR}$};
+% \addlegendentry{$\hat{G}_{RFIR}$}
 
 \addplot [LPMTrunc,LPMTruncInitmark,only marks] table[]{\thisDir/data/overview-cost-val/cost-trunc.tsv};
 \label{leg:trunc}
-% \addlegendentry{$\hat{G}_{trunc}$};
+% \addlegendentry{$\hat{G}_{trunc}$}
 
 \addplot [existing,existingInitmark,only marks] table[]{\thisDir/data/overview-cost-val/cost-exist.tsv};
 \label{leg:exist}
-% \addlegendentry{$\hat{G}_{existing}$};
+% \addlegendentry{$\hat{G}_{existing}$}
 
 \addplot [G0Hat,G0Hatmark,only marks,medsmallmarkers] table[]{\thisDir/data/overview-cost-val/cost-true.tsv};
-% \addlegendentry{$\hat{G}_0$};
+% \addlegendentry{$\hat{G}_0$}
 \label{leg:VXI}
 
 \end{axis}

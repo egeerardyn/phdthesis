@@ -44,16 +44,16 @@ ylabel={RMS Error \noaxisunit},
 legend style={legend cell align=left,align=left,draw=black}
 ]
 \addplot [mainCurve] table[]{\thisDir/data/rmse-resonant/rmse.tsv};
-\addlegendentry{RMS Error};
+\addlegendentry{RMS Error}
 
 \addplot [pointOfInterest] table[]{\thisDir/data/rmse-resonant/optimum.tsv};
-\addlegendentry{Theoretical optimum};
+\addlegendentry{Theoretical optimum}
 
 \addlegendimage{histogramSmootherFTest}
-\addlegendentry{$F$-test};
+\addlegendentry{$F$-test}
 
 \addlegendimage{histogramSmootherExpFit}
-\addlegendentry{Exponential fitting};
+\addlegendentry{Exponential fitting}
 
 
 

@@ -23,16 +23,16 @@ extra x tick labels={$\omegaLinLog\phantom{^1}$},
 legend style={{at=(0.95,0.95)}, anchor={north east},nodes=left}]
 
 \addplot[linmsgrid] table{\thisDir/data/freqGrid/linms.tsv};
-\addlegendentry{Linear grid multisine};
+\addlegendentry{Linear grid multisine}
 
 \addplot[logmsgrid] table{\thisDir/data/freqGrid/logms.tsv};
-\addlegendentry{Log grid multisine};
+\addlegendentry{Log grid multisine}
 
 \addplot[clogmsgrid] table{\thisDir/data/freqGrid/clogms.tsv};
-\addlegendentry{Comp. quasi-log multisine};
+\addlegendentry{Comp. quasi-log multisine}
 
 \addplot[plogmsgrid] table{\thisDir/data/freqGrid/plogms.tsv};
-\addlegendentry{Pink quasi-log multisine};
+\addlegendentry{Pink quasi-log multisine}
 
 \end{semilogxaxis}
 \end{tikzpicture}

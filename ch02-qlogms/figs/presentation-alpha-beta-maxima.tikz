@@ -61,25 +61,25 @@ axis y line=none,
 \addplot [dbamax] table[row sep=crcr]{
 	10	27.6453\\
 };
-% \addlegendentry{$\abs{G(\wM)} = 40 \unit{dB}$};
+% \addlegendentry{$\abs{G(\wM)} = 40 \unit{dB}$}
 
 
 \addplot[dbbmax] table[row sep=crcr] {
 	10	15.8559\\
  };
-% \addlegendentry{$\abs{G(\wM)} = 20 \unit{dB}$};
+% \addlegendentry{$\abs{G(\wM)} = 20 \unit{dB}$}
 
 
 \addplot [dbcmax] table[row sep=crcr] {
 	10	7.78034\\
 };
-% \addlegendentry{$\abs{G(\wM)} = 10 \unit{dB}$};
+% \addlegendentry{$\abs{G(\wM)} = 10 \unit{dB}$}
 
 
 \addplot[dbdmax] table[row sep=crcr] {
 	10	2.91389\\
 };
-% \addlegendentry{$\abs{G(\wM)} = \phantom{0}5 \unit{dB}$};
+% \addlegendentry{$\abs{G(\wM)} = \phantom{0}5 \unit{dB}$}
 
 % \addplot [color=black,dashed,line width=1pt]
 % table[row sep=crcr]{
