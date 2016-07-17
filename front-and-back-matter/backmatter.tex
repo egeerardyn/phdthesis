@@ -6,10 +6,11 @@
 
 % http://tex.stackexchange.com/questions/29381/is-it-normal-for-bibtex-to-replace-similar-author-names-with
 
-% http://tex.stackexchange.com/questions/67153/bibliography-not-in-toc-when-using-biblatex-biber
-
 % http://tex.stackexchange.com/questions/203764/reduce-font-size-of-bibliography-overfull-bibliography
 \renewcommand*{\bibfont}{\small}
+% http://tex.stackexchange.com/questions/171999/overfull-hbox-in-biblatex
+\emergencystretch=1.5em
+% http://tex.stackexchange.com/questions/67153/bibliography-not-in-toc-when-using-biblatex-biber
 \printbibliography[heading=bibintoc]
 
 \input{front-and-back-matter/summary.inc.tex}
