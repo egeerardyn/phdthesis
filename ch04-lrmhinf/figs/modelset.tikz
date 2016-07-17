@@ -1,0 +1,11 @@
+% http://tex.stackexchange.com/questions/33607/easy-curves-in-tikz
+\begin{tikzpicture}[thick]
+
+\draw [black,fill=lightgray] plot [smooth cycle] coordinates {(-2,0) (-2,2) (2,2) (2,-1)};
+
+\node (phat)     at (0,1)       {$\estimated{\Plant}$};
+\node (modelset) at (0,2.5)     {$\ModelSet[]$};
+\node (p0)       at (1.9,-0.5)  {$\true{\Plant}$};
+
+\draw [<->] (p0) -- (phat);
+\end{tikzpicture}
