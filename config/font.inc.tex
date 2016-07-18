@@ -1,23 +1,24 @@
 %% font configuration
 
-\ifPDFTeX
-    \usepackage{fourier}
-    % \usepackage{Alegreya}
-\else
+\usepackage{Alegreya}
+\usepackage{AlegreyaSans}
 
+\ifPDFTeX
+\else
     \ifXeTeX
-      \usepackage{mathspec}
-      % http://tex.stackexchange.com/questions/85696/what-causes-this-strange-interaction-between-glossaries-and-amsmath
-        \makeatletter % undo the wrong changes made by mathspec
-        \let\RequirePackage\original@RequirePackage
-        \let\usepackage\RequirePackage
-        \makeatother
+      % \usepackage{mathspec}
+      %% http://tex.stackexchange.com/questions/85696/what-causes-this-strange-interaction-between-glossaries-and-amsmath
+      % \makeatletter % undo the wrong changes made by mathspec
+      % \let\RequirePackage\original@RequirePackage
+      % \let\usepackage\RequirePackage
+      % \makeatother
     \else % LuaTeX
-      \usepackage[no-math]{fontspec}
+      %\usepackage[no-math]{fontspec}
     \fi
    %% Alegreya
-   \setmainfont{Alegreya}[SmallCapsFont={* SC}]
-    \setsansfont{Alegreya Sans}[SmallCapsFont={* SC}]
+   % already using the Alegreya / AlegreyaSans packages
+   % \setmainfont{Alegreya}[SmallCapsFont={* SC}]
+    % \setsansfont{Alegreya Sans}[SmallCapsFont={* SC}]
     \setmonofont{Fira Code}[UprightFont={*}, ItalicFont={* Medium}, BoldFont={* Medium},BoldItalicFont={* Medium},Scale=MatchLowercase]
 
     %% Avenir + Alegreya
