@@ -1,7 +1,15 @@
 %% font configuration
+\ifPDFTeX
+\else
+  \PassOptionsToPackage{no-math}{fontspec}
+\fi
 
 \usepackage{Alegreya}
 \usepackage{AlegreyaSans}
+
+% http://tex.stackexchange.com/questions/317862/mimicking-mathspec-practices-in-lualatex
+% \usepackage[italic,noendash]{mathastext}
+% !! do not use Algereya for math: hats are off, bold greek is not present, etc.
 
 \ifPDFTeX
 \else
@@ -20,25 +28,4 @@
    % \setmainfont{Alegreya}[SmallCapsFont={* SC}]
     % \setsansfont{Alegreya Sans}[SmallCapsFont={* SC}]
     \setmonofont{Fira Code}[UprightFont={*}, ItalicFont={* Medium}, BoldFont={* Medium},BoldItalicFont={* Medium},Scale=MatchLowercase]
-
-    %% Avenir + Alegreya
-    % \setmainfont{Alegreya}[SmallCapsFont={* SC}]
-    % \setsansfont{Avenir Next}[UprightFont={* Regular},BoldFont={* Medium},BoldItalicFont={* Medium Italic}]
-    % \setmonofont{Fira Code}[UprightFont={*}, ItalicFont={* Medium}, BoldFont={* Medium},BoldItalicFont={* Medium},Scale=MatchLowercase]
-    % \setmathsfont(Digits)[Numbers={Lining,Proportional}]{Alegreya}
-
-    %% Avenir + Merriweather
-    %\setmainfont{Merriweather}[Scale=MatchUppercase]
-    % \setsansfont{Avenir Next}[UprightFont={* Regular},BoldFont={* Medium},BoldItalicFont={* Medium Italic}]
-    % \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black},Scale=MatchLowercase]
-
-    %% Source
-    % \setmainfont{Source Serif Pro} %doesn't have small caps, i.e. DO NOT USE
-    % \setsansfont{Source Sans Pro}
-    % \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
-
-    % %% Helvetica + Palatino
-    % \setmainfont{Palatino}
-    % \setsansfont{Helvetica}
-    % \setmonofont{Source Code Pro}[UprightFont={*}, ItalicFont={* Light}, BoldFont={* Semibold},BoldItalicFont={* Black}]
 \fi
