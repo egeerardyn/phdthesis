@@ -42,12 +42,12 @@ domain=2:256,
 	         expression {-20*#1*log10(x)};
 }
 
-\node[trace,lrm7222,rotate=-17.5] at (axis cs:6,-150) {$\lrm{7,2,2,2}$};
-\node[trace,etfe    ,rotate=-5] at (axis cs:180,-40) {$\ETFE$};
-\node[trace,lpm744,rotate=-25] at (axis cs:128,-120) {$\lpm{7,4,4}$};
-\node[trace,lrm7111,rotate=-13] at (axis cs:5,-80) {$\lrm{7,1,1,1}$};
-\node[trace,lrm6222,rotate=-17.5] at (axis cs:16,-215) {$\lrm{6,2,2,2}$};
-\node[trace,lric7222,rotate=-17.5] at (axis cs:64,-225) {$\lric{7,2,2,2}$};
+\node[lrm7222,trace,rotate=-17.5] at (axis cs:6,-150) {$\lrm{7,2,2,2}$};
+\node[etfe    ,trace,rotate=-5] at (axis cs:180,-40) {$\ETFE$};
+\node[lpm744,trace,rotate=-25] at (axis cs:128,-120) {$\lpm{7,4,4}$};
+\node[lrm7111,trace,rotate=-13] at (axis cs:5,-80) {$\lrm{7,1,1,1}$};
+\node[lrm6222,trace,rotate=-17.5] at (axis cs:16,-215) {$\lrm{6,2,2,2}$};
+\node[lric7222,trace,rotate=-17.5] at (axis cs:64,-225) {$\lric{7,2,2,2}$};
 
 \node[annotation, anchor=north east] at (rel axis cs: 1,1) {$\SNR = \SNRval \unit{dB}$};
 

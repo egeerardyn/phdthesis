@@ -50,7 +50,7 @@ domain=2:256,
 \node[trace=none,lpm744] at (axis cs:25,-43) {$\lpm{7,4,4}$};
 \node[trace=none,lrm7111,rotate=-30] at (axis cs:32,-26) {$\lrm{7,1,1,1}$};
 \node[trace=none,lrm6222,rotate=-28] at (axis cs:12,-28) {$\lrm{6,2,2,2}$};
-\node[trace=none,lric7222] at (axis cs:5,-40) {$\lric{7,2,2,2}$};
+\node[trace=none,lric7222] at (axis cs:4,-40) {$\lric{7,2,2,2}$};
 
 \node[annotation, anchor=north east] at (rel axis cs: 1,1) {$\SNR = \SNRval \unit{dB}$};
 
