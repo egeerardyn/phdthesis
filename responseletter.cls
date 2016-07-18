@@ -27,6 +27,10 @@
 \RequirePackage{mathtools}
 \RequirePackage{braket}
 
+
+\newenvironment{figure}{\vspace{1em}}{\vspace{1em}}
+\renewcommand{\caption}[2][]{\par Figure~#1:~#2.\par}
+
 % http://tex.stackexchange.com/questions/26071/how-can-i-have-colored-and-underlined-links-with-hyperref
 \makeatletter
 \Hy@AtBeginDocument{%

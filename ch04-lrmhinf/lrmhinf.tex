@@ -88,23 +88,25 @@ In robust control~\citep{Zhou1996,Skogestad2005}, the design is carried out whil
 This is typically done by considering that the actual plant $\true{\Plant} \in \ModelSet[]$.
 Hence, the problem is then to construct the model set $\ModelSet[]$ as illustrated in \figref{fig:lrmhinf:modelset}.
 The design process thus guarantees performance and stability for the whole set instead of for a single model.
-However, these guarantees hinge on proper specification of $\ModelSet[]$ which is typically done by estimating a nominal model $\estimated{\Plant}$ and the model uncertainty $\Delta(\estimated{\Plant}, \true{\Plant})$.
+However, these guarantees hinge on proper specification of $\ModelSet[]$ which is typically done by estimating a nominal model $\estimated{\Plant}$ and the model error $\Delta(\estimated{\Plant}, \true{\Plant})$.
 A generic way to express the plant model set (see also \figref{fig:lrmhinf:modelset}) is
 \begin{equation}
   \ModelSet[]_{\mathrm{generic}} 
   \isdef 
   \Set{ \Plant | \norm{\Delta(\estimated{\Plant}, \Plant)} \leq \gamma}
-  \equiv
-  \Set{ \Plant(\estimated{\Plant}, \Delta) | \norm{\Delta} \leq \gamma}
   \label{eq:lrmhinf:model-set:generic}
 \end{equation}
-where both the norm and the concrete function $\Delta(\estimated{\Plant}, \Plant)$ are a choice for the control engineer.
-An example of such a model set is easily imagined for additive uncertainty ($\Plant(\estimated{\Plant}, \Delta) = \estimated{\Plant} + \Delta$) when a $\Hardy_{2}$ norm is used, in that case one obtains
+where both the norm and the exact uncertainty description $\Delta(\estimated{\Plant}, \Plant)$, can be chosen by the control engineer.
+An example of such a model set is easily imagined for additive uncertainty ($\Plant = \estimated{\Plant} + \Delta$) when a $\Hardy_{2}$ norm is used, in that case one obtains
 \begin{equation}
-  \ModelSet[]_{\mathrm{additive,2}} = \Set{ \Plant | \norm[2]{\estimated{\Plant} - \Plant} \leq \gamma}
+  \ModelSet[]_{\mathrm{additive,2}} 
+  = 
+  \Set{ \Plant | \Bignorm[2]{ \ezbrace{\Plant - \estimated{\Plant}}{\Delta(\estimated{\Plant}, \Plant)}  } \leq \gamma}
+  \equiv
+  \Set{  \ezbrace{\estimated{\Plant}  + \Delta}{\Plant(\estimated{\Plant}, \Delta)}  | \norm[2]{\Delta} \leq \gamma}
   \text{,}
 \end{equation}
-which is a multidimensional ball with radius $\gamma$.
+which is a multidimensional ball with radius $\gamma$ centered around $\estimated{\Plant}$.
 Note that in many cases, the uncertainty structure (additive, multiplicative, \ldots) can be converted to other representations~\citep{Douma2005}.
 
 Building a good model set $\ModelSet[]$ as in \eqref{eq:lrmhinf:model-set:generic}, hence requires estimating a good value of the overbound $\gamma$ to define the size of the set.

@@ -445,10 +445,93 @@ In reality, there is no tangible `$\Delta_{\LMM}$' that is constructed: neighbor
   \end{newquote}
 
   \item 
+  \oldnewpage{}{?}
+  \says{BP}{For the peak modeling, I suggest to take over some things of your slides in the text. For example, is there a physical interpretation of $\Delta$ (slide 20)? So it is out of scope, but how does the peak modeling help with control? That link is missing.}
+  \action{Section 4.2 has been added to clarify the connection between robust control and the chapter.}
+  \begin{newquote}
+  \section{4.2 Intermezzo: Basics of Robust Control}
+\label{sec:lrmhinf:robust-control-basics}
+When designing a feedback controller $\Controller$ (as in Figure~4.1), the goal is to design $\Controller$ such that the output $y$ of a plant $\true{\Plant}$ follows the command signal $r_2$ with some additional constraints on the performance of the whole closed-loop system (e.g. limited overshoot, short response times, good disturbance suppression, limited controller effort, \ldots).
+This obviously requires knowledge of the actual plant $\true{\Plant}$ that is to be controlled.
+Such knowledge can be obtained by means of modeling, be it first-principles modeling or system identification or a combination of modeling approaches, which provides an approximate model $\estimated{\Plant}$.
+
+\begin{figure}
+ \centering
+ \includegraphics{ch04-lrmhinf/tikz/ch04fig0.pdf}
+ \caption[4.1]{The considered feedback configuration $\ClosedLoop{\true{\Plant},\Controller}$.}
+ \label{fig:lrmhinf:tpc:nominal}
+\end{figure}
+
+In classical control, the working assumption is that $\estimated{\Plant} = \true{\Plant}$ and hence the design of the controller is carried out on the estimated plant model.
+This has the downside that if such a controller is not designed conservatively, errors in the model may produce instability or unwanted performance degradation.
+
+\begin{figure}%[10]{R}[1em]{5cm}
+  \centering
+  \includegraphics{ch04-lrmhinf/tikz/ch04fig1.pdf}
+  \caption[4.2]{The plant model set.}
+  \label{fig:lrmhinf:modelset}
+\end{figure}
+
+In robust control~\citep{Zhou1996,Skogestad2005}, the design is carried out while taking uncertainties into account.
+This is typically done by considering that the actual plant $\true{\Plant} \in \ModelSet[]$.
+Hence, the problem is then to construct the model set $\ModelSet[]$ as illustrated in Figure~4.2.
+The design process thus guarantees performance and stability for the whole set instead of for a single model.
+However, these guarantees hinge on proper specification of $\ModelSet[]$ which is typically done by estimating a nominal model $\estimated{\Plant}$ and the model error $\Delta(\estimated{\Plant}, \true{\Plant})$.
+A generic way to express the plant model set (see also Figure~4.2) is
+\begin{equation}
+  \ModelSet[]_{\mathrm{generic}} 
+  \isdef 
+  \Set{ \Plant | \norm{\Delta(\estimated{\Plant}, \Plant)} \leq \gamma}
+  \label{eq:lrmhinf:model-set:generic}
+  \tag{4.1}
+\end{equation}
+where both the norm and the exact uncertainty description $\Delta(\estimated{\Plant}, \Plant)$, can be chosen by the control engineer.
+An example of such a model set is easily imagined for additive uncertainty ($\Plant = \estimated{\Plant} + \Delta$) when a $\Hardy_{2}$ norm is used, in that case one obtains
+\begin{equation}
+  \ModelSet[]_{\mathrm{additive,2}} 
+  = 
+  \Set{ \Plant | \Bignorm[2]{ \ezbrace{\Plant - \estimated{\Plant}}{\Delta(\estimated{\Plant}, \Plant)}  } \leq \gamma}
+  \equiv
+  \Set{  \ezbrace{\estimated{\Plant}  + \Delta}{\Plant(\estimated{\Plant}, \Delta)}  | \norm[2]{\Delta} \leq \gamma}
+  \text{,}
+  \tag{4.2}
+\end{equation}
+which is a multidimensional ball with radius $\gamma$ centered around $\estimated{\Plant}$.
+Note that in many cases, the uncertainty structure (additive, multiplicative, \ldots) can be converted to other representations~\citep{Douma2005}.
+
+Building a good model set $\ModelSet[]$ as in \eqref{eq:lrmhinf:model-set:generic}, hence requires estimating a good value of the overbound $\gamma$ to define the size of the set.
+This overbound has important practical implications for the robust controller design.
+Specifically, let us denote $\true{\gamma} \isdef \norm{\true\Delta} \isdef \norm{\Delta(\estimated{\Plant}, \true{\Plant})}$.
+For an estimation procedure that yields the estimate $\estimated{\gamma}$ of the overbound, a few situations can hence occur.
+\begin{itemize}
+  \item $\estimated\gamma < \true{\gamma}$: the model set $\ModelSet[]$ is too small and hence $\true{\Plant} \not\in \ModelSet[]$.
+  Based on such an estimate, the robust controller may fail to stabilize and perform well for the actual plant $\true{\Plant}$.
+  \item $\estimated\gamma \gg \true{\gamma}$: the model set $\ModelSet[]$ is too big such that the robust controller is overly conservative.
+  Consequently, the plant is still stabilized by the controller, but the performance of the system may be degraded.
+  This  the actual plant is still stabilized by the controller, this can degrade the performance of the control system since it accounts for too many possible plants.
+    \item $\estimated\gamma = \true{\gamma}$: the model set is just large enough to contain $\true{\Plant}$ such that both stability and performance are satisfied.
+\end{itemize}
+
+In robust control, it is most common to use a (possibly weighted) $\Hinf{}$ norm in the description of the plant model set~\citep{Skogestad2005,Zhou1996} such that
+\begin{equation}
+\ModelSet[] = \Set{ \Plant(\Delta, \estimated{\Plant}) | \norm[\infty]{\Delta 
+} \leq \gamma}
+  \text{,}
+  \label{eq:lrmhinf:model-set:hinf}
+  \tag{4.3}
+\end{equation}
+which is also the approach we follow in this chapter.
+This $\Hinf{}$ norm can be interpreted as the peak gain of the model error $\Delta$, i.e. its maximum amplitude over the frequencies.
+In control it is a common practice to use low-order models $\estimated{\Plant}$ to keep the controller design feasible, this means that $\Delta$ is often littered with unmodeled dynamics.
+When those dynamics are resonant, it can be cumbersome to detect the respective peak amplitudes reliably from a short measurement dataset.
+In this chapter, this problem will be tackled by exploiting the local models.
+  \end{newquote}
+
+  \item 
   \oldnewpage{113}{}
   \action{The notation $\ClosedLoop{\Plant, \Controller}$ has been explained further}
   \begin{newquote}
-  $\ClosedLoop{\Plant,\Controller}$ denotes the closed loop transfer function from the loop inputs $\mat{r_2 & r_1}^{\TT}$ to the output and input of the plant $\mat{y & u}^{\TT}$ as schematically in \figref{fig:lrmhinf:tpc}.
+  $\ClosedLoop{\Plant,\Controller}$ denotes the closed loop transfer function from the loop inputs $\mat{r_2 & r_1}^{\TT}$ to the output and input of the plant $\mat{y & u}^{\TT}$ as schematically in Figure~4.9.
 This can be expressed symbolically, as in \citet{Oomen2012SIRP}, by
 \begin{equation}
 \ClosedLoop{\Plant, \Controller} \isdef
@@ -465,7 +548,6 @@ This can be expressed symbolically, as in \citet{Oomen2012SIRP}, by
 \tag{4.36}
 \end{equation}
   \end{newquote}
-
 \end{enumerate}
 
 \section{Future Changes}
@@ -473,8 +555,6 @@ The following minor changes are not yet completed, but will be performed for the
 
 \begin{enumerate}
   \item \TODO{Write more extensively about leakage.}
-  \item \says{BP}{For the peak modeling, I suggest to take over some things of your slides in the text. For example, is there a physical interpretation of $\Delta$ (slide 20)? So it is out of scope, but how does the peak modeling help with control? That link is missing.}
-  \TODO{address this}  
 \item \says{JA}{Below (3.17), $V$ is assumed to be i.i.d., but the noise is filtered by $A$. I suggest to change the assumption.}
 \TODO{address this}
 \end{enumerate}
