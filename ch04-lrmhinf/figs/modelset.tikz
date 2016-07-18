@@ -1,11 +1,14 @@
 % http://tex.stackexchange.com/questions/33607/easy-curves-in-tikz
+% http://tex.stackexchange.com/questions/133227/how-to-align-text-in-tikz-nodes-by-baseline
+
 \begin{tikzpicture}[thick]
 
-\draw [black,fill=lightgray] plot [smooth cycle] coordinates {(-2,0) (-2,2) (2,2) (2,-1)};
+\draw [black,fill=lightgray] plot [smooth cycle] coordinates {(-2,-1) (-2,1) (2,1) (2,-1)};
 
-\node (phat)     at (0,1)       {$\estimated{\Plant}$};
-\node (modelset) at (0,2.5)     {$\ModelSet[]$};
-\node (p0)       at (1.9,-0.5)  {$\true{\Plant}$};
+\node[] (phat)   at (0,0)       {$\estimated{\Plant}\vphantom{\true{\Plant}}$};
+\node (modelset) at (0,1.5)     {$\ModelSet[]$};
+\node[] (p0)     at (1.9,0)     {$\true{\Plant}\vphantom{\estimated{\Plant}}$};
+\node (delta)    at ($(p0)!0.5!(phat) + (0em,0.75em)$) {$\Delta$};
 
 \draw [<->] (p0) -- (phat);
 \end{tikzpicture}

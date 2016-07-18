@@ -54,11 +54,84 @@ The performance of these local parametric models in the context of robust contro
 
 \paragraph*{Outline}
 \label{par:lrmhinf:toc}
+In \secref{sec:lrmhinf:robust-control-basics}, a short introduction to robust control is linked to the work in this chapter.
 The problem is formulated in \secref{sec:lrmhinf:Problem}.
 In \secref{sec:lrmhinf:LPMHinf} the proposed method to estimate the $\Hinf{}$ norm by means of the \gls{LRM} is introduced.
 In \secref{sec:lrmhinf:simulation} the method is illustrated on simulations, and the required measurement time is determined.
 The technique is demonstrated on measurements of an \gls{AVIS} in \secref{sec:lrmhinf:measurement}.
 Finally, the results and some challenges are discussed in \secref{sec:lrmhinf:conclusion}.
+
+\section{Intermezzo: Basics of Robust Control}
+\label{sec:lrmhinf:robust-control-basics}
+When designing a feedback controller $\Controller$ (as in \figref{fig:lrmhinf:tpc:nominal}), the goal is to design $\Controller$ such that the output $y$ of a plant $\true{\Plant}$ follows the command signal $r_2$ with some additional constraints on the performance of the whole closed-loop system (e.g. limited overshoot, short response times, good disturbance suppression, limited controller effort, \ldots).
+This obviously requires knowledge of the actual plant $\true{\Plant}$ that is to be controlled.
+Such knowledge can be obtained by means of modeling, be it first-principles modeling or system identification or a combination of modeling approaches, which provides an approximate model $\estimated{\Plant}$.
+
+\begin{figure}[h]
+ \centering
+ \input{\thisDir/figs/tpc.tikz}
+ \caption[Closed-loop block schematic.]{The considered feedback configuration $\ClosedLoop{\true{\Plant},\Controller}$.}
+ \label{fig:lrmhinf:tpc:nominal}
+\end{figure}
+
+In classical control, the working assumption is that $\estimated{\Plant} = \true{\Plant}$ and hence the design of the controller is carried out on the estimated plant model.
+This has the downside that if such a controller is not designed conservatively, errors in the model may produce instability or unwanted performance degradation.
+
+\begin{figure}%[10]{R}[1em]{5cm}
+  \centering
+  \input{\thisDir/figs/modelset.tikz}
+  \caption{The plant model set.}
+  \label{fig:lrmhinf:modelset}
+\end{figure}
+
+In robust control~\citep{Zhou1996,Skogestad2005}, the design is carried out while taking uncertainties into account.
+This is typically done by considering that the actual plant $\true{\Plant} \in \ModelSet[]$.
+Hence, the problem is then to construct the model set $\ModelSet[]$ as illustrated in \figref{fig:lrmhinf:modelset}.
+The design process thus guarantees performance and stability for the whole set instead of for a single model.
+However, these guarantees hinge on proper specification of $\ModelSet[]$ which is typically done by estimating a nominal model $\estimated{\Plant}$ and the model uncertainty $\Delta(\estimated{\Plant}, \true{\Plant})$.
+A generic way to express the plant model set (see also \figref{fig:lrmhinf:modelset}) is
+\begin{equation}
+  \ModelSet[]_{\mathrm{generic}} 
+  \isdef 
+  \Set{ \Plant | \norm{\Delta(\estimated{\Plant}, \Plant)} \leq \gamma}
+  \equiv
+  \Set{ \Plant(\estimated{\Plant}, \Delta) | \norm{\Delta} \leq \gamma}
+  \label{eq:lrmhinf:model-set:generic}
+\end{equation}
+where both the norm and the concrete function $\Delta(\estimated{\Plant}, \Plant)$ are a choice for the control engineer.
+An example of such a model set is easily imagined for additive uncertainty ($\Plant(\estimated{\Plant}, \Delta) = \estimated{\Plant} + \Delta$) when a $\Hardy_{2}$ norm is used, in that case one obtains
+\begin{equation}
+  \ModelSet[]_{\mathrm{additive,2}} = \Set{ \Plant | \norm[2]{\estimated{\Plant} - \Plant} \leq \gamma}
+  \text{,}
+\end{equation}
+which is a multidimensional ball with radius $\gamma$.
+Note that in many cases, the uncertainty structure (additive, multiplicative, \ldots) can be converted to other representations~\citep{Douma2005}.
+
+Building a good model set $\ModelSet[]$ as in \eqref{eq:lrmhinf:model-set:generic}, hence requires estimating a good value of the overbound $\gamma$ to define the size of the set.
+This overbound has important practical implications for the robust controller design.
+Specifically, let us denote $\true{\gamma} \isdef \norm{\true\Delta} \isdef \norm{\Delta(\estimated{\Plant}, \true{\Plant})}$.
+For an estimation procedure that yields the estimate $\estimated{\gamma}$ of the overbound, a few situations can hence occur.
+\begin{itemize}
+  \item $\estimated\gamma < \true{\gamma}$: the model set $\ModelSet[]$ is too small and hence $\true{\Plant} \not\in \ModelSet[]$.
+  Based on such an estimate, the robust controller may fail to stabilize and perform well for the actual plant $\true{\Plant}$.
+  \item $\estimated\gamma \gg \true{\gamma}$: the model set $\ModelSet[]$ is too big such that the robust controller is overly conservative.
+  Consequently, the plant is still stabilized by the controller, but the performance of the system may be degraded.
+  This  the actual plant is still stabilized by the controller, this can degrade the performance of the control system since it accounts for too many possible plants.
+    \item $\estimated\gamma = \true{\gamma}$: the model set is just large enough to contain $\true{\Plant}$ such that both stability and performance are satisfied.
+\end{itemize}
+
+In robust control, it is most common to use a (possibly weighted) $\Hinf{}$ norm in the description of the plant model set~\citep{Skogestad2005,Zhou1996} such that
+\begin{equation}
+\ModelSet[] = \Set{ \Plant(\Delta, \estimated{\Plant}) | \norm[\infty]{\Delta 
+} \leq \gamma}
+  \text{,}
+  \label{eq:lrmhinf:model-set:hinf}
+\end{equation}
+which is also the approach we follow in this chapter.
+This $\Hinf{}$ norm can be interpreted as the peak gain of the model error $\Delta$, i.e. its maximum amplitude over the frequencies.
+In control it is a common practice to use low-order models $\estimated{\Plant}$ to keep the controller design feasible, this means that $\Delta$ is often littered with unmodeled dynamics.
+When those dynamics are resonant, it can be cumbersome to detect the respective peak amplitudes reliably from a short measurement dataset.
+In this chapter, this problem will be tackled by exploiting the local models.
 
 \section{Problem Formulation}
 \label{sec:lrmhinf:Problem}

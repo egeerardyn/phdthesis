@@ -14,10 +14,10 @@
         \node         (r2) {$r_2$}; \&
         \&
         \node[sum]    (sum2)  {};   \&
-        \node[block]  (C)  {$C$};   \&
+        \node[block]  (C)  {$\Controller$};   \&
         \node[sum]    (sum1)  {};   \&
         \node[branch] (u)  {};      \&
-        \node[block]  (P)  {$P$};   \&
+        \node[block]  (P)  {$\true{\Plant}$};   \&
         \node[branch] (y)  {};      \&
         \node       (yout) {$y$};   \\
     };
@@ -33,13 +33,13 @@
 
     \begin{pgfonlayer}{background}
      \node[groupbox=TPC, fit=(sum2) (y) (C) (min) (guide)] (TPC) {};
-     \node at (TPC.north) [color=TPC, above] {$T\!\left(P,C\right)$};
+     \node at (TPC.north) [color=TPC, above] {$\ClosedLoop{\true{\Plant},\Controller}$};
       
-      \node[groupcirc=weight, fit=(r1) (r2)] (inputs) {};
-      \node at (inputs.north) [color=weight, above] {Applied inputs};
+      % \node[groupcirc=weight, fit=(r1) (r2)] (inputs) {};
+      % \node at (inputs.north) [color=weight, above] {Applied inputs};
       
-      \node[groupcirc=weight, fit=(uout) (yout)] (outputs) {};
-      \node at (outputs.north) [color=weight, above] {Measured outputs};
+      % \node[groupcirc=weight, fit=(uout) (yout)] (outputs) {};
+      % \node at (outputs.north) [color=weight, above] {Measured outputs};
    \end{pgfonlayer}
 
   \end{tikzpicture}
