@@ -1,10 +1,10 @@
-\usepackage[toc,acronym,section=section,nonumberlist,xindy]{glossaries}
+\usepackage[nomain,toc,acronym,section=section,nonumberlist,xindy]{glossaries}
 
 \renewcommand*{\acronymname}{List of Abbreviations}
 \renewcommand*{\glssymbolsgroupname}{List of Symbols}
 
 \renewcommand{\newacronym}[4][]{\newglossaryentry{#2}{type=\acronymtype,
-name={#3},
+name={#3}, 
 short={#3},
 long={#4},
 shortplural={#3\glspluralsuffix},

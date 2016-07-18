@@ -27,14 +27,13 @@
 \tikzexternalize[prefix=tikz/]
 \tikzset{external/mode=list and make}
 \tikzsetfigurename{phdfig}
-% \tikzsetfigurename{\thisDir}
-  \pgfplotsset{compat=newest}
+\pgfplotsset{compat=newest}
 
 \input{config/blockdiag.inc.tex}
 \input{config/mechanical.inc.tex}
 
-  \newlength\figureheight
-   \newlength\figurewidth
+\newlength\figureheight
+\newlength\figurewidth
 
 % I keep forgetting the exact syntax to remake the figures, so 
 \newcommand{\remakeNextFigure}{\tikzset{external/force remake}}
