@@ -117,8 +117,7 @@ For an estimation procedure that yields the estimate $\estimated{\gamma}$ of the
   \item $\estimated\gamma < \true{\gamma}$: the model set $\ModelSet[]$ is too small and hence $\true{\Plant} \not\in \ModelSet[]$.
   Based on such an estimate, the robust controller may fail to stabilize and perform well for the actual plant $\true{\Plant}$.
   \item $\estimated\gamma \gg \true{\gamma}$: the model set $\ModelSet[]$ is too big such that the robust controller is overly conservative.
-  Consequently, the plant is still stabilized by the controller, but the performance of the system may be degraded.
-  This  the actual plant is still stabilized by the controller, this can degrade the performance of the control system since it accounts for too many possible plants.
+  Consequently, the actual plant is still stabilized by the controller, but the performance of the system may be degraded as the controller design accounts for too many possible plants.
     \item $\estimated\gamma = \true{\gamma}$: the model set is just large enough to contain $\true{\Plant}$ such that both stability and performance are satisfied.
 \end{itemize}
 
