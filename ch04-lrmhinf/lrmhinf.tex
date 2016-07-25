@@ -63,7 +63,7 @@ Finally, the results and some challenges are discussed in \secref{sec:lrmhinf:co
 
 \section{Intermezzo: Basics of Robust Control}
 \label{sec:lrmhinf:robust-control-basics}
-When designing a feedback controller $\Controller$ (as in \figref{fig:lrmhinf:tpc:nominal}), the goal is to design $\Controller$ such that the output $y$ of a plant $\true{\Plant}$ follows the command signal $r_2$ with some additional constraints on the performance of the whole closed-loop system (e.g. limited overshoot, short response times, good disturbance suppression, limited controller effort, \ldots).
+When designing a feedback controller $\Controller$ (as in \figref{fig:lrmhinf:tpc:nominal}), the goal is to design $\Controller$ such that the output $y$ of a plant $\true{\Plant}$ follows the command signal $r_2$ with some additional constraints on the performance of the whole closed-loop system (e.g. limited overshoot, short response times, good disturbance suppression, limited controller effort $u_c$, \ldots).
 This obviously requires knowledge of the actual plant $\true{\Plant}$ that is to be controlled.
 Such knowledge can be obtained by means of modeling, be it first-principles modeling or system identification or a combination of modeling approaches, which provides an approximate model $\estimated{\Plant}$.
 
@@ -97,7 +97,7 @@ A generic way to express the plant model set (see also \figref{fig:lrmhinf:model
   \label{eq:lrmhinf:model-set:generic}
 \end{equation}
 where both the norm and the exact uncertainty description $\Delta(\estimated{\Plant}, \Plant)$, can be chosen by the control engineer.
-An example of such a model set is easily imagined for additive uncertainty ($\Plant = \estimated{\Plant} + \Delta$) when a $\Hardy_{2}$ norm is used, in that case one obtains
+An example of such a model set is easily imagined for additive uncertainty ($\Plant = \estimated{\Plant} + \Delta$) when a $2$-norm is used, in that case one obtains
 \begin{equation}
   \ModelSet[]_{\mathrm{additive,2}} 
   = 
