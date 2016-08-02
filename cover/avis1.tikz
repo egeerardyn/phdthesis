@@ -1,0 +1,81 @@
+% This file was created by matlab2tikz v0.4.3 (commit 5727fe79e69f5e2b601173753f6a6749e42dcb5d).
+% Copyright (c) 2008--2013, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+% 
+%
+% defining custom colors
+
+\definecolor{mycolor1}{rgb}{0.203921568627451,0.396078431372549,0.643137254901961}%
+\definecolor{mycolor2}{rgb}{0.305882352941176,0.603921568627451,0.0235294117647059}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+xmode=log,
+xmin=280.166625977278,
+xmax=349.777221680581,
+xminorticks=true,
+xlabel={Frequency [Hz]},
+xmajorgrids,
+xminorgrids,
+ymin=-35,
+ymax=0,
+ylabel={Amplitude [dB]},
+ymajorgrids,
+axis x line*=bottom,
+axis y line*=left,
+legend style={draw=black,fill=white,legend cell align=left}
+]
+\addplot [
+color=black,
+only marks,
+mark=*,
+mark options={solid}
+]
+table[]{\thisDir/data/avis1/etfe.tsv};
+\addlegendentry{ETFE}
+
+\addplot [
+color=mycolor1,
+dotted,
+mark=*,
+mark options={solid}
+]
+table[]{\thisDir/data/avis1/LPM.tsv};
+\addlegendentry{LPM}
+
+\addplot [
+color=mycolor2,
+only marks,
+mark=*,
+mark options={solid}
+]
+table[]{\thisDir/data/avis1/LRM.tsv};
+\addlegendentry{LARX}
+
+\addplot [
+color=mycolor2,
+solid
+]
+table[]{\thisDir/data/avis1/LRM-interpol.tsv};
+\addlegendentry{LRM (int)}
+
+\addplot [
+color=mycolor2,
+mark size=5.0pt,
+only marks,
+mark=+,
+mark options={solid}
+]
+table[]{\thisDir/data/avis1/LRM-interpol-peak.tsv};
+\addlegendentry{Max LRM (int)}
+
+\end{axis}
+\end{tikzpicture}%

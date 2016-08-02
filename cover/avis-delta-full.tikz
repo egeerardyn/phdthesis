@@ -1,0 +1,53 @@
+% This file was created by matlab2tikz v0.4.3 (commit 5727fe79e69f5e2b601173753f6a6749e42dcb5d).
+% Copyright (c) 2008--2013, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+% 
+%
+\begin{tikzpicture}
+
+% \input{styles.inc.tex}
+
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+xmode=log,
+xmin=200,
+xmax=500,
+%xminorticks=true,
+ymin=-75,
+ymax=3,
+axis lines=none,
+xtick={\empty},
+ytick={\empty},
+]
+
+\addplot [validation] table[] {\thisDir/data/avis-delta/lrm-validation.tsv};
+% \addlegendentry{LRM (validation)}
+
+\addplot [LRMgrid, medsmallmarkers, forget plot] table[]{\thisDir/data/avis-delta/lrm-grid-estimation.tsv};
+%\addlegendentry{LRM (estimation)}
+
+% plot split among two traces
+\addplot [LRM,interpol, forget plot] table[]{\thisDir/data/avis-delta/lrm-interpol01.tsv};
+\addplot [LRM,interpol, forget plot] table[]{\thisDir/data/avis-delta/lrm-interpol02.tsv};
+
+%\addlegendentry{LRM (estimation) : interpolated}
+
+% \addplot [LRMgrid,medsmallmarkers,interpol]
+% table[row sep=crcr]{
+% 1000 42\\ % placeholder
+% 1001 42\\
+% };
+
+\addlegendimage{LRMgrid,medsmallmarkers,interpol};
+% \addlegendentry{LRM (estimation)}
+
+\draw (axis cs:280,0) rectangle (axis cs:350,-35);
+
+\end{axis}
+\end{tikzpicture}%

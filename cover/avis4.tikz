@@ -1,0 +1,80 @@
+% This file was created by matlab2tikz v0.4.3 (commit 5727fe79e69f5e2b601173753f6a6749e42dcb5d).
+% Copyright (c) 2008--2013, Nico Schlömer <nico.schloemer@gmail.com>
+% All rights reserved.
+% 
+% The latest updates can be retrieved from
+%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
+% where you can also make suggestions and rate matlab2tikz.
+% 
+%
+\begin{tikzpicture}
+\begin{axis}[%
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+%xmode=log,
+xmin=280.166625977278,
+xmax=348.770141602453,
+ymin=-35,
+ymax=0,
+xtick={\empty},
+ytick={\empty},
+axis lines=none
+]
+
+\addplot [validation]
+table[]{\thisDir/data/avis4/LRM-validation.tsv};
+%\addlegendentry{LRM (validation)}
+\label{leg:avis4-validation}
+
+\addplot [LRM,interpol]
+table[]{\thisDir/data/avis4/LRM-intergrid.tsv};
+%\addlegendentry{LRM (int)}
+
+\addplot [LRMgrid]
+table[]{\thisDir/data/avis4/LRM-frf.tsv};
+%\addlegendentry{LRM}
+\label{leg:avis4-LRM}
+
+\addplot [LRMgrid,interpol]
+table[]{\thisDir/data/avis4/LRM-intergrid-placeholder.tsv};
+%\addlegendentry{LRM (estimation)}
+\label{leg:avis4-LRMi}
+
+
+% \addplot [LRM,hinfnorm]
+% table[]{\thisDir/data/avis4/LRM-hinfnorm.tsv};
+% \label{leg:avis4-LRM-hinf}
+
+% \addplot [color=validation,hinfnorm]
+% table[]{\thisDir/data/avis4/LRM-validation-hinfnorm.tsv};
+% \label{leg:avis4-valid-hinf}
+
+% \addplot [LPM,hinfnorm]
+% table[]{\thisDir/data/avis4/LPM-hinfnorm.tsv};
+% \label{leg:avis4-LPM-hinf}
+
+%\addlegendentry{LRM (estimation)}
+
+% \addplot3 [
+% color=white,
+% line width=2.0pt,
+% mark size=3.5pt,
+% only marks,
+% mark=square*,
+% mark options={solid,fill=black,draw=mycolor2}]
+% table[] {\thisDir/data/avis4/peak.tsv};
+
+% \coordinate (peak1) at (axis cs:296.157836914819, -15.3008939623463);
+% \coordinate (mpeak1) at (axis cs:310,-20);
+
+\coordinate (peak2) at (axis cs:327.95715332115, -3.1597019476115);
+\coordinate (mpeak2) at (axis cs:310,-10);
+
+\end{axis}
+
+%\spy [black, size=2cm] on (peak1) in node[fill=white] at (mpeak1);
+%\spy [black, size=2cm] on (peak2) in node[fill=white] at (mpeak2);
+%NOTE: spy seems to be incompatible with pgfplots layer settings...
+
+\end{tikzpicture}%

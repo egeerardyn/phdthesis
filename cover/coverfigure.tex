@@ -1,0 +1,46 @@
+% arara: clean: { files: [coverfigure.auxlock, coverfigure.log] }
+% arara: lualatex: { shell : yes, action : nonstopmode, options : "-8bit -file-line-error -halt-on-error" }
+% arara: clean: { files: [coverfigure.aux, coverfigure.out] }
+
+\RequirePackage{luatex85} %http://tex.stackexchange.com/questions/315025/lualatex-texlive-2016-standalone-undefined-control-sequence
+\documentclass[crop=true,tikz=true,border=0.5cm]{standalone}
+
+\usepackage{amsmath}
+\input{config/definitions.tex}
+\input{config/graphics.inc.tex}
+\tikzexternaldisable
+% \input{config/styles.inc.tex}
+
+% \pagecolor{TangoSkyBlue3}
+
+\colorlet{LRM}{TangoScarletRed2}
+\colorlet{LRMemph}{TangoScarletRed3}
+\colorlet{validation}{TangoChameleon1}
+
+\colorlet{validation}{white}
+
+\tikzset{line cap=round}
+\tikzset{line join=round}
+\tikzset{miter limit=20}
+
+\pgfplotsset{frf/.style={color=frf,solid,mark options={solid},mark size=2pt}}
+\pgfplotsset{interpol/.style={line width=3pt,solid,mark options={solid}}}
+
+\pgfplotsset{LRMgrid/.style={color=LRM,mark size=4pt,only marks,mark=*,mark options={solid,color=LRMemph}}}
+
+\pgfplotsset{validation/.style={color=validation,only marks,mark=square*,mark size=4pt,line width=2pt,mark options={solid,line width=2.5pt}}}
+
+\pgfplotsset{clip mode=individual,}
+
+\def\thisDir{ch04-lrmhinf}
+% \newlength\figureheight
+% \newlength\figurewidth
+\setlength{\figurewidth}{36.2cm}
+\setlength{\figureheight}{20cm}
+
+
+\begin{document}
+  \input{avis4.tikz}
+  % \newpage
+  % \input{avis-delta-full.tikz}
+\end{document}

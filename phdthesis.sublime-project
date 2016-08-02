@@ -38,6 +38,19 @@
 			],
 			"name": "Arara (figures)",
 			"working_dir": "${project_path}"
+		},
+		{
+			"env": {
+				"TEXINPUTS": "${project_path}:..::"
+			},
+			"cmd":
+			[
+				"arara",
+				"-v",
+				"coverfigure.tex"
+			],
+			"name": "Arara (cover figure)",
+			"working_dir": "${project_path}/cover"
 		}
 	],
 	"folders":
