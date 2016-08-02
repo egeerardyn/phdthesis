@@ -1154,9 +1154,9 @@ Based on \citet{Schoukens2009LPM}, the nonparametric method developed in this wo
 A \gls{SISO} \gls{LTI} system is considered.
 The input signal is a known random noise signal and the output signal is corrupted by measurement noise. This is depicted in \figref{fig:nparam:blockH0} as a linear dynamic discrete-time \gls{SISO} system, whose full mathematical model is of the form:
 \begin{equation}\label{eq:nparam:trunc:LPM:TD}
-y(t)=\true{G}(q)u_0(t)+\true{H}(q)e(t)=\true{G}(q)u_0(t)+v(t)
+y(t)=\true{G}(q)\true{u}(t)+\true{H}(q)e(t)=\true{G}(q)\true{u}(t)+v(t)
 \end{equation}
-where $\true{G}(q)$ represents the dynamics of the system to be estimated, $u_0(t)$ is the input signal, $v(t)= \true{H}(q)e(t)$ is the noise source at the output, $\true{H}(q)$ is the noise dynamics, $e(t)$ is white noise, and $q^{-m}$ is the backward shift operator ($q^{-m}x(t)$ = $x(t-m)$  with $m$ a positive integer).
+where $\true{G}(q)$ represents the dynamics of the system to be estimated, $\true{u}(t)$ is the input signal, $v(t)= \true{H}(q)e(t)$ is the noise source at the output, $\true{H}(q)$ is the noise dynamics, $e(t)$ is white noise, and $q^{-m}$ is the backward shift operator ($q^{-m}x(t)$ = $x(t-m)$  with $m$ a positive integer).
 
 Numerous parametric identification techniques are devoted to the development of parametric plant $G(q,\theta)$ and noise models  $H(q,\theta)$, where  $\theta$ is the model parameters vector~\citep{Ljung1999,Soderstrom1989}. 
 In this section, however, a nonparametric technique is developed, and formulated in the frequency domain, consistent with \citep{Pintelon2012,Mahata2006}. 
@@ -1178,7 +1178,7 @@ The rest of the section is structured as follows.
 \secref{sec:nparam:trunc:smoothingFRFestimate} discusses the novel smoothing method.
 Ultimately, in \secref{sec:nparam:trunc:simResults}, simulation results of the following \gls{FRF} estimates and their corresponding variances are compared: (i) the smooth \gls{LPM} estimate $\hat{G}_{\trunc}(\omega_k)$, (ii) the \gls{LPM} estimate $\hat{G}_{\LPM}(\omega_k)$.
 
-These \gls{FRF} estimates are also compared with the true \gls{LTI} system ${G}_0(\omega_k)$.
+These \gls{FRF} estimates are also compared with the true \gls{LTI} system $\true{G}(\omega_k)$.
 Discussion of the simulation results is then followed by a conclusion in \secref{sec:nparam:trunc:conclusion}.
 
 % \begin{assumption}
@@ -1188,7 +1188,7 @@ Discussion of the simulation results is then followed by a conclusion in \secref
 % In other words, for the excitation signal to be rough: the magnitude of the spectral difference $|U_0(k+1) - U_0(k)|$ must have a probability of 1 (unity) for it to remain in the same order of magnitude as $|U_0(k)|$, irrespective of the record length $N\rightarrow\infty$ and the corresponding  frequency resolution $f_0\rightarrow{0}$.
 
 % \begin{assumption}
-% The measured output signal is $y(t) = y_0(t) + v(t)$ with the exact input signal $u_0(t)$ known. 
+% The measured output signal is $y(t) = \true{y}(t) + v(t)$ with the exact input signal $\true{u}(t)$ known. 
 % The filtered white noise $v(t) = \true{H}(q)e(t)$ is the disturbing noise source at the output.
 % \end{assumption}
 
@@ -1393,8 +1393,8 @@ This procedure is illustrated in \figref{fig:nparam:trunc:nonparametric:truncati
 \begin{subequations}
 \label{eq:trunc:systemODEs}
 \begin{align}
-y_0(t)  &= 1.5371y_0(t-1)    -0.9025y_0(t-2) + u(t)\\
-y(t)       &= y_0(t) + e(t),
+\true{y}(t)  &= 1.5371\true{y}(t-1)    -0.9025 \true{y}(t-2) + u(t)\\
+y(t)       &= \true{y}(t) + e(t),
 \end{align}
 \end{subequations}
 where $e(t)$ is a white noise sequence, such that the \gls{SNR} of the output signal is $78.2\unit{dB}$.
@@ -1481,10 +1481,10 @@ where the parameter $\gamma$ can be tuned such that an appropriate trade-off bet
 As an illustration, this procedure was applied to the noisy impulse response of the system described by the following difference equation:
 
 \begin{equation}
-y_0(t) = 2.583y_0(t - 1) -2.176y_0(t - 2)+0.592y_0(t-3) + u(t)
+\true{y}(t) = 2.583\true{y}(t - 1) -2.176\true{y}(t - 2)+0.592\true{y}(t-3) + u(t)
 \end{equation}
 
-The measured signal was disturbed by random white noise, $y(t) = y_0(t) + e(t)$, such that the \gls{SNR} was $14.2\unit{dB}$.
+The measured signal was disturbed by random white noise, $y(t) = \true{y}(t) + e(t)$, such that the \gls{SNR} was $14.2\unit{dB}$.
 The result is depicted in \figref{fig:nparam:trunc:nonparametric:trunc:impresp:expfit}. 
 An exponential function (black thick line) is fitted on the peaks of the absolute value of a noisy impulse response. 
 The truncation time (vertical line) $\truncTime$ was selected as the time instant at which the fitted exponential fell below $0.4\noiseStd$ (i.e. $\gamma = 0.4$ in equation \eqref{eq:truncTimeExpFit}).

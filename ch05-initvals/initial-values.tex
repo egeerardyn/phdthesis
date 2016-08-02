@@ -525,9 +525,9 @@ This indicates $\frac{147}{200} \approx 74\%$ success for the existing methods, 
   \setlength{\figurewidth}{0.8\columnwidth}
   \setlength{\figureheight}{0.6\figurewidth}
   \input{\thisDir/figs/MC-SNR1.1dB-NBW36-Q6dB.tikz}
- \caption[Model error for different initialization schemes on simulations.]{The distance $\|\model{\bullet} - \hat{G}_0 \|_2$  between the different estimates ($\model{exist}$~\legref{leg:dist-G-exist}, $\model{trunc}$~\legref{leg:dist-G-trunc} and $\model{RFIR}$~\legref{leg:dist-G-RFIR} ) and the `best theoretical' estimates ($\model{0}$) shows that the smoothers help the estimate to converge to $\model{0}$.
+ \caption[Model error for different initialization schemes on simulations.]{The distance $\|\model{\bullet} - \model{\true{}} \|_2$  between the different estimates ($\model{exist}$~\legref{leg:dist-G-exist}, $\model{trunc}$~\legref{leg:dist-G-trunc} and $\model{RFIR}$~\legref{leg:dist-G-RFIR} ) and the `best theoretical' estimates ($\model{\true{}}$) shows that the smoothers help the estimate to converge to $\model{\true{}}$.
  The same measure is shown for the initial values $\model[init]{RFIR}$ \legref{leg:dist-G-RFIR-init} and $\model[init]{trunc}$ \legref{leg:dist-G-trunc-init}.
- $\|{G}_{0} - \hat{G}_0\|_2$\legref{leg:dist-G0} shows how far the true model and `best theoretical' estimates are apart to put the other distances into perspective. }
+ $\norm[2]{\true{G} - \model{\true{}}}$\legref{leg:dist-G0} shows how far the true model and `best theoretical' estimates are apart to put the other distances into perspective. }
   \label{fig:single-sim}
 \end{figure}
 
