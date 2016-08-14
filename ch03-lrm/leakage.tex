@@ -1,14 +1,81 @@
 \section{Transients and Leakage in the Frequency Domain}
 \label{app:nparam:leakage}
-
+ 
 \disclaimer{
 This appendix is based on multiple expositions regarding transient contributions in the frequency domain.
-For a more in-depth discussion, we refer to \citep{Pintelon1997ARB}, \citep{Pintelon1997Transient}, \citep{Schoukens1999}, \citep[Section 2]{McKelvey2012LRM}, and \citep[Sections 2.6.3 and 6.3.2]{Pintelon2012}.
+For a more in-depth discussion, we refer to \citep{Pintelon1997ARB}, \citep{Pintelon1997Transient}, \citep{Schoukens1999}, \citep[Section 2]{McKelvey2012LRM}, and \citep[Sections 2.6.3, 6.3.2 and Appendix 6.B]{Pintelon2012}.
 }
+
+This appendix derives the transient contributions in the frequency domain when a \gls{LTI} system is observed during a finite measurement window (i.e. $t \in {0, \ldots, N-1}$) using the same approach as in \citet[Appendix 6.B]{Pintelon2012}.
+
+Consider the ordinary difference equation
+\begin{equation}
+  \sum_{n=0}^{\order{A}} a_n y(t-n)
+  =
+  \sum_{m=0}^{\order{B}} b_m u(t-m)
+  \qquad 
+  \forall 
+  t \in \Integers
+  \label{eq:nparam:leakage:diffeq}
+\end{equation}
+where the coefficients $a_n$ and $b_m$ can be either real or complex coefficients for all values of their subscripts $n \in \set{0, \ldots, \order{A}}$ and $m \in \set{0, \ldots, \order{B}}$.
+Such a difference equation can be used to describe any discrete-time \gls{LTI} system (except those with arbitrary delays).
+
+To describe this system in the frequency domain, we first introduce the (one-sided) $\ZT$-transform of the signals $x \in \set{u,y}$:
+\begin{equation}
+  X(z) 
+  \isdef 
+  \ZTransform{x(t)} 
+  \isdef \sum_{t=0}^{\infty} x(t) z^{-t}
+\end{equation}
+which reduces to the \gls{DTFT} when $z = e^{j\omega}$ is examined~\citep[Chapter 10]{Oppenheim1996}.
+
+First, we revisit two pertinent properties of the $\ZT$-transform that are necessary to allow one to compute the $\ZT$-transform of difference equation~\eqref{eq:nparam:leakage:diffeq}.
+\begin{property}
+The $\ZT$-transform is a linear transform: $\ZTransform{ay(t) + bu(t)} = a \ZTransform{y(t)} + b \ZTransform{u(t)}= aY(z) + bU(z)$ when $a$ and $b$ are finite constants~\citep[Section 10.5.1]{Oppenheim1996}.
+\end{property}
+\begin{property}
+The $\ZT$-transform of a shifted signal can be related to the $\ZT$-transform of the unshifted signal~\citep[Section 10.5.2]{Oppenheim1996} as
+\begin{align}
+  \ZTransform{x(t-n)} 
+  &= \sum_{t=0}^{+\infty} x(t-n) z^{-t} \\
+  &= \sum_{\tau = -n}^{+\infty} x(\tau) z^{-(\tau + n)} \quad \text{ where } \tau = t - n\\
+  &= z^{-n} \sum_{\tau = 0}^{+\infty} x(\tau) z^{-\tau} +  \sum_{\tau = -n}^{-1} x(\tau) z^{-\tau-n}\\
+  \ZTransform{x(t-n)} &= z^{-n} \left( \ZTransform{x(t)} + \sum_{\tau = -n}^{-1} x(\tau) z^{-\tau} \right)
+  \text{.}
+\end{align}
+\end{property}
+
+By using both properties, we compute the $\ZT$-transform of the left hand side of \eqref{eq:nparam:leakage:diffeq}:
+\begin{align}
+  \ZTransform{\sum_{n=0}^{\order{A}} a_n y(t-n)}
+  &=
+  \sum_{n=0}^{\order{A}} a_n \ZTransform{y(t-n)}
+  +\sum_{n=0}^{\order{A}} a_n z^{-n} \\
+  &=
+  \sum_{n=0}^{\order{A}} a_n  z^{-n} Y(z)\\
+  &=
+  A(z^{-1}) Y(z)
+\end{align}
+where $A(z^{-1})$ is a polynomial in the variable $z^{-1}$.
+For the right hand side, the derivation is analogous and yields
+\begin{equation}
+  \ZTransform{\sum_{m=0}^{\order{B}} B_m y(t-m)} =
+  B(z^{-1}) U(z) + I_{B}(z)
+  \text{.}
+\end{equation}
+Combining both expressions, one obtains the $\ZT$-transform of \eqref{eq:nparam:leakage:diffeq}:
+\TODO{write out}.
 
 \TODO{derive transient contributions}
 
 \TODO{illustrate the smoothness of leakage}
 
-\TODO{make figures}
+\TODO{make figures to illustrate the leakage}
+
+\begin{remark}
+The derivation of the leakage has been proven here for discrete-time systems.
+For lumped continuous-time \gls{LTI} and diffusive systems, the derivations are similar and elaborated in \citet[Appendix 6.B]{Pintelon2012}.
+Most importantly, the observation that the transient contribution $T$ is described in the frequency domain by a polynomial of finite degree (and hence smooth), remains valid for such systems.
+\end{remark}
 
