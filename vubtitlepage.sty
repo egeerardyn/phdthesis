@@ -20,17 +20,21 @@
 \gdef\vub@jury{\ldots}
 \gdef\vub@faculty{Faculty of Engineering}
 \gdef\vub@department{Department of Fundamental Electricity and Instrumentation (ELEC)}
-\gdef\vub@reason{Thesis submitted in fulfillment of the requirements for the degree of\\Doctor in Engineering (Doctor in de Ingenieurswetenschappen)}
+\gdef\vub@reason{Thesis submitted in fulfillment of the requirements for the degree of\\Doctor in Engineering (Doctor in de Ingenieurswetenschappen) by}
+
+\definecolor{vubblue}{RGB}{19,47,112}
+\definecolor{vuborange}{RGB}{225,61,15}
 
 \def\vub@titlepagefont{\sffamily}
-\def\vub@titlefont{\vub@titlepagefont\Huge\textbf}
+\def\vub@titlefont{\vub@titlepagefont\huge\bfseries\scshape\textcolor{vubblue}}
 \def\vub@reasonfont{\vub@titlepagefont\footnotesize}
-\def\vub@authorfont{\vub@titlepagefont\huge}
-\def\vub@facultyfont{\vub@titlepagefont\normalsize}
-\def\vub@departmentfont{\vub@titlepagefont\footnotesize}
-\def\vub@datefont{\vub@titlepagefont\small}
-\def\vub@promotorAndJuryFont{\vub@titlepagefont}
-\def\vub@promotorAndJuryTitleFont{\vub@titlepagefont\bfseries\large}
+\def\vub@authorfont{\vub@titlepagefont\Large\textcolor{vuborange}}
+\def\vub@facultyfont{\vub@titlepagefont\scshape\normalsize}
+\def\vub@departmentfont{\vub@titlepagefont\scshape\footnotesize}
+\def\vub@datefont{\vub@titlepagefont\small\textcolor{gray}}
+\def\vub@promotorAndJuryFont{\vub@titlepagefont
+\small}
+\def\vub@promotorAndJuryTitleFont{\vub@titlepagefont\normalsize\scshape\textcolor{white}}
 
 \def\promotor#1{\gdef\vub@promotor{#1}}
 \def\advisors#1{\gdef\vub@advisors{#1}}
@@ -48,50 +52,49 @@
 \enlargethispage*{10em}
 
 \vspace*{-1.5cm}{
-  \hspace*{-0.95cm}{
-    \includegraphics[height=0.075\textheight]{VUB_logo}
+  {
+    \includegraphics[height=0.1\textheight]{VUB_CMYK}
   }
 }
 
-
-\begin{tabular}{|l}
+\rule{1.5em}{0pt}%
+\begin{tabular}{l}
       \parbox[t]{0.5\columnwidth}%
          {{\parbox[t]{0.75\columnwidth}{\vub@facultyfont\vub@faculty}}\\
           {\parbox[t]{0.75\columnwidth}{\vub@departmentfont\vub@department}}
          } \\
 
         \rule{0pt}{55mm} % should be a vfill
-      \rule{0.5em}{0mm}
-          {\parbox[b]{\columnwidth}{\vub@titlefont\@title}}\\
-          \rule{0pt}{5mm}\\
-      \hline%{2-2}
-      \rule{0pt}{14mm}
-      \rule{0.5em}{0mm}%
+        
+
         \begin{tabular}{l}
           {\parbox[t]{\columnwidth}{\vub@reasonfont\vub@reason}}\\
           \rule{0pt}{7mm}{\parbox[t]{\columnwidth}{\vub@authorfont\@author}}\\
           \\
         \end{tabular}\\
-      \hline%{2-2}
-      \rule{0.5em}{0mm}%
+      
+        \rule{0pt}{14mm}     
+        \rule{0pt}{14mm}
+
+
+          {\parbox[b]{\columnwidth}{\vub@titlefont\@title}}\\
+          \rule{0pt}{5mm}\\
+
+      \rule{0pt}{35mm} % should be a vfill
+      \rule{0pt}{55mm} % should be a vfill
+
+      
         \vub@promotorAndJuryFont
         \begin{tabular}{r@{ }l}
           \rule{0pt}{0.5em}\\
-          &{\vub@promotorAndJuryTitleFont\vub@promotortitle} \\
+          \multicolumn{2}{l}{\fcolorbox{vuborange}{vuborange}{\vub@promotorAndJuryTitleFont\vub@promotortitle}} \\
             \vub@promotor\\
-          &{\vub@promotorAndJuryTitleFont\vub@jurytitle} \\
+          \multicolumn{2}{l}{\fcolorbox{vuborange}{vuborange}{\vub@promotorAndJuryTitleFont\vub@jurytitle}} \\
             \vub@jury\\
         \end{tabular}\\
-      
-      \rule{0pt}{35mm} % should be a vfill
 
         % Date
-      \rule{0.5em}{0mm}%
-        \begin{tabular*}{\textwidth}{lcr}
-          {\vub@datefont\@date} &
-           \rule{0.5\textwidth}{0pt} &
-           \includegraphics[width=0.3\textwidth]{VUB_schild}
-        \end{tabular*}
+      {\vub@datefont\@date}
 \end{tabular}
 
 \end{titlepage}
