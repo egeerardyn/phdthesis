@@ -598,7 +598,7 @@ This result is very useful for a user working with noisy data.
   \setlength{\figurewidth}{0.85\columnwidth}
   \setlength{\figureheight}{0.68\figurewidth}
   \input{\thisDir/figs/successRates.tikz}
- \caption[Simulated success rate of the different initialization schemes for varying \glsentryshort{SNR}.]{The success rate $\successRate$  obtained using the smoothers, i.e. $\model{RFIR}$~\legref{leg:success-RFIR} and $\model{trunc}$~\legref{leg:success-LPMTrunc}, are significantly higher than for the existing methods $\model{exist}$~\legref{leg:success-existing} in most of the studied range of \glspl{SNR}, number of samples and for both test systems. The $95\%$ confidence intervals~\eqref{eq:initvals:Binomial:CI} are indicated by bars.}
+ \caption[Simulated success rate of the initialization schemes for varying \glsentryshort{SNR}.]{The success rate $\successRate$  obtained using the smoothers, i.e. $\model{RFIR}$~\legref{leg:success-RFIR} and $\model{trunc}$~\legref{leg:success-LPMTrunc}, are significantly higher than for the existing methods $\model{exist}$~\legref{leg:success-existing} in most of the studied range of \glspl{SNR}, number of samples and for both test systems. The $95\%$ confidence intervals~\eqref{eq:initvals:Binomial:CI} are indicated by bars.}
   \label{fig:successRateVS_SNR36N3dB}
 \end{figure}
 
@@ -888,7 +888,7 @@ The situation is already less severe for $\model{trunc}$ (in $75\%$ of the cases
   \setlength{\figurewidth}{0.75\columnwidth}
   \setlength{\figureheight}{0.60\figurewidth}
   \input{\thisDir/figs/special-histogram.tikz}
-  \caption[Performance degradation/enhancement for selecting the second best model.]{
+  \caption[Performance penalty for selecting the second best model.]{
   Performance degradation/enhancement ($X_{\bullet}-X_{\mathrm{best}}$) for choosing a given method $\bullet$ instead of the `best' method for the measurement example in this chapter.
   The markers show individual observations and the boxes show the \gls{IQR}.
   The dashed lines are the minimum, median and maximum of $X_{\bullet}$ to give a sense of scale.

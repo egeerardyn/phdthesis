@@ -469,7 +469,7 @@ This results extends \latin{mutatis mutandis} to systems consisting of more sub-
 \setlength\figurewidth{0.68\columnwidth}
 \setlength\figureheight{0.68\figurewidth}
 \input{\thisDir/figs/coupling.tikz}
-\caption[Relative amplitudes of the off-diagonal blocks of the Fisher information matrix.]{The element with the largest absolute value in the off-diagonal blocks of the normalized information matrix for different dampings.
+\caption[Relative amplitudes of the off-diagonal blocks of the Fisher information.]{The element with the largest absolute value in the off-diagonal blocks of the normalized information matrix for different dampings.
          The different plots are for different separations of the resonance frequencies, from $4\wdB$ to $64\wdB$.
          The arrow indicates the direction of increasing separation.}
 \label{fig:excitation:coupling}
@@ -1222,7 +1222,7 @@ Also for the design of robust excitation signals, this is a worthwhile observati
       \setlength\figurewidth{0.8\columnwidth}
       \setlength\figureheight{0.5\figurewidth}
     \input{\thisDir/figs/misalign.tikz}
-    \caption[Depiction of the grid misalignment $\beta$ for a logarithmic generalized multisine.]{Graphical depiction of the misalignment coefficient $\beta$ with respect to a logarithmic frequency grid with spacing $\alpha$ for two systems with different damping.
+    \caption[Depiction of the grid misalignment $\beta$ for a logarithmic multisine.]{Graphical depiction of the misalignment coefficient $\beta$ with respect to a logarithmic frequency grid with spacing $\alpha$ for two systems with different damping.
     The $3\unit{dB}$ bandwidth ($\wdB$) around the peak frequency $\wM$ of the system is highlighted.}
     \label{fig:excitation:misalignment-logms}
   \end{figure}
@@ -1264,13 +1264,24 @@ Also for the design of robust excitation signals, this is a worthwhile observati
   
   \begin{figure}
     \centering
-      \setlength\figurewidth{0.75\columnwidth}
-      \setlength\figureheight{0.68\figurewidth}
+      \setlength\figurewidth{0.7\columnwidth}
+      \setlength\figureheight{0.62\figurewidth}
     \input{\thisDir/figs/betaWC.tikz}
     \caption[Variance $\sigma_G^2\left( \wM \right)$ as a function of the grid misalignment $\beta$.]{Evaluation of the variance $\sigma_G^2\left( \wM \right) $ for different prototype systems as function of the misalignment $\beta$.
              The full lines depict the variance for a coarsely spaced signal.
              The dashed lines show the variance for a signal with the optimal $\alpha = \alpha^{\star}$ (see \eqref{eq:excitation:optimAlpha}).}
     \label{fig:excitation:worstCaseBeta}
+    \vspace{-0.5em} % to make the figures fit on a page
+  \end{figure}
+
+    \begin{figure}
+    \vspace{-0.5em} % to make the figures fit on a page
+    \centering
+      \setlength\figurewidth{0.7\columnwidth}
+      \setlength\figureheight{0.62\figurewidth}
+    \input{\thisDir/figs/alphaWC.tikz}
+    \caption[Worst-case variance $\sigma_G^2\left( \wM \right)$ as a function of the frequency ratio $\alpha$.]{Worst case variance of the peak in the transfer function for logarithmic grid multisines and systems with different peak amplitudes.}
+    \label{fig:excitation:worstCaseAlpha}
   \end{figure}
 
   Such signals are clearly undesirable, as a misalignment smaller than the grid spacing of the excitation grid and the system will lead to a large increase in the uncertainty of estimate.
@@ -1284,16 +1295,6 @@ Also for the design of robust excitation signals, this is a worthwhile observati
   We explore the systems which have the worst uncertainty (as marked by a cross in \figref{fig:excitation:worstCaseBeta}).
   For the corresponding values of the misalignment $\beta$, we evaluate the uncertainty when the frequency ratio $\alpha$ of the signal is decreased, while the total signal power is kept identical.
   The results are displayed in \figref{fig:excitation:worstCaseAlpha}, where the marked points correspond to the marked points in \figref{fig:excitation:worstCaseBeta}.
-  
-  \begin{figure}
-    \centering
-      \setlength\figurewidth{0.75\columnwidth}
-      \setlength\figureheight{0.68\figurewidth}
-    \input{\thisDir/figs/alphaWC.tikz}
-    \caption[Worst-case variance $\sigma_G^2\left( \wM \right)$ as a function of the frequency ratio $\alpha$.]{Worst case variance of the peak in the transfer function for logarithmic
-             grid multisines and systems with different peak amplitudes.}
-    \label{fig:excitation:worstCaseAlpha}
-  \end{figure}
 
   We notice that for sufficiently low $\tilde{\alpha}$, the variance on $G\left( \omega_M \right)$ is roughly independent of $\alpha$.
   We will choose the optimal grid spacing
@@ -1332,15 +1333,6 @@ Also for the design of robust excitation signals, this is a worthwhile observati
 
   To give a more intuitive feeling how the frequency spacing $\alpha$ and the system under test react, both the input spectrum and the \gls{FRF} of the system are visualized in \figref{fig:excitation:signalAndSystem} for the worst value of $\beta$ and the optimal frequency spacing $\alpha^{\star}$.
   The $3\unit{dB}$ bandwidth of the system is highlighted in gray together with the excited frequency lines that lie within that bandwidth.
-
-  \begin{figure}%
-    \centering
-      \setlength\figurewidth{0.5\columnwidth}
-      \setlength\figureheight{0.68\figurewidth}
-    \input{\thisDir/figs/SignalAndSystem.tikz}
-    \caption[System with highlighted bandwidth and multisine components.]{Depiction of the transfer function $G$ of a second order system, along with a logarithmic multisine excitation $U$ for $\alpha = \alpha^{\star}$. The circled sine components lie within the $3 \unit{dB}$ bandwidth of $G$.}%
-    \label{fig:excitation:signalAndSystem}
-  \end{figure}
 
   We see that to attain this, four frequency components are needed within this bandwidth in order to be almost completely independent of misalignment.
 
@@ -1410,7 +1402,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
       \setlength\figurewidth{0.68\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/damping02-cmp.tikz}
-    \caption[Simulated \glsentryshortpl{FRF} of systems with damping $0.2$ for different excitation signals.]{%
+    \caption[Simulated \glsentryshortpl{FRF} of systems (damping $\xi=0.2$) for different excitations.]{%
        \Glspl{FRF} for different second order systems with constant damping $\damping=0.2$ but different resonance frequencies. 
        Comparison of the variance around the respective resonance frequency reveals the performance of each excitation signal.}%
     \label{fig:excitation:damping02}
@@ -1440,7 +1432,7 @@ In the following set of simulations, we will study how the \gls{FRF} of differen
       \setlength\figurewidth{0.68\columnwidth}
       \setlength\figureheight{0.68\figurewidth}
     \input{\thisDir/figs/damping005-cmp.tikz}
-    \caption[Simulated \glsentryshortpl{FRF} of systems with damping $0.05$ for different excitation signals.]{\Glspl{FRF} for different second order systems with constant damping $\damping=0.05$ but different resonance frequencies. 
+    \caption[Simulated \glsentryshortpl{FRF} of systems (damping $\xi=0.05$) for different excitations.]{\Glspl{FRF} for different second order systems with constant damping $\damping=0.05$ but different resonance frequencies. 
     Comparison of the variance around the respective resonance frequency reveals the performance of each excitation signal.}%
     \label{fig:excitation:damping005}
   \end{figure}
@@ -1575,10 +1567,10 @@ This shows that both resonances are captured with a practically identical relati
     \subsection{Results}
     In \figref{fig:excitation:measurements} the nonparametric \gls{FRF} and the standard deviation of the corresponding parametric estimates are shown in a similar way as for the simulations in the previous section.
 
-    \begin{figure}%
+    \begin{figure}[t]
     \centering
-      \setlength\figurewidth{0.8\columnwidth}
-      \setlength\figureheight{0.68\figurewidth}
+      \setlength\figurewidth{0.75\columnwidth}
+      \setlength\figureheight{0.62\figurewidth}
     \input{\thisDir/figs/qlog_a050mall.tikz}
     \caption[Measurements of all BK1613 octave filters using different excitation signals.]{Measured FRFs of the different \bruelkjaer{} 1613 octave filters together with the observed variance for a linear, quasi-log and pink quasi-log grid multisine.}
       \label{fig:excitation:measurements}
