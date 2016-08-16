@@ -95,7 +95,7 @@ where $u(t)$ is a known input sequence, $y(t)$ the output sequence, and $e(t)$ i
 $G$ is a rational, time-invariant transfer function in continuous time.
 \end{oldquote}
 \begin{newquote}
-\oldnewpage{33}{?}
+\oldnewpage{33}{16}
 For the theoretical analysis, we consider \gls{SISO} \gls{OE} systems, i.e.
 \begin{align}
 y(t) &=G(s,\theta)u(t)  + H(s,\vartheta)e(t),
@@ -117,7 +117,7 @@ But this also opens perspectives. For a beam, you would get a logarithmic multis
 \action{The following remarks have been added}
 
 \begin{newquote}
-\oldnewpage{}{?}
+\oldnewpage{}{25}
 \begin{assumption} {2.3}
 The sub-systems in (2.33) all are either lightly damped ($\damping \ll \sqrt{1/2}$) or are not of interest.
 \end{assumption}
@@ -140,7 +140,7 @@ As such, the previous assumption practically limits the use of the excitation si
 \end{remark}
 \end{newquote}
 \begin{newquote}
-\oldnewpage{}{?}
+\oldnewpage{}{56}
 \begin{remark}{2.14}
 The proposed design can be adapted quite straightforwardly to also account for the high-frequency regions of e.g. plates by increasing the number of frequency lines where the modal overlap becomes more important.
 In practice, this will boil down to linearly spaced multisines.
@@ -162,7 +162,7 @@ For measurement of the transfer characteristics of volumes (e.g. rooms), more sp
 \item \says{JA}{On page 33, in (2.62), you have a covariance matrix. The PSD of the noise depends on the frequency. Afterwards, it is assumed constant?}
 \says{KT}{For the input design, in (2.1), you assume that the noise is white. What happens for colored noise? The reason I ask this is in case you want to estimate the best linear approximation of a nonlinear system. Then you can consider the stochastic nonlinear distortions as a noise source, but that is not necessarily white.}
 \action{This is addressed in Assumption 2.2 and in the following remark that has been added to the manuscript}
-\oldnewpage{33}{?}
+\oldnewpage{33}{37}
 \begin{newquote}
 To introduce only limited prior knowledge into the input design, we shall assume that the noise is white.
   Hence, $\sigma^2_E(\omega) = \sigma^2_E$ is constant over the whole frequency band of interest.
@@ -178,7 +178,7 @@ To introduce only limited prior knowledge into the input design, we shall assume
 \question{Update the (historical) references.}
 \begin{enumerate}
 \item 
-\oldnewpage{51}{?}
+\oldnewpage{51}{57}
 \says{TM}{In Chapter~3: Did the problem of FRF modeling start in 1995? How long does the problem date back?  I would suggest to add a few historical references, older than 1995.}
  \action{References have been added to Chapter 3. The original editions of e.g. \citep{Bendat2010,Bendat1993,Box2008} date back to somewhere between the 1950s and 1980s, but I have opted to refer to the last editions.}
 \begin{oldquote}
@@ -195,7 +195,7 @@ However, obtaining a good non-parametric \gls{FRF} from a measured input-output 
 \end{newquote}
 
 \item 
-\oldnewpage{119}{?}
+\oldnewpage{119}{133}
 \says{TM}{The initialization of the parametric estimators is an interesting expos\'e. The references have a narrow flavor. There are more people that worked on this, other than Ljung.}
 \action{More (historical) references for parametric estimates and initial values have been added.}
 \begin{oldquote}
@@ -214,7 +214,7 @@ Parametric identification of \gls{LTI} systems from either input/output data or 
   \item \says{JA}{The use of the word ``robustness'' can have different meanings. What is the meaning of ``robustness of input''?}
   \says{JA}{I suggest that you define ``robustness'' in the thesis.}
   \action{Robustness has been defined in the introduction of chapter 2}
-  \oldnewpage{}{?}
+  \oldnewpage{}{14}
   \begin{newquote}
   In short, we consider an input signal to be \term{robust}, if such signal allows one to measure the \gls{FRF} of a wide variety of systems well, without requiring a lot of specific prior information regarding the system.
 Moreover, a robust input signal should not be very sensitive towards assumptions regarding the system under test (or should be easily adaptable if the assumptions are only approximately valid).
@@ -268,14 +268,14 @@ The assumption is not that $\xi$ is identical for all sub-systems.
 Rather, when $\xi \geq \xi_{\min}$ for all sub-systems, their relative $3\unit{dB}$ bandwidth has a minimal width and is excited well when $\alpha \leq 1 + \xi_{\min}$ (see also Figure 2.8 in the manuscript: for all $\frac{\alpha -1}{\xi_{\min}} < 1$, misalignment is no longer an issue and hence the design works well).
 }
 \action{A remark is added to underline this fact.}
-\oldnewpage{}{?}
+\oldnewpage{}{22}
 \begin{newquote}
 In this example, the $\damping$ is set to be the same in both sub-systems. 
 Using different dampings in the sub-systems would, however, not change the argument, as the sub-systems with the lowest damping will be the limiting factor.
 \end{newquote}
 
 \item \says{JA}{On page 129, in (5.17), the probability is zero. You need some interpretation of the equality sign.}
-\oldnewpage{129}{?}
+\oldnewpage{129}{143}
 \action{The equality sign has been replaced by an approximate equality.}
 \begin{oldquote}
 The success rate $\successRate_{\bullet}$ of an initialization scheme $\bullet$ is expressed mathematically as the probability function
@@ -311,13 +311,13 @@ with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
 
 \item \says{BP}{Guideline 2.3 seems to be dropped further in the text.}
 \action{This guideline has been move to conclusion of that chapter.}
-\oldnewpage{47}{?}
+\oldnewpage{47}{56}
 
 \item
 \says{JD}{I work in electrochemistry. I use multisines to characterize Warburg impedances in $\sqrt{\omega}$ and other elements in $\sqrt[x]{\omega}$. Will LPM still work for this?}
 \answer{The LPM will only provide an approximation for those applications.}
 \action{A paragraph has been added to the future work section.}
-\oldnewpage{}{?}
+\oldnewpage{}{179}
 \begin{newquote}
 E.g. in electrochemistry it is common~\citep{Wang1987} to describe diffusion phenomena using Warburg impedances which are proportional to $\sqrt{s}$ (with $s$ the Laplace variable).
     On the other hand, in microwave engineering~\citep{Rizzi1988,Pozar2005}, commensurate filters are easily described using Richard's variable $R=\tanh (\tau s)$ with $\tau$ the delay of the considered transmission lines.
@@ -325,7 +325,7 @@ E.g. in electrochemistry it is common~\citep{Wang1987} to describe diffusion phe
 \end{newquote}
 
 \item \action{Equation (2.6) has been rewritten and clarified}
-\oldnewpage{15}{?}
+\oldnewpage{15}{17}
 \begin{newquote}
 From (2.4) and (2.5) we see that scaling the optimal input power by $1-\delta$, has the following effect on the variance of the estimate:
 \begin{align}
@@ -347,13 +347,13 @@ This is a small loss while the increase in robustness can be significant if the 
 \action{Added \new{\nBW: Number of excited lines in the 3 dB bandwidth of a resonance}}
 
 \item 
-\oldnewpage{4}{?}
+\oldnewpage{4}{4}
 \old{However, since most parametric estimators enforce very little prior knowledge about the system, noise in the measurements can sometimes be a problem to distinguish the actual system features.}
 \replacedBy
 \new{However, since most nonparametric estimators enforce very little prior knowledge about the system, it can sometimes be problematic to clearly distinguish noise in the measurements and the actual systematic behavior.}
 
 \item 
-\oldnewpage{5}{?}
+\oldnewpage{5}{5}
 \begin{oldquote}
 In this context, `user-friendly' should be understood as having a good user experience for two groups of users:
 \begin{itemize}
@@ -366,21 +366,21 @@ In this context, `user-friendly' should be understood as being easy to use for u
 \end{newquote}
 
 \item 
-\oldnewpage{54}{?}
+\oldnewpage{54}{61}
 \action{A remark has been added to clarify the initial values used for \gls{LRIC}.}
 \begin{newquote}
 The starting values for the \gls{LRIC} are obtained by means of the \gls{LRM}, the details of which are explained in Section 3.2.2.
 \end{newquote}
 
   \item 
-  \oldnewpage{56}{?}
+  \oldnewpage{56}{62}
   \says{JA}{On page 56, in (3.16): what is $\mathbf{C}$?}
   \action{There is a tilde missing. This has been changed:
   \old{$\LocalVector{C}$} \replacedBy \new{$\LocalModel{C}$}
   }
   
   \item 
-  \oldnewpage{73}{?}
+  \oldnewpage{73}{80}
   \says{JA}{For (3.86), you cite Seber and Lee, 2003, but Golub was earlier. I suggest to change the reference.}
   \action{A reference to Golub has been added. Seber and Lee, however, provide a more elaborate proof such that I think their work still deserves to be mentioned.}
   \begin{newquote}
@@ -395,7 +395,7 @@ The starting values for the \gls{LRIC} are obtained by means of the \gls{LRM}, t
   \end{newquote}
 
 \item 
-\oldnewpage{73}{?}
+\oldnewpage{73}{80}
 \action{Constant versus varying local model complexity has been clarified.}
 \begin{oldquote}
 In the previous section, different methods were introduced to select the local model order. 
@@ -409,7 +409,7 @@ In fact, both approaches have their merits and which of both is to be preferred,
 \end{newquote}
 
   \item 
-   \oldnewpage{74}{?}
+   \oldnewpage{74}{81}
    \old{Note that one should also $\nWind$ as the total number of data points (and not the number of points in each window).} 
    \replacedBy 
    \new{Note that one should interpret $\nWind$ as the total number of data points (and not the number of points in each window) for the global case.}
@@ -421,19 +421,13 @@ In fact, both approaches have their merits and which of both is to be preferred,
    \new{This can be described in the time-domain}
 
    \item 
-   \oldnewpage{96}{?}
+   \oldnewpage{96}{111}
    \old{For a limited data record ($n \in \Set{0,\ldots,N-1}$)}
    \replacedBy
    \new{For a limited data record ($n \in \Set{0,\ldots,N-1}$ with $N$ the number of data points)}
 
   \item
-  \oldnewpage{100}{?}
-  \old{In the structural engineering community(\textbf{\$}))}
-  \replacedBy
-  \new{In the structural engineering community~\citep[see e.g.][Section 2.2.2]{Gawronski2004}}
-
-  \item
-  \oldnewpage{98}{?}
+  \oldnewpage{98}{113}
   \action{The following remark has been added.}
   \begin{newquote}
   \begin{remark}{4.3}
@@ -442,8 +436,14 @@ In reality, there is no tangible `$\Delta_{\LMM}$' that is constructed: neighbor
 \end{remark}
   \end{newquote}
 
+  \item
+  \oldnewpage{100}{115}
+  \old{In the structural engineering community(\textbf{\$}))}
+  \replacedBy
+  \new{In the structural engineering community~\citep[see e.g.][Section 2.2.2]{Gawronski2004}}
+
   \item 
-  \oldnewpage{}{?}
+  \oldnewpage{}{107}
   \says{BP}{For the peak modeling, I suggest to take over some things of your slides in the text. For example, is there a physical interpretation of $\Delta$ (slide 20)? So it is out of scope, but how does the peak modeling help with control? That link is missing.}
   \action{Section 4.2 has been added to clarify the connection between robust control and the chapter.}
   \begin{newquote}
