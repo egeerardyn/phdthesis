@@ -11,7 +11,6 @@
 \scalebox{3}{\color{gray}\thechapter\autodot}\enskip}}
 
 \usepackage{scrlayer-scrpage}
-\ifoot{\color{lightgray}\footnotesize\texttt{revision \VCRevision}} %TODO: remove revision in footer in final version
 
 %% section formatting
 % could be made automatically, but manually is more precise and works just as well
@@ -21,7 +20,6 @@
 
 %TODO: improve pagination, check for widows and orphans
 % http://tex.stackexchange.com/questions/223508/adjusting-spacing-around-section-subsection-titles-with-koma-script
-%TODO: improve section and chapter afterskip value (see scrguien)
 \RedeclareSectionCommand[afterskip=0\baselineskip plus .115\baselineskip]{chapter}
 
 \RedeclareSectionCommand[afterskip=1ex plus 0.2ex,
