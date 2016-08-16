@@ -112,8 +112,6 @@ When this assumption is violated, one has to first measure the noise coloring an
 \end{assumption}
 \end{newquote}
 
-\item \says{TM}{In the thesis, the focus is on resonant systems. It would be good to add some comments in perspective of a general system identification.}
-\TODO{discuss this}
 \item \says{JA}{Here, the number of modes per frequency band decreases as the frequency increases. A decreasing modal density is typical for a beam, but for a plate, the number of modes is constant. For a volume, the number of modes increases. I suggest to recast the context in a set of assumptions. The modal density and the modal overlap factor are important in this respect.
 But this also opens perspectives. For a beam, you would get a logarithmic multisine, for a plate, you would get a linear multisine. In mechanics, you have an idea about the modal density and modal overlap factor, which can be a big prior knowledge.}
 \action{The following remarks have been added}
@@ -551,6 +549,142 @@ This can be expressed symbolically, as in \citet{Oomen2012SIRP}, by
   \item
   \says{TM}{``It is \emph{well known} that Transient terms are smooth''. You should provide a derivation of this statement.}
   \action{The derivation has been added as Appendix 3.A to the book.}
+  \begin{newquote}
+  
+\disclaimer{
+This appendix is based on multiple expositions regarding transient contributions in the frequency domain.
+For a more in-depth discussion, we refer to \citep{Pintelon1997ARB}, \citep{Pintelon1997Transient}, \citep{Schoukens1999}, \citep[Section 2]{McKelvey2012LRM}, and \citep[Sections 2.6.3, 6.3.2 and Appendix 6.B]{Pintelon2012}.
+}
+
+This appendix derives the transient contributions in the frequency domain when a \gls{LTI} system is observed during a finite measurement window (i.e. $t \in {0, \ldots, N-1}$) using the same approach as in \citet[Appendix 6.B]{Pintelon2012}.
+
+Consider the ordinary difference equation
+\begin{equation}
+  \sum_{n=0}^{\order{A}} a_n y(t-n)
+  =
+  \sum_{m=0}^{\order{B}} b_m u(t-m)
+  \qquad 
+  \forall 
+  t \in \Integers
+  \label{eq:nparam:leakage:diffeq}
+\end{equation}
+where the coefficients $a_n$ and $b_m$ can be either real or complex coefficients for all values of their subscripts $n \in \set{0, \ldots, \order{A}}$ and $m \in \set{0, \ldots, \order{B}}$.
+Such a difference equation can be used to describe any discrete-time \gls{LTI} system (except those with arbitrary delays).
+
+To describe this system in the frequency domain, we first introduce the (one-sided) $\ZT$-transform of the signals $x \in \set{u,y}$ and $X \in \set{U,Y}$, respectively:
+\begin{equation}
+  X(z) 
+  \isdef 
+  \ZTransform{x(t)} 
+  \isdef \sum_{t=0}^{\infty} x(t) z^{-t}
+\end{equation}
+which reduces to the \gls{DTFT} when $z = e^{j\omega}$ is examined~\citep[Chapter 10]{Oppenheim1996}.
+
+First, we revisit two pertinent properties of the $\ZT$-transform that are necessary to allow one to compute the $\ZT$-transform of difference equation~\eqref{eq:nparam:leakage:diffeq}.
+\begin{property}[1]
+The $\ZT$-transform is a linear transform: $\ZTransform{ay(t) + bu(t)} = a \ZTransform{y(t)} + b \ZTransform{u(t)}= aY(z) + bU(z)$ when $a$ and $b$ are finite constants~\citep[Section 10.5.1]{Oppenheim1996}.
+\end{property}
+\begin{property}[2]
+The $\ZT$-transform of a shifted signal can be related to the $\ZT$-transform of the unshifted signal~\citep[Section 10.5.2]{Oppenheim1996} as
+\begin{align}
+  \ZTransform{x(t-n)} 
+  &= \sum_{t=0}^{+\infty} x(t-n) z^{-t} \\
+  &= \sum_{\tau = -n}^{+\infty} x(\tau) z^{-(\tau + n)} \quad \text{ where } \tau = t - n\\
+  &= z^{-n} \sum_{\tau = 0}^{+\infty} x(\tau) z^{-\tau} +  \sum_{\tau = -n}^{-1} x(\tau) z^{-\tau-n}\\
+  \ZTransform{x(t-n)} &= z^{-n} \left( \ZTransform{x(t)} + \sum_{\tau = -n}^{-1} x(\tau) z^{-\tau} \right)
+  \text{.}
+\end{align}
+\end{property}
+
+By using both properties, we compute the $\ZT$-transform of the left hand side of \eqref{eq:nparam:leakage:diffeq}:
+\begin{align}
+  \ZTransform{\sum_{n=0}^{\order{A}} a_n y(t-n)}
+  &=
+  \sum_{n=0}^{\order{A}} a_n \ZTransform{y(t-n)}
+  +\sum_{n=0}^{\order{A}} a_n z^{-n}  \sum_{\tau = -n}^{-1} y(\tau) z^{-\tau}  \\
+  &=
+  A(z^{-1}) Y(z) + I_A(z^{-1})
+\end{align}
+where
+\begin{align}
+  A(z^{-1}) &= \sum_{n=0}^{\order{A}} a_n z^{-n} \\
+  I_A(z^{-1}) &= \sum_{n=1}^{\order{A}} \sum_{\tau = -n}^{-1} y(\tau) a_n z^{-\tau-n}
+\end{align}
+are polynomials in $z^{-1}$ of respective degrees $\order{A}$ and  $\order{A}-1$ (at most).
+Note that $I_A(z^{-1})$ depends on $y(\tau)$ where $\tau \in \set{-1, \ldots, -\order{A}}$, i.e. samples before the beginning of the measurement record.
+
+For the right hand side, the derivation is analogous and yields
+\begin{align}
+  \ZTransform{\sum_{m=0}^{\order{B}} B_m y(t-m)} &=
+  B(z^{-1}) U(z) + I_{B}(z)\\
+  B(z^{-1}) &= \sum_{m=0}^{\order{B}} b_m z^{-m} \\
+  I_B(z^{-1}) &= \sum_{m=1}^{\order{B}} \sum_{\tau = -m}^{-1} u(\tau) b_m z^{-\tau-m}
+  \text{,}
+\end{align}
+where the degrees of the polynomials are respectively $\order{B}$ and $\order{B}-1$ (at most).
+
+Combining both expressions, one obtains the $\ZT$-transform of the complete expression \eqref{eq:nparam:leakage:diffeq}:
+\begin{align}
+  A(z^{-1}) Y(z)= B(z^{-1}) Y(z) + \ezbrace{I_B(z^{-1}) -  I_A(z^{-1})}{I_{BA}(z^-1)}
+  \label{eq:nparam:leakage:icAccounted}
+\end{align}
+where $I_{BA}(z^{-1})$ is a polynomial of degree at most $\max\set{\order{A}, \order{B}} -1$.
+Since $I_{BA}$ depends on $u(\tau)$ and $y(\tau)$ for $\tau < 0$, it accounts for the initial conditions of the experiment.
+
+Also notice that \eqref{eq:nparam:leakage:icAccounted} cannot be evaluated generally without the knowledge of $u(T)$ and $y(T)$ for $T \geq N$, which are not available in experimental conditions.
+In particular, we are interested in the evaluation on the unit circle, i.e. $z = e^{j\omega}$ where one could hope to evaluate the \gls{DTFT}.
+To overcome this problem, the samples $y(T)$ and $u(T)$ for $T \geq N$ need to be eliminated from the equation.
+This can be done, as in \citet[Appendix 6.B.1]{Pintelon2012}, by multiplying \eqref{eq:nparam:leakage:diffeq} such that one can eventually rewrite
+\begin{equation}
+   A(z^-1) Y_{N,\infty}(z) = B(z^-1) U_{N,\infty}(z) + z^{-N}\ezbrace{(E_{B}(z^{-1}) - E_A(z^{-1}))}{E_{BA}(z^{-1})}
+   \label{eq:nparam:leakage:ecAccounted}
+ \end{equation}
+ where
+\begin{align}
+  X_{N,\infty}(z) 
+  &= \sum_{t=N}^{\infty} x(t)z^{-t}\\
+  E_{B}(z^{-1}) 
+  &= \sum_{m=1}^{\order{B}} \sum_{\tau = -m}^{-1} u(N+\tau) b_m z^{N-\tau-m}\\
+  E_A(z^{-1}) 
+  &= \sum_{n=1}^{\order{A}} \sum_{\tau = -n}^{-1} y(N+\tau) a_n z^{N-\tau-n}
+  \text{.}
+\end{align}
+Note that $E_{B}$ depends on the last $\order{B}-1$ samples of the measurement record: it represents the final conditions of the experiment.
+
+Subtracting \eqref{eq:nparam:leakage:ecAccounted} from \eqref{eq:nparam:leakage:icAccounted} and denoting $X_N(z) = X(z) - X_{N,\infty}(z)$ then yields
+\begin{equation}
+  A(z^-1)Y_N(z) = B(z^{-1}) U_N(z) + I_{BA}(z^{-1}) - z^{-N}E_{BA}(z^{-1})
+\end{equation}
+which no longer depends on the samples of $u(t)$ and $y(t)$ outside the acquired measurement record where $t \in \set{0,\ldots,N-1}$.
+
+The latter expression can hence be evaluated on the unit circle.
+More specifically, by substituting the \gls{DFT} frequencies $z_k = e^{j2\pi k N^{-1}}$ for $k \in\set{0,\ldots,N-1}$, one retrieves
+\begin{equation}
+  A(z_k^{-1}) Y_{\DFT}(k) = B(z_k^{-1}) U_{\DFT}(k) + T(z_k^{-1})
+\end{equation}
+with 
+\begin{equation}
+T(z^{-1}) = \frac{I_{BA}(z^{-1}) - E_{BA}(z^{-1})}{\sqrt{N}}
+\end{equation}
+the transient (or leakage) contribution that is a polynomial of order $\max\set{\order{B}, \order{A}} -1$ (at most), and the $N$-points \gls{DFT} spectrum of $x(n)$ given by
+\begin{equation}
+  X_{\DFT}(k) \isdef \frac{1}{\sqrt{N}} \sum_{n=0}^{N-1} x(n) e^{j 2 \pi k n N^{-1}} = \frac{1}{\sqrt{N}} X_N(z_k)
+  \text{.}
+\end{equation}
+
+Note that since $T(z^{-1})$ is a polynomial, $T(z_k^{-1})$ is a smooth function of the frequency, hence illustrating that the transient/leakage contribution at the \gls{DFT} frequencies is a smooth function that encapsulates the difference between the initial conditions $I_{BA}$ and end conditions $E_{BA}$ of the measurement record.
+
+\begin{remark}
+Note that in the remainder of this dissertation, the \gls{DFT} spectra are typically denoted without the subscript $\DFT$, but the subscript is added here to emphasize the fact that the final expression is valid for the \gls{DFT} spectra of the input and output.
+\end{remark}
+
+
+\begin{remark}
+The derivation of the leakage has been proven here for discrete-time systems.
+For lumped continuous-time \gls{LTI} and diffusive systems, the derivations are similar and elaborated in \citet[Appendix 6.B]{Pintelon2012}.
+Most importantly, the observation that the transient contribution $T$ is described in the frequency domain by a polynomial of finite degree (and hence smooth), remains valid for such systems.
+\end{remark}
+  \end{newquote}
 \end{enumerate}
 
 \newpage
