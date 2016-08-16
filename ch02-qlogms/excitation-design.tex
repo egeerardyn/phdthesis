@@ -1335,6 +1335,15 @@ Also for the design of robust excitation signals, this is a worthwhile observati
   To give a more intuitive feeling how the frequency spacing $\alpha$ and the system under test react, both the input spectrum and the \gls{FRF} of the system are visualized in \figref{fig:excitation:signalAndSystem} for the worst value of $\beta$ and the optimal frequency spacing $\alpha^{\star}$.
   The $3\unit{dB}$ bandwidth of the system is highlighted in gray together with the excited frequency lines that lie within that bandwidth.
 
+   \begin{figure}%
+    \centering
+      \setlength\figurewidth{0.5\columnwidth}
+      \setlength\figureheight{0.68\figurewidth}
+    \input{\thisDir/figs/SignalAndSystem.tikz}
+    \caption[System with highlighted bandwidth and multisine components.]{Depiction of the transfer function $G$ of a second order system, along with a logarithmic multisine excitation $U$ for $\alpha = \alpha^{\star}$. The circled sine components lie within the $3 \unit{dB}$ bandwidth of $G$.}%
+    \label{fig:excitation:signalAndSystem}
+  \end{figure}
+
   We see that to attain this, four frequency components are needed within this bandwidth in order to be almost completely independent of misalignment.
 
   In this section, we have shown that signals with a logarithmic frequency spacing allow to identify systems with equal damping equally well, when the frequency spacing is dense enough.
