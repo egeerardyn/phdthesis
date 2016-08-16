@@ -347,13 +347,8 @@ Since the true system is not really known in practice, this chapter compares the
 The capability is quantified by defining the success rate of the initial estimate as the probability that the identification algorithm reaches the \emph{best local optimum} when the selected initial estimate is used. 
 Note that probability in this context should be understood with respect to different realizations of the input signal and disturbing noise.
 
-The success rate $\successRate_{\bullet}$ of an initialization scheme $\bullet$ is defined as the probability that it reaches the \emph{best local optimum}, i.e.
-\begin{equation}
-\successRate_{\bullet} = 
-  \Prob{  \model{\bullet} \approx \model{\true{}}  }
-\text{.}
-\end{equation}
-In practice, and since the iterative algorithm usually does not reach the local optimum precisely, the above definition is implemented practically as
+The success rate $\successRate_{\bullet}$ of an initialization scheme $\bullet$ is defined as the probability that it reaches the \emph{best local optimum}.
+In practice, and since the iterative algorithm usually does not reach the local optimum precisely, this is implemented practically as
 \begin{equation}\label{eq:successrateTol}
 \successRate_{\bullet} \isdef \Prob{ \norm[2]{\model{\bullet} - \model{\true{}}} < \absoluteTolerance}
 \end{equation}

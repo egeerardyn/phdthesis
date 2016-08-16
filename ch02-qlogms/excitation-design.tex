@@ -80,7 +80,7 @@ For notational simplicity, $s$ is used both as the complex Laplace variable and 
 The transfer function is parameterized by the vector $\theta$.
 These parameters are unknown and hence we are interested in estimating their values.
 \begin{assumption}
-The noise filter $H(s,\vartheta)$ is assumed to be independently parametrized from the plant $G(s,\theta)$, i.e. $\vartheta$ and $\theta$ are independent.
+The noise filter $H(s,\vartheta)$ is assumed to be independently parametrized from the plant $G(s,\theta)$.
 \end{assumption}
 \begin{assumption}
 For the derivations, $H(s,\vartheta) = 1$ is used as a working assumption such that the disturbing noise on the output is zero mean Gaussian white noise.
@@ -1188,7 +1188,8 @@ Also for the design of robust excitation signals, this is a worthwhile observati
    \begin{remark}
    Implicitly, this considers a design where each of the sub-systems have an equal gain $\dc=1$ and residue $\wz \to\infty$.
    In practice, this is often not a reasonable assumption, but the design can be adapted in a straightforward manner.
-   Concretely, using a first experiment with the proposed signal, one can estimate the different gains of the sub-systems and optimize the amplitude spectrum of the signal to take those into account: for sub-systems where $\dc$ is lower than on average, the amplitude spectrum needs to be increased near the resonance frequency and \latin{vice versa}.
+   Concretely, using a first experiment with the proposed signal, one can estimate the different gains of the sub-systems and optimize the amplitude spectrum of the signal to take those into account: for sub-systems where $\dc$ is lower than on average, the amplitude spectrum needs to be increased near the resonance frequency and \latin{vice versa} if the uncertainty of the parameters is required to be constant.
+   Of course, the appropriate actions to compensate for differing $\dc=1$ depend on the actual goal of the model.
    \end{remark}
 
   The choice of the damping is more important.

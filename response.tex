@@ -15,15 +15,14 @@
 
 \begin{document}
 \begin{letter}{%
-Bart Peeters \showinitial{BP}\\
-Johan Deconinck \showinitial{JD}\\
-Johan Schoukens \showinitial{JS}\\
-Jérôme Antoni \showinitial{JA}\\
-Koen Tiels \showinitial{KT}\\
-Patrick Guillaume \showinitial{PG}\\
-Tom Oomen \showinitial{TO}\\
-Tomas McKelvey \showinitial{TM}
-}
+Bart Peeters\\
+Johan Deconinck\\
+Johan Schoukens\\
+Jérôme Antoni\\
+Koen Tiels\\
+Patrick Guillaume\\
+Tom Oomen\\
+Tomas McKelvey}
 
 \opening{Dear jury members,}
 
@@ -33,6 +32,7 @@ This has greatly improved the text.
 Attached, you can find an extensive summary of the changes I have carried out in the text.
 \oldnew{old}{new}
 The numbers in the margin indicate the pages in the old revision (\href{https://github.com/egeerardyn/phdthesis/releases/tag/private-submit}{\texttt{946aebc}} as for the private defense) and in the new revision.
+Note that in this document, clickable links are shown with a thin border (depending on your PDF viewer).
 
 I have also made the \LaTeX{} source code of my text (and data files) available on GitHub.
 There, you can inspect the \href{https://github.com/egeerardyn/phdthesis/compare/b6b273e...master}{full set of changes} at the source code level, or \href{https://github.com/egeerardyn/phdthesis/commits/master}{inspect individual changes}.
@@ -104,7 +104,7 @@ where $u(t)$ is a known input sequence, $y(t)$ the output sequence, and $e(t)$ i
 $G$ and $H$ are rational, time-invariant transfer function in continuous time.
 \omission{}
 \begin{assumption}{2.1}
-The noise filter $H(s,\vartheta)$ is assumed to be independently parametrized from the plant $G(s,\theta)$, i.e. $\vartheta$ and $\theta$ are independent.
+The noise filter $H(s,\vartheta)$ is assumed to be independently parametrized from the plant $G(s,\theta)$.
 \end{assumption}
 \begin{assumption}{2.2}
 For the derivations, $H(s,\vartheta) = 1$ is used as a working assumption such that the disturbing noise on the output is zero mean Gaussian white noise.
@@ -155,7 +155,8 @@ For measurement of the transfer characteristics of volumes (e.g. rooms), more sp
    \begin{remark}{2.10}
    Implicitly, this considers a design where each of the sub-systems have an equal gain $\dc=1$ and residue $\wz \to\infty$.
    In practice, this is often not a reasonable assumption, but the design can be adapted in a straightforward manner.
-   Concretely, using a first experiment with the proposed signal, one can estimate the different parameters of the sub-systems and optimize the amplitude spectrum of the signal to take those into account: for sub-systems where $\dc$ is lower than on average, the amplitude spectrum needs to be increased near the resonance frequency and \latin{vice versa}.
+   Concretely, using a first experiment with the proposed signal, one can estimate the different gains of the sub-systems and optimize the amplitude spectrum of the signal to take those into account: for sub-systems where $\dc$ is lower than on average, the amplitude spectrum needs to be increased near the resonance frequency and \latin{vice versa} if the uncertainty of the parameters is required to be constant.
+   Of course, the appropriate actions to compensate for differing $\dc=1$ depend on the actual goal of the model.
    \end{remark}
 \end{newquote}
 
@@ -276,7 +277,7 @@ Using different dampings in the sub-systems would, however, not change the argum
 
 \item \says{JA}{On page 129, in (5.17), the probability is zero. You need some interpretation of the equality sign.}
 \oldnewpage{129}{143}
-\action{The equality sign has been replaced by an approximate equality.}
+\action{The expression with the equality sign has been removed.}
 \begin{oldquote}
 The success rate $\successRate_{\bullet}$ of an initialization scheme $\bullet$ is expressed mathematically as the probability function
 \begin{equation}
@@ -294,17 +295,11 @@ with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
 \end{oldquote}
 
 \begin{newquote}
-The success rate $\successRate_{\bullet}$ of an initialization scheme $\bullet$ is defined as the probability that it reaches the \emph{best local optimum}, i.e.
-\begin{equation}
-\successRate_{\bullet} = 
-  \Prob{  \model{\bullet} \approx \model{\trueSymbol}  }
-\text{.}
+The success rate $\successRate_{\bullet}$ of an initialization scheme $\bullet$ is defined as the probability that it reaches the \emph{best local optimum}.
+In practice, and since the iterative algorithm usually does not reach the local optimum precisely, this is implemented practically as
+\begin{equation}\label{eq:successrateTol}
+\successRate_{\bullet} \isdef \Prob{ \norm[2]{\model{\bullet} - \model{\true{}}} < \absoluteTolerance}
 \tag{5.17}
-\end{equation}
-In practice, and since the iterative algorithm usually does not reach the local optimum precisely, the above definition is implemented practically as
-\begin{equation}
-\successRate_{\bullet} \isdef \Prob{ \norm[2]{\model{\bullet} - \model{\trueSymbol}} < \absoluteTolerance}
-\tag{5.18}
 \end{equation}
 with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
 \end{newquote}
@@ -320,6 +315,8 @@ with $\absoluteTolerance$ a numerical tolerance that will be specified later on.
 \oldnewpage{}{179}
 \begin{newquote}
 E.g. in electrochemistry it is common~\citep{Wang1987} to describe diffusion phenomena using Warburg impedances which are proportional to $\sqrt{s}$ (with $s$ the Laplace variable).
+In such diffusion problems, it can be shown~\citep[p. 181]{Pintelon2012} that the system transients dampen as an $\bigO{t^{3/2}}$, which is considerable slower than for lumped continuous-time systems and discrete-time where the impulse decays as an $\bigO{e^{0t}}$.
+As a result, estimating diffusion transients is an even more important task than the setting discussed in this dissertation.
     On the other hand, in microwave engineering~\citep{Rizzi1988,Pozar2005}, commensurate filters are easily described using Richard's variable $R=\tanh (\tau s)$ with $\tau$ the delay of the considered transmission lines.
     For these altered models, however, it should be verified whether numerical conditioning becomes a similar nuisance as for discrete-time models.
 \end{newquote}
@@ -350,7 +347,7 @@ This is a small loss while the increase in robustness can be significant if the 
 \oldnewpage{4}{4}
 \old{However, since most parametric estimators enforce very little prior knowledge about the system, noise in the measurements can sometimes be a problem to distinguish the actual system features.}
 \replacedBy
-\new{However, since most nonparametric estimators enforce very little prior knowledge about the system, it can sometimes be problematic to clearly distinguish noise in the measurements and the actual systematic behavior.}
+\new{However, since most nonparametric estimators enforce very little prior knowledge about the system, it can sometimes be problematic to clearly distinguish noise in the measurements from the actual systematic behavior.}
 
 \item 
 \oldnewpage{5}{5}
@@ -553,10 +550,11 @@ This can be expressed symbolically, as in \citet{Oomen2012SIRP}, by
   
 \disclaimer{
 This appendix is based on multiple expositions regarding transient contributions in the frequency domain.
-For a more in-depth discussion, we refer to \citep{Pintelon1997ARB}, \citep{Pintelon1997Transient}, \citep{Schoukens1999}, \citep[Section 2]{McKelvey2012LRM}, and \citep[Sections 2.6.3, 6.3.2 and Appendix 6.B]{Pintelon2012}.
+For a more in-depth discussion, we refer to \citep{Pintelon1997ARB}, \citep{Pintelon1997Transient}, \citep{Schoukens1999}, \citep{McKelvey2002}, \citep[Section 2]{McKelvey2012LRM}, and \citep[Sections 2.6.3, 6.3.2 and Appendix 6.B]{Pintelon2012}.
 }
 
-This appendix derives the transient contributions in the frequency domain when a \gls{LTI} system is observed during a finite measurement window (i.e. $t \in {0, \ldots, N-1}$) using the same approach as in \citet[Appendix 6.B]{Pintelon2012}.
+This appendix derives the transient contributions in the frequency domain when a \gls{LTI} system is observed during a finite measurement window (i.e. $t \in {0, \ldots, N-1}$).
+The following derivations are repeated from \citep[Appending 6.B]{Pintelon2012}, but have been adapted in notation.
 
 Consider the ordinary difference equation
 \begin{equation}
@@ -581,10 +579,10 @@ To describe this system in the frequency domain, we first introduce the (one-sid
 which reduces to the \gls{DTFT} when $z = e^{j\omega}$ is examined~\citep[Chapter 10]{Oppenheim1996}.
 
 First, we revisit two pertinent properties of the $\ZT$-transform that are necessary to allow one to compute the $\ZT$-transform of difference equation~\eqref{eq:nparam:leakage:diffeq}.
-\begin{property}[1]
+\begin{property}{3.1}
 The $\ZT$-transform is a linear transform: $\ZTransform{ay(t) + bu(t)} = a \ZTransform{y(t)} + b \ZTransform{u(t)}= aY(z) + bU(z)$ when $a$ and $b$ are finite constants~\citep[Section 10.5.1]{Oppenheim1996}.
 \end{property}
-\begin{property}[2]
+\begin{property}{3.2}
 The $\ZT$-transform of a shifted signal can be related to the $\ZT$-transform of the unshifted signal~\citep[Section 10.5.2]{Oppenheim1996} as
 \begin{align}
   \ZTransform{x(t-n)} 
@@ -674,12 +672,12 @@ the transient (or leakage) contribution that is a polynomial of order $\max\set{
 
 Note that since $T(z^{-1})$ is a polynomial, $T(z_k^{-1})$ is a smooth function of the frequency, hence illustrating that the transient/leakage contribution at the \gls{DFT} frequencies is a smooth function that encapsulates the difference between the initial conditions $I_{BA}$ and end conditions $E_{BA}$ of the measurement record.
 
-\begin{remark}
+\begin{remark}{3.11}
 Note that in the remainder of this dissertation, the \gls{DFT} spectra are typically denoted without the subscript $\DFT$, but the subscript is added here to emphasize the fact that the final expression is valid for the \gls{DFT} spectra of the input and output.
 \end{remark}
 
 
-\begin{remark}
+\begin{remark}{3.12}
 The derivation of the leakage has been proven here for discrete-time systems.
 For lumped continuous-time \gls{LTI} and diffusive systems, the derivations are similar and elaborated in \citet[Appendix 6.B]{Pintelon2012}.
 Most importantly, the observation that the transient contribution $T$ is described in the frequency domain by a polynomial of finite degree (and hence smooth), remains valid for such systems.
