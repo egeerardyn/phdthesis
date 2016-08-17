@@ -1,3 +1,0 @@
-[submodule "biblio"]
-	path = biblio
-	url = ssh://git@bitbucket.org/egeerardyn/bibliography.git
