@@ -76,7 +76,7 @@ where the degrees of the polynomials are respectively $\order{B}$ and $\order{B}
 
 Combining both expressions, one obtains the $\ZT$-transform of the complete expression \eqref{eq:nparam:leakage:diffeq}:
 \begin{align}
-  A(z^{-1}) Y(z)= B(z^{-1}) Y(z) + \ezbrace{I_B(z^{-1}) -  I_A(z^{-1})}{I_{BA}(z^-1)}
+  A(z^{-1}) Y(z)= B(z^{-1}) Y(z) + \ezbrace{I_B(z^{-1}) -  I_A(z^{-1})}{I_{BA}(z^{-1})}
   \label{eq:nparam:leakage:icAccounted}
 \end{align}
 where $I_{BA}(z^{-1})$ is a polynomial of degree at most $\max\set{\order{A}, \order{B}} -1$.
@@ -87,7 +87,7 @@ In particular, we are interested in the evaluation on the unit circle, i.e. $z =
 To overcome this problem, the samples $y(T)$ and $u(T)$ for $T \geq N$ need to be eliminated from the equation.
 This can be done, as in \citet[Appendix 6.B.1]{Pintelon2012}, by multiplying \eqref{eq:nparam:leakage:diffeq} such that one can eventually rewrite
 \begin{equation}
-   A(z^-1) Y_{N,\infty}(z) = B(z^-1) U_{N,\infty}(z) + z^{-N}\ezbrace{(E_{B}(z^{-1}) - E_A(z^{-1}))}{E_{BA}(z^{-1})}
+   A(z^{-1}) Y_{N,\infty}(z) = B(z^{-1}) U_{N,\infty}(z) + z^{-N}\ezbrace{(E_{B}(z^{-1}) - E_A(z^{-1}))}{E_{BA}(z^{-1})}
    \label{eq:nparam:leakage:ecAccounted}
  \end{equation}
  where
@@ -104,7 +104,7 @@ Note that $E_{B}$ depends on the last $\order{B}-1$ samples of the measurement r
 
 Subtracting \eqref{eq:nparam:leakage:ecAccounted} from \eqref{eq:nparam:leakage:icAccounted} and denoting $X_N(z) = X(z) - X_{N,\infty}(z)$ then yields
 \begin{equation}
-  A(z^-1)Y_N(z) = B(z^{-1}) U_N(z) + I_{BA}(z^{-1}) - z^{-N}E_{BA}(z^{-1})
+  A(z^{-1})Y_N(z) = B(z^{-1}) U_N(z) + I_{BA}(z^{-1}) - z^{-N}E_{BA}(z^{-1})
 \end{equation}
 which no longer depends on the samples of $u(t)$ and $y(t)$ outside the acquired measurement record where $t \in \set{0,\ldots,N-1}$.
 
